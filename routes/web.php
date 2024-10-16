@@ -27,6 +27,7 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::post('save/agent',[AgentController::class,'store'])->name('register.agent');
     Route::get('edit/agent/{id}',[AgentController::class,'edit'])->name('edit.agent');
     Route::put('update/agent/{id}',[AgentController::class,'update'])->name('update.agent');
+    Route::get('view/agent/{id}',[AgentController::class,'show'])->name('show.agent');
     Route::delete('/agents/{id}',[AgentController::class,'destroy'])->name('agents.destroy');
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {

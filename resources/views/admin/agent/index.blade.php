@@ -51,9 +51,10 @@
                                     <td>{{  $agent->agent_info->Telephone}}</td>
                                     <td>{{ $agent->email}}</td>
                                     <td class="list-btn-new">
+                                    <a href="{{ route('show.agent', $agent->id) }}">
                                         <button class="btn btn-sm" title="View">
                                             <i class="fas fa-eye"></i>
-                                        </button>
+                                        </button></a>
                                         <a href="{{ route('edit.agent', $agent->id) }}">
                                         <button class="btn btn-sm" title="Edit">
                                         <i class="fas fa-edit"></i>

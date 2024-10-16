@@ -6,8 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use app\Events\AgentRegister;
-use app\Listeners\SendEmailToAgent;
+use App\Events\AgentRegister;
+use App\Listeners\SendEmailToAgent;
 
 
 class EventServiceProvider extends ServiceProvider
@@ -23,7 +23,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         AgentRegister::class => [
             SendEmailToAgent::class
-        ]
+        ],
     ];
 
     /**

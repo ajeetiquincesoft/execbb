@@ -26,7 +26,7 @@ class AgentController extends Controller
     }
     public function create(){
         try{
-            event(new AgentRegister('santosh3257@gmail.com'));
+            //event(new AgentRegister('santosh3257@gmail.com'));
         return view('Admin.agent.create');
         }
         catch(\Exception $e){
@@ -72,7 +72,7 @@ class AgentController extends Controller
         $agent->save();
          // call the event
          //Mail::to('santosh3257@gmail.com')->send(new AgentWelcome());
-       // event(new AgentRegistered($data));
+        //event(new AgentRegistered($data));
         return redirect('admin/create/agent')->with('success_message','Agent register successfully');
         }
         catch(\Exception $e){
@@ -112,6 +112,17 @@ class AgentController extends Controller
         catch(\Exception $e){
             return redirect()->back()->with('err_message',$e->getMessage());
         }
+   
+
+    }
+    public function show($id){
+        
+        $agent = User::with('agent_info')->find($id);
+         /* dd($agent->agent_info->AgentID);
+        $agent_details = $agent->agent_info->get();
+        dd($agent_details->FName); */
+        return view('Admin.agent.show', compact('agent'));
+       
    
 
     }
