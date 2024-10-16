@@ -23,6 +23,12 @@
                 </li>
                 <li>
                   <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class="fas fa-user me-2 icon-font"></i>
+                    Reset Password
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
                     <i class="fas fa-question-circle me-2 icon-font"></i>
                     Help
                   </a>

@@ -18,7 +18,7 @@ class AgentController extends Controller
     public function index(){
         try{
         $agents = User::with('agent_info')->where('role_name','agent')->get();
-        return view('Admin.agent.index',compact('agents'));
+        return view('admin.agent.index',compact('agents'));
         }
         catch(\Exception $e){
             return redirect()->back()->with('err_message',$e->getMessage());
@@ -27,7 +27,7 @@ class AgentController extends Controller
     public function create(){
         try{
             //event(new AgentRegister('santosh3257@gmail.com'));
-        return view('Admin.agent.create');
+        return view('admin.agent.create');
         }
         catch(\Exception $e){
             return redirect()->back()->with('err_message',$e->getMessage());
@@ -92,7 +92,7 @@ class AgentController extends Controller
     public function edit($id){
         try{
         $agent = User::find($id);
-        return view('Admin.agent.edit', compact('agent'));
+        return view('admin.agent.edit', compact('agent'));
         }
         catch(\Exception $e){
             return redirect()->back()->with('err_message',$e->getMessage());
@@ -121,7 +121,7 @@ class AgentController extends Controller
          /* dd($agent->agent_info->AgentID);
         $agent_details = $agent->agent_info->get();
         dd($agent_details->FName); */
-        return view('Admin.agent.show', compact('agent'));
+        return view('admin.agent.show', compact('agent'));
        
    
 
