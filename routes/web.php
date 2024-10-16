@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/dashboard', [AdminAuthController::class, 'dashboard']); 
-    Route::get('/agent', [AgentController::class, 'index'])->name('agent');
+    Route::get('/agent', [AgentController::class, 'index'])->name('agent.index');
     Route::get('create/agent',[AgentController::class,'create'])->name('create.agent');
     Route::post('save/agent',[AgentController::class,'store'])->name('register.agent');
     Route::get('edit/agent/{id}',[AgentController::class,'edit'])->name('edit.agent');
