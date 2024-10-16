@@ -32,7 +32,7 @@
         <li class="nav-item">
           <!-- <i class="fas fa-clock"></i> -->
           <img src="{{ url('assets/images/Agents.png') }}">
-          <a class="nav-link" href="{{route('agent.index')}}">Agents</a>
+          <a class="nav-link" href="{{route('list.agent')}}">Agents</a>
         </li>
         <li class="nav-item">
           <!-- <i class="fas fa-exchange-alt"></i> -->

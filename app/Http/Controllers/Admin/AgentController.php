@@ -130,7 +130,7 @@ class AgentController extends Controller
         try{
         $agent = User::find($id);
         $agent->delete();
-        return redirect()->route('agent')
+        return redirect()->route('list.agent')
         ->with('success', 'Agent deleted successfully');
         }
         catch(\Exception $e){
