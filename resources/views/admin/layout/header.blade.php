@@ -4,8 +4,8 @@
           <div class="d-flex align-items-center">
             <button id="sidebarToggle" class="btn">☰</button>
             <ol class="breadcrumb breadcrumb-list m-0 ms-2">
-              <li class="breadcrumb-item"><a href="">Home</a></li>
-              <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ol>
           </div>
           <div class="header-right profile-dropdown d-flex align-items-center">
@@ -22,7 +22,7 @@
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
+                  <a class="dropdown-item d-flex align-items-center" href="{{route('reset.password')}}">
                     <i class="fas fa-user me-2 icon-font"></i>
                     Reset Password
                   </a>

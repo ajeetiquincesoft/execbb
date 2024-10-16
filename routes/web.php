@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Agent\AgentAuthController;
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 /*
@@ -29,6 +30,8 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::put('update/agent/{id}',[AgentController::class,'update'])->name('update.agent');
     Route::get('view/agent/{id}',[AgentController::class,'show'])->name('show.agent');
     Route::delete('/agents/{id}',[AgentController::class,'destroy'])->name('agents.destroy');
+    Route::get('reset/password',[ResetPasswordController::class,'index'])->name('reset.password');
+    Route::post('reset/password/link',[ResetPasswordController::class,'resetpasswordlink'])->name('reset.password.link');
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {
     Route::get('/dashboard', [AgentAuthController::class, 'agentDashboard']); 

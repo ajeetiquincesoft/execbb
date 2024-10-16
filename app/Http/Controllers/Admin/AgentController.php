@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Agent;
 use Illuminate\Support\Facades\Hash;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Events\AgentRegister;
 use App\Mail\AgentWelcome;
 use Illuminate\Support\Facades\Mail;
@@ -44,7 +44,7 @@ class AgentController extends Controller
             'email' => 'required|email|unique:users',
         ]);
         if ($validator->fails()) { 
-            return redirect()->back()->withInput()->with('err_message',$validator->messages()->first());
+            return redirect()->back()->withErrors($validator)->withInput();
          }
            
         $data = $request->all();
