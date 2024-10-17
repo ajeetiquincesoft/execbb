@@ -18,7 +18,7 @@ class AgentController extends Controller
 {
     public function index(){
         try{
-        $agents = User::with('agent_info')->where('role_name','agent')->paginate(5);
+        $agents = User::with('agent_info')->where('role_name','agent')->paginate(2);
         return view('admin.agent.index',compact('agents'));
         }
         catch(\Exception $e){
