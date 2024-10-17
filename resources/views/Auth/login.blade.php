@@ -39,9 +39,15 @@
                                     <span class="h1 fw-bold mb-0"> <img src="{{ url('assets/images/SidebarLogo.png') }}"
                                             alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" /></span>
                                 </div>
+
                                 <form method="POST" action="{{ route('login.custom') }}">
                                     @csrf
                                     <h5 class="fw-normal mb-2  text-center m-0">Sign into your account</h5>
+                                    @if ($errors->has('emailPassword'))
+                                            <div class="alert alert-danger">
+                                                {{ $errors->first('emailPassword') }}
+                                            </div>
+                                        @endif
                                     <div data-mdb-input-init class="form-outline mb-2">
                                         <label class="form-label" for="email"><b>Email address</b></label>
                                         <input type="email" id="email" name="email" class="form-control form-control-lg" />
@@ -58,6 +64,7 @@
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                         @endif
                                     </div>
+                                        
                                     <div class="pt-1 mt-1">
                                         <button type="submit" class="btn bg-5a102a text-white btn-block">Login</button>
                                     </div>

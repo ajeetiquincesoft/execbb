@@ -18,14 +18,15 @@ class AdminAuthController extends Controller
     }
     public function customLogin(Request $request)
     {
-        $validator = Validator::make($request->all(), [ 
+     
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required'
         ]);
+       
         if ($validator->fails()) { 
             return redirect()->back()->withErrors($validator)->withInput();
          }
-    
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $userrole = Auth::user()->role_name;
@@ -39,7 +40,7 @@ class AdminAuthController extends Controller
             }
             
         }
-        $validator['emailPassword'] = 'Email address or password is incorrect.';
+        return redirect()->back()->withErrors(['emailPassword' => 'Email address or password is incorrect.'])->withInput();
         return redirect("login")->withErrors($validator);
     }
     public function registration()
