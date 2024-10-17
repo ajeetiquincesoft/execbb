@@ -16,7 +16,7 @@
             <div class="row card p-4">
                 <form action="{{ route('reset.password.link') }}" method="POST">
                 @csrf
-                    <div class="tab">
+                    <div class="tab-reset">
                         <h3>Reset password</h3>
                         <hr>
                         <div class="row">
