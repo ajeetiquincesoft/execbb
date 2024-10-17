@@ -1,5 +1,18 @@
 @extends('admin.layout.master')
 @section('content')
+<div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
+    <div class="next-back-page d-flex justify-content-between">
+        @if ($previous)
+            <a href="{{ route('show.agent', $previous->id) }}"><button><i class="fa fa-chevron-left"></i>Back</button></a>
+        @endif
+
+        @if ($next)
+            <a href="{{ route('show.agent', $next->id) }}"><button>Next <i class="fa fa-chevron-right"></i></button></a>
+        @endif
+        
+        
+    </div>
+</div>
 <div class="container-fluid content bg-light">
       <div class="row">
         <div class="col-md-5">
@@ -7,11 +20,12 @@
             <div class="card-body">
               <div class="profile-info">
                 <div class="text-end">
-                  <i  class="fa fa-edit edit-icon"></i>
+                  <a href="{{route('edit.agent',$agent->id)}}"><i  class="fa fa-edit edit-icon"></i></a>
                 </div>
                 <div class="text-center">
                   <img src="{{ url('assets/images/user.png') }}" alt="User Image" width="100">
                   <h5>{{$agent->agent_info->FName}} {{$agent->agent_info->LName}}</h5>
+                  <h6>{{$agent->agent_info->AgentID }}</h6>
                 </div>
                 <div class="table-responsive">
                   <div>

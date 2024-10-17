@@ -11,13 +11,15 @@ use Illuminate\Support\Facades\Validator;
 use App\Events\AgentRegister;
 use App\Mail\AgentWelcome;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Pagination\Paginator;
 
 
 class AgentController extends Controller
 {
     public function index(){
         try{
-        $agents = User::with('agent_info')->where('role_name','agent')->get();
+        
+        $agents = User::with('agent_info')->where('role_name','agent')->paginate(5);
         return view('admin.agent.index',compact('agents'));
         }
         catch(\Exception $e){
@@ -119,9 +121,13 @@ class AgentController extends Controller
         
         $agent = User::with('agent_info')->find($id);
          /* dd($agent->agent_info->AgentID);
-        $agent_details = $agent->agent_info->get();
-        dd($agent_details->FName); */
-        return view('admin.agent.show', compact('agent'));
+            $agent_details = $agent->agent_info->get();
+            dd($agent_details->FName); */
+         // Get the previous post ID
+         $previous = User::where('id', '<', $id)->where('role_name','=','agent')->orderBy('id', 'desc')->first();
+         // Get the next post ID
+         $next = User::where('id', '>', $id)->where('role_name','=','agent')->orderBy('id', 'asc')->first();
+        return view('admin.agent.show', compact('agent', 'previous', 'next'));
        
    
 

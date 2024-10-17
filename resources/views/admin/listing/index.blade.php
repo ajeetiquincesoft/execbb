@@ -10,7 +10,7 @@
                                 <h4 class="mb-0">Listings</h4>
                             </div>
                             <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                                <a href="add-list-form.html">
+                                <a href="{{route('create.listing')}}">
                                 <button class="btn btn-primary" style="background-color: #5e0f2f;">
                                     <i class="fas fa-plus mr-1"></i> Add Listings
                                 </button>

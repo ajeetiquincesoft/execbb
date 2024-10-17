@@ -15,5 +15,9 @@ button.btn.agentBtn {
 .agent_delete{
   display: inline;
 }
-
+.page-item.active .page-link {
+  background-color: #5a102a !important;
+  border-color: #5a102a !important;
+  color: white !important;
+}
 /*end css*/

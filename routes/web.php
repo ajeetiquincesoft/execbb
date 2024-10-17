@@ -38,6 +38,7 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('edit/profile/{id}',[AdminProfileController::class,'editProfile'])->name('edit.profile');
     Route::put('update/profile/{id}',[AdminProfileController::class,'updateProfile'])->name('update.profile');
     Route::get('/listing/all', [ListingController::class, 'index'])->name('all.listing');
+    Route::get('create/listing', [ListingController::class, 'create'])->name('create.listing');
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {
     Route::get('/dashboard', [AgentAuthController::class, 'agentDashboard']); 
