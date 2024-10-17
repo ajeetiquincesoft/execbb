@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Agent\AgentAuthController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\ListingController;
 
 
 /*
@@ -32,6 +34,10 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::delete('/agents/{id}',[AgentController::class,'destroy'])->name('agents.destroy');
     Route::get('reset/password',[ResetPasswordController::class,'index'])->name('reset.password');
     Route::post('reset/password/link',[ResetPasswordController::class,'resetpasswordlink'])->name('reset.password.link');
+    Route::get('profile',[AdminProfileController::class,'showProfile'])->name('show.profile');
+    Route::get('edit/profile/{id}',[AdminProfileController::class,'editProfile'])->name('edit.profile');
+    Route::put('update/profile/{id}',[AdminProfileController::class,'updateProfile'])->name('update.profile');
+    Route::get('/listing/all', [ListingController::class, 'index'])->name('all.listing');
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {
     Route::get('/dashboard', [AgentAuthController::class, 'agentDashboard']); 

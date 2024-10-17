@@ -4,8 +4,8 @@
           <div class="d-flex align-items-center">
             <button id="sidebarToggle" class="btn">☰</button>
             <ol class="breadcrumb breadcrumb-list m-0 ms-2">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
             </ol>
           </div>
           <div class="header-right profile-dropdown d-flex align-items-center">
@@ -16,7 +16,7 @@
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
+                  <a class="dropdown-item d-flex align-items-center" href="{{route('show.profile')}}">
                     <i class="fas fa-user me-2 icon-font"></i>
                     Profile
                   </a>

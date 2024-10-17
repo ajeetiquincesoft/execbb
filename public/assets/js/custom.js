@@ -9,6 +9,15 @@ $( function() {
     $( "#terminate_date" ).datepicker({
         dateFormat: "yy-mm-dd"
     });
+    document.getElementById('user_email').onkeydown = function (e) {
+        e.preventDefault();
+    };
+    document.getElementById('user_email').oncut = function (e) {
+        e.preventDefault();
+    };
+    document.getElementById('user_email').onpaste = function (e) {
+        e.preventDefault();
+    };
   } )
   function changeSpouseValue() {
     var checkBox = document.getElementById("agentSpouse");

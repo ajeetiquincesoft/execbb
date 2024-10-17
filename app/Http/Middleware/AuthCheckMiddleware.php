@@ -17,7 +17,10 @@ class AuthCheckMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $userrole = Auth::user()->role_name;
+        if(Auth::check()){
+            $userrole = Auth::user()->role_name;
+        }
+        
       // dd( $userrole);
         if (!Auth::check() || $userrole == 'agent') {
             //dd( $userrole);

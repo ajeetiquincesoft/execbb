@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
+
 
 class ResetPasswordController extends Controller
 {
@@ -16,24 +19,25 @@ class ResetPasswordController extends Controller
 
     }
     public function resetpasswordlink(Request $request){
-    $token = Str::random(60);
-    DB::table('password_resets')->where('email', $request->email)->delete();
-   $create =  DB::table('password_resets')->insert([
-        'email' => $request->email,
-        'token' => $token,
-        'created_at' => Carbon::now()
-    ]);
-      // Construct your custom reset URL
-      $resetUrl = config('app.url') . "/reset-password?token={$token}&email=" . urlencode($request->email);
-      // Send the reset link via email
-      Mail::send('email.password-reset', ['url' => $resetUrl], function ($message) use ($request) {
-          $message->to($request->email)
-              ->subject('Reset Password Notification');
-      });
-    if($create){
-        return redirect()->back()->with(['success_message' => 'Reset password link send to your email, please  check']);
-    }
-   // return $token;
+        
+         $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required'
+        ]);
+
+      
+        $user = auth()->user();
+
+      
+        if (!Hash::check($request->old_password, $user->password)) {
+            return  redirect()->back()->with('error_message','The provided old password does not match our records.');
+        }
+
+        $update_password = User::find($user->id);
+        $update_password->password = Hash::make($request->password);
+        $update_password->save();
+        return redirect()->back()->with('success_message','Password updated successfully!');
 
     }
 }

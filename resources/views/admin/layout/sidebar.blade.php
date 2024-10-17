@@ -1,7 +1,7 @@
 <div id="sidebar" class=" text-white">
     <div class="position-relative img-bg ">
       <div class="p-3">
-        <img class="sidebar-logo" src="{{ url('assets/images/SidebarLogo.png') }}" alt="">
+        <a href="{{url('admin/dashboard')}}"><img class="sidebar-logo" src="{{ url('assets/images/SidebarLogo.png') }}" alt=""></a>
         <button class="close-btn" aria-label="Close">&times;</button>
       </div>
 
@@ -12,12 +12,12 @@
         <li class="nav-item activenavitem">
           <!-- <i class="fas fa-home"></i> -->
           <img src="{{ url('assets/images/Dashboard.png') }}">
-          <a class="nav-link text-white" href="#">Dashboard</a>
+          <a class="nav-link text-white" href="{{url('admin/dashboard')}}">Dashboard</a>
         </li>
         <li class="nav-item">
           <!--  <i class="fas fa-briefcase"></i> -->
           <img src="{{ url('assets/images/Listing.png') }}">
-          <a class="nav-link" href="#">Listings</a>
+          <a class="nav-link" href="{{route('all.listing')}}">Listings</a>
         </li>
         <li class="nav-item">
           <!-- <i class="fas fa-tasks"></i> -->
