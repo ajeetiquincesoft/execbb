@@ -30,7 +30,7 @@ class AdminAuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $userrole = Auth::user()->role_name;
-            logActivity('login', 'Admin user logged in successfully');
+            //logActivity('login', 'Admin user logged in successfully');
             if($userrole == 'admin'){
                 return redirect()->intended('admin/dashboard')
                         ->withSuccess('Signed in');
