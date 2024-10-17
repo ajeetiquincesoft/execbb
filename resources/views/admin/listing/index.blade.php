@@ -54,7 +54,7 @@
                                     <td>Jersey City</td>
                                     <td>201-966-7886</td>
                                     <td>info@risingsun.com</td>
-                                    <td>
+                                    <td class="list-btn-new">
                                         <button class="btn btn-sm" title="View">
                                             <i class="fas fa-eye"></i>
                                         </button>
