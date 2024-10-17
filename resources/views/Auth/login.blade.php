@@ -45,14 +45,17 @@
                                     <div data-mdb-input-init class="form-outline mb-2">
                                         <label class="form-label" for="email"><b>Email address</b></label>
                                         <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                                        @if ($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                        @endif
 
                                     </div>
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label" for="form2Example27"><b>Password</b></label>
                                         <input type="password" id="password" name="password" class="form-control form-control-lg" />
 
-                                        @if ($errors->has('emailPassword'))
-                                        <span class="text-danger">{{ $errors->first('emailPassword') }}</span>
+                                        @if ($errors->has('password'))
+                                        <span class="text-danger">{{ $errors->first('password') }}</span>
                                         @endif
                                     </div>
                                     <div class="pt-1 mt-1">

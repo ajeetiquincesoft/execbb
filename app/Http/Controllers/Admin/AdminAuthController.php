@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AdminAuthController extends Controller
 {
@@ -17,11 +18,13 @@ class AdminAuthController extends Controller
     }
     public function customLogin(Request $request)
     {
-       $validator =  $request->validate([
-            'email' => 'required',
+        $validator = Validator::make($request->all(), [ 
+            'email' => 'required|email',
             'password' => 'required',
         ]);
-   
+        if ($validator->fails()) { 
+            return redirect()->back()->withErrors($validator)->withInput();
+         }
     
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
