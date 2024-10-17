@@ -17,7 +17,7 @@
                 <form action="{{ route('update.profile',$user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                    <div class="tab">
+                    <div class="tab-profile">
                         <h3>Edit profile</h3>
                         <hr>
                         <div class="row">
