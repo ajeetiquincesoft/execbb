@@ -20,7 +20,7 @@
             height: 100%;
         }
     </style>
-</head>
+</head> 
 
 <body>
     <div class="container-fluid py-3 h-100 bg-5a102a">
@@ -29,7 +29,7 @@
                 <div class="card" style="border-radius: 1rem;">
                     <div class="row g-0">
                         <div class="col-md-6  d-none d-md-block">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                            <img src="{{ url('images/login_2.jpg') }}"
                                 alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
                         </div>
                         <div class="col-md-6  d-flex align-items-center">
