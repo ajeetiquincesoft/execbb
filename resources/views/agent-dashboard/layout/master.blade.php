@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   {!! Html::style('assets/css/custom.css') !!}
+  {!! Html::style('assets/css/main.css') !!}
   <!-- jQuery and Bootstrap JS -->
   <style>
     .accordion-button.collapsed {

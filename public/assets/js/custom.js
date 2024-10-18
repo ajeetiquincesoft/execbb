@@ -27,3 +27,12 @@ $( function() {
         $('#agentSpouse').val('0');
     }
   }
+  function changeDisplayValue() {
+    var checkBox = document.getElementById("display_on_web");
+    if (checkBox.checked == true){
+      $('#display_on_web').val('1');
+    } else {
+        $('#display_on_web').val('0');
+    }
+  }
+  

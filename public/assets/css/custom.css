@@ -20,4 +20,11 @@ button.btn.agentBtn {
   border-color: #5a102a !important;
   color: white !important;
 }
+#alert-success {
+  text-align: center;
+}
+.upload_user_image{
+  height: 80px;
+  width: 80px;
+}
 /*end css*/

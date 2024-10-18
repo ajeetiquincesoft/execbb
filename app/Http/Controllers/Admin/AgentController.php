@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Agent;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 use App\Events\AgentRegister;
 use App\Mail\AgentWelcome;
 use Illuminate\Support\Facades\Mail;
@@ -35,8 +37,7 @@ class AgentController extends Controller
         }
     }
     public function store(Request $request){
-        try{
-        //dd($request->all());
+        try {
         $validator = Validator::make($request->all(), [ 
             'first_name' => 'required',
             'last_name' => 'required',
@@ -49,8 +50,10 @@ class AgentController extends Controller
          }
            
         $data = $request->all();
+        DB::beginTransaction();
         $check = $this->agentRegistration($data);
         //dd($check->id);
+       
         $agent = new Agent;
         $agent->AgentID = $request->agent_id;
         $agent->LName = $request->last_name;
@@ -58,27 +61,44 @@ class AgentController extends Controller
         $agent->Address1 = $request->address;
         $agent->City = $request->city;
         $agent->State = $request->state;
+        $agent->Zip = $request->zip_code;
         $agent->DOB = $request->dob;
         $agent->Telephone = $request->home_phone;
         $agent->Fax = $request->fax;
         $agent->Email = $request->email;
         $agent->Comments = $request->comment;
         $agent->Spouse = $request->spouse;
+        $agent->SpFName = $request->spouse_first_name;
+        $agent->SpLName = $request->spouse_last_name;
         $agent->SocSecNum = $request->ss_number;
         $agent->CellPhone = $request->cellular;
         $agent->Pager = $request->pager;
         $agent->HireDate = $request->hire_date;
         $agent->Termination = $request->terminate_date;
+        $agent->Display = $request->display_on_web;
         $agent->AgentUserRegisterId =  $check->id;
+        if( $request->hasFile('agent_image')) {
+            $image = $request->file('agent_image');
+            $path = public_path(). '/assets/uploads/images/';
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move($path, $filename);
+        
+            $agent->image = $filename;
+        }
         $agent->save();
          // call the event
          //Mail::to('santosh3257@gmail.com')->send(new AgentWelcome());
         //event(new AgentRegistered($data));
+        DB::commit();
         return redirect('admin/create/agent')->with('success_message','Agent register successfully');
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('err_message',$e->getMessage());
-        }
+     }catch (Throwable $e) {
+        // Rollback if anything goes wrong
+        DB::rollBack();
+        // Optionally log the error or handle it in another way
+        return response()->json(['error' => 'Failed to create agent and profile.'], 500);
+    }
+        
+       
     }
     public function agentRegistration(array $data)
     {
@@ -92,8 +112,9 @@ class AgentController extends Controller
     }
     public function edit($id){
         try{
-        $agent = User::find($id);
-        return view('admin.agent.edit', compact('agent'));
+        $agent = User::with('agent_info')->find($id);
+        $image_url = 'assets/uploads/images/'.$agent->agent_info->image;
+        return view('admin.agent.edit', compact('agent','image_url'));
         }
         catch(\Exception $e){
             return redirect()->back()->with('err_message',$e->getMessage());
@@ -102,18 +123,56 @@ class AgentController extends Controller
 
     }
     public function update(Request $request,$id){
-        try{
-        $agent = User::find($id);
-        $agent->name = $request->name;
-        $agent->email = $request->email;
-        $agent->save();
-        return redirect()->route('agent')
-        ->with('success', 'Agent update successfully');
+        
+        $validator = Validator::make($request->all(), [ 
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'address' => 'required',
+            'home_phone' => 'required'
+        ]);
+        if ($validator->fails()) { 
+            return redirect()->back()->withErrors($validator)->withInput();
+            }
+        if( $request->hasFile('agent_image')) {
+            $image = $request->file('agent_image');
+            $path = public_path(). '/assets/uploads/images/';
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move($path, $filename);
         }
-        catch(\Exception $e){
-            return redirect()->back()->with('err_message',$e->getMessage());
+        else{
+            $data =Agent::where('AgentUserRegisterId',$id)->first();
+            $filename = $data->image;
+
         }
-   
+        $agent = Agent::where('AgentUserRegisterId',$id)->update([
+        'LName' => $request->last_name,
+        'FName' => $request->first_name,
+        'Address1' => $request->address,
+        'City' => $request->city,
+        'State' =>$request->state,
+        'Zip' => $request->zip_code,
+        'DOB' => $request->dob,
+        'Telephone' => $request->home_phone,
+        'Fax' => $request->fax,
+        'Comments' =>$request->comment,
+        'Spouse' => $request->spouse,
+        'SpFName' => $request->spouse_first_name,
+        'SpLName' => $request->spouse_last_name,
+        'SocSecNum' => $request->ss_number,
+        'CellPhone' => $request->cellular,
+        'Pager' => $request->pager,
+        'HireDate' => $request->hire_date,
+        'Termination' => $request->terminate_date,
+        'Display' => $request->display_on_web,
+        'image' => $filename,
+
+    ]);
+    if($agent){
+        return redirect()->back()->with('success_message', 'Agent update successfully');
+    }
+    else{
+        return redirect()->back()->with('success_message', 'There are some error! can not be update.');
+    }
 
     }
     public function show($id){

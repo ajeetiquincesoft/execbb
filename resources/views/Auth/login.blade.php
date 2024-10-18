@@ -9,74 +9,94 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Responsive Login</title>
     <style>
         .bg-5a102a {
             background-color: #5a102a;
+            height: 100vh; /* Full height for the background */
         }
 
         .img-fluid {
-            max-width: 89% !important;
+            width: 100%;
             height: 100%;
+            object-fit: cover; /* Ensure the image covers its container */
+        }
+
+        .card {
+            border-radius: 1rem;
+        }
+
+        .login-image {
+            border-radius: 1rem 0 0 1rem;
+            height: 100%; /* Ensure the image takes the full height */
+        }
+
+        .content-center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Center the content horizontally */
+            height: 100%; /* Full height of the column */
+        }
+
+        @media (max-width: 768px) {
+            .login-image {
+                display: none; /* Hide the image on small screens */
+            }
         }
     </style>
-</head> 
+</head>
 
 <body>
-    <div class="container-fluid py-3 h-100 bg-5a102a">
+    <div class="container-fluid bg-5a102a">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-xl-10">
-                <div class="card" style="border-radius: 1rem;">
+                <div class="card">
                     <div class="row g-0">
-                        <div class="col-md-6  d-none d-md-block">
-                            <img src="{{ url('images/login_2.jpg') }}"
-                                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                        <div class="col-md-4 d-none d-md-block">
+                            <img src="{{ url('images/login_2.jpg') }}" alt="login form" class="img-fluid login-image" />
                         </div>
-                        <div class="col-md-6  d-flex align-items-center">
-                            <div class="card-body   text-black">
-                                <div class="d-flex  d-flex justify-content-center mb-3 pb-1">
+                        <div class="col-md-8 d-flex align-items-center content-center">
+                            <div class="card-body text-black" style="width: 100%;">
+                                <div class="d-flex justify-content-center mb-3 pb-1">
                                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                    <span class="h1 fw-bold mb-0"> <img src="{{ url('assets/images/SidebarLogo.png') }}"
-                                            alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" /></span>
+                                    <span class="h1 fw-bold mb-0">
+                                        <img src="{{ url('assets/images/SidebarLogo.png') }}" alt="login form" class="img-fluid" />
+                                    </span>
                                 </div>
 
                                 <form method="POST" action="{{ route('login.custom') }}">
-                                    @csrf
-                                    <h5 class="fw-normal mb-2  text-center m-0">Sign into your account</h5>
+                                @csrf
+                                    <h5 class="fw-normal mb-2 text-center m-0">Sign into your account</h5>
                                     @if ($errors->has('emailPassword'))
                                             <div class="alert alert-danger">
                                                 {{ $errors->first('emailPassword') }}
                                             </div>
                                         @endif
-                                    <div data-mdb-input-init class="form-outline mb-2">
+                                    <div class="form-outline mb-2">
                                         <label class="form-label" for="email"><b>Email address</b></label>
-                                        <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg"/>
                                         @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                         @endif
-
                                     </div>
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form2Example27"><b>Password</b></label>
-                                        <input type="password" id="password" name="password" class="form-control form-control-lg" />
-
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="password"><b>Password</b></label>
+                                        <input type="password" id="password" name="password" class="form-control form-control-lg"/>
                                         @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                         @endif
                                     </div>
-                                        
+
                                     <div class="pt-1 mt-1">
-                                        <button type="submit" class="btn bg-5a102a text-white btn-block">Login</button>
+                                        <button type="submit" class="btn bg-5a102a text-white btn-block" style="height: 40px;">Login</button>
                                     </div>
                                     <div style="text-align:end">
-                                        <a class="small text-muted" href="#!">Forgot password?</a>
+                                        <a class="small text-muted" href="{{route('forget.password')}}">Forgot password?</a>
                                     </div>
 
-                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"
-                                            style="color: #393f81;">Register here</a></p>
-
+                                    <p class="m-0" style="color: #393f81;">Don't have an account? <a href="#!" style="color: #393f81;">Register here</a></p>
                                 </form>
-
                             </div>
                         </div>
                     </div>

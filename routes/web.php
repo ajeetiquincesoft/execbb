@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\ListingController;
+use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
 /*
@@ -50,3 +51,10 @@ Route::get('registration', [AdminAuthController::class, 'registration'])->name('
 Route::post('custom-login', [AdminAuthController::class, 'customLogin'])->name('login.custom'); 
 Route::post('custom-registration', [AdminAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [AdminAuthController::class, 'signOut'])->name('signout');
+// route for forget password
+Route::get('forget/password', [ForgetPasswordController::class, 'index'])->name('forget.password');
+Route::post('update/password/link', [ForgetPasswordController::class, 'updatePasswordLink'])->name('update.password.link');
+Route::get('update/password', [ForgetPasswordController::class, 'updatePassword'])->name('update.password');
+Route::post('reset/forget/password', [ForgetPasswordController::class, 'resetForgetPassword'])->name('reset.forget.password');
+//end route for forget password
+
