@@ -56,15 +56,19 @@
                                     <td>{{$listing->SHomePh}}</td>
                                     <td>{{$listing->Email}}</td>
                                     <td class="list-btn-new">
-                                        <button class="btn btn-sm" title="View">
+                                    <a href="{{ route('show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
                                             <i class="fas fa-eye"></i>
-                                        </button>
+                                        </button></a>
                                         <button class="btn btn-sm" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-sm " title="Delete">
+                                        <form id="delete-form-{{ $listing->ListingID }}" action="{{ route('listing.destroy', $listing->ListingID) }}" method="post">
+                                          @csrf
+                                          @method('DELETE')
+                                          <button type="button" class="btn btn-sm" title="Delete" onclick="listingDelete('{{ $listing->ListingID }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
+                                          </form>
                                         <button class="btn btn-sm" title="Download">
                                             <i class="fas fa-download"></i>
                                         </button>

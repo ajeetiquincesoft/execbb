@@ -63,19 +63,19 @@
                         <td class="text-end">{{$agent->agent_info->City}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/location.png') }}" alt=""><span class="ml-2 fw-600">Date of Birth</span></td>
+                        <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span class="ml-2 fw-600">Date of Birth</span></td>
                         <td class="text-end">{{$agent->agent_info->DOB}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/location.png') }}" alt=""><span class="ml-2 fw-600">Spouse</span></td>
+                        <td><img src="{{ url('assets/images/spouse.png') }}" alt=""><span class="ml-2 fw-600">Spouse</span></td>
                         <td class="text-end">{{$agent->agent_info->Spouse}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/location.png') }}" alt=""><span class="ml-2 fw-600">Hire Date</span></td>
+                        <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span class="ml-2 fw-600">Hire Date</span></td>
                         <td class="text-end">{{$agent->agent_info->HireDate}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/location.png') }}" alt=""><span class="ml-2 fw-600">Terminated</span></td>
+                        <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span class="ml-2 fw-600">Terminated</span></td>
                         <td class="text-end">{{$agent->agent_info->Termination}}</td>
                       </tr>
                     </tbody>

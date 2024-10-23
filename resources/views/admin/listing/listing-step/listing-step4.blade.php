@@ -20,19 +20,19 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="annualSales">Annual Sales</label>
-                                    <input type="text" class="form-control" id="annualSales" name="annualSales"  value="{{ session('formData.annualSales') ? session('formData.annualSales') : '' }}">
+                                    <input type="number" class="form-control" id="annualSales" name="annualSales"  value="{{ session('formData.annualSales') ? session('formData.annualSales') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="costOfSales">Cost of Sales</label>
-                                    <input type="text" class="form-control" id="costOfSales" name="costOfSales"  value="{{ session('formData.costOfSales') ? session('formData.costOfSales') : '' }}">
+                                    <input type="number" class="form-control" id="costOfSales" name="costOfSales"  value="{{ session('formData.costOfSales') ? session('formData.costOfSales') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="grossProfit">Gross Profit</label>
-                                    <input type="text" class="form-control" id="grossProfit" name="grossProfit"  value="{{ session('formData.grossProfit') ? session('formData.grossProfit') : '' }}">
+                                    <input type="number" class="form-control" id="grossProfit" name="grossProfit"  value="{{ session('formData.grossProfit') ? session('formData.grossProfit') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="totalExpenses">Total Expenses</label>
-                                    <input type="text" class="form-control" id="totalExpenses" name="totalExpenses"  value="{{ session('formData.totalExpenses') ? session('formData.totalExpenses') : '' }}">
+                                    <input type="number" class="form-control" id="totalExpenses" name="totalExpenses"  value="{{ session('formData.totalExpenses') ? session('formData.totalExpenses') : '' }}">
                                 </div>
                             </div>
 
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="cost0_1">Cost 1</label>
-                                    <input type="text" class="form-control" id="cost0_1" name="cost0_1"  value="{{ session('formData.cost0_1') ? session('formData.cost0_1') : '' }}">
+                                    <input type="number" class="form-control" id="cost0_1" name="cost0_1"  value="{{ session('formData.cost0_1') ? session('formData.cost0_1') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="beverage">Goods Name</label>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="cost0_2">Cost 2</label>
-                                    <input type="text" class="form-control" id="cost0_2" name="cost0_2"  value="{{ session('formData.cost0_2') ? session('formData.cost0_2') : '' }}">
+                                    <input type="number" class="form-control" id="cost0_2" name="cost0_2"  value="{{ session('formData.cost0_2') ? session('formData.cost0_2') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="beverage">Goods Name</label>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="cost0_3">Cost 3</label>
-                                    <input type="text" class="form-control" id="cost0_3" name="cost0_3"  value="{{ session('formData.cost0_3') ? session('formData.cost0_3') : '' }}">
+                                    <input type="number" class="form-control" id="cost0_3" name="cost0_3"  value="{{ session('formData.cost0_3') ? session('formData.cost0_3') : '' }}">
                                 </div>
                             </div>
                             
@@ -74,31 +74,31 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="baseAnnRent">Base Annual Rent</label>
-                                    <input type="text" class="form-control" id="baseAnnRent" name="baseAnnRent"  value="{{ session('formData.baseAnnRent') ? session('formData.baseAnnRent') : '' }}">
+                                    <input type="number" class="form-control" id="baseAnnRent" name="baseAnnRent"  value="{{ session('formData.baseAnnRent') ? session('formData.baseAnnRent') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="commAreaMaint">Comm Area Maintenance</label>
-                                    <input type="text" class="form-control" id="commAreaMaint" name="commAreaMaint"  value="{{ session('formData.commAreaMaint') ? session('formData.commAreaMaint') : '' }}">
+                                    <input type="number" class="form-control" id="commAreaMaint" name="commAreaMaint"  value="{{ session('formData.commAreaMaint') ? session('formData.commAreaMaint') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="realEstateTax">Real Estate Tax</label>
-                                    <input type="text" class="form-control" id="realEstateTax" name="realEstateTax"  value="{{ session('formData.realEstateTax') ? session('formData.realEstateTax') : '' }}">
+                                    <input type="number" class="form-control" id="realEstateTax" name="realEstateTax"  value="{{ session('formData.realEstateTax') ? session('formData.realEstateTax') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="annPayroll">Annual Payroll</label>
-                                    <input type="text" class="form-control" id="annPayroll" name="annPayroll"  value="{{ session('formData.annPayroll') ? session('formData.annPayroll') : '' }}">
+                                    <input type="number" class="form-control" id="annPayroll" name="annPayroll"  value="{{ session('formData.annPayroll') ? session('formData.annPayroll') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="payrollTax">Payroll Tax</label>
-                                    <input type="text" class="form-control" id="payrollTax" name="payrollTax"  value="{{ session('formData.payrollTax') ? session('formData.payrollTax') : '' }}">
+                                    <input type="number" class="form-control" id="payrollTax" name="payrollTax"  value="{{ session('formData.payrollTax') ? session('formData.payrollTax') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="licenseFees">License Fees</label>
-                                    <input type="text" class="form-control" id="licenseFees" name="licenseFees"  value="{{ session('formData.licenseFees') ? session('formData.licenseFees') : '' }}">
+                                    <input type="number" class="form-control" id="licenseFees" name="licenseFees"  value="{{ session('formData.licenseFees') ? session('formData.licenseFees') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="advertising">Advertising</label>
-                                    <input type="text" class="form-control" id="advertising" name="advertising"  value="{{ session('formData.advertising') ? session('formData.advertising') : '' }}">
+                                    <input type="number" class="form-control" id="advertising" name="advertising"  value="{{ session('formData.advertising') ? session('formData.advertising') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="telephone">Telephone</label>
@@ -106,27 +106,27 @@
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="utilities">Utilities</label>
-                                    <input type="text" class="form-control" id="utilities" name="utilities"  value="{{ session('formData.utilities') ? session('formData.utilities') : '' }}">
+                                    <input type="number" class="form-control" id="utilities" name="utilities"  value="{{ session('formData.utilities') ? session('formData.utilities') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="insurance">Insurance</label>
-                                    <input type="text" class="form-control" id="insurance" name="insurance"  value="{{ session('formData.insurance') ? session('formData.insurance') : '' }}">
+                                    <input type="number" class="form-control" id="insurance" name="insurance"  value="{{ session('formData.insurance') ? session('formData.insurance') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="accountingLegal">Accounting/Legal</label>
-                                    <input type="text" class="form-control" id="accountingLegal" name="accountingLegal"  value="{{ session('formData.accountingLegal') ? session('formData.accountingLegal') : '' }}">
+                                    <input type="number" class="form-control" id="accountingLegal" name="accountingLegal"  value="{{ session('formData.accountingLegal') ? session('formData.accountingLegal') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="maintenance">Maintenance</label>
-                                    <input type="text" class="form-control" id="maintenance" name="maintenance"  value="{{ session('formData.maintenance') ? session('formData.maintenance') : '' }}">
+                                    <input type="number" class="form-control" id="maintenance" name="maintenance"  value="{{ session('formData.maintenance') ? session('formData.maintenance') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="trash">Trash</label>
-                                    <input type="text" class="form-control" id="trash" name="trash"  value="{{ session('formData.trash') ? session('formData.trash') : '' }}">
+                                    <input type="number" class="form-control" id="trash" name="trash"  value="{{ session('formData.trash') ? session('formData.trash') : '' }}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="other">Other</label>
-                                    <input type="text" class="form-control" id="other" name="other"  value="{{ session('formData.other') ? session('formData.other') : '' }}">
+                                    <input type="number" class="form-control" id="other" name="other"  value="{{ session('formData.other') ? session('formData.other') : '' }}">
                                 </div>
                             </div>
                         </div>

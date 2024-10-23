@@ -20,7 +20,7 @@
                                 <select id="busCategory" class="form-select" name="bus_category">
                                     <option selected="">Select category</option>
                                     @foreach($bus_category as $key=>$value)
-                                    <option value="{{$value->CategoryID}}" {{ session('formData.bus_category') == $value->CategoryID ? 'selected' : '' }}>{{$value->BusinessCategory}}</option>
+                                    <option value="{{$value->CategoryID}}" {{ session('formData.bus_category') == $value->CategoryID ? 'selected' : '' }}>{{$value->CategoryID}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -28,15 +28,15 @@
                                 <label for="busType" class="form-label">Bus. Type</label>
                                 <select id="busType" class="form-select" name="bus_type">
                                     <option value="" selected>Select type</option>
-                                    <option value="Type 1" {{ session('formData.bus_type') == 'Type 1' ? 'selected' : '' }}>Type 1</option>
-                                    <option value="Type 2" {{ session('formData.bus_type') == 'Type 2' ? 'selected' : '' }}>Type 2</option>
+                                    @foreach($bus_category as $key=>$bus_type)
+                                    <option value="{{$bus_type->BusinessCategory}}" {{ session('formData.bus_category') == $bus_type->CategoryID ? 'selected' : '' }}>{{$bus_type->BusinessCategory}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                           
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="franchise" class="form-check-label">Franchise</label>
-                                <input type="checkbox" id="franchise" class="form-check-input" name="franchise" value="{{ session('formData.franchise') == '1' ? '1' : '0' }}" 
-                                @if(session('formData.franchise') == '1') checked @endif onchange="changeFranchiseValue()">
+                                <input type="checkbox" id="franchise" class="form-check-input" name="franchise" value="1" {{ session('formData.franchCheckbox') == 1 ? 'checked' : '' }} onchange="changeFranchiseValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -82,9 +82,7 @@
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="featuredListing" class="form-check-label">Featured Listing</label>
-                                <input type="checkbox" id="featuredListing" class="form-check-input" name="featuredListing" value="{{ session('formData.featuredListing') == '1' ? '1' : '0' }}" 
-                                @if(session('formData.featuredListing') == '1') checked @endif
-                                 onchange="changeFeatureValue()">
+                                <input type="checkbox" id="featuredListing" class="form-check-input" name="featuredListing" value="1" {{ session('formData.featureCheckbox') == 1 ? 'checked' : '' }} onchange="changeFeatureValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -141,9 +139,7 @@
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="review" class="form-check-label">Review</label>
-                                <input type="checkbox" id="review" class="form-check-input"  name="review" value="{{ session('formData.review')}}" 
-                                @if(session('formData.review') == '1') checked @endif
-                                onchange="changeReviewValue()">
+                                <input type="checkbox" id="review" class="form-check-input"  name="review" value="1" {{ session('formData.reviewCheckbox') == 1 ? 'checked' : '' }} onchange="changeReviewValue()">
                             </div>
                         </div>
                     </div>

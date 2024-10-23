@@ -49,6 +49,8 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
 
      //Route for user listing
     Route::get('/listing/all', [ListingController::class, 'index'])->name('all.listing');
+    Route::get('view/listing/{id}',[ListingController::class,'show'])->name('show.listing');
+    Route::delete('/listing/{id}',[ListingController::class,'destroy'])->name('listing.destroy');
     Route::get('/listing/form', [ListingController::class, 'form'])->name('listing.form');
     Route::get('create/listing/step1', [ListingController::class, 'createStep1'])->name('create.listing.step1');
     Route::get('create/listing/step2', [ListingController::class, 'createStep2'])->name('create.listing.step2');

@@ -81,21 +81,21 @@
                             <h4 class="form-sec mb-3">formData Data</h4>
                             <div class="col-md-3 mb-3">
                                 <label for="listPrice">List Price</label>
-                                <input type="text" class="form-control" id="listPrice" name="listPrice"  value="{{ session('formData.listPrice') ? session('formData.listPrice') : '' }}">
+                                <input type="number" class="form-control" id="listPrice" name="listPrice"  value="{{ session('formData.listPrice') ? session('formData.listPrice') : '' }}">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="purPrice">Pur. Price</label>
-                                <input type="text" class="form-control" id="purPrice" name="purPrice"  value="{{ session('formData.purPrice') ? session('formData.purPrice') : '' }}">
+                                <input type="number" class="form-control" id="purPrice" name="purPrice"  value="{{ session('formData.purPrice') ? session('formData.purPrice') : '' }}">
 
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="downPay">Down Pay</label>
-                                <input type="text" class="form-control" id="downPay" name="downPay"  value="{{ session('formData.downPay') ? session('formData.downPay') : '' }}">
+                                <input type="number" class="form-control" id="downPay" name="downPay"  value="{{ session('formData.downPay') ? session('formData.downPay') : '' }}">
 
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="balance">Balance</label>
-                                <input type="text" class="form-control" id="balance" name="balance"  value="{{ session('formData.balance') ? session('formData.balance') : '' }}">
+                                <input type="number" class="form-control" id="balance" name="balance"  value="{{ session('formData.balance') ? session('formData.balance') : '' }}">
 
                             </div>
                         </div>
@@ -110,22 +110,27 @@
                             </div>
                             <div class="col-md-2 mb-3">
                                 <label for="invInPrice">Inv. in Price</label>
-                                <input type="text" class="form-control" id="invInPrice" name="invInPrice"  value="{{ session('formData.invInPrice') ? session('formData.invInPrice') : '' }}">
+                                <input type="number" class="form-control" id="invInPrice" name="invInPrice"  value="{{ session('formData.invInPrice') ? session('formData.invInPrice') : '' }}">
                             </div>
                             <div class="col-md-2 mb-3">
                                 <label for="invNotInPrice">Inv. Not in Price</label>
-                                <input type="text" class="form-control" id="invNotInPrice" name="invNotInPrice"  value="{{ session('formData.invNotInPrice') ? session('formData.invNotInPrice') : '' }}">
+                                <input type="number" class="form-control" id="invNotInPrice" name="invNotInPrice"  value="{{ session('formData.invNotInPrice') ? session('formData.invNotInPrice') : '' }}">
                             </div>
                             <div class="col-md-2 mb-3">
                                 <label class="form-check-label me-2" for="untilSolid">Until Solid</label>
-                                <input type="checkbox" class="form-check-input" id="untilSolid" name="untilSolid">
+                                <input type="checkbox" class="form-check-input" id="untilSolid" name="untilSolid" value="1"  {{ session('formData.untilSolid') == 1 ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <h4 class="form-sec mb-3">Real Estate Data</h4>
                             <div class="col-md-3 mb-3">
                                 <label for="agent">Agent</label>
-                                <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('formData.agent') ? session('formData.agent') : '' }}">
+                               <!--  <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('formData.agent') ? session('formData.agent') : '' }}"> -->
+                               <select id="agent" name="agents[]" class="form-select" multiple>
+                                    @foreach($agents as $key=>$agent)
+                                    <option value="{{$agent->id}}" {{ in_array($agent->id, session('formData.agents', [])) ? 'selected' : '' }}>{{$agent->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="commission">Commission</label>
@@ -133,29 +138,29 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="flatFee">Flat Fee</label>
-                                <input type="text" class="form-control" id="flatFee" name="flatFee"  value="{{ session('formData.flatFee') ? session('formData.flatFee') : '' }}">
+                                <input type="number" class="form-control" id="flatFee" name="flatFee"  value="{{ session('formData.flatFee') ? session('formData.flatFee') : '' }}">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="reAskingPrice">Re Asking Price</label>
-                                <input type="text" class="form-control" id="reAskingPrice" name="reAskingPrice" value="{{ session('formData.reAskingPrice') ? session('formData.reAskingPrice') : '' }}">
+                                <input type="number" class="form-control" id="reAskingPrice" name="reAskingPrice" value="{{ session('formData.reAskingPrice') ? session('formData.reAskingPrice') : '' }}">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-3" style="height: 80px;">
 
                                 <label class="form-check-label me-2" for="realEstate">Real Estate</label>
-                                <input type="checkbox" class="form-check-input" id="realEstate" name="realEstate">
+                                <input type="checkbox" class="form-check-input" id="realEstate" name="realEstate" value="1"  {{ session('formData.realEstate') == 1 ? 'checked' : '' }}>
                             </div>
 
                             <div class="col-md-3" style="height: 80px;">
                                 <label class="form-check-label me-2" for="optionToBuy">Option to Buy</label>
-                                <input type="checkbox" class="form-check-input" id="optionToBuy" name="optionToBuy">
+                                <input type="checkbox" class="form-check-input" id="optionToBuy" name="optionToBuy" value="1" {{ session('formData.optionToBuy') == 1 ? 'checked' : '' }}>
 
                             </div>
 
                             <div class="col-md-3" style="height: 80px;">
                                 <label class="form-check-label me-2" for="soldByEBB">Sold by EBB</label>
-                                <input type="checkbox" class="form-check-input" id="soldByEBB" name="soldByEBB">
+                                <input type="checkbox" class="form-check-input" id="soldByEBB" name="soldByEBB" value="1" {{ session('formData.soldByEBB') == 1 ? 'checked' : '' }}>
                             </div>
                         </div>
                     </div>

@@ -62,7 +62,7 @@
                                           <form action="{{ route('agents.destroy', $agent->id) }}" method="post" class="agent_delete" id="delete-agent-{{ $agent->id }}">
                                           @csrf
                                           @method('DELETE')
-                                          <button type="button" class="btn btn-sm" title="Delete" onclick="confirmDelete({{ $agent->id }})">
+                                          <button type="button" class="btn btn-sm" title="Delete" onclick="confirmDelete('{{ $agent->id }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                           </form>

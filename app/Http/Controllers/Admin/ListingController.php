@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Listing;
+use App\Models\User;
 use Throwable;
 use Session;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ListingController extends Controller
@@ -44,6 +46,39 @@ class ListingController extends Controller
         $listings =  Listing::orderBy('created_at', 'desc')->paginate(5);
         return view('admin.listing.index', compact('listings'));
     }
+    public function destroy(Request $request, $id)
+    {
+       
+        try {
+            // Find the listing by custom ID
+            $listing = Listing::where('ListingID', $id)->first();
+            //dd($listing);
+            // Check if the listing exists
+            if (!$listing) {
+                return redirect()->route('all.listing')
+                    ->with('err_message', 'Listing not found.');
+            }
+
+            // Delete the listing
+            $listing->delete();
+
+            return redirect()->route('all.listing')
+                ->with('success', 'Listing deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err_message', 'An error occurred: ' . $e->getMessage());
+        }
+    }
+    public function show($id){
+        $listing = Listing::where('ListingID', $id)->first();
+         // Get the previous listing ID
+         $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
+         // Get the next listing ID
+         $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
+        return view('admin.listing.show', compact('listing', 'previous', 'next'));
+       
+   
+
+    }
     public function createStep1(){
         $bus_category = DB::table('categories')->get();
         return view('admin.listing.listing-step.listing-step1',compact('bus_category'));
@@ -53,7 +88,9 @@ class ListingController extends Controller
         return view('admin.listing.listing-step.listing-step2');
     }
     public function createStep3(){
-        return view('admin.listing.listing-step.listing-step3');
+        $agents = User::with('agent_info')->where('role_name','agent')->get();
+        //dd($agents);
+        return view('admin.listing.listing-step.listing-step3', compact('agents'));
     }
     public function createStep4(){
         return view('admin.listing.listing-step.listing-step4');
@@ -62,7 +99,7 @@ class ListingController extends Controller
         return view('admin.listing.listing-step.listing-step5');
     }
     public function storeStep1(Request $request){
-        try {
+        
             $validator = Validator::make($request->all(), [ 
                 'bus_category' => 'required',
                 'bus_type' => 'required',
@@ -71,12 +108,15 @@ class ListingController extends Controller
             if ($validator->fails()) { 
                 return response()->json(['errors' => $validator->errors()], 422);
              }
+             $reviewcheckboxValue = $request->has('review') ? 1 : 0;
+             $franchisecheckboxValue = $request->has('franchise') ? 1 : 0;
+             $featuredListingcheckboxValue = $request->has('featuredListing') ? 1 : 0;
              if (session()->has('formData.listing_id')){
                 $listing_id = session()->get('formData.listing_id');
                 $listing = Listing::where('ListingID',$listing_id)->update([
                     'BusCategory' => $request->bus_category,
                     'BusType' => $request->bus_type,
-                    'Franchise' => $request->franchise,
+                    'Franchise' => $franchisecheckboxValue,
                     'SellerCorpName' => $request->cropName,
                     'DBA' =>$request->dba,
                     'Product' => $request->productMix,
@@ -87,7 +127,7 @@ class ListingController extends Controller
                     'County' => $request->country,
                     'SHomePh' => $request->phone,
                     'SHomeFax' => $request->fax,
-                    'featured' => $request->featuredListing,
+                    'featured' => $featuredListingcheckboxValue,
                     'SellerFName' => $request->first_name,
                     'SellerLName'=>  $request->last_name,
                     'SHomeAdd1'=>  $request->home_address,
@@ -98,21 +138,26 @@ class ListingController extends Controller
                     'SHomePh'=>  $request->user_home_phone,
                     'SHomeFax'=>  $request->user_home_fax,
                     'Pager'=>  $request->user_pager,
-                    'Review'=>  $request->review,
+                    'Review'=> $reviewcheckboxValue,
+                    /* 'imagepath'=> $filename, */
                 ]);
                 $redirectUrl = url('/admin/create/listing/step2');
                 $formData = $request->session()->get('formData', []);
                 $mergedData = array_merge($formData, $request->all());
                 $request->session()->put('formData', $mergedData);
                 $request->session()->put('formData.listing_id',  $listing_id);
+                $request->session()->put('formData.reviewCheckbox',  $reviewcheckboxValue);
+                $request->session()->put('formData.franchCheckbox',  $franchisecheckboxValue);
+                $request->session()->put('formData.featureCheckbox',  $featuredListingcheckboxValue);
                 $request->session()->put('formData.step',  1);
-                return response()->json(['success' => 'Listing created successfully!','redirect' => $redirectUrl]);
+                Log::info('Session Data:', $request->session()->all());
+                return response()->json(['success' => 'Listing updated successfully!','redirect' => $redirectUrl]);
              }
              else{
                 $listing = new Listing;
                 $listing->BusCategory = $request->bus_category;
                 $listing->BusType = $request->bus_type;
-                $listing->Franchise = $request->franchise;
+                $listing->Franchise = $franchisecheckboxValue;
                 $listing->SellerCorpName = $request->cropName;
                 $listing->DBA = $request->dba;
                 $listing->Product = $request->productMix;
@@ -123,7 +168,7 @@ class ListingController extends Controller
                 $listing->County = $request->country;
                 $listing->SHomePh = $request->phone;
                 $listing->SHomeFax = $request->fax;
-                $listing->featured = $request->featuredListing;
+                $listing->featured = $featuredListingcheckboxValue;
                 $listing->SellerFName = $request->first_name;
                 $listing->SellerLName = $request->last_name;
                 $listing->SHomeAdd1 = $request->home_address;
@@ -134,7 +179,7 @@ class ListingController extends Controller
                 $listing->SHomePh = $request->user_home_phone;
                 $listing->SHomeFax = $request->user_home_fax;
                 $listing->Pager = $request->user_pager;
-                $listing->Review = $request->review;
+                $listing->Review = $reviewcheckboxValue;
                 $listing->SubCat = 2;
                 $listing->Steps= 1;
                if( $request->hasFile('listing_img')) {
@@ -150,17 +195,18 @@ class ListingController extends Controller
                 $formData = $request->session()->get('formData', []);
                 $mergedData = array_merge($formData, $request->all());
                 $request->session()->put('formData', $mergedData);
-                $insertedId = $listing->id;
+                $insertedId = $listing->ListingID;
                 $request->session()->put('formData.listing_id',  $insertedId);
+                $request->session()->put('formData.reviewCheckbox',  $reviewcheckboxValue);
+                $request->session()->put('formData.franchCheckbox',  $franchisecheckboxValue);
+                $request->session()->put('formData.featureCheckbox',  $featuredListingcheckboxValue);
                 $request->session()->put('formData.step',  1);
+                Log::info('Session Data:', $request->session()->all());
                 return response()->json(['success' => 'Listing created successfully!','redirect' => $redirectUrl]);
 
              }
            
-        } catch (Throwable $e) {
-            // If there's an error, return a JSON response with a 500 status
-            return response()->json(['error' => 'Failed to create listing.'], 500);
-        }
+       
     }
     public function storeStep2(Request $request){
         try {
@@ -171,10 +217,12 @@ class ListingController extends Controller
             if ($validator->fails()) { 
                 return response()->json(['errors' => $validator->errors()], 422);
              }
+             $basement = $request->has('basement') ? 1 : 0;
+             $yearsEstablished = $request->has('yearsEstablished') ? 1 : 0;
              $listing = Listing::where('ListingID',$request->id)->update([
                 'BldgSize' => $request->buildingSize,
                 'BaseSize' => $request->basementSize,
-                'Basement' => $request->basement,
+                'Basement' => $basement,
                 'Parking' => $request->parking,
                 'LicenseReq' =>$request->licenseRequired,
                 'BaseMonthRent' => $request->baseMonthlyRent,
@@ -183,7 +231,7 @@ class ListingController extends Controller
                 'NoDaysOpen' => $request->daysOpen,
                 'HoursOfOp' =>$request->hoursOperation,
                 'Seats' => $request->numSeats,
-                'YrsEstablished' => $request->yearsEstablished,
+                'YrsEstablished' => $yearsEstablished,
                 'YrsPresentOwner' => $request->yearsPrevOwner,
                 'Interest' => $request->interest,
                 'PTEmp' => $request->interestType,
@@ -194,8 +242,10 @@ class ListingController extends Controller
             $formData = $request->session()->get('formData', []);
             $mergedData = array_merge($formData, $request->all());
             $request->session()->put('formData', $mergedData);
+            $request->session()->put('formData.YrsEstablished',  $yearsEstablished);
+            $request->session()->put('formData.Basement',  $basement);
             $request->session()->put('formData.step',  2);
-            return response()->json(['success' => 'Listing created successfully!','redirect' => $redirectUrl]);
+            return response()->json(['success' => 'Listing update successfully!','redirect' => $redirectUrl]);
             }
         } catch (Throwable $e) {
             // If there's an error, return a JSON response with a 500 status
@@ -211,6 +261,10 @@ class ListingController extends Controller
             if ($validator->fails()) { 
                 return response()->json(['errors' => $validator->errors()], 422);
              }
+             $untilSolid = $request->has('untilSolid') ? 1 : 0;
+             $realEstate = $request->has('realEstate') ? 1 : 0;
+             $optionToBuy = $request->has('optionToBuy') ? 1 : 0;
+             $soldByEBB = $request->has('soldByEBB') ? 1 : 0;
              $listing = Listing::where('ListingID',$request->id)->update([
                 'MgtAgentName' => $request->managementAgentName,
                 'MgtAgentPh' => $request->managementAgentPhone,
@@ -229,14 +283,14 @@ class ListingController extends Controller
                 'AddTerm' => $request->addTerms,
                 'InvInPrice' => $request->invInPrice,
                 'InvNot' => $request->invNotInPrice,
-                'UntilSold' => $request->untilSolid,
-                'AgentID' => $request->agent,
+                'UntilSold' => $untilSolid,
+                'AgentID' => $request->agents,
                 'Commission' => $request->commission,
                 'FlatFee' => $request->flatFee,
                 'REAskingPrice' => $request->reAskingPrice,
-                'RealEstate' => $request->realEstate,
-                'ToBuy' => $request->optionToBuy,
-                'SoldEBB' => $request->soldByEBB,
+                'RealEstate' => $realEstate,
+                'ToBuy' => $optionToBuy,
+                'SoldEBB' => $soldByEBB,
                 'Steps'=> 3
             ]);
             if($listing){
@@ -245,7 +299,7 @@ class ListingController extends Controller
             $mergedData = array_merge($formData, $request->all());
             $request->session()->put('formData', $mergedData);
             $request->session()->put('formData.step',  3);
-            return response()->json(['success' => 'Listing created successfully!','redirect' => $redirectUrl]);
+            return response()->json(['success' => 'Listing update successfully!','redirect' => $redirectUrl]);
             }
         } catch (Throwable $e) {
             // If there's an error, return a JSON response with a 500 status
@@ -294,7 +348,7 @@ class ListingController extends Controller
             $mergedData = array_merge($formData, $request->all());
             $request->session()->put('formData', $mergedData);
             $request->session()->put('formData.step',  4);
-            return response()->json(['success' => 'Listing created successfully!','redirect' => $redirectUrl]);
+            return response()->json(['success' => 'Listing update successfully!','redirect' => $redirectUrl]);
             }
         } catch (Throwable $e) {
             // If there's an error, return a JSON response with a 500 status
@@ -315,7 +369,8 @@ class ListingController extends Controller
                 'Comments' => $request->directions,
                 'Directions' => $request->comments,
                 'LeadID' => $request->leadId,
-                'Steps'=> 5
+                'Steps'=> 5,
+                'Status'=> 'published'
             ]);
             if($listing){
             $redirectUrl = url('/admin/listing/all');

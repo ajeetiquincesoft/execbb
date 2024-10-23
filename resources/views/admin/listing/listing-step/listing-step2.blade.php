@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label class="form-check-label me-2">Basement?</label>
-                                <input type="checkbox" class="form-check-input" id="basement" name="basement" value="0" onchange="changeBasementValue()">
+                                <input type="checkbox" class="form-check-input" id="basement" name="basement" value="1" {{ session('formData.basement') == 1 ? 'checked' : '' }} onchange="changeBasementValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="baseMonthlyRent">Base Monthly Rent</label>
-                                <input type="text" class="form-control" id="baseMonthlyRent" name="baseMonthlyRent" value="{{ session('formData.baseMonthlyRent') ? session('formData.baseMonthlyRent') : '' }}">
+                                <input type="number" class="form-control" id="baseMonthlyRent" name="baseMonthlyRent" value="{{ session('formData.baseMonthlyRent') ? session('formData.baseMonthlyRent') : '' }}">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="daysOpen">No. of Days Open</label>
-                                <input type="text" class="form-control" id="daysOpen" name="daysOpen" value="{{ session('formData.daysOpen') ? session('formData.daysOpen') : '' }}">
+                                <input type="number" class="form-control" id="daysOpen" name="daysOpen" value="{{ session('formData.daysOpen') ? session('formData.daysOpen') : '' }}">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -65,31 +65,31 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="numSeats">No. of Seats</label>
-                                <input type="text" class="form-control" id="numSeats" name="numSeats" value="{{ session('formData.numSeats') ? session('formData.numSeats') : '' }}">
+                                <input type="number" class="form-control" id="numSeats" name="numSeats" value="{{ session('formData.numSeats') ? session('formData.numSeats') : '' }}">
                             </div>
-                            <div class="col-md-4" style="height: 70px;">
-                                <label class="form-check-label me-2">Years Established?</label>
-                                <input type="checkbox" class="form-check-input" id="yearsEstablished" name="yearsEstablished" value="{{ session('formData.yearsEstablished') ? session('formData.yearsEstablished') : '' }}">
+                            <div class="col-md-4 mb-3">
+                                <label for="yearsEstablished">Years Established?</label>
+                                <input type="number" class="form-control" id="yearsEstablished" name="yearsEstablished" value="{{ session('formData.yearsEstablished') ? session('formData.yearsEstablished') : '' }}">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="yearsPrevOwner">Years Previous Owner</label>
-                                <input type="text" class="form-control" id="yearsPrevOwner" name="yearsPrevOwner" value="{{ session('formData.yearsPrevOwner') ? session('formData.yearsPrevOwner') : '' }}">
+                                <input type="number" class="form-control" id="yearsPrevOwner" name="yearsPrevOwner" value="{{ session('formData.yearsPrevOwner') ? session('formData.yearsPrevOwner') : '' }}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label>Interest</label>
                                 <div class="d-flex">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestHot" name="interest" value="Hot">
+                                        <input type="radio" class="form-check-input" id="interestHot" name="interest" value="Hot"  {{ session('formData.interest') == 'Hot' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestHot">Hot</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestMedium" name="interest" value="Medium">
+                                        <input type="radio" class="form-check-input" id="interestMedium" name="interest" value="Medium" {{ session('formData.interest') == 'Medium' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestMedium">Medium</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestCold" name="interest" value="Cold">
+                                        <input type="radio" class="form-check-input" id="interestCold" name="interest" value="Cold" {{ session('formData.interest') == 'Cold' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestCold">Cold</label>
                                     </div>
                                 </div>
@@ -99,10 +99,10 @@
                                 <div class="d-flex">
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" id="interestPartTime" name="interestType" value="Part Time">
-                                        <label class="form-check-label" for="interestPartTime">Part Time</label>
+                                        <label class="form-check-label" for="interestPartTime" {{ session('formData.interestType') == 'Part Time' ? 'checked' : '' }}>Part Time</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestFullTime" name="interestType" value="Full Time">
+                                        <input type="radio" class="form-check-input" id="interestFullTime" name="interestType" value="Full Time" {{ session('formData.interestType') == 'Full Time' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestFullTime">Full Time</label>
                                     </div>
                                 </div>
