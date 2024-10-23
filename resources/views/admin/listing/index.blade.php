@@ -10,7 +10,7 @@
                                 <h4 class="mb-0">Listings</h4>
                             </div>
                             <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                                <a href="{{route('create.listing')}}">
+                                <a href="{{route('listing.form')}}">
                                 <button class="btn btn-primary" style="background-color: #5e0f2f;">
                                     <i class="fas fa-plus mr-1"></i> Add Listings
                                 </button>
@@ -46,14 +46,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($listings as $key=>$listing)
                                 <tr>
-                                    <td>132292100WP5</td>
-                                    <td>Saeed Shaikh</td>
-                                    <td>Rising Sun Preschool</td>
-                                    <td>175 Newark Avenue</td>
-                                    <td>Jersey City</td>
-                                    <td>201-966-7886</td>
-                                    <td>info@risingsun.com</td>
+                                    <td>{{$listing->ListingID}}</td>
+                                    <td>{{$listing->SellerFName}} {{$listing->SellerLName}}</td>
+                                    <td>{{$listing->SellerCorpName}}</td>
+                                    <td>{{$listing->SHomeAdd1}}</td>
+                                    <td>{{$listing->SCity}}</td>
+                                    <td>{{$listing->SHomePh}}</td>
+                                    <td>{{$listing->Email}}</td>
                                     <td class="list-btn-new">
                                         <button class="btn btn-sm" title="View">
                                             <i class="fas fa-eye"></i>
@@ -69,146 +70,12 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>132292100WP5</td>
-                                    <td>Saeed Shaikh</td>
-                                    <td>Rising Sun Preschool</td>
-                                    <td>175 Newark Avenue</td>
-                                    <td>Jersey City</td>
-                                    <td>201-966-7886</td>
-                                    <td>info@risingsun.com</td>
-                                    <td>
-                                        <button class="btn btn-sm" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm " title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>132292100WP5</td>
-                                    <td>Saeed Shaikh</td>
-                                    <td>Rising Sun Preschool</td>
-                                    <td>175 Newark Avenue</td>
-                                    <td>Jersey City</td>
-                                    <td>201-966-7886</td>
-                                    <td>info@risingsun.com</td>
-                                    <td>
-                                        <button class="btn btn-sm" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>132292100WP5</td>
-                                    <td>Saeed Shaikh</td>
-                                    <td>Rising Sun Preschool</td>
-                                    <td>175 Newark Avenue</td>
-                                    <td>Jersey City</td>
-                                    <td>201-966-7886</td>
-                                    <td>info@risingsun.com</td>
-                                    <td>
-                                        <button class="btn btn-sm" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>132292100WP5</td>
-                                    <td>Saeed Shaikh</td>
-                                    <td>Rising Sun Preschool</td>
-                                    <td>175 Newark Avenue</td>
-                                    <td>Jersey City</td>
-                                    <td>201-966-7886</td>
-                                    <td>info@risingsun.com</td>
-                                    <td>
-                                        <button class="btn btn-sm" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>132292100WP5</td>
-                                    <td>Saeed Shaikh</td>
-                                    <td>Rising Sun Preschool</td>
-                                    <td>175 Newark Avenue</td>
-                                    <td>Jersey City</td>
-                                    <td>201-966-7886</td>
-                                    <td>info@risingsun.com</td>
-                                    <td>
-                                        <button class="btn btn-sm" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>132292100WP5</td>
-                                    <td>Saeed Shaikh</td>
-                                    <td>Rising Sun Preschool</td>
-                                    <td>175 Newark Avenue</td>
-                                    <td>Jersey City</td>
-                                    <td>201-966-7886</td>
-                                    <td>info@risingsun.com</td>
-                                    <td>
-                                        <button class="btn btn-sm" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-center">
+                          {{ $listings->links('pagination::bootstrap-4') }} 
+                      </div>
                     </div>
                 </div>
             </div>

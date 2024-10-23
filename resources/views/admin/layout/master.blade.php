@@ -15,6 +15,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
  
   {!! Html::style('assets/css/main.css') !!}
   {!! Html::style('assets/css/custom.css') !!}
@@ -63,6 +64,7 @@
   <!-- script for date picker -->
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- end script -->
  <!-- Start custom js -->
  {!! Html::script('assets/js/custom.js') !!}

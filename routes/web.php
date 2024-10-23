@@ -26,6 +26,7 @@ Route::get('/', function () {
 });
 Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/dashboard', [AdminAuthController::class, 'dashboard']); 
+    //Route for agents start
     Route::get('/agent/list', [AgentController::class, 'index'])->name('list.agent');
     Route::get('create/agent',[AgentController::class,'create'])->name('create.agent');
     Route::post('save/agent',[AgentController::class,'store'])->name('register.agent');
@@ -33,13 +34,34 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::put('update/agent/{id}',[AgentController::class,'update'])->name('update.agent');
     Route::get('view/agent/{id}',[AgentController::class,'show'])->name('show.agent');
     Route::delete('/agents/{id}',[AgentController::class,'destroy'])->name('agents.destroy');
+    //End Route for agent
+
+    //Route for user reset password
     Route::get('reset/password',[ResetPasswordController::class,'index'])->name('reset.password');
     Route::post('reset/password/link',[ResetPasswordController::class,'resetpasswordlink'])->name('reset.password.link');
+    //End route for reset password
+
+     //Route for user profile
     Route::get('profile',[AdminProfileController::class,'showProfile'])->name('show.profile');
     Route::get('edit/profile/{id}',[AdminProfileController::class,'editProfile'])->name('edit.profile');
     Route::put('update/profile/{id}',[AdminProfileController::class,'updateProfile'])->name('update.profile');
+    //end route for user profile
+
+     //Route for user listing
     Route::get('/listing/all', [ListingController::class, 'index'])->name('all.listing');
-    Route::get('create/listing', [ListingController::class, 'create'])->name('create.listing');
+    Route::get('/listing/form', [ListingController::class, 'form'])->name('listing.form');
+    Route::get('create/listing/step1', [ListingController::class, 'createStep1'])->name('create.listing.step1');
+    Route::get('create/listing/step2', [ListingController::class, 'createStep2'])->name('create.listing.step2');
+    Route::get('create/listing/step3', [ListingController::class, 'createStep3'])->name('create.listing.step3');
+    Route::get('create/listing/step4', [ListingController::class, 'createStep4'])->name('create.listing.step4');
+    Route::get('create/listing/step5', [ListingController::class, 'createStep5'])->name('create.listing.step5');
+    Route::post('store/listing/step1', [ListingController::class, 'storeStep1'])->name('store.listing.step1');
+    Route::post('store/listing/step2', [ListingController::class, 'storeStep2'])->name('store.listing.step2');
+    Route::post('store/listing/step3', [ListingController::class, 'storeStep3'])->name('store.listing.step3');
+    Route::post('store/listing/step4', [ListingController::class, 'storeStep4'])->name('store.listing.step4');
+    Route::post('store/listing/step5', [ListingController::class, 'storeStep5'])->name('store.listing.step5');
+     //End route for listing
+
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {
     Route::get('/dashboard', [AgentAuthController::class, 'agentDashboard']); 

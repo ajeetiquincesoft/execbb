@@ -59,12 +59,12 @@
                                         <button class="btn btn-sm" title="Edit">
                                         <i class="fas fa-edit"></i>
                                         </button></a>
-                                          <form action="{{ route('agents.destroy', $agent->id) }}" method="post" class="agent_delete">
+                                          <form action="{{ route('agents.destroy', $agent->id) }}" method="post" class="agent_delete" id="delete-agent-{{ $agent->id }}">
                                           @csrf
                                           @method('DELETE')
-                                          <button class="btn btn-sm " title="Delete">
-                                              <i class="fas fa-trash"></i>
-                                          </button>
+                                          <button type="button" class="btn btn-sm" title="Delete" onclick="confirmDelete({{ $agent->id }})">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                           </form>
                                         <button class="btn btn-sm" title="Download">
                                             <i class="fas fa-download"></i>
