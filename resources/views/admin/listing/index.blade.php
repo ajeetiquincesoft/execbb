@@ -59,9 +59,9 @@
                                     <a href="{{ route('show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
                                             <i class="fas fa-eye"></i>
                                         </button></a>
-                                        <button class="btn btn-sm" title="Edit">
+                                        <a href="{{ route('edit.listing.form', $listing->ListingID) }}"> <button class="btn btn-sm" title="Edit">
                                             <i class="fas fa-edit"></i>
-                                        </button>
+                                        </button></a>
                                         <form id="delete-form-{{ $listing->ListingID }}" action="{{ route('listing.destroy', $listing->ListingID) }}" method="post">
                                           @csrf
                                           @method('DELETE')

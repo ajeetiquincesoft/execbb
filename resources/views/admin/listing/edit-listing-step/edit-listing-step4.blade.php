@@ -8,10 +8,8 @@
         </div>
         <div class="container-fluid content bg-light">
             <div class="row card p-4">
-                <form id="addnewliststep4" action="{{ route('store.listing.step4') }}" method="post">
+                <form id="addnewliststep4" action="{{ route('update.listing.step4',$listingData->ListingID) }}" method="post">
                 @csrf
-                <input type="hidden" name="id" value="{{ session('formData.listing_id') ? session('formData.listing_id') : '' }}">
-                   
                     <div class="tab" style="display: block;">
                         <h3>Financial</h3>
                         <hr>
@@ -20,28 +18,28 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="annualSales">Annual Sales</label>
-                                    <input type="number" class="form-control" id="annualSales" name="annualSales"  value="{{ session('formData.annualSales') ?? old('annualSales')}}">
+                                    <input type="number" class="form-control" id="annualSales" name="annualSales"  value="{{$listingData->AnnualSales}}">
                                     @error('annualSales')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="costOfSales">Cost of Sales</label>
-                                    <input type="number" class="form-control" id="costOfSales" name="costOfSales"  value="{{ session('formData.costOfSales') ?? old('costOfSales')}}">
+                                    <input type="number" class="form-control" id="costOfSales" name="costOfSales"  value="">
                                     @error('costOfSales')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="grossProfit">Gross Profit</label>
-                                    <input type="number" class="form-control" id="grossProfit" name="grossProfit"  value="{{ session('formData.grossProfit') ?? old('grossProfit')}}">
+                                    <input type="number" class="form-control" id="grossProfit" name="grossProfit"  value="">
                                     @error('grossProfit')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="totalExpenses">Total Expenses</label>
-                                    <input type="number" class="form-control" id="totalExpenses" name="totalExpenses"  value="{{ session('formData.totalExpenses') ?? old('totalExpenses')}}">
+                                    <input type="number" class="form-control" id="totalExpenses" name="totalExpenses"  value="">
                                     @error('totalExpenses')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -55,27 +53,27 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="food">Goods Name</label>
-                                    <input type="text" class="form-control" id="goods_name1" name="goods_name1"  value="{{ session('formData.goods_name1') ?? old('goods_name1')}}">
+                                    <input type="text" class="form-control" id="goods_name1" name="goods_name1"  value="{{$listingData->COG1Label}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="cost0_1">Cost 1</label>
-                                    <input type="number" class="form-control" id="cost0_1" name="cost0_1"  value="{{ session('formData.cost0_1') ?? old('cost0_1')}}">
+                                    <input type="number" class="form-control" id="cost0_1" name="cost0_1"  value="{{$listingData->COG1}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="beverage">Goods Name</label>
-                                    <input type="text" class="form-control" id="goods_name2" name="goods_name2"  value="{{ session('formData.goods_name2') ?? old('goods_name2')}}">
+                                    <input type="text" class="form-control" id="goods_name2" name="goods_name2"  value="{{$listingData->COG2Label}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="cost0_2">Cost 2</label>
-                                    <input type="number" class="form-control" id="cost0_2" name="cost0_2"  value="{{ session('formData.cost0_2') ?? old('cost0_2')}}">
+                                    <input type="number" class="form-control" id="cost0_2" name="cost0_2"  value="{{$listingData->COG2}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="beverage">Goods Name</label>
-                                    <input type="text" class="form-control" id="goods_name3" name="goods_name3"  value="{{ session('formData.goods_name3') ?? old('goods_name3')}}">
+                                    <input type="text" class="form-control" id="goods_name3" name="goods_name3"  value="{{$listingData->COG3Label}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="cost0_3">Cost 3</label>
-                                    <input type="number" class="form-control" id="cost0_3" name="cost0_3"  value="{{ session('formData.cost0_3') ?? old('cost0_3')}}">
+                                    <input type="number" class="form-control" id="cost0_3" name="cost0_3"  value="{{$listingData->COG3}}">
                                 </div>
                             </div>
                             
@@ -86,59 +84,59 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="baseAnnRent">Base Annual Rent</label>
-                                    <input type="number" class="form-control" id="baseAnnRent" name="baseAnnRent"  value="{{ session('formData.baseAnnRent') ?? old('baseAnnRent')}}">
+                                    <input type="number" class="form-control" id="baseAnnRent" name="baseAnnRent"  value="">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="commAreaMaint">Comm Area Maintenance</label>
-                                    <input type="number" class="form-control" id="commAreaMaint" name="commAreaMaint"  value="{{ session('formData.commAreaMaint') ?? old('commAreaMaint')}}">
+                                    <input type="number" class="form-control" id="commAreaMaint" name="commAreaMaint"  value="{{$listingData->CommonAreaMaint}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="realEstateTax">Real Estate Tax</label>
-                                    <input type="number" class="form-control" id="realEstateTax" name="realEstateTax"  value="{{ session('formData.realEstateTax') ?? old('realEstateTax')}}">
+                                    <input type="number" class="form-control" id="realEstateTax" name="realEstateTax"  value="{{$listingData->RealEstateTax}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="annPayroll">Annual Payroll</label>
-                                    <input type="number" class="form-control" id="annPayroll" name="annPayroll"  value="{{ session('formData.annPayroll') ?? old('annPayroll')}}">
+                                    <input type="number" class="form-control" id="annPayroll" name="annPayroll"  value="{{$listingData->AnnPayroll}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="payrollTax">Payroll Tax</label>
-                                    <input type="number" class="form-control" id="payrollTax" name="payrollTax"  value="{{ session('formData.payrollTax') ?? old('payrollTax')}}">
+                                    <input type="number" class="form-control" id="payrollTax" name="payrollTax"  value="{{$listingData->PayrollTax}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="licenseFees">License Fees</label>
-                                    <input type="number" class="form-control" id="licenseFees" name="licenseFees"  value="{{ session('formData.licenseFees') ?? old('licenseFees')}}">
+                                    <input type="number" class="form-control" id="licenseFees" name="licenseFees"  value="{{$listingData->LicFee}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="advertising">Advertising</label>
-                                    <input type="number" class="form-control" id="advertising" name="advertising"  value="{{ session('formData.advertising') ?? old('advertising')}}">
+                                    <input type="number" class="form-control" id="advertising" name="advertising"  value="{{$listingData->Advertising}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="telephone">Telephone</label>
-                                    <input type="tel" class="form-control" id="telephone" name="telephone"  value="{{ session('formData.telephone') ?? old('telephone')}}">
+                                    <input type="tel" class="form-control" id="telephone" name="telephone"  value="{{$listingData->Telephone}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="utilities">Utilities</label>
-                                    <input type="number" class="form-control" id="utilities" name="utilities"  value="{{ session('formData.utilities') ?? old('utilities')}}">
+                                    <input type="number" class="form-control" id="utilities" name="utilities"  value="{{$listingData->Utilities}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="insurance">Insurance</label>
-                                    <input type="number" class="form-control" id="insurance" name="insurance"  value="{{ session('formData.insurance') ?? old('insurance')}}">
+                                    <input type="number" class="form-control" id="insurance" name="insurance"  value="{{$listingData->Insurance}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="accountingLegal">Accounting/Legal</label>
-                                    <input type="number" class="form-control" id="accountingLegal" name="accountingLegal"  value="{{ session('formData.accountingLegal') ?? old('accountingLegal')}}">
+                                    <input type="number" class="form-control" id="accountingLegal" name="accountingLegal"  value="{{$listingData->AcctLeg}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="maintenance">Maintenance</label>
-                                    <input type="number" class="form-control" id="maintenance" name="maintenance"  value="{{ session('formData.maintenance') ?? old('maintenance')}}">
+                                    <input type="number" class="form-control" id="maintenance" name="maintenance"  value="{{$listingData->Maintenance}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="trash">Trash</label>
-                                    <input type="number" class="form-control" id="trash" name="trash"  value="{{ session('formData.trash') ?? old('trash')}}">
+                                    <input type="number" class="form-control" id="trash" name="trash"  value="{{$listingData->Trash}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="other">Other</label>
-                                    <input type="number" class="form-control" id="other" name="other"  value="{{ session('formData.other') ?? old('other')}}">
+                                    <input type="number" class="form-control" id="other" name="other"  value="{{$listingData->Other}}">
                                 </div>
                             </div>
                         </div>
@@ -146,7 +144,7 @@
                     
                     <div class="d-flex justify-content-center" style="overflow:auto;">
                         <div>
-                        <a href="{{route('create.listing.step3')}}"><button class="btn-primary" type="button" id="prevBtn">Previous</button></a>
+                        <a href="{{route('edit.listing.step3',$listingData->ListingID)}}"><button class="btn-primary" type="button" id="prevBtn">Previous</button></a>
                             <button class="btn-primary" type="submit" id="nextBtn">Next</button>
                         </div>
                     </div>

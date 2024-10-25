@@ -52,6 +52,7 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('view/listing/{id}',[ListingController::class,'show'])->name('show.listing');
     Route::delete('/listing/{id}',[ListingController::class,'destroy'])->name('listing.destroy');
     Route::get('/listing/form', [ListingController::class, 'form'])->name('listing.form');
+    Route::get('/listing/form/{id}', [ListingController::class, 'editListingForm'])->name('edit.listing.form');
     Route::get('create/listing/step1', [ListingController::class, 'createStep1'])->name('create.listing.step1');
     Route::get('create/listing/step2', [ListingController::class, 'createStep2'])->name('create.listing.step2');
     Route::get('create/listing/step3', [ListingController::class, 'createStep3'])->name('create.listing.step3');
@@ -62,6 +63,18 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::post('store/listing/step3', [ListingController::class, 'storeStep3'])->name('store.listing.step3');
     Route::post('store/listing/step4', [ListingController::class, 'storeStep4'])->name('store.listing.step4');
     Route::post('store/listing/step5', [ListingController::class, 'storeStep5'])->name('store.listing.step5');
+
+
+    Route::get('edit/listing/step1/{id}', [ListingController::class, 'editStep1'])->name('edit.listing.step1');
+    Route::get('edit/listing/step2/{id}', [ListingController::class, 'editStep2'])->name('edit.listing.step2');
+    Route::get('edit/listing/step3/{id}', [ListingController::class, 'editStep3'])->name('edit.listing.step3');
+    Route::get('edit/listing/step4/{id}', [ListingController::class, 'editStep4'])->name('edit.listing.step4');
+    Route::get('edit/listing/step5/{id}', [ListingController::class, 'editStep5'])->name('edit.listing.step5');
+   Route::post('update/listing/step1/{id}', [ListingController::class, 'updateStep1'])->name('update.listing.step1');
+    Route::post('update/listing/step2/{id}', [ListingController::class, 'updateStep2'])->name('update.listing.step2');
+   Route::post('update/listing/step3/{id}', [ListingController::class, 'updateStep3'])->name('update.listing.step3');
+   Route::post('update/listing/step4/{id}', [ListingController::class, 'updateStep4'])->name('update.listing.step4');
+   Route::post('update/listing/step5/{id}', [ListingController::class, 'updateStep5'])->name('update.listing.step5');
      //End route for listing
      //route for import/export
      Route::get('get/options/{id}', [ListingController::class, 'getOptions'])->name('get.options');

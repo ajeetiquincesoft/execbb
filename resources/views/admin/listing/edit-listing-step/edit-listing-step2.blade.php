@@ -6,214 +6,150 @@
                 <button>Next <i class="fa fa-chevron-right"></i></button>
             </div>
         </div>
-   <!--  @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif -->
         <div class="container-fluid content bg-light">
             <div class="row card p-4">
-                <form id="addnewliststep1" action="{{ route('store.listing.step1') }}" method="post" enctype="multipart/form-data">
-                @csrf
+                <form id="addnewliststep2" action="{{ route('update.listing.step2',$listingData->ListingID) }}" method="post">
+                    @csrf
                     <!-- One "tab" for each step in the form: -->
+                    
                     <div class="tab" style="display: block;">
-                        <h3>General:</h3>
+                        <h3>Business</h3>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
-                                <label for="busCategory" class="form-label">Bus. Category</label>
-                                <select id="busCategory" class="form-select" name="bus_category">
-                                    <option value="" selected="">Select category</option>
-                                    @foreach($categoryData as $key=>$data)
-                                    <option value="{{$data->CategoryID}}" {{ session('formData.bus_category') == $data->CategoryID ? 'selected' : '' }}>{{$data->BusinessCategory}}</option>
-                                    @endforeach
-                                </select>
-                                @error('bus_category')
+                                <label for="buildingSize">Building Size</label>
+                                <input type="text" class="form-control" id="buildingSize" name="buildingSize" value="{{$listingData->BldgSize}}">
+                                @error('buildingSize')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="busType" class="form-label">Bus. Type</label>
-                                <select id="busType" class="form-select" name="bus_type">
-                                    <option value="" selected>Select type</option>
-                                    @foreach($sub_categories as $key=>$bus_type)
-                                    <option value="{{$bus_type->SubCatID}}" {{ session('formData.bus_type') == $bus_type->SubCatID  ? 'selected' : '' }}>{{$bus_type->SubCategory}}</option>
-                                    @endforeach
-                                </select>
-                                @error('bus_type')
+                                <label for="basementSize">Basement Size</label>
+                                <input type="text" class="form-control" id="basementSize" name="basementSize" value="{{$listingData->BaseSize}}">
+                                @error('basementSize')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                          
                             <div class="col-md-4" style="height: 70px;">
-                                <label for="franchise" class="form-check-label">Franchise</label>
-                                <input type="checkbox" id="franchise" class="form-check-input" name="franchise" value="1" {{ session('formData.franchCheckbox') == 1 ? 'checked' : '' }} onchange="changeFranchiseValue()">
+                                <label class="form-check-label me-2">Basement?</label>
+                                <input type="checkbox" class="form-check-input" id="basement" name="basement" value="1" {{ $listingData->Basement == 1 ? 'checked' : '' }} onchange="changeBasementValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
-                                <label for="cropName" class="form-label">Crop Name</label>
-                                <input type="text" id="cropName" class="form-control" name="cropName" value="{{ session('formData.cropName') ?? old('cropName')}}">
-                                @error('cropName')
+                                <label for="parking">Parking</label>
+                                <input type="text" class="form-control" id="parking" name="parking" value="{{$listingData->Parking}}">
+                                @error('parking')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="dba" class="form-label">DBA</label>
-                                <input type="text" id="dba" class="form-control" name="dba" value="{{ session('formData.dba') ?? old('dba')}}">
-                                @error('dba')
+                                <label for="licenseRequired">License Required</label>
+                                <input type="text" class="form-control" id="licenseRequired" name="licenseRequired" value="{{$listingData->LicenseReq}}">
+                                @error('licenseRequired')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="productMix" class="form-label">Product Mix</label>
-                                <input type="text" id="productMix" class="form-control"  name="productMix" value="{{ session('formData.productMix') ?? old('productMix')}}">
+                                <label for="baseMonthlyRent">Base Monthly Rent</label>
+                                <input type="number" class="form-control" id="baseMonthlyRent" name="baseMonthlyRent" value="{{$listingData->BaseMonthRent}}">
+                                @error('baseMonthlyRent')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" id="address" class="form-control" name="address" value="{{ session('formData.address') ?? old('address')}}">
-                                @error('address')
+                                <label for="leaseTerms">Lease Terms</label>
+                                <input type="text" class="form-control" id="leaseTerms" name="leaseTerms" value="{{$listingData->LeaseTerms}}">
+                                @error('leaseTerms')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="cityStateZip" class="form-label">City</label>
+                                <label for="leaseOptions">Lease Options</label>
+                                <input type="text" class="form-control" id="leaseOptions" name="leaseOptions" value="{{$listingData->LeaseOpt}}">
+                                @error('leaseOptions')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="daysOpen">No. of Days Open</label>
+                                <input type="number" class="form-control" id="daysOpen" name="daysOpen" value="{{$listingData->NoDaysOpen}}">
+                                @error('daysOpen')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4 mb-3">
+                                <label for="hoursOperation">Hours of Operation</label>
+                                <input type="text" class="form-control" id="hoursOperation" name="hoursOperation" value="{{$listingData->HoursOfOp}}">
+                                @error('hoursOperation')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="numSeats">No. of Seats</label>
+                                <input type="number" class="form-control" id="numSeats" name="numSeats" value="{{$listingData->Seats}}">
+                                @error('numSeats')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="yearsEstablished">Years Established?</label>
+                                <input type="number" class="form-control" id="yearsEstablished" name="yearsEstablished" value="{{$listingData->YrsEstablished}}">
+                                @error('yearsEstablished')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4 mb-3">
+                                <label for="yearsPrevOwner">Years Previous Owner</label>
+                                <input type="number" class="form-control" id="yearsPrevOwner" name="yearsPrevOwner" value="{{$listingData->YrsPresentOwner}}">
+                                @error('yearsPrevOwner')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label>Interest</label>
                                 <div class="d-flex">
-                                    <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{ session('formData.city') ?? old('city')}}">
-                                    @error('city')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                    <!-- <input type="text" id="State" class="form-control" placeholder="State" name="state" value="{{ session('formData.state') ? session('formData.state') : '' }}"> -->
-                                    <select id="State" class="form-select" name="state">
-                                    <option value="" selected="">Select state</option>
-                                    @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{ session('formData.state') == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                    @endforeach
-                                    </select>
-                                    @error('state')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                    <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{ session('formData.zip_code') ?? old('zip_code')}}">
-                                    @error('zip_code')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="interestHot" name="interest" value="Hot"  {{ $listingData->Interest == 'Hot' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="interestHot">Hot</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="interestMedium" name="interest" value="Medium" {{  $listingData->Interest == 'Medium' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="interestMedium">Medium</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="interestCold" name="interest" value="Cold" {{  $listingData->Interest == 'Cold' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="interestCold">Cold</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="country" class="form-label">Country</label>
-                                <input type="text" id="country" class="form-control" name="country" value="{{ session('formData.country') ?? old('country')}}">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" id="phone" class="form-control" name="phone" value="{{ session('formData.phone') ?? old('phone')}}">
-                                @error('phone')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="fax" class="form-label">Fax</label>
-                                <input type="text" id="fax" class="form-control" name="fax" value="{{ session('formData.fax') ?? old('fax')}}">
-                            </div>
-                            <div class="col-md-4" style="height: 70px;">
-                                <label for="featuredListing" class="form-check-label">Featured Listing</label>
-                                <input type="checkbox" id="featuredListing" class="form-check-input" name="featuredListing" value="1" {{ session('formData.featureCheckbox') == 1 ? 'checked' : '' }} onchange="changeFeatureValue()">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col">
-                                <u><span id="fileLink">View Image</span> </u>
-                                <br><!-- Placeholder for the file name -->
-                                <label for="fileUpload" class="upload-button mt-1">
-                                    <input type="file" id="fileUpload" accept="image/*" style="display:none;" name="listing_img">
-                                    <span class="button-text"> <img src="{{url('assets/images/uploadicon.svg')}}" alt="">Upload</span>
-                                </label>
-                                <div id="imagePreview"></div>
-                            </div>
-                            @if(session('formData.listing_img'))
-                            <div class="col">
-                                <div id="imageUploads">
-                                <img class="view_upload_image" src="{{ asset('assets/uploads/images/' . session('formData.listing_img')) }}" alt="Uploaded Image">
-                                </div>
-                            </div>
-                            @endif
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 mb-3">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" id="firstName" class="form-control" name="first_name" value="{{ session('formData.first_name') ?? old('first_name')}}">
-                                @error('first_name')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" id="lastName" class="form-control" name="last_name" value="{{ session('formData.last_name') ?? old('last_name')}}">
-                                @error('last_name')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="homeAddress" class="form-label">Home Address</label>
-                                <input type="text" id="homeAddress" class="form-control" name="home_address" value="{{ session('formData.home_address') ?? old('home_address')}}">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 mb-3">
-                                <label for="cityStateZip2" class="form-label">City</label>
+                                <label>Employees</label>
                                 <div class="d-flex">
-                                    <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{ session('formData.user_city') ?? old('user_city')}}">
-                                    <!-- <input type="text" id="State2" class="form-control" placeholder="State"  name="user_state" value="{{ session('formData.user_state') ? session('formData.user_state') : '' }}"> -->
-                                    <select id="State2" class="form-select" name="user_state">
-                                    <option selected="">Select state</option>
-                                    @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{ session('formData.user_state') == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                    @endforeach
-                                    </select>
-                                    <input type="text" id="Zip2" class="form-control" placeholder="Zip"  name="user_zip_code" value="{{ session('formData.user_zip_code') ?? old('user_zip_code')}}">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="interestPartTime" name="interestType" value="Part Time" {{  $listingData->PTEmp == 'Part Time' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="interestPartTime">Part Time</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="interestFullTime" name="interestType" value="Full Time" {{  $listingData->PTEmp == 'Full Time' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="interestFullTime">Full Time</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" id="email" class="form-control"  name="user_email" value="{{ session('formData.user_email') ?? old('user_email')}}">
-                                @error('user_email')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="homePhone" class="form-label">Home Phone</label>
-                                <input type="text" id="homePhone" class="form-control"  name="user_home_phone"  value="{{ session('formData.user_home_phone') ?? old('user_home_phone')}}">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 mb-3">
-                                <label for="homeFax" class="form-label">Home Fax</label>
-                                <input type="text" id="homeFax" class="form-control"  name="user_home_fax" value="{{ session('formData.user_home_fax') ?? old('user_home_fax')}}">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="pager" class="form-label">Pager</label>
-                                <input type="text" id="pager" class="form-control" name="user_pager" value="{{ session('formData.user_pager') ?? old('user_pager')}}">
-                            </div>
-                            <div class="col-md-4" style="height: 70px;">
-                                <label for="review" class="form-check-label">Review</label>
-                                <input type="checkbox" id="review" class="form-check-input"  name="review" value="1" {{ session('formData.reviewCheckbox') == 1 ? 'checked' : '' }} onchange="changeReviewValue()">
                             </div>
                         </div>
                     </div>
-                   
+                  
                     <div class="d-flex justify-content-center" style="overflow:auto;">
                         <div>
-                         <button class="btn-primary" type="submit" id="nextBtn">Next</button>
+                            <a href="{{route('edit.listing.step1',$listingData->ListingID)}}"><button class="btn-primary" type="button" id="prevBtn">Previous</button></a>
+                            <button class="btn-primary" type="submit" id="nextBtn">Next</button>
                         </div>
-                        
-                        
                     </div>
                     <div id="errorMessage" class="alert alert-danger mt-3 d-none"></div>
                 </form>
@@ -222,6 +158,7 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+
         <style>
         .accordion-button.collapsed {
             background: white;
@@ -379,32 +316,6 @@
             letter-spacing: 0.50px;
         }
         </style>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#busCategory').change(function() {
-            var id = $(this).val();
-            if (id) {
-                $.ajax({
-                    url: "{{ route('get.options', ['id' => '__ID__']) }}".replace('__ID__', id),
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#busType').empty(); // Clear existing options
-                        $('#busType').append('<option value="">Select an option</option>'); // Add default option
-                        $.each(data, function(key, value) {
-                            $('#busType').append('<option value="' + value.SubCatID + '">' + value.SubCategory + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#second-dropdown').empty().append('<option value="">Select an option</option>'); // Reset second dropdown
-            }
-        });
-    });
-
-   
-</script>
 <!--  <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab

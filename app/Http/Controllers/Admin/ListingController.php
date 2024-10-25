@@ -186,9 +186,9 @@ class ListingController extends Controller
                     'DBA' =>$request->dba,
                     'Product' => $request->productMix,
                     'Address1' => $request->address,
-                    'City' => $request->user_city,
-                    'State' => $request->user_state,
-                    'Zip' =>$request->user_zip_code,
+                    'City' => $request->city,
+                    'State' => $request->state,
+                    'Zip' =>$request->zip_code,
                     'County' => $request->country,
                     'SHomePh' => $request->phone,
                     'SHomeFax' => $request->fax,
@@ -196,10 +196,10 @@ class ListingController extends Controller
                     'SellerFName' => $request->first_name,
                     'SellerLName'=>  $request->last_name,
                     'SHomeAdd1'=>  $request->home_address,
-                    'SCity'=>  $request->city,
-                    'SState'=>  $request->state,
-                    'SZip'=>  $request->zip_code,
-                    'Email'=>  $request->email,
+                    'SCity'=>  $request->user_city,
+                    'SState'=>  $request->user_state,
+                    'SZip'=>  $request->user_zip_code,
+                    'Email'=>  $request->user_email,
                     'SHomePh'=>  $request->user_home_phone,
                     'SHomeFax'=>  $request->user_home_fax,
                     'Pager'=>  $request->user_pager,
@@ -229,9 +229,9 @@ class ListingController extends Controller
                 $listing->DBA = $request->dba;
                 $listing->Product = $request->productMix;
                 $listing->Address1 = $request->address;
-                $listing->City = $request->user_city;
-                $listing->State = $request->user_state;
-                $listing->Zip = $request->user_zip_code;
+                $listing->City = $request->city;
+                $listing->State = $request->state;
+                $listing->Zip = $request->zip_code;
                 $listing->County = $request->country;
                 $listing->SHomePh = $request->phone;
                 $listing->SHomeFax = $request->fax;
@@ -239,9 +239,9 @@ class ListingController extends Controller
                 $listing->SellerFName = $request->first_name;
                 $listing->SellerLName = $request->last_name;
                 $listing->SHomeAdd1 = $request->home_address;
-                $listing->SCity = $request->city;
-                $listing->SState = $request->state;
-                $listing->SZip = $request->zip_code;
+                $listing->SCity = $request->user_city;
+                $listing->SState = $request->user_state;
+                $listing->SZip = $request->user_zip_code;
                 $listing->Email = $request->user_email;
                 $listing->SHomePh = $request->user_home_phone;
                 $listing->SHomeFax = $request->user_home_fax;
@@ -276,10 +276,20 @@ class ListingController extends Controller
        
     }
     public function storeStep2(Request $request){
-        try {
+    
              $request->validate([
                 'buildingSize' => 'required',
                 'basementSize' => 'required',
+                'parking' => 'required',
+                'licenseRequired' => 'required',
+                'baseMonthlyRent' => 'required',
+                'leaseTerms' => 'required',
+                'leaseOptions' => 'required',
+                'daysOpen' => 'required',
+                'hoursOperation' => 'required',
+                'numSeats' => 'required',
+                'yearsEstablished' => 'required',
+                'yearsPrevOwner' => 'required',
             ]);
              $basement = $request->has('basement') ? 1 : 0;
              $yearsEstablished = $request->has('yearsEstablished') ? 1 : 0;
@@ -310,16 +320,19 @@ class ListingController extends Controller
             $request->session()->put('formData.step',  2);
             return redirect()->route('create.listing.step3')->with('success', 'Listing updated successfully!');
             }
-        } catch (Throwable $e) {
-            // If there's an error, return a JSON response with a 500 status
-            return response()->json(['error' => 'Failed to update listing.'], 500);
-        }
+       
     }
     public function storeStep3(Request $request){
-        try {
             $request->validate([
                 'managementAgentName' => 'required',
                 'managementAgentPhone' => 'required',
+                'referringAgentName' => 'required',
+                'referringAgentPhone' => 'required',
+                'listingDate' => 'required',
+                'expDate' => 'required',
+                'coBroker' => 'required',
+                'reasonForSale' => 'required',
+                'agents' => 'required',
             ]);
              $untilSolid = $request->has('untilSolid') ? 1 : 0;
              $realEstate = $request->has('realEstate') ? 1 : 0;
@@ -360,16 +373,15 @@ class ListingController extends Controller
             $request->session()->put('formData.step',  3);
             return redirect()->route('create.listing.step4')->with('success', 'Listing updated successfully!');
             }
-        } catch (Throwable $e) {
-            // If there's an error, return a JSON response with a 500 status
-            return response()->json(['error' => 'Failed to update listing.'], 500);
-        }
+       
     }
     public function storeStep4(Request $request){
-        try {
             $request->validate([
-                'goods_name1' => 'required',
-                'goods_name2' => 'required',
+                'annualSales' => 'required',
+                'costOfSales' => 'required',
+                'grossProfit' => 'required',
+                'totalExpenses' => 'required',
+                
             ]);
              $listing = Listing::where('ListingID',$request->id)->update([
                 'AnnualSales' => $request->annualSales,
@@ -405,16 +417,12 @@ class ListingController extends Controller
             $request->session()->put('formData.step',  4);
             return redirect()->route('create.listing.step5')->with('success', 'Listing updated successfully!');
             }
-        } catch (Throwable $e) {
-            // If there's an error, return a JSON response with a 500 status
-            return response()->json(['error' => 'Failed to update listing.'], 500);
-        }
     }
     public function storeStep5(Request $request){
-        try {
             $request->validate([
                 'highlights' => 'required',
                 'comments' => 'required',
+                'leadId' => 'required',
             ]);
              $listing = Listing::where('ListingID',$request->id)->update([
                 'Highlights' => $request->highlights,
@@ -428,9 +436,271 @@ class ListingController extends Controller
             $request->session()->forget('formData');
             return redirect()->route('all.listing')->with('success', 'Listing updated successfully!');
             }
-        } catch (Throwable $e) {
-            // If there's an error, return a JSON response with a 500 status
-            return response()->json(['error' => 'Failed to update listing.'], 500);
+            else{
+                return redirect()->back()->with('error_message', 'Listing updated successfully!');
+            }
+       
+    }
+    public function editListingForm(Request $request, $id){
+        $request->session()->forget('formData');
+        $listing = Listing::where('ListingID',$id)->first();
+        $listing_id = $listing->ListingID;
+        $listing_step = $listing->Steps;
+        if($listing_step == 1){
+            return redirect()->route('edit.listing.step2',['id' => $listing_id]);
         }
+        if($listing_step == 2){
+            return redirect()->route('edit.listing.step3',['id' => $listing_id]);
+        }
+        if($listing_step == 3){
+            return redirect()->route('edit.listing.step4',['id' => $listing_id]);
+        }
+        if($listing_step == 4){
+            return redirect()->route('edit.listing.step5',['id' => $listing_id]);
+        }
+        if($listing_step == 5){
+            return redirect()->route('edit.listing.step1',['id' => $listing_id]);
+        }
+    }
+    public function editStep1($id){
+        $listingData = Listing::where('ListingID',$id)->first();
+        $categoryData = DB::table('categories')->get();
+        $states = DB::table('states')->get();
+        $sub_categories = DB::table('sub_categories')->get();
+        return view('admin.listing.edit-listing-step.edit-listing-step1',compact('categoryData','states','sub_categories','listingData'));
+    }
+    public function editStep2($id){
+        $listingData = Listing::where('ListingID',$id)->first();
+        //dd($listingData);
+        return view('admin.listing.edit-listing-step.edit-listing-step2',compact('listingData'));
+    }
+    public function editStep3($id){
+        $listingData = Listing::where('ListingID',$id)->first();
+        $agents = User::with('agent_info')->where('role_name','agent')->get();
+        $selectedAgents = json_decode($listingData->AgentID, true);;
+        //dd($agents);
+        return view('admin.listing.edit-listing-step.edit-listing-step3', compact('agents','listingData','selectedAgents'));
+    }
+    public function editStep4($id){
+        $listingData = Listing::where('ListingID',$id)->first();
+        return view('admin.listing.edit-listing-step.edit-listing-step4',compact('listingData'));
+    }
+    public function editStep5($id){
+        $listingData = Listing::where('ListingID',$id)->first();
+        return view('admin.listing.edit-listing-step.edit-listing-step5',compact('listingData'));
+    }
+    public function updateStep1(Request $request, $id){
+        $request->validate([
+           'bus_category' => 'required',
+           'bus_type' => 'required',
+           'cropName' => 'required',
+           'dba' => 'required',
+           'address' => 'required',
+           'city' => 'required',
+           'state' => 'required',
+           'zip_code' => 'required',
+           'phone' => 'required',
+           'first_name' => 'required',
+           'last_name' => 'required',
+           'user_email' => 'required|email',
+       ]);
+        $filename = '';
+        $categoryData = DB::table('categories')->where('CategoryID',$request->bus_category)->first();
+        $category_name = $categoryData->BusinessCategory;
+        $reviewcheckboxValue = $request->has('review') ? 1 : 0;
+        $franchisecheckboxValue = $request->has('franchise') ? 1 : 0;
+        $featuredListingcheckboxValue = $request->has('featuredListing') ? 1 : 0;
+           if( $request->hasFile('listing_img')) {
+               $image = $request->file('listing_img');
+               $path = public_path(). '/assets/uploads/images/';
+               $filename = time() . '.' . $image->getClientOriginalExtension();
+               $image->move($path, $filename);
+           
+               $imagepath = $filename;
+           }
+           else{
+               $imageVal = Listing::where('ListingID',$id)->first();
+               $imagepath = $imageVal->imagepath;
+           }
+           $listing = Listing::where('ListingID',$id)->update([
+               'BusCategory' => $request->bus_category,
+               'BusType' => $category_name,
+               'Franchise' => $franchisecheckboxValue,
+               'SellerCorpName' => $request->cropName,
+               'DBA' =>$request->dba,
+               'Product' => $request->productMix,
+               'Address1' => $request->address,
+               'City' => $request->city,
+               'State' => $request->state,
+               'Zip' =>$request->zip_code,
+               'County' => $request->country,
+               'SHomePh' => $request->phone,
+               'SHomeFax' => $request->fax,
+               'featured' => $featuredListingcheckboxValue,
+               'SellerFName' => $request->first_name,
+               'SellerLName'=>  $request->last_name,
+               'SHomeAdd1'=>  $request->home_address,
+               'SCity'=>  $request->user_city,
+               'SState'=>  $request->user_state,
+               'SZip'=>  $request->user_zip_code,
+               'Email'=>  $request->user_email,
+               'SHomePh'=>  $request->user_home_phone,
+               'SHomeFax'=>  $request->user_home_fax,
+               'Pager'=>  $request->user_pager,
+               'Review'=> $reviewcheckboxValue,
+               'imagepath'=> $imagepath,
+               'SubCat'=>$request->bus_type
+           ]);
+           return redirect()->route('edit.listing.step2',['id' => $id])->with('success', 'Listing updated successfully!');  
+    }
+    public function updateStep2(Request $request,$id){
+    
+        $request->validate([
+           'buildingSize' => 'required',
+           'basementSize' => 'required',
+           'parking' => 'required',
+           'licenseRequired' => 'required',
+           'baseMonthlyRent' => 'required',
+           'leaseTerms' => 'required',
+           'leaseOptions' => 'required',
+           'daysOpen' => 'required',
+           'hoursOperation' => 'required',
+           'numSeats' => 'required',
+           'yearsEstablished' => 'required',
+           'yearsPrevOwner' => 'required',
+       ]);
+        $basement = $request->has('basement') ? 1 : 0;
+        $yearsEstablished = $request->has('yearsEstablished') ? 1 : 0;
+        $listing = Listing::where('ListingID',$id)->update([
+           'BldgSize' => $request->buildingSize,
+           'BaseSize' => $request->basementSize,
+           'Basement' => $basement,
+           'Parking' => $request->parking,
+           'LicenseReq' =>$request->licenseRequired,
+           'BaseMonthRent' => $request->baseMonthlyRent,
+           'LeaseTerms' => $request->leaseTerms,
+           'LeaseOpt' => $request->leaseOptions,
+           'NoDaysOpen' => $request->daysOpen,
+           'HoursOfOp' =>$request->hoursOperation,
+           'Seats' => $request->numSeats,
+           'YrsEstablished' => $yearsEstablished,
+           'YrsPresentOwner' => $request->yearsPrevOwner,
+           'Interest' => $request->interest,
+           'PTEmp' => $request->interestType,
+           'Steps'=> 2
+       ]);
+       if($listing){
+       return redirect()->route('edit.listing.step3',['id' => $id])->with('success', 'Listing updated successfully!');
+       }
+  
+    }
+    public function updateStep3(Request $request,$id){
+       // dd($request->agents);
+        $request->validate([
+            'managementAgentName' => 'required',
+            'managementAgentPhone' => 'required',
+            'referringAgentName' => 'required',
+            'referringAgentPhone' => 'required',
+            'listingDate' => 'required',
+            'expDate' => 'required',
+            'coBroker' => 'required',
+            'reasonForSale' => 'required',
+            'agents' => 'required',
+        ]);
+         $untilSolid = $request->has('untilSolid') ? 1 : 0;
+         $realEstate = $request->has('realEstate') ? 1 : 0;
+         $optionToBuy = $request->has('optionToBuy') ? 1 : 0;
+         $soldByEBB = $request->has('soldByEBB') ? 1 : 0;
+         $listing = Listing::where('ListingID',$id)->update([
+            'MgtAgentName' => $request->managementAgentName,
+            'MgtAgentPh' => $request->managementAgentPhone,
+            'RefAgentID' => $request->referringAgentName,
+            'RefAgentPh' => $request->referringAgentPhone,
+            'ListDate' =>$request->listingDate,
+            'ExpDate' => $request->expDate,
+            'ListType' => $request->listingType,
+            'CoBrokID' => $request->coBroker,
+            'SaleReas' => $request->reasonForSale,
+            'ListPrice' =>$request->listPrice,
+            'PurPrice' => $request->purPrice,
+            'DownPay' => $request->downPay,
+            'Balance' => $request->balance,
+            'Interest' => $request->interest,
+            'AddTerm' => $request->addTerms,
+            'InvInPrice' => $request->invInPrice,
+            'InvNot' => $request->invNotInPrice,
+            'UntilSold' => $untilSolid,
+            'AgentID' => $request->agents,
+            'Commission' => $request->commission,
+            'FlatFee' => $request->flatFee,
+            'REAskingPrice' => $request->reAskingPrice,
+            'RealEstate' => $realEstate,
+            'ToBuy' => $optionToBuy,
+            'SoldEBB' => $soldByEBB,
+            'Steps'=> 3
+        ]);
+        if($listing){
+            //dd('sdd');
+        return redirect()->route('edit.listing.step4',['id' => $id])->with('success', 'Listing updated successfully!');
+        }
+   
+    }
+    public function updateStep4(Request $request,$id){
+        $request->validate([
+            'annualSales' => 'required',
+            'costOfSales' => 'required',
+            'grossProfit' => 'required',
+            'totalExpenses' => 'required',
+            
+        ]);
+         $listing = Listing::where('ListingID',$id)->update([
+            'AnnualSales' => $request->annualSales,
+           /*  '' => $request->costOfSales,
+            '' => $request->grossProfit,
+            '' => $request->totalExpenses, */
+            'COG1Label' =>$request->goods_name1,
+            'COG2Label' => $request->goods_name2,
+            'COG3Label' => $request->goods_name3,
+            'COG1' => $request->cost0_1,
+            'COG2' => $request->cost0_2,
+            'COG3' => $request->cost0_3,
+            /* '' => $request->baseAnnRent, */
+            'CommonAreaMaint' => $request->commAreaMaint,
+            'RealEstateTax' => $request->realEstateTax,
+            'AnnPayroll' => $request->annPayroll,
+            'PayrollTax' => $request->payrollTax,
+            'LicFee' => $request->licenseFees,
+            'Advertising' => $request->advertising,
+            'Telephone' => $request->telephone,
+            'Utilities' => $request->utilities,
+            'Insurance' => $request->insurance,
+            'AcctLeg' => $request->accountingLegal,
+            'Maintenance' => $request->maintenance,
+            'Trash' => $request->trash,
+            'Other' => $request->other,
+            'Steps'=> 4
+        ]);
+        if($listing){
+        return redirect()->route('edit.listing.step5',['id' => $id])->with('success', 'Listing updated successfully!');
+        }
+    }
+    public function updateStep5(Request $request,$id){
+        $request->validate([
+            'highlights' => 'required',
+            'comments' => 'required',
+            'leadId' => 'required',
+        ]);
+         $listing = Listing::where('ListingID',$id)->update([
+            'Highlights' => $request->highlights,
+            'Comments' => $request->directions,
+            'Directions' => $request->comments,
+            'LeadID' => $request->leadId,
+            'Steps'=> 5,
+            'Status'=> 'published'
+        ]);
+        if($listing){
+        return redirect()->route('all.listing')->with('success', 'Listing updated successfully!');
+        }
+   
     }
 }

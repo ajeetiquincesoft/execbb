@@ -19,11 +19,17 @@
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="buildingSize">Building Size</label>
-                                <input type="text" class="form-control" id="buildingSize" name="buildingSize" value="{{ session('formData.buildingSize') ? session('formData.buildingSize') : '' }}">
+                                <input type="text" class="form-control" id="buildingSize" name="buildingSize" value=" {{ old('buildingSize') }} {{ session('formData.buildingSize') ?? old('buildingSize') }}">
+                                @error('buildingSize')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="basementSize">Basement Size</label>
-                                <input type="text" class="form-control" id="basementSize" name="basementSize" value="{{ session('formData.basementSize') ? session('formData.basementSize') : '' }}">
+                                <input type="text" class="form-control" id="basementSize" name="basementSize" value="{{ session('formData.basementSize') ?? old('basementSize')}}">
+                                @error('basementSize')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label class="form-check-label me-2">Basement?</label>
@@ -33,49 +39,79 @@
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="parking">Parking</label>
-                                <input type="text" class="form-control" id="parking" name="parking" value="{{ session('formData.parking') ? session('formData.parking') : '' }}">
+                                <input type="text" class="form-control" id="parking" name="parking" value="{{ session('formData.parking') ?? old('parking')}}">
+                                @error('parking')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="licenseRequired">License Required</label>
-                                <input type="text" class="form-control" id="licenseRequired" name="licenseRequired" value="{{ session('formData.licenseRequired') ? session('formData.licenseRequired') : '' }}">
+                                <input type="text" class="form-control" id="licenseRequired" name="licenseRequired" value="{{ session('formData.licenseRequired') ?? old('licenseRequired')}}">
+                                @error('licenseRequired')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="baseMonthlyRent">Base Monthly Rent</label>
-                                <input type="number" class="form-control" id="baseMonthlyRent" name="baseMonthlyRent" value="{{ session('formData.baseMonthlyRent') ? session('formData.baseMonthlyRent') : '' }}">
+                                <input type="number" class="form-control" id="baseMonthlyRent" name="baseMonthlyRent" value="{{ session('formData.baseMonthlyRent') ?? old('baseMonthlyRent')}}">
+                                @error('baseMonthlyRent')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="leaseTerms">Lease Terms</label>
-                                <input type="text" class="form-control" id="leaseTerms" name="leaseTerms" value="{{ session('formData.leaseTerms') ? session('formData.leaseTerms') : '' }}">
+                                <input type="text" class="form-control" id="leaseTerms" name="leaseTerms" value="{{ session('formData.leaseTerms') ?? old('leaseTerms')}}">
+                                @error('leaseTerms')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="leaseOptions">Lease Options</label>
-                                <input type="text" class="form-control" id="leaseOptions" name="leaseOptions" value="{{ session('formData.leaseOptions') ? session('formData.leaseOptions') : '' }}">
+                                <input type="text" class="form-control" id="leaseOptions" name="leaseOptions" value="{{ session('formData.leaseOptions') ?? old('leaseOptions')}}">
+                                @error('leaseOptions')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="daysOpen">No. of Days Open</label>
-                                <input type="number" class="form-control" id="daysOpen" name="daysOpen" value="{{ session('formData.daysOpen') ? session('formData.daysOpen') : '' }}">
+                                <input type="number" class="form-control" id="daysOpen" name="daysOpen" value="{{ session('formData.daysOpen') ?? old('daysOpen')}}">
+                                @error('daysOpen')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="hoursOperation">Hours of Operation</label>
-                                <input type="text" class="form-control" id="hoursOperation" name="hoursOperation" value="{{ session('formData.hoursOperation') ? session('formData.hoursOperation') : '' }}">
+                                <input type="text" class="form-control" id="hoursOperation" name="hoursOperation" value="{{ session('formData.hoursOperation') ?? old('hoursOperation')}}">
+                                @error('hoursOperation')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="numSeats">No. of Seats</label>
-                                <input type="number" class="form-control" id="numSeats" name="numSeats" value="{{ session('formData.numSeats') ? session('formData.numSeats') : '' }}">
+                                <input type="number" class="form-control" id="numSeats" name="numSeats" value="{{ session('formData.numSeats') ?? old('numSeats')}}">
+                                @error('numSeats')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="yearsEstablished">Years Established?</label>
-                                <input type="number" class="form-control" id="yearsEstablished" name="yearsEstablished" value="{{ session('formData.yearsEstablished') ? session('formData.yearsEstablished') : '' }}">
+                                <input type="number" class="form-control" id="yearsEstablished" name="yearsEstablished" value="{{ session('formData.yearsEstablished') ?? old('yearsEstablished')}}">
+                                @error('yearsEstablished')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="yearsPrevOwner">Years Previous Owner</label>
-                                <input type="number" class="form-control" id="yearsPrevOwner" name="yearsPrevOwner" value="{{ session('formData.yearsPrevOwner') ? session('formData.yearsPrevOwner') : '' }}">
+                                <input type="number" class="form-control" id="yearsPrevOwner" name="yearsPrevOwner" value="{{ session('formData.yearsPrevOwner') ?? old('yearsPrevOwner')}}">
+                                @error('yearsPrevOwner')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label>Interest</label>

@@ -17,7 +17,7 @@
     @endif -->
         <div class="container-fluid content bg-light">
             <div class="row card p-4">
-                <form id="addnewliststep1" action="{{ route('store.listing.step1') }}" method="post" enctype="multipart/form-data">
+                <form id="addnewliststep1" action="{{ route('update.listing.step1',$listingData->ListingID) }}" method="post" enctype="multipart/form-data">
                 @csrf
                     <!-- One "tab" for each step in the form: -->
                     <div class="tab" style="display: block;">
@@ -29,7 +29,7 @@
                                 <select id="busCategory" class="form-select" name="bus_category">
                                     <option value="" selected="">Select category</option>
                                     @foreach($categoryData as $key=>$data)
-                                    <option value="{{$data->CategoryID}}" {{ session('formData.bus_category') == $data->CategoryID ? 'selected' : '' }}>{{$data->BusinessCategory}}</option>
+                                    <option value="{{$data->CategoryID}}" {{ $listingData->BusCategory == $data->CategoryID ? 'selected' : '' }}>{{$data->BusinessCategory}}</option>
                                     @endforeach
                                 </select>
                                 @error('bus_category')
@@ -41,7 +41,7 @@
                                 <select id="busType" class="form-select" name="bus_type">
                                     <option value="" selected>Select type</option>
                                     @foreach($sub_categories as $key=>$bus_type)
-                                    <option value="{{$bus_type->SubCatID}}" {{ session('formData.bus_type') == $bus_type->SubCatID  ? 'selected' : '' }}>{{$bus_type->SubCategory}}</option>
+                                    <option value="{{$bus_type->SubCatID}}" {{ $listingData->SubCat == $bus_type->SubCatID  ? 'selected' : '' }}>{{$bus_type->SubCategory}}</option>
                                     @endforeach
                                 </select>
                                 @error('bus_type')
@@ -51,33 +51,33 @@
                           
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="franchise" class="form-check-label">Franchise</label>
-                                <input type="checkbox" id="franchise" class="form-check-input" name="franchise" value="1" {{ session('formData.franchCheckbox') == 1 ? 'checked' : '' }} onchange="changeFranchiseValue()">
+                                <input type="checkbox" id="franchise" class="form-check-input" name="franchise" value="1" {{ $listingData->Franchise == 1 ? 'checked' : '' }} onchange="changeFranchiseValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="cropName" class="form-label">Crop Name</label>
-                                <input type="text" id="cropName" class="form-control" name="cropName" value="{{ session('formData.cropName') ?? old('cropName')}}">
+                                <input type="text" id="cropName" class="form-control" name="cropName" value="{{$listingData->SellerCorpName}}">
                                 @error('cropName')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="dba" class="form-label">DBA</label>
-                                <input type="text" id="dba" class="form-control" name="dba" value="{{ session('formData.dba') ?? old('dba')}}">
+                                <input type="text" id="dba" class="form-control" name="dba" value="{{$listingData->DBA}}">
                                 @error('dba')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="productMix" class="form-label">Product Mix</label>
-                                <input type="text" id="productMix" class="form-control"  name="productMix" value="{{ session('formData.productMix') ?? old('productMix')}}">
+                                <input type="text" id="productMix" class="form-control"  name="productMix" value="{{$listingData->Product}}">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="address" class="form-label">Address</label>
-                                <input type="text" id="address" class="form-control" name="address" value="{{ session('formData.address') ?? old('address')}}">
+                                <input type="text" id="address" class="form-control" name="address" value="{{$listingData->Address1}}">
                                 @error('address')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -85,7 +85,7 @@
                             <div class="col-md-4 mb-3">
                                 <label for="cityStateZip" class="form-label">City</label>
                                 <div class="d-flex">
-                                    <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{ session('formData.city') ?? old('city')}}">
+                                    <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{$listingData->City}}">
                                     @error('city')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -93,13 +93,13 @@
                                     <select id="State" class="form-select" name="state">
                                     <option value="" selected="">Select state</option>
                                     @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{ session('formData.state') == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                    <option value="{{$value->State}}" {{$listingData->State == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
                                     @endforeach
                                     </select>
                                     @error('state')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                    <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{ session('formData.zip_code') ?? old('zip_code')}}">
+                                    <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{$listingData->Zip}}">
                                     @error('zip_code')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -107,24 +107,24 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="country" class="form-label">Country</label>
-                                <input type="text" id="country" class="form-control" name="country" value="{{ session('formData.country') ?? old('country')}}">
+                                <input type="text" id="country" class="form-control" name="country" value="{{$listingData->County}}">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" id="phone" class="form-control" name="phone" value="{{ session('formData.phone') ?? old('phone')}}">
+                                <input type="tel" id="phone" class="form-control" name="phone" value="{{$listingData->SHomePh}}">
                                 @error('phone')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="fax" class="form-label">Fax</label>
-                                <input type="text" id="fax" class="form-control" name="fax" value="{{ session('formData.fax') ?? old('fax')}}">
+                                <input type="text" id="fax" class="form-control" name="fax" value="{{$listingData->SHomeFax}}">
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="featuredListing" class="form-check-label">Featured Listing</label>
-                                <input type="checkbox" id="featuredListing" class="form-check-input" name="featuredListing" value="1" {{ session('formData.featureCheckbox') == 1 ? 'checked' : '' }} onchange="changeFeatureValue()">
+                                <input type="checkbox" id="featuredListing" class="form-check-input" name="featuredListing" value="1" {{ $listingData->featured == 1 ? 'checked' : '' }} onchange="changeFeatureValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -137,10 +137,10 @@
                                 </label>
                                 <div id="imagePreview"></div>
                             </div>
-                            @if(session('formData.listing_img'))
+                            @if(!empty($listingData->imagepath))
                             <div class="col">
                                 <div id="imageUploads">
-                                <img class="view_upload_image" src="{{ asset('assets/uploads/images/' . session('formData.listing_img')) }}" alt="Uploaded Image">
+                                <img class="view_upload_image" src="{{ asset('assets/uploads/images/' . $listingData->imagepath) }}" alt="Uploaded Image">
                                 </div>
                             </div>
                             @endif
@@ -148,62 +148,62 @@
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" id="firstName" class="form-control" name="first_name" value="{{ session('formData.first_name') ?? old('first_name')}}">
+                                <input type="text" id="firstName" class="form-control" name="first_name" value="{{$listingData->SellerFName}}">
                                 @error('first_name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" id="lastName" class="form-control" name="last_name" value="{{ session('formData.last_name') ?? old('last_name')}}">
+                                <input type="text" id="lastName" class="form-control" name="last_name" value="{{$listingData->SellerLName}}">
                                 @error('last_name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="homeAddress" class="form-label">Home Address</label>
-                                <input type="text" id="homeAddress" class="form-control" name="home_address" value="{{ session('formData.home_address') ?? old('home_address')}}">
+                                <input type="text" id="homeAddress" class="form-control" name="home_address" value="{{$listingData->SHomeAdd1}}">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="cityStateZip2" class="form-label">City</label>
                                 <div class="d-flex">
-                                    <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{ session('formData.user_city') ?? old('user_city')}}">
+                                    <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{$listingData->SCity}}">
                                     <!-- <input type="text" id="State2" class="form-control" placeholder="State"  name="user_state" value="{{ session('formData.user_state') ? session('formData.user_state') : '' }}"> -->
                                     <select id="State2" class="form-select" name="user_state">
                                     <option selected="">Select state</option>
                                     @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{ session('formData.user_state') == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                    <option value="{{$value->State}}" {{ $listingData->SState == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
                                     @endforeach
                                     </select>
-                                    <input type="text" id="Zip2" class="form-control" placeholder="Zip"  name="user_zip_code" value="{{ session('formData.user_zip_code') ?? old('user_zip_code')}}">
+                                    <input type="text" id="Zip2" class="form-control" placeholder="Zip"  name="user_zip_code" value="{{$listingData->SZip}}">
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" id="email" class="form-control"  name="user_email" value="{{ session('formData.user_email') ?? old('user_email')}}">
+                                <input type="email" id="email" class="form-control"  name="user_email" value="{{$listingData->Email}}">
                                 @error('user_email')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="homePhone" class="form-label">Home Phone</label>
-                                <input type="text" id="homePhone" class="form-control"  name="user_home_phone"  value="{{ session('formData.user_home_phone') ?? old('user_home_phone')}}">
+                                <input type="text" id="homePhone" class="form-control"  name="user_home_phone"  value="{{$listingData->SHomePh}}">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="homeFax" class="form-label">Home Fax</label>
-                                <input type="text" id="homeFax" class="form-control"  name="user_home_fax" value="{{ session('formData.user_home_fax') ?? old('user_home_fax')}}">
+                                <input type="text" id="homeFax" class="form-control"  name="user_home_fax" value="{{$listingData->SHomeFax}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="pager" class="form-label">Pager</label>
-                                <input type="text" id="pager" class="form-control" name="user_pager" value="{{ session('formData.user_pager') ?? old('user_pager')}}">
+                                <input type="text" id="pager" class="form-control" name="user_pager" value="{{$listingData->Pager}}">
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="review" class="form-check-label">Review</label>
-                                <input type="checkbox" id="review" class="form-check-input"  name="review" value="1" {{ session('formData.reviewCheckbox') == 1 ? 'checked' : '' }} onchange="changeReviewValue()">
+                                <input type="checkbox" id="review" class="form-check-input"  name="review" value="1" {{ $listingData->Review == 1 ? 'checked' : '' }} onchange="changeReviewValue()">
                             </div>
                         </div>
                     </div>

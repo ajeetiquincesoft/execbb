@@ -6,21 +6,9 @@
                 <button>Next <i class="fa fa-chevron-right"></i></button>
             </div>
 </div>
-@if(Session::has('success'))
-        <div class="alert alert-success alert-block" id="alert-success">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
-            <strong>{{ Session::get('success') }}</strong>
-        </div>
-        @endif
-        @if(Session::has('error_message'))
-        <div class="alert alert-danger alert-block" id="alert-success">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
-            <strong>{{ Session::get('error_message') }}</strong>
-        </div>
-        @endif
         <div class="container-fluid content bg-light">
             <div class="row card p-4">
-                <form id="addnewliststep5" action="{{ route('store.listing.step5') }}" method="post">
+                <form id="addnewliststep5" action="{{ route('update.listing.step5',$listingData->ListingID) }}" method="post">
                 @csrf
                 <input type="hidden" name="id" value="{{ session('formData.listing_id') ? session('formData.listing_id') : '' }}">
                     <!-- One "tab" for each step in the form: -->
@@ -83,8 +71,8 @@
                     </div>
                     <div class="d-flex justify-content-center" style="overflow:auto;">
                         <div>
-                        <a href="{{route('create.listing.step4')}}"><button class="btn-primary" type="button" id="prevBtn">Previous</button></a>
-                            <button class="btn-primary" type="submit" id="nextBtn">Submit</button>
+                        <a href="{{route('create.listing.step4',$listingData->ListingID)}}"><button class="btn-primary" type="button" id="prevBtn">Previous</button></a>
+                            <button class="btn-primary" type="submit" id="nextBtn">Update</button>
                         </div>
                     </div>
                 </form>
