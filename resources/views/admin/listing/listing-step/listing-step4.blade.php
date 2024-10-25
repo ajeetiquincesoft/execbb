@@ -8,7 +8,7 @@
         </div>
         <div class="container-fluid content bg-light">
             <div class="row card p-4">
-                <form id="addnewliststep4" action="">
+                <form id="addnewliststep4" action="{{ route('store.listing.step4') }}" method="post">
                 @csrf
                 <input type="hidden" name="id" value="{{ session('formData.listing_id') ? session('formData.listing_id') : '' }}">
                    
@@ -144,48 +144,6 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $('#addnewliststep4').on('submit', function(e) {
-        e.preventDefault(); // Prevent normal form submission
-        /* let formData = $(this).serialize(); */ // Get form data
-        var formData = new FormData(this);
-
-        $.ajax({
-            url: "{{ route('store.listing.step4') }}", // Adjust the route as needed
-            type: 'POST',
-            data: formData,
-            processData: false, // Prevent jQuery from converting the data
-            contentType: false, // Let jQuery set the content type
-            success: function(response) {
-                if (response.success) {
-                    alert(response.success);
-                    if (response.redirect) {
-                        window.location.href = response.redirect; // Redirect to the new URL
-                    }
-                   /*  $('#userForm')[0].reset(); */ // Reset form if successful
-                }
-            },
-            error: function(xhr) {
-                let errorMessage = xhr.responseJSON.error;
-                //alert(errorMessage);
-                if (xhr.status === 422) {
-                    const errors = xhr.responseJSON.errors;
-                    let errorHtml = '<ul>';
-                    for (const key in errors) {
-                        errors[key].forEach(function(error) {
-                            errorHtml += '<li>' + error + '</li>';
-                        });
-                    }
-                    errorHtml += '</ul>';
-                    $('#errorMessage').html(errorHtml).css('color', 'red');
-                }
-                // Display the error message
-                $('#errorMessage').text(errorMessage).removeClass('d-none');
-            }
-        });
-    });
-</script>
         <style>
         .accordion-button.collapsed {
             background: white;

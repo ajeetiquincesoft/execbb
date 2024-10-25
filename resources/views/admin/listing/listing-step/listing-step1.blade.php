@@ -6,9 +6,18 @@
                 <button>Next <i class="fa fa-chevron-right"></i></button>
             </div>
         </div>
+   <!--  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif -->
         <div class="container-fluid content bg-light">
             <div class="row card p-4">
-                <form id="addnewliststep1" action="" enctype="multipart/form-data">
+                <form id="addnewliststep1" action="{{ route('store.listing.step1') }}" method="post" enctype="multipart/form-data">
                 @csrf
                     <!-- One "tab" for each step in the form: -->
                     <div class="tab" style="display: block;">
@@ -18,20 +27,26 @@
                             <div class="col-md-4 mb-3">
                                 <label for="busCategory" class="form-label">Bus. Category</label>
                                 <select id="busCategory" class="form-select" name="bus_category">
-                                    <option selected="">Select category</option>
-                                    @foreach($bus_category as $key=>$value)
-                                    <option value="{{$value->CategoryID}}" {{ session('formData.bus_category') == $value->CategoryID ? 'selected' : '' }}>{{$value->CategoryID}}</option>
+                                    <option value="" selected="">Select category</option>
+                                    @foreach($categoryData as $key=>$data)
+                                    <option value="{{$data->CategoryID}}" {{ session('formData.bus_category') == $data->CategoryID ? 'selected' : '' }}>{{$data->BusinessCategory}}</option>
                                     @endforeach
                                 </select>
+                                @error('bus_category')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="busType" class="form-label">Bus. Type</label>
                                 <select id="busType" class="form-select" name="bus_type">
                                     <option value="" selected>Select type</option>
-                                    @foreach($bus_category as $key=>$bus_type)
-                                    <option value="{{$bus_type->BusinessCategory}}" {{ session('formData.bus_category') == $bus_type->CategoryID ? 'selected' : '' }}>{{$bus_type->BusinessCategory}}</option>
+                                    @foreach($sub_categories as $key=>$bus_type)
+                                    <option value="{{$bus_type->SubCatID}}" {{ session('formData.bus_type') == $bus_type->SubCatID  ? 'selected' : '' }}>{{$bus_type->SubCategory}}</option>
                                     @endforeach
                                 </select>
+                                @error('bus_type')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                           
                             <div class="col-md-4" style="height: 70px;">
@@ -43,10 +58,16 @@
                             <div class="col-md-4 mb-3">
                                 <label for="cropName" class="form-label">Crop Name</label>
                                 <input type="text" id="cropName" class="form-control" name="cropName" value="{{ session('formData.cropName') ? session('formData.cropName') : '' }}">
+                                @error('cropName')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="dba" class="form-label">DBA</label>
                                 <input type="text" id="dba" class="form-control" name="dba" value="{{ session('formData.dba') ? session('formData.dba') : '' }}">
+                                @error('dba')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="productMix" class="form-label">Product Mix</label>
@@ -57,13 +78,31 @@
                             <div class="col-md-4 mb-3">
                                 <label for="address" class="form-label">Address</label>
                                 <input type="text" id="address" class="form-control" name="address" value="{{ session('formData.address') ? session('formData.address') : '' }}">
+                                @error('address')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="cityStateZip" class="form-label">City</label>
                                 <div class="d-flex">
                                     <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{ session('formData.city') ? session('formData.city') : '' }}">
-                                    <input type="text" id="State" class="form-control" placeholder="State" name="state" value="{{ session('formData.state') ? session('formData.state') : '' }}">
+                                    @error('city')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                    <!-- <input type="text" id="State" class="form-control" placeholder="State" name="state" value="{{ session('formData.state') ? session('formData.state') : '' }}"> -->
+                                    <select id="State" class="form-select" name="state">
+                                    <option value="" selected="">Select state</option>
+                                    @foreach($states as $key=>$value)
+                                    <option value="{{$value->State}}" {{ session('formData.state') == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                    @endforeach
+                                    </select>
+                                    @error('state')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                     <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{ session('formData.zip_code') ? session('formData.zip_code') : '' }}">
+                                    @error('zip_code')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
@@ -75,6 +114,9 @@
                             <div class="col-md-4">
                                 <label for="phone" class="form-label">Phone</label>
                                 <input type="tel" id="phone" class="form-control" name="phone" value="{{ session('formData.phone') ? session('formData.phone') : '' }}">
+                                @error('phone')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="fax" class="form-label">Fax</label>
@@ -95,15 +137,26 @@
                                 </label>
                                 <div id="imagePreview"></div>
                             </div>
+                            <div class="col">
+                                <div id="imageUploads">
+                                <img class="view_upload_image" src="{{ asset('assets/uploads/images/' . session('formData.listing_img')) }}" alt="Uploaded Image">
+                                </div>
+                            </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="firstName" class="form-label">First Name</label>
                                 <input type="text" id="firstName" class="form-control" name="first_name" value="{{ session('formData.first_name') ? session('formData.first_name') : '' }}">
+                                @error('first_name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="lastName" class="form-label">Last Name</label>
                                 <input type="text" id="lastName" class="form-control" name="last_name" value="{{ session('formData.last_name') ? session('formData.last_name') : '' }}">
+                                @error('last_name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="homeAddress" class="form-label">Home Address</label>
@@ -115,13 +168,22 @@
                                 <label for="cityStateZip2" class="form-label">City</label>
                                 <div class="d-flex">
                                     <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{ session('formData.user_city') ? session('formData.user_city') : '' }}">
-                                    <input type="text" id="State2" class="form-control" placeholder="State"  name="user_state" value="{{ session('formData.user_state') ? session('formData.user_state') : '' }}">
+                                    <!-- <input type="text" id="State2" class="form-control" placeholder="State"  name="user_state" value="{{ session('formData.user_state') ? session('formData.user_state') : '' }}"> -->
+                                    <select id="State2" class="form-select" name="user_state">
+                                    <option selected="">Select state</option>
+                                    @foreach($states as $key=>$value)
+                                    <option value="{{$value->State}}" {{ session('formData.user_state') == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                    @endforeach
+                                    </select>
                                     <input type="text" id="Zip2" class="form-control" placeholder="Zip"  name="user_zip_code" value="{{ session('formData.user_zip_code') ? session('formData.user_zip_code') : '' }}">
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" id="email" class="form-control"  name="user_email" value="{{ session('formData.user_email') ? session('formData.user_email') : '' }}">
+                                @error('user_email')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="homePhone" class="form-label">Home Phone</label>
@@ -317,45 +379,29 @@
         </style>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $('#addnewliststep1').on('submit', function(e) {
-        e.preventDefault(); // Prevent normal form submission
-        /* let formData = $(this).serialize(); */ // Get form data
-        var formData = new FormData(this);
-
-        $.ajax({
-            url: "{{ route('store.listing.step1') }}", // Adjust the route as needed
-            type: 'POST',
-            data: formData,
-            processData: false, // Prevent jQuery from converting the data
-            contentType: false, // Let jQuery set the content type
-            success: function(response) {
-                if (response.success) {
-                    alert(response.success);
-                    if (response.redirect) {
-                        window.location.href = response.redirect; // Redirect to the new URL
-                    }
-                   /*  $('#userForm')[0].reset(); */ // Reset form if successful
-                }
-            },
-            error: function(xhr) {
-                let errorMessage = xhr.responseJSON.error;
-                //alert(errorMessage);
-                if (xhr.status === 422) {
-                    const errors = xhr.responseJSON.errors;
-                    let errorHtml = '<ul>';
-                    for (const key in errors) {
-                        errors[key].forEach(function(error) {
-                            errorHtml += '<li>' + error + '</li>';
+    $(document).ready(function() {
+        $('#busCategory').change(function() {
+            var id = $(this).val();
+            if (id) {
+                $.ajax({
+                    url: "{{ route('get.options', ['id' => '__ID__']) }}".replace('__ID__', id),
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#busType').empty(); // Clear existing options
+                        $('#busType').append('<option value="">Select an option</option>'); // Add default option
+                        $.each(data, function(key, value) {
+                            $('#busType').append('<option value="' + value.SubCatID + '">' + value.SubCategory + '</option>');
                         });
                     }
-                    errorHtml += '</ul>';
-                    $('#errorMessage').html(errorHtml).css('color', 'red');
-                }
-                // Display the error message
-                $('#errorMessage').text(errorMessage).removeClass('d-none');
+                });
+            } else {
+                $('#second-dropdown').empty().append('<option value="">Select an option</option>'); // Reset second dropdown
             }
         });
     });
+
+   
 </script>
 <!--  <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)

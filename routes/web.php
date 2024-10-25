@@ -63,6 +63,11 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::post('store/listing/step4', [ListingController::class, 'storeStep4'])->name('store.listing.step4');
     Route::post('store/listing/step5', [ListingController::class, 'storeStep5'])->name('store.listing.step5');
      //End route for listing
+     //route for import/export
+     Route::get('get/options/{id}', [ListingController::class, 'getOptions'])->name('get.options');
+     Route::get('data/import', [ListingController::class, 'getImportFile'])->name('data.import.view');
+     Route::post('data/import', [ListingController::class, 'importCsv'])->name('data.import');
+     //end route for import/export
 
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {
