@@ -158,7 +158,59 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#addnewliststep2').validate({
+                    rules: {
+                        buildingSize: {
+                            required: true
+                        },
+                        basementSize: {
+                            required: true
+                        },
+                        parking: {
+                            required: true
+                        },
+                        licenseRequired: {
+                            required: true
+                        },
+                        baseMonthlyRent: {
+                            required: true
+                        },
+                        leaseTerms: {
+                            required: true
+                        },
+                        leaseOptions: {
+                            required: true
+                        },
+                        daysOpen: {
+                            required: true
+                        },
+                        hoursOperation: {
+                            required: true
+                        },
+                        numSeats: {
+                            required: true
+                        },
+                        yearsEstablished: {
+                            required: true
+                        },
+                        yearsPrevOwner: {
+                            required: true
+                        }
+                       
+                    },
+                    messages: {
+                
+                    },
+                    submitHandler: function (form) { 
+                        form.submit();
+                    }
+                });
+});
 
+            </script>
         <style>
         .accordion-button.collapsed {
             background: white;

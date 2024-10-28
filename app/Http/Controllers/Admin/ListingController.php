@@ -62,6 +62,8 @@ class ListingController extends Controller
             $request->session()->forget('business');
             $request->session()->forget('pricing');
             $request->session()->forget('financial');
+            $request->session()->forget('complete_step');
+            
             return redirect()->route('create.listing.step1');
        /*  if (session()->has('formData.listing_id')){
             $session_id = session()->get('formData.listing_id');
@@ -129,19 +131,47 @@ class ListingController extends Controller
         return view('admin.listing.listing-step.listing-step1',compact('categoryData','states','sub_categories'));
     }
     public function createStep2(){
-        $formData = session('formData');
-        return view('admin.listing.listing-step.listing-step2');
+        $step = 2;
+        $completedSteps = session()->get('complete_step', []);
+      // dd($completedSteps);
+            // Check if the previous step is completed
+            if (!in_array($step - 1, $completedSteps) && $step > 1) {
+                return redirect()->route('create.listing.step'.$step-1);
+            }
+            return view('admin.listing.listing-step.listing-step2');
+       
     }
     public function createStep3(){
         $agents = User::with('agent_info')->where('role_name','agent')->get();
-        //dd($agents);
-        return view('admin.listing.listing-step.listing-step3', compact('agents'));
+        $step = 3;
+        $completedSteps = session()->get('complete_step', []);
+            // Check if the previous step is completed
+            if (!in_array($step - 1, $completedSteps) && $step > 1) {
+                return redirect()->route('create.listing.step'.$step-1);
+            }
+            return view('admin.listing.listing-step.listing-step3', compact('agents'));
+       
     }
     public function createStep4(){
+        $step = 4;
+        $completedSteps = session()->get('complete_step', []);
+
+        // Check if the previous step is completed
+        if (!in_array($step - 1, $completedSteps) && $step > 1) {
+            return redirect()->route('create.listing.step'.$step-1);
+        }
         return view('admin.listing.listing-step.listing-step4');
     }
     public function createStep5(){
+        $step = 5;
+        $completedSteps = session()->get('complete_step', []);
+
+        // Check if the previous step is completed
+        if (!in_array($step - 1, $completedSteps) && $step > 1) {
+            return redirect()->route('create.listing.step'.$step-1);
+        }
         return view('admin.listing.listing-step.listing-step5');
+        
     }
     public function storeStep1(Request $request){
              $request->validate([
@@ -157,7 +187,9 @@ class ListingController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'user_email' => 'required|email',
+                'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
+            $completeStep = session('complete_step', []);
              $filename = '';
              $categoryData = DB::table('categories')->where('CategoryID',$request->bus_category)->first();
              $category_name = $categoryData->BusinessCategory;
@@ -268,6 +300,8 @@ class ListingController extends Controller
                 $request->session()->put('formData.franchCheckbox',  $franchisecheckboxValue);
                 $request->session()->put('formData.featureCheckbox',  $featuredListingcheckboxValue);
                 $request->session()->put('formData.step',  1);
+                $completeStep[] = 1;
+                session(['complete_step' => $completeStep]);
                 Log::info('Session Data:', $request->session()->all());
                 return redirect()->route('create.listing.step2')->with('success', 'Listing created successfully!');
 
@@ -318,6 +352,13 @@ class ListingController extends Controller
             $request->session()->put('formData.YrsEstablished',  $yearsEstablished);
             $request->session()->put('formData.Basement',  $basement);
             $request->session()->put('formData.step',  2);
+            $stepData = $request->session()->get('complete_step', []);
+            if (!in_array(2, $stepData)) {
+                $completeStep[] = 2;
+                $mergedStepData = array_merge($stepData, $completeStep);
+                $request->session()->put('complete_step', $mergedStepData);
+            }
+            
             return redirect()->route('create.listing.step3')->with('success', 'Listing updated successfully!');
             }
        
@@ -371,6 +412,12 @@ class ListingController extends Controller
             $mergedData = array_merge($formData, $request->all());
             $request->session()->put('formData', $mergedData);
             $request->session()->put('formData.step',  3);
+            $stepData = $request->session()->get('complete_step', []);
+            if (!in_array(3, $stepData)) {
+                $completeStep[] = 3;
+                $mergedStepData = array_merge($stepData, $completeStep);
+                $request->session()->put('complete_step', $mergedStepData);
+            }
             return redirect()->route('create.listing.step4')->with('success', 'Listing updated successfully!');
             }
        
@@ -415,6 +462,12 @@ class ListingController extends Controller
             $mergedData = array_merge($formData, $request->all());
             $request->session()->put('formData', $mergedData);
             $request->session()->put('formData.step',  4);
+            $stepData = $request->session()->get('complete_step', []);
+            if (!in_array(4, $stepData)) {
+                $completeStep[] = 4;
+                $mergedStepData = array_merge($stepData, $completeStep);
+                $request->session()->put('complete_step', $mergedStepData);
+            }
             return redirect()->route('create.listing.step5')->with('success', 'Listing updated successfully!');
             }
     }
@@ -434,6 +487,7 @@ class ListingController extends Controller
             ]);
             if($listing){
             $request->session()->forget('formData');
+            $request->session()->forget('complete_step');
             return redirect()->route('all.listing')->with('success', 'Listing updated successfully!');
             }
             else{
@@ -443,9 +497,15 @@ class ListingController extends Controller
     }
     public function editListingForm(Request $request, $id){
         $request->session()->forget('formData');
+        $request->session()->forget('edit_complete_step');
         $listing = Listing::where('ListingID',$id)->first();
         $listing_id = $listing->ListingID;
         $listing_step = $listing->Steps;
+        $editCompleteStep = session('edit_complete_step', []);
+        for($i=1; $i<=$listing_step; $i++){
+            $editCompleteStep[] = $i;
+        }
+        session(['edit_complete_step' => $editCompleteStep]);
         if($listing_step == 1){
             return redirect()->route('edit.listing.step2',['id' => $listing_id]);
         }
@@ -464,6 +524,10 @@ class ListingController extends Controller
     }
     public function editStep1($id){
         $listingData = Listing::where('ListingID',$id)->first();
+         // Check if listing not exists
+         if (!$listingData) {
+            return redirect()->route('all.listing')->with('error', 'User not found.');
+        }
         $categoryData = DB::table('categories')->get();
         $states = DB::table('states')->get();
         $sub_categories = DB::table('sub_categories')->get();
@@ -471,22 +535,75 @@ class ListingController extends Controller
     }
     public function editStep2($id){
         $listingData = Listing::where('ListingID',$id)->first();
+          // Check if listing not exists
+         if (!$listingData) {
+            return redirect()->route('all.listing')->with('error', 'User not found.');
+        }
         //dd($listingData);
-        return view('admin.listing.edit-listing-step.edit-listing-step2',compact('listingData'));
+       
+
+        $step = 2;
+        $editCompletedSteps = session()->get('edit_complete_step', []);
+           // dd($editCompletedSteps);
+            // Check if the previous step is completed
+            if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
+                return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
+            }
+            return view('admin.listing.edit-listing-step.edit-listing-step2',compact('listingData'));
     }
     public function editStep3($id){
         $listingData = Listing::where('ListingID',$id)->first();
+          // Check if listing not exists
+         if (!$listingData) {
+            return redirect()->route('all.listing')->with('error', 'User not found.');
+        }
         $agents = User::with('agent_info')->where('role_name','agent')->get();
-        $selectedAgents = json_decode($listingData->AgentID, true);;
-        //dd($agents);
+        $agentSelect = json_decode($listingData->AgentID, true);
+        if(!$agentSelect){
+            $selectedAgents = array();
+           
+        }else{
+            $selectedAgents = $agentSelect;
+        }
+       // dd($selectedAgents);
+       $step = 3;
+       $editCompletedSteps = session()->get('edit_complete_step', []);
+          //dd($editCompletedSteps);
+           // Check if the previous step is completed
+           if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
+               return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
+           }
         return view('admin.listing.edit-listing-step.edit-listing-step3', compact('agents','listingData','selectedAgents'));
     }
     public function editStep4($id){
         $listingData = Listing::where('ListingID',$id)->first();
-        return view('admin.listing.edit-listing-step.edit-listing-step4',compact('listingData'));
+          // Check if listing not exists
+         if (!$listingData) {
+            return redirect()->route('all.listing')->with('error', 'User not found.');
+        }
+        $step = 4;
+        $editCompletedSteps = session()->get('edit_complete_step', []);
+           // dd($editCompletedSteps);
+            // Check if the previous step is completed
+            if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
+                return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
+            }
+            return view('admin.listing.edit-listing-step.edit-listing-step4',compact('listingData'));
+       
     }
     public function editStep5($id){
         $listingData = Listing::where('ListingID',$id)->first();
+         // Check if listing not exists
+         if (!$listingData) {
+            return redirect()->route('all.listing')->with('error', 'User not found.');
+        }
+        $step = 5;
+        $editCompletedSteps = session()->get('edit_complete_step', []);
+        // dd($editCompletedSteps);
+         // Check if the previous step is completed
+         if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
+             return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
+         }
         return view('admin.listing.edit-listing-step.edit-listing-step5',compact('listingData'));
     }
     public function updateStep1(Request $request, $id){
@@ -503,6 +620,7 @@ class ListingController extends Controller
            'first_name' => 'required',
            'last_name' => 'required',
            'user_email' => 'required|email',
+           'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
        ]);
         $filename = '';
         $categoryData = DB::table('categories')->where('CategoryID',$request->bus_category)->first();
@@ -571,6 +689,14 @@ class ListingController extends Controller
        ]);
         $basement = $request->has('basement') ? 1 : 0;
         $yearsEstablished = $request->has('yearsEstablished') ? 1 : 0;
+        $currentStep = 2;
+        $listingStep =  Listing::where('ListingID',$id)->first();
+        if($listingStep->Steps  >  $currentStep){
+            $updateStep = $listingStep->Steps;
+        }
+        else{
+            $updateStep = $currentStep;
+        }
         $listing = Listing::where('ListingID',$id)->update([
            'BldgSize' => $request->buildingSize,
            'BaseSize' => $request->basementSize,
@@ -587,9 +713,14 @@ class ListingController extends Controller
            'YrsPresentOwner' => $request->yearsPrevOwner,
            'Interest' => $request->interest,
            'PTEmp' => $request->interestType,
-           'Steps'=> 2
+           'Steps'=>  $updateStep
        ]);
        if($listing){
+        for($i=1; $i<=$updateStep; $i++){
+            $editCompleteStep[] = $i;
+        }
+            $request->session()->put('edit_complete_step', $editCompleteStep);
+        
        return redirect()->route('edit.listing.step3',['id' => $id])->with('success', 'Listing updated successfully!');
        }
   
@@ -611,6 +742,14 @@ class ListingController extends Controller
          $realEstate = $request->has('realEstate') ? 1 : 0;
          $optionToBuy = $request->has('optionToBuy') ? 1 : 0;
          $soldByEBB = $request->has('soldByEBB') ? 1 : 0;
+         $currentStep = 3;
+         $listingStep =  Listing::where('ListingID',$id)->first();
+         if($listingStep->Steps  >  $currentStep){
+             $updateStep = $listingStep->Steps;
+         }
+         else{
+             $updateStep = $currentStep;
+         }
          $listing = Listing::where('ListingID',$id)->update([
             'MgtAgentName' => $request->managementAgentName,
             'MgtAgentPh' => $request->managementAgentPhone,
@@ -637,10 +776,14 @@ class ListingController extends Controller
             'RealEstate' => $realEstate,
             'ToBuy' => $optionToBuy,
             'SoldEBB' => $soldByEBB,
-            'Steps'=> 3
+            'Steps'=> $updateStep
         ]);
         if($listing){
             //dd('sdd');
+            for($i=1; $i<=$updateStep; $i++){
+                $editCompleteStep[] = $i;
+            }
+            $request->session()->put('edit_complete_step', $editCompleteStep);
         return redirect()->route('edit.listing.step4',['id' => $id])->with('success', 'Listing updated successfully!');
         }
    
@@ -653,6 +796,14 @@ class ListingController extends Controller
             'totalExpenses' => 'required',
             
         ]);
+        $currentStep = 4;
+         $listingStep =  Listing::where('ListingID',$id)->first();
+         if($listingStep->Steps  >  $currentStep){
+             $updateStep = $listingStep->Steps;
+         }
+         else{
+             $updateStep = $currentStep;
+         }
          $listing = Listing::where('ListingID',$id)->update([
             'AnnualSales' => $request->annualSales,
            /*  '' => $request->costOfSales,
@@ -678,9 +829,13 @@ class ListingController extends Controller
             'Maintenance' => $request->maintenance,
             'Trash' => $request->trash,
             'Other' => $request->other,
-            'Steps'=> 4
+            'Steps'=> $updateStep
         ]);
         if($listing){
+            for($i=1; $i<=$updateStep; $i++){
+                $editCompleteStep[] = $i;
+            }
+            $request->session()->put('edit_complete_step', $editCompleteStep);
         return redirect()->route('edit.listing.step5',['id' => $id])->with('success', 'Listing updated successfully!');
         }
     }

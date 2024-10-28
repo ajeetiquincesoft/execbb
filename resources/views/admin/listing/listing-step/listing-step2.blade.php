@@ -19,7 +19,7 @@
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="buildingSize">Building Size</label>
-                                <input type="text" class="form-control" id="buildingSize" name="buildingSize" value=" {{ old('buildingSize') }} {{ session('formData.buildingSize') ?? old('buildingSize') }}">
+                                <input type="text" class="form-control" id="buildingSize" name="buildingSize" value="{{ session('formData.buildingSize') ?? old('buildingSize') }}">
                                 @error('buildingSize')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label class="form-check-label me-2">Basement?</label>
-                                <input type="checkbox" class="form-check-input" id="basement" name="basement" value="1" {{ session('formData.basement') == 1 ? 'checked' : '' }} onchange="changeBasementValue()">
+                                <input type="checkbox" class="form-check-input" id="basement" name="basement" value="1" {{ (old('basement') || session('formData.basement') == 1) ? 'checked' : '' }} onchange="changeBasementValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -117,15 +117,15 @@
                                 <label>Interest</label>
                                 <div class="d-flex">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestHot" name="interest" value="Hot"  {{ session('formData.interest') == 'Hot' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestHot" name="interest" value="Hot"  {{ (old('interest') == 'Hot' || session('formData.interest') == 'Hot') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestHot">Hot</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestMedium" name="interest" value="Medium" {{ session('formData.interest') == 'Medium' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestMedium" name="interest" value="Medium" {{ (old('interest') == 'Medium' || session('formData.interest') == 'Medium') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestMedium">Medium</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestCold" name="interest" value="Cold" {{ session('formData.interest') == 'Cold' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestCold" name="interest" value="Cold" {{ (old('interest') == 'Cold' || session('formData.interest') == 'Cold') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestCold">Cold</label>
                                     </div>
                                 </div>
@@ -134,11 +134,11 @@
                                 <label>Employees</label>
                                 <div class="d-flex">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestPartTime" name="interestType" value="Part Time">
-                                        <label class="form-check-label" for="interestPartTime" {{ session('formData.interestType') == 'Part Time' ? 'checked' : '' }}>Part Time</label>
+                                        <input type="radio" class="form-check-input" id="interestPartTime" name="interestType" value="Part Time" >
+                                        <label class="form-check-label" for="interestPartTime">Part Time</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestFullTime" name="interestType" value="Full Time" {{ session('formData.interestType') == 'Full Time' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestFullTime" name="interestType" value="Full Time" {{ (old('interestType') == 'Full Time' || session('formData.interestType') == 'Full Time') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestFullTime">Full Time</label>
                                     </div>
                                 </div>
@@ -164,7 +164,59 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#addnewliststep2').validate({
+                    rules: {
+                        buildingSize: {
+                            required: true
+                        },
+                        basementSize: {
+                            required: true
+                        },
+                        parking: {
+                            required: true
+                        },
+                        licenseRequired: {
+                            required: true
+                        },
+                        baseMonthlyRent: {
+                            required: true
+                        },
+                        leaseTerms: {
+                            required: true
+                        },
+                        leaseOptions: {
+                            required: true
+                        },
+                        daysOpen: {
+                            required: true
+                        },
+                        hoursOperation: {
+                            required: true
+                        },
+                        numSeats: {
+                            required: true
+                        },
+                        yearsEstablished: {
+                            required: true
+                        },
+                        yearsPrevOwner: {
+                            required: true
+                        }
+                       
+                    },
+                    messages: {
+                
+                    },
+                    submitHandler: function (form) { 
+                        form.submit();
+                    }
+                });
+});
 
+            </script>
         <style>
         .accordion-button.collapsed {
             background: white;

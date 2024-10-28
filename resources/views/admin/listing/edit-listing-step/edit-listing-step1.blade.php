@@ -222,6 +222,84 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#addnewliststep1').validate({
+                    rules: {
+                        user_email: {
+                            required: true,
+                            email: true
+                        },
+                        bus_category: {
+                            required: true
+                        },
+                        bus_type: {
+                            required: true
+                        },
+                        cropName: {
+                            required: true
+                        },
+                        dba: {
+                            required: true
+                        },
+                        address: {
+                            required: true
+                        },
+                        city: {
+                            required: true
+                        },
+                        state: {
+                            required: true
+                        },
+                        zip_code: {
+                            required: true,
+                            minlength: 5, // Minimum length for US ZIP code
+                            maxlength: 10 // Maximum length for 9-digit ZIP code
+                        },
+                        phone: {
+                            required: true,
+                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                        },
+                        first_name: {
+                            required: true
+                        },
+                        last_name: {
+                            required: true
+                        },
+                        listing_img: {
+                            extension: "jpeg,png,gif,svg", // Valid file types
+                            filesize: 2 * 1024 * 1024 // File size limit of 2MB
+                        }
+                    },
+                    messages: {
+                        phone: {
+                            required: 'Phone number is required.',
+                            regex: 'Must be a valid phone number.'
+                        },
+                        listing_img: {
+                            extension: 'File must be a valid image type (jpeg, png, gif, svg).',
+                            filesize: 'File size must be less than 2MB.'
+                        }
+                    },
+                    submitHandler: function (form) {
+                        alert('dffdfggf');
+                        form.submit();
+                    }
+                });
+
+            // Custom method for regex validation
+            $.validator.addMethod("regex", function(value, element, regexpr) {
+                return this.optional(element) || regexpr.test(value);
+            }, "Please check your input.");
+
+            // Custom method for file size validation
+            $.validator.addMethod("filesize", function(value, element, param) {
+                return this.optional(element) || (element.files[0].size <= param);
+            }, "File size must be less than {0} bytes.");
+});
+
+            </script>
         <style>
         .accordion-button.collapsed {
             background: white;
@@ -379,7 +457,6 @@
             letter-spacing: 0.50px;
         }
         </style>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#busCategory').change(function() {

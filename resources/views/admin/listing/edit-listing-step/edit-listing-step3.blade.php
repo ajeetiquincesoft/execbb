@@ -205,7 +205,50 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#addnewliststep3').validate({
+                    rules: {
+                        managementAgentName: {
+                            required: true
+                        },
+                        managementAgentPhone: {
+                            required: true
+                        },
+                        referringAgentName: {
+                            required: true
+                        },
+                        referringAgentPhone: {
+                            required: true
+                        },
+                        listingDate: {
+                            required: true
+                        },
+                        expDate: {
+                            required: true
+                        },
+                        coBroker: {
+                            required: true
+                        },
+                        reasonForSale: {
+                            required: true
+                        },
+                        agents: {
+                            required: true
+                        }
+                       
+                    },
+                    messages: {
+                
+                    },
+                    submitHandler: function (form) { 
+                        form.submit();
+                    }
+                });
+});
 
+            </script>
         <style>
         .accordion-button.collapsed {
             background: white;

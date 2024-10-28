@@ -6,12 +6,6 @@
                 <button>Next <i class="fa fa-chevron-right"></i></button>
             </div>
 </div>
-@if(Session::has('success'))
-        <div class="alert alert-success alert-block" id="alert-success">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
-            <strong>{{ Session::get('success') }}</strong>
-        </div>
-        @endif
         @if(Session::has('error_message'))
         <div class="alert alert-danger alert-block" id="alert-success">
           <button type="button" class="close" data-dismiss="alert">×</button> 
@@ -93,7 +87,31 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#addnewliststep5').validate({
+                    rules: {
+                        highlights: {
+                            required: true
+                        },
+                        comments: {
+                            required: true
+                        },
+                        leadId: {
+                            required: true
+                        } 
+                    },
+                    messages: {
+                
+                    },
+                    submitHandler: function (form) { 
+                        form.submit();
+                    }
+                });
+});
 
+            </script>
         <style>
         .accordion-button.collapsed {
             background: white;

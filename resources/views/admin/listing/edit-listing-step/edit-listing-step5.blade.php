@@ -81,7 +81,31 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#addnewliststep5').validate({
+                    rules: {
+                        highlights: {
+                            required: true
+                        },
+                        comments: {
+                            required: true
+                        },
+                        leadId: {
+                            required: true
+                        } 
+                    },
+                    messages: {
+                
+                    },
+                    submitHandler: function (form) { 
+                        form.submit();
+                    }
+                });
+});
 
+            </script>
         <style>
         .accordion-button.collapsed {
             background: white;

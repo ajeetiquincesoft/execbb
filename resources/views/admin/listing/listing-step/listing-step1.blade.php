@@ -29,7 +29,7 @@
                                 <select id="busCategory" class="form-select" name="bus_category">
                                     <option value="" selected="">Select category</option>
                                     @foreach($categoryData as $key=>$data)
-                                    <option value="{{$data->CategoryID}}" {{ session('formData.bus_category') == $data->CategoryID ? 'selected' : '' }}>{{$data->BusinessCategory}}</option>
+                                    <option value="{{$data->CategoryID}}" {{ (old('bus_category') == $data->CategoryID || session('formData.bus_category') == $data->CategoryID) ? 'selected' : '' }}>{{$data->BusinessCategory}}</option>
                                     @endforeach
                                 </select>
                                 @error('bus_category')
@@ -41,7 +41,7 @@
                                 <select id="busType" class="form-select" name="bus_type">
                                     <option value="" selected>Select type</option>
                                     @foreach($sub_categories as $key=>$bus_type)
-                                    <option value="{{$bus_type->SubCatID}}" {{ session('formData.bus_type') == $bus_type->SubCatID  ? 'selected' : '' }}>{{$bus_type->SubCategory}}</option>
+                                    <option value="{{$bus_type->SubCatID}}" {{ (old('bus_type') == $bus_type->SubCatID || session('formData.bus_type') == $bus_type->SubCatID) ? 'selected' : '' }}>{{$bus_type->SubCategory}}</option>
                                     @endforeach
                                 </select>
                                 @error('bus_type')
@@ -51,7 +51,7 @@
                           
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="franchise" class="form-check-label">Franchise</label>
-                                <input type="checkbox" id="franchise" class="form-check-input" name="franchise" value="1" {{ session('formData.franchCheckbox') == 1 ? 'checked' : '' }} onchange="changeFranchiseValue()">
+                                <input type="checkbox" id="franchise" class="form-check-input" name="franchise" value="1" {{ (old('franchise') || session('formData.franchise') == 1) ? 'checked' : '' }} onchange="changeFranchiseValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -93,7 +93,7 @@
                                     <select id="State" class="form-select" name="state">
                                     <option value="" selected="">Select state</option>
                                     @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{ session('formData.state') == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                    <option value="{{$value->State}}"  {{ (old('state') == $value->State || session('formData.state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
                                     @endforeach
                                     </select>
                                     @error('state')
@@ -124,7 +124,7 @@
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="featuredListing" class="form-check-label">Featured Listing</label>
-                                <input type="checkbox" id="featuredListing" class="form-check-input" name="featuredListing" value="1" {{ session('formData.featureCheckbox') == 1 ? 'checked' : '' }} onchange="changeFeatureValue()">
+                                <input type="checkbox" id="featuredListing" class="form-check-input" name="featuredListing" value="1" {{ (old('featuredListing') || session('formData.featureCheckbox') == 1) ? 'checked' : '' }} onchange="changeFeatureValue()">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -174,7 +174,7 @@
                                     <select id="State2" class="form-select" name="user_state">
                                     <option selected="">Select state</option>
                                     @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{ session('formData.user_state') == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                    <option value="{{$value->State}}" {{ (old('user_state') == $value->State || session('formData.user_state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
                                     @endforeach
                                     </select>
                                     <input type="text" id="Zip2" class="form-control" placeholder="Zip"  name="user_zip_code" value="{{ session('formData.user_zip_code') ?? old('user_zip_code')}}">
@@ -203,7 +203,7 @@
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="review" class="form-check-label">Review</label>
-                                <input type="checkbox" id="review" class="form-check-input"  name="review" value="1" {{ session('formData.reviewCheckbox') == 1 ? 'checked' : '' }} onchange="changeReviewValue()">
+                                <input type="checkbox" id="review" class="form-check-input"  name="review" value="1" {{ (old('review') || session('formData.reviewCheckbox') == 1) ? 'checked' : '' }} onchange="changeReviewValue()">
                             </div>
                         </div>
                     </div>
@@ -222,6 +222,83 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#addnewliststep1').validate({
+                    rules: {
+                        user_email: {
+                            required: true,
+                            email: true
+                        },
+                        bus_category: {
+                            required: true
+                        },
+                        bus_type: {
+                            required: true
+                        },
+                        cropName: {
+                            required: true
+                        },
+                        dba: {
+                            required: true
+                        },
+                        address: {
+                            required: true
+                        },
+                        city: {
+                            required: true
+                        },
+                        state: {
+                            required: true
+                        },
+                        zip_code: {
+                            required: true,
+                            minlength: 5, // Minimum length for US ZIP code
+                            maxlength: 10 // Maximum length for 9-digit ZIP code
+                        },
+                        phone: {
+                            required: true,
+                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                        },
+                        first_name: {
+                            required: true
+                        },
+                        last_name: {
+                            required: true
+                        },
+                        listing_img: {
+                            extension: "jpeg,png,gif,svg", // Valid file types
+                            filesize: 2 * 1024 * 1024 // File size limit of 2MB
+                        }
+                    },
+                    messages: {
+                        phone: {
+                            required: 'Phone number is required.',
+                            regex: 'Must be a valid phone number.'
+                        },
+                        listing_img: {
+                            extension: 'File must be a valid image type (jpeg, png, gif, svg).',
+                            filesize: 'File size must be less than 2MB.'
+                        }
+                    },
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+
+            // Custom method for regex validation
+            $.validator.addMethod("regex", function(value, element, regexpr) {
+                return this.optional(element) || regexpr.test(value);
+            }, "Please check your input.");
+
+            // Custom method for file size validation
+            $.validator.addMethod("filesize", function(value, element, param) {
+                return this.optional(element) || (element.files[0].size <= param);
+            }, "File size must be less than {0} bytes.");
+});
+
+            </script>
         <style>
         .accordion-button.collapsed {
             background: white;
@@ -379,7 +456,7 @@
             letter-spacing: 0.50px;
         }
         </style>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       
 <script>
     $(document).ready(function() {
         $('#busCategory').change(function() {

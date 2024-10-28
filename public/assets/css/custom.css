@@ -31,5 +31,7 @@ button.btn.agentBtn {
   height: 80px;
   width: 80px;
 }
-
+.error {
+  color: red !important;
+}
 /*end css*/

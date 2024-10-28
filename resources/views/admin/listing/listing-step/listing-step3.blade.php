@@ -145,7 +145,7 @@
                             </div>
                             <div class="col-md-2 mb-3">
                                 <label class="form-check-label me-2" for="untilSolid">Until Solid</label>
-                                <input type="checkbox" class="form-check-input" id="untilSolid" name="untilSolid" value="1"  {{ session('formData.untilSolid') == 1 ? 'checked' : '' }}>
+                                <input type="checkbox" class="form-check-input" id="untilSolid" name="untilSolid" value="1" {{ (old('untilSolid') || session('formData.untilSolid') == 1) ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -179,18 +179,18 @@
                             <div class="col-md-3" style="height: 80px;">
 
                                 <label class="form-check-label me-2" for="realEstate">Real Estate</label>
-                                <input type="checkbox" class="form-check-input" id="realEstate" name="realEstate" value="1"  {{ session('formData.realEstate') == 1 ? 'checked' : '' }}>
+                                <input type="checkbox" class="form-check-input" id="realEstate" name="realEstate" value="1"  {{ (old('realEstate') || session('formData.realEstate') == 1) ? 'checked' : '' }}>
                             </div>
 
                             <div class="col-md-3" style="height: 80px;">
                                 <label class="form-check-label me-2" for="optionToBuy">Option to Buy</label>
-                                <input type="checkbox" class="form-check-input" id="optionToBuy" name="optionToBuy" value="1" {{ session('formData.optionToBuy') == 1 ? 'checked' : '' }}>
+                                <input type="checkbox" class="form-check-input" id="optionToBuy" name="optionToBuy" value="1" {{ (old('optionToBuy') || session('formData.optionToBuy') == 1) ? 'checked' : '' }}>
 
                             </div>
 
                             <div class="col-md-3" style="height: 80px;">
                                 <label class="form-check-label me-2" for="soldByEBB">Sold by EBB</label>
-                                <input type="checkbox" class="form-check-input" id="soldByEBB" name="soldByEBB" value="1" {{ session('formData.soldByEBB') == 1 ? 'checked' : '' }}>
+                                <input type="checkbox" class="form-check-input" id="soldByEBB" name="soldByEBB" value="1" {{ (old('soldByEBB') || session('formData.soldByEBB') == 1) ? 'checked' : '' }}>
                             </div>
                         </div>
                     </div>
@@ -207,7 +207,50 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#addnewliststep3').validate({
+                    rules: {
+                        managementAgentName: {
+                            required: true
+                        },
+                        managementAgentPhone: {
+                            required: true
+                        },
+                        referringAgentName: {
+                            required: true
+                        },
+                        referringAgentPhone: {
+                            required: true
+                        },
+                        listingDate: {
+                            required: true
+                        },
+                        expDate: {
+                            required: true
+                        },
+                        coBroker: {
+                            required: true
+                        },
+                        reasonForSale: {
+                            required: true
+                        },
+                        agents: {
+                            required: true
+                        }
+                       
+                    },
+                    messages: {
+                
+                    },
+                    submitHandler: function (form) { 
+                        form.submit();
+                    }
+                });
+});
 
+            </script>
         <style>
         .accordion-button.collapsed {
             background: white;
