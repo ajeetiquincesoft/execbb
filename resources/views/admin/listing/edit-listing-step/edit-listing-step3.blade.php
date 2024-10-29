@@ -41,7 +41,13 @@
                                 <div class="d-flex">
                                     <div class="col p-0 mb-3">
                                         <label for="referringAgentName">Name</label>
-                                        <input type="text" class="form-control" id="referringAgentName" name="referringAgentName"  value="{{$listingData->RefAgentID}}">
+                                       <!--  <input type="text" class="form-control" id="referringAgentName" name="referringAgentName"  value="{{$listingData->RefAgentID}}"> -->
+                                        <select id="managementAgentName" class="form-select" name="managementAgentName">
+                                        <option value="" selected="">Select referring agent</option>
+                                        @foreach($agents as $key=>$agent)
+                                        <option value="{{$agent->agent_info->AgentUserRegisterId }}" {{ $listingData->RefAgentID == $agent->agent_info->AgentUserRegisterId ? 'selected' : '' }}>{{$agent->agent_info->FName}} {{$agent->agent_info->LName}}</option>
+                                        @endforeach
+                                        </select>
                                         @error('referringAgentName')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -76,7 +82,13 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="listingType">Listing Type</label>
-                                <input type="text" class="form-control" id="listingType" name="listingType"  value="{{$listingData->ListType}}">
+                               <!--  <input type="text" class="form-control" id="listingType" name="listingType"  value="{{$listingData->ListType}}"> -->
+                               <select id="listingType" class="form-select" name="listingType">
+                                    <option value="" selected="">Select listing type</option>
+                                    @foreach($listingTypes as $key=>$listingType)
+                                    <option value="{{$listingType->ListType}}" {{ $listingType->ListType == $listingData->ListType ? 'selected' : '' }}>{{$listingType->Description}}</option>
+                                    @endforeach
+                                </select>
                                 @error('listingType')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -153,7 +165,7 @@
                                <!--  <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('formData.agent') ? session('formData.agent') : '' }}"> -->
                                <select id="agent" name="agents[]" class="form-control" multiple>
                                     @foreach($agents as $key=>$agent)
-                                    <option value="{{$agent->id}}"  {{ in_array($agent->id, $selectedAgents) ? 'selected' : '' }}>{{$agent->name}}</option>
+                                    <option value="{{$agent->agent_info->AgentID}}"  {{ in_array($agent->agent_info->AgentID, $selectedAgents) ? 'selected' : '' }}>{{$agent->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('agents')

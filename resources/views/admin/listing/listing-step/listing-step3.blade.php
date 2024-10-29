@@ -24,14 +24,14 @@
                                 <div class="d-flex">
                                     <div class="col-sm-6 p-0  mb-3">
                                         <label for="managementAgentName">Name</label>
-                                        <input type="text" class="form-control" id="managementAgentName" name="managementAgentName"  value="{{ session('formData.managementAgentName') ?? old('fax')}}">
+                                        <input type="text" class="form-control" id="managementAgentName" name="managementAgentName"  value="{{ session('formData.managementAgentName') ?? old('managementAgentName')}}">
                                         @error('managementAgentName')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <label for="managementAgentPhone">Phone</label>
-                                        <input type="text" class="form-control" id="managementAgentPhone" name="managementAgentPhone"  value="{{ session('formData.managementAgentPhone') ?? old('fax')}}">
+                                        <input type="text" class="form-control" id="managementAgentPhone" name="managementAgentPhone"  value="{{ session('formData.managementAgentPhone') ?? old('managementAgentPhone')}}">
                                         @error('managementAgentPhone')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -43,7 +43,13 @@
                                 <div class="d-flex">
                                     <div class="col p-0 mb-3">
                                         <label for="referringAgentName">Name</label>
-                                        <input type="text" class="form-control" id="referringAgentName" name="referringAgentName"  value="{{ session('formData.referringAgentName') ?? old('referringAgentName')}}">
+                                        <!-- <input type="text" class="form-control" id="referringAgentName" name="referringAgentName"  value="{{ session('formData.referringAgentName') ?? old('referringAgentName')}}"> -->
+                                        <select id="referringAgentName" class="form-select" name="referringAgentName">
+                                            <option value="" selected="">Select referring agent</option>
+                                            @foreach($agents as $key=>$agent)
+                                            <option value="{{$agent->agent_info->AgentUserRegisterId }}" {{ (old('referringAgentName') == $agent->agent_info->	AgentUserRegisterId  || session('formData.referringAgentName') == $agent->agent_info->	AgentUserRegisterId ) ? 'selected' : '' }}>{{$agent->agent_info->FName}} {{$agent->agent_info->LName}}</option>
+                                            @endforeach
+                                        </select>
                                         @error('referringAgentName')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -78,7 +84,13 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="listingType">Listing Type</label>
-                                <input type="text" class="form-control" id="listingType" name="listingType"  value="{{ session('formData.listingType') ?? old('listingType')}}">
+                               <!--  <input type="text" class="form-control" id="listingType" name="listingType"  value="{{ session('formData.listingType') ?? old('listingType')}}"> -->
+                               <select id="listingType" class="form-select" name="listingType">
+                                    <option value="" selected="">Select listing type</option>
+                                    @foreach($listingTypes as $key=>$listingType)
+                                    <option value="{{$listingType->ListType}}" {{ (old('listingType') == $listingType->ListType || session('formData.listingType') == $listingType->ListType) ? 'selected' : '' }}>{{$listingType->Description}}</option>
+                                    @endforeach
+                                </select>
                                 @error('listingType')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -155,7 +167,7 @@
                                <!--  <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('formData.agent') ? session('formData.agent') : '' }}"> -->
                                <select id="agent" name="agents[]" class="form-control" multiple>
                                     @foreach($agents as $key=>$agent)
-                                    <option value="{{$agent->id}}" {{ in_array($agent->id, session('formData.agents', [])) ? 'selected' : '' }}>{{$agent->name}}</option>
+                                    <option value="{{$agent->agent_info->AgentID }}" {{ in_array($agent->agent_info->AgentID, session('formData.agents', [])) ? 'selected' : '' }}>{{$agent->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('agents')

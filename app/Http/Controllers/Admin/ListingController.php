@@ -143,13 +143,14 @@ class ListingController extends Controller
     }
     public function createStep3(){
         $agents = User::with('agent_info')->where('role_name','agent')->get();
+        $listingTypes = DB::table('listing_types')->get();
         $step = 3;
         $completedSteps = session()->get('complete_step', []);
             // Check if the previous step is completed
             if (!in_array($step - 1, $completedSteps) && $step > 1) {
                 return redirect()->route('create.listing.step'.$step-1);
             }
-            return view('admin.listing.listing-step.listing-step3', compact('agents'));
+            return view('admin.listing.listing-step.listing-step3', compact('agents','listingTypes'));
        
     }
     public function createStep4(){
@@ -553,6 +554,7 @@ class ListingController extends Controller
     }
     public function editStep3($id){
         $listingData = Listing::where('ListingID',$id)->first();
+        $listingTypes = DB::table('listing_types')->get();
           // Check if listing not exists
          if (!$listingData) {
             return redirect()->route('all.listing')->with('error', 'User not found.');
@@ -573,7 +575,7 @@ class ListingController extends Controller
            if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
                return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
            }
-        return view('admin.listing.edit-listing-step.edit-listing-step3', compact('agents','listingData','selectedAgents'));
+        return view('admin.listing.edit-listing-step.edit-listing-step3', compact('agents','listingData','selectedAgents','listingTypes'));
     }
     public function editStep4($id){
         $listingData = Listing::where('ListingID',$id)->first();
