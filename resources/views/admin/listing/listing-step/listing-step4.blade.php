@@ -341,47 +341,4 @@
             letter-spacing: 0.50px;
         }
         </style>
-
-    <script>
-        document.getElementById('fileUpload').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                const fileLink = document.getElementById('fileLink');
-
-                reader.onload = function (e) {
-                    const fileType = file.type;
-
-                    // Check if the file is an image
-                    if (fileType.startsWith('image/')) {
-                        const imagePreviewDiv = document.getElementById('imagePreview');
-                        imagePreviewDiv.innerHTML = '<img src="' + e.target.result + '" alt="Image Preview">';
-                        imagePreviewDiv.style.display = 'block';
-                    } else {
-                        // If not an image, just show the file type
-                        document.getElementById('imagePreview').innerHTML = '<p>Uploaded file: ' + file.name + '</p>';
-                    }
-
-                    // Set the file name and make it clickable
-                    fileLink.innerText = file.name;
-                    fileLink.href = e.target.result;
-                    fileLink.download = file.name; // Set the filename for download
-                    fileLink.style.display = 'inline-block';
-
-                    // Add click event for downloading
-                    fileLink.addEventListener('click', function () {
-                        const downloadLink = document.createElement('a');
-                        downloadLink.href = e.target.result;
-                        downloadLink.download = file.name;
-                        document.body.appendChild(downloadLink);
-                        downloadLink.click();
-                        document.body.removeChild(downloadLink);
-                    });
-                };
-
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
 @endsection

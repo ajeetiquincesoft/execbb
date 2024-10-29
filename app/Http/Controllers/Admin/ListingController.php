@@ -37,16 +37,30 @@ class ListingController extends Controller
     
         while (($row = fgetcsv($handle)) !== false) {
             // Skip empty rows
-            if (isset($row[2]) && $row[2] == '0') {
+          /*   if (isset($row[2]) && $row[2] == '0') {
                 continue; // Skip this row
             }
             if (isset($row[2]) && $row[2] == '30') {
                 continue; // Skip this row
+            } */
+          
+           // Check if Code is empty; if so, set it to null
+            if (isset($row[4]) && $row[4] !== '') {
+                $row[4] = $row[4];
+            } else {
+                $row[4] = null; // Set to null if the value is empty
+            }
+            if (isset($row[3]) && $row[3] !== '') {
+                $row[3] = $row[3];
+            } else {
+                $row[3] = null; // Set to null if the value is empty
             }
              // Insert data into the database
-            DB::insert('INSERT INTO sub_categories (SubCategory, CatID, created_at, updated_at) VALUES (?, ?, ?, ?)', [
+            DB::insert('INSERT INTO counties (County, State, Code, Region,created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)', [
                 $row[1],
                 $row[2],
+                $row[3],
+                $row[4],
                 now(),  
                 now(),
             ]);
@@ -127,8 +141,9 @@ class ListingController extends Controller
     public function createStep1(){
         $categoryData = DB::table('categories')->get();
         $states = DB::table('states')->get();
+        $counties = DB::table('counties')->get();
         $sub_categories = DB::table('sub_categories')->get();
-        return view('admin.listing.listing-step.listing-step1',compact('categoryData','states','sub_categories'));
+        return view('admin.listing.listing-step.listing-step1',compact('categoryData','states','sub_categories','counties'));
     }
     public function createStep2(){
         $step = 2;
@@ -531,8 +546,9 @@ class ListingController extends Controller
         }
         $categoryData = DB::table('categories')->get();
         $states = DB::table('states')->get();
+        $counties = DB::table('counties')->get();
         $sub_categories = DB::table('sub_categories')->get();
-        return view('admin.listing.edit-listing-step.edit-listing-step1',compact('categoryData','states','sub_categories','listingData'));
+        return view('admin.listing.edit-listing-step.edit-listing-step1',compact('categoryData','states','sub_categories','listingData','counties'));
     }
     public function editStep2($id){
         $listingData = Listing::where('ListingID',$id)->first();

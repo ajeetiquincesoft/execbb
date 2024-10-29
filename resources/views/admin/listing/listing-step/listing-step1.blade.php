@@ -107,7 +107,13 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="country" class="form-label">Country</label>
-                                <input type="text" id="country" class="form-control" name="country" value="{{ session('formData.country') ?? old('country')}}">
+                                <!-- <input type="text" id="country" class="form-control" name="country" value="{{ session('formData.country') ?? old('country')}}"> -->
+                                <select id="country" class="form-select" name="country">
+                                    <option value="" selected="">Select country</option>
+                                    @foreach($counties as $key=>$country)
+                                    <option value="{{$country->County}}"  {{ (old('country') == $country->County || session('formData.country') == $country->County) ? 'selected' : '' }}>{{$country->County}}</option>
+                                    @endforeach
+                                    </select>
                             </div>
                         </div>
                         <div class="row mb-2">

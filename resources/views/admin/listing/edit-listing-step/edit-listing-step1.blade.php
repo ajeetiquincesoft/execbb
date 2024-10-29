@@ -107,7 +107,13 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="country" class="form-label">Country</label>
-                                <input type="text" id="country" class="form-control" name="country" value="{{$listingData->County}}">
+                               <!--  <input type="text" id="country" class="form-control" name="country" value="{{$listingData->County}}"> -->
+                                    <select id="country" class="form-select" name="country">
+                                    <option value="" selected="">Select country</option>
+                                    @foreach($counties as $key=>$value)
+                                    <option value="{{$value->County}}" {{$listingData->County == $value->County ? 'selected' : '' }}>{{$value->County}}</option>
+                                    @endforeach
+                                    </select>
                             </div>
                         </div>
                         <div class="row mb-2">
