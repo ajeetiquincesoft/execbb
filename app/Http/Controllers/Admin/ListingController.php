@@ -45,7 +45,7 @@ class ListingController extends Controller
             } */
           
            // Check if Code is empty; if so, set it to null
-            if (isset($row[4]) && $row[4] !== '') {
+          /*   if (isset($row[4]) && $row[4] !== '') {
                 $row[4] = $row[4];
             } else {
                 $row[4] = null; // Set to null if the value is empty
@@ -54,13 +54,11 @@ class ListingController extends Controller
                 $row[3] = $row[3];
             } else {
                 $row[3] = null; // Set to null if the value is empty
-            }
+            } */
              // Insert data into the database
-            DB::insert('INSERT INTO counties (County, State, Code, Region,created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)', [
+            DB::insert('INSERT INTO listing_types (Description, Code, created_at, updated_at) VALUES (?, ?, ?, ?)', [
                 $row[1],
                 $row[2],
-                $row[3],
-                $row[4],
                 now(),  
                 now(),
             ]);
