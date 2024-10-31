@@ -23,7 +23,21 @@
                   <a href="{{ route('edit.listing.form', $listing->ListingID) }}"><i  class="fa fa-edit edit-icon"></i></a>
                 </div>
                 <div class="text-center">
-                  <img src="{{ url('assets/images/user.png') }}" alt="User Image" width="100">
+                <form action="{{ route('upload.listing.avatar',$listing->ListingID ) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="avatar-upload">
+                          <input type="file" id="avatar" name="avatar" accept="image/*" onchange="previewImage(event)">
+                          <label for="avatar">
+                          @if($listing->imagepath)
+                              <img id="avatar-preview" src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" alt="Avatar Preview" class="avatar">
+                              @else
+                              <img id="avatar-preview" src="{{ asset('assets/images/avatar.png') }}" alt="Avatar Preview" class="avatar">
+                              @endif
+                          </label>
+                        </div>
+                        <button class="avatar_img_upload" type="submit">Upload Image</button>
+                    </form>
                   <h5>{{$listing->SellerFName}} {{$listing->SellerLName}}</h5>
                   <h6>Listing ID: {{$listing->ListingID  }}</h6>
                 </div>
@@ -192,5 +206,21 @@
         </div>
       </div>
     </div>
+    <script>
+        function previewImage(event) {
+        const preview = document.getElementById('avatar-preview');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                $('.avatar_img_upload').show();
+            }
+            reader.readAsDataURL(file);
+        }
+       }
+      
+      </script>
 @endsection
 

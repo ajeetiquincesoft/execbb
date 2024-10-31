@@ -9,14 +9,13 @@
         @endif
         <div class="card mb-4">
             <div class="card-body">
-                        <form action="{{ route('register.agent') }}" method="POST" enctype="multipart/form-data">
+                        <form id="agent-form" action="{{ route('register.agent') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="agentId">Agent Id</label>
-                                        <input type="text" placeholder="" id="agent_id" class="form-control" name="agent_id"
-                                        >
+                                        <input type="text" placeholder="" id="agent_id" class="form-control" name="agent_id" value="{{ old('agent_id')}}">
                                         @if ($errors->has('agent_id'))
                                         <span class="text-danger">{{ $errors->first('agent_id') }}</span>
                                         @endif
@@ -26,7 +25,7 @@
                                      <div class="form-group mb-3">
                                         <label for="firstName">First name</label>
                                         <input type="text" placeholder="" id="first_name" class="form-control"
-                                            name="first_name">
+                                            name="first_name" value="{{old('first_name')}}">
                                         @if ($errors->has('first_name'))
                                         <span class="text-danger">{{ $errors->first('first_name') }}</span>
                                         @endif
@@ -36,7 +35,7 @@
                                      <div class="form-group mb-3">
                                         <label for="lastName">Last name</label>
                                         <input type="text" placeholder="" id="last_name" class="form-control"
-                                            name="last_name" >
+                                            name="last_name" value="{{old('last_name')}}" >
                                         @if ($errors->has('last_name'))
                                         <span class="text-danger">{{ $errors->first('last_name') }}</span>
                                         @endif
@@ -48,7 +47,7 @@
                                     <div class="form-group mb-3">
                                         <label for="agentAddress">Address</label>
                                         <input type="text" placeholder="" id="address" class="form-control"
-                                            name="address">
+                                            name="address" value="{{old('address')}}">
                                         @if ($errors->has('address'))
                                         <span class="text-danger">{{ $errors->first('address') }}</span>
                                         @endif
@@ -58,7 +57,7 @@
                                     <div class="form-group">
                                         <label for="agentCity">City</label>
                                         <input type="text" placeholder="" id="city" class="form-control"
-                                            name="city" >
+                                            name="city" value="{{old('city')}}">
                                         @if ($errors->has('city'))
                                         <span class="text-danger">{{ $errors->first('city') }}</span>
                                         @endif
@@ -67,18 +66,11 @@
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="agentState">State</label>
-                                        <select name="state" id="state"  class="form-control">
-                                        <option value="AN">Andaman and Nicobar Islands</option>
-                                        <option value="AP">Andhra Pradesh</option>
-                                        <option value="AR">Arunachal Pradesh</option>
-                                        <option value="AS">Assam</option>
-                                        <option value="BR">Bihar</option>
-                                        <option value="CH">Chandigarh</option>
-                                        <option value="CT">Chhattisgarh</option>
-                                        <option value="DN">Dadra and Nagar Haveli</option>
-                                        <option value="DD">Daman and Diu</option>
-                                        <option value="DL">Delhi</option>
-                                        <option value="GA">Goa</option>
+                                        <select id="state" class="form-select" name="state">
+                                        <option value="" selected="">Select state</option>
+                                        @foreach($states as $key=>$value)
+                                        <option value="{{$value->State}}"  {{ old('state') == $value->State  ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                        @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -86,7 +78,7 @@
                                     <div class="form-group">
                                         <label for="agentCity">Zip</label>
                                         <input type="text" placeholder="" id="zip_code" class="form-control"
-                                            name="zip_code" >
+                                            name="zip_code" value="{{old('zip_code')}}">
                                         @if ($errors->has('zip_code'))
                                         <span class="text-danger">{{ $errors->first('zip_code') }}</span>
                                         @endif
@@ -96,7 +88,7 @@
                                     <div class="form-group mb-3">
                                         <label for="agentDob">Date of birth</label>
                                         <input type="text" placeholder="" id="dob" class="form-control"
-                                            name="dob" >
+                                            name="dob" value="{{old('dob')}}">
                                         @if ($errors->has('dob'))
                                         <span class="text-danger">{{ $errors->first('dob') }}</span>
                                         @endif
@@ -108,7 +100,7 @@
                                     <div class="form-group">
                                         <label for="agentHomephone">Home phone</label>
                                         <input type="text" placeholder="" id="home_phone" class="form-control"
-                                            name="home_phone" >
+                                            name="home_phone" value="{{old('home_phone')}}">
                                         @if ($errors->has('home_phone'))
                                         <span class="text-danger">{{ $errors->first('home_phone') }}</span>
                                         @endif
@@ -118,7 +110,7 @@
                                 <div class="form-group">
                                         <label for="agentFax">Fax</label>
                                         <input type="text" placeholder="" id="fax" class="form-control"
-                                            name="fax">
+                                            name="fax" value="{{old('fax')}}">
                                         @if ($errors->has('fax'))
                                         <span class="text-danger">{{ $errors->first('fax') }}</span>
                                         @endif
@@ -128,7 +120,7 @@
                                 <div class="form-group mb-3">
                                         <label for="agentEmail">Email</label>
                                         <input type="text" placeholder="" id="email" class="form-control"
-                                            name="email" >
+                                            name="email" value="{{old('email')}}">
                                         @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                         @endif
@@ -138,7 +130,7 @@
                                 <div class="form-group mb-3">
                                         <label for="agentComment">Comment</label>
                                         <input type="text" placeholder="" id="comment" class="form-control"
-                                            name="comment">
+                                            name="comment" value="{{old('comment')}}">
                                         @if ($errors->has('comment'))
                                         <span class="text-danger">{{ $errors->first('comment') }}</span>
                                         @endif
@@ -150,7 +142,7 @@
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Spouse
                                     </label>
-                                    <input class="form-check-input" type="checkbox" value="0" id="agentSpouse" name="spouse" onclick="changeSpouseValue()">
+                                    <input class="form-check-input" type="checkbox" value="1" id="agentSpouse" name="spouse"  {{ old('spouse') ? 'checked' : '' }} onclick="changeSpouseValue()">
                                     
                                     
                                 </div>
@@ -158,7 +150,7 @@
                                     <div class="form-group">
                                     <label for="agentSSnumber">Spouse first name</label>
                                         <input type="text" placeholder="" id="spouse_first_name" class="form-control"
-                                            name="spouse_first_name">
+                                            name="spouse_first_name" value="{{old('spouse_first_name')}}">
                                         @if ($errors->has('spouse_first_name'))
                                         <span class="text-danger">{{ $errors->first('spouse_first_name') }}</span>
                                         @endif
@@ -168,7 +160,7 @@
                                     <div class="form-group">
                                     <label for="agentSSnumber">Spouse last name</label>
                                         <input type="text" placeholder="" id="spouse_last_name" class="form-control"
-                                            name="spouse_last_name">
+                                            name="spouse_last_name" value="{{old('spouse_last_name')}}">
                                         @if ($errors->has('spouse_last_name'))
                                         <span class="text-danger">{{ $errors->first('spouse_last_name') }}</span>
                                         @endif
@@ -178,7 +170,7 @@
                                     <div class="form-group">
                                     <label for="agentSSnumber">SS Number</label>
                                         <input type="text" placeholder="" id="ss_number" class="form-control"
-                                            name="ss_number">
+                                            name="ss_number" value="{{old('ss_number')}}">
                                         @if ($errors->has('ss_number'))
                                         <span class="text-danger">{{ $errors->first('ss_number') }}</span>
                                         @endif
@@ -190,7 +182,7 @@
                                     <div class="form-group mb-3">
                                             <label for="agentCellular">Cellular</label>
                                             <input type="text" placeholder="" id="cellular" class="form-control"
-                                                name="cellular">
+                                                name="cellular" value="{{old('cellular')}}">
                                             @if ($errors->has('cellular'))
                                             <span class="text-danger">{{ $errors->first('cellular') }}</span>
                                             @endif
@@ -200,7 +192,7 @@
                                     <div class="form-group mb-3">
                                             <label for="agentPager">Pager</label>
                                             <input type="text" placeholder="" id="pager" class="form-control"
-                                                name="pager">
+                                                name="pager" value="{{old('pager')}}">
                                             @if ($errors->has('pager'))
                                             <span class="text-danger">{{ $errors->first('pager') }}</span>
                                             @endif
@@ -210,7 +202,7 @@
                                     <div class="form-group mb-3">
                                         <label for="agentHiredate">Hire date</label>
                                         <input type="text" placeholder="" id="hire_date" class="form-control"
-                                            name="hire_date">
+                                            name="hire_date" value="{{old('hire_date')}}">
                                         @if ($errors->has('hire_date'))
                                         <span class="text-danger">{{ $errors->first('hire_date') }}</span>
                                         @endif
@@ -220,7 +212,7 @@
                                     <div class="form-group mb-3">
                                         <label for="agentTerminateddate">Terminated</label>
                                         <input type="text" placeholder="" id="terminate_date" class="form-control"
-                                            name="terminate_date">
+                                            name="terminate_date" value="{{old('terminate_date')}}">
                                         @if ($errors->has('terminate_date'))
                                         <span class="text-danger">{{ $errors->first('terminate_date') }}</span>
                                         @endif
@@ -232,7 +224,7 @@
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Display on web
                                         </label>
-                                        <input class="form-check-input" type="checkbox" value="0" id="display_on_web" name="display_on_web" onclick="changeDisplayValue()">
+                                        <input class="form-check-input" type="checkbox" value="1" id="display_on_web" name="display_on_web"  {{ old('display_on_web') ? 'checked' : '' }}  onclick="changeDisplayValue()">
                                 </div>
                                 <div class="col-md-3">
                                     <div class="col">
@@ -259,6 +251,48 @@
 <div p-8>
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#agent-form').validate({
+                    rules: {
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        first_name: {
+                            required: true
+                        },
+                        last_name: {
+                            required: true
+                        },
+                        agent_id: {
+                            required: true
+                        },
+                        home_phone: {
+                            required: true,
+                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                        }
+                    },
+                    messages: {
+                        home_phone: {
+                            required: 'Phone number is required.',
+                            regex: 'Must be a valid phone number.'
+                        }
+                    },
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+
+            // Custom method for regex validation
+            $.validator.addMethod("regex", function(value, element, regexpr) {
+                return this.optional(element) || regexpr.test(value);
+            }, "Please check your input.");
+
+});
+
+            </script>
 <style>
         .form-check-input[type=checkbox] {
             position: absolute !important;

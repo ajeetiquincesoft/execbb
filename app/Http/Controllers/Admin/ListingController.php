@@ -201,7 +201,7 @@ class ListingController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'user_email' => 'required|email',
-                'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
             ]);
             $completeStep = session('complete_step', []);
              $filename = '';
@@ -636,7 +636,7 @@ class ListingController extends Controller
            'first_name' => 'required',
            'last_name' => 'required',
            'user_email' => 'required|email',
-           'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+           'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
        ]);
         $filename = '';
         $categoryData = DB::table('categories')->where('CategoryID',$request->bus_category)->first();
@@ -873,5 +873,28 @@ class ListingController extends Controller
         return redirect()->route('all.listing')->with('success', 'Listing updated successfully!');
         }
    
+    }
+    public function updateImage(Request $request,$id){
+        if( $request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $path = public_path(). '/assets/uploads/images/';
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move($path, $filename);
+        }
+        else{
+            $data =Listing::where('ListingID',$id)->first();
+            $filename = $data->image;
+
+        }
+        $listing_img = Listing::where('ListingID',$id)->update([
+            'imagepath' => $filename,
+        ]);
+        if($listing_img){
+            return redirect()->back()->with('success_message', 'Listing image update successfully');
+        }
+        else{
+            return redirect()->back()->with('success_message', 'There are some error! can not be update.');
+        }
+
     }
 }

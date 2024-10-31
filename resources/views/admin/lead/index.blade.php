@@ -1,19 +1,26 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
+@if(Session::has('error'))
+        <div class="alert alert-danger alert-block" id="alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button> 
+            <strong>{{ Session::get('error') }}</strong>
+        </div>
+        @endif
             <div class="row card">
                 <div class="list-header">
 
                     <div class="container-fluid py-3 border-bottom">
                         <div class="row align-items-center">
                             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                <h4 class="mb-0">Agents</h4>
+                                <h4 class="mb-0">Leads</h4>
                             </div>
                             <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                              <a href="{{route('create.agent')}}">
+                                <a href="{{route('create.lead')}}">
                                 <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                                    <i class="fas fa-plus mr-1"></i> Add Agents
-                                </button></a>
+                                <img class="create_img" src="{{ url('assets/images/Lead.png') }}"> Add Leads
+                                </button>
+                            </a>
                             </div>
                             <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
                                 <div class="input-group" style="max-width: 300px;">
@@ -34,35 +41,37 @@
                         <table class="table table-bordered table-striped">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Agent ID</th>
+                                    <th scope="col">Lead ID</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Business Name</th>
                                     <th scope="col">Address</th>
                                     <th scope="col">Phone</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Appoinment Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($agents as $index =>$agent) 
+                                @foreach($leads as $key=>$lead)
                                 <tr>
-                                    <td>{{ $agent->agent_info->AgentID}}</td>
-                                    <td>{{ $agent->name}}</td>
-                                    <td>{{  $agent->agent_info->Address1}}</td>
-                                    <td>{{  $agent->agent_info->Telephone}}</td>
-                                    <td>{{ $agent->email}}</td>
-                                    <td class="list-btn-new">
-                                    <a href="{{ route('show.agent', $agent->id) }}">
-                                        <button class="btn btn-sm" title="View">
+                                    <td>{{$lead->LeadID}}</td>
+                                    <td>{{$lead->SellerFName}} {{$lead->SellerLName}}</td>
+                                    <td>{{ $categories[$lead->Category] ?? 'N/A' }}</td>
+                                    <td>{{$lead->BusName}}</td>
+                                    <td>{{$lead->Address}}</td>
+                                    <td>{{$lead->Phone}}</td>
+                                    <td>{{$lead->AppointmentDate}}</td>
+                                    <td class="list-btn">
+                                    <a href="{{ route('show.lead', $lead->LeadID) }}"><button class="btn btn-sm" title="View">
                                             <i class="fas fa-eye"></i>
                                         </button></a>
-                                        <a href="{{ route('edit.agent', $agent->id) }}">
-                                        <button class="btn btn-sm" title="Edit">
-                                        <i class="fas fa-edit"></i>
+                                        <a href="{{ route('edit.lead', $lead->LeadID) }}"> <button class="btn btn-sm" title="Edit">
+                                            <i class="fas fa-edit"></i>
                                         </button></a>
-                                          <form action="{{ route('agents.destroy', $agent->id) }}" method="post" class="agent_delete" id="delete-agent-{{ $agent->id }}">
+                                        <form id="delete-form-{{ $lead->LeadID }}" action="{{ route('lead.destroy', $lead->LeadID) }}" method="post">
                                           @csrf
                                           @method('DELETE')
-                                          <button type="button" class="btn btn-sm" title="Delete" onclick="confirmDelete('{{ $agent->id }}')">
+                                          <button type="button" class="btn btn-sm" title="Delete" onclick="leadDelete('{{$lead->LeadID}}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                           </form>
@@ -75,11 +84,10 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                        {{ $agents->links('vendor.pagination.custom') }}                   
+                        {{ $leads->links('vendor.pagination.custom') }}
                       </div>
                     </div>
                 </div>
             </div>
-        </div>  
-@endsection
-
+        </div>
+        @endsection

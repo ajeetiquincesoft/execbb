@@ -22,7 +22,7 @@
         <li class="nav-item">
           <!-- <i class="fas fa-tasks"></i> -->
           <img src="{{ url('assets/images/Lead.png') }}">
-          <a class="nav-link" href="#">Leads</a>
+          <a class="nav-link" href="{{route('all.lead')}}">Leads</a>
         </li>
         <li class="nav-item">
           <!-- <i class="fas fa-list"></i> -->

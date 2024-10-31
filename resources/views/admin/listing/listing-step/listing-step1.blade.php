@@ -140,6 +140,9 @@
                                 <label for="fileUpload" class="upload-button mt-1">
                                     <input type="file" id="fileUpload" accept="image/*" style="display:none;" name="listing_img">
                                     <span class="button-text"> <img src="{{url('assets/images/uploadicon.svg')}}" alt="">Upload</span>
+                                    @error('listing_img')
+                                    <small class="text-danger">{{ $message }}</small>
+                                     @enderror
                                 </label>
                                 <div id="imagePreview"></div>
                             </div>
@@ -274,8 +277,8 @@
                             required: true
                         },
                         listing_img: {
-                            extension: "jpeg,png,gif,svg", // Valid file types
-                            filesize: 2 * 1024 * 1024 // File size limit of 2MB
+                            extension: "jpeg,png,gif,svg",
+                            filesize: 5 * 1024 * 1024 // 5MB
                         }
                     },
                     messages: {

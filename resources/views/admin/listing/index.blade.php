@@ -61,7 +61,7 @@
                                     <td>{{$listing->SCity}}</td>
                                     <td>{{$listing->SHomePh}}</td>
                                     <td>{{$listing->Email}}</td>
-                                    <td class="list-btn-new">
+                                    <td class="list-btn">
                                     <a href="{{ route('show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
                                             <i class="fas fa-eye"></i>
                                         </button></a>
@@ -83,8 +83,8 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-center">
-                          {{ $listings->links('pagination::bootstrap-4') }} 
+                        <div class="d-flex justify-content-end">
+                          {{ $listings->links('vendor.pagination.custom') }}
                       </div>
                     </div>
                 </div>

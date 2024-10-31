@@ -20,7 +20,7 @@ class AgentController extends Controller
 {
     public function index(){
         try{
-        $agents = User::with('agent_info')->where('role_name','agent')->paginate(2);
+        $agents = User::with('agent_info')->where('role_name','agent')->orderBy('created_at', 'desc')->paginate(2);
         return view('admin.agent.index',compact('agents'));
         }
         catch(\Exception $e){
@@ -29,8 +29,9 @@ class AgentController extends Controller
     }
     public function create(){
         try{
-            //event(new AgentRegister('santosh3257@gmail.com'));
-        return view('admin.agent.create');
+           // event(new AgentRegister('santosh3257@gmail.com'));
+            $states = DB::table('states')->get();
+        return view('admin.agent.create',compact('states'));
         }
         catch(\Exception $e){
             return redirect()->back()->with('err_message',$e->getMessage());
@@ -53,7 +54,8 @@ class AgentController extends Controller
         DB::beginTransaction();
         $check = $this->agentRegistration($data);
         //dd($check->id);
-       
+        $spouse = $request->has('spouse') ? 1 : 0;
+        $display_on_web = $request->has('yearsEstablished') ? 1 : 0;
         $agent = new Agent;
         $agent->AgentID = $request->agent_id;
         $agent->LName = $request->last_name;
@@ -67,7 +69,7 @@ class AgentController extends Controller
         $agent->Fax = $request->fax;
         $agent->Email = $request->email;
         $agent->Comments = $request->comment;
-        $agent->Spouse = $request->spouse;
+        $agent->Spouse = $spouse;
         $agent->SpFName = $request->spouse_first_name;
         $agent->SpLName = $request->spouse_last_name;
         $agent->SocSecNum = $request->ss_number;
@@ -75,7 +77,7 @@ class AgentController extends Controller
         $agent->Pager = $request->pager;
         $agent->HireDate = $request->hire_date;
         $agent->Termination = $request->terminate_date;
-        $agent->Display = $request->display_on_web;
+        $agent->Display = $display_on_web;
         $agent->AgentUserRegisterId =  $check->id;
         if( $request->hasFile('agent_image')) {
             $image = $request->file('agent_image');
@@ -88,7 +90,7 @@ class AgentController extends Controller
         $agent->save();
          // call the event
          //Mail::to('santosh3257@gmail.com')->send(new AgentWelcome());
-        //event(new AgentRegistered($data));
+         event(new AgentRegister($request->all()));
         DB::commit();
         return redirect('admin/create/agent')->with('success_message','Agent register successfully');
      }catch (Throwable $e) {
@@ -113,8 +115,8 @@ class AgentController extends Controller
     public function edit($id){
         try{
         $agent = User::with('agent_info')->find($id);
-        $image_url = 'assets/uploads/images/'.$agent->agent_info->image;
-        return view('admin.agent.edit', compact('agent','image_url'));
+        $states = DB::table('states')->get();
+        return view('admin.agent.edit', compact('agent','states'));
         }
         catch(\Exception $e){
             return redirect()->back()->with('err_message',$e->getMessage());
@@ -201,5 +203,27 @@ class AgentController extends Controller
             return redirect()->back()->with('err_message',$e->getMessage());
         }
 
+    }
+    public function updateImage(Request $request, $id){
+        if( $request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $path = public_path(). '/assets/uploads/images/';
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move($path, $filename);
+        }
+        else{
+            $data =Agent::where('AgentUserRegisterId',$id)->first();
+            $filename = $data->image;
+
+        }
+        $agent = Agent::where('AgentUserRegisterId',$id)->update([
+            'image' => $filename,
+        ]);
+        if($agent){
+            return redirect()->back()->with('success_message', 'Agent profile image update successfully');
+        }
+        else{
+            return redirect()->back()->with('success_message', 'There are some error! can not be update.');
+        }
     }
 }

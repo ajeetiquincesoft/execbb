@@ -68,14 +68,39 @@ $( function() {
          $('#featuredListing').val('0');
      } 
    }
+   function changeSFBOValue() {
+    var checkBox = document.getElementById("sfbo");
+     if (checkBox.checked == true){
+       $('#sfbo').val('1');
+     } else {
+         $('#sfbo').val('0');
+     } 
+   }
+   function changeREInCValue() {
+    var checkBox = document.getElementById("reInc");
+     if (checkBox.checked == true){
+       $('#reInc').val('1');
+     } else {
+         $('#reInc').val('0');
+     } 
+   }
+   function changeListedValue() {
+    var checkBox = document.getElementById("listed");
+     if (checkBox.checked == true){
+       $('#listed').val('1');
+     } else {
+         $('#listed').val('0');
+     } 
+   }
+   
    function confirmDelete(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: 'This action cannot be undone!',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        confirmButtonColor: '#5e0f2f',
+        cancelButtonColor: '#93744b',
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
@@ -90,8 +115,8 @@ function listingDelete(customId) {
         text: 'This action cannot be undone!',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        confirmButtonColor: '#5e0f2f',
+        cancelButtonColor: '#93744b',
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
@@ -99,6 +124,22 @@ function listingDelete(customId) {
             document.getElementById('delete-form-' + customId).submit();
         }
     });
+}
+function leadDelete(customId) {
+  Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5e0f2f',
+      cancelButtonColor: '#93744b',
+      confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          // Submit the form for deletion
+          document.getElementById('delete-form-' + customId).submit();
+      }
+  });
 }
 //multi select
 $(document).ready(function() {

@@ -28,7 +28,6 @@ class SendEmailToAgent
      */
     public function handle(AgentRegister $event)
     {
-        $email = $event->email;
-         Mail::to($email)->send(new AgentWelcome());
+        Mail::to($event->data['email'])->send(new AgentWelcome($event->data));
     }
 }

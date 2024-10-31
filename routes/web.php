@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\ListingController;
+use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::post('save/agent',[AgentController::class,'store'])->name('register.agent');
     Route::get('edit/agent/{id}',[AgentController::class,'edit'])->name('edit.agent');
     Route::put('update/agent/{id}',[AgentController::class,'update'])->name('update.agent');
+    Route::put('upload/agent/avatar/{id}',[AgentController::class,'updateImage'])->name('upload.agent.avatar');
     Route::get('view/agent/{id}',[AgentController::class,'show'])->name('show.agent');
     Route::delete('/agents/{id}',[AgentController::class,'destroy'])->name('agents.destroy');
     //End Route for agent
@@ -51,6 +53,7 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/listing/all', [ListingController::class, 'index'])->name('all.listing');
     Route::get('view/listing/{id}',[ListingController::class,'show'])->name('show.listing');
     Route::delete('/listing/{id}',[ListingController::class,'destroy'])->name('listing.destroy');
+    Route::put('upload/listing/avatar/{id}',[ListingController::class,'updateImage'])->name('upload.listing.avatar');
     Route::get('/listing/form', [ListingController::class, 'form'])->name('listing.form');
     Route::get('/listing/form/{id}', [ListingController::class, 'editListingForm'])->name('edit.listing.form');
     Route::get('create/listing/step1', [ListingController::class, 'createStep1'])->name('create.listing.step1');
@@ -81,6 +84,15 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
      Route::get('data/import', [ListingController::class, 'getImportFile'])->name('data.import.view');
      Route::post('data/import', [ListingController::class, 'importCsv'])->name('data.import');
      //end route for import/export
+     //start route for leads
+     Route::get('/lead/all', [LeadController::class, 'index'])->name('all.lead');
+     Route::get('create/lead',[LeadController::class,'create'])->name('create.lead');
+     Route::post('store/lead',[LeadController::class,'store'])->name('store.lead');
+     Route::get('edit/lead/{id}',[LeadController::class,'edit'])->name('edit.lead');
+     Route::put('update/lead/{id}',[LeadController::class,'update'])->name('update.lead');
+     Route::get('view/lead/{id}',[LeadController::class,'show'])->name('show.lead');
+     Route::delete('/lead/destroy/{id}',[LeadController::class,'destroy'])->name('lead.destroy');
+     //end route for leads
 
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {

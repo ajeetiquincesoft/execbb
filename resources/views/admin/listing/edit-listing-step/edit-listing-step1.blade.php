@@ -275,7 +275,7 @@
                         },
                         listing_img: {
                             extension: "jpeg,png,gif,svg", // Valid file types
-                            filesize: 2 * 1024 * 1024 // File size limit of 2MB
+                            filesize: 5 * 1024 * 1024 // File size limit of 5MB
                         }
                     },
                     messages: {

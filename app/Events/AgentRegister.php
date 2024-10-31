@@ -21,10 +21,10 @@ class AgentRegister
      *
      * @return void
      */
-    public $email;
-    public function __construct($email)
+    public $data;
+    public function __construct($data)
     {
-        $this->email = $email;
+        $this->data = $data;
     }
 
     /**

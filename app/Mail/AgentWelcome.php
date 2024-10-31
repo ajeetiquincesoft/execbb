@@ -16,9 +16,10 @@ class AgentWelcome extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $data;
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +29,6 @@ class AgentWelcome extends Mailable
      */
     public function build()
     {
-        return $this->view('email.agent-welcome');
+        return $this->view('email.agent-welcome')->with(['data' => $this->data]);
     }
 }

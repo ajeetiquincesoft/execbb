@@ -32,6 +32,89 @@ button.btn.agentBtn {
   width: 80px;
 }
 .error {
-  color: red !important;
+  color: #FF0000 !important;
+}
+img.create_img {
+  height: 20px;
+}
+/* pagination style */
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+  padding: 4px 10px;
+ /*  border: 1px solid #007bff;*/
+  color: #000000; 
+  text-decoration: none;
+  border-radius: 25px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* .pagination a:hover {
+  background-color: #5e0f2f;
+  color: white;
+  padding: 4px 10px;
+} */
+
+.pagination .active a {
+  background-color: #5e0f2f;
+  color: white;
+}
+
+.pagination .disabled span {
+  color: #ccc;
+  cursor: not-allowed;
+}
+.rounded {
+  border-radius: 1rem !important;
+}
+.pagination li:not(.disabled) a:hover {
+  background-color: transparent; /* Remove hover background */
+  color: #000000; /* Keep text color same */
+}
+/* end pagination style */
+.avatar-upload {
+  position: relative;
+  width: 150px; /* Set desired width */
+  height: 150px; /* Set desired height */
+  overflow: hidden;
+  border-radius: 50%; /* Make it circular */
+ /*  border: 1px solid #000000; */ /* Border style */
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.avatar-upload input[type="file"] {
+  display: none; /* Hide the default file input */
+}
+.avatar_img_upload {
+  display: none;
+  margin: 10px 0px;
+  border: none;
+  background-color: #5e0f2f;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+.avatar-upload label {
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.avatar {
+  width: 100%; /* Make the image fit the container */
+  height: auto;
+  border-radius: 50%; /* Make the image circular */
 }
 /*end css*/

@@ -3,11 +3,11 @@
 <div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
     <div class="next-back-page d-flex justify-content-between">
         @if ($previous)
-            <a href="{{ route('show.agent', $previous->id) }}"><button><i class="fa fa-chevron-left"></i>Back</button></a>
+            <a href="{{ route('show.lead', $previous->LeadID) }}"><button><i class="fa fa-chevron-left"></i>Back</button></a>
         @endif
 
         @if ($next)
-            <a href="{{ route('show.agent', $next->id) }}"><button>Next <i class="fa fa-chevron-right"></i></button></a>
+            <a href="{{ route('show.lead', $next->LeadID) }}"><button>Next <i class="fa fa-chevron-right"></i></button></a>
         @endif
         
         
@@ -20,78 +20,81 @@
             <div class="card-body">
               <div class="profile-info">
                 <div class="text-end">
-                  <a href="{{route('edit.agent',$agent->id)}}"><i  class="fa fa-edit edit-icon"></i></a>
+                  <a href="#"><i  class="fa fa-edit edit-icon"></i></a>
                 </div>
                 <div class="text-center">
-                    <form action="{{ route('upload.agent.avatar',$agent->agent_info->AgentUserRegisterId ) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="avatar-upload">
-                          <input type="file" id="avatar" name="avatar" accept="image/*" onchange="previewImage(event)">
-                          <label for="avatar">
-                          @if($agent->agent_info->image)
-                              <img id="avatar-preview" src="{{ asset('assets/uploads/images/' . $agent->agent_info->image) }}" alt="Avatar Preview" class="avatar">
-                              @else
-                              <img id="avatar-preview" src="{{ asset('assets/images/avatar.png') }}" alt="Avatar Preview" class="avatar">
-                              @endif
-                          </label>
-                        </div>
-                        <button class="avatar_img_upload" type="submit">Upload Image</button>
-                    </form>
-                  <h5>{{$agent->agent_info->FName}} {{$agent->agent_info->LName}}</h5>
-                  <h6>{{$agent->agent_info->AgentID }}</h6>
+                  <img src="{{ url('assets/images/user.png') }}" alt="User Image" width="100">
+                  <h5>{{$lead->SellerFName}} {{$lead->SellerLName}}</h5>
+                  <h6>Lead ID: {{$lead->LeadID  }}</h6>
                 </div>
                 <div class="table-responsive">
                   <div>
                     <h6>General Info</h6>
-                    <hr>
                   </div>
                   <table class="table table-borderless">
                     <tbody>
                       <tr>
-                        <td><img src="{{ url('assets/images/company.svg') }}" alt=""><span class="ml-2 fw-600">Name</span></td>
-                        <td class="text-end">{{$agent->agent_info->FName}} {{$agent->agent_info->LName}}</td>
+                        <td><img src="{{ url('assets/images/company.svg') }}" alt=""><span class="ml-2 fw-600">Business Name</span></td>
+                        <td class="text-end">{{$lead->BusName}}</td>
+                      </tr>
+                      <tr>
+                        <td><img src="{{ url('assets/images/fax.png') }}" alt=""><span class="ml-2 fw-600">Category</span></td>
+                        <td class="text-end">{{$lead->Category}}</td>
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/phone.png') }}" alt=""><span class="ml-2 fw-600">Phone</span></td>
-                        <td class="text-end">{{$agent->agent_info->Telephone}}</td>
-                      </tr>
-                      <tr>
-                        <td><img src="{{ url('assets/images/pager.png') }}" alt=""><span class="ml-2 fw-600">Pager</span></td>
-                        <td class="text-end">{{$agent->agent_info->Pager}}</td>
-                      </tr>
-                      <tr>
-                        <td><img src="{{ url('assets/images/fax.png') }}" alt=""><span class="ml-2 fw-600">fax</span></td>
-                        <td class="text-end">{{$agent->agent_info->Fax}}</td>
+                        <td class="text-end">{{$lead->Phone}}</td>
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/email.png') }}" alt=""><span class="ml-2 fw-600">Email</span></td>
-                        <td class="text-end">{{$agent->agent_info->Email}}</td>
+                        <td class="text-end"></td>
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/location.png') }}" alt=""><span class="ml-2 fw-600">Address</span></td>
-                        <td class="text-end">{{$agent->agent_info->Address1	}}</td>
+                        <td class="text-end">{{$lead->Address}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/location.png') }}" alt=""><span class="ml-2 fw-600">City</span></td>
-                        <td class="text-end">{{$agent->agent_info->City}}</td>
+                        <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span class="ml-2 fw-600">Appointment</span></td>
+                        <td class="text-end">{{$lead->AppointmentDate}}</td>
+                      </tr>
+
+                      <tr>
+                        <td><img src="{{ url('assets/images/approx_sale.png') }}" alt=""><span class="ml-2 fw-600">Approx. Sales</span></td>
+                        <td class="text-end">{{$lead->AnnSales}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span class="ml-2 fw-600">Date of Birth</span></td>
-                        <td class="text-end">{{$agent->agent_info->DOB}}</td>
+                        <td><img src="{{ url('assets/images/ask_sale.png') }}" alt=""><span class="ml-2 fw-600">Ask Sales</span></td>
+                        <td class="text-end">{{$lead->REAsking}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/spouse.png') }}" alt=""><span class="ml-2 fw-600">Spouse</span></td>
-                        <td class="text-end">{{$agent->agent_info->Spouse}}</td>
+                        <td><img src="{{ url('assets/images/ask_sale.png') }}" alt=""><span class="ml-2 fw-600">Years In Bus</span></td>
+                        <td class="text-end">{{$lead->YearsInBus}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span class="ml-2 fw-600">Hire Date</span></td>
-                        <td class="text-end">{{$agent->agent_info->HireDate}}</td>
+                        <td><img src="{{ url('assets/images/press_owner.png') }}" alt=""><span class="ml-2 fw-600">Press Owner</span></td>
+                        <td class="text-end">{{$lead->PresentOwner}}</td>
                       </tr>
                       <tr>
-                        <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span class="ml-2 fw-600">Terminated</span></td>
-                        <td class="text-end">{{$agent->agent_info->Termination}}</td>
+                        <td><img src="{{ url('assets/images/size_of_facility.png') }}" alt=""><span class="ml-2 fw-600">Size of Facility</span></td>
+                        <td class="text-end">{{$lead->SizeOfFacility}}</td>
                       </tr>
+                      <tr>
+                        <td><img src="{{ url('assets/images/price.png') }}" alt=""><span class="ml-2 fw-600">If Yes Asking Price</span></td>
+                        <td class="text-end">{{$lead->REAsking}}</td>
+                      </tr>
+                      <tr>
+                        <td><img src="{{ url('assets/images/ad_date.png') }}" alt=""><span class="ml-2 fw-600">Ad Date</span></td>
+                        <td class="text-end">{{$lead->AdDate}}</td>
+                      </tr>
+                      <tr>
+                        <td><img src="{{ url('assets/images/ask_sale.png') }}" alt=""><span class="ml-2 fw-600">FSBO</span></td>
+                        <td class="text-end">{{$lead->FSBO}}</td>
+                      </tr>
+                      <tr>
+                        <td><img src="{{ url('assets/images/ad_copy.png') }}" alt=""><span class="ml-2 fw-600">Ad Copy</span></td>
+                        <td class="text-end">{{$lead->AdCopy}}</td>
+                      </tr>
+
                     </tbody>
                   </table>
                 </div>
@@ -146,21 +149,5 @@
         </div>
       </div>
     </div>
-    <script>
-        function previewImage(event) {
-        const preview = document.getElementById('avatar-preview');
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                $('.avatar_img_upload').show();
-            }
-            reader.readAsDataURL(file);
-        }
-       }
-      
-      </script>
 @endsection
 

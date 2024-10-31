@@ -9,7 +9,7 @@
         @endif
         <div class="card mb-4">
             <div class="card-body">
-                        <form action="{{ route('update.agent',$agent->id) }}" method="POST" enctype="multipart/form-data">
+                        <form id="edit-agent-form" action="{{ route('update.agent',$agent->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -67,18 +67,11 @@
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="agentState">State</label>
-                                        
-                                        <select name="state" id="state"  class="form-control">
-                                        <option value="AP" {{ $agent->agent_info->State == 'AP' ? 'selected' : '' }}>Andhra Pradesh</option>
-                                        <option value="AR" {{ $agent->agent_info->State == 'AR' ? 'selected' : '' }}>Arunachal Pradesh</option>
-                                        <option value="AS" {{$agent->agent_info->State == 'AS' ? 'selected' : '' }}>Assam</option>
-                                        <option value="BR" {{ $agent->agent_info->State == 'BR' ? 'selected' : '' }}>Bihar</option>
-                                        <option value="CT" {{ $agent->agent_info->State == 'CT' ? 'selected' : '' }}>Chhattisgarh</option>
-                                        <option value="GA" {{ $agent->agent_info->State == 'GA' ? 'selected' : '' }}>Gujarat</option>
-                                        <option value="HR" {{ $agent->agent_info->State == 'HR' ? 'selected' : '' }}>Haryana</option>
-                                        <option value="HP" {{$agent->agent_info->State == 'HP' ? 'selected' : '' }}>Himachal Pradesh</option>
-                                        <option value="JK" {{ $agent->agent_info->State == 'JK' ? 'selected' : '' }}>Jammu and Kashmir</option>
-                                        <option value="GA" {{ $agent->agent_info->State == 'GA' ? 'selected' : '' }}>Goa</option>
+                                        <select id="state" class="form-select" name="state">
+                                        <option value="" selected="">Select state</option>
+                                        @foreach($states as $key=>$value)
+                                        <option value="{{$value->State}}"  {{ $agent->agent_info->State == $value->State  ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                        @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -247,7 +240,9 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="col">
-                                        <img class="upload_user_image" src="{{ url($image_url) }}">
+                                    @if($agent->agent_info->image)
+                                        <img class="upload_user_image" src="{{ asset('assets/uploads/images/' . $agent->agent_info->image) }}">
+                                    @endif
                                     </div>
                                 </div>
                             </div>
@@ -264,6 +259,48 @@
 <div p-8>
             <p>&nbsp;</p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+           $(document).ready(function () {
+                $('#edit-agent-form').validate({
+                    rules: {
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        first_name: {
+                            required: true
+                        },
+                        last_name: {
+                            required: true
+                        },
+                        agent_id: {
+                            required: true
+                        },
+                        home_phone: {
+                            required: true,
+                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                        }
+                    },
+                    messages: {
+                        home_phone: {
+                            required: 'Phone number is required.',
+                            regex: 'Must be a valid phone number.'
+                        }
+                    },
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+
+            // Custom method for regex validation
+            $.validator.addMethod("regex", function(value, element, regexpr) {
+                return this.optional(element) || regexpr.test(value);
+            }, "Please check your input.");
+
+});
+
+            </script>
 <style>
         .form-check-input[type=checkbox] {
             position: absolute !important;
