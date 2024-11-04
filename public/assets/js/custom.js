@@ -145,6 +145,25 @@ function leadDelete(customId) {
 $(document).ready(function() {
     $('#agent').select2();
 });
+$(document).ready(function() {
+  // Check the current URL to set the active menu on page load
+  var currentUrl = window.location.href;
+
+  // Iterate over each nav link to find the active one
+  $('.nav-link').each(function() {
+      var linkUrl = $(this).attr('href');
+      if (currentUrl.includes(linkUrl)) { // Use includes for better matching
+          $(this).closest('.nav-item').addClass('activenavitem'); // Set the active class
+      }
+  });
+
+  // Handle click event
+  $('.nav-link').on('click', function() {
+      $('.nav-item').removeClass('activenavitem'); // Remove active class from all
+      $(this).closest('.nav-item').addClass('activenavitem'); // Add active class to the clicked item
+  });
+});
+
 
    
    

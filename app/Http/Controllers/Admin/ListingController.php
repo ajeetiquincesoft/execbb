@@ -99,8 +99,31 @@ class ListingController extends Controller
         } */
         
     }
-    public function index(){
-        $listings =  Listing::orderBy('created_at', 'desc')->paginate(5);
+    public function index(Request $request){
+        $query = $request->get('query');
+        
+        $listings = Listing::where('SellerFName', 'LIKE', '%' . $query . '%')
+                            ->orWhere('SellerLName', 'LIKE', '%' . $query . '%')
+                            ->orWhere('SellerCorpName', 'LIKE', '%' . $query . '%')
+                            ->orWhere('SHomeAdd1', 'LIKE', '%' . $query . '%')
+                            ->orWhere('SCity', 'LIKE', '%' . $query . '%')
+                            ->orWhere('SHomePh', 'LIKE', '%' . $query . '%')
+                            ->orWhere('Email', 'LIKE', '%' . $query . '%')
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(2);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'data' => $listings->items(),
+                    'pagination' => [
+                        'total' => $listings->total(),
+                        'current_page' => $listings->currentPage(),
+                        'last_page' => $listings->lastPage(),
+                        'per_page' => $listings->perPage(),
+                    ],
+                ]);
+            }
+      /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
         return view('admin.listing.index', compact('listings'));
     }
     public function destroy(Request $request, $id)

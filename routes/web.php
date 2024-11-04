@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\LeadController;
+use App\Http\Controllers\Admin\BuyerController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -93,6 +94,12 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
      Route::get('view/lead/{id}',[LeadController::class,'show'])->name('show.lead');
      Route::delete('/lead/destroy/{id}',[LeadController::class,'destroy'])->name('lead.destroy');
      //end route for leads
+
+     //routes for buyers
+    Route::get('/buyer/{id?}', [BuyerController::class,'showForm'])->name('buyerForm');
+    Route::post('/buyer',  [BuyerController::class,'processForm'])->name('buyerForm.process');
+
+     //end route for buyers
 
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {

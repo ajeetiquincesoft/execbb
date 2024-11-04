@@ -18,9 +18,37 @@ use Illuminate\Pagination\Paginator;
 
 class AgentController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         try{
-        $agents = User::with('agent_info')->where('role_name','agent')->orderBy('created_at', 'desc')->paginate(2);
+       /*  $agents = User::with('agent_info')->where('role_name','agent')->orderBy('created_at', 'desc')->paginate(2); */
+        $query = $request->get('query');
+        
+        $agents = User::with('agent_info')->where('role_name','agent')
+        ->where(function($q) use ($query) {
+            // Search in User fields
+            $q->where('name', 'LIKE', '%' . $query . '%') 
+              ->orWhereHas('agent_info', function($q) use ($query) {
+                  // Search in agent_info fields
+                  $q->where('AgentID', 'LIKE', '%' . $query . '%')
+                            ->orWhere('FName', 'LIKE', '%' . $query . '%')
+                            ->orWhere('LName', 'LIKE', '%' . $query . '%')
+                            ->orWhere('Address1', 'LIKE', '%' . $query . '%')
+                            ->orWhere('Telephone', 'LIKE', '%' . $query . '%')
+                            ->orWhere('Email', 'LIKE', '%' . $query . '%');
+              });
+        })->orderBy('created_at', 'desc')->paginate(2);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'data' => $agents->items(),
+                    'pagination' => [
+                        'total' => $agents->total(),
+                        'current_page' => $agents->currentPage(),
+                        'last_page' => $agents->lastPage(),
+                        'per_page' => $agents->perPage(),
+                    ],
+                ]);
+            }
         return view('admin.agent.index',compact('agents'));
         }
         catch(\Exception $e){
