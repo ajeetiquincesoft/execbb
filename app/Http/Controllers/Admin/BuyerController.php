@@ -18,7 +18,6 @@ class BuyerController extends Controller
     }
     public function processForm(Request $request)
     {
-        dd($request->all());
         $step = $request->input('steps');
         // Save the form data to the session
         $formData = session('form_data', []);

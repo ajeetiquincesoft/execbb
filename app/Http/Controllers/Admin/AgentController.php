@@ -120,7 +120,7 @@ class AgentController extends Controller
          //Mail::to('santosh3257@gmail.com')->send(new AgentWelcome());
          event(new AgentRegister($request->all()));
         DB::commit();
-        return redirect('admin/create/agent')->with('success_message','Agent register successfully');
+        return redirect('admin/agent/list')->with('success_message','Agent register successfully');
      }catch (Throwable $e) {
         // Rollback if anything goes wrong
         DB::rollBack();
