@@ -710,12 +710,10 @@ p.activities-content {
   margin: 0;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
+/* .breadcrumb-item+.breadcrumb-item::before {
   content: " . ";
-  /* This adds a dot as the separator */
   color: #000;
-  /* Optional: set color */
-}
+} */
 
 .dropdown-item {
   text-decoration: none;

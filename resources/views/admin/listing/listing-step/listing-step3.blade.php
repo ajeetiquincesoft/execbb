@@ -312,19 +312,6 @@
             border-radius: 5px;
             box-shadow: unset;
         }
-
-        select {
-            font-size: 13px !important;
-            font-family: 'Inter' !important;
-            padding: 1rem !important;
-        }
-
-        input,
-        select {
-            padding: 0.7rem !important;
-            border-radius: 0px !important;
-        }
-
         input:not([type=checkbox]) {
             padding: 0.7rem !important;
             border-radius: 0px !important;

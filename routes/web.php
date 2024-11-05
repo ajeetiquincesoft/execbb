@@ -24,9 +24,10 @@ use App\Http\Controllers\Auth\ForgetPasswordController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('custom-welcome');
 });
 Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
+    Route::get('/', [AdminAuthController::class, 'dashboard']); 
     Route::get('/dashboard', [AdminAuthController::class, 'dashboard']); 
     //Route for agents start
     Route::get('/agent/list', [AgentController::class, 'index'])->name('list.agent');

@@ -3,9 +3,8 @@
         <div class="d-flex justify-content-between w-100">
           <div class="d-flex align-items-center">
             <button id="sidebarToggle" class="btn">☰</button>
-            <ol class="breadcrumb breadcrumb-list m-0 ms-2">
-              <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
+            <ol class="my_menu breadcrumb breadcrumb-list m-0 ms-2">
+              <li class="breadcrumb-item"><a class="nav-link-first" data-name="Dashboard" data-url="{{url('admin/dashboard')}}" href="{{url('admin/dashboard')}}">Home</a></li>
             </ol>
           </div>
           <div class="header-right profile-dropdown d-flex align-items-center">

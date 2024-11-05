@@ -83,26 +83,33 @@
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="cityStateZip" class="form-label">City</label>
-                                <div class="d-flex">
-                                    <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{$listingData->City}}">
-                                    @error('city')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                    <!-- <input type="text" id="State" class="form-control" placeholder="State" name="state" value="{{ session('formData.state') ? session('formData.state') : '' }}"> -->
-                                    <select id="State" class="form-select" name="state">
-                                    <option value="" selected="">Select state</option>
-                                    @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{$listingData->State == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                    @endforeach
-                                    </select>
-                                    @error('state')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                    <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{$listingData->Zip}}">
-                                    @error('zip_code')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                <div class="row">
+                                    <div class="col-md-4 p-0 m-0">
+                                        <label for="">City</label>
+                                        <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{$listingData->City}}">
+                                            @error('city')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                    </div>
+                                    <div class="col-md-5 p-0 m-0">
+                                        <label for="">State</label>
+                                        <select id="State" class="form-select" name="state">
+                                            <option value="" selected="">Select state</option>
+                                            @foreach($states as $key=>$value)
+                                            <option value="{{$value->State}}" {{$listingData->State == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                            @endforeach
+                                            </select>
+                                            @error('state')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                    </div>
+                                    <div class="col-md-3 p-0 m-0">
+                                        <label for="">Zip</label>
+                                        <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{$listingData->Zip}}">
+                                            @error('zip_code')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
@@ -354,18 +361,6 @@
             padding: 10px 45px;
             border-radius: 5px;
             box-shadow: unset;
-        }
-
-        select {
-            font-size: 13px !important;
-            font-family: 'Inter' !important;
-            padding: 1rem !important;
-        }
-
-        input,
-        select {
-            padding: 0.7rem !important;
-            border-radius: 0px !important;
         }
 
         input:not([type=checkbox]) {

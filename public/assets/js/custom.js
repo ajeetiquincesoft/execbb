@@ -163,6 +163,54 @@ $(document).ready(function() {
       $(this).closest('.nav-item').addClass('activenavitem'); // Add active class to the clicked item
   });
 });
+$(document).ready(function() {
+  // Load breadcrumbs from local storage and render them
+  loadBreadcrumbs();
+
+  $('.nav-link').on('click', function() {
+      var menuName = $(this).data('name');
+      var menuUrl = $(this).data('url');
+
+      // Append breadcrumb item
+      $('.my_menu').append('<li class="breadcrumb-item"><a href="' + menuUrl + '">' + menuName + '</a></li>');
+       // Clear breadcrumb to local storage
+      clearBreadcrumbs();
+      // Save breadcrumb to local storage
+      saveBreadcrumb(menuName, menuUrl);
+  });
+  $('.nav-link-first').on('click', function() {
+    var menuName = $(this).data('name');
+    var menuUrl = $(this).data('url');
+
+    // Append breadcrumb item
+    $('.my_menu').append('<li class="breadcrumb-item"><a href="' + menuUrl + '">' + menuName + '</a></li>');
+     // Clear breadcrumb to local storage
+    clearBreadcrumbs();
+    // Save breadcrumb to local storage
+    saveBreadcrumb(menuName, menuUrl);
+});
+
+  // Function to load breadcrumbs from local storage
+  function loadBreadcrumbs() {
+      var breadcrumbs = JSON.parse(localStorage.getItem('breadcrumbs')) || [];
+      breadcrumbs.forEach(function(breadcrumb) {
+          $('.my_menu').append('<li class="breadcrumb-item"><a href="' + breadcrumb.url + '">' + breadcrumb.name + '</a></li>');
+      });
+  }
+
+  // Function to save a breadcrumb to local storage
+  function saveBreadcrumb(name, url) {
+      var breadcrumbs = JSON.parse(localStorage.getItem('breadcrumbs')) || [];
+      breadcrumbs.push({ name: name, url: url });
+      localStorage.setItem('breadcrumbs', JSON.stringify(breadcrumbs));
+  }
+
+  function clearBreadcrumbs() {
+    localStorage.removeItem('breadcrumbs');
+    $('.my_menu').html(''); // Clear the displayed breadcrumbs as well
+  }
+});
+
 
 
    
