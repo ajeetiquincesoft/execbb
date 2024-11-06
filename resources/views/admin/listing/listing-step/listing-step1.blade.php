@@ -141,7 +141,7 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col">
+                    <div class="col-md-3">
                         <u><span id="fileLink">View Image</span> </u>
                         <br><!-- Placeholder for the file name -->
                         <label for="fileUpload" class="upload-button mt-1">
@@ -151,15 +151,21 @@
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </label>
-                        <div id="imagePreview"></div>
-                    </div>
-                    @if(session('formData.listing_img'))
-                    <div class="col">
-                        <div id="imageUploads">
-                            <img class="view_upload_image" src="{{ asset('assets/uploads/images/' . session('formData.listing_img')) }}" alt="Uploaded Image">
+                        <div class="avatar-upload-agent">
+                            <div id="imagePreview" class="avatar-circle"></div>
                         </div>
                     </div>
-                    @endif
+    
+                    <div class="col-md-3">
+                        <div class="avatar-upload-agent">
+                            <div class="avatar-circle">
+                            @if(session('formData.listing_img'))
+                                <img id="avatar-preview" src="{{ asset('assets/uploads/images/' . session('formData.listing_img')) }}" alt="Avatar Preview" class="avatar_agent">
+                            @endif
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
@@ -228,8 +234,6 @@
                 <div>
                     <button class="btn-primary" type="submit" id="nextBtn">Next</button>
                 </div>
-
-
             </div>
             <div id="errorMessage" class="alert alert-danger mt-3 d-none"></div>
         </form>

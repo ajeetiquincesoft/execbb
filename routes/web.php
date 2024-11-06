@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\BuyerController;
+use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -28,7 +29,7 @@ Route::get('/', function () {
 });
 Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/', [AdminAuthController::class, 'dashboard']); 
-    Route::get('/dashboard', [AdminAuthController::class, 'dashboard']); 
+    Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard'); 
     //Route for agents start
     Route::get('/agent/list', [AgentController::class, 'index'])->name('list.agent');
     Route::get('create/agent',[AgentController::class,'create'])->name('create.agent');
@@ -97,10 +98,18 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
      //end route for leads
 
      //routes for buyers
-    Route::get('/buyer/{id?}', [BuyerController::class,'showForm'])->name('buyerForm');
-    Route::post('/buyer',  [BuyerController::class,'processForm'])->name('buyerForm.process');
-
+   /*  Route::get('/buyer/{id?}', [BuyerController::class,'showForm'])->name('buyerForm');
+    Route::post('/buyer',  [BuyerController::class,'processForm'])->name('buyerForm.process'); */
+   /*  Route::match(['get', 'post'], 'buyer', [BuyerController::class, 'processForm'])->name('buyerForm.process'); */
+   Route::get('/buyer/list', [BuyerController::class, 'index'])->name('list.buyer');
+   Route::get('view/buyer/{id}',[BuyerController::class,'show'])->name('show.buyer');
+   Route::delete('/buyer/{id}',[BuyerController::class,'destroy'])->name('buyer.destroy');
      //end route for buyers
+
+    //routes for offers
+   Route::get('/offer', [OfferController::class, 'showForm'])->name('offer.form');
+    Route::post('/offer', [OfferController::class, 'processForm'])->name('offer.form.process');
+     //end route for offers
 
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {

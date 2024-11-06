@@ -2,9 +2,33 @@
       <div class="container-fluid">
         <div class="d-flex justify-content-between w-100">
           <div class="d-flex align-items-center">
+            @php
+              $route = Route::currentRouteName();
+            @endphp
             <button id="sidebarToggle" class="btn">☰</button>
             <ol class="my_menu breadcrumb breadcrumb-list m-0 ms-2">
-              <li class="breadcrumb-item"><a class="nav-link-first" data-name="Dashboard" data-url="{{url('admin/dashboard')}}" href="{{url('admin/dashboard')}}">Home</a></li>
+              <li class="breadcrumb-item"><a class="nav-link" href="{{url('admin/dashboard')}}">Home</a></li>
+              @if($route == 'admin.dashboard')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Dashboard</a>
+              </li>
+              @elseif($route == 'all.listing')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Listing</a>
+              </li>
+              @elseif($route == 'all.lead')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Lead</a>
+              </li>
+              @elseif($route == 'list.agent')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Agent</a>
+              </li>
+              @elseif($route == 'list.buyer')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Buyer</a>
+              </li>
+              @endif
             </ol>
           </div>
           <div class="header-right profile-dropdown d-flex align-items-center">

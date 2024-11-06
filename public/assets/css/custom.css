@@ -117,4 +117,94 @@ img.create_img {
   height: auto;
   border-radius: 50%; /* Make the image circular */
 }
+
+/*css start for agent*/
+
+.avatar-upload-agent {
+  text-align: center;
+}
+
+/* Circular container */
+.avatar-circle {
+  width: 100px; /* Set the size of the circle */
+  height: 100px; /* Set the size of the circle */
+  border-radius: 50%; /* Makes the container circular */
+  overflow: hidden; /* Ensures the image fits within the circle */
+  display: inline-block; /* Keeps the container inline with other elements */
+}
+
+/* Image inside the circular container */
+.avatar_agent {
+  width: 100%; /* Ensure the image takes the full width of the container */
+  height: 100%; /* Ensure the image takes the full height of the container */
+  object-fit: cover; /* Ensures the image covers the circle while maintaining aspect ratio */
+}
 /*end css*/
+
+/*style for view page card body*/
+.card-body {
+  padding: 20px; /* Adds padding inside the card body */
+  background-color: #f8f9fa; /* Light background color for the card body */
+  border-radius: 8px; /* Rounded corners for the card */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow around the card */
+}
+
+/* Scrollable section */
+.scrollable-activity {
+/*   max-height: 600px; 
+  overflow-y: auto;  */
+  margin-top: 10px;
+}
+
+/* Styling for individual activities */
+.activity {
+  padding: 15px; /* Adds padding to each activity block */
+  border-bottom: 1px solid #e0e0e0; /* Light border to separate activities */
+  margin-bottom: 15px; /* Adds space between each activity block */
+}
+
+/* Title of the activity (bold and spaced) */
+.activity-title {
+  font-weight: bold;
+  margin-bottom: 5px; /* Space between the title and the time */
+  font-size: 1.1em; /* Slightly larger font size for the title */
+}
+
+/* Time of the activity */
+.activity-time {
+  font-size: 0.9em; /* Smaller text for the time */
+  color: #6c757d; /* Gray color for the time */
+  margin-bottom: 10px; /* Adds space between time and content */
+}
+
+/* Content of the activity */
+.activity-content {
+  font-size: 1em;
+  color: #495057; /* Darker text color for readability */
+  line-height: 1.5; /* Adds spacing between lines for readability */
+}
+
+/* Spacing between activities and inside the card */
+.activity + .activity {
+  margin-top: 15px; /* Adds space between consecutive activities */
+}
+
+/* Optional: Add some hover effect for interactivity */
+.activity:hover {
+  background-color: #f1f1f1; /* Light gray background on hover */
+  cursor: pointer; /* Change cursor to pointer when hovering over an activity */
+}
+
+/* Optional: Add padding inside the activity content */
+.activity-content {
+  padding: 5px 0; /* Adds padding to the content for better spacing */
+}
+/*end css for card body view page*/
+
+
+.breadcrumb-item+.breadcrumb-item::before {
+
+  content: "/";
+  position: relative;
+  top: 7px;
+}

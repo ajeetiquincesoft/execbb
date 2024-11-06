@@ -41,7 +41,7 @@
                                     <strong>{{ Session::get('success_message') }}</strong>
                                 </div>
                                 @endif
-                                <form method="POST" action="{{ route('update.password.link') }}">
+                                <form id="forget_pass" method="POST" action="{{ route('update.password.link') }}">
                                     @csrf
         
                                     @if ($errors->has('emailPassword'))
@@ -69,12 +69,41 @@
             </div>
         </div>
     </div>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include jQuery Validation Plugin -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script>
+$(document).ready(function() {
+    $('#forget_pass').validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            email: {
+                required: "Please enter your email",
+                email: "Please enter a valid email address"
+            }
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+</script>
+<style>
+    label#email-error {
+    color: #FF0000;
+}
+    </style>
 </body>
 
 </html>

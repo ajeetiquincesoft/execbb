@@ -141,6 +141,23 @@ function leadDelete(customId) {
       }
   });
 }
+function buyerDelete(customId) {
+  Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5e0f2f',
+      cancelButtonColor: '#93744b',
+      confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          // Submit the form for deletion
+          document.getElementById('delete-buyer-' + customId).submit();
+      }
+  });
+}
+
 //multi select
 $(document).ready(function() {
     $('#agent').select2();
@@ -163,7 +180,7 @@ $(document).ready(function() {
       $(this).closest('.nav-item').addClass('activenavitem'); // Add active class to the clicked item
   });
 });
-$(document).ready(function() {
+/* $(document).ready(function() {
   // Load breadcrumbs from local storage and render them
   loadBreadcrumbs();
 
@@ -209,7 +226,7 @@ $(document).ready(function() {
     localStorage.removeItem('breadcrumbs');
     $('.my_menu').html(''); // Clear the displayed breadcrumbs as well
   }
-});
+}); */
 
 
 

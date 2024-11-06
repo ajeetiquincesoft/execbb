@@ -27,7 +27,7 @@
         <li class="nav-item">
           <!-- <i class="fas fa-list"></i> -->
           <img src="{{ url('assets/images/Off-Esc-Close.png') }}">
-          <a class="nav-link" data-name="Off/ Esc/ Close" data-url="#" href="#">Off/ Esc/ Close</a>
+          <a class="nav-link" data-name="Off/ Esc/ Close" data-url="#" href="{{route('offer.form')}}">Off/ Esc/ Close</a>
         </li>
         <li class="nav-item">
           <!-- <i class="fas fa-clock"></i> -->
@@ -37,7 +37,7 @@
         <li class="nav-item">
           <!-- <i class="fas fa-exchange-alt"></i> -->
           <img src="{{ url('assets/images/Buyers.png') }}">
-          <a class="nav-link" data-name="Buyers" data-url="#" href="#">Buyers</a>
+          <a class="nav-link" data-name="Buyers" data-url="#" href="{{route('list.buyer')}}">Buyers</a>
         </li>
         <li class="nav-item">
           <!-- <i class="fas fa-address-book"></i> -->

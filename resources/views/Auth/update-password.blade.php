@@ -41,7 +41,7 @@
                                     <strong>{{ Session::get('success_message') }}</strong>
                                 </div>
                                 @endif
-                                <form method="POST" action="{{ route('reset.forget.password') }}">
+                                <form id="update_pass" method="POST" action="{{ route('reset.forget.password') }}">
                                     @csrf
                                     @if ($errors->has('emailPassword'))
                                             <div class="alert alert-danger">
@@ -51,7 +51,7 @@
                                     <input type="hidden" name="token" value="{{$token}}">
                                     <div data-mdb-input-init class="form-outline mb-2">
                                         <label class="form-label" for="email"><b>Email address</b></label>
-                                        <input type="email" id="email" name="email" class="form-control form-control-lg" value="{{$email}}"/>
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg" value="{{$email}}" readonly />
                                         @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                         @endif
@@ -90,6 +90,47 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include jQuery Validation Plugin -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#update_pass').validate({
+        rules: {
+            password: {
+                required: true,
+                minlength: 6  // Minimum password length, adjust if needed
+            },
+            password_confirmation: {
+                required: true,
+                minlength: 6,  // Same as password length
+                equalTo: '#password'  // Ensures it matches the password field
+            }
+        },
+        messages: {
+            password: {
+                required: "Please enter a new password",
+                minlength: "Password must be at least 6 characters long"
+            },
+            password_confirmation: {
+                required: "Please confirm your new password",
+                minlength: "Password confirmation must be at least 6 characters long",
+                equalTo: "Password and confirmation must match"
+            }
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+
+</script> 
+<style>
+    .error {
+    color: #FF0000;
+}
+    </style>
 </body>
 
 </html>

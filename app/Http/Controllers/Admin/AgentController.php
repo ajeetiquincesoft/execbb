@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Throwable;
+use Illuminate\Database\QueryException;
 use App\Events\AgentRegister;
 use App\Mail\AgentWelcome;
 use Illuminate\Support\Facades\Mail;
@@ -121,11 +122,21 @@ class AgentController extends Controller
          event(new AgentRegister($request->all()));
         DB::commit();
         return redirect('admin/agent/list')->with('success_message','Agent register successfully');
-     }catch (Throwable $e) {
-        // Rollback if anything goes wrong
+     }catch (QueryException $e) {
         DB::rollBack();
-        // Optionally log the error or handle it in another way
-        return response()->json(['error' => 'Failed to create agent and profile.'], 500);
+
+        // Handle duplicate entry error specifically
+        if (isset($e->errorInfo[1]) && $e->errorInfo[1] == 1062) {
+            return redirect()->back()->with('duplicate_error','Agent ID can not be duplicate.')->withInput();
+        }
+
+        // Handle other database errors
+        return response()->json(['error' => 'Failed to create agent.'], 500);
+    } catch (Throwable $e) {
+        DB::rollBack();
+
+        // Handle unexpected errors
+        return response()->json(['error' => 'An unexpected error occurred.'], 500);
     }
         
        

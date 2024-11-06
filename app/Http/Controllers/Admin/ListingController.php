@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Models\Listing;
 use App\Models\User;
 use Throwable;
@@ -34,8 +35,8 @@ class ListingController extends Controller
         $file = $request->file('file');
         $handle = fopen($file, 'r');
         $header = fgetcsv($handle); // Read header row
-    
-        while (($row = fgetcsv($handle)) !== false) {
+        $counter = 0;
+        while (($row = fgetcsv($handle)) !== false  && $counter < 20) {
             // Skip empty rows
           /*   if (isset($row[2]) && $row[2] == '0') {
                 continue; // Skip this row
@@ -55,19 +56,44 @@ class ListingController extends Controller
             } else {
                 $row[3] = null; // Set to null if the value is empty
             } */
+            // Generate a dummy email address
+            $dummyEmail = $this->generateDummyEmail();
+
+            // Generate a dummy phone number
+            $dummyPhone = $this->generateDummyPhone();
              // Insert data into the database
-            DB::insert('INSERT INTO listing_types (Description, Code, created_at, updated_at) VALUES (?, ?, ?, ?)', [
+            DB::insert('INSERT INTO buyers (BDate, AgentID, LName, FName, Address1, HomePhone, Email, Interest, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                 $row[1],
                 $row[2],
+                $row[3],
+                $row[4],
+                $row[8],
+                $dummyPhone,
+                $dummyEmail,
+                2,
                 now(),  
                 now(),
             ]);
+            $counter++;
 
         }
     
         fclose($handle);
     
         return back()->with('success', 'CSV data imported successfully!');
+    }
+    // Helper function to generate a dummy email
+    private function generateDummyEmail()
+    {
+        // Use a random string to generate a unique email
+        return Str::random(10) . '@example.com';  // Example: randomstring@example.com
+    }
+
+    // Helper function to generate a dummy phone number
+    private function generateDummyPhone()
+    {
+        // Generate a random phone number in a specific format
+        return '+1-' . rand(100, 999) . '-' . rand(100, 999) . '-' . rand(1000, 9999);  // Example: +1-123-456-7890
     }
     public function form(Request $request){
             $request->session()->forget('formData');

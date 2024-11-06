@@ -16,7 +16,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="agentId">Agent Id</label>
-                                        <input type="text" placeholder="" id="agent_id" class="form-control" name="agent_id" value="{{$agent->agent_info->AgentID }}">
+                                        <input type="text" placeholder="" id="agent_id" class="form-control" name="agent_id" value="{{$agent->agent_info->AgentID }}" readonly>
                                         @if ($errors->has('agent_id'))
                                         <span class="text-danger">{{ $errors->first('agent_id') }}</span>
                                         @endif
@@ -54,35 +54,39 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="agentCity">City</label>
-                                        <input type="text" placeholder="" id="city" class="form-control"
-                                            name="city" value="{{$agent->agent_info->City }}">
-                                        @if ($errors->has('city'))
-                                        <span class="text-danger">{{ $errors->first('city') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="form-group">
-                                        <label for="agentState">State</label>
-                                        <select id="state" class="form-select" name="state">
-                                        <option value="" selected="">Select state</option>
-                                        @foreach($states as $key=>$value)
-                                        <option value="{{$value->State}}"  {{ $agent->agent_info->State == $value->State  ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                        @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="form-group">
-                                        <label for="agentCity">Zip</label>
-                                        <input type="text" placeholder="" id="zip_code" class="form-control"
-                                            name="zip_code" value="{{$agent->agent_info->Zip }}" >
-                                        @if ($errors->has('zip_code'))
-                                        <span class="text-danger">{{ $errors->first('zip_code') }}</span>
-                                        @endif
+                                <div class="col-md-4 mb-3">
+                                    <div class="row">
+                                        <div class="col-md-4 p-0 m-0">
+                                            <div class="form-group">
+                                                <label for="agentCity">City</label>
+                                                <input type="text" placeholder="" id="city" class="form-control"
+                                                    name="city" value="{{$agent->agent_info->City }}">
+                                                @if ($errors->has('city'))
+                                                <span class="text-danger">{{ $errors->first('city') }}</span>
+                                                @endif
+                                            </div>
+                                         </div>
+                                         <div class="col-md-5 p-0 m-0">
+                                            <div class="form-group">
+                                                <label for="agentState">State</label>
+                                                <select id="state" class="form-select" name="state">
+                                                <option value="" selected="">Select state</option>
+                                                @foreach($states as $key=>$value)
+                                                <option value="{{$value->State}}"  {{ $agent->agent_info->State == $value->State  ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                                @endforeach
+                                                </select>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-3 p-0 m-0">
+                                            <div class="form-group">
+                                                <label for="agentCity">Zip</label>
+                                                <input type="text" placeholder="" id="zip_code" class="form-control"
+                                                    name="zip_code" value="{{$agent->agent_info->Zip }}" >
+                                                @if ($errors->has('zip_code'))
+                                                <span class="text-danger">{{ $errors->first('zip_code') }}</span>
+                                                @endif
+                                            </div>
+                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -121,7 +125,7 @@
                                 <div class="form-group mb-3">
                                         <label for="agentEmail">Email</label>
                                         <input type="text" placeholder="" id="email" class="form-control"
-                                            name="email" value="{{$agent->agent_info->Email }}">
+                                            name="email" value="{{$agent->agent_info->Email }}" readonly>
                                         @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                         @endif
@@ -235,14 +239,20 @@
                                             <input type="file" id="fileUpload" accept="image/*" style="display:none;" name="agent_image">
                                             <span class="button-text"> <img src="{{url('assets/images/uploadicon.svg')}}" alt="">Upload</span>
                                         </label>
-                                        <div id="imagePreview"></div>
+                                        <div class="avatar-upload-agent">
+                                            <div id="imagePreview" class="avatar-circle"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="col">
-                                    @if($agent->agent_info->image)
-                                        <img class="upload_user_image" src="{{ asset('assets/uploads/images/' . $agent->agent_info->image) }}">
-                                    @endif
+                                    <div class="col m-0 p-0">
+                                        <div class="avatar-upload-agent">
+                                        <div class="avatar-circle">
+                                        @if($agent->agent_info->image)
+                                            <img id="avatar-preview" src="{{ asset('assets/uploads/images/' . $agent->agent_info->image) }}" alt="Avatar Preview" class="avatar_agent">
+                                        @endif
+                                        </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -315,19 +325,6 @@
             font-size: 1.1rem;
             color: #000;
         }
-
-       select {
-            font-size: 13px !important;
-            font-family: 'Inter' !important;
-            padding: 1rem !important;
-        }
-
-        input,
-        select {
-            padding: 0.7rem !important;
-            border-radius: 0px !important;
-        }
-
         input:not([type=checkbox]) {
             padding: 0.7rem !important;
             border-radius: 0px !important;

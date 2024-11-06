@@ -322,7 +322,7 @@ ul.nav li {
 }
 .list-data .table-bordered td {
   border: #fff;
-  min-width: 105px;
+ /*  min-width: 105px; */
   color: #626262;
 }
 .list-data tr {
@@ -342,9 +342,9 @@ td.list-btn {
 /* ---------- add listing form  -------------- */
 
 /* Hide all steps by default: */
-.form-multi-tab {
+/* .form-multi-tab {
   display: none;
-}
+} */
 .form-control, select {
   height: 3em !important;
   border-radius: 0px !important;
