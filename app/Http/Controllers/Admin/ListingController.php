@@ -93,7 +93,7 @@ class ListingController extends Controller
     private function generateDummyPhone()
     {
         // Generate a random phone number in a specific format
-        return rand(100, 999) . '-' . rand(100, 999) . '-' . rand(1000, 9999);  // Example: +1-123-456-7890
+        return '+1-' . rand(100, 999) . '-' . rand(100, 999) . '-' . rand(1000, 9999);  // Example: +1-123-456-7890
     }
     public function form(Request $request){
             $request->session()->forget('formData');
