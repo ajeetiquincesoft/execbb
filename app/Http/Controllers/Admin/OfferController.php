@@ -12,11 +12,21 @@ use Illuminate\Support\Facades\DB;
 
 class OfferController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         session()->forget(['offerData', 'step']);
-        $offers =Offer::orderBy('created_at','desc')->paginate(5);
+        $query = $request->input('query');
+         // Check if the query exists, otherwise get all offers with pagination
+        $offers = Offer::query();
+        if ($query) {
+            // Filter offers by the search query (case-insensitive match)
+            $offers->where('Status', 'like', '%' . $query . '%');
+        }
+        // Paginate results, 5 offers per page, ordered by creation date
+        $offers = $offers->orderBy('created_at', 'desc')->paginate(5);
+        // Retrieve company names (SellerCorpName) indexed by ListingID
         $company_name = DB::table('listings')->pluck('SellerCorpName', 'ListingID');
-        return view('admin.offer.index',compact('offers','company_name'));
+         // Return the view with the data
+         return view('admin.offer.index', compact('offers', 'company_name'));
     }
     public function create(){
         session()->forget(['offerData', 'step']);
