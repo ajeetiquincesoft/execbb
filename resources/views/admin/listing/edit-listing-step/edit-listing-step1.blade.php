@@ -296,7 +296,6 @@
                         }
                     },
                     submitHandler: function (form) {
-                        alert('dffdfggf');
                         form.submit();
                     }
                 });

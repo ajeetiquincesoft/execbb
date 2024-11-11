@@ -107,8 +107,14 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
      //end route for buyers
 
     //routes for offers
+    Route::get('/offer/all', [OfferController::class, 'index'])->name('all.offer');
+    Route::get('create/offer',[OfferController::class,'create'])->name('create.offer');
    Route::get('/offer', [OfferController::class, 'showForm'])->name('offer.form');
     Route::post('/offer', [OfferController::class, 'processForm'])->name('offer.form.process');
+    Route::delete('/offer/destroy/{id}',[OfferController::class,'destroy'])->name('offer.destroy');
+    Route::get('/offer/{id}', [OfferController::class, 'editForm'])->name('edit.offer.form');
+    Route::post('/offer/{id}', [OfferController::class, 'editProcessForm'])->name('edit.offer.form.process');
+    Route::get('view/offer/{id}',[OfferController::class,'show'])->name('show.offer');
      //end route for offers
 
 });

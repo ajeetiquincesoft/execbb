@@ -92,6 +92,48 @@ $( function() {
          $('#listed').val('0');
      } 
    }
+
+   function changeRealStateTransValue() {
+    var checkBox = document.getElementById("realEstateTransaction");
+     if (checkBox.checked == true){
+       $('#realEstateTransaction').val('1');
+     } else {
+         $('#realEstateTransaction').val('0');
+     } 
+   }
+
+   function changeCheckOnHoldValue() {
+    var checkBox = document.getElementById("checkOnHold");
+     if (checkBox.checked == true){
+       $('#checkOnHold').val('1');
+     } else {
+         $('#checkOnHold').val('0');
+     } 
+   }
+   function changeCheckBouncedValue() {
+    var checkBox = document.getElementById("bounced");
+     if (checkBox.checked == true){
+       $('#bounced').val('1');
+     } else {
+         $('#bounced').val('0');
+     } 
+   }
+   function changeRealEstateIncludedValue() {
+    var checkBox = document.getElementById("realEstateIncluded");
+     if (checkBox.checked == true){
+       $('#realEstateIncluded').val('1');
+     } else {
+         $('#realEstateIncluded').val('0');
+     } 
+   }
+   function changeOptionToBuyValue() {
+    var checkBox = document.getElementById("optionToBuy");
+     if (checkBox.checked == true){
+       $('#optionToBuy').val('1');
+     } else {
+         $('#optionToBuy').val('0');
+     } 
+   }
    
    function confirmDelete(id) {
     Swal.fire({
@@ -154,6 +196,22 @@ function buyerDelete(customId) {
       if (result.isConfirmed) {
           // Submit the form for deletion
           document.getElementById('delete-buyer-' + customId).submit();
+      }
+  });
+}
+function offerDelete(customId) {
+  Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5e0f2f',
+      cancelButtonColor: '#93744b',
+      confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          // Submit the form for deletion
+          document.getElementById('delete-offer-' + customId).submit();
       }
   });
 }

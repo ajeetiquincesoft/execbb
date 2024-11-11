@@ -20,6 +20,10 @@
               <li class="breadcrumb-item">
                   <a class="nav-link" href="{{ route($route) }}">Lead</a>
               </li>
+              @elseif($route == 'all.offer')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Offer</a>
+              </li>
               @elseif($route == 'list.agent')
               <li class="breadcrumb-item">
                   <a class="nav-link" href="{{ route($route) }}">Agent</a>

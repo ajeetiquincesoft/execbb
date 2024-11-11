@@ -27,7 +27,7 @@
         <li class="nav-item">
           <!-- <i class="fas fa-list"></i> -->
           <img src="{{ url('assets/images/Off-Esc-Close.png') }}">
-          <a class="nav-link" data-name="Off/ Esc/ Close" data-url="#" href="{{route('offer.form')}}">Off/ Esc/ Close</a>
+          <a class="nav-link" data-name="Off/ Esc/ Close" data-url="#" href="{{route('all.offer')}}">Off/ Esc/ Close</a>
         </li>
         <li class="nav-item">
           <!-- <i class="fas fa-clock"></i> -->
