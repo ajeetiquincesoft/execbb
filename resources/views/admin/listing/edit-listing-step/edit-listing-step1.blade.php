@@ -126,14 +126,14 @@
                         <div class="row mb-2">
                             <div class="col-md-4">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" id="phone" class="form-control" name="phone" value="{{$listingData->SHomePh}}">
+                                <input type="tel" id="phone" class="form-control" name="phone" value="{{$listingData->Phone}}">
                                 @error('phone')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="fax" class="form-label">Fax</label>
-                                <input type="text" id="fax" class="form-control" name="fax" value="{{$listingData->SHomeFax}}">
+                                <input type="text" id="fax" class="form-control" name="fax" value="{{$listingData->Fax}}">
                             </div>
                             <div class="col-md-4" style="height: 70px;">
                                 <label for="featuredListing" class="form-check-label">Featured Listing</label>
