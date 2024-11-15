@@ -20,7 +20,7 @@
             <div class="card-body">
               <div class="profile-info">
                 <div class="text-end">
-                  <a href="#"><i  class="fa fa-edit edit-icon"></i></a>
+                  <a href="{{route('edit.lead',$lead->LeadID)}}"><i  class="fa fa-edit edit-icon"></i></a>
                 </div>
                 <div class="text-center">
                   <img src="{{ url('assets/images/user.png') }}" alt="User Image" width="100">
