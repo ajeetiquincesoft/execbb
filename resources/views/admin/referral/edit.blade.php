@@ -11,8 +11,9 @@
         </div>
         <div class="container-fluid content bg-light">
             <div class="row card p-4 font-fm mb-5">
-                <form id="referral_form" action="{{ route('store.referral') }}" method="post">
+                <form id="editReferral_form" action="{{ route('update.referral',$referral->RefID) }}" method="post">
                 @csrf
+                @method('PUT')
                     <div>
                         <h1>Referrals:</h1>
                         <hr>
@@ -22,25 +23,25 @@
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Follow Up</label>
-                                <input type="text" class="form-control" id="follow_up" name="follow_up" value="{{old('follow_up')}}">
+                                <input type="text" class="form-control" id="follow_up" name="follow_up" value="{{$referral->RefCompany}}">
                                 @error('follow_up')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Broke of Rec</label>
-                                <input type="text" class="form-control" id="broke_of_rac" name="broke_of_rac" value="{{old('broke_of_rac')}}">
+                                <input type="text" class="form-control" id="broke_of_rac" name="broke_of_rac" value="{{$referral->BrokOfRec}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Agent Name</label>
-                                <input type="text" class="form-control" id="agent_name" name="agent_name" value="{{old('agent_name')}}">
+                                <input type="text" class="form-control" id="agent_name" name="agent_name" value="{{$referral->AgentName}}">
                                 @error('agent_name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Address</label>
-                                <input type="text" class="form-control" id="address" name="address" value="{{old('address')}}">
+                                <input type="text" class="form-control" id="address" name="address" value="{{$referral->Address1}}">
                                 @error('address')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -49,7 +50,7 @@
                                 <label for="cityStateZip" class="form-label">City</label>
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{old('city')}}">
+                                        <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{$referral->City}}">
                                         @error('city')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -58,7 +59,7 @@
                                         <select id="State" class="form-select" name="state">
                                             <option value="" selected="">Select state</option>
                                             @foreach($states as $key=>$value)
-                                            <option value="{{$value->State}}" {{ (old('state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                            <option value="{{$value->State}}" {{ $referral->State == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
                                             @endforeach
                                         </select>
                                             @error('state')
@@ -66,7 +67,7 @@
                                             @enderror
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip" value="{{old('zip')}}">
+                                        <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip" value="{{$referral->Zip}}">
                                         @error('zip')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -75,7 +76,7 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Phone</label>
-                                <input type="tel" class="form-control" id="phone" name="phone"  value="{{old('phone')}}">
+                                <input type="tel" class="form-control" id="phone" name="phone"  value="{{$referral->Phone}}">
                                 @error('phone')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -83,24 +84,24 @@
 
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Fax</label>
-                                <input type="text" class="form-control" id="fax" name="fax"  value="{{old('fax')}}">
+                                <input type="text" class="form-control" id="fax" name="fax"  value="{{$referral->Fax}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Ref Fee</label>
-                                <input type="text" class="form-control" id="ref_fee" name="ref_fee"  value="{{old('ref_fee')}}">
+                                <input type="text" class="form-control" id="ref_fee" name="ref_fee"  value="{{$referral->RefFee}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Flat Fee</label>
-                                <input type="text" class="form-control" id="flat_fee" name="flat_fee"  value="{{old('flat_fee')}}">
+                                <input type="text" class="form-control" id="flat_fee" name="flat_fee"  value="{{$referral->FlatFee}}">
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Ref Amt Paid</label>
-                                <input type="text" class="form-control" id="ref_amt_paid" name="ref_amt_paid"  value="{{old('ref_amt_paid')}}">
+                                <input type="text" class="form-control" id="ref_amt_paid" name="ref_amt_paid"  value="{{$referral->RefAmt}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Comments</label>
-                                <input type="text" class="form-control" id="comments" name="comments"  value="{{old('comments')}}">
+                                <input type="text" class="form-control" id="comments" name="comments"  value="{{$referral->Comments}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <div class="row">
@@ -146,23 +147,23 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate"> Name</label>
-                                <input type="text" class="form-control" id="referral_name" name="referral_name"  value="{{old('referral_name')}}">
+                                <input type="text" class="form-control" id="referral_name" name="referral_name"  value="{{$referral->ReferredName}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Address</label>
-                                <input type="text" class="form-control" id="referral_address" name="referral_address"  value="{{old('referral_address')}}">
+                                <input type="text" class="form-control" id="referral_address" name="referral_address"  value="{{$referral->ReferredAdd1}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="cityStateZip" class="form-label">City</label>
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <input type="text" id="referral_city" class="form-control" placeholder="City" name="referral_city"  value="{{old('referral_city')}}">
+                                        <input type="text" id="referral_city" class="form-control" placeholder="City" name="referral_city"  value="{{$referral->ReferredCity}}">
                                     </div>
                                     <div class="col-md-3  p-0">
                                         <select id="referral_state" class="form-select" name="referral_state">
                                             <option value="" selected="">Select state</option>
                                             @foreach($states as $key=>$value)
-                                            <option value="{{$value->State}}" {{ (old('referral_state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
+                                            <option value="{{$value->State}}" {{ $referral->ReferredState == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
                                             @endforeach
                                         </select>
                                             @error('referral_state')
@@ -170,21 +171,21 @@
                                             @enderror
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" id="referral_zip" class="form-control" placeholder="Zip" name="referral_zip"  value="{{old('referral_zip')}}">
+                                        <input type="text" id="referral_zip" class="form-control" placeholder="Zip" name="referral_zip"  value="{{$referral->ReferredZip}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Phone</label>
-                                <input type="text" class="form-control" id="referral_phone" name="referral_phone"  value="{{old('referral_phone')}}">
+                                <input type="text" class="form-control" id="referral_phone" name="referral_phone"  value="{{$referral->ReferredPhone}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Ref Interest</label>
-                                <input type="text" class="form-control" id="ref_interest" name="ref_interest"  value="{{old('ref_interest')}}">
+                                <input type="text" class="form-control" id="ref_interest" name="ref_interest"  value="{{$referral->ReferredInterest}}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="expDate">Ref DBA</label>
-                                <input type="text" class="form-control" id="ref_dba" name="ref_dba"  value="{{old('ref_dba')}}">
+                                <input type="text" class="form-control" id="ref_dba" name="ref_dba"  value="{{$referral->ReferredDBA}}">
                             </div>
 
                         </div>
@@ -202,7 +203,7 @@
             <p>&nbsp;</p>
         </div>
   
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function resetForm() {
     document.getElementById("referral_form").reset();
@@ -217,7 +218,7 @@
                 $.validator.addMethod("regex", function(value, element, regexp) {
                     return this.optional(element) || regexp.test(value);
                 }, "Invalid format.");
-                $('#referral_form').validate({
+                $('#editReferral_form').validate({
                     rules: {
                         follow_up: {
                             required: true

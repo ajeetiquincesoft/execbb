@@ -128,12 +128,16 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
    Route::get('view/contact/{id}',[ContactController::class,'show'])->name('show.contact');
      //end route for Contacts
 
-        //routes for Contacts
-   
+        //routes for referrals
+    Route::get('referral/all', [ReferralController::class, 'index'])->name('all.referral');
     Route::get('create/referral',[ReferralController::class,'create'])->name('create.referral');
     Route::post('store/referral', [ReferralController::class, 'store'])->name('store.referral');
+    Route::get('edit/referral/{id}', [ReferralController::class, 'editReferral'])->name('edit.referral');
+    Route::put('update/referral/{id}', [ReferralController::class, 'updateReferral'])->name('update.referral');
+    Route::get('view/referral/{id}',[ReferralController::class,'show'])->name('show.referral');
+    Route::delete('referral/destroy/{id}',[ReferralController::class,'destroy'])->name('referral.destroy');
    
-     //end route for Contacts
+     //end route for Referrals
 
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {

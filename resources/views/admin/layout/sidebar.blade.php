@@ -47,7 +47,7 @@
         <li class="nav-item">
           <!-- <i class="fas fa-calendar-alt"></i> -->
           <img src="{{ url('assets/images/Referrals.png') }}">
-          <a class="nav-link" data-name="Referrals" data-url="#" href="#">Referrals</a>
+          <a class="nav-link" data-name="Referrals" data-url="#" href="{{route('all.referral')}}">Referrals</a>
         </li>
         <li class="nav-item">
           <!-- <i class="fas fa-calendar-alt"></i> -->
