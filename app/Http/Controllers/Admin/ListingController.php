@@ -586,7 +586,11 @@ class ListingController extends Controller
         $states = DB::table('states')->get();
         $counties = DB::table('counties')->get();
         $sub_categories = DB::table('sub_categories')->get();
-        return view('admin.listing.edit-listing-step.edit-listing-step1',compact('categoryData','states','sub_categories','listingData','counties'));
+         // Get the previous listing ID
+         $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
+         // Get the next listing ID
+         $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
+        return view('admin.listing.edit-listing-step.edit-listing-step1',compact('categoryData','states','sub_categories','listingData','counties','previous','next'));
     }
     public function editStep2($id){
         $listingData = Listing::where('ListingID',$id)->first();
@@ -604,7 +608,11 @@ class ListingController extends Controller
             if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
                 return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
             }
-            return view('admin.listing.edit-listing-step.edit-listing-step2',compact('listingData'));
+            // Get the previous listing ID
+            $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
+            // Get the next listing ID
+            $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
+            return view('admin.listing.edit-listing-step.edit-listing-step2',compact('listingData','previous','next'));
     }
     public function editStep3($id){
         $listingData = Listing::where('ListingID',$id)->first();
@@ -629,7 +637,11 @@ class ListingController extends Controller
            if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
                return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
            }
-        return view('admin.listing.edit-listing-step.edit-listing-step3', compact('agents','listingData','selectedAgents','listingTypes'));
+        // Get the previous listing ID
+        $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
+        // Get the next listing ID
+        $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
+        return view('admin.listing.edit-listing-step.edit-listing-step3', compact('agents','listingData','selectedAgents','listingTypes','previous','next'));
     }
     public function editStep4($id){
         $listingData = Listing::where('ListingID',$id)->first();
@@ -644,7 +656,11 @@ class ListingController extends Controller
             if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
                 return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
             }
-            return view('admin.listing.edit-listing-step.edit-listing-step4',compact('listingData'));
+            // Get the previous listing ID
+         $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
+         // Get the next listing ID
+         $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
+            return view('admin.listing.edit-listing-step.edit-listing-step4',compact('listingData','previous','next'));
        
     }
     public function editStep5($id){
@@ -660,7 +676,11 @@ class ListingController extends Controller
          if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
              return redirect()->route('edit.listing.step'.$step-1,['id' => $id]);
          }
-        return view('admin.listing.edit-listing-step.edit-listing-step5',compact('listingData'));
+         // Get the previous listing ID
+         $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
+         // Get the next listing ID
+         $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
+        return view('admin.listing.edit-listing-step.edit-listing-step5',compact('listingData','previous','next'));
     }
     public function updateStep1(Request $request, $id){
         $request->validate([
