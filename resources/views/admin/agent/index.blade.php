@@ -1,6 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
     <div class="row card">
         <div class="list-header">
 
