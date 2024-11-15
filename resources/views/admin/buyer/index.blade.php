@@ -12,18 +12,20 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="#">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                                <i class="fas fa-plus mr-1"></i> Add Buyers
+                            <img class="create_img" src="{{ url('assets/images/Buyers.png') }}"> Add Buyers
                             </button></a>
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
-                        <div class="input-group" style="max-width: 300px;">
-                            <input type="text" id="search" class="form-control" placeholder="Search Here...">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fas fa-search"></i>
-                                </span>
+                        <form method="GET" action="{{ route('list.buyer') }}">
+                            <div class="input-group" style="max-width: 300px;">
+                                <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
+                                <div class="input-group-append">
+                                    <button type="submit" class="input-group-text">
+                                        <i class="fas fa-search"></i> 
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -71,7 +73,7 @@
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">
-                    {{ $buyers->links('vendor.pagination.custom') }}
+                    {{ $buyers->appends(request()->query())->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>

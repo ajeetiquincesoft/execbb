@@ -11,8 +11,21 @@ class BuyerController extends Controller
     public function index(Request $request)
     {
         try {
-            $buyers = Buyer::orderBy('created_at', 'desc')->paginate(10);
-
+            $query = $request->input('query');
+            $buyers = Buyer::query();
+            if ($query) {
+                
+                    $buyers = Buyer::where('BuyerID', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('FName', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('LName', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('Address1', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('HomePhone', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('BusPhone', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('Email', 'LIKE', '%' . $query . '%');
+            }
+            
+            $buyers = $buyers->orderBy('created_at', 'desc')->paginate(10);
+            //dd($buyers);
             return view('admin.buyer.index', compact('buyers'));
         } catch (\Exception $e) {
             return redirect()->back()->with('err_message', $e->getMessage());

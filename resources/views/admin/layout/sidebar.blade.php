@@ -42,7 +42,7 @@
         <li class="nav-item">
           <!-- <i class="fas fa-address-book"></i> -->
           <img src="{{ url('assets/images/Contacts.png') }}">
-          <a class="nav-link" data-name="Contacts" data-url="#" href="#">Contacts</a>
+          <a class="nav-link" data-name="Contacts" data-url="#" href="{{route('all.contact')}}">Contacts</a>
         </li>
         <li class="nav-item">
           <!-- <i class="fas fa-calendar-alt"></i> -->

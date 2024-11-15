@@ -32,6 +32,10 @@
               <li class="breadcrumb-item">
                   <a class="nav-link" href="{{ route($route) }}">Buyer</a>
               </li>
+              @elseif($route == 'all.contact')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Contact</a>
+              </li>
               @endif
             </ol>
           </div>

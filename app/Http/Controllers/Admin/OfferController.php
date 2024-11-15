@@ -15,17 +15,17 @@ class OfferController extends Controller
     public function index(Request $request){
         session()->forget(['offerData', 'step']);
         $query = $request->input('query');
-         // Check if the query exists, otherwise get all offers with pagination
         $offers = Offer::query();
         if ($query) {
-            // Filter offers by the search query (case-insensitive match)
-            $offers->where('Status', 'like', '%' . $query . '%');
+            $offers->whereHas('listing', function ($queryBuilder) use ($query) {
+                $queryBuilder->where('SellerCorpName', 'like', '%' . $query . '%');
+            })
+            ->orWhere('Status', 'like', '%' . $query . '%');
         }
-        // Paginate results, 5 offers per page, ordered by creation date
-        $offers = $offers->orderBy('created_at', 'desc')->paginate(5);
-        // Retrieve company names (SellerCorpName) indexed by ListingID
+        $offers = $offers->with('listing')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(5);
         $company_name = DB::table('listings')->pluck('SellerCorpName', 'ListingID');
-         // Return the view with the data
          return view('admin.offer.index', compact('offers', 'company_name'));
     }
     public function create(){

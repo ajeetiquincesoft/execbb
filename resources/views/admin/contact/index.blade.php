@@ -12,16 +12,16 @@
             <div class="container-fluid py-3 border-bottom">
                 <div class="row align-items-center">
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                        <h4 class="mb-0">Offers</h4>
+                        <h4 class="mb-0">Contacts</h4>
                     </div>
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                        <a href="{{route('create.offer')}}">
+                        <a href="{{route('create.contact')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Off-Esc-Close.png') }}"> Add Offers
+                            <img class="create_img" src="{{ url('assets/images/Contacts.png') }}"> Add Contacts
                             </button></a>
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
-                        <form method="GET" action="{{ route('all.offer') }}">
+                        <form method="GET" action="{{ route('all.contact') }}">
                             <div class="input-group" style="max-width: 300px;">
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
@@ -41,31 +41,38 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Offer ID</th>
+                            <th scope="col">Contact ID</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody id="agentsResult">
-                        @foreach($offers as $index =>$offer)
+                        @foreach($contacts as $index =>$contact)
                         <tr>
-                            <td>{{$offer->OfferID}}</td>
-                            <td>{{ $company_name[$offer->ListingID] ?? 'N/A' }}</td>
-                            <td>{{ $offer->Status}}</td>
+                            <td>{{$contact->ContactID }}</td>
+                            <td>{{ $contact->FName}}</td>
+                            <td>{{ $contact->CompanyName}}</td>
+                            <td>{{ $contact->Phone}}</td>
+                            <td>{{ $contact->Email}}</td>
+                            <td>{{ $contact_type[$contact->Type] ?? 'N/A' }}</td>
+                            
                             <td class="list-btn">
-                                <a href="{{route('show.offer',$offer->OfferID)}}">
-                                    <button class="btn btn-sm" title="View">
-                                        <i class="fas fa-eye"></i>
-                                    </button></a>
-                                <a href="{{route('edit.offer.form',$offer->OfferID)}}">
-                                    <button class="btn btn-sm" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button></a>
-                                <form action="{{route('offer.destroy',$offer->OfferID)}}" method="post" class="offer_delete" id="delete-offer-{{ $offer->OfferID  }}">
+                                <a href="{{route('show.contact',$contact->ContactID)}}">
+                                        <button class="btn btn-sm" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button></a>
+                                <a href="{{route('edit.contact.form',$contact->ContactID)}}">
+                                        <button class="btn btn-sm" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button></a>
+                                <form action="{{route('contact.destroy',$contact->ContactID)}}" method="post" class="contact_delete" id="delete-contact-{{ $contact->ContactID  }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-sm" title="Delete" onclick="offerDelete('{{ $offer->OfferID}}')">
+                                    <button type="button" class="btn btn-sm" title="Delete" onclick="contactDelete('{{ $contact->ContactID}}')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -78,7 +85,7 @@
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">
-                    {{ $offers->appends(request()->query())->links('vendor.pagination.custom') }}
+                    {{ $contacts->appends(request()->query())->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>

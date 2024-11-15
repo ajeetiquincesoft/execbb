@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\BuyerController;
 use App\Http\Controllers\Admin\OfferController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -116,6 +117,15 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::post('/offer/{id}', [OfferController::class, 'editProcessForm'])->name('edit.offer.form.process');
     Route::get('view/offer/{id}',[OfferController::class,'show'])->name('show.offer');
      //end route for offers
+      //routes for Contacts
+    Route::get('/contact/all', [ContactController::class, 'index'])->name('all.contact');
+    Route::get('create/contact',[ContactController::class,'create'])->name('create.contact');
+    Route::post('/contact', [ContactController::class, 'processForm'])->name('contact.form.process');
+    Route::delete('/contact/destroy/{id}',[ContactController::class,'destroy'])->name('contact.destroy');
+    Route::get('/contact/{id}', [ContactController::class, 'editContact'])->name('edit.contact.form');
+    Route::put('update/contact/{id}', [ContactController::class, 'editProcessForm'])->name('edit.contact.form.process');
+   Route::get('view/contact/{id}',[ContactController::class,'show'])->name('show.contact');
+     //end route for Contacts
 
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {

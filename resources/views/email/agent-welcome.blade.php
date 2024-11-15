@@ -16,6 +16,11 @@
         <main>
             <p>Dear {{ $data['first_name'] }} {{ $data['last_name'] }},</p>
             <p>Thank you for registering as an agent with us. We are thrilled to have you on board!</p>
+            <p>Your account details are as follows:</p>
+            <ul>
+                <li><strong>Username:</strong> {{ $data['email'] }}</li>
+                <li><strong>Password:</strong> {{ $data['first_name'].'@123' }}</li>
+            </ul>
             <p>Here are some quick tips to get you started:</p>
             <ul>
                 <li>Complete your profile in the dashboard.</li>

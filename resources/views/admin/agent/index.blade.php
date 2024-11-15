@@ -12,18 +12,20 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.agent')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                                <i class="fas fa-plus mr-1"></i> Add Agents
+                            <img class="create_img" src="{{ url('assets/images/Agents.png') }}"> Add Agents
                             </button></a>
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
-                        <div class="input-group" style="max-width: 300px;">
-                            <input type="text" id="search" class="form-control" placeholder="Search Here...">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fas fa-search"></i>
-                                </span>
+                        <form method="GET" action="{{ route('list.agent') }}">
+                            <div class="input-group" style="max-width: 300px;">
+                                <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
+                                <div class="input-group-append">
+                                    <button type="submit" class="input-group-text">
+                                        <i class="fas fa-search"></i> 
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -45,21 +47,21 @@
                     <tbody id="agentsResult">
                         @foreach($agents as $index =>$agent)
                         <tr>
-                            <td>{{ $agent->agent_info->AgentID}}</td>
-                            <td>{{ $agent->name}}</td>
-                            <td>{{ $agent->agent_info->Address1}}</td>
-                            <td>{{ $agent->agent_info->Telephone}}</td>
+                            <td>{{ $agent->AgentID}}</td>
+                            <td>{{ $agent->FName}} {{ $agent->LName}}</td>
+                            <td>{{ $agent->Address1}}</td>
+                            <td>{{ $agent->Telephone}}</td>
                             <td>{{ $agent->email}}</td>
                             <td class="list-btn-new">
-                                <a href="{{ route('show.agent', $agent->id) }}">
+                                <a href="{{ route('show.agent', $agent->AgentUserRegisterId) }}">
                                     <button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
                                     </button></a>
-                                <a href="{{ route('edit.agent', $agent->id) }}">
+                                <a href="{{ route('edit.agent', $agent->AgentUserRegisterId) }}">
                                     <button class="btn btn-sm" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button></a>
-                                <form action="{{ route('agents.destroy', $agent->id) }}" method="post" class="agent_delete" id="delete-agent-{{ $agent->id }}">
+                                <form action="{{ route('agents.destroy', $agent->AgentUserRegisterId) }}" method="post" class="agent_delete" id="delete-agent-{{ $agent->id }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn btn-sm" title="Delete" onclick="confirmDelete('{{ $agent->id }}')">
@@ -75,7 +77,7 @@
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">
-                    {{ $agents->links('vendor.pagination.custom') }}
+                    {{ $agents->appends(request()->query())->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>

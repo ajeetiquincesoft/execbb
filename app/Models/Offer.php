@@ -10,4 +10,9 @@ class Offer extends Model
     use HasFactory;
     protected $table = 'offers';
     protected $primaryKey = 'OfferID';
+    
+    public function listing()
+    {
+        return $this->belongsTo(Listing::class,'ListingID');
+    }
 }

@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Validator;
 class LeadController extends Controller
 {
     public function index(Request $request){
-        $query = $request->get('query');
-       /*  $leads =  DB::table('leads')->orderBy('created_at', 'desc')->paginate(2); */
+        $query = $request->input('query');
+        $leads = DB::table('leads');
         $categories = DB::table('categories')->pluck('BusinessCategory', 'CategoryID');
+        if ($query) {
         $leads = DB::table('leads')
         ->leftJoin('categories', 'leads.Category', '=', 'categories.CategoryID')
         ->select('leads.*', 'categories.BusinessCategory as category_name') 
@@ -23,21 +24,10 @@ class LeadController extends Controller
         ->orWhere('leads.Address', 'LIKE', '%' . $query . '%')
         ->orWhere('leads.Phone', 'LIKE', '%' . $query . '%')
         ->orWhere('leads.AppointmentDate', 'LIKE', '%' . $query . '%')
-        ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%')
-        ->orderBy('leads.created_at', 'desc')
+        ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%');
+        }
+        $leads = $leads->orderBy('created_at', 'desc')
         ->paginate(2);
-
-            if ($request->ajax()) {
-            return response()->json([
-            'data' => $leads->items(),
-            'pagination' => [
-                'total' => $leads->total(),
-                'current_page' => $leads->currentPage(),
-                'last_page' => $leads->lastPage(),
-                'per_page' => $leads->perPage(),
-            ],
-            ]);
-            }
         return view('admin.lead.index', compact('leads','categories'));
     }
     public function create(){

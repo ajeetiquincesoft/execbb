@@ -10,4 +10,8 @@ class Listing extends Model
     protected $primaryKey = 'ListingID';
     use HasFactory;
     protected $table = 'listings';
+    public function offers()
+    {
+        return $this->hasMany(Offer::class, 'ListingID');
+    }
 }
