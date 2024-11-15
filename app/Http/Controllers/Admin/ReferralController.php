@@ -16,7 +16,9 @@ class ReferralController extends Controller
     }
     public function create(){
         $states = DB::table('states')->get();
-       return view('admin.referral.create',compact('states'));  
+        $referral_types = DB::table('referral_types')->get();
+        $referral_sources = DB::table('referral_sources')->get();
+       return view('admin.referral.create',compact('states','referral_types','referral_sources'));  
     }
     public function store(Request $request){
         $request->validate([
@@ -63,7 +65,9 @@ class ReferralController extends Controller
                 ->with('err_message', 'Referral not found.');
         }
         $states = DB::table('states')->get();
-       return view('admin.referral.edit',compact('states','referral'));
+        $referral_types = DB::table('referral_types')->get();
+        $referral_sources = DB::table('referral_sources')->get();
+       return view('admin.referral.edit',compact('states','referral','referral_types','referral_sources'));
 
     }
     public function updateReferral(Request $request,$id){

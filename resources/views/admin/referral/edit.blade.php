@@ -109,18 +109,18 @@
                                         <label for="cityStateZip" class="form-label">Ref Type</label>
                                         <select class="form-select" aria-label="Default select example" name="ref_type">
                                             <option value="0" selected>No Ref Type</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            @foreach($referral_types as $key=>$referral_type)
+                                            <option value="{{$referral_type->RefTypeID}}" {{ $referral->RefType == $referral_type->RefTypeID ? 'selected' : '' }}>{{$referral_type->RefTypeDescript}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-6  ">
                                         <label for="cityStateZip" class="form-label">Ref Source</label>
                                         <select class="form-select" aria-label="Default select example" name="ref_source">
                                             <option value="0" selected>No Ref Src</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            @foreach($referral_sources as $key=>$referral_source)
+                                            <option value="{{$referral_source->RefID }}" {{ $referral->RefSource == $referral_source->RefID  ? 'selected' : '' }}>{{$referral_source->RefSourceDescrip}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
