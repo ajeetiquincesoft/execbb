@@ -31,28 +31,28 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label" for="name">Name</label>
-                                <input type="text" class="form-control" id="name" name="first_name">
+                                <input type="text" class="form-control" id="name" name="first_name" value="{{old('first_name')}}">
                                 @error('first_name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label" for="company">Company</label>
-                                <input type="text" class="form-control" id="company" name="company">
+                                <input type="text" class="form-control" id="company" name="company" value="{{old('company')}}">
                                 @error('company')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label" for="addlContact">Addl. Contact</label>
-                                <input type="text" class="form-control" id="addlContact" name="addlContact">
+                                <input type="text" class="form-control" id="addlContact" name="addlContact" value="{{old('addlContact')}}">
                                 @error('addlContact')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label" for="address">Address</label>
-                                <input type="text" class="form-control" id="address" name="address">
+                                <input type="text" class="form-control" id="address" name="address" value="{{old('address')}}">
                                 @error('address')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -61,24 +61,24 @@
                                 <label for="cityStateZip" class="form-label">City</label>
                                 <div class="row">
                                     <div class="col-md-5 mb-2">
-                                        <input type="text" id="city" class="form-control" placeholder="City" name="city">
+                                        <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{old('city')}}">
                                         @error('city')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                     </div>
                                     <div class="col-md-3 mb-2 p-0">
-                                    <select id="State" class="form-select" name="contact_state">
+                                        <select id="State" class="form-select" name="contact_state">
                                             <option value="" selected="">Select state</option>
                                             @foreach($states as $key=>$value)
                                             <option value="{{$value->State}}" {{ (old('contact_state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
                                             @endforeach
                                         </select>
-                                        @error('contact_state')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                                            @error('contact_state')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                     </div>
                                     <div class="col-md-4 mb-2">
-                                        <input type="text" id="zip" class="form-control" placeholder="Zip" name="zip">
+                                        <input type="text" id="zip" class="form-control" placeholder="Zip" name="zip" value="{{old('zip')}}">
                                         @error('zip')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -87,35 +87,35 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label" for="phone">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone">
+                                <input type="text" class="form-control" id="phone" name="phone" value="{{old('phone')}}">
                                 @error('phone')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label" for="fax">Fax</label>
-                                <input type="text" class="form-control" id="fax" name="fax">
+                                <input type="text" class="form-control" id="fax" name="fax" value="{{old('fax')}}">
                                 @error('fax')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label" for="pager">Pager</label>
-                                <input type="text" class="form-control" id="pager" name="pager">
+                                <input type="text" class="form-control" id="pager" name="pager" value="{{old('pager')}}">
                                 @error('pager')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label" for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}">
                                 @error('email')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label class="form-label" for="comments">Comments</label>
-                                <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+                                <textarea class="form-control" id="comments" name="comments" rows="3">{{old('comments')}}</textarea>
                             </div>
                         </div>
                     </div>

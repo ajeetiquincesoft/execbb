@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\BuyerController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\ReferralController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -125,6 +126,13 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/contact/{id}', [ContactController::class, 'editContact'])->name('edit.contact.form');
     Route::put('update/contact/{id}', [ContactController::class, 'editProcessForm'])->name('edit.contact.form.process');
    Route::get('view/contact/{id}',[ContactController::class,'show'])->name('show.contact');
+     //end route for Contacts
+
+        //routes for Contacts
+   
+    Route::get('create/referral',[ReferralController::class,'create'])->name('create.referral');
+    Route::post('store/referral', [ReferralController::class, 'store'])->name('store.referral');
+   
      //end route for Contacts
 
 });
