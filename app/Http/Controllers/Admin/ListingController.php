@@ -559,7 +559,8 @@ class ListingController extends Controller
             $editCompleteStep[] = $i;
         }
         session(['edit_complete_step' => $editCompleteStep]);
-        if($listing_step == 1){
+        return redirect()->route('edit.listing.step1',['id' => $listing_id]);
+        /* if($listing_step == 1){
             return redirect()->route('edit.listing.step2',['id' => $listing_id]);
         }
         if($listing_step == 2){
@@ -573,7 +574,7 @@ class ListingController extends Controller
         }
         if($listing_step == 5){
             return redirect()->route('edit.listing.step1',['id' => $listing_id]);
-        }
+        } */
     }
     public function editStep1($id){
         $listingData = Listing::where('ListingID',$id)->first();
