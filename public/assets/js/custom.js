@@ -247,6 +247,22 @@ function referralDelete(customId) {
       }
   });
 }
+function showingDelete(customId) {
+  Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5e0f2f',
+      cancelButtonColor: '#93744b',
+      confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          // Submit the form for deletion
+          document.getElementById('delete-showing-' + customId).submit();
+      }
+  });
+}
 
 //multi select
 $(document).ready(function() {

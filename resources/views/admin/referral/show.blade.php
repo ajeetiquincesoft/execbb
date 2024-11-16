@@ -25,7 +25,7 @@
                 <div class="text-center">
                 <img id="avatar-preview" src="{{ asset('assets/images/user.png') }}" alt="Avatar Preview" width="100">
                   <h5>{{$referral->RefCompany }}</h5>
-                  <h6>Contact ID: {{$referral->RefID}}</h6>
+                  <h6>Referral ID: {{$referral->RefID}}</h6>
                 </div>
                 <div class="table-responsive">
                   <div>

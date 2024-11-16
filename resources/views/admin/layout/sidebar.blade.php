@@ -52,7 +52,7 @@
         <li class="nav-item">
           <!-- <i class="fas fa-calendar-alt"></i> -->
           <img src="{{ url('assets/images/Showings.png') }}">
-          <a class="nav-link" data-name="Showings" data-url="#" href="#">Showings</a>
+          <a class="nav-link" data-name="Showings" data-url="#" href="{{route('all.showing')}}">Showings</a>
         </li>
       </ul>
       <ul class="nav custom-fontsize2 flex-column" style="margin-bottom: 30px;">

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\BuyerController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ReferralController;
+use App\Http\Controllers\Admin\ShowingController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -136,8 +137,17 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::put('update/referral/{id}', [ReferralController::class, 'updateReferral'])->name('update.referral');
     Route::get('view/referral/{id}',[ReferralController::class,'show'])->name('show.referral');
     Route::delete('referral/destroy/{id}',[ReferralController::class,'destroy'])->name('referral.destroy');
-   
      //end route for Referrals
+          //routes for Showing
+    Route::get('showing/all', [ShowingController::class, 'index'])->name('all.showing');
+    Route::get('create/showing',[ShowingController::class,'create'])->name('create.showing');
+    Route::post('store/showing', [ShowingController::class, 'store'])->name('store.showing');
+    Route::get('edit/showing/{id}', [ShowingController::class, 'editShowing'])->name('edit.showing');
+    Route::put('update/showing/{id}', [ShowingController::class, 'updateShowing'])->name('update.showing');
+    Route::get('view/showing/{id}',[ShowingController::class,'show'])->name('show.showing');
+    Route::delete('showing/destroy/{id}',[ShowingController::class,'destroy'])->name('showing.destroy');
+   
+     //end route for showing
 
 });
 Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {
