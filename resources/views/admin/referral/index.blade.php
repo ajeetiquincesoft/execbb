@@ -80,16 +80,16 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
-                                <button class="btn btn-sm" title="Download">
+                                <!-- <button class="btn btn-sm" title="Download">
                                     <i class="fas fa-download"></i>
-                                </button>
+                                </button> -->
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">
-                    {{ $referrals->links('vendor.pagination.custom') }}
+                    {{ $referrals->appends(request()->query())->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>

@@ -69,9 +69,9 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
-                                <button class="btn btn-sm" title="Download">
+                               <!--  <button class="btn btn-sm" title="Download">
                                     <i class="fas fa-download"></i>
-                                </button>
+                                </button> -->
                             </td>
                         </tr>
                         @endforeach

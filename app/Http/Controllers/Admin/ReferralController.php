@@ -10,8 +10,22 @@ use Illuminate\Support\Facades\DB;
 class ReferralController extends Controller
 {
     public function index(Request $request){
-        $referrals = Referral::orderBy('created_at','desc')->paginate(5);
-        //dd($referrals);
+        //$referrals = Referral::orderBy('created_at','desc')->paginate(5);
+        $query = $request->input('query');
+            $referrals = Referral::query();
+            if ($query) {
+                
+                    $referrals = Referral::where('RefID', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('RefCompany', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('AgentName', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('Address1', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('City', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('State', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('Zip', 'LIKE', '%' . $query . '%')
+                                    ->orWhere('Phone', 'LIKE', '%' . $query . '%');
+            }
+            
+            $referrals = $referrals->orderBy('created_at', 'desc')->paginate(5);
          return view('admin.referral.index', compact('referrals'));
     }
     public function create(){
