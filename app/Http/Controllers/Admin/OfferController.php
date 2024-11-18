@@ -321,9 +321,7 @@ class OfferController extends Controller
             return redirect()->back()
                 ->with('err_message', 'Offer not found.');
         }
-        // Retrieve the current step from the session, default to 1
         if ($offer->offer_step == 6) {
-            // Retrieve session data if available, else default to 1
             $step = session('step', 1);
         } else {
             // Set the session data only if it's not already set
@@ -331,7 +329,7 @@ class OfferController extends Controller
                 session(['step' => $offer->offer_step + 1]);
             }
             $step = session('step');
-        }
+        } 
         $offerData = session('offerData', []);
         $request->session()->put('offerData.offer_id',  $id);
         $buyers = Buyer::orderBy('created_at', 'desc')->get();
@@ -339,8 +337,12 @@ class OfferController extends Controller
         $listings = Listing::orderBy('created_at', 'desc')->get();
         $states = DB::table('states')->get();
         $offer_types = DB::table('offer_types')->get();
+         // Get the previous offer ID
+         $previous = Offer::where('OfferID', '<', $id)->orderBy('OfferID', 'desc')->first();
+         // Get the next offer ID
+         $next = Offer::where('OfferID', '>', $id)->orderBy('OfferID', 'asc')->first();
         
-        return view('admin.offer.edit', compact('step', 'offerData', 'buyers', 'agents','states','listings','offer','offer_types'));
+        return view('admin.offer.edit', compact('step', 'offerData', 'buyers', 'agents','states','listings','offer','offer_types','previous','next'));
     }
     public function editProcessForm(Request $request,$id)
     {

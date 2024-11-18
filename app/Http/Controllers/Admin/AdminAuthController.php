@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Listing;
+use App\Models\Agent;
+use App\Models\Buyer;
+use App\Models\Showing;
+use App\Models\Offer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class AdminAuthController extends Controller
 {
@@ -76,7 +82,13 @@ class AdminAuthController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
-            return view('admin.dashboard');
+            $listings = Listing::count();
+            $agents = Agent::count();
+            $buyers = Buyer::count();
+            $showings = Showing::count();
+            $offers = Offer::count();
+            $leads = DB::table('leads')->count();
+            return view('admin.dashboard',compact('listings','agents','buyers','showings','offers','leads'));
         }
   
         return redirect("login")->withSuccess('You are not allowed to access');

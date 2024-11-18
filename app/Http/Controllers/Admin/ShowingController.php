@@ -12,9 +12,29 @@ use Illuminate\Support\Facades\DB;
 class ShowingController extends Controller
 {
     public function index(Request $request){
-        $showings = Showing::orderBy('ShowingID','desc')->paginate(5);
+       /*  $showings = Showing::orderBy('ShowingID','desc')->paginate(5); */
+        $search_query = $request->input('query');
+        $showings = DB::table('showings');
         $dbaName = Listing::pluck('SellerCorpName', 'ListingID');
         $buyerName = Buyer::pluck('FName', 'BuyerID');
+        if ($search_query) {
+            $showings = DB::table('showings')
+            ->leftJoin('listings', 'showings.ListingID', '=', 'listings.ListingID')
+            ->leftJoin('buyers', 'showings.BuyerID', '=', 'buyers.BuyerID')
+            ->select('showings.*')
+            ->where(function($query) use ($search_query) {
+                $query->where('showings.ShowingID', 'LIKE', '%' . $search_query . '%')
+                    ->orWhere('showings.AgentID', 'LIKE', '%' . $search_query . '%')
+                    ->orWhere('showings.Date', 'LIKE', '%' . $search_query . '%')
+                    ->orWhere('showings.OfferMade', 'LIKE', '%' . $search_query . '%')
+                    ->orWhere('showings.FollowUp', 'LIKE', '%' . $search_query . '%')
+                    ->orWhere('listings.SellerCorpName', 'LIKE', '%' . $search_query . '%')
+                    ->orWhere('buyers.FName', 'LIKE', '%' . $search_query . '%');
+            });
+        }
+        
+        $showings = $showings->orderBy('created_at', 'desc')->paginate(5);
+        
          return view('admin.showing.index', compact('showings','dbaName','buyerName'));
     }
     public function create(){
@@ -62,7 +82,11 @@ class ShowingController extends Controller
         $agents = Agent::orderBy('AgentTableID','desc')->get();
         $buyers = Buyer::orderBy('BuyerID','desc')->get();
         $listings = Listing::orderBy('ListingID','desc')->get();
-       return view('admin.showing.edit',compact('showing','agents','buyers','listings'));
+         // Get the previous showing ID
+         $previous = Showing::where('ShowingID', '<', $id)->orderBy('ShowingID', 'desc')->first();
+         // Get the next showing ID
+         $next = Showing::where('ShowingID', '>', $id)->orderBy('ShowingID', 'asc')->first();
+       return view('admin.showing.edit',compact('showing','agents','buyers','listings','previous','next'));
     }
     public function updateShowing(Request $request,$id){
         $request->validate([
@@ -89,9 +113,9 @@ class ShowingController extends Controller
         if (!$showing) {
             return back()->with('error', 'Showing not found!');
         }
-        // Get the previous Referral ID
+        // Get the previous showing ID
         $previous = Showing::where('ShowingID', '<', $id)->orderBy('ShowingID', 'desc')->first();
-        // Get the next referral ID
+        // Get the next showing ID
         $next = Showing::where('ShowingID', '>', $id)->orderBy('ShowingID', 'asc')->first();
         $dbaName = Listing::pluck('SellerCorpName', 'ListingID');
         $buyerName = Buyer::pluck('FName', 'BuyerID');

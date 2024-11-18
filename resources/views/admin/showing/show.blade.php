@@ -24,7 +24,7 @@
                 </div>
                 <div class="text-center">
                 <img id="avatar-preview" src="{{ asset('assets/images/user.png') }}" alt="Avatar Preview" width="100">
-                  <h5>{{$showing->ListingID }}</h5>
+                  <h5>{{$dbaName[$showing->ListingID] ?? 'N/A'}}</h5>
                   <h6>Showing ID: {{$showing->ShowingID}}</h6>
                 </div>
                 <div class="table-responsive">

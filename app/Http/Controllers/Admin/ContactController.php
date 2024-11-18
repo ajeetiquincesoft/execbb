@@ -69,7 +69,11 @@ class ContactController extends Controller
         }
         $states = DB::table('states')->get();
         $contact_types = DB::table('contact_types')->get();
-       return view('admin.contact.edit',compact('states','contact_types','contact'));
+         // Get the previous contact ID
+         $previous = Contact::where('ContactID', '<', $id)->orderBy('ContactID', 'desc')->first();
+         // Get the next contact ID
+         $next = Contact::where('ContactID', '>', $id)->orderBy('ContactID', 'asc')->first();
+       return view('admin.contact.edit',compact('states','contact_types','contact','previous','next'));
 
     }
     public function editProcessForm(Request $request,$id){
@@ -110,9 +114,9 @@ class ContactController extends Controller
         if (!$contact) {
             return back()->with('error', 'Contact not found!');
         }
-        // Get the previous Offer ID
+        // Get the previous contact ID
         $previous = Contact::where('ContactID', '<', $id)->orderBy('ContactID', 'desc')->first();
-        // Get the next Offer ID
+        // Get the next contact ID
         $next = Contact::where('ContactID', '>', $id)->orderBy('ContactID', 'asc')->first();
         $contact_type = DB::table('contact_types')->pluck('Description', 'Type');
         

@@ -9,7 +9,7 @@
           <div class="card view-data">
             <div>
               <h3>Active Listings</h3>
-              <span>781</span>
+              <span>{{$listings}}</span>
             </div>
             <div><img src="{{ url('assets/images/Active-Listings.svg') }}"></div>
           </div>
@@ -19,7 +19,7 @@
           <div class="card view-data">
             <div>
               <h3>Total Agents</h3>
-              <span>27</span>
+              <span>{{$agents}}</span>
             </div>
             <div><img src="{{ url('assets/images/Total-Agents.svg') }}"></div>
           </div>
@@ -29,7 +29,7 @@
           <div class="card view-data">
             <div>
               <h3>Total Buyers</h3>
-              <span>37234</span>
+              <span>{{$buyers}}</span>
             </div>
             <div><img src="{{ url('assets/images/Total-Buyers.svg') }}"></div>
           </div>
@@ -39,7 +39,7 @@
           <div class="card view-data">
             <div>
               <h3>Showings</h3>
-              <span>1499</span>
+              <span>{{$showings}}</span>
             </div>
             <div><img src="{{ url('assets/images/Showings.svg') }}"></div>
           </div>
@@ -49,7 +49,7 @@
           <div class="card view-data">
             <div>
               <h3>Offers</h3>
-              <span>125</span>
+              <span>{{$offers}}</span>
             </div>
             <div><img src="{{ url('assets/images/Offers.svg') }}"></div>
           </div>
@@ -59,7 +59,7 @@
           <div class="card view-data">
             <div>
               <h3>Total Leads</h3>
-              <span>53</span>
+              <span>{{$leads}}</span>
             </div>
             <div><img src="{{ url('assets/images/Total-Leads.svg') }}"></div>
           </div>

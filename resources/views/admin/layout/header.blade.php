@@ -36,6 +36,14 @@
               <li class="breadcrumb-item">
                   <a class="nav-link" href="{{ route($route) }}">Contact</a>
               </li>
+              @elseif($route == 'all.referral')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Referral</a>
+              </li>
+              @elseif($route == 'all.showing')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Showing</a>
+              </li>
               @endif
             </ol>
           </div>

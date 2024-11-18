@@ -208,3 +208,53 @@ img.create_img {
   position: relative;
   top: 7px;
 }
+.acc-list .nav-item a {
+  color: #ffffff;
+}
+.acc-list .nav-item a:hover {
+  background-color: #93744b;
+  border-radius: 5px;
+  color: white !important;
+  text-decoration: none;
+}
+/* css for previous and next button*/
+.container-fluid.content {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;  /* Align the child elements vertically */
+  justify-content: flex-start;  /* Ensure content starts at the top */
+  height: 100%; /* Ensure container takes full height */
+}
+
+.next-back-page {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+}
+
+.next-back-page button {
+  background-color: #5d1229;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-back-page button:hover {
+  background-color: #5d1229;
+}
+.next-back-page a:hover {
+  text-decoration: none;
+}
+
+.next-back-page button i {
+  margin-right: 0.5rem;
+}
+/* css end for previous and next button*/

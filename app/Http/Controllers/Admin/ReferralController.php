@@ -81,7 +81,11 @@ class ReferralController extends Controller
         $states = DB::table('states')->get();
         $referral_types = DB::table('referral_types')->get();
         $referral_sources = DB::table('referral_sources')->get();
-       return view('admin.referral.edit',compact('states','referral','referral_types','referral_sources'));
+         // Get the previous Referral ID
+         $previous = Referral::where('RefID', '<', $id)->orderBy('RefID', 'desc')->first();
+         // Get the next referral ID
+         $next = Referral::where('RefID', '>', $id)->orderBy('RefID', 'asc')->first();
+       return view('admin.referral.edit',compact('states','referral','referral_types','referral_sources','previous','next'));
 
     }
     public function updateReferral(Request $request,$id){

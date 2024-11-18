@@ -15,9 +15,9 @@
                         <h4 class="mb-0">Showings</h4>
                     </div>
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                        <a href="{{route('create.referral')}}">
+                        <a href="{{route('create.showing')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Referrals.png') }}"> Add showings
+                            <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add showings
                             </button></a>
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
@@ -88,7 +88,7 @@
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">
-                    {{ $showings->links('vendor.pagination.custom') }}
+                    {{ $showings->appends(request()->query())->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>

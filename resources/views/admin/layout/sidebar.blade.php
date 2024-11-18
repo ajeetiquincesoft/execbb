@@ -90,7 +90,7 @@
                 <li class="nav-item">Locales</li>
                 <li class="nav-item">Categories</li>
                 <li class="nav-item">Settings</li>
-                <li class="nav-item">Change Pwd</li>
+                <li class="nav-item"><a href="{{route('reset.password')}}">Change Pwd</a></li>
                 <li class="nav-item">Login List</li>
               </ul>
             </div>

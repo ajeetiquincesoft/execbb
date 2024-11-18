@@ -2,13 +2,17 @@
    
 @extends('admin.layout.master')
 @section('content')
-      
-        <div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
-            <div class="next-back-page d-flex justify-content-between">
-                <button><i class="fa fa-chevron-left"></i>Back</button>
-                <button>Next <i class="fa fa-chevron-right"></i></button>
-            </div>
-        </div>
+<div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
+    <div class="next-back-page d-flex justify-content-between">
+    @if ($previous)
+            <a href="{{ route('edit.referral', $previous->RefID) }}"><button><i class="fa fa-chevron-left"></i>Back</button></a>
+        @endif
+
+        @if ($next)
+            <a href="{{ route('edit.referral', $next->RefID) }}"><button>Next <i class="fa fa-chevron-right"></i></button></a>
+        @endif
+    </div>
+</div>
         <div class="container-fluid content bg-light">
             <div class="row card p-4 font-fm mb-5">
                 <form id="editReferral_form" action="{{ route('update.referral',$referral->RefID) }}" method="post">
@@ -192,8 +196,7 @@
                     </div>
                     <div class="d-flex justify-content-center" style="overflow:auto;">
                         <div>
-                            <button class="btn-primary" type="submit" id="prevBtn">Save</button>
-                            <button class="btn-primary" type="button" id="nextBtn" onclick="resetForm()">Reset</button>
+                            <button class="btn-primary" type="submit" id="prevBtn">Update</button>
                         </div>
                     </div>
                 </form>
@@ -205,9 +208,6 @@
   
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function resetForm() {
-    document.getElementById("referral_form").reset();
-    }
            $(document).ready(function () {
                 // Define custom phone validation
                 $.validator.addMethod("phone", function(value, element) {

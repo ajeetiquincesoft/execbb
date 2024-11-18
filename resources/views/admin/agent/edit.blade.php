@@ -1,5 +1,16 @@
 @extends('admin.layout.master')
 @section('content')
+<div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
+    <div class="next-back-page d-flex justify-content-between">
+    @if ($previous)
+            <a href="{{ route('edit.agent', $previous->id) }}"><button><i class="fa fa-chevron-left"></i>Back</button></a>
+        @endif
+
+        @if ($next)
+            <a href="{{ route('edit.agent', $next->id) }}"><button>Next <i class="fa fa-chevron-right"></i></button></a>
+        @endif
+    </div>
+</div>
 <div class="container-fluid content bg-light">
 @if(Session::has('success_message'))
         <div class="alert alert-success alert-block" id="alert-success">

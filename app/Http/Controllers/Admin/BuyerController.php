@@ -34,9 +34,9 @@ class BuyerController extends Controller
     public function show($id){
         
         $buyer = Buyer::where('BuyerID', $id)->first();
-         // Get the previous post ID
+         // Get the previous buyer ID
          $previous = Buyer::where('BuyerID', '<', $id)->orderBy('BuyerID', 'desc')->first();
-         // Get the next post ID
+         // Get the next buyer ID
          $next = Buyer::where('BuyerID', '>', $id)->orderBy('BuyerID', 'asc')->first();
         return view('admin.buyer.show', compact('buyer', 'previous', 'next'));
     }

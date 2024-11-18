@@ -102,7 +102,11 @@ class LeadController extends Controller
         $counties = DB::table('counties')->get();
         $status = DB::table('lead_status')->get();
         $sub_categories = DB::table('sub_categories')->get();
-        return view('admin.lead.edit',compact('categoryData','states','counties','sub_categories','status','lead'));
+         // Get the previous lead ID
+         $previous =  DB::table('leads')->where('LeadID', '<', $id)->orderBy('LeadID', 'desc')->first();
+         // Get the next lead ID
+         $next =  DB::table('leads')->where('LeadID', '>', $id)->orderBy('LeadID', 'asc')->first();
+        return view('admin.lead.edit',compact('categoryData','states','counties','sub_categories','status','lead','previous','next'));
        
    
 

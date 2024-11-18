@@ -33,7 +33,7 @@ class AgentController extends Controller
                                     ->orWhere('Email', 'LIKE', '%' . $query . '%');
         }
         $agents = $agents->orderBy('created_at', 'desc')
-        ->paginate(2);
+        ->paginate(5);
         return view('admin.agent.index',compact('agents'));
         }
         catch(\Exception $e){
@@ -139,7 +139,11 @@ class AgentController extends Controller
         try{
         $agent = User::with('agent_info')->find($id);
         $states = DB::table('states')->get();
-        return view('admin.agent.edit', compact('agent','states'));
+         // Get the previous agent ID
+         $previous = User::where('id', '<', $id)->where('role_name','agent')->orderBy('id', 'desc')->first();
+         // Get the next agent ID
+         $next = User::where('id', '>', $id)->where('role_name','agent')->orderBy('id', 'asc')->first();
+        return view('admin.agent.edit', compact('agent','states','previous','next'));
         }
         catch(\Exception $e){
             return redirect()->back()->with('err_message',$e->getMessage());

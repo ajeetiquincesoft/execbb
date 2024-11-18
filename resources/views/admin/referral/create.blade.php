@@ -2,13 +2,6 @@
    
 @extends('admin.layout.master')
 @section('content')
-      
-        <div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
-            <div class="next-back-page d-flex justify-content-between">
-                <button><i class="fa fa-chevron-left"></i>Back</button>
-                <button>Next <i class="fa fa-chevron-right"></i></button>
-            </div>
-        </div>
         <div class="container-fluid content bg-light">
             <div class="row card p-4 font-fm mb-5">
                 <form id="referral_form" action="{{ route('store.referral') }}" method="post">
