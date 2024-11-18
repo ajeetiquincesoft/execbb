@@ -44,6 +44,14 @@
               <li class="breadcrumb-item">
                   <a class="nav-link" href="{{ route($route) }}">Showing</a>
               </li>
+              @elseif($route == 'reset.password')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Change Password</a>
+              </li>
+              @elseif($route == 'login.activities')
+              <li class="breadcrumb-item">
+                  <a class="nav-link" href="{{ route($route) }}">Login Activities</a>
+              </li>
               @endif
             </ol>
           </div>

@@ -50,6 +50,7 @@
                             <th scope="col">City</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -63,6 +64,7 @@
                             <td>{{$listing->SCity}}</td>
                             <td>{{$listing->SHomePh}}</td>
                             <td>{{$listing->Email}}</td>
+                            <td>{{ucfirst($listing->Status)}}</td>
                             <td class="list-btn">
                                 <a href="{{ route('show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>

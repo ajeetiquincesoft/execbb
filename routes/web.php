@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ReferralController;
 use App\Http\Controllers\Admin\ShowingController;
+use App\Http\Controllers\Admin\LoginActivityController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -32,7 +33,8 @@ Route::get('/', function () {
 });
 Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/', [AdminAuthController::class, 'dashboard']); 
-    Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard'); 
+    Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('login-activities', [LoginActivityController::class, 'index'])->name('login.activities');
     //Route for agents start
     Route::get('/agent/list', [AgentController::class, 'index'])->name('list.agent');
     Route::get('create/agent',[AgentController::class,'create'])->name('create.agent');
@@ -117,6 +119,7 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::delete('/offer/destroy/{id}',[OfferController::class,'destroy'])->name('offer.destroy');
     Route::get('/offer/{id}', [OfferController::class, 'editForm'])->name('edit.offer.form');
     Route::post('/offer/{id}', [OfferController::class, 'editProcessForm'])->name('edit.offer.form.process');
+    Route::get('/offer/next/prev/{id}', [OfferController::class, 'prevNext'])->name('edit.prev.next');
     Route::get('view/offer/{id}',[OfferController::class,'show'])->name('show.offer');
      //end route for offers
       //routes for Contacts

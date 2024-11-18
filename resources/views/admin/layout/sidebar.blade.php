@@ -91,7 +91,7 @@
                 <li class="nav-item">Categories</li>
                 <li class="nav-item">Settings</li>
                 <li class="nav-item"><a href="{{route('reset.password')}}">Change Pwd</a></li>
-                <li class="nav-item">Login List</li>
+                <li class="nav-item"><a href="{{route('login.activities')}}">Login List</a></li>
               </ul>
             </div>
           </div>

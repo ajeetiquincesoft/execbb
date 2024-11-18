@@ -321,7 +321,7 @@ class OfferController extends Controller
             return redirect()->back()
                 ->with('err_message', 'Offer not found.');
         }
-        if ($offer->offer_step == 6) {
+        /* if ($offer->offer_step == 6) {
             $step = session('step', 1);
         } else {
             // Set the session data only if it's not already set
@@ -329,7 +329,8 @@ class OfferController extends Controller
                 session(['step' => $offer->offer_step + 1]);
             }
             $step = session('step');
-        } 
+        } */ 
+        $step = session('step', 1);
         $offerData = session('offerData', []);
         $request->session()->put('offerData.offer_id',  $id);
         $buyers = Buyer::orderBy('created_at', 'desc')->get();
@@ -596,5 +597,13 @@ class OfferController extends Controller
         $buyer_name = Buyer::selectRaw("CONCAT(FName, ' ', LName) AS full_name, BuyerID")
         ->pluck('full_name', 'BuyerID');
        return view('admin.offer.show', compact('offer', 'previous', 'next','company_name','buyer_name'));
+    }
+    public function prevNext(Request $request,$id)
+    {
+        
+       session()->forget(['offerData', 'step']);
+       $step = session('step', 1);
+       return redirect()->route('edit.offer.form',$id);
+       
     }
 }
