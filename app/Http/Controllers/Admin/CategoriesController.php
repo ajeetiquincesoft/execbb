@@ -29,6 +29,7 @@ class CategoriesController extends Controller
         // Validate the incoming request data
         $validated = $request->validate([
             'categoryName' => 'required|string|max:255|unique:categories,BusinessCategory',
+            'master' => 'in:0,1',
         ]);
 
         // Create the category
@@ -55,7 +56,8 @@ class CategoriesController extends Controller
     }
     public function updateCategory(Request $request,$id){
         $validated = $request->validate([
-            'categoryName' => 'required|string|max:255'
+            'categoryName' => 'required|string|max:255',
+            'master' => 'in:0,1',
         ]);
         $updated = DB::table('categories')
         ->where('CategoryID', $id)

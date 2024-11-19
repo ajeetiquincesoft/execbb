@@ -12,14 +12,14 @@
                         <div class="row mb-2">
                             <div class="col-md-6 mb-3">
                                 <label for="categoryName">Category Name</label>
-                                <input type="text" class="form-control" id="categoryName" name="categoryName" value="">
+                                <input type="text" class="form-control" id="categoryName" name="categoryName" value="{{old('categoryName')}}">
                                 @error('categoryName')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="master">Master</label>
-                                <input type="text" class="form-control" id="master" name="master"  value="">
+                                <input type="text" class="form-control" id="master" name="master"  value="{{old('master')}}">
                                 @error('master')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
