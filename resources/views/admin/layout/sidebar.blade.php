@@ -86,10 +86,11 @@
               <ul class="acc-list" style="list-style-type: none; padding: 0;">
                 <li class="nav-item">Prob Matches</li>
                 <li class="nav-item">Criteria Rank</li>
-                <li class="nav-item">Con / Ref Types</li>
-                <li class="nav-item">Locales</li>
+                <li class="nav-item"><a href="{{route('contact-type')}}">Contact Type</a></li>
+                <li class="nav-item"><a href="{{route('referral-type')}}">Ref Types</a></li>
+                <!-- <li class="nav-item">Locales</li> -->
                 <li class="nav-item"><a href="{{route('categories')}}">Categories</a></li>
-                <li class="nav-item">Settings</li>
+                <!-- <li class="nav-item">Settings</li> -->
                 <li class="nav-item"><a href="{{route('reset.password')}}">Change Pwd</a></li>
                 <li class="nav-item"><a href="{{route('login.activities')}}">Login List</a></li>
               </ul>

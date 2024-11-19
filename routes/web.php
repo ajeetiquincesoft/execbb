@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\ReferralController;
 use App\Http\Controllers\Admin\ShowingController;
 use App\Http\Controllers\Admin\LoginActivityController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\ReferralTypeController;
+use App\Http\Controllers\Admin\ContactTypeController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -36,6 +38,22 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/', [AdminAuthController::class, 'dashboard']); 
     Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('login-activities', [LoginActivityController::class, 'index'])->name('login.activities');
+     //Route for contact type start
+     Route::get('contact-type', [ContactTypeController::class, 'index'])->name('contact-type');
+     Route::get('create/contact-type',[ContactTypeController::class,'create'])->name('create.contact-type');
+     Route::post('store/contact-type',[ContactTypeController::class,'store'])->name('store.contact-type');
+     Route::get('edit/contact-type/{id}', [ContactTypeController::class, 'editContactType'])->name('edit.contact-type');
+     Route::put('update/contact-type/{id}', [ContactTypeController::class, 'updateContactType'])->name('update.contact-type');
+     Route::delete('/contact-type/{id}',[ContactTypeController::class,'destroy'])->name('contact-type.destroy');
+     //Route for contact type end
+     //Route for referral type start
+     Route::get('referral-type', [ReferralTypeController::class, 'index'])->name('referral-type');
+     Route::get('create/referral-type',[ReferralTypeController::class,'create'])->name('create.referral-type');
+     Route::post('store/referral-type',[ReferralTypeController::class,'store'])->name('store.referral-type');
+     Route::get('edit/referral-type/{id}', [ReferralTypeController::class, 'editReferralType'])->name('edit.referral-type');
+     Route::put('update/referral-type/{id}', [ReferralTypeController::class, 'updateReferralType'])->name('update.referral-type');
+     Route::delete('/referral-type/{id}',[ReferralTypeController::class,'destroy'])->name('referral-type.destroy');
+     //Route for referral type end
      //Route for category start
     Route::get('categories', [CategoriesController::class, 'index'])->name('categories');
     Route::get('create/categories',[CategoriesController::class,'create'])->name('create.category');
