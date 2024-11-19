@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ReferralController;
 use App\Http\Controllers\Admin\ShowingController;
 use App\Http\Controllers\Admin\LoginActivityController;
+use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -35,6 +36,14 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/', [AdminAuthController::class, 'dashboard']); 
     Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('login-activities', [LoginActivityController::class, 'index'])->name('login.activities');
+     //Route for category start
+    Route::get('categories', [CategoriesController::class, 'index'])->name('categories');
+    Route::get('create/categories',[CategoriesController::class,'create'])->name('create.category');
+    Route::post('store/categories',[CategoriesController::class,'store'])->name('store.category');
+    Route::get('edit/categories/{id}', [CategoriesController::class, 'editCategory'])->name('edit.categories');
+    Route::put('update/categories/{id}', [CategoriesController::class, 'updateCategory'])->name('update.categories');
+    Route::delete('/categories/{id}',[CategoriesController::class,'destroy'])->name('category.destroy');
+    //Route for category end
     //Route for agents start
     Route::get('/agent/list', [AgentController::class, 'index'])->name('list.agent');
     Route::get('create/agent',[AgentController::class,'create'])->name('create.agent');
