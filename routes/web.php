@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\LoginActivityController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ReferralTypeController;
 use App\Http\Controllers\Admin\ContactTypeController;
+use App\Http\Controllers\Admin\ProbMatchController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -38,6 +39,14 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/', [AdminAuthController::class, 'dashboard']); 
     Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('login-activities', [LoginActivityController::class, 'index'])->name('login.activities');
+     //Route for prob match start
+     Route::get('probmatch', [ProbMatchController::class, 'index'])->name('probmatch');
+     Route::get('create/probmatch',[ProbMatchController::class,'create'])->name('create.probmatch');
+     Route::post('store/probmatch',[ProbMatchController::class,'store'])->name('store.probmatch');
+     Route::get('edit/probmatch/{id}', [ProbMatchController::class, 'edit'])->name('edit.probmatch');
+     Route::put('update/probmatch/{id}', [ProbMatchController::class, 'update'])->name('update.probmatch');
+     Route::delete('/probmatch/{id}',[ProbMatchController::class,'destroy'])->name('probmatch.destroy');
+      //end Route for prob match
      //Route for contact type start
      Route::get('contact-type', [ContactTypeController::class, 'index'])->name('contact-type');
      Route::get('create/contact-type',[ContactTypeController::class,'create'])->name('create.contact-type');

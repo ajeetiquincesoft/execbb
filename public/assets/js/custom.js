@@ -313,28 +313,69 @@ function contactTypeDelete(customId) {
   });
 }
 
+function probmatchDelete(customId) {
+  Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5e0f2f',
+      cancelButtonColor: '#93744b',
+      confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          // Submit the form for deletion
+          document.getElementById('delete-probmatch-' + customId).submit();
+      }
+  });
+}
+
 //multi select
 $(document).ready(function() {
     $('#agent').select2();
 });
 $(document).ready(function() {
-  // Check the current URL to set the active menu on page load
-  var currentUrl = window.location.href;
-
-  // Iterate over each nav link to find the active one
-  $('.nav-link').each(function() {
-      var linkUrl = $(this).attr('href');
-      if (currentUrl.includes(linkUrl)) { // Use includes for better matching
-          $(this).closest('.nav-item').addClass('activenavitem'); // Set the active class
+  const collapsePanel = document.getElementById('collapsetwo');  
+  const toggleCollapse = () => {
+    const activeItem = document.querySelector('.acc-list .nav-item.activenavitem');
+    console.log(activeItem,'test');
+    if (activeItem && collapsePanel) {
+      if ($(collapsePanel).hasClass('collapse')) {
+        $(collapsePanel).collapse('show'); 
       }
-  });
+    } else {
+      if ($(collapsePanel).hasClass('collapse')) {
+        $(collapsePanel).collapse('hide');
+      }
+    }
+  };
+  setTimeout(function() {
+    toggleCollapse();
+}, 500);
 
-  // Handle click event
-  $('.nav-link').on('click', function() {
-      $('.nav-item').removeClass('activenavitem'); // Remove active class from all
-      $(this).closest('.nav-item').addClass('activenavitem'); // Add active class to the clicked item
+  const currentUrl = window.location.href;
+  $('.nav-link').each(function() {
+    var linkUrl = $(this).attr('href');
+    if (currentUrl.includes(linkUrl)) { 
+      $(this).closest('.nav-item').addClass('activenavitem');
+    }
   });
+  $('.nav-link-dropdown').each(function() {
+    var linkUrl = $(this).attr('href');
+    if (currentUrl.includes(linkUrl)) { 
+      $(this).closest('.nav-item').addClass('activenavitem');
+    }
+  });
+  $('.nav-link, .nav-link-dropdown').on('click', function() {
+    $('.nav-item').removeClass('activenavitem');
+    $(this).closest('.nav-item').addClass('activenavitem');
+    toggleCollapse(); 
+  });
+  setTimeout(function() {
+    toggleCollapse();
+}, 500);
 });
+
 /* $(document).ready(function() {
   // Load breadcrumbs from local storage and render them
   loadBreadcrumbs();
