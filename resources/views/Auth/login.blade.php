@@ -8,11 +8,20 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <title>Responsive Login</title>
     <style>
+        body {
+            font-family: 'Urbanist', sans-serif;
+        }
+        button.btn.bg-5a102a.text-white.btn-block {
+            background-color: #7F2149;
+            border-radius: 0px;
+            font-size: 15px;
+        }
         .bg-5a102a {
-            background-color: #5a102a;
+            /* background-color: #5a102a; */
             height: 100vh; /* Full height for the background */
         }
 
@@ -23,7 +32,8 @@
         }
 
         .card {
-            border-radius: 1rem;
+            /* border-radius: 1rem; */
+            border: 0;
         }
 
         .login-image {
@@ -38,7 +48,19 @@
             align-items: center; /* Center the content horizontally */
             height: 100%; /* Full height of the column */
         }
-
+        .client_login {
+            font-size: 32px;
+            font-weight: 600;
+        }
+        p.m-0.an_account {
+            text-align: center;
+            font-size: 14px;
+        }
+        .form-control {
+            border-radius: 0px;         
+            border-color: #B3B3B3; 
+            color: #B3B3B3 !important;
+        }
         @media (max-width: 768px) {
             .login-image {
                 display: none; /* Hide the image on small screens */
@@ -50,52 +72,46 @@
 <body>
     <div class="container-fluid bg-5a102a">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col col-xl-10">
+            <div class="col col-xl-4">
                 <div class="card">
                     <div class="row g-0">
-                        <div class="col-md-4 d-none d-md-block">
+                      <!--   <div class="col-md-4 d-none d-md-block">
                             <img src="{{ url('images/login_2.jpg') }}" alt="login form" class="img-fluid login-image" />
-                        </div>
-                        <div class="col-md-8 d-flex align-items-center content-center">
+                        </div> -->
+                        <div class="col-md-12 d-flex align-items-center content-center">
                             <div class="card-body text-black" style="width: 100%;">
-                                <div class="d-flex justify-content-center mb-3 pb-1">
-                                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                    <span class="h1 fw-bold mb-0">
-                                        <img src="{{ url('assets/images/SidebarLogo.png') }}" alt="login form" class="img-fluid" />
-                                    </span>
+                                <div class="d-flex justify-content-center pb-1">
+                                <h5 class="fw-normal mb-2 text-center m-0 client_login">Client Log In</h5>
                                 </div>
+                                <p class="m-0 mb-3 an_account" style="color: #5D5D5D;">Don't have an account? <a href="#!" style="color: #7F2149;">Create your free account</a></p>
 
                                 <form method="POST" action="{{ route('login.custom') }}">
                                 @csrf
-                                    <h5 class="fw-normal mb-2 text-center m-0">Sign into your account</h5>
                                     @if ($errors->has('emailPassword'))
                                             <div class="alert alert-danger">
                                                 {{ $errors->first('emailPassword') }}
                                             </div>
                                         @endif
-                                    <div class="form-outline mb-2">
-                                        <label class="form-label" for="email"><b>Email address</b></label>
-                                        <input type="email" id="email" name="email" class="form-control form-control-lg"/>
+                                    <div class="form-outline mb-4">
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email Address"/>
                                         @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="password"><b>Password</b></label>
-                                        <input type="password" id="password" name="password" class="form-control form-control-lg"/>
+                                        <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password"/>
                                         @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                         @endif
                                     </div>
 
-                                    <div class="pt-1 mt-1">
-                                        <button type="submit" class="btn bg-5a102a text-white btn-block" style="height: 40px;">Login</button>
+                                    <div class="pt-1 mt-1 d-flex flex-column justify-content-center align-items-center">
+                                        <button type="submit" class="mb-3 btn bg-5a102a text-white btn-block" style="height: 45px; width: 22%;">Continue</button>
+                                        <div>
+                                            <a class="small text-muted" href="{{ route('forget.password') }}" style="color: #7F2149 !important;text-decoration: underline;">Forgot password?</a>
+                                        </div>
                                     </div>
-                                    <div style="text-align:end">
-                                        <a class="small text-muted" href="{{route('forget.password')}}">Forgot password?</a>
-                                    </div>
-
-                                    <p class="m-0" style="color: #393f81;">Don't have an account? <a href="#!" style="color: #393f81;">Register here</a></p>
+                                    
                                 </form>
                             </div>
                         </div>
