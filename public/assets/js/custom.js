@@ -357,7 +357,8 @@ $(document).ready(function() {
     console.log(activeItem,'test');
     if (activeItem && collapsePanel) {
       if ($(collapsePanel).hasClass('collapse')) {
-        $(collapsePanel).collapse('show'); 
+        $(collapsePanel).collapse('show');
+        $('#collapseMainMenu').collapse('hide'); 
       }
     } else {
       if ($(collapsePanel).hasClass('collapse')) {

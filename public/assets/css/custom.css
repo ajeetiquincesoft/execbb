@@ -258,3 +258,27 @@ img.create_img {
   margin-right: 0.5rem;
 }
 /* css end for previous and next button*/
+
+/* Remove background color, border, and text color from the accordion button */
+.accordion-button-main {
+  background-color: transparent !important;  /* Remove background color */
+  border: none !important;                    /* Remove border */
+  color: inherit !important;                  /* Inherit text color from parent */
+}
+
+/* Remove background color when the accordion button is active (expanded) */
+.accordion-button-main:not(.collapsed) {
+  background-color: transparent !important;  /* Keep it transparent when active */
+  color: inherit !important;                  /* Keep the text color unchanged */
+}
+
+/* Optional: Remove hover effect */
+.accordion-button-main:hover {
+  background-color: transparent !important;  /* Keep transparent on hover */
+}
+
+/* Optional: Style for the icon if present inside the button (optional) */
+.accordion-button-main i {
+  color: inherit !important;  /* Inherit color for any icon inside */
+}
+
