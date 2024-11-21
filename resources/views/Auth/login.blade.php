@@ -106,7 +106,7 @@
                                     </div>
 
                                     <div class="pt-1 mt-1 d-flex flex-column justify-content-center align-items-center">
-                                        <button type="submit" class="mb-3 btn bg-5a102a text-white btn-block" style="height: 50px; width: 25%;">Continue</button>
+                                        <button type="submit" class="mb-3 btn bg-5a102a text-white btn-block" style="height: 50px; width: 35%;">Continue</button>
                                         <div>
                                             <a class="small text-muted" href="{{ route('forget.password') }}" style="color: #7F2149 !important;text-decoration: underline;">Forgot password?</a>
                                         </div>
