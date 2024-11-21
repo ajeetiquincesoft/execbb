@@ -8,51 +8,44 @@
             <button id="sidebarToggle" class="btn">☰</button>
             <ol class="my_menu breadcrumb breadcrumb-list m-0 ms-2">
               <li class="breadcrumb-item"><a class="nav-link" href="{{url('admin/dashboard')}}">Home</a></li>
-              @if($route == 'admin.dashboard')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Dashboard</a>
-              </li>
-              @elseif($route == 'all.listing')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Listing</a>
-              </li>
-              @elseif($route == 'all.lead')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Lead</a>
-              </li>
-              @elseif($route == 'all.offer')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Offer</a>
-              </li>
-              @elseif($route == 'list.agent')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Agent</a>
-              </li>
-              @elseif($route == 'list.buyer')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Buyer</a>
-              </li>
-              @elseif($route == 'all.contact')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Contact</a>
-              </li>
-              @elseif($route == 'all.referral')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Referral</a>
-              </li>
-              @elseif($route == 'all.showing')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Showing</a>
-              </li>
-              @elseif($route == 'reset.password')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Change Password</a>
-              </li>
-              @elseif($route == 'login.activities')
-              <li class="breadcrumb-item">
-                  <a class="nav-link" href="{{ route($route) }}">Login Activities</a>
-              </li>
-              @endif
+              @php
+              // Define route names and their corresponding breadcrumb labels
+              $breadcrumbs = [
+                  'admin.dashboard' => 'Dashboard',
+                  'all.listing' => 'Listing',
+                  'all.lead' => 'Lead',
+                  'all.offer' => 'Offer',
+                  'list.agent' => 'Agent',
+                  'list.buyer' => 'Buyer',
+                  'all.contact' => 'Contact',
+                  'all.referral' => 'Referral',
+                  'all.showing' => 'Showing',
+                  'probmatch' => 'Prob Match',
+                  'criteriarank' => 'Criteria Rank',
+                  'contact-type' => 'Contact Type',
+                  'referral-type' => 'Referral Type',
+                  'categories' => 'Categories',
+                  'reset.password' => 'Change Password',
+                  'login.activities' => 'Login Activities'
+                  ];
+                @endphp
+
+                @foreach ($breadcrumbs as $key => $label)
+                    @if ($route == $key)
+                        @if (in_array($route, ['probmatch', 'criteriarank', 'contact-type', 'referral-type', 'categories', 'reset.password', 'login.activities']))
+                            <li class="breadcrumb-item"><a class="nav-link" href="#">System</a></li>
+                            <li class="breadcrumb-item">
+                                <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>
+                            </li>
+                        @else
+                        <li class="breadcrumb-item">
+                            <a class="nav-link" href="{{ route($key) }}">{{ $label }}</a>
+                        </li>
+                        @endif
+                    @endif
+                @endforeach
+
+              
             </ol>
           </div>
           <div class="header-right profile-dropdown d-flex align-items-center">
