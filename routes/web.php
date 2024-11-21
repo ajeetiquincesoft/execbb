@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ReferralTypeController;
 use App\Http\Controllers\Admin\ContactTypeController;
 use App\Http\Controllers\Admin\ProbMatchController;
+use App\Http\Controllers\Admin\CriteriaRankController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 
 
@@ -39,6 +40,14 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('/', [AdminAuthController::class, 'dashboard']); 
     Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('login-activities', [LoginActivityController::class, 'index'])->name('login.activities');
+     //Route for criteria rank start
+     Route::get('criteria-rank', [CriteriaRankController::class, 'index'])->name('criteriarank');
+     Route::get('create/criteria-rank',[CriteriaRankController::class,'create'])->name('create.criteriarank');
+     Route::post('store/criteria-rank',[CriteriaRankController::class,'store'])->name('store.criteriarank');
+     Route::get('edit/criteria-rank/{id}', [CriteriaRankController::class, 'edit'])->name('edit.criteriarank');
+     Route::put('update/criteria-rank/{id}', [CriteriaRankController::class, 'update'])->name('update.criteriarank');
+     Route::delete('/criteria-rank/{id}',[CriteriaRankController::class,'destroy'])->name('criteriarank.destroy');
+      //end Route for criteria rank
      //Route for prob match start
      Route::get('probmatch', [ProbMatchController::class, 'index'])->name('probmatch');
      Route::get('create/probmatch',[ProbMatchController::class,'create'])->name('create.probmatch');

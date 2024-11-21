@@ -85,7 +85,7 @@
             <div class="accordion-body">
               <ul class="acc-list" style="list-style-type: none; padding: 0;">
                 <li class="nav-item"><a class="nav-link-dropdown" href="{{route('probmatch')}}">Prob Matches</a></li>
-                <li class="nav-item">Criteria Rank</li>
+                <li class="nav-item"><a class="nav-link-dropdown" href="{{route('criteriarank')}}">Criteria Rank</a></li>
                 <li class="nav-item"><a class="nav-link-dropdown" href="{{route('contact-type')}}">Contact Type</a></li>
                 <li class="nav-item"><a class="nav-link-dropdown" href="{{route('referral-type')}}">Ref Types</a></li>
                 <!-- <li class="nav-item">Locales</li> -->
