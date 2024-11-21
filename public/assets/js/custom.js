@@ -392,6 +392,13 @@ $(document).ready(function() {
     toggleCollapse();
 }, 500);
 });
+$(document).ready(function() {
+  $('.accordion-button').on('click', function() {
+    var targetId = $(this).attr('data-bs-target');
+    $('.accordion-collapse').collapse('hide');
+    $(targetId).collapse('toggle');
+  });
+});
 
 /* $(document).ready(function() {
   // Load breadcrumbs from local storage and render them
