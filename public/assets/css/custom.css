@@ -117,7 +117,17 @@ img.create_img {
   height: auto;
   border-radius: 50%; /* Make the image circular */
 }
-
+/* icon css*/
+i.fas.fa-eye {
+  color: #28a745;
+}
+i.fas.fa-edit {
+  color: #007bff;
+}
+i.fas.fa-trash {
+  color: #dc3545;
+}
+/*end icons css*/
 /*css start for agent*/
 
 .avatar-upload-agent {
@@ -281,4 +291,5 @@ img.create_img {
 .accordion-button-main i {
   color: inherit !important;  /* Inherit color for any icon inside */
 }
+
 
