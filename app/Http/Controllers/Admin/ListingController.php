@@ -171,9 +171,6 @@ class ListingController extends Controller
          // Get the next listing ID
          $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
         return view('admin.listing.show', compact('listing', 'previous', 'next'));
-       
-   
-
     }
     public function createStep1(){
         $categoryData = DB::table('categories')->get();
@@ -218,12 +215,13 @@ class ListingController extends Controller
     public function createStep5(){
         $step = 5;
         $completedSteps = session()->get('complete_step', []);
+        $leads = DB::table('leads')->get();
 
         // Check if the previous step is completed
         if (!in_array($step - 1, $completedSteps) && $step > 1) {
             return redirect()->route('create.listing.step'.$step-1);
         }
-        return view('admin.listing.listing-step.listing-step5');
+        return view('admin.listing.listing-step.listing-step5',compact('leads'));
         
     }
     public function storeStep1(Request $request){
@@ -318,8 +316,8 @@ class ListingController extends Controller
                 $listing->State = $request->state;
                 $listing->Zip = $request->zip_code;
                 $listing->County = $request->country;
-                $listing->SHomePh = $request->phone;
-                $listing->SHomeFax = $request->fax;
+                $listing->Phone = $request->phone;
+                $listing->Fax = $request->fax;
                 $listing->featured = $featuredListingcheckboxValue;
                 $listing->SellerFName = $request->first_name;
                 $listing->SellerLName = $request->last_name;
@@ -665,6 +663,7 @@ class ListingController extends Controller
     }
     public function editStep5($id){
         $listingData = Listing::where('ListingID',$id)->first();
+        $leads = DB::table('leads')->get();
          // Check if listing not exists
          if (!$listingData) {
             return redirect()->route('all.listing')->with('error', 'User not found.');
@@ -680,7 +679,7 @@ class ListingController extends Controller
          $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
          // Get the next listing ID
          $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
-        return view('admin.listing.edit-listing-step.edit-listing-step5',compact('listingData','previous','next'));
+        return view('admin.listing.edit-listing-step.edit-listing-step5',compact('listingData','previous','next','leads'));
     }
     public function updateStep1(Request $request, $id){
         $request->validate([
@@ -923,8 +922,8 @@ class ListingController extends Controller
         ]);
          $listing = Listing::where('ListingID',$id)->update([
             'Highlights' => $request->highlights,
-            'Comments' => $request->directions,
-            'Directions' => $request->comments,
+            'Directions' => $request->directions,
+            'Comments' => $request->comments,
             'LeadID' => $request->leadId,
             'Steps'=> 5,
             'Status'=> 'published'

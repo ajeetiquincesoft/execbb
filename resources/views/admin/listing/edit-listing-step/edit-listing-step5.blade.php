@@ -16,7 +16,7 @@
                                 <!-- Highlights -->
                                 <div class="col">
                                     <label for="highlights" class="form-label">Highlights</label>
-                                    <textarea class="form-control" id="highlights" name="highlights" rows="4"></textarea>
+                                    <textarea class="form-control" id="highlights" name="highlights" rows="4">{{$listingData->Highlights}}</textarea>
                                     @error('highlights')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -26,7 +26,7 @@
                                 <!-- Directions -->
                                 <div class="col">
                                     <label for="directions" class="form-label">Directions</label>
-                                    <textarea class="form-control" id="directions" name="directions" rows="4"></textarea>
+                                    <textarea class="form-control" id="directions" name="directions" rows="4">{{$listingData->Directions}}</textarea>
                                 </div>
                             </div>
 
@@ -34,7 +34,7 @@
                                 <!-- Comments -->
                                 <div class="col">
                                     <label for="comments" class="form-label">Comments</label>
-                                    <textarea class="form-control" id="comments" name="comments" rows="4"></textarea>
+                                    <textarea class="form-control" id="comments" name="comments" rows="4">{{$listingData->Comments}}</textarea>
                                     @error('comments')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -45,17 +45,10 @@
                                 <div class="col">
                                     <label for="leadId" class="form-label">Lead ID</label>
                                     <select id="leadId" name="leadId" class="form-select">
-                                        <option value="" selected="">Select category</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
+                                        <option value="" selected="">Select lead</option>
+                                        @foreach($leads as $key=>$lead)
+                                    <option value="{{$lead->LeadID}}" {{ $listingData->LeadID ==$lead->LeadID ? 'selected' : '' }}>{{$lead->LeadID}}</option>
+                                    @endforeach
                                     </select>
                                     @error('leadId')
                                     <small class="text-danger">{{ $message }}</small>

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Agent\AgentAuthController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\AdminProfileController;
@@ -20,6 +19,15 @@ use App\Http\Controllers\Admin\ContactTypeController;
 use App\Http\Controllers\Admin\ProbMatchController;
 use App\Http\Controllers\Admin\CriteriaRankController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
+//Controller for agent
+use App\Http\Controllers\Agent\AgentAuthController;
+use App\Http\Controllers\Agent\AgentBuyerController;
+use App\Http\Controllers\Auth\AgentResetPasswordController;
+use App\Http\Controllers\Agent\AgentProfileController;
+use App\Http\Controllers\Agent\AgentListingController;
+
+
+
 
 
 /*
@@ -198,9 +206,27 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
      //end route for showing
 
 });
-Route::group(['middleware' => 'agentcheck','prefix' => 'agent'], function () {
-    Route::get('/dashboard', [AgentAuthController::class, 'agentDashboard']); 
-  
+Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.'], function () {
+  Route::get('/dashboard', [AgentAuthController::class, 'agentDashboard'])->name('dashboard');
+     //routes for buyers
+ Route::get('buyer/list', [AgentBuyerController::class, 'index'])->name('list.buyer');
+ Route::get('view/buyer/{id}',[AgentBuyerController::class,'show'])->name('show.buyer');
+ Route::delete('/buyer/{id}',[AgentBuyerController::class,'destroy'])->name('buyer.destroy');
+   //end route for buyers
+   //Route for user reset password
+   Route::get('reset/password',[AgentResetPasswordController::class,'index'])->name('reset.password');
+   Route::post('reset/password/link',[AgentResetPasswordController::class,'resetpasswordlink'])->name('reset.password.link');
+   //End route for reset password
+     //Route for user profile
+     Route::get('profile',[AgentProfileController::class,'showProfile'])->name('show.profile');
+     Route::get('edit/profile/{id}',[AgentProfileController::class,'editProfile'])->name('edit.profile');
+     Route::put('update/profile/{id}',[AgentProfileController::class,'updateProfile'])->name('update.profile');
+     Route::put('upload/agent/avatar/{id}',[AgentProfileController::class,'updateImage'])->name('upload.agent.avatar');
+     //end route for user profile
+
+     Route::get('listing/all', [AgentListingController::class, 'index'])->name('all.listing');
+     Route::get('view/listing/{id}',[AgentListingController::class,'show'])->name('show.listing');
+
 });
 
 Route::get('login', [AdminAuthController::class, 'index'])->name('login');

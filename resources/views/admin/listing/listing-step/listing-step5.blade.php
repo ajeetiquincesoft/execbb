@@ -50,17 +50,10 @@
                                 <div class="col">
                                     <label for="leadId" class="form-label">Lead ID</label>
                                     <select id="leadId" name="leadId" class="form-select">
-                                        <option value="" selected="">Select category</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
+                                        <option value="" selected="">Select lead</option>
+                                        @foreach($leads as $key=>$lead)
+                                        <option value="{{$lead->LeadID}}" {{ (old('leadId') == $lead->LeadID || session('formData.leadId') == $lead->LeadID) ? 'selected' : '' }}>{{$lead->LeadID}}</option>
+                                        @endforeach
                                     </select>
                                     @error('leadId')
                                     <small class="text-danger">{{ $message }}</small>
