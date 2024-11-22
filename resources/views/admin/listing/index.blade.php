@@ -51,7 +51,7 @@
                             <th scope="col">Phone</th>
                             <th scope="col">Email</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col"  style="width: 120px;">Action</th>
                         </tr>
                     </thead>
                     <tbody id="listingResults">
@@ -60,12 +60,12 @@
                             <td>{{$listing->ListingID}}</td>
                             <td>{{$listing->SellerFName}} {{$listing->SellerLName}}</td>
                             <td>{{$listing->SellerCorpName}}</td>
-                            <td>{{$listing->SHomeAdd1}}</td>
-                            <td>{{$listing->SCity}}</td>
-                            <td>{{$listing->SHomePh}}</td>
+                            <td>{{$listing->SHomeAdd1 ? $listing->SHomeAdd1 : $listing->Address1}}</td>
+                            <td>{{$listing->SCity ? $listing->SCity : $listing->City}}</td>
+                            <td>{{$listing->SHomePh ? $listing->SHomePh : $listing->Phone}}</td>
                             <td>{{$listing->Email}}</td>
                             <td>{{ucfirst($listing->Status)}}</td>
-                            <td class="list-btn">
+                            <td class="list-btn"  style="width: 120px;">
                                 <a href="{{ route('show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
                                     </button></a>

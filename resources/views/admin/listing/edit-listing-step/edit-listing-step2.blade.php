@@ -128,11 +128,11 @@
                                 <label>Employees</label>
                                 <div class="d-flex">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestPartTime" name="interestType" value="Part Time" {{  $listingData->PTEmp == 'Part Time' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestPartTime" name="empJobType" value="Part Time" {{  $listingData->PTEmp == 'Part Time' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestPartTime">Part Time</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestFullTime" name="interestType" value="Full Time" {{  $listingData->PTEmp == 'Full Time' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestFullTime" name="empJobType" value="Full Time" {{  $listingData->FTEmp == 'Full Time' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestFullTime">Full Time</label>
                                     </div>
                                 </div>

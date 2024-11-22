@@ -21,7 +21,7 @@
                                 <!-- Highlights -->
                                 <div class="col">
                                     <label for="highlights" class="form-label">Highlights</label>
-                                    <textarea class="form-control" id="highlights" name="highlights" rows="4"></textarea>
+                                    <textarea class="form-control" id="highlights" name="highlights" rows="4">{{ old('highlights') }}</textarea>
                                     @error('highlights')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -31,7 +31,7 @@
                                 <!-- Directions -->
                                 <div class="col">
                                     <label for="directions" class="form-label">Directions</label>
-                                    <textarea class="form-control" id="directions" name="directions" rows="4"></textarea>
+                                    <textarea class="form-control" id="directions" name="directions" rows="4">{{ old('directions') }}</textarea>
                                 </div>
                             </div>
 
@@ -39,7 +39,7 @@
                                 <!-- Comments -->
                                 <div class="col">
                                     <label for="comments" class="form-label">Comments</label>
-                                    <textarea class="form-control" id="comments" name="comments" rows="4"></textarea>
+                                    <textarea class="form-control" id="comments" name="comments" rows="4">{{ old('comments') }}</textarea>
                                     @error('comments')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
