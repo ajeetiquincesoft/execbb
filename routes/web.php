@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\ContactTypeController;
 use App\Http\Controllers\Admin\ProbMatchController;
 use App\Http\Controllers\Admin\CriteriaRankController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
+use App\Http\Controllers\Admin\EmailBuyerController;
 //Controller for agent
 use App\Http\Controllers\Agent\AgentAuthController;
 use App\Http\Controllers\Agent\AgentBuyerController;
@@ -202,8 +203,9 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::put('update/showing/{id}', [ShowingController::class, 'updateShowing'])->name('update.showing');
     Route::get('view/showing/{id}',[ShowingController::class,'show'])->name('show.showing');
     Route::delete('showing/destroy/{id}',[ShowingController::class,'destroy'])->name('showing.destroy');
-   
      //end route for showing
+     Route::get('email/buyer', [EmailBuyerController::class, 'index'])->name('email.buyer');
+     Route::post('/email/buyer/send', [EmailBuyerController::class, 'sendEmail'])->name('email.buyer.send');
 
 });
 Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.'], function () {

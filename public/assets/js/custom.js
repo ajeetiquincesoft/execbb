@@ -351,6 +351,9 @@ $(document).ready(function() {
     $('#agent').select2();
 });
 $(document).ready(function() {
+  $('#recipientEmail').select2();
+});
+$(document).ready(function() {
   const collapsePanel = document.getElementById('collapsetwo');  
   const toggleCollapse = () => {
     const activeItem = document.querySelector('.acc-list .nav-item.activenavitem');
