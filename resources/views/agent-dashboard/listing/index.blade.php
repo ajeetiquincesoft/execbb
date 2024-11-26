@@ -1,6 +1,12 @@
 @extends('agent-dashboard.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
+@if(Session::has('success'))
+    <div class="alert alert-success alert-block" id="alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{ Session::get('success') }}</strong>
+    </div>
+    @endif
     @if(Session::has('error'))
     <div class="alert alert-danger alert-block" id="alert-success">
         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -16,7 +22,7 @@
                         <h4 class="mb-0">Listings</h4>
                     </div>
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                        <a href="#">
+                        <a href="{{route('agent.listing.form')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
                             <img class="create_img" src="{{ url('assets/images/Listing.png') }}"> Add Listings
                             </button>
@@ -66,9 +72,19 @@
                             <td>{{$listing->Email}}</td>
                             <td>{{ucfirst($listing->Status)}}</td>
                             <td class="list-btn">
-                            <a href="{{ route('agent.show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
-                                        <i class="fas fa-eye"></i>
-                                    </button></a>
+                                <a href="{{ route('agent.show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
+                                <i class="fas fa-eye"></i>
+                                </button></a>
+                                <a href="{{ route('agent.edit.listing.form', $listing->ListingID) }}"> <button class="btn btn-sm" title="Edit">
+                                <i class="fas fa-edit"></i>
+                                </button></a>
+                                <form id="delete-form-{{ $listing->ListingID }}" action="{{ route('agent.listing.destroy', $listing->ListingID) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-sm" title="Delete" onclick="listingDelete('{{ $listing->ListingID }}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                                 <!-- <button class="btn btn-sm" title="Download">
                                     <i class="fas fa-download"></i>
                                 </button> -->
