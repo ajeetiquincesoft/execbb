@@ -233,6 +233,7 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
      Route::get('/listing/{id}', [AgentListingController::class, 'editForm'])->name('edit.listing.form');
      Route::post('/listing/{id}', [AgentListingController::class, 'editProcessForm'])->name('edit.listing.form.process');
      Route::get('get/options/{id}', [AgentListingController::class, 'getOptions'])->name('get.options');
+     Route::get('/listing/next/prev/{id}', [AgentListingController::class, 'prevNext'])->name('edit.prev.next');
      Route::delete('/listing/destroy/{id}',[AgentListingController::class,'destroy'])->name('listing.destroy');
 
 });

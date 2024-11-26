@@ -385,7 +385,11 @@ class AgentListingController extends Controller
         }
         $listingTypes = DB::table('listing_types')->get();
         $leads = DB::table('leads')->get();
-        return view('agent-dashboard.listing.edit', compact('step', 'listingDatas', 'categoryData', 'states', 'sub_categories', 'counties', 'agents', 'listingTypes', 'leads', 'listingData', 'selectedAgents'));
+         // Get the previous listing ID
+         $previous = Listing::where('ListingID', '<', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'desc')->first();
+         // Get the next listing ID
+         $next = Listing::where('ListingID', '>', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'asc')->first();
+        return view('agent-dashboard.listing.edit', compact('step', 'listingDatas', 'categoryData', 'states', 'sub_categories', 'counties', 'agents', 'listingTypes', 'leads', 'listingData', 'selectedAgents','previous','next'));
     }
     public function editProcessForm(Request $request, $id)
     {
@@ -694,6 +698,13 @@ class AgentListingController extends Controller
             return redirect()->route('agent.all.listing')
                 ->with('success', 'Listing deleted successfully.');
         
+    }
+    public function prevNext(Request $request, $id)
+    {
+
+        session()->forget(['listingData', 'step']);
+        $step = session('step', 1);
+        return redirect()->route('agent.edit.listing.form', $id);
     }
     
 }
