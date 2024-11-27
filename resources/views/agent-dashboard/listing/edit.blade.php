@@ -343,15 +343,13 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>Employees</label>
-                        <div class="d-flex">
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestPartTime" name="empJobType" value="Part Time" {{  $listingData->PTEmp == 'Part Time' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="interestPartTime">Part Time</label>
+                        <div class="row mb-2">
+                            <label>Employees</label>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="PTEmp" name="PTEmp" value="{{$listingData->PTEmp}}" placeholder="part time">
                             </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestFullTime" name="empJobType" value="Full Time" {{  $listingData->FTEmp == 'Full Time' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="interestFullTime">Full Time</label>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="FTEmp" name="FTEmp" value="{{$listingData->FTEmp}}" placeholder="full time">
                             </div>
                         </div>
                     </div>
@@ -513,9 +511,9 @@
                     <div class="col-md-3 mb-3">
                         <label for="agent">Agent</label>
                         <!--  <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('formData.agent') ? session('formData.agent') : '' }}"> -->
-                        <select id="agent" name="agents[]" class="form-control" multiple>
+                        <select id="agent" name="agents[]" class="form-select">
                             @foreach($agents as $key=>$agent)
-                            <option value="{{$agent->agent_info->AgentID}}" {{ in_array($agent->agent_info->AgentID, $selectedAgents) ? 'selected' : '' }}>{{$agent->name}}</option>
+                            <option value="{{$agent->agent_info->AgentID}}" {{ $agent->agent_info->AgentID == $listingData->AgentID ? 'selected' : '' }}>{{$agent->name}}</option>
                             @endforeach
                         </select>
                         @error('agents')
@@ -633,7 +631,7 @@
                     <div class="row mb-3">
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                             <label for="baseAnnRent">Base Annual Rent</label>
-                            <input type="number" class="form-control" id="baseAnnRent" name="baseAnnRent" value="">
+                            <input type="number" class="form-control" id="baseAnnRent" name="baseAnnRent" value="{{$listingData->AnnRent}}">
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                             <label for="commAreaMaint">Comm Area Maintenance</label>

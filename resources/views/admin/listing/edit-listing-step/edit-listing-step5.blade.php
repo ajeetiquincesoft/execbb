@@ -59,7 +59,7 @@
                     </div>
                     <div class="d-flex justify-content-center" style="overflow:auto;">
                         <div>
-                        <a href="{{route('create.listing.step4',$listingData->ListingID)}}"><button class="btn-primary" type="button" id="prevBtn">Previous</button></a>
+                        <a href="{{route('edit.listing.step4',$listingData->ListingID)}}"><button class="btn-primary" type="button" id="prevBtn">Previous</button></a>
                             <button class="btn-primary" type="submit" id="nextBtn">Update</button>
                         </div>
                     </div>

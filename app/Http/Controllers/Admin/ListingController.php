@@ -393,16 +393,10 @@ class ListingController extends Controller
             'YrsEstablished' => $yearsEstablished,
             'YrsPresentOwner' => $request->yearsPrevOwner,
             'Interest' => $request->interest,
+            'PTEmp' => $request->PTEmp,
+            'FTEmp' => $request->FTEmp,
             'Steps' => 2
         ];
-        if ($request->has('empJobType') && $request->empJobType == 'Part Time') {
-            $data['PTEmp'] = $request->empJobType;
-            $data['FTEmp'] = null;
-        }
-        if ($request->has('empJobType') && $request->empJobType == 'Full Time') {
-            $data['FTEmp'] = $request->empJobType;
-            $data['PTEmp'] = null;
-        }
         $listing->update($data);
         if ($listing) {
             $formData = $request->session()->get('formData', []);
@@ -500,7 +494,7 @@ class ListingController extends Controller
             'COG1' => $request->cost0_1,
             'COG2' => $request->cost0_2,
             'COG3' => $request->cost0_3,
-            'PurPrice' => $request->baseAnnRent,
+            'AnnRent' => $request->baseAnnRent,
             'CommonAreaMaint' => $request->commAreaMaint,
             'RealEstateTax' => $request->realEstateTax,
             'AnnPayroll' => $request->annPayroll,
@@ -543,7 +537,8 @@ class ListingController extends Controller
             'Directions' => $request->directions,
             'LeadID' => $request->leadId,
             'Steps' => 5,
-            'Status' => 'published'
+            'Status' => 'published',
+            'Active' => 1
         ]);
         if ($listing) {
             $request->session()->forget('formData');
@@ -799,16 +794,10 @@ class ListingController extends Controller
             'YrsEstablished' => $yearsEstablished,
             'YrsPresentOwner' => $request->yearsPrevOwner,
             'Interest' => $request->interest,
+            'PTEmp' => $request->PTEmp,
+            'FTEmp' => $request->FTEmp,
             'Steps' => 2
         ];
-        if ($request->has('empJobType') && $request->empJobType == 'Part Time') {
-            $data['PTEmp'] = $request->empJobType;
-            $data['FTEmp'] = null;
-        }
-        if ($request->has('empJobType') && $request->empJobType == 'Full Time') {
-            $data['FTEmp'] = $request->empJobType;
-            $data['PTEmp'] = null;
-        }
         $listing->update($data);
         if ($listing) {
             for ($i = 1; $i <= $updateStep; $i++) {
@@ -908,7 +897,7 @@ class ListingController extends Controller
             'COG1' => $request->cost0_1,
             'COG2' => $request->cost0_2,
             'COG3' => $request->cost0_3,
-            /* '' => $request->baseAnnRent, */
+            'AnnRent' => $request->baseAnnRent,
             'CommonAreaMaint' => $request->commAreaMaint,
             'RealEstateTax' => $request->realEstateTax,
             'AnnPayroll' => $request->annPayroll,
@@ -945,7 +934,8 @@ class ListingController extends Controller
             'Comments' => $request->comments,
             'LeadID' => $request->leadId,
             'Steps' => 5,
-            'Status' => 'published'
+            'Status' => 'published',
+            'Active' => 1
         ]);
         if ($listing) {
             return redirect()->route('all.listing')->with('success', 'Listing updated successfully!');

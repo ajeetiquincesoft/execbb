@@ -341,15 +341,13 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>Employees</label>
-                        <div class="d-flex">
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestPartTime" name="empJobType" value="Part Time" {{ (old('empJobType') == 'Part Time' || session('listingData.empJobType') == 'Part Time') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="interestPartTime">Part Time</label>
+                        <div class="row mb-2">
+                            <label>Employees</label>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="PTEmp" name="PTEmp" value="{{ session('formData.PTEmp') ?? old('PTEmp')}}" placeholder="part time">
                             </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestFullTime" name="empJobType" value="Full Time" {{ (old('empJobType') == 'Full Time' || session('listingData.empJobType') == 'Full Time') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="interestFullTime">Full Time</label>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="FTEmp" name="FTEmp" value="{{ session('formData.FTEmp') ?? old('FTEmp')}}" placeholder="full time">
                             </div>
                         </div>
                     </div>
@@ -511,9 +509,9 @@
                     <div class="col-md-3 mb-3">
                         <label for="agent">Agent</label>
                         <!--  <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('listingData.agent') ? session('listingData.agent') : '' }}"> -->
-                        <select id="agent" name="agents[]" class="form-control" multiple>
+                        <select id="agent" name="agents[]" class="form-select">
                             @foreach($agents as $key=>$agent)
-                            <option value="{{$agent->agent_info->AgentID }}" {{ in_array($agent->agent_info->AgentID, session('listingData.agents', [])) ? 'selected' : '' }}>{{$agent->name}}</option>
+                            <option value="{{$agent->agent_info->AgentID }}"  {{ (old('agents') == $agent->agent_info->AgentID  || session('listingData.agents') == $agent->agent_info->AgentID ) ? 'selected' : '' }}>{{$agent->name}}</option>
                             @endforeach
                         </select>
                         @error('agents')

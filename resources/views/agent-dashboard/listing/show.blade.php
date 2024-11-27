@@ -1,5 +1,16 @@
 @extends('agent-dashboard.layout.master')
 @section('content')
+<div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
+    <div class="next-back-page d-flex justify-content-between">
+        @if ($previous)
+        <a href="{{ route('agent.show.listing', $previous->ListingID) }}"><button><i class="fa fa-chevron-left"></i>Back</button></a>
+        @endif
+
+        @if ($next)
+        <a href="{{ route('agent.show.listing', $next->ListingID) }}"><button>Next <i class="fa fa-chevron-right"></i></button></a>
+        @endif
+    </div>
+</div>
 <div class="container-fluid content bg-light">
       <div class="row">
         <div class="col-md-5">

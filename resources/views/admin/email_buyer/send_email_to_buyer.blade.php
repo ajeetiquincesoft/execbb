@@ -22,7 +22,7 @@
                         <div class="row mb-2">
                             <div class="col-md-6 mb-3">
                                 <label for="Recipient Email">Recipient Email</label>
-                                <select id="recipientEmail" name="recipientEmail[]" class="form-select " multiple>
+                                <select id="recipientEmail" name="recipientEmail[]" class="form-select" multiple>
                                    @foreach($buyers as $key=>$buyer)
                                     <option value="{{$buyer->Email}}">{{$buyer->Email}}</option>
                                     @endforeach

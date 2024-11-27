@@ -125,7 +125,16 @@
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label>Employees</label>
+                                <div class="row mb-2">
+                                    <label>Employees</label>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" class="form-control" id="PTEmp" name="PTEmp" value="{{$listingData->PTEmp}}" placeholder="part time">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" class="form-control" id="FTEmp" name="FTEmp" value="{{$listingData->FTEmp}}" placeholder="full time">
+                                    </div>
+                                </div>
+                                <!-- <label>Employees</label>
                                 <div class="d-flex">
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" id="interestPartTime" name="empJobType" value="Part Time" {{  $listingData->PTEmp == 'Part Time' ? 'checked' : '' }}>
@@ -135,7 +144,7 @@
                                         <input type="radio" class="form-check-input" id="interestFullTime" name="empJobType" value="Full Time" {{  $listingData->FTEmp == 'Full Time' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestFullTime">Full Time</label>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

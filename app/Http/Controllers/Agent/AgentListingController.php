@@ -40,7 +40,11 @@ class AgentListingController extends Controller
     {
         $user = auth()->user();
         $listing = Listing::where('ListingID', $id)->where('RefAgentID', $user->id)->first();
-        return view('agent-dashboard.listing.show', compact('listing'));
+        // Get the previous listing ID
+        $previous = Listing::where('ListingID', '<', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'desc')->first();
+        // Get the next listing ID
+        $next = Listing::where('ListingID', '>', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'asc')->first();
+        return view('agent-dashboard.listing.show', compact('listing','previous','next'));
     }
     public function getOptions($id)
     {
@@ -220,16 +224,10 @@ class AgentListingController extends Controller
                 'YrsEstablished' => $request->yearsEstablished,
                 'YrsPresentOwner' => $request->yearsPrevOwner,
                 'Interest' => $request->interest,
+                'PTEmp' => $request->PTEmp,
+                'FTEmp' => $request->FTEmp,
                 'Steps' => 2
             ];
-            if ($request->has('empJobType') && $request->empJobType == 'Part Time') {
-                $data['PTEmp'] = $request->empJobType;
-                $data['FTEmp'] = null;
-            }
-            if ($request->has('empJobType') && $request->empJobType == 'Full Time') {
-                $data['FTEmp'] = $request->empJobType;
-                $data['PTEmp'] = null;
-            }
             $listing->update($data);
             $listingData = $request->session()->get('listingData', []);
             $mergedData = array_merge($listingData, $request->all());
@@ -307,7 +305,7 @@ class AgentListingController extends Controller
                 $listing->COG1 = $request->cost0_1;
                 $listing->COG2 = $request->cost0_2;
                 $listing->COG3 = $request->cost0_3;
-                $listing->PurPrice = $request->baseAnnRent;
+                $listing->AnnRent = $request->baseAnnRent;
                 $listing->CommonAreaMaint = $request->commAreaMaint;
                 $listing->RealEstateTax = $request->realEstateTax;
                 $listing->AnnPayroll = $request->annPayroll;
@@ -342,6 +340,7 @@ class AgentListingController extends Controller
             $listing->Directions = $request->directions;
             $listing->LeadID = $request->leadId;
             $listing->Status = 'published';
+            $listing->Active = 1;
 
             // Save the updated record
             $listing->Steps = $step;
@@ -363,11 +362,16 @@ class AgentListingController extends Controller
     }
     public function editForm(Request $request, $id)
     {
+        $previousListingId = session('listingData.prevListingId', null);
         // Find the listing ID
         $listingData = Listing::where('ListingID', $id)->first();
         if (!$listingData) {
             return redirect()->back()
                 ->with('err_message', 'Listing not found.');
+        }
+        if ($previousListingId != $id) {
+            session(['step' => 1]);
+            session(['listingData.prevListingId' => $id]); 
         }
         $step = session('step', 1);
         $listingDatas = session('listingData', []);
@@ -478,18 +482,9 @@ class AgentListingController extends Controller
                 $listing->YrsEstablished = $request->yearsEstablished;
                 $listing->YrsPresentOwner = $request->yearsPrevOwner;
                 $listing->Interest = $request->interest;
+                $listing->PTEmp = $request->PTEmp;
+                $listing->FTEmp = $request->FTEmp;
                 $listing->Steps = 2;
-
-                // Handle the employee type condition
-                if ($request->has('empJobType') && $request->empJobType == 'Part Time') {
-                    $listing->PTEmp = $request->empJobType;
-                    $listing->FTEmp = null;
-                }
-                if ($request->has('empJobType') && $request->empJobType == 'Full Time') {
-                    $listing->FTEmp = $request->empJobType;
-                    $listing->PTEmp = null;
-                }
-
                 // Save the model to the database
                 $listing->save();
                 $listingData = $request->session()->get('listingData', []);
@@ -553,7 +548,7 @@ class AgentListingController extends Controller
                 $listing->COG1 = $request->cost0_1;
                 $listing->COG2 = $request->cost0_2;
                 $listing->COG3 = $request->cost0_3;
-                $listing->PurPrice = $request->baseAnnRent;
+                $listing->AnnRent = $request->baseAnnRent;
                 $listing->CommonAreaMaint = $request->commAreaMaint;
                 $listing->RealEstateTax = $request->realEstateTax;
                 $listing->AnnPayroll = $request->annPayroll;
@@ -583,6 +578,7 @@ class AgentListingController extends Controller
                 $listing->Directions = $request->directions;
                 $listing->LeadID = $request->leadId;
                 $listing->Status = 'published';
+                $listing->Active = 1;
                 // Save the updated record
                 $listing->Steps = $step;
                 $listing->save();

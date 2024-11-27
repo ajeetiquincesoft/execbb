@@ -16,8 +16,9 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-  {!! Html::style('assets/css/custom.css') !!}
+
   {!! Html::style('assets/css/main.css') !!}
+  {!! Html::style('assets/css/custom.css') !!}
   <!-- jQuery and Bootstrap JS -->
   <style>
     .accordion-button.collapsed {

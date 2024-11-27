@@ -79,7 +79,7 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="baseAnnRent">Base Annual Rent</label>
-                                    <input type="number" class="form-control" id="baseAnnRent" name="baseAnnRent"  value="">
+                                    <input type="number" class="form-control" id="baseAnnRent" name="baseAnnRent"  value="{{$listingData->AnnRent}}">
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="commAreaMaint">Comm Area Maintenance</label>

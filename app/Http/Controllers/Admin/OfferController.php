@@ -313,7 +313,7 @@ class OfferController extends Controller
     {
 
         //session()->forget(['offerData', 'step']);
-
+        $previousOfferId = session('offerData.prevOfferId', null);
         // Find the offer ID
         $offer = Offer::where('OfferID', $id)->first();
         if (!$offer) {
@@ -329,6 +329,10 @@ class OfferController extends Controller
             }
             $step = session('step');
         } */
+        if ($previousOfferId != $id) {
+            session(['step' => 1]); // Reset to the first step
+            session(['offerData.prevOfferId' => $id]); // Store the new offer_id in the session
+        }
         $step = session('step', 1);
         $offerData = session('offerData', []);
         $request->session()->put('offerData.offer_id',  $id);

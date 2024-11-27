@@ -10,23 +10,10 @@
               <li class="breadcrumb-item"><a class="nav-link" href="{{route('agent.dashboard')}}">Home</a></li>
               @php
               // Define route names and their corresponding breadcrumb labels
-              $breadcrumbs = [
+            $breadcrumbs = [
                   'agent.dashboard' => 'Dashboard',
                   'agent.all.listing' => 'Listing',
-                  'all.lead' => 'Lead',
-                  'all.offer' => 'Offer',
-                  'list.agent' => 'Agent',
-                  'agent.list.buyer' => 'Buyer',
-                  'all.contact' => 'Contact',
-                  'all.referral' => 'Referral',
-                  'all.showing' => 'Showing',
-                  'probmatch' => 'Prob Match',
-                  'criteriarank' => 'Criteria Rank',
-                  'contact-type' => 'Contact Type',
-                  'referral-type' => 'Referral Type',
-                  'categories' => 'Categories',
-                  'reset.password' => 'Change Password',
-                  'login.activities' => 'Login Activities'
+                  'agent.list.buyer' => 'Buyer'
                   ];
                 @endphp
 

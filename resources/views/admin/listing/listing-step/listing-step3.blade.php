@@ -159,9 +159,9 @@
                             <div class="col-md-3 mb-3">
                                 <label for="agent">Agent</label>
                                <!--  <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('formData.agent') ? session('formData.agent') : '' }}"> -->
-                               <select id="agent" name="agents[]" class="form-control" multiple>
+                               <select id="agent" name="agents" class="form-select select2">
                                     @foreach($agents as $key=>$agent)
-                                    <option value="{{$agent->agent_info->AgentID }}" {{ in_array($agent->agent_info->AgentID, session('formData.agents', [])) ? 'selected' : '' }}>{{$agent->name}}</option>
+                                    <option value="{{$agent->agent_info->AgentID }}" {{ (old('agents') == $agent->agent_info->AgentID  || session('formData.agents') == $agent->agent_info->AgentID ) ? 'selected' : '' }}>{{$agent->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('agents')
