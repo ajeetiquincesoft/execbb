@@ -128,10 +128,10 @@
                                 <div class="row mb-2">
                                     <label>Employees</label>
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="PTEmp" name="PTEmp" value="{{$listingData->PTEmp}}" placeholder="part time">
+                                        <input type="text" class="form-control" id="PTEmp" name="PTEmp" value="{{$listingData->PTEmp}}" placeholder="Part Time">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="FTEmp" name="FTEmp" value="{{$listingData->FTEmp}}" placeholder="full time">
+                                        <input type="text" class="form-control" id="FTEmp" name="FTEmp" value="{{$listingData->FTEmp}}" placeholder="Full Time">
                                     </div>
                                 </div>
                                 <!-- <label>Employees</label>
