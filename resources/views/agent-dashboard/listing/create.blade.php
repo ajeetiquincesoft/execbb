@@ -511,7 +511,7 @@
                         <!--  <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('listingData.agent') ? session('listingData.agent') : '' }}"> -->
                         <select id="agent" name="agents[]" class="form-select">
                             @foreach($agents as $key=>$agent)
-                            <option value="{{$agent->agent_info->AgentID }}"  {{ (old('agents') == $agent->agent_info->AgentID  || session('listingData.agents') == $agent->agent_info->AgentID ) ? 'selected' : '' }}>{{$agent->name}}</option>
+                            <option value="{{$agent->agent_info->AgentID }}" {{ (old('agents') == $agent->agent_info->AgentID  || session('listingData.agents') == $agent->agent_info->AgentID ) ? 'selected' : '' }}>{{$agent->name}}</option>
                             @endforeach
                         </select>
                         @error('agents')
@@ -768,115 +768,172 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-   $(document).ready(function() {
-    // Initialize form validation
-    var form = $('#listingAgentForm');
-    form.validate({
-        rules: {
-            user_email: {
-                required: true,
-                email: true
+    $(document).ready(function() {
+        $.validator.addMethod("regex", function(value, element, regexpr) {
+        return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
+    }, "Invalid phone number format.");
+        var form = $('#listingAgentForm');
+        form.validate({
+            rules: {
+                user_email: {
+                    required: true,
+                    email: true
+                },
+                bus_category: {
+                    required: true
+                },
+                bus_type: {
+                    required: true
+                },
+                cropName: {
+                    required: true
+                },
+                dba: {
+                    required: true
+                },
+                address: {
+                    required: true
+                },
+                city: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                zip_code: {
+                    required: true,
+                    minlength: 5, // Minimum length for US ZIP code
+                    maxlength: 10 // Maximum length for 9-digit ZIP code
+                },
+                phone: {
+                    required: true,
+                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
+                },
+                first_name: {
+                    required: true
+                },
+                last_name: {
+                    required: true
+                },
+                listing_img: {
+                    extension: "jpeg,png,gif,svg",
+                    filesize: 5 * 1024 * 1024 // 5MB
+                },
+                buildingSize: {
+                    required: true
+                },
+                basementSize: {
+                    required: true
+                },
+                parking: {
+                    required: true
+                },
+                licenseRequired: {
+                    required: true
+                },
+                baseMonthlyRent: {
+                    required: true
+                },
+                leaseTerms: {
+                    required: true
+                },
+                leaseOptions: {
+                    required: true
+                },
+                daysOpen: {
+                    required: true
+                },
+                hoursOperation: {
+                    required: true
+                },
+                numSeats: {
+                    required: true
+                },
+                yearsEstablished: {
+                    required: true
+                },
+                yearsPrevOwner: {
+                    required: true
+                },
+                managementAgentName: {
+                    required: true
+                },
+                managementAgentPhone: {
+                    required: true
+                },
+                referringAgentName: {
+                    required: true
+                },
+                referringAgentPhone: {
+                    required: true
+                },
+                listingDate: {
+                    required: true
+                },
+                expDate: {
+                    required: true
+                },
+                coBroker: {
+                    required: true
+                },
+                reasonForSale: {
+                    required: true
+                },
+                agents: {
+                    required: true
+                },
+                annualSales: {
+                    required: true
+                },
+                costOfSales: {
+                    required: true
+                },
+                grossProfit: {
+                    required: true
+                },
+                totalExpenses: {
+                    required: true
+                },
+                highlights: {
+                    required: true
+                },
+                comments: {
+                    required: true
+                },
+                leadId: {
+                    required: true
+                }
             },
-            bus_category: {
-                required: true
+            messages: {
+                phone: {
+                    required: 'Phone number is required.',
+                    regex: 'Must be a valid phone number.'
+                },
+                listing_img: {
+                    extension: 'File must be a valid image type (jpeg, png, gif, svg).',
+                    filesize: 'File size must be less than 5MB.'
+                }
             },
-            bus_type: {
-                required: true
-            },
-            cropName: {
-                required: true
-            },
-            dba: {
-                required: true
-            },
-            address: {
-                required: true
-            },
-            city: {
-                required: true
-            },
-            state: {
-                required: true
-            },
-            zip_code: {
-                required: true,
-                minlength: 5, // Minimum length for US ZIP code
-                maxlength: 10 // Maximum length for 9-digit ZIP code
-            },
-            phone: {
-                required: true,
-                regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
-            },
-            first_name: {
-                required: true
-            },
-            last_name: {
-                required: true
-            },
-            listing_img: {
-                extension: "jpeg,png,gif,svg",
-                filesize: 5 * 1024 * 1024 // 5MB
-            },
-            buildingSize: { required: true },
-            basementSize: { required: true },
-            parking: { required: true },
-            licenseRequired: { required: true },
-            baseMonthlyRent: { required: true },
-            leaseTerms: { required: true },
-            leaseOptions: { required: true },
-            daysOpen: { required: true },
-            hoursOperation: { required: true },
-            numSeats: { required: true },
-            yearsEstablished: { required: true },
-            yearsPrevOwner: { required: true },
-            managementAgentName: { required: true },
-            managementAgentPhone: { required: true },
-            referringAgentName: { required: true },
-            referringAgentPhone: { required: true },
-            listingDate: { required: true },
-            expDate: { required: true },
-            coBroker: { required: true },
-            reasonForSale: { required: true },
-            agents: { required: true },
-            annualSales: { required: true },
-            costOfSales: { required: true },
-            grossProfit: { required: true },
-            totalExpenses: { required: true },
-            highlights: { required: true },
-            comments: { required: true },
-            leadId: { required: true }
-        },
-        messages: {
-            phone: {
-                required: 'Phone number is required.',
-                regex: 'Must be a valid phone number.'
-            },
-            listing_img: {
-                extension: 'File must be a valid image type (jpeg, png, gif, svg).',
-                filesize: 'File size must be less than 5MB.'
+            submitHandler: function(form) {
+                form.submit(); // Proceed with form submission if valid
             }
-        },
-        submitHandler: function(form) {
-            form.submit(); // Proceed with form submission if valid
-        }
+        });
+
+
+        $('#nextBtn').on('click', function(event) {
+            if (form.valid()) {
+                form.submit();
+            } else {
+                event.preventDefault();
+            }
+        });
+
+        // Handle the Previous button click event
+        $('#prevBtn').on('click', function(event) {
+            form.unbind('submit');
+            form.submit();
+        });
     });
-
-   
-   $('#nextBtn').on('click', function(event) {
-        if (form.valid()) {
-            form.submit(); 
-        } else {
-            event.preventDefault(); 
-        }
-    }); 
-
-    // Handle the Previous button click event
-    $('#prevBtn').on('click', function(event) {
-        form.unbind('submit'); 
-        form.submit();  
-    });
-});
-
 </script>
 <style>
     .accordion-button.collapsed {
