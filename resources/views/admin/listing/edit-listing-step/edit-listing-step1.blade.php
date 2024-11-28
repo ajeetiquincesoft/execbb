@@ -260,6 +260,9 @@
                             required: true,
                             regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
                         },
+                        user_home_phone: {
+                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                        },
                         first_name: {
                             required: true
                         },
@@ -274,6 +277,9 @@
                     messages: {
                         phone: {
                             required: 'Phone number is required.',
+                            regex: 'Must be a valid phone number.'
+                        },
+                        user_home_phone: {
                             regex: 'Must be a valid phone number.'
                         },
                         listing_img: {

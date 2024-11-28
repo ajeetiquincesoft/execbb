@@ -22,7 +22,7 @@
                         <h4 class="mb-0">Listings</h4>
                     </div>
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                        <a href="{{route('agent.listing.form')}}">
+                        <a href="{{route('agent.create.listing')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
                             <img class="create_img" src="{{ url('assets/images/Listing.png') }}"> Add Listings
                             </button>

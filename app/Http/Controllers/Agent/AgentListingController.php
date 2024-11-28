@@ -53,6 +53,11 @@ class AgentListingController extends Controller
 
         return response()->json($options);
     }
+    public function create()
+    {
+        session()->forget(['listingData', 'step']);
+        return redirect()->route('agent.listing.form');
+    }
     public function showForm(Request $request)
     {
         /*  $listing_id = session()->get('listingData.listing_id');

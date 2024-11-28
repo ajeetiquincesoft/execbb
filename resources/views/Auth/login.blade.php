@@ -15,20 +15,24 @@
         body {
             font-family: 'Urbanist', sans-serif;
         }
+
         button.btn.bg-5a102a.text-white.btn-block {
             background-color: #7F2149;
             border-radius: 0px;
             font-size: 15px;
         }
+
         .bg-5a102a {
             /* background-color: #5a102a; */
-            height: 100vh; /* Full height for the background */
+            height: 100vh;
+            /* Full height for the background */
         }
 
         .img-fluid {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensure the image covers its container */
+            object-fit: cover;
+            /* Ensure the image covers its container */
         }
 
         .card {
@@ -38,32 +42,38 @@
 
         .login-image {
             border-radius: 1rem 0 0 1rem;
-            height: 100%; /* Ensure the image takes the full height */
+            height: 100%;
+            /* Ensure the image takes the full height */
         }
 
         .content-center {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center; /* Center the content horizontally */
-            height: 100%; /* Full height of the column */
+            align-items: center;
+            height: 100%;
         }
+
         .client_login {
             font-size: 32px;
             font-weight: 600;
         }
+
         p.m-0.an_account {
             text-align: center;
             font-size: 14px;
         }
+
         .form-control {
-            border-radius: 0px;         
-            border-color: #B3B3B3; 
+            border-radius: 0px;
+            border-color: #B3B3B3;
             color: #B3B3B3 !important;
         }
+
         @media (max-width: 768px) {
             .login-image {
-                display: none; /* Hide the image on small screens */
+                display: none;
+                /* Hide the image on small screens */
             }
         }
     </style>
@@ -75,31 +85,31 @@
             <div class="col col-xl-4">
                 <div class="card">
                     <div class="row g-0">
-                      <!--   <div class="col-md-4 d-none d-md-block">
+                        <!--   <div class="col-md-4 d-none d-md-block">
                             <img src="{{ url('images/login_2.jpg') }}" alt="login form" class="img-fluid login-image" />
                         </div> -->
                         <div class="col-md-12 d-flex align-items-center content-center">
                             <div class="card-body text-black" style="width: 100%;">
                                 <div class="d-flex justify-content-center pb-1">
-                                <h5 class="fw-normal mb-2 text-center m-0 client_login">Client Log In</h5>
+                                    <h5 class="fw-normal mb-2 text-center m-0 client_login">Client Log In</h5>
                                 </div>
                                 <p class="m-0 mb-3 an_account" style="color: #5D5D5D;">Don't have an account? <a href="#!" style="color: #7F2149;">Create your free account</a></p>
 
                                 <form method="POST" action="{{ route('login.custom') }}">
-                                @csrf
+                                    @csrf
                                     @if ($errors->has('emailPassword'))
-                                            <div class="alert alert-danger">
-                                                {{ $errors->first('emailPassword') }}
-                                            </div>
-                                        @endif
+                                    <div class="alert alert-danger">
+                                        {{ $errors->first('emailPassword') }}
+                                    </div>
+                                    @endif
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email Address"/>
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email Address" />
                                         @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password"/>
+                                        <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" />
                                         @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                         @endif
@@ -111,7 +121,7 @@
                                             <a class="small text-muted" href="{{ route('forget.password') }}" style="color: #7F2149 !important;text-decoration: underline;">Forgot password?</a>
                                         </div>
                                     </div>
-                                    
+
                                 </form>
                             </div>
                         </div>

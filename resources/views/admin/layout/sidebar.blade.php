@@ -21,35 +21,35 @@
                 <img src="{{ url('assets/images/Dashboard.png') }}">
                 <a class="nav-link text-white" data-name="Dashboard" data-url="{{url('admin/dashboard')}}" href="{{url('admin/dashboard')}}">Dashboard</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('all.listing') ||  request()->routeIs('create.listing.step*') || request()->routeIs('show.listing') || request()->routeIs('edit.listing.form') || request()->routeIs('edit.listing.step*') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Listing.png') }}">
                 <a class="nav-link" data-name="Listings" data-url="{{route('all.listing')}}" href="{{route('all.listing')}}">Listings</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('all.lead') || request()->routeIs('create.lead') || request()->routeIs('edit.lead') || request()->routeIs('show.lead') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Lead.png') }}">
                 <a class="nav-link" data-name="Leads" data-url="{{route('all.lead')}}" href="{{route('all.lead')}}">Leads</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('all.offer') || request()->routeIs('offer.form') || request()->routeIs('edit.offer.form') || request()->routeIs('show.offer') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Off-Esc-Close.png') }}">
                 <a class="nav-link" data-name="Off/ Esc/ Close" data-url="#" href="{{route('all.offer')}}">Off/ Esc/ Close</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('list.agent') || request()->routeIs('create.agent') || request()->routeIs('edit.agent') || request()->routeIs('show.agent') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Agents.png') }}">
                 <a class="nav-link" data-name="Agents" data-url="{{route('list.agent')}}" href="{{route('list.agent')}}">Agents</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('list.buyer') || request()->routeIs('show.buyer') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Buyers.png') }}">
                 <a class="nav-link" data-name="Buyers" data-url="#" href="{{route('list.buyer')}}">Buyers</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('all.contact') || request()->routeIs('create.contact') || request()->routeIs('edit.contact.form') || request()->routeIs('show.contact') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Contacts.png') }}">
                 <a class="nav-link" data-name="Contacts" data-url="#" href="{{route('all.contact')}}">Contacts</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('all.referral') || request()->routeIs('create.referral') || request()->routeIs('edit.referral') || request()->routeIs('show.referral') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Referrals.png') }}">
                 <a class="nav-link" data-name="Referrals" data-url="#" href="{{route('all.referral')}}">Referrals</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('all.showing') || request()->routeIs('create.showing') || request()->routeIs('edit.showing') || request()->routeIs('show.showing') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Showings.png') }}">
                 <a class="nav-link" data-name="Showings" data-url="#" href="{{route('all.showing')}}">Showings</a>
               </li>
@@ -68,7 +68,7 @@
           <div class="accordion-body">
             <ul class="acc-list" style="list-style-type: none; padding: 0;">
               <li class="nav-item">Reports</li>
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('email.buyer')}}">Email Buyer</a></li>
+              <li class="nav-item {{ request()->routeIs('email.buyer') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('email.buyer')}}">Email Buyer</a></li>
               <li class="nav-item">Welcome</li>
             </ul>
           </div>
@@ -85,15 +85,21 @@
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <ul class="acc-list" style="list-style-type: none; padding: 0;">
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('probmatch')}}">Prob Matches</a></li>
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('criteriarank')}}">Criteria Rank</a></li>
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('contact-type')}}">Contact Type</a></li>
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('referral-type')}}">Ref Types</a></li>
+              <li class="nav-item {{ request()->routeIs('probmatch') || request()->routeIs('create.probmatch') || request()->routeIs('edit.probmatch') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('probmatch')}}">Prob Matches</a></li>
+
+              <li class="nav-item {{ request()->routeIs('criteriarank') || request()->routeIs('create.criteriarank') || request()->routeIs('edit.criteriarank') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('criteriarank')}}">Criteria Rank</a></li>
+
+              <li class="nav-item {{ request()->routeIs('contact-type') || request()->routeIs('create.contact-type') || request()->routeIs('edit.contact-type') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('contact-type')}}">Contact Type</a></li>
+
+              <li class="nav-item {{ request()->routeIs('referral-type') || request()->routeIs('create.referral-type') || request()->routeIs('edit.referral-type') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('referral-type')}}">Ref Types</a></li>
+
               <!-- <li class="nav-item">Locales</li> -->
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('categories')}}">Categories</a></li>
+              <li class="nav-item {{ request()->routeIs('categories') || request()->routeIs('create.category') || request()->routeIs('edit.categories') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('categories')}}">Categories</a></li>
+
               <!-- <li class="nav-item">Settings</li> -->
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('reset.password')}}">Change Pwd</a></li>
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('login.activities')}}">Login List</a></li>
+              <li class="nav-item {{ request()->routeIs('reset.password') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('reset.password')}}">Change Pwd</a></li>
+
+              <li class="nav-item {{ request()->routeIs('login.activities') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('login.activities')}}">Login List</a></li>
             </ul>
           </div>
         </div>

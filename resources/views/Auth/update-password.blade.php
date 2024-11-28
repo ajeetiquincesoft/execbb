@@ -11,25 +11,41 @@
 
     <title></title>
     <style>
-        .bg-5a102a {
-            background-color: #5a102a;
+        body {
+            font-family: 'Urbanist', sans-serif;
         }
-        body, html {
-            height: 100%;
-            margin: 0;
+        button.btn.bg-5a102a.text-white.btn-block {
+            background-color: #7F2149;
+            border-radius: 0px;
+            font-size: 15px;
+        }
+
+        .bg-5a102a {
+            /* background-color: #5a102a; */
+            height: 100vh;
+            /* Full height for the background */
+        }
+        .card {
+            /* border-radius: 1rem; */
+            border: 0;
+        }
+        .form-control {
+            border-radius: 0px;
+            border-color: #B3B3B3;
+            color: #B3B3B3 !important;
         }
       
     </style>
 </head> 
 
 <body>
-    <div class="container-fluid py-3 h-100 bg-5a102a">
+    <div class="container-fluid bg-5a102a">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-xl-4">
-                <div class="card" style="border-radius: 1rem;">
+                <div class="card">
                     <div class="row g-0">
                         <div class="col-md-12  d-flex align-items-center">
-                            <div class="card-body   text-black">
+                            <div class="card-body text-black">
                                 <div class="d-flex  d-flex justify-content-center mb-3 pb-1">
                                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                                     <span class="h1 fw-bold mb-0"> <img src="{{ url('assets/images/SidebarLogo.png') }}"
@@ -72,8 +88,8 @@
                                         <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
                                         @endif
                                     </div> 
-                                    <div class="pt-1 mt-1">
-                                        <button type="submit" class="btn bg-5a102a text-white btn-block">Submit</button>
+                                    <div class="pt-1 mt-1 d-flex flex-column justify-content-center align-items-center">
+                                    <button type="submit" class="mb-3 btn bg-5a102a text-white btn-block" style="height: 50px; width: 35%;">Continue</button>
                                     </div>
                                 </form>
 

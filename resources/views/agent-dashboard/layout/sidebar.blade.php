@@ -21,12 +21,12 @@
                 <img src="{{ url('assets/images/Dashboard.png') }}">
                 <a class="nav-link text-white" data-name="Dashboard" data-url="{{url('agent/dashboard')}}" href="{{url('agent/dashboard')}}">Dashboard</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('agent.list.buyer') || request()->routeIs('agent.show.buyer') ? 'activenavitem' : '' }}">
                 <!-- <i class="fas fa-exchange-alt"></i> -->
                 <img src="{{ url('assets/images/Buyers.png') }}">
                 <a class="nav-link" href="{{route('agent.list.buyer')}}">Buyers</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ request()->routeIs('agent.all.listing') || request()->routeIs('agent.listing.form') || request()->routeIs('agent.edit.listing.form') || request()->routeIs('agent.show.listing') ? 'activenavitem' : '' }}">
                 <!--  <i class="fas fa-briefcase"></i> -->
                 <img src="{{ url('assets/images/Listing.png') }}">
                 <a class="nav-link" href="{{route('agent.all.listing')}}">Listings</a>
