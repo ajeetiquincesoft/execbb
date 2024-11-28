@@ -18,16 +18,14 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="d-flex justify-content-center align-items-center" style="overflow:auto;">
-                                    <div>
-                                        <button class="btn-primary" type="submit" id="prevBtn">Update</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
-                    
+                    <div class="d-flex justify-content-center" style="overflow:auto;">
+                        <div>
+                            <button class="btn-primary" type="submit" id="prevBtn">Update</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

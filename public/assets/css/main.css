@@ -331,7 +331,7 @@ ul.nav li {
 td.list-btn {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   min-width: 100px;
 }
 .next-back-page button {

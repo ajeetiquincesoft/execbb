@@ -4,6 +4,7 @@
           <div class="d-flex align-items-center">
             @php
               $route = Route::currentRouteName();
+              $id = request()->route('id');
             @endphp
             <button id="sidebarToggle" class="btn">☰</button>
             <ol class="my_menu breadcrumb breadcrumb-list m-0 ms-2">
@@ -13,7 +14,10 @@
             $breadcrumbs = [
                   'agent.dashboard' => 'Dashboard',
                   'agent.all.listing' => 'Listing',
-                  'agent.list.buyer' => 'Buyer'
+                  'agent.list.buyer' => 'Buyer',
+                  'agent.show.buyer' => 'View Buyer',
+                  'agent.show.listing' => 'View Listing',
+                  'agent.edit.listing.form' => 'Edit Listing',
                   ];
                 @endphp
 
@@ -24,6 +28,20 @@
                             <li class="breadcrumb-item">
                                 <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>
                             </li>
+                            @elseif (in_array($route, ['agent.show.buyer']))
+                          <li class="breadcrumb-item">
+                            <a class="nav-link" href="{{ route('agent.list.buyer') }}">Buyer</a>
+                          </li>
+                          <li class="breadcrumb-item">
+                            <a class="nav-link" href="{{ route($route,$id)}}">{{ $label }}</a>
+                          </li>
+                          @elseif (in_array($route, ['agent.show.listing', 'agent.edit.listing.form']))
+                          <li class="breadcrumb-item">
+                            <a class="nav-link" href="{{ route('agent.all.listing') }}">Listing</a>
+                          </li>
+                          <li class="breadcrumb-item">
+                            <a class="nav-link" href="{{ route($route,$id)}}">{{ $label }}</a>
+                          </li>
                         @else
                         <li class="breadcrumb-item">
                             <a class="nav-link" href="{{ route($key) }}">{{ $label }}</a>
