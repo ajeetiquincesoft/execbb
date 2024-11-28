@@ -95,7 +95,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="agentDob">Date of birth</label>
-                                        <input type="text" placeholder="" id="dob" class="form-control"
+                                        <input type="date" placeholder="" id="dob" class="form-control"
                                             name="dob" value="{{old('dob')}}">
                                         @if ($errors->has('dob'))
                                         <span class="text-danger">{{ $errors->first('dob') }}</span>
@@ -209,7 +209,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group mb-3">
                                         <label for="agentHiredate">Hire date</label>
-                                        <input type="text" placeholder="" id="hire_date" class="form-control"
+                                        <input type="date" placeholder="" id="hire_date" class="form-control"
                                             name="hire_date" value="{{old('hire_date')}}">
                                         @if ($errors->has('hire_date'))
                                         <span class="text-danger">{{ $errors->first('hire_date') }}</span>
@@ -219,7 +219,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group mb-3">
                                         <label for="agentTerminateddate">Terminated</label>
-                                        <input type="text" placeholder="" id="terminate_date" class="form-control"
+                                        <input type="date" placeholder="" id="terminate_date" class="form-control"
                                             name="terminate_date" value="{{old('terminate_date')}}">
                                         @if ($errors->has('terminate_date'))
                                         <span class="text-danger">{{ $errors->first('terminate_date') }}</span>

@@ -1,14 +1,5 @@
 
 $(function () {
-  $("#dob").datepicker({
-    dateFormat: "yy-mm-dd"
-  });
-  $("#hire_date").datepicker({
-    dateFormat: "yy-mm-dd"
-  });
-  $("#terminate_date").datepicker({
-    dateFormat: "yy-mm-dd"
-  });
   document.getElementById('user_email').onkeydown = function (e) {
     e.preventDefault();
   };

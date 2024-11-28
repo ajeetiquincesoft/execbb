@@ -198,7 +198,7 @@
                         <div class="field-item mb-3">
                             <label for="offer-totalDownPayBal">Total Down Pay Bal.</label>
                             <input type="number" class="form-control" id="offer-totalDownPayBal"
-                                name="totalDownPayBal">
+                                name="totalDownPayBal" value="">
                         </div>
                         <div class="field-item mb-3">
                             <label for="offer-assumption">Assumption</label>
@@ -738,6 +738,39 @@
         $('#prevBtn').on('click', function(event) {
             form.unbind('submit');
             form.submit();
+        });
+        var offer1Value = parseFloat($('#offer-downPayBal').val()) || 0; 
+        var offer2Value = parseFloat($('#offer-downPayBal2').val()) || 0;
+        var sumOffer = offer1Value + offer2Value;
+        $('#offer-totalDownPayBal').val(sumOffer);
+
+        var counter1Value = parseFloat($('#counter-downPayBal').val()) || 0;
+        var counter2Value = parseFloat($('#counter-downPayBal2').val()) || 0; 
+        var sumCounter = counter1Value + counter2Value;
+        $('#counter-totalDownPayBal').val(sumCounter);
+
+        var accepted1Value = parseFloat($('#accepted-downPayBal').val()) || 0; 
+        var accepted2Value = parseFloat($('#accepted-downPayBal2').val()) || 0; 
+        var sumAccepted = accepted1Value + accepted2Value;
+        $('#accepted-totalDownPayBal').val(sumAccepted);
+
+        $('#offer-downPayBal, #offer-downPayBal2').on('input', function() {
+            var input1Value = parseFloat($('#offer-downPayBal').val()) || 0; 
+            var input2Value = parseFloat($('#offer-downPayBal2').val()) || 0;
+            var sum = input1Value + input2Value;
+            $('#offer-totalDownPayBal').val(sum);
+        });
+        $('#counter-downPayBal, #counter-downPayBal2').on('input', function() {
+            var input1Value = parseFloat($('#counter-downPayBal').val()) || 0;
+            var input2Value = parseFloat($('#counter-downPayBal2').val()) || 0; 
+            var sum = input1Value + input2Value;
+            $('#counter-totalDownPayBal').val(sum);
+        });
+        $('#accepted-downPayBal, #accepted-downPayBal2').on('input', function() {
+            var input1Value = parseFloat($('#accepted-downPayBal').val()) || 0; 
+            var input2Value = parseFloat($('#accepted-downPayBal2').val()) || 0; 
+            var sum = input1Value + input2Value;
+            $('#accepted-totalDownPayBal').val(sum);
         });
     });
 </script>

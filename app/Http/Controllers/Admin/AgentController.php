@@ -70,7 +70,7 @@ class AgentController extends Controller
         $spouse = $request->has('spouse') ? 1 : 0;
         $display_on_web = $request->has('yearsEstablished') ? 1 : 0;
         $agent = new Agent;
-        $agent->AgentID = $request->agent_id;
+        $agent->AgentID = strtoupper($request->agent_id);
         $agent->LName = $request->last_name;
         $agent->FName = $request->first_name;
         $agent->Address1 = $request->address;

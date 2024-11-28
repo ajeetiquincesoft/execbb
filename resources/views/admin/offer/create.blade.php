@@ -186,7 +186,7 @@
                         <div class="field-item mb-3">
                             <label for="offer-totalDownPayBal">Total Down Pay Bal.</label>
                             <input type="number" class="form-control" id="offer-totalDownPayBal"
-                                name="totalDownPayBal">
+                                name="totalDownPayBal" value="{{ session('offerData.totalDownPayBal') ?? old('totalDownPayBal')}}">
                         </div>
                         <div class="field-item mb-3">
                             <label for="offer-assumption">Assumption</label>
@@ -250,7 +250,7 @@
                         <div class="field-item mb-3">
                             <label for="counter-totalDownPayBal">Total Down Pay Bal.</label>
                             <input type="number" class="form-control" id="counter-totalDownPayBal"
-                                name="co_totalDownPayBal">
+                                name="co_totalDownPayBal" value="{{ session('offerData.co_totalDownPayBal') ?? old('co_totalDownPayBal')}}">
                         </div>
                         <div class="field-item mb-3">
                             <label for="counter-assumption">Assumption</label>
@@ -316,7 +316,7 @@
                         <div class="field-item mb-3">
                             <label for="accepted-totalDownPayBal">Total Down Pay Bal.</label>
                             <input type="number" class="form-control" id="accepted-totalDownPayBal"
-                                name="ac_totalDownPayBal">
+                                name="ac_totalDownPayBal" value="{{ session('offerData.ac_totalDownPayBal') ?? old('ac_totalDownPayBal')}}">
                         </div>
                         <div class="field-item mb-3">
                             <label for="accepted-assumption">Assumption</label>
@@ -727,6 +727,37 @@
             form.unbind('submit');
             form.submit();
         });
+        $('#offer-downPayBal, #offer-downPayBal2').on('input', function() {
+            var input1Value = parseFloat($('#offer-downPayBal').val()) || 0; // Get value from input1, default to 0 if empty
+            var input2Value = parseFloat($('#offer-downPayBal2').val()) || 0; // Get value from input2, default to 0 if empty
+
+            // Calculate the sum
+            var sum = input1Value + input2Value;
+
+            // Display the result in the third input field
+            $('#offer-totalDownPayBal').val(sum);
+        });
+        $('#counter-downPayBal, #counter-downPayBal2').on('input', function() {
+            var input1Value = parseFloat($('#counter-downPayBal').val()) || 0; // Get value from input1, default to 0 if empty
+            var input2Value = parseFloat($('#counter-downPayBal2').val()) || 0; // Get value from input2, default to 0 if empty
+
+            // Calculate the sum
+            var sum = input1Value + input2Value;
+
+            // Display the result in the third input field
+            $('#counter-totalDownPayBal').val(sum);
+        });
+        $('#accepted-downPayBal, #accepted-downPayBal2').on('input', function() {
+            var input1Value = parseFloat($('#accepted-downPayBal').val()) || 0; // Get value from input1, default to 0 if empty
+            var input2Value = parseFloat($('#accepted-downPayBal2').val()) || 0; // Get value from input2, default to 0 if empty
+
+            // Calculate the sum
+            var sum = input1Value + input2Value;
+
+            // Display the result in the third input field
+            $('#accepted-totalDownPayBal').val(sum);
+        });
+        
     });
 </script>
 @endsection

@@ -1,4 +1,7 @@
 /*css by santosh*/
+.alert.alert-success {
+  text-align: center;
+}
 .agent_btn {
     float: left;
     margin-right: 5px;
