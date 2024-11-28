@@ -33,7 +33,7 @@ class AgentController extends Controller
                                     ->orWhere('Email', 'LIKE', '%' . $query . '%');
         }
         $agents = $agents->orderBy('created_at', 'desc')
-        ->paginate(5);
+        ->paginate(10);
         return view('admin.agent.index',compact('agents'));
         }
         catch(\Exception $e){

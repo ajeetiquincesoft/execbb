@@ -277,7 +277,8 @@
                             required: true
                         },
                         agent_id: {
-                            required: true
+                            required: true,
+                            regex: /^[A-Za-z]+$/
                         },
                         home_phone: {
                             required: true,

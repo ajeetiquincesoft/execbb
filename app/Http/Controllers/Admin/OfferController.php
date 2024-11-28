@@ -25,7 +25,7 @@ class OfferController extends Controller
         }
         $offers = $offers->with('listing')
             ->orderBy('created_at', 'desc')
-            ->paginate(5);
+            ->paginate(10);
         $company_name = DB::table('listings')->pluck('SellerCorpName', 'ListingID');
         return view('admin.offer.index', compact('offers', 'company_name'));
     }

@@ -27,7 +27,7 @@ class LeadController extends Controller
         ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%');
         }
         $leads = $leads->orderBy('created_at', 'desc')
-        ->paginate(2);
+        ->paginate(10);
         return view('admin.lead.index', compact('leads','categories'));
     }
     public function create(){

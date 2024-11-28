@@ -33,7 +33,7 @@ class ShowingController extends Controller
             });
         }
         
-        $showings = $showings->orderBy('created_at', 'desc')->paginate(5);
+        $showings = $showings->orderBy('created_at', 'desc')->paginate(10);
         
          return view('admin.showing.index', compact('showings','dbaName','buyerName'));
     }

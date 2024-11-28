@@ -21,7 +21,7 @@ class ContactController extends Controller
                 ->orWhere('contacts.Phone', 'like', '%' . $query . '%')
                 ->orWhere('contacts.Email', 'like', '%' . $query . '%')  
                 ->orderBy('contacts.created_at', 'desc') 
-                ->paginate(5);
+                ->paginate(10);
         $contact_type = DB::table('contact_types')->pluck('Description', 'Type');
          return view('admin.contact.index', compact('contacts','contact_type'));
     }

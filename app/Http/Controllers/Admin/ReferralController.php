@@ -25,7 +25,7 @@ class ReferralController extends Controller
                                     ->orWhere('Phone', 'LIKE', '%' . $query . '%');
             }
             
-            $referrals = $referrals->orderBy('created_at', 'desc')->paginate(5);
+            $referrals = $referrals->orderBy('created_at', 'desc')->paginate(10);
          return view('admin.referral.index', compact('referrals'));
     }
     public function create(){
