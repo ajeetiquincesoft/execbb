@@ -11,7 +11,6 @@ use App\Models\Buyer;
 use App\Models\Offer;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReportsController extends Controller
 {
@@ -23,80 +22,66 @@ class ReportsController extends Controller
     {
         $reportName = $request->report;
         $headers = [];
-        $datas = null;
         $columns = [];
-        //dd($reportName);
+        $tableName = '';
+        $datas = null;
+
+        // Define the file name and table based on the report type
         if ($reportName == 'listing') {
             $tableName = (new Listing)->getTable();
             $columns = Schema::getColumnListing($tableName);
-            $datas = DB::table('listings')->get();
-            $headers = [
-                "Content-type" => "text/csv",
-                "Content-Disposition" => "attachment; filename=listings.csv",
-                "Pragma" => "no-cache",
-                "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-                "Expires" => "0"
-            ];
-        }
-        elseif ($reportName == 'offer') {
+            $datas = DB::table('listings')->orderBy('ListingID','desc');
+            $fileName = 'listings.csv';
+        } elseif ($reportName == 'offer') {
             $tableName = (new Offer)->getTable();
             $columns = Schema::getColumnListing($tableName);
-            $datas = DB::table('offers')->get();
-            $headers = [
-                "Content-type" => "text/csv",
-                "Content-Disposition" => "attachment; filename=offers.csv",
-                "Pragma" => "no-cache",
-                "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-                "Expires" => "0"
-            ];
-        }
-        elseif ($reportName == 'agent') {
+            $datas = DB::table('offers')->orderBy('OfferID','desc');
+            $fileName = 'offers.csv';
+        } elseif ($reportName == 'agent') {
             $tableName = (new Agent)->getTable();
             $columns = Schema::getColumnListing($tableName);
-            $datas = DB::table('agents')->get();
-            $headers = [
-                "Content-type" => "text/csv",
-                "Content-Disposition" => "attachment; filename=agents.csv",
-                "Pragma" => "no-cache",
-                "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-                "Expires" => "0"
-            ];
-        }
-       elseif ($reportName == 'buyer') {
+            $datas = DB::table('agents')->orderBy('AgentTableID','desc');
+            $fileName = 'agents.csv';
+        } elseif ($reportName == 'buyer') {
             $tableName = (new Buyer)->getTable();
             $columns = Schema::getColumnListing($tableName);
-            $datas = DB::table('buyers')->get();
-            $headers = [
-                "Content-type" => "text/csv",
-                "Content-Disposition" => "attachment; filename=buyers.csv",
-                "Pragma" => "no-cache",
-                "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-                "Expires" => "0"
-            ];
+            $datas = DB::table('buyers')->orderBy('BuyerID','desc');
+            $fileName = 'buyers.csv';
         }
-        if ($datas->isEmpty()) {
+
+        if ($datas->count() == 0) {
             return response()->json(['error' => 'No data available for the selected report.']);
         }
-        // Open a memory stream
+
+        // Set the CSV headers for the response
+        $headers = [
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        ];
+
+        // Open a memory stream for writing CSV data
         $handle = fopen('php://output', 'w');
 
-        // Add the dynamic header row to the CSV using the table column names
+        // Add the dynamic header row (columns) to the CSV file
         fputcsv($handle, $columns);
 
-        // Loop through the data and write each row to the CSV
-      foreach ($datas as $data) {
-            // Get the data from the user model and create an array for fputcsv()
-            $dataArray = (array) $data;
-            fputcsv($handle, $dataArray);
-        } 
-      /*   $datas->chunk(100, function ($chunk) use ($handle) {
-            foreach ($chunk as $data) {
-                // Convert each model's data to an array and write it to the CSV
-                fputcsv($handle, $data->toArray());
-            }
-        }); */
+        // Add an orderBy clause to ensure the data is chunked consistently
+       // $datas->orderBy('id');  // You can replace 'id' with any column that makes sense for your dataset
 
-        // Return the response with the headers and streamed content
+        // Chunk the dataset into smaller portions for processing
+        $datas->chunk(100, function ($chunk) use ($handle) {
+            // Write each row of the chunk to the CSV file
+            foreach ($chunk as $data) {
+                // Convert the data to an array and write it to the CSV
+                $dataArray = (array) $data;
+                fputcsv($handle, $dataArray);
+            }
+        });
+
+        // Return the response with headers and streamed content
         return response()->stream(
             function () use ($handle) {
                 fclose($handle);
