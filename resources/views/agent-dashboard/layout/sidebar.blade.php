@@ -45,9 +45,9 @@
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <ul class="acc-list" style="list-style-type: none; padding: 0;">
-              <li class="nav-item">Report Item 1</li>
-              <li class="nav-item">Report Item 1</li>
-              <li class="nav-item">Report Item 1</li>
+              <li class="nav-item">Reports</li>
+              <li class="nav-item {{ request()->routeIs('agent.email.buyer') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('agent.email.buyer')}}">Email Buyer</a></li>
+              <li class="nav-item">Welcome</li>
             </ul>
           </div>
         </div>
@@ -63,9 +63,12 @@
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <ul class="acc-list" style="list-style-type: none; padding: 0;">
-              <li class="nav-item">Report Item 1</li>
-              <li class="nav-item">Report Item 1</li>
-              <li class="nav-item">Report Item 1</li>
+              <li class="nav-item {{ request()->routeIs('agent.reset.password') ? 'activenavitem' : '' }}">
+                <a class="nav-link-dropdown" href="{{route('agent.reset.password')}}">Change Pwd</a>
+              </li>
+              <li class="nav-item {{ request()->routeIs('agent.login.activities') ? 'activenavitem' : '' }}">
+                <a class="nav-link-dropdown" href="{{route('agent.login.activities')}}">Login List</a>
+              </li>
             </ul>
           </div>
         </div>

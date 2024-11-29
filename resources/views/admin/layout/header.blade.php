@@ -9,6 +9,11 @@
         <button id="sidebarToggle" class="btn">☰</button>
         <ol class="my_menu breadcrumb breadcrumb-list m-0 ms-2">
           <li class="breadcrumb-item"><a class="nav-link" href="{{url('admin/dashboard')}}">Home</a></li>
+          @if ($route == 'create.listing.step1' || $route == 'create.listing.step2' || $route == 'create.listing.step3' || $route == 'create.listing.step4' || $route == 'create.listing.step5' || $route == 'edit.listing.step1' || $route == 'edit.listing.step2' || $route == 'edit.listing.step3' || $route == 'edit.listing.step4' || $route == 'edit.listing.step5' || $route == 'show.listing')
+          <li class="breadcrumb-item">
+            <a class="nav-link" href="{{ route('all.listing') }}">Listing</a>
+          </li>
+          @endif
           @php
           // Define route names and their corresponding breadcrumb labels
           $breadcrumbs = [

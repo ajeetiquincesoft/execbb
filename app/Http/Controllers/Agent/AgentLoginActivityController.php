@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LoginActivity;
 
-class LoginActivityController extends Controller
+class AgentLoginActivityController extends Controller
 {
     public function index(Request $request)
     {
@@ -25,6 +25,6 @@ class LoginActivityController extends Controller
     
     $loginActivities = $loginActivities->orderBy('created_at', 'desc')->paginate(20);
 
-        return view('admin.login_activities.index', compact('loginActivities'));
+        return view('agent-dashboard.login_activities.index', compact('loginActivities'));
     }
 }

@@ -1,4 +1,4 @@
-@extends('admin.layout.master')
+@extends('agent-dashboard.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
 @if (session('success'))
@@ -15,7 +15,7 @@
                         <h4 class="mb-0">Login Lists</h4>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 ml-auto" id="login_activity_search">
-                        <form method="GET" action="{{ route('login.activities') }}">
+                        <form method="GET" action="{{ route('agent.login.activities') }}">
                             <div class="input-group" style="max-width: 300px;">
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
@@ -48,7 +48,7 @@
                     @endphp
                         @foreach($loginActivities as $activity)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $counter }}</td>
                             <td>{{ $activity->user->name }}</td>
                             <td>{{ $activity->ip_address }}</td>
                             <td>{{ $activity->user_info }}</td>

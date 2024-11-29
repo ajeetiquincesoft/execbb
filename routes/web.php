@@ -26,6 +26,9 @@ use App\Http\Controllers\Agent\AgentBuyerController;
 use App\Http\Controllers\Auth\AgentResetPasswordController;
 use App\Http\Controllers\Agent\AgentProfileController;
 use App\Http\Controllers\Agent\AgentListingController;
+use App\Http\Controllers\Agent\AgentLoginActivityController;
+use App\Http\Controllers\Agent\AgentEmailBuyerController;
+
 
 
 
@@ -204,12 +207,15 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
     Route::get('view/showing/{id}',[ShowingController::class,'show'])->name('show.showing');
     Route::delete('showing/destroy/{id}',[ShowingController::class,'destroy'])->name('showing.destroy');
      //end route for showing
+     //Route for send email to buyers
      Route::get('email/buyer', [EmailBuyerController::class, 'index'])->name('email.buyer');
      Route::post('/email/buyer/send', [EmailBuyerController::class, 'sendEmail'])->name('email.buyer.send');
+     //End route for send email to buyers
 
 });
 Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.'], function () {
   Route::get('/dashboard', [AgentAuthController::class, 'agentDashboard'])->name('dashboard');
+  Route::get('login-activities', [AgentLoginActivityController::class, 'index'])->name('login.activities');
      //routes for buyers
  Route::get('buyer/list', [AgentBuyerController::class, 'index'])->name('list.buyer');
  Route::get('view/buyer/{id}',[AgentBuyerController::class,'show'])->name('show.buyer');
@@ -236,6 +242,11 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
      Route::get('get/options/{id}', [AgentListingController::class, 'getOptions'])->name('get.options');
      Route::get('/listing/next/prev/{id}', [AgentListingController::class, 'prevNext'])->name('edit.prev.next');
      Route::delete('/listing/destroy/{id}',[AgentListingController::class,'destroy'])->name('listing.destroy');
+
+     //Route for send email to buyers
+     Route::get('email/buyer', [AgentEmailBuyerController::class, 'index'])->name('email.buyer');
+     Route::post('/email/buyer/send', [AgentEmailBuyerController::class, 'sendEmail'])->name('email.buyer.send');
+     //End route for send email to buyers
 
 });
 
