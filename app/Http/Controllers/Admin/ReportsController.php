@@ -95,7 +95,6 @@ class ReportsController extends Controller
                 fputcsv($handle, $data->toArray());
             }
         }); */
-        ob_clean();
 
         // Return the response with the headers and streamed content
         return response()->stream(
