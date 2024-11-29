@@ -18,12 +18,20 @@
                   'agent.show.buyer' => 'View Buyer',
                   'agent.show.listing' => 'View Listing',
                   'agent.edit.listing.form' => 'Edit Listing',
+                  'agent.reset.password' => 'Change Password',
+                  'agent.login.activities' => 'Login Activities',
+                  'agent.email.buyer' => 'Email Buyer',
                   ];
                 @endphp
 
                 @foreach ($breadcrumbs as $key => $label)
                     @if ($route == $key)
-                        @if (in_array($route, ['probmatch', 'criteriarank', 'contact-type', 'referral-type', 'categories', 'reset.password', 'login.activities']))
+                      @if ($route == 'agent.email.buyer')
+                        <li class="breadcrumb-item"><a class="nav-link" href="#">Report</a></li>
+                        <li class="breadcrumb-item">
+                          <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>
+                        </li>
+                        @elseif (in_array($route, ['agent.reset.password', 'agent.login.activities']))
                             <li class="breadcrumb-item"><a class="nav-link" href="#">System</a></li>
                             <li class="breadcrumb-item">
                                 <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>

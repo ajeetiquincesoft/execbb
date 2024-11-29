@@ -67,7 +67,7 @@
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <ul class="acc-list" style="list-style-type: none; padding: 0;">
-              <li class="nav-item">Reports</li>
+              <li class="nav-item {{ request()->routeIs('reports') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('reports')}}">Reports</a></li>
               <li class="nav-item {{ request()->routeIs('email.buyer') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('email.buyer')}}">Email Buyer</a></li>
               <li class="nav-item">Welcome</li>
             </ul>

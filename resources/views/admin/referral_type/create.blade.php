@@ -1,5 +1,3 @@
-
-   
 @extends('admin.layout.master')
 @section('content')
         <div class="container-fluid content bg-light">

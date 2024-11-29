@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ProbMatchController;
 use App\Http\Controllers\Admin\CriteriaRankController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 use App\Http\Controllers\Admin\EmailBuyerController;
+use App\Http\Controllers\Admin\ReportsController;
 //Controller for agent
 use App\Http\Controllers\Agent\AgentAuthController;
 use App\Http\Controllers\Agent\AgentBuyerController;
@@ -211,6 +212,10 @@ Route::group(['middleware' => 'authcheck','prefix' => 'admin'], function () {
      Route::get('email/buyer', [EmailBuyerController::class, 'index'])->name('email.buyer');
      Route::post('/email/buyer/send', [EmailBuyerController::class, 'sendEmail'])->name('email.buyer.send');
      //End route for send email to buyers
+      //Route for admin reports
+      Route::get('reports', [ReportsController::class, 'index'])->name('reports');
+      Route::post('/export/reports', [ReportsController::class, 'export'])->name('export.reports');
+      //End route for admin reports
 
 });
 Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.'], function () {

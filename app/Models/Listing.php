@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Listing extends Model
 {
-    protected $primaryKey = 'ListingID';
     use HasFactory;
+    protected $primaryKey = 'ListingID';
     protected $table = 'listings';
     public function offers()
     {
