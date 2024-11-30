@@ -7,7 +7,7 @@
                 <form id="storeCategory" action="{{ route('store.category') }}" method="post">
                     @csrf
                     <div>
-                        <h1>Categories:</h1>
+                        <h1>Add Category</h1>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-md-6 mb-3">

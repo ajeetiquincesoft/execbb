@@ -18,7 +18,7 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('listing.form')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Listing.png') }}"> Add Listings
+                            <img class="create_img" src="{{ url('assets/images/Listing.png') }}"> Add Listing
                             </button>
                         </a>
                     </div>
@@ -43,7 +43,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Listing ID</th>
+                            <th scope="col" style="width: 10%;">Listing #</th>
                             <th scope="col">Name</th>
                             <th scope="col">Company</th>
                             <th scope="col">Address</th>

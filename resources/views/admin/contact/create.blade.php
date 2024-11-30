@@ -7,7 +7,7 @@
                 <form action="{{ route('contact.form.process') }}" method="POST" id="contact">
                 @csrf
                     <div>
-                        <h1>Contacts</h1>
+                        <h1>Add Contact</h1>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">

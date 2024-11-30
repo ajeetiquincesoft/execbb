@@ -2,7 +2,7 @@
 @section('content')
         <div class="container-fluid content bg-light">
             <div class="row card p-4 font-fm mb-5">
-                <h4>Leads</h4>
+                <h1>Add Lead</h1>
                 <hr><br>
                 <form id="leadForm" action="{{ route('store.lead') }}" method="post" >
                     @csrf

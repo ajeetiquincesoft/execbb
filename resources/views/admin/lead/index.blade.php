@@ -18,7 +18,7 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.lead')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                                <img class="create_img" src="{{ url('assets/images/Lead.png') }}"> Add Leads
+                                <img class="create_img" src="{{ url('assets/images/Lead.png') }}"> Add Lead
                             </button>
                         </a>
                     </div>

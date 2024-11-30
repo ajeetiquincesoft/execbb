@@ -7,7 +7,7 @@
                 <form id="storeContactType" action="{{ route('store.contact-type') }}" method="post">
                     @csrf
                     <div>
-                        <h1>Contact Type:</h1>
+                        <h1>Add Contact Type</h1>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-md-6 mb-3">

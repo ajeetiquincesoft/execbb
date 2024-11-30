@@ -7,7 +7,7 @@
                 <form action="{{ route('store.probmatch') }}" method="POST" id="probMatch">
                 @csrf 
                      <div class="form-multi-tab">
-                        <h3>ProbMatch:</h3>
+                        <h1>Add ProbMatch</h1>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">

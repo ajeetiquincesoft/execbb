@@ -1,6 +1,5 @@
 @extends('admin.layout.master')
 @section('content')
-@include('admin.layout.listing_back_next')
         <div class="container-fluid content bg-light">
             <div class="row card p-4">
                 <form id="addnewliststep4" action="{{ route('update.listing.step4',$listingData->ListingID) }}" method="post">

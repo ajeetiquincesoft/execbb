@@ -7,7 +7,7 @@
                 <form id="showing" action="{{route('store.showing')}}" method="post">
                     @csrf
                     <div>
-                        <h1>Showings:</h1>
+                        <h1>Add Showing</h1>
                         <hr>
                         <div class="row mb-4">
                             <div class="col-md-6  mb-3" style="height: 70px;">

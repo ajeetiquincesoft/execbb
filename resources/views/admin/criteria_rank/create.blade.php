@@ -7,7 +7,7 @@
                 <form action="{{ route('store.criteriarank') }}" method="POST" id="criteria">
                 @csrf 
                      <div class="form-multi-tab">
-                        <h3>CriteriaRank:</h3>
+                        <h1>Add CriteriaRank</h1>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">

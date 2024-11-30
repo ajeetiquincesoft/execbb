@@ -2,24 +2,13 @@
    
 @extends('admin.layout.master')
 @section('content')
-<div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
-    <div class="next-back-page d-flex justify-content-between">
-    @if ($previous)
-            <a href="{{ route('edit.referral', $previous->RefID) }}"><button><i class="fa fa-chevron-left"></i>Back</button></a>
-        @endif
-
-        @if ($next)
-            <a href="{{ route('edit.referral', $next->RefID) }}"><button>Next <i class="fa fa-chevron-right"></i></button></a>
-        @endif
-    </div>
-</div>
         <div class="container-fluid content bg-light">
             <div class="row card p-4 font-fm mb-5">
                 <form id="editReferral_form" action="{{ route('update.referral',$referral->RefID) }}" method="post">
                 @csrf
                 @method('PUT')
                     <div>
-                        <h1>Referrals:</h1>
+                        <h1>Referral:</h1>
                         <hr>
                         <div class="col-md-12">
                             <h5>Referring Agent</h5>

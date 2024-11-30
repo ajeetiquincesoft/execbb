@@ -7,7 +7,7 @@
                 <form id="referral_form" action="{{ route('store.referral') }}" method="post">
                 @csrf
                     <div>
-                        <h1>Referrals:</h1>
+                        <h1>Add Referral</h1>
                         <hr>
                         <div class="col-md-12">
                             <h5>Referring Agent</h5>

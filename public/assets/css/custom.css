@@ -231,28 +231,13 @@ i.fas.fa-trash {
   text-decoration: none;
 }
 /* css for previous and next button*/
-.container-fluid.content {
-  background-color: #f8f9fa;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;  /* Align the child elements vertically */
-  justify-content: flex-start;  /* Ensure content starts at the top */
-  height: 100%; /* Ensure container takes full height */
-}
-
-.next-back-page {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: auto;
-}
-
 .next-back-page button {
   background-color: #5d1229;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  padding: 13px 9px;
+  margin: 0 10px;
+  border-radius: 50%;
   font-size: 1rem;
   cursor: pointer;
   display: flex;
@@ -269,6 +254,12 @@ i.fas.fa-trash {
 
 .next-back-page button i {
   margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+.nextPreviousButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* css end for previous and next button*/
 

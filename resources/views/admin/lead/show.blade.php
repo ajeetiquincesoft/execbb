@@ -1,16 +1,14 @@
 @extends('admin.layout.master')
 @section('content')
-<div class="container-fluid content" style="background-color: #f8f9fa; padding: 2rem 2rem 0rem 2rem;">
+<div class="container-fluid content nextPreviousButtons">
     <div class="next-back-page d-flex justify-content-between">
         @if ($previous)
-            <a href="{{ route('show.lead', $previous->LeadID) }}"><button><i class="fa fa-chevron-left"></i>Back</button></a>
+            <a href="{{ route('show.lead', $previous->LeadID) }}"><button><i class="fa fa-chevron-left"></i></button></a>
         @endif
 
         @if ($next)
-            <a href="{{ route('show.lead', $next->LeadID) }}"><button>Next <i class="fa fa-chevron-right"></i></button></a>
-        @endif
-        
-        
+            <a href="{{ route('show.lead', $next->LeadID) }}"><button><i class="fa fa-chevron-right"></i></button></a>
+        @endif 
     </div>
 </div>
 <div class="container-fluid content bg-light">
