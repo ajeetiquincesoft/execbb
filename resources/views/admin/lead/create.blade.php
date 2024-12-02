@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <!-- Address -->
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <div class="form-group">
                         <label for="address">Address</label>
                         <input type="text" class="form-control" id="address" name="address">
@@ -120,15 +120,14 @@
                 <!-- City -->
                 <div class="col-md-4">
                     <div class="form-group">
-                        <div class="d-flex">
-                            <label for="city" class="col p-0">City / State / Zip</label>
-                            <label for="state" class="col" style="display: none;">State</label>
-                            <label for="zip" class="col" style="display: none;">Zip</label>
-                        </div>
-                        <div class="d-flex gap">
-                            <input type="text" class="form-control col" id="city" name="city"
-                                style="max-width: 40% !important;" placeholder="City">
-                            <select id="state" class="form-select" name="state" style="max-width: 40% !important;">
+                        <label for="city" class="col p-0">City</label>
+                        <input type="text" class="form-control col" id="city" name="city" placeholder="City">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="state" class="col">State</label>
+                            <select id="state" class="form-select" name="state">
                                 <option value="" selected="">Select state</option>
                                 @foreach($states as $key=>$value)
                                 <option value="{{$value->State}}" {{ (old('state') == $value->State)  ? 'selected' : '' }}>{{$value->StateName}}</option>
@@ -137,10 +136,12 @@
                             @error('state')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
-                            <input type=" text" class="form-control" id="zip" name="zip"
-                                style="max-width: 20% !important ;" placeholder="Zip">
-
-                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="zip" class="col">Zip</label>
+                            <input type=" text" class="form-control" id="zip" name="zip" placeholder="Zip">
                     </div>
                 </div>
                 <!-- County Dropdown -->
