@@ -162,10 +162,10 @@ class LeadController extends Controller
         'updated_at' => now(),
         ]);
         if($update){
-            return redirect()->back()->with('success_message', 'Lead update successfully');
+            return redirect()->route('all.lead')->with('success','Lead update successfully');
         }
         else{
-            return redirect()->back()->with('success_message', 'There are some error! can not be update.');
+            return redirect()->route('all.lead')->with('error','There are some error! can not be update.');
         }
     }
     public function show($id){

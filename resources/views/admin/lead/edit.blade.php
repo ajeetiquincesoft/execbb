@@ -17,7 +17,7 @@
                         <!-- Appointment -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="appointment">Appointment</label>
+                                <label for="appointment">Appointment <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="appointment" name="appointment" value="{{$lead->AppointmentDate}}">
                                 @error('appointment')
                                     <small class="text-danger">{{ $message }}</small>
@@ -27,7 +27,7 @@
                         <!-- Time -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="time">Time</label>
+                                <label for="time">Time <span class="text-danger">*</span></label>
                                 <input type="datetime-local" class="form-control" id="time" name="time"  value="{{$lead->AppointmentTime}}">
                                 @error('time')
                                     <small class="text-danger">{{ $message }}</small>
@@ -37,7 +37,7 @@
                         <!-- Lead Date -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="leadDate">Lead Date</label>
+                                <label for="leadDate">Lead Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="leadDate" name="leadDate"  value="{{$lead->LDate}}">
                                 @error('leadDate')
                                     <small class="text-danger">{{ $message }}</small>
@@ -47,7 +47,7 @@
                         <!-- Category -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="category">Category</label>
+                                <label for="category">Category <span class="text-danger">*</span></label>
                                 <!-- <input type="text" class="form-control" id="category" name="category"> -->
                                 <select id="category" class="form-select" name="category">
                                     <option value="" selected="">Select category</option>
@@ -63,7 +63,7 @@
                         <!-- Sub Category -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="subCategory">Sub Category</label>
+                                <label for="subCategory">Sub Category <span class="text-danger">*</span></label>
                                <!--  <input type="text" class="form-control" id="subCategory" name="subCategory"> -->
                                <select id="subCategory" class="form-select" name="subCategory">
                                     <option value="" selected>Select sub category</option>
@@ -76,6 +76,18 @@
                                 @enderror
                             </div>
                         </div>
+                         <!-- Status -->
+                         <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="comments">Status</label>
+                                <select id="status" class="form-select" name="status">
+                                    <option value="" selected="">Select status</option>
+                                    @foreach($status as $key=>$leadStatus)
+                                    <option value="{{$leadStatus->LeadStatusID}}"  {{ $lead->Status == $leadStatus->LeadStatusID  ? 'selected' : '' }}>{{$leadStatus->Status}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <!-- Source -->
                         <div class="col-md-4">
                             <div class="form-group">
@@ -86,7 +98,7 @@
                         <!-- First Name -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="firstName">First Name</label>
+                                <label for="firstName">First Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="firstName" name="firstName" value="{{$lead->SellerFName}}">
                                 @error('firstName')
                                     <small class="text-danger">{{ $message }}</small>
@@ -96,7 +108,7 @@
                         <!-- Last Name -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="lastName">Last Name</label>
+                                <label for="lastName">Last Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="lastName" name="lastName" value="{{$lead->SellerLName}}">
                                 @error('lastName')
                                     <small class="text-danger">{{ $message }}</small>
@@ -118,7 +130,7 @@
                             </div>
                         </div>
                         <!-- Address -->
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="address">Address</label>
                                 <input type="text" class="form-control" id="address" name="address" value="{{$lead->Address}}">
@@ -127,15 +139,14 @@
                         <!-- City -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <div class="d-flex">
-                                    <label for="city" class="col p-0">City / State / Zip</label>
-                                    <label for="state" class="col" style="display: none;">State</label>
-                                    <label for="zip" class="col" style="display: none;">Zip</label>
-                                </div>
-                                <div class="d-flex gap">
-                                    <input type="text" class="form-control col" id="city" name="city"
-                                        style="max-width: 40% !important;" placeholder="City" value="{{$lead->City}}">
-                                    <select id="state" class="form-select" name="state" style="max-width: 40% !important;">
+                            <label for="city" class="col p-0">City</label>
+                            <input type="text" class="form-control col" id="city" name="city" placeholder="City" value="{{$lead->City}}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label for="state" class="col">State</label>
+                            <select id="state" class="form-select" name="state">
                                     <option value="" selected="">Select state</option>
                                     @foreach($states as $key=>$value)
                                     <option value="{{$value->State}}"  {{ $lead->State == $value->State  ? 'selected' : '' }}>{{$value->StateName}}</option>
@@ -144,10 +155,13 @@
                                     @error('state')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label for="zip" class="col">Zip</label>
                                     <input type=" text" class="form-control" id="zip" name="zip"
-                                        style="max-width: 20% !important ;" placeholder="Zip" value="{{$lead->Zip}}">
-
-                                </div>
+                                         placeholder="Zip" value="{{$lead->Zip}}">
                             </div>
                         </div>
                         <!-- County Dropdown -->
@@ -165,7 +179,7 @@
                         <!-- Business Phone -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="busPhone">Business Phone</label>
+                                <label for="busPhone">Business Phone <span class="text-danger">*</span></label>
                                 <input type="tel" class="form-control" id="busPhone" name="busPhone" value="{{ $lead->Phone}}">
                                 @error('busPhone')
                                     <small class="text-danger">{{ $message }}</small>
@@ -175,7 +189,7 @@
                         <!-- Home -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="home">Home phone</label>
+                                <label for="home">Home phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="home_phone" name="home_phone" value="{{ $lead->HomePhone}}">
                                 @error('home_phone')
                                     <small class="text-danger">{{ $message }}</small>
@@ -185,7 +199,7 @@
                         <!-- Cell Phone -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="cellPhone">Cell Phone</label>
+                                <label for="cellPhone">Cell Phone <span class="text-danger">*</span></label>
                                 <input type="tel" class="form-control" id="cellPhone" name="cellPhone" value="{{ $lead->CellPhone}}">
                                 @error('cellPhone')
                                     <small class="text-danger">{{ $message }}</small>
@@ -209,7 +223,7 @@
                         <!-- Year In Business -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="yearInBus">Year In Business</label>
+                                <label for="yearInBus">Year In Business <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="yearInBus" name="yearInBus" value="{{ $lead->YearsInBus}}">
                                 @error('yearInBus')
                                     <small class="text-danger">{{ $message }}</small>
@@ -272,21 +286,10 @@
                                 <input class="form-control" id="comments" name="comments" value="{{ $lead->Comments}}">
                             </div>
                         </div>
-                        <!-- Status -->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="comments">Status</label>
-                                <select id="status" class="form-select" name="status">
-                                    <option value="" selected="">Select status</option>
-                                    @foreach($status as $key=>$leadStatus)
-                                    <option value="{{$leadStatus->LeadStatusID}}"  {{ $lead->Status == $leadStatus->LeadStatusID  ? 'selected' : '' }}>{{$leadStatus->Status}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                       
                         <!-- Submit Button -->
                         <div class="col-md-12 d-flex justify-content-center mt-3">
-                            <button type="submit" class="btn btn-primary">Change Status</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </div>
                 </form>

@@ -37,6 +37,7 @@
                         @enderror
                     </div>
                 </div>
+
                 <!-- Category -->
                 <div class="col-md-4">
                     <div class="form-group">
@@ -67,6 +68,18 @@
                         @error('subCategory')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
+                    </div>
+                </div>
+                <!-- Status -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="comments">Status</label>
+                        <select id="status" class="form-select" name="status">
+                            <option value="" selected="">Select status</option>
+                            @foreach($status as $key=>$leadStatus)
+                            <option value="{{$leadStatus->LeadStatusID}}" {{ (old('status') == $leadStatus->LeadStatusID ) ? 'selected' : '' }}>{{$leadStatus->Status}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <!-- Source -->
@@ -111,7 +124,7 @@
                     </div>
                 </div>
                 <!-- Address -->
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label for="address">Address</label>
                         <input type="text" class="form-control" id="address" name="address">
@@ -266,18 +279,7 @@
                         <input class="form-control" id="comments" name="comments"></input>
                     </div>
                 </div>
-                <!-- Status -->
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="comments">Status</label>
-                        <select id="status" class="form-select" name="status">
-                            <option value="" selected="">Select status</option>
-                            @foreach($status as $key=>$leadStatus)
-                            <option value="{{$leadStatus->LeadStatusID}}" {{ (old('status') == $leadStatus->LeadStatusID ) ? 'selected' : '' }}>{{$leadStatus->Status}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                
                 <div class="d-flex justify-content-center" style="overflow:auto;">
                     <div>
                         <button class="btn-primary" type="submit" id="prevBtn">Save</button>
@@ -292,6 +294,43 @@
     <p>&nbsp;</p>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"></script>
+<script>
+    // Initialize Google Places Autocomplete
+    function initAutocomplete() {
+        const addressInput = document.getElementById("address");
+
+        const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+            types: ['geocode'], // restrict to addresses (geocode)
+        });
+
+        // Add listener to handle the selected address
+        autocomplete.addListener("place_changed", function() {
+            const place = autocomplete.getPlace();
+            if (place.geometry) {
+                // Loop through the address components to get city, state, and zip
+                for (const component of place.address_components) {
+                    const componentType = component.types[0];
+                    if (componentType === "locality") {
+                        document.getElementById("city").value = component.long_name;
+                    }
+                    if (componentType === "administrative_area_level_1") {
+                        document.getElementById("state").value = component.short_name;
+                    }
+                    if (componentType === "postal_code") {
+                        document.getElementById("zip").value = component.long_name;
+                    }
+                }
+            }
+        });
+    }
+
+    // Initialize the autocomplete when the page loads
+    window.onload = function() {
+        initAutocomplete();
+    };
+</script> -->
+
 <script>
      function resetLeadForm() {
     document.getElementById("leadForm").reset();
