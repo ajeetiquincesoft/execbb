@@ -336,6 +336,22 @@ function criteriaDelete(customId) {
     }
   });
 }
+function confirmImage(form) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You want to upload this image!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#5e0f2f',
+    cancelButtonColor: '#93744b',
+    confirmButtonText: 'Yes, confirm it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Submit the form for deletion
+      form.submit();
+    }
+  });
+}
 
 //multi select
 /* $(document).ready(function () {
