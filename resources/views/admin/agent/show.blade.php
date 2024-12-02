@@ -36,7 +36,7 @@
                               @endif
                           </label>
                         </div>
-                        <button class="avatar_img_upload" type="submit">Upload Image</button>
+                        <button class="avatar_img_upload" type="button" onclick="confirmImage(this.form)">Confirm Image</button>
                     </form>
                   <h5>{{$agent->agent_info->FName}} {{$agent->agent_info->LName}}</h5>
                   <h6>{{$agent->agent_info->AgentID }}</h6>

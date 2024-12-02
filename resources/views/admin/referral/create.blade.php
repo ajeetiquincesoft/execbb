@@ -199,6 +199,7 @@
 <script>
     function resetForm() {
     document.getElementById("referral_form").reset();
+    window.scrollTo(0, 0);
     }
            $(document).ready(function () {
                 // Define custom phone validation
