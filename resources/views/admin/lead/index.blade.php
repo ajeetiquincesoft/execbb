@@ -22,6 +22,7 @@
                             </button>
                         </a>
                     </div>
+                    
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
                     <form method="GET" action="{{ route('all.lead') }}">
                             <div class="input-group" style="max-width: 300px;">
