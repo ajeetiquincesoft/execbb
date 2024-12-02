@@ -10,7 +10,7 @@
                 <hr>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="busCategory" class="form-label">Bus. Category</label>
+                        <label for="busCategory" class="form-label">Bus. Category <span class="text-danger">*</span></label>
                         <select id="busCategory" class="form-select" name="bus_category">
                             <option value="" selected="">Select category</option>
                             @foreach($categoryData as $key=>$data)
@@ -22,7 +22,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="busType" class="form-label">Bus. Type</label>
+                        <label for="busType" class="form-label">Bus. Type <span class="text-danger">*</span></label>
                         <select id="busType" class="form-select" name="bus_type">
                             <option value="" selected>Select type</option>
                             @foreach($sub_categories as $key=>$bus_type)
@@ -41,14 +41,14 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="cropName" class="form-label">Crop Name</label>
+                        <label for="cropName" class="form-label">Crop Name <span class="text-danger">*</span></label>
                         <input type="text" id="cropName" class="form-control" name="cropName" value="{{ session('formData.cropName') ?? old('cropName')}}">
                         @error('cropName')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="dba" class="form-label">DBA</label>
+                        <label for="dba" class="form-label">DBA <span class="text-danger">*</span></label>
                         <input type="text" id="dba" class="form-control" name="dba" value="{{ session('formData.dba') ?? old('dba')}}">
                         @error('dba')
                         <small class="text-danger">{{ $message }}</small>
@@ -60,42 +60,40 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 mb-3">
-                        <label for="address" class="form-label">Address</label>
+                    <div class="col-md-8 mb-3">
+                        <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                         <input type="text" id="address" class="form-control" name="address" value="{{ session('formData.address') ?? old('address')}}">
                         @error('address')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <div class="row">
-                            <div class="col-md-4 p-0 m-0">
-                                <label for="">City</label>
-                                <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{ session('formData.city') ?? old('city')}}">
-                                @error('city')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-5 p-0 m-0">
-                                <label for="">State</label>
-                                <select id="State" class="form-select" name="state">
-                                    <option value="" selected="">Select state</option>
-                                    @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{ (old('state') == $value->State || session('formData.state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                    @endforeach
-                                </select>
-                                @error('state')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-3 p-0 m-0">
-                                <label for="">Zip</label>
-                                <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{ session('formData.zip_code') ?? old('zip_code')}}">
-                                @error('zip_code')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
+                        <label for="">City <span class="text-danger">*</span></label>
+                        <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{ session('formData.city') ?? old('city')}}">
+                        @error('city')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 mb-3">
+                        <label for="">State <span class="text-danger">*</span></label>
+                        <select id="State" class="form-select" name="state">
+                            <option value="" selected="">Select state</option>
+                            @foreach($states as $key=>$value)
+                            <option value="{{$value->State}}" {{ (old('state') == $value->State || session('formData.state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            @endforeach
+                        </select>
+                        @error('state')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="">Zip <span class="text-danger">*</span></label>
+                        <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{ session('formData.zip_code') ?? old('zip_code')}}">
+                        @error('zip_code')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="country" class="form-label">Country</label>
@@ -110,7 +108,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4">
-                        <label for="phone" class="form-label">Phone</label>
+                        <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
                         <input type="tel" id="phone" class="form-control" name="phone" value="{{ session('formData.phone') ?? old('phone')}}">
                         @error('phone')
                         <small class="text-danger">{{ $message }}</small>
@@ -140,28 +138,28 @@
                             <div id="imagePreview" class="avatar-circle"></div>
                         </div>
                     </div>
-    
+
                     <div class="col-md-3">
                         <div class="avatar-upload-agent">
                             <div class="avatar-circle">
-                            @if(session('formData.listing_img'))
+                                @if(session('formData.listing_img'))
                                 <img id="avatar-preview" src="{{ asset('assets/uploads/images/' . session('formData.listing_img')) }}" alt="Avatar Preview" class="avatar_agent">
-                            @endif
+                                @endif
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
+                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
                         <input type="text" id="firstName" class="form-control" name="first_name" value="{{ session('formData.first_name') ?? old('first_name')}}">
                         @error('first_name')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
+                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
                         <input type="text" id="lastName" class="form-control" name="last_name" value="{{ session('formData.last_name') ?? old('last_name')}}">
                         @error('last_name')
                         <small class="text-danger">{{ $message }}</small>
@@ -174,21 +172,35 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="cityStateZip2" class="form-label">City</label>
-                        <div class="d-flex">
-                            <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{ session('formData.user_city') ?? old('user_city')}}">
-                            <!-- <input type="text" id="State2" class="form-control" placeholder="State"  name="user_state" value="{{ session('formData.user_state') ? session('formData.user_state') : '' }}"> -->
-                            <select id="State2" class="form-select" name="user_state">
-                                <option selected="">Select state</option>
-                                @foreach($states as $key=>$value)
-                                <option value="{{$value->State}}" {{ (old('user_state') == $value->State || session('formData.user_state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                @endforeach
-                            </select>
-                            <input type="text" id="Zip2" class="form-control" placeholder="Zip" name="user_zip_code" value="{{ session('formData.user_zip_code') ?? old('user_zip_code')}}">
-                        </div>
+                        <label for="user_city" class="form-label">City</label>
+                        <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{ session('formData.user_city') ?? old('user_city')}}">
+                        @error('user_city')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="user_state" class="form-label">State</label>
+                        <select id="State2" class="form-select" name="user_state">
+                            <option selected="">Select state</option>
+                            @foreach($states as $key=>$value)
+                            <option value="{{$value->State}}" {{ (old('user_state') == $value->State || session('formData.user_state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            @endforeach
+                        </select>
+                        @error('user_state')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="user_zip_code" class="form-label">State</label>
+                        <input type="text" id="Zip2" class="form-control" placeholder="Zip" name="user_zip_code" value="{{ session('formData.user_zip_code') ?? old('user_zip_code')}}">
+                        @error('user_zip_code')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 mb-3">
+                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                         <input type="email" id="email" class="form-control" name="user_email" value="{{ session('formData.user_email') ?? old('user_email')}}">
                         @error('user_email')
                         <small class="text-danger">{{ $message }}</small>
@@ -198,12 +210,12 @@
                         <label for="homePhone" class="form-label">Home Phone</label>
                         <input type="text" id="homePhone" class="form-control" name="user_home_phone" value="{{ session('formData.user_home_phone') ?? old('user_home_phone')}}">
                     </div>
-                </div>
-                <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="homeFax" class="form-label">Home Fax</label>
                         <input type="text" id="homeFax" class="form-control" name="user_home_fax" value="{{ session('formData.user_home_fax') ?? old('user_home_fax')}}">
                     </div>
+                </div>
+                <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="pager" class="form-label">Pager</label>
                         <input type="text" id="pager" class="form-control" name="user_pager" value="{{ session('formData.user_pager') ?? old('user_pager')}}">
