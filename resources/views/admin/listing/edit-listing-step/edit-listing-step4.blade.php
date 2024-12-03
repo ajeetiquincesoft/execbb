@@ -11,28 +11,28 @@
                             <h4 class="form-sec mb-3">Income &amp; Expenses</h4>
                             <div class="row mb-3">
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                                    <label for="annualSales">Annual Sales</label>
+                                    <label for="annualSales">Annual Sales <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="annualSales" name="annualSales"  value="{{$listingData->AnnualSales}}">
                                     @error('annualSales')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                                    <label for="costOfSales">Cost of Sales</label>
+                                    <label for="costOfSales">Cost of Sales <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="costOfSales" name="costOfSales"  value="">
                                     @error('costOfSales')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                                    <label for="grossProfit">Gross Profit</label>
+                                    <label for="grossProfit">Gross Profit <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="grossProfit" name="grossProfit"  value="">
                                     @error('grossProfit')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                                    <label for="totalExpenses">Total Expenses</label>
+                                    <label for="totalExpenses">Total Expenses <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="totalExpenses" name="totalExpenses"  value="">
                                     @error('totalExpenses')
                                     <small class="text-danger">{{ $message }}</small>

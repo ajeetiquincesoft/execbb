@@ -12,7 +12,7 @@
                         <hr>
                         <div class="row mb-4">
                             <div class="col-md-6  mb-3" style="height: 70px;">
-                                <label for="agent">Agents</label>
+                                <label for="agent">Agents <span class="text-danger">*</span></label>
                                 <select class="form-select" id="agent_id" name="agent_id">
                                     <option value="" selected="">Select Agents</option>
                                     @foreach($agents as $agent)
@@ -21,7 +21,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6  mb-3" style="height: 70px;">
-                                <label for="buyer">Buyers</label>
+                                <label for="buyer">Buyers <span class="text-danger">*</span></label>
                                 <select class="form-select" id="buyer_id" name="buyer_id">
                                     <option value="" selected="">Select Buyers</option>
                                     @foreach($buyers as $buyer)
@@ -33,14 +33,14 @@
 
                         <div class="row mb-2">
                             <div class="col-md-3 mb-3">
-                                <label for="expDate">Date</label>
+                                <label for="expDate">Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="showingDate" name="showingDate" value="{{$showing->Date}}">
                                 @error('showingDate')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-3  mb-3" style="height: 70px;">
-                                <label for="status">DBA</label>
+                                <label for="status">DBA <span class="text-danger">*</span></label>
                                 <select class="form-select" id="listing" name="listing">
                                     <option value="">Select Listing</option>
                                     @foreach($listings as $listing)
@@ -56,7 +56,7 @@
                                 <input type="checkbox" id="review" class="form-check-input" name="offer_made" {{ ($showing->OfferMade == 1) ? 'checked' : '' }}>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="expDate">Follow Up</label>
+                                <label for="expDate">Follow Up <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="follow_up" name="follow_up"  value="{{$showing->FollowUp}}">
                                 @error('follow_up')
                                     <div class="text-danger">{{ $message }}</div>

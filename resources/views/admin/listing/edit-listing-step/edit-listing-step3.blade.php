@@ -15,14 +15,14 @@
                                 <h4 class="form-sec mb-3">Management Agent</h4>
                                 <div class="d-flex">
                                     <div class="col-sm-6 p-0  mb-3">
-                                        <label for="managementAgentName">Name</label>
+                                        <label for="managementAgentName">Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="managementAgentName" name="managementAgentName"  value="{{$listingData->MgtAgentName}}">
                                         @error('managementAgentName')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label for="managementAgentPhone">Phone</label>
+                                        <label for="managementAgentPhone">Phone <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="managementAgentPhone" name="managementAgentPhone"  value="{{$listingData->MgtAgentPh}}">
                                         @error('managementAgentPhone')
                                             <small class="text-danger">{{ $message }}</small>
@@ -34,7 +34,7 @@
                                 <h4 class="form-sec mb-3">Referring Agent</h4>
                                 <div class="d-flex">
                                     <div class="col p-0 mb-3">
-                                        <label for="referringAgentName">Name</label>
+                                        <label for="referringAgentName">Name <span class="text-danger">*</span></label>
                                        <!--  <input type="text" class="form-control" id="referringAgentName" name="referringAgentName"  value="{{$listingData->RefAgentID}}"> -->
                                         <select id="managementAgentName" class="form-select select2" name="referringAgentName">
                                        <!--  <option value="" selected="">Select referring agent</option> -->
@@ -47,7 +47,7 @@
                                         @enderror
                                     </div>
                                     <div class="col mb-3">
-                                        <label for="referringAgentPhone">Phone</label>
+                                        <label for="referringAgentPhone">Phone <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="referringAgentPhone" name="referringAgentPhone"  value="{{$listingData->RefAgentPh}}">
                                         @error('referringAgentPhone')
                                             <small class="text-danger">{{ $message }}</small>
@@ -61,14 +61,14 @@
                         <div class="row mb-2">
                             <h4 class="form-sec mb-3">Listing Data</h4>
                             <div class="col-md-3 mb-3">
-                                <label for="listingDate">Listing Date</label>
+                                <label for="listingDate">Listing Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="listingDate" name="listingDate"  value="{{$listingData->ListDate}}">
                                 @error('listingDate')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="expDate">Exp Date</label>
+                                <label for="expDate">Exp Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="expDate" name="expDate"  value="{{$listingData->ExpDate}}">
                                     @error('expDate')
                                         <small class="text-danger">{{ $message }}</small>
@@ -92,14 +92,14 @@
                         <!-- Co-Broker and Reason for Sale -->
                         <div class="row mb-3">
                             <div class="col-md-6 mb-3">
-                                <label for="coBroker">Co-Broker</label>
+                                <label for="coBroker">Co-Broker <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="coBroker" name="coBroker"  value="{{$listingData->CoBrokID}}">
                                 @error('coBroker')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="reasonForSale">Reason For Sale</label>
+                                <label for="reasonForSale">Reason For Sale <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="reasonForSale" name="reasonForSale"  value="{{$listingData->SaleReas}}">
                                 @error('reasonForSale')
                                     <small class="text-danger">{{ $message }}</small>
@@ -220,13 +220,15 @@
                             required: true
                         },
                         managementAgentPhone: {
-                            required: true
+                            required: true,
+                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
                         },
                         referringAgentName: {
                             required: true
                         },
                         referringAgentPhone: {
-                            required: true
+                            required: true,
+                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
                         },
                         listingDate: {
                             required: true
@@ -252,7 +254,12 @@
                         form.submit();
                     }
                 });
-});
+                 // Custom method for regex validation
+                $.validator.addMethod("regex", function(value, element, regexpr) {
+                    return this.optional(element) || regexpr.test(value);
+                }, "Please check your input.");
+       
+            });
 
             </script>
         <style>

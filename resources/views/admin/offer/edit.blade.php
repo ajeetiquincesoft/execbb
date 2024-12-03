@@ -17,7 +17,7 @@
                         <input type="text" class="form-control" id="offerID" name="offerID" value="{{$offer->OfferID}}">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="companyName">Company Name</label>
+                        <label for="companyName">Company Name <span class="text-danger">*</span></label>
                         <select class="form-control" id="companyName" name="companyName">
                             <option value="">Select company name</option>
                             @foreach($listings as $listing)
@@ -29,7 +29,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4" style="height: 70px;">
-                        <label for="status">Status</label>
+                        <label for="status">Status <span class="text-danger">*</span></label>
                         <select class="form-control" id="status" name="status">
                             <option value="" selected>Select Status</option>
                             @foreach($offer_types as $offer_type)
@@ -43,7 +43,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="buyer">Buyer</label>
+                        <label for="buyer">Buyer <span class="text-danger">*</span></label>
                         <select class="form-control" id="buyer" name="buyer">
                             <option value="" selected>Select Buyer</option>
                             @foreach($buyers as $buyer)
@@ -55,7 +55,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="listingAgent">Listing Agent</label>
+                        <label for="listingAgent">Listing Agent <span class="text-danger">*</span></label>
                         <select class="form-control" id="listingAgent" name="listingAgent">
                             <option value="">Select Listing Agent</option>
                             @foreach($agents as $agent)
@@ -67,7 +67,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="sellingAgent">Selling Agent</label>
+                        <label for="sellingAgent">Selling Agent <span class="text-danger">*</span></label>
                         <select class="form-control" id="sellingAgent" name="sellingAgent">
                             <option value="">Select Selling Agent</option>
                             @foreach($agents as $agent)
@@ -81,28 +81,28 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-3 mb-3">
-                        <label for="dateOfOffer">Date of Offer</label>
+                        <label for="dateOfOffer">Date of Offer <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="dateOfOffer" name="dateOfOffer" value="{{$offer->DateOfOffer}}">
                         @error('dateOfOffer')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="expDate">Exp. Date</label>
+                        <label for="expDate">Exp. Date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="expDate" name="expDate" value="{{ $offer->ExpDate}}">
                         @error('expDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="accDate">Acc Date</label>
+                        <label for="accDate">Acc Date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="accDate" name="accDate" value="{{ $offer->AccDate}}">
                         @error('accDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="closeDate">Close Date</label>
+                        <label for="closeDate">Close Date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="closeDate" name="closeDate" value="{{$offer->ClosingDate}}">
                         @error('closeDate')
                         <small class="text-danger">{{ $message }}</small>
@@ -112,21 +112,21 @@
                 <hr>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="purchasePrice">Purchase Price</label>
+                        <label for="purchasePrice">Purchase Price <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="purchasePrice" name="purchasePrice" value="{{ $offer->PurchasePrice}}">
                         @error('purchasePrice')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4" style="height: 70px;">
-                        <label for="downPayment">Down Payment</label>
+                        <label for="downPayment">Down Payment <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="downPayment" name="downPayment" value="{{ $offer->DownPaymnt}}">
                         @error('downPayment')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4" style="height: 70px;">
-                        <label for="commAmount">Comm. Amount</label>
+                        <label for="commAmount">Comm. Amount <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="commAmount" name="commAmount" value="{{ $offer->Commission}}">
                         @error('commAmount')
                         <small class="text-danger">{{ $message }}</small>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="commissionPercent">Commission %</label>
+                        <label for="commissionPercent">Commission % <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="commissionPercent"
                             name="commissionPercent" value="{{ $offer->CommissionPct}}">
                         @error('commissionPercent')
@@ -143,7 +143,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="balanceDue">Balance Due</label>
+                        <label for="balanceDue">Balance Due <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="balanceDue" name="balanceDue" value="{{ $offer->BalanceDue}}">
                         @error('balanceDue')
                         <small class="text-danger">{{ $message }}</small>
@@ -430,39 +430,38 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-8 mb-3">
                         <label for="address">Address</label>
                         <input type="text" class="form-control" id="address" name="address" value="{{$offer->ReturneeAddress}}">
                     </div>
+                    <div class="col-md-4 p-0 m-0">
+                        <label for="">City</label>
+                        <input type="text" id="city" class="form-control" placeholder="City" name="escrow_city" value="{{ $offer->ReturneeCity }}">
+                        @error('escrow_city')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <div class="row">
-                            <div class="col-md-4 p-0 m-0">
-                                <label for="">City</label>
-                                <input type="text" id="city" class="form-control" placeholder="City" name="escrow_city" value="{{ $offer->ReturneeCity }}">
-                                @error('escrow_city')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-5 p-0 m-0">
-                                <label for="">State</label>
-                                <select id="State" class="form-select" name="escrow_state">
-                                    <option value="" selected="">Select state</option>
-                                    @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{  $value->State == $offer->ReturneeState ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                    @endforeach
-                                </select>
-                                @error('escrow_state')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-3 p-0 m-0">
-                                <label for="">Zip</label>
-                                <input type="text" id="Zip" class="form-control" placeholder="Zip" name="escrow_zip_code" value="{{$offer->ReturneeZip}}">
-                                @error('escrow_zip_code')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
+                        <label for="">State</label>
+                        <select id="State" class="form-select" name="escrow_state">
+                            <option value="" selected="">Select state</option>
+                            @foreach($states as $key=>$value)
+                            <option value="{{$value->State}}" {{  $value->State == $offer->ReturneeState ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            @endforeach
+                        </select>
+                        @error('escrow_state')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="">Zip</label>
+                        <input type="text" id="Zip" class="form-control" placeholder="Zip" name="escrow_zip_code" value="{{$offer->ReturneeZip}}">
+                        @error('escrow_zip_code')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="phone">Phone</label>
@@ -727,36 +726,36 @@
             form.unbind('submit');
             form.submit();
         });
-        var offer1Value = parseFloat($('#offer-downPayBal').val()) || 0; 
+        var offer1Value = parseFloat($('#offer-downPayBal').val()) || 0;
         var offer2Value = parseFloat($('#offer-downPayBal2').val()) || 0;
         var sumOffer = offer1Value + offer2Value;
         $('#offer-totalDownPayBal').val(sumOffer);
 
         var counter1Value = parseFloat($('#counter-downPayBal').val()) || 0;
-        var counter2Value = parseFloat($('#counter-downPayBal2').val()) || 0; 
+        var counter2Value = parseFloat($('#counter-downPayBal2').val()) || 0;
         var sumCounter = counter1Value + counter2Value;
         $('#counter-totalDownPayBal').val(sumCounter);
 
-        var accepted1Value = parseFloat($('#accepted-downPayBal').val()) || 0; 
-        var accepted2Value = parseFloat($('#accepted-downPayBal2').val()) || 0; 
+        var accepted1Value = parseFloat($('#accepted-downPayBal').val()) || 0;
+        var accepted2Value = parseFloat($('#accepted-downPayBal2').val()) || 0;
         var sumAccepted = accepted1Value + accepted2Value;
         $('#accepted-totalDownPayBal').val(sumAccepted);
 
         $('#offer-downPayBal, #offer-downPayBal2').on('input', function() {
-            var input1Value = parseFloat($('#offer-downPayBal').val()) || 0; 
+            var input1Value = parseFloat($('#offer-downPayBal').val()) || 0;
             var input2Value = parseFloat($('#offer-downPayBal2').val()) || 0;
             var sum = input1Value + input2Value;
             $('#offer-totalDownPayBal').val(sum);
         });
         $('#counter-downPayBal, #counter-downPayBal2').on('input', function() {
             var input1Value = parseFloat($('#counter-downPayBal').val()) || 0;
-            var input2Value = parseFloat($('#counter-downPayBal2').val()) || 0; 
+            var input2Value = parseFloat($('#counter-downPayBal2').val()) || 0;
             var sum = input1Value + input2Value;
             $('#counter-totalDownPayBal').val(sum);
         });
         $('#accepted-downPayBal, #accepted-downPayBal2').on('input', function() {
-            var input1Value = parseFloat($('#accepted-downPayBal').val()) || 0; 
-            var input2Value = parseFloat($('#accepted-downPayBal2').val()) || 0; 
+            var input1Value = parseFloat($('#accepted-downPayBal').val()) || 0;
+            var input2Value = parseFloat($('#accepted-downPayBal2').val()) || 0;
             var sum = input1Value + input2Value;
             $('#accepted-totalDownPayBal').val(sum);
         });

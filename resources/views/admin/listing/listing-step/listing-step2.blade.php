@@ -12,14 +12,14 @@
                 <hr>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="buildingSize">Building Size</label>
+                        <label for="buildingSize">Building Size <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="buildingSize" name="buildingSize" value="{{ session('formData.buildingSize') ?? old('buildingSize') }}">
                         @error('buildingSize')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="basementSize">Basement Size</label>
+                        <label for="basementSize">Basement Size <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="basementSize" name="basementSize" value="{{ session('formData.basementSize') ?? old('basementSize')}}">
                         @error('basementSize')
                         <small class="text-danger">{{ $message }}</small>
@@ -32,21 +32,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="parking">Parking</label>
+                        <label for="parking">Parking <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="parking" name="parking" value="{{ session('formData.parking') ?? old('parking')}}">
                         @error('parking')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="licenseRequired">License Required</label>
+                        <label for="licenseRequired">License Required <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="licenseRequired" name="licenseRequired" value="{{ session('formData.licenseRequired') ?? old('licenseRequired')}}">
                         @error('licenseRequired')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="baseMonthlyRent">Base Monthly Rent</label>
+                        <label for="baseMonthlyRent">Base Monthly Rent <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="baseMonthlyRent" name="baseMonthlyRent" value="{{ session('formData.baseMonthlyRent') ?? old('baseMonthlyRent')}}">
                         @error('baseMonthlyRent')
                         <small class="text-danger">{{ $message }}</small>
@@ -55,21 +55,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="leaseTerms">Lease Terms</label>
+                        <label for="leaseTerms">Lease Terms <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="leaseTerms" name="leaseTerms" value="{{ session('formData.leaseTerms') ?? old('leaseTerms')}}">
                         @error('leaseTerms')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="leaseOptions">Lease Options</label>
+                        <label for="leaseOptions">Lease Options <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="leaseOptions" name="leaseOptions" value="{{ session('formData.leaseOptions') ?? old('leaseOptions')}}">
                         @error('leaseOptions')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="daysOpen">No. of Days Open</label>
+                        <label for="daysOpen">No. of Days Open <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="daysOpen" name="daysOpen" value="{{ session('formData.daysOpen') ?? old('daysOpen')}}">
                         @error('daysOpen')
                         <small class="text-danger">{{ $message }}</small>
@@ -78,21 +78,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="hoursOperation">Hours of Operation</label>
+                        <label for="hoursOperation">Hours of Operation <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="hoursOperation" name="hoursOperation" value="{{ session('formData.hoursOperation') ?? old('hoursOperation')}}">
                         @error('hoursOperation')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="numSeats">No. of Seats</label>
+                        <label for="numSeats">No. of Seats <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="numSeats" name="numSeats" value="{{ session('formData.numSeats') ?? old('numSeats')}}">
                         @error('numSeats')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="yearsEstablished">Years Established?</label>
+                        <label for="yearsEstablished">Years Established? <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="yearsEstablished" name="yearsEstablished" value="{{ session('formData.yearsEstablished') ?? old('yearsEstablished')}}">
                         @error('yearsEstablished')
                         <small class="text-danger">{{ $message }}</small>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="yearsPrevOwner">Years Previous Owner</label>
+                        <label for="yearsPrevOwner">Years Previous Owner <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="yearsPrevOwner" name="yearsPrevOwner" value="{{ session('formData.yearsPrevOwner') ?? old('yearsPrevOwner')}}">
                         @error('yearsPrevOwner')
                         <small class="text-danger">{{ $message }}</small>

@@ -42,7 +42,7 @@
                         <div class="row mb-2">
                             <div class="col-md-12 mb-3">
                                 <label for="Content">Content</label>
-                                <textarea  class="form-control" id="emai_content" name="email_content" rows="5" required>{{ old('email_content') }}</textarea>
+                                <textarea  class="form-control ckeditor" id="emai_content" name="email_content" required>{{ old('email_content') }}</textarea>
                                 @error('email_content')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -60,8 +60,23 @@
         <div p-8="">
             <p>&nbsp;</p>
         </div>
-  
+        <style>
+  .ck-editor__editable {
+        min-height: 300px !important;  /* Set the min-height to whatever you need */
+    }
+        </style>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+
+        <script>
+        // Initialize CKEditor for the email content field
+        ClassicEditor
+            .create(document.querySelector('#emai_content'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+ 
 <script>
   
            $(document).ready(function () {
