@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <main>
-            <p>{{ $content }}</p>
+            <p>{!! $content !!}</p>
         </main>
 
         <footer>
