@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,11 +11,11 @@ use App\Models\Offer;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class ReportsController extends Controller
+class AgentReportController extends Controller
 {
     public function index()
     {
-        return view('admin.reports.index');
+        return view('agent-dashboard.reports.index');
     }
     public function export(Request $request)
     {
@@ -54,22 +54,26 @@ class ReportsController extends Controller
             "Expires" => "0",
         ];
         // Generate CSV content
-        $callback = function () use ($columns, $tableName, $config) {
+        $query = DB::table($tableName)
+            ->orderBy($config['orderColumn'], 'desc');
+        if ($reportName == 'listing') {
+            $user = auth()->user();
+            $query->where('RefAgentID', $user->id);
+        }
+        $callback = function () use ($columns, $query) {
             $handle = fopen('php://output', 'w');
             // Write column headers
             fputcsv($handle, $columns);
             // Stream data in chunks to handle large datasets
-            DB::table($tableName)
-                ->orderBy($config['orderColumn'], 'desc')
-                ->chunk(1000, function ($chunk) use ($handle, $columns) {
-                    foreach ($chunk as $data) {
-                        $row = [];
-                        foreach ($columns as $column) {
-                            $row[] = $data->$column ?? ''; // Avoid errors for missing columns
-                        }
-                        fputcsv($handle, $row);
+            $query->chunk(1000, function ($chunk) use ($handle, $columns) {
+                foreach ($chunk as $data) {
+                    $row = [];
+                    foreach ($columns as $column) {
+                        $row[] = $data->$column ?? ''; // Avoid errors for missing columns
                     }
-                });
+                    fputcsv($handle, $row);
+                }
+            });
             fclose($handle);
         };
         // Return a streamed response for the CSV file

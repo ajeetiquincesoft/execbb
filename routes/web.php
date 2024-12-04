@@ -29,6 +29,7 @@ use App\Http\Controllers\Agent\AgentProfileController;
 use App\Http\Controllers\Agent\AgentListingController;
 use App\Http\Controllers\Agent\AgentLoginActivityController;
 use App\Http\Controllers\Agent\AgentEmailBuyerController;
+use App\Http\Controllers\Agent\AgentReportController;
 
 
 
@@ -252,6 +253,10 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
      Route::get('email/buyer', [AgentEmailBuyerController::class, 'index'])->name('email.buyer');
      Route::post('/email/buyer/send', [AgentEmailBuyerController::class, 'sendEmail'])->name('email.buyer.send');
      //End route for send email to buyers
+      //Route for admin reports
+      Route::get('reports', [AgentReportController::class, 'index'])->name('reports');
+      Route::post('/export/reports', [AgentReportController::class, 'export'])->name('export.reports');
+      //End route for admin reports
 
 });
 

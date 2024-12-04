@@ -14,6 +14,7 @@
             $breadcrumbs = [
                   'agent.dashboard' => 'Dashboard',
                   'agent.all.listing' => 'Listing',
+                  'agent.listing.form' => 'Listing',
                   'agent.list.buyer' => 'Buyer',
                   'agent.show.buyer' => 'View Buyer',
                   'agent.show.listing' => 'View Listing',
@@ -21,12 +22,13 @@
                   'agent.reset.password' => 'Change Password',
                   'agent.login.activities' => 'Login Activities',
                   'agent.email.buyer' => 'Email Buyer',
+                  'agent.reports' => 'Reports',
                   ];
                 @endphp
 
                 @foreach ($breadcrumbs as $key => $label)
                     @if ($route == $key)
-                      @if ($route == 'agent.email.buyer')
+                      @if ($route == 'agent.email.buyer' || $route == 'agent.reports')
                         <li class="breadcrumb-item"><a class="nav-link" href="#">Report</a></li>
                         <li class="breadcrumb-item">
                           <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>

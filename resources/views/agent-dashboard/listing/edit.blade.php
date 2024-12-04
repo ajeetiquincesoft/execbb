@@ -13,7 +13,7 @@
                 <hr>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="busCategory" class="form-label">Bus. Category</label>
+                        <label for="busCategory" class="form-label">Bus. Category <span class="text-danger">*</span></label>
                         <select id="busCategory" class="form-select" name="bus_category">
                             <option value="" selected="">Select category</option>
                             @foreach($categoryData as $key=>$data)
@@ -25,7 +25,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="busType" class="form-label">Bus. Type</label>
+                        <label for="busType" class="form-label">Bus. Type <span class="text-danger">*</span></label>
                         <select id="busType" class="form-select" name="bus_type">
                             <option value="" selected>Select type</option>
                             @foreach($sub_categories as $key=>$bus_type)
@@ -44,14 +44,14 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="cropName" class="form-label">Crop Name</label>
+                        <label for="cropName" class="form-label">Crop Name <span class="text-danger">*</span></label>
                         <input type="text" id="cropName" class="form-control" name="cropName" value="{{$listingData->SellerCorpName}}">
                         @error('cropName')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="dba" class="form-label">DBA</label>
+                        <label for="dba" class="form-label">DBA <span class="text-danger">*</span></label>
                         <input type="text" id="dba" class="form-control" name="dba" value="{{$listingData->DBA}}">
                         @error('dba')
                         <small class="text-danger">{{ $message }}</small>
@@ -63,42 +63,40 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 mb-3">
-                        <label for="address" class="form-label">Address</label>
+                    <div class="col-md-8 mb-3">
+                        <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                         <input type="text" id="address" class="form-control" name="address" value="{{$listingData->Address1}}">
                         @error('address')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <div class="row">
-                            <div class="col-md-4 p-0 m-0">
-                                <label for="">City</label>
-                                <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{$listingData->City}}">
-                                @error('city')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-5 p-0 m-0">
-                                <label for="">State</label>
-                                <select id="State" class="form-select" name="state">
-                                    <option value="" selected="">Select state</option>
-                                    @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{$listingData->State == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                    @endforeach
-                                </select>
-                                @error('state')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-3 p-0 m-0">
-                                <label for="">Zip</label>
-                                <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{$listingData->Zip}}">
-                                @error('zip_code')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
+                        <label for="City" class="form-label">City <span class="text-danger">*</span></label>
+                        <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{$listingData->City}}">
+                        @error('city')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 mb-3">
+                        <label for="State" class="form-label">State <span class="text-danger">*</span></label>
+                        <select id="State" class="form-select" name="state">
+                            <option value="" selected="">Select state</option>
+                            @foreach($states as $key=>$value)
+                            <option value="{{$value->State}}" {{$listingData->State == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            @endforeach
+                        </select>
+                        @error('state')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="Zip" class="form-label">Zip <span class="text-danger">*</span></label>
+                        <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{$listingData->Zip}}">
+                        @error('zip_code')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="country" class="form-label">Country</label>
@@ -113,7 +111,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4">
-                        <label for="phone" class="form-label">Phone</label>
+                        <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
                         <input type="tel" id="phone" class="form-control" name="phone" value="{{$listingData->Phone}}">
                         @error('phone')
                         <small class="text-danger">{{ $message }}</small>
@@ -148,14 +146,14 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
+                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
                         <input type="text" id="firstName" class="form-control" name="first_name" value="{{$listingData->SellerFName}}">
                         @error('first_name')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
+                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
                         <input type="text" id="lastName" class="form-control" name="last_name" value="{{$listingData->SellerLName}}">
                         @error('last_name')
                         <small class="text-danger">{{ $message }}</small>
@@ -169,20 +167,25 @@
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="cityStateZip2" class="form-label">City</label>
-                        <div class="d-flex">
-                            <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{$listingData->SCity}}">
-                            <!-- <input type="text" id="State2" class="form-control" placeholder="State"  name="user_state" value="{{ session('formData.user_state') ? session('formData.user_state') : '' }}"> -->
-                            <select id="State2" class="form-select" name="user_state">
-                                <option selected="">Select state</option>
-                                @foreach($states as $key=>$value)
-                                <option value="{{$value->State}}" {{ $listingData->SState == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                @endforeach
-                            </select>
-                            <input type="text" id="Zip2" class="form-control" placeholder="Zip" name="user_zip_code" value="{{$listingData->SZip}}">
-                        </div>
+                        <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{$listingData->SCity}}">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="state" class="form-label">State</label>
+                        <select id="State2" class="form-select" name="user_state">
+                            <option value="" selected="">Select state</option>
+                            @foreach($states as $key=>$value)
+                            <option value="{{$value->State}}" {{ $listingData->SState == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="Zip" class="form-label">Zip</label>
+                        <input type="text" id="Zip2" class="form-control" placeholder="Zip" name="user_zip_code" value="{{$listingData->SZip}}">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 mb-3">
+                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                         <input type="email" id="email" class="form-control" name="user_email" value="{{$listingData->Email}}">
                         @error('user_email')
                         <small class="text-danger">{{ $message }}</small>
@@ -192,12 +195,12 @@
                         <label for="homePhone" class="form-label">Home Phone</label>
                         <input type="text" id="homePhone" class="form-control" name="user_home_phone" value="{{$listingData->SHomePh}}">
                     </div>
-                </div>
-                <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="homeFax" class="form-label">Home Fax</label>
                         <input type="text" id="homeFax" class="form-control" name="user_home_fax" value="{{$listingData->SHomeFax}}">
                     </div>
+                </div>
+                <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="pager" class="form-label">Pager</label>
                         <input type="text" id="pager" class="form-control" name="user_pager" value="{{$listingData->Pager}}">
@@ -219,14 +222,14 @@
                 <hr>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="buildingSize">Building Size</label>
+                        <label for="buildingSize">Building Size <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="buildingSize" name="buildingSize" value="{{$listingData->BldgSize}}">
                         @error('buildingSize')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="basementSize">Basement Size</label>
+                        <label for="basementSize">Basement Size <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="basementSize" name="basementSize" value="{{$listingData->BaseSize}}">
                         @error('basementSize')
                         <small class="text-danger">{{ $message }}</small>
@@ -239,21 +242,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="parking">Parking</label>
+                        <label for="parking">Parking <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="parking" name="parking" value="{{$listingData->Parking}}">
                         @error('parking')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="licenseRequired">License Required</label>
+                        <label for="licenseRequired">License Required <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="licenseRequired" name="licenseRequired" value="{{$listingData->LicenseReq}}">
                         @error('licenseRequired')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="baseMonthlyRent">Base Monthly Rent</label>
+                        <label for="baseMonthlyRent">Base Monthly Rent <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="baseMonthlyRent" name="baseMonthlyRent" value="{{$listingData->BaseMonthRent}}">
                         @error('baseMonthlyRent')
                         <small class="text-danger">{{ $message }}</small>
@@ -262,21 +265,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="leaseTerms">Lease Terms</label>
+                        <label for="leaseTerms">Lease Terms <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="leaseTerms" name="leaseTerms" value="{{$listingData->LeaseTerms}}">
                         @error('leaseTerms')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="leaseOptions">Lease Options</label>
+                        <label for="leaseOptions">Lease Options <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="leaseOptions" name="leaseOptions" value="{{$listingData->LeaseOpt}}">
                         @error('leaseOptions')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="daysOpen">No. of Days Open</label>
+                        <label for="daysOpen">No. of Days Open <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="daysOpen" name="daysOpen" value="{{$listingData->NoDaysOpen}}">
                         @error('daysOpen')
                         <small class="text-danger">{{ $message }}</small>
@@ -285,21 +288,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="hoursOperation">Hours of Operation</label>
+                        <label for="hoursOperation">Hours of Operation <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="hoursOperation" name="hoursOperation" value="{{$listingData->HoursOfOp}}">
                         @error('hoursOperation')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="numSeats">No. of Seats</label>
+                        <label for="numSeats">No. of Seats <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="numSeats" name="numSeats" value="{{$listingData->Seats}}">
                         @error('numSeats')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="yearsEstablished">Years Established?</label>
+                        <label for="yearsEstablished">Years Established? <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="yearsEstablished" name="yearsEstablished" value="{{$listingData->YrsEstablished}}">
                         @error('yearsEstablished')
                         <small class="text-danger">{{ $message }}</small>
@@ -308,7 +311,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="yearsPrevOwner">Years Previous Owner</label>
+                        <label for="yearsPrevOwner">Years Previous Owner <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="yearsPrevOwner" name="yearsPrevOwner" value="{{$listingData->YrsPresentOwner}}">
                         @error('yearsPrevOwner')
                         <small class="text-danger">{{ $message }}</small>
@@ -358,14 +361,14 @@
                         <h4 class="form-sec mb-3">Management Agent</h4>
                         <div class="d-flex">
                             <div class="col-sm-6 p-0  mb-3">
-                                <label for="managementAgentName">Name</label>
+                                <label for="managementAgentName">Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="managementAgentName" name="managementAgentName" value="{{$listingData->MgtAgentName}}">
                                 @error('managementAgentName')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-sm-6 mb-3">
-                                <label for="managementAgentPhone">Phone</label>
+                                <label for="managementAgentPhone">Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="managementAgentPhone" name="managementAgentPhone" value="{{$listingData->MgtAgentPh}}">
                                 @error('managementAgentPhone')
                                 <small class="text-danger">{{ $message }}</small>
@@ -377,7 +380,7 @@
                         <h4 class="form-sec mb-3">Referring Agent</h4>
                         <div class="d-flex">
                             <div class="col p-0 mb-3">
-                                <label for="referringAgentName">Name</label>
+                                <label for="referringAgentName">Name <span class="text-danger">*</span></label>
                                 <!--  <input type="text" class="form-control" id="referringAgentName" name="referringAgentName"  value="{{$listingData->RefAgentID}}"> -->
                                 <select id="managementAgentName" class="form-select" name="referringAgentName">
                                     <option value="" selected="">Select referring agent</option>
@@ -390,7 +393,7 @@
                                 @enderror
                             </div>
                             <div class="col mb-3">
-                                <label for="referringAgentPhone">Phone</label>
+                                <label for="referringAgentPhone">Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="referringAgentPhone" name="referringAgentPhone" value="{{$listingData->RefAgentPh}}">
                                 @error('referringAgentPhone')
                                 <small class="text-danger">{{ $message }}</small>
@@ -404,14 +407,14 @@
                 <div class="row mb-2">
                     <h4 class="form-sec mb-3">Listing Data</h4>
                     <div class="col-md-3 mb-3">
-                        <label for="listingDate">Listing Date</label>
+                        <label for="listingDate">Listing Date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="listingDate" name="listingDate" value="{{$listingData->ListDate}}">
                         @error('listingDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="expDate">Exp Date</label>
+                        <label for="expDate">Exp Date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="expDate" name="expDate" value="{{$listingData->ExpDate}}">
                         @error('expDate')
                         <small class="text-danger">{{ $message }}</small>
@@ -435,14 +438,14 @@
                 <!-- Co-Broker and Reason for Sale -->
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
-                        <label for="coBroker">Co-Broker</label>
+                        <label for="coBroker">Co-Broker <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="coBroker" name="coBroker" value="{{$listingData->CoBrokID}}">
                         @error('coBroker')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="reasonForSale">Reason For Sale</label>
+                        <label for="reasonForSale">Reason For Sale <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="reasonForSale" name="reasonForSale" value="{{$listingData->SaleReas}}">
                         @error('reasonForSale')
                         <small class="text-danger">{{ $message }}</small>
@@ -553,28 +556,28 @@
                     <h4 class="form-sec mb-3">Income &amp; Expenses</h4>
                     <div class="row mb-3">
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                            <label for="annualSales">Annual Sales</label>
+                            <label for="annualSales">Annual Sales <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="annualSales" name="annualSales" value="{{$listingData->AnnualSales}}">
                             @error('annualSales')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                            <label for="costOfSales">Cost of Sales</label>
+                            <label for="costOfSales">Cost of Sales <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="costOfSales" name="costOfSales" value="">
                             @error('costOfSales')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                            <label for="grossProfit">Gross Profit</label>
+                            <label for="grossProfit">Gross Profit <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="grossProfit" name="grossProfit" value="">
                             @error('grossProfit')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                            <label for="totalExpenses">Total Expenses</label>
+                            <label for="totalExpenses">Total Expenses <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="totalExpenses" name="totalExpenses" value="">
                             @error('totalExpenses')
                             <small class="text-danger">{{ $message }}</small>
@@ -761,8 +764,8 @@
 <script>
     $(document).ready(function() {
         $.validator.addMethod("regex", function(value, element, regexpr) {
-        return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
-    }, "Invalid phone number format.");
+            return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
+        }, "Invalid phone number format.");
         var form = $('#listingAgentForm');
         form.validate({
             rules: {

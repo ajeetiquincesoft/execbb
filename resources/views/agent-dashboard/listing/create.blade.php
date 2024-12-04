@@ -13,7 +13,7 @@
                 <hr>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="busCategory" class="form-label">Bus. Category</label>
+                        <label for="busCategory" class="form-label">Bus. Category <span class="text-danger">*</span></label>
                         <select id="busCategory" class="form-select" name="bus_category">
                             <option value="" selected="">Select category</option>
                             @foreach($categoryData as $key=>$data)
@@ -25,7 +25,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="busType" class="form-label">Bus. Type</label>
+                        <label for="busType" class="form-label">Bus. Type <span class="text-danger">*</span></label>
                         <select id="busType" class="form-select" name="bus_type">
                             <option value="" selected>Select type</option>
                             @foreach($sub_categories as $key=>$bus_type)
@@ -44,14 +44,14 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="cropName" class="form-label">Crop Name</label>
+                        <label for="cropName" class="form-label">Crop Name <span class="text-danger">*</span></label>
                         <input type="text" id="cropName" class="form-control" name="cropName" value="{{ session('listingData.cropName') ?? old('cropName')}}">
                         @error('cropName')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="dba" class="form-label">DBA</label>
+                        <label for="dba" class="form-label">DBA <span class="text-danger">*</span></label>
                         <input type="text" id="dba" class="form-control" name="dba" value="{{ session('listingData.dba') ?? old('dba')}}">
                         @error('dba')
                         <small class="text-danger">{{ $message }}</small>
@@ -63,42 +63,40 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 mb-3">
-                        <label for="address" class="form-label">Address</label>
+                    <div class="col-md-8 mb-3">
+                        <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                         <input type="text" id="address" class="form-control" name="address" value="{{ session('listingData.address') ?? old('address')}}">
                         @error('address')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <div class="row">
-                            <div class="col-md-4 p-0 m-0">
-                                <label for="">City</label>
-                                <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{ session('listingData.city') ?? old('city')}}">
-                                @error('city')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-5 p-0 m-0">
-                                <label for="">State</label>
-                                <select id="State" class="form-select" name="state">
-                                    <option value="" selected="">Select state</option>
-                                    @foreach($states as $key=>$value)
-                                    <option value="{{$value->State}}" {{ (old('state') == $value->State || session('listingData.state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                    @endforeach
-                                </select>
-                                @error('state')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-3 p-0 m-0">
-                                <label for="">Zip</label>
-                                <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{ session('listingData.zip_code') ?? old('zip_code')}}">
-                                @error('zip_code')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
+                        <label for="City">City <span class="text-danger">*</span></label>
+                        <input type="text" id="city" class="form-control" placeholder="City" name="city" value="{{ session('listingData.city') ?? old('city')}}">
+                        @error('city')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 mb-3">
+                        <label for="State">State <span class="text-danger">*</span></label>
+                        <select id="State" class="form-select" name="state">
+                            <option value="" selected="">Select state</option>
+                            @foreach($states as $key=>$value)
+                            <option value="{{$value->State}}" {{ (old('state') == $value->State || session('listingData.state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            @endforeach
+                        </select>
+                        @error('state')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="Zip">Zip <span class="text-danger">*</span></label>
+                        <input type="text" id="Zip" class="form-control" placeholder="Zip" name="zip_code" value="{{ session('listingData.zip_code') ?? old('zip_code')}}">
+                        @error('zip_code')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="country" class="form-label">Country</label>
@@ -113,7 +111,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4">
-                        <label for="phone" class="form-label">Phone</label>
+                        <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
                         <input type="tel" id="phone" class="form-control" name="phone" value="{{ session('listingData.phone') ?? old('phone')}}">
                         @error('phone')
                         <small class="text-danger">{{ $message }}</small>
@@ -157,14 +155,14 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
+                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
                         <input type="text" id="firstName" class="form-control" name="first_name" value="{{ session('listingData.first_name') ?? old('first_name')}}">
                         @error('first_name')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
+                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
                         <input type="text" id="lastName" class="form-control" name="last_name" value="{{ session('listingData.last_name') ?? old('last_name')}}">
                         @error('last_name')
                         <small class="text-danger">{{ $message }}</small>
@@ -178,20 +176,26 @@
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="cityStateZip2" class="form-label">City</label>
-                        <div class="d-flex">
-                            <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{ session('listingData.user_city') ?? old('user_city')}}">
-                            <!-- <input type="text" id="State2" class="form-control" placeholder="State"  name="user_state" value="{{ session('formData.user_state') ? session('listingData.user_state') : '' }}"> -->
-                            <select id="State2" class="form-select" name="user_state">
-                                <option selected="">Select state</option>
-                                @foreach($states as $key=>$value)
-                                <option value="{{$value->State}}" {{ (old('user_state') == $value->State || session('listingData.user_state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                @endforeach
-                            </select>
-                            <input type="text" id="Zip2" class="form-control" placeholder="Zip" name="user_zip_code" value="{{ session('listingData.user_zip_code') ?? old('user_zip_code')}}">
-                        </div>
+                        <input type="text" id="city2" class="form-control" placeholder="City" name="user_city" value="{{ session('listingData.user_city') ?? old('user_city')}}">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="cityStateZip2" class="form-label">State</label>
+                        <select id="State2" class="form-select" name="user_state">
+                            <option value="" selected="">Select state</option>
+                            @foreach($states as $key=>$value)
+                            <option value="{{$value->State}}" {{ (old('user_state') == $value->State || session('listingData.user_state') == $value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="cityStateZip2" class="form-label">Zip</label>
+                        <input type="text" id="Zip2" class="form-control" placeholder="Zip" name="user_zip_code" value="{{ session('listingData.user_zip_code') ?? old('user_zip_code')}}">
+
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 mb-3">
+                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                         <input type="email" id="email" class="form-control" name="user_email" value="{{ session('listingData.user_email') ?? old('user_email')}}">
                         @error('user_email')
                         <small class="text-danger">{{ $message }}</small>
@@ -201,12 +205,12 @@
                         <label for="homePhone" class="form-label">Home Phone</label>
                         <input type="text" id="homePhone" class="form-control" name="user_home_phone" value="{{ session('listingData.user_home_phone') ?? old('user_home_phone')}}">
                     </div>
-                </div>
-                <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="homeFax" class="form-label">Home Fax</label>
                         <input type="text" id="homeFax" class="form-control" name="user_home_fax" value="{{ session('listingData.user_home_fax') ?? old('user_home_fax')}}">
                     </div>
+                </div>
+                <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="pager" class="form-label">Pager</label>
                         <input type="text" id="pager" class="form-control" name="user_pager" value="{{ session('listingData.user_pager') ?? old('user_pager')}}">
@@ -228,14 +232,14 @@
                 <hr>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="buildingSize">Building Size</label>
+                        <label for="buildingSize">Building Size <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="buildingSize" name="buildingSize" value="{{ session('listingData.buildingSize') ?? old('buildingSize') }}">
                         @error('buildingSize')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="basementSize">Basement Size</label>
+                        <label for="basementSize">Basement Size <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="basementSize" name="basementSize" value="{{ session('listingData.basementSize') ?? old('basementSize')}}">
                         @error('basementSize')
                         <small class="text-danger">{{ $message }}</small>
@@ -248,21 +252,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="parking">Parking</label>
+                        <label for="parking">Parking <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="parking" name="parking" value="{{ session('listingData.parking') ?? old('parking')}}">
                         @error('parking')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="licenseRequired">License Required</label>
+                        <label for="licenseRequired">License Required <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="licenseRequired" name="licenseRequired" value="{{ session('listingData.licenseRequired') ?? old('licenseRequired')}}">
                         @error('licenseRequired')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="baseMonthlyRent">Base Monthly Rent</label>
+                        <label for="baseMonthlyRent">Base Monthly Rent <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="baseMonthlyRent" name="baseMonthlyRent" value="{{ session('listingData.baseMonthlyRent') ?? old('baseMonthlyRent')}}">
                         @error('baseMonthlyRent')
                         <small class="text-danger">{{ $message }}</small>
@@ -271,21 +275,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="leaseTerms">Lease Terms</label>
+                        <label for="leaseTerms">Lease Terms <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="leaseTerms" name="leaseTerms" value="{{ session('listingData.leaseTerms') ?? old('leaseTerms')}}">
                         @error('leaseTerms')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="leaseOptions">Lease Options</label>
+                        <label for="leaseOptions">Lease Options <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="leaseOptions" name="leaseOptions" value="{{ session('listingData.leaseOptions') ?? old('leaseOptions')}}">
                         @error('leaseOptions')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="daysOpen">No. of Days Open</label>
+                        <label for="daysOpen">No. of Days Open <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="daysOpen" name="daysOpen" value="{{ session('listingData.daysOpen') ?? old('daysOpen')}}">
                         @error('daysOpen')
                         <small class="text-danger">{{ $message }}</small>
@@ -294,21 +298,21 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="hoursOperation">Hours of Operation</label>
+                        <label for="hoursOperation">Hours of Operation <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="hoursOperation" name="hoursOperation" value="{{ session('listingData.hoursOperation') ?? old('hoursOperation')}}">
                         @error('hoursOperation')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="numSeats">No. of Seats</label>
+                        <label for="numSeats">No. of Seats <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="numSeats" name="numSeats" value="{{ session('listingData.numSeats') ?? old('numSeats')}}">
                         @error('numSeats')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="yearsEstablished">Years Established?</label>
+                        <label for="yearsEstablished">Years Established? <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="yearsEstablished" name="yearsEstablished" value="{{ session('listingData.yearsEstablished') ?? old('yearsEstablished')}}">
                         @error('yearsEstablished')
                         <small class="text-danger">{{ $message }}</small>
@@ -317,7 +321,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
-                        <label for="yearsPrevOwner">Years Previous Owner</label>
+                        <label for="yearsPrevOwner">Years Previous Owner <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="yearsPrevOwner" name="yearsPrevOwner" value="{{ session('listingData.yearsPrevOwner') ?? old('yearsPrevOwner')}}">
                         @error('yearsPrevOwner')
                         <small class="text-danger">{{ $message }}</small>
@@ -367,14 +371,14 @@
                         <h4 class="form-sec mb-3">Management Agent</h4>
                         <div class="d-flex">
                             <div class="col-sm-6 p-0  mb-3">
-                                <label for="managementAgentName">Name</label>
+                                <label for="managementAgentName">Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="managementAgentName" name="managementAgentName" value="{{ session('listingData.managementAgentName') ?? old('managementAgentName')}}">
                                 @error('managementAgentName')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-sm-6 mb-3">
-                                <label for="managementAgentPhone">Phone</label>
+                                <label for="managementAgentPhone">Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="managementAgentPhone" name="managementAgentPhone" value="{{ session('listingData.managementAgentPhone') ?? old('managementAgentPhone')}}">
                                 @error('managementAgentPhone')
                                 <small class="text-danger">{{ $message }}</small>
@@ -386,7 +390,7 @@
                         <h4 class="form-sec mb-3">Referring Agent</h4>
                         <div class="d-flex">
                             <div class="col p-0 mb-3">
-                                <label for="referringAgentName">Name</label>
+                                <label for="referringAgentName">Name <span class="text-danger">*</span></label>
                                 <!-- <input type="text" class="form-control" id="referringAgentName" name="referringAgentName"  value="{{ session('listingData.referringAgentName') ?? old('referringAgentName')}}"> -->
                                 <select id="referringAgentName" class="form-select" name="referringAgentName">
                                     <option value="" selected="">Select referring agent</option>
@@ -399,7 +403,7 @@
                                 @enderror
                             </div>
                             <div class="col mb-3">
-                                <label for="referringAgentPhone">Phone</label>
+                                <label for="referringAgentPhone">Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="referringAgentPhone" name="referringAgentPhone" value="{{ session('listingData.referringAgentPhone') ?? old('referringAgentPhone')}}">
                                 @error('referringAgentPhone')
                                 <small class="text-danger">{{ $message }}</small>
@@ -413,14 +417,14 @@
                 <div class="row mb-2">
                     <h4 class="form-sec mb-3">Listing Data</h4>
                     <div class="col-md-3 mb-3">
-                        <label for="listingDate">Listing Date</label>
+                        <label for="listingDate">Listing Date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="listingDate" name="listingDate" value="{{ session('listingData.listingDate') ?? old('listingDate')}}">
                         @error('listingDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="expDate">Exp Date</label>
+                        <label for="expDate">Exp Date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="expDate" name="expDate" value="{{ session('listingData.expDate') ?? old('expDate')}}">
                         @error('expDate')
                         <small class="text-danger">{{ $message }}</small>
@@ -444,14 +448,14 @@
                 <!-- Co-Broker and Reason for Sale -->
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
-                        <label for="coBroker">Co-Broker</label>
+                        <label for="coBroker">Co-Broker <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="coBroker" name="coBroker" value="{{ session('listingData.coBroker') ?? old('coBroker')}}">
                         @error('coBroker')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="reasonForSale">Reason For Sale</label>
+                        <label for="reasonForSale">Reason For Sale <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="reasonForSale" name="reasonForSale" value="{{ session('listingData.reasonForSale') ?? old('reasonForSale')}}">
                         @error('reasonForSale')
                         <small class="text-danger">{{ $message }}</small>
@@ -562,28 +566,28 @@
                     <h4 class="form-sec mb-3">Income &amp; Expenses</h4>
                     <div class="row mb-3">
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                            <label for="annualSales">Annual Sales</label>
+                            <label for="annualSales">Annual Sales <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="annualSales" name="annualSales" value="{{ session('listingData.annualSales') ?? old('annualSales')}}">
                             @error('annualSales')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                            <label for="costOfSales">Cost of Sales</label>
+                            <label for="costOfSales">Cost of Sales <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="costOfSales" name="costOfSales" value="{{ session('listingData.costOfSales') ?? old('costOfSales')}}">
                             @error('costOfSales')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                            <label for="grossProfit">Gross Profit</label>
+                            <label for="grossProfit">Gross Profit <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="grossProfit" name="grossProfit" value="{{ session('listingData.grossProfit') ?? old('grossProfit')}}">
                             @error('grossProfit')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                            <label for="totalExpenses">Total Expenses</label>
+                            <label for="totalExpenses">Total Expenses <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="totalExpenses" name="totalExpenses" value="{{ session('listingData.totalExpenses') ?? old('totalExpenses')}}">
                             @error('totalExpenses')
                             <small class="text-danger">{{ $message }}</small>
@@ -770,8 +774,8 @@
 <script>
     $(document).ready(function() {
         $.validator.addMethod("regex", function(value, element, regexpr) {
-        return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
-    }, "Invalid phone number format.");
+            return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
+        }, "Invalid phone number format.");
         var form = $('#listingAgentForm');
         form.validate({
             rules: {
@@ -862,13 +866,15 @@
                     required: true
                 },
                 managementAgentPhone: {
-                    required: true
+                    required: true,
+                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
                 },
                 referringAgentName: {
                     required: true
                 },
                 referringAgentPhone: {
-                    required: true
+                    required: true,
+                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
                 },
                 listingDate: {
                     required: true
@@ -913,6 +919,14 @@
                     regex: 'Must be a valid phone number.'
                 },
                 user_home_phone: {
+                    regex: 'Must be a valid phone number.'
+                },
+                managementAgentPhone: {
+                    required: 'Phone number is required.',
+                    regex: 'Must be a valid phone number.'
+                },
+                referringAgentPhone: {
+                    required: 'Phone number is required.',
                     regex: 'Must be a valid phone number.'
                 },
                 listing_img: {
