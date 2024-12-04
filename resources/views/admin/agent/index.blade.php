@@ -66,10 +66,10 @@
                                     <button class="btn btn-sm" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button></a>
-                                <form action="{{ route('agents.destroy', $agent->AgentUserRegisterId) }}" method="post" class="agent_delete" id="delete-agent-{{ $agent->id }}">
+                                <form action="{{ route('agents.destroy', $agent->AgentUserRegisterId) }}" method="post" class="agent_delete" id="delete-agent-{{ $agent->AgentUserRegisterId }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-sm" title="Delete" onclick="confirmDelete('{{ $agent->id }}')">
+                                    <button type="button" class="btn btn-sm" title="Delete" onclick="confirmDelete('{{ $agent->AgentUserRegisterId }}')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
