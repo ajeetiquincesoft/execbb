@@ -68,7 +68,9 @@ class OfferController extends Controller
         $states = DB::table('states')->get();
         $offer_types = DB::table('offer_types')->get();
         // Get the next ID
-        $nextOfferId = Offer::max('OfferID') + 1;
+        $lastAutoIncrementId = DB::select("SHOW TABLE STATUS LIKE 'offers'");
+        // Extract the auto_increment value (next ID)
+        $nextOfferId = $lastAutoIncrementId[0]->Auto_increment;
         return view('admin.offer.create', compact('step', 'offerData', 'buyers', 'agents', 'states', 'listings', 'nextOfferId', 'offer_types'));
     }
 
