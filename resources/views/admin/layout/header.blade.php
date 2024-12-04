@@ -58,12 +58,13 @@
           'show.referral' => 'View Referral',
           'edit.showing' => 'Edit Showing',
           'show.showing' => 'View Showing',
+          'reports' => 'Reports',
           ];
           @endphp
 
           @foreach ($breadcrumbs as $key => $label)
           @if ($route == $key)
-          @if ($route == 'email.buyer')
+          @if ($route == 'email.buyer' || $route == 'reports')
           <li class="breadcrumb-item"><a class="nav-link" href="#">Report</a></li>
           <li class="breadcrumb-item">
             <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>

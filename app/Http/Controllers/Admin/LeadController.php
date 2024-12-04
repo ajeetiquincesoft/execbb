@@ -58,7 +58,7 @@ class LeadController extends Controller
         $listed = $request->has('listed') ? 1 : 0;
         $reInc = $request->has('reInc') ? 1 : 0;
         $sfbo = $request->has('sfbo') ? 1 : 0;
-        DB::table('leads')->insert([
+        $insert = DB::table('leads')->insert([
             'Status' => $request->status,
             'BusName' => $request->businessName,
             'Address' => $request->address,
@@ -93,7 +93,12 @@ class LeadController extends Controller
             'updated_at' => now(),
         ]);
         DB::commit();
-        return redirect('admin/lead/all')->with('success_message','Lead generate successfully');
+        if($insert){
+            return redirect()->route('all.lead')->with('success','Lead generate successfully');
+        }
+        else{
+            return redirect()->route('all.lead')->with('error','There are some error! can not be create.');
+        }
     }
     public function edit($id){
         $lead =  DB::table('leads')->where('LeadID', $id)->first();
