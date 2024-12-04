@@ -25,34 +25,40 @@ class ReportsController extends Controller
     $columns = [];
     $tableName = '';
     $datas = null;
+    $fileName = '';
 
     // Define the file name and table based on the report type
     if ($reportName == 'listing') {
         $tableName = (new Listing)->getTable();
         $columns = Schema::getColumnListing($tableName);
-        $datas = DB::table('listings')->orderBy('ListingID','desc');
+        $datas = DB::table('listings')->orderBy('ListingID','desc')->get();
         $fileName = 'listings.csv';
     } elseif ($reportName == 'offer') {
         $tableName = (new Offer)->getTable();
         $columns = Schema::getColumnListing($tableName);
-        $datas = DB::table('offers')->orderBy('OfferID','desc');
+        $datas = DB::table('offers')->orderBy('OfferID','desc')->get();
         $fileName = 'offers.csv';
     } elseif ($reportName == 'agent') {
         $tableName = (new Agent)->getTable();
         $columns = Schema::getColumnListing($tableName);
-        $datas = DB::table('agents')->orderBy('AgentTableID','desc');
+        $datas = DB::table('agents')->orderBy('AgentTableID','desc')->get();
         $fileName = 'agents.csv';
     } elseif ($reportName == 'buyer') {
         $tableName = (new Buyer)->getTable();
         $columns = Schema::getColumnListing($tableName);
-        $datas = DB::table('buyers')->orderBy('BuyerID','desc');
+        $datas = DB::table('buyers')->orderBy('BuyerID','desc')->get();
         $fileName = 'buyers.csv';
+    }elseif ($reportName == 'leads') {
+        $tableName = ' leads';
+        $columns = Schema::getColumnListing('leads');
+        $datas = DB::table('leads')->orderBy('LeadID','desc')->get();
+        $fileName = 'leads.csv';
     }
 
     if ($datas->count() == 0) {
         return response()->json(['error' => 'No data available for the selected report.']);
     }
-
+   
     // Set the CSV headers for the response
     $headers = [
         "Content-type" => "text/csv",
@@ -64,30 +70,37 @@ class ReportsController extends Controller
 
     // Open a memory stream for writing CSV data
     $handle = fopen('php://output', 'w');
+      // Write the column headers to the CSV file
+      fputcsv($handle, $columns);
+      $datasArray = $datas->toArray();
+     // dd($columns);
+      //dd(is_array($columns));
+ foreach ($datasArray as $data) {
+    $row = [];
 
-    // Define chunk size for headers and data (10 columns at a time)
-    $chunkSize = 10;
-    $columnChunks = array_chunk($columns, $chunkSize); // Divide columns into chunks of 10
+    // Loop through each column name and fetch the corresponding value from $data
+    foreach ($columns as $column) {
+        // Add each value to the row array (using -> to access properties of the object)
+        $row[] = $data->$column;
+    }
+    
+    fputcsv($handle, $row); 
+    //dd($row);
+    } 
+/*     DB::table('buyers')->orderBy('BuyerID', 'desc')->chunk(5, function ($datas) use ($handle) {
+        // Loop through each chunk of 10 records
+        foreach ($datas as $data) {
+            // Convert the object to an array using get_object_vars or typecasting
+            $dataArray = (array) $data;  // or you can use get_object_vars($data)
+        
+            // Get the values from the array (remove keys)
+            $dataValues = array_values($dataArray);
 
-    $datas->chunk(40, function ($chunk) use ($handle, $columnChunks) {
-        // For each chunk of data, we will write the headers and then the data
-        foreach ($columnChunks as $index => $columnChunk) {
-            // Write headers for the current chunk
-            fputcsv($handle, $columnChunk); // Write headers chunk
-
-            // For each data row in the chunk, write the corresponding values
-            foreach ($chunk as $data) {
-                $dataArray = (array) $data;
-                $dataValues = array_values($dataArray);
-               
-                // Slice the data values to match the chunk size (first 10 columns for each chunk)
-                $dataValuesChunk = array_slice($dataValues, $index * 10, 10);
-
-                // Write the corresponding data chunk to the CSV
-                fputcsv($handle, $dataValuesChunk);
-            }
+            // Write the corresponding data chunk to the CSV
+            fputcsv($handle, $dataValues);
         }
-    });
+    }); */
+ 
 
     // Return the response with headers and streamed content after all data has been written
     return response()->stream(
