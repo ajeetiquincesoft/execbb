@@ -285,5 +285,8 @@ i.fas.fa-trash {
 .accordion-button-main i {
   color: inherit !important;  /* Inherit color for any icon inside */
 }
+tbody>tr>td {
+  font-size: 14px;
+}
 
 
