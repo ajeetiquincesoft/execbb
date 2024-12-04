@@ -172,7 +172,7 @@
                     <div class="col-md-4 mb-3">
                         <label for="user_state" class="form-label">State</label>
                         <select id="State2" class="form-select" name="user_state">
-                            <option selected="">Select state</option>
+                            <option value="" selected="">Select state</option>
                             @foreach($states as $key=>$value)
                             <option value="{{$value->State}}" {{ $listingData->SState == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
                             @endforeach
