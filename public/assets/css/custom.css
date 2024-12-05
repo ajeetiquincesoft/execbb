@@ -288,5 +288,10 @@ i.fas.fa-trash {
 tbody>tr>td {
   font-size: 14px;
 }
-
+.table th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 20%;
+}
 
