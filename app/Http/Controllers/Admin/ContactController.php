@@ -58,7 +58,7 @@ class ContactController extends Controller
         $contact->Type = $request->type;
         $contact->Comments = $request->comments;
         $contact->save();
-        return redirect()->route('all.contact')->with('success', 'Your contact create successful!');
+        return redirect()->route('all.contact')->with('success', 'Your contact create successfully!');
 
     }
     public function editContact(Request $request,$id){
@@ -104,7 +104,7 @@ class ContactController extends Controller
         $contact->Type = $request->type;
         $contact->Comments = $request->comments;
         $contact->save();
-        return redirect()->route('all.contact')->with('success', 'Your contact update successful!');
+        return redirect()->route('all.contact')->with('success', 'Your contact update successfully!');
 
 
     }
