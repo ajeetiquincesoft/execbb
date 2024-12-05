@@ -57,7 +57,7 @@
                     <tbody id="listingResults">
                         @foreach($listings as $key=>$listing)
                         <tr>
-                            <td>{{$listing->ListingID}}</td>
+                            <td style="width: 10%;">{{$listing->ListingID}}</td>
                             <td>{{$listing->SellerFName}} {{$listing->SellerLName}}</td>
                             <td>{{$listing->SellerCorpName}}</td>
                             <td>{{$listing->SHomeAdd1 ? $listing->SHomeAdd1 : $listing->Address1}}</td>

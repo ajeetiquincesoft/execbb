@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
-    @if(Session::has('success'))
+@if(Session::has('success'))
     <div class="alert alert-success alert-block" id="alert-success">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>{{ Session::get('success') }}</strong>
@@ -28,14 +28,14 @@
                             </button>
                         </a>
                     </div>
-
+                    
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
-                        <form method="GET" action="{{ route('all.lead') }}">
+                    <form method="GET" action="{{ route('all.lead') }}">
                             <div class="input-group" style="max-width: 300px;">
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="input-group-text">
-                                        <i class="fas fa-search"></i>
+                                        <i class="fas fa-search"></i> 
                                     </button>
                                 </div>
                             </div>
@@ -50,37 +50,33 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col" style="text-align: center; width: 10%;">Lead ID</th>
-                            <th scope="col" style="text-align: left; width: 20%;">Name</th>
-                            <th scope="col" style="text-align: center; width: 15%;">Category</th>
-                            <th scope="col" style="text-align: left; width: 20%;">Business Name</th>
-                            <th scope="col" style="text-align: left; width: 25%;">Address</th>
-                            <th scope="col" style="text-align: center; width: 10%;">Phone</th>
-                            <th scope="col" style="text-align: center; width: 15%;">Appointment Date</th>
-                            <th scope="col" style="text-align: center; width: 15%;">Action</th>
+                            <th scope="col">Lead ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Business Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Appoinment Date</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody id="leadResults">
                         @foreach($leads as $key=>$lead)
                         <tr>
-                            <td style="text-align: center;">{{$lead->LeadID}}</td>
+                            <td>{{$lead->LeadID}}</td>
                             <td>{{$lead->SellerFName}} {{$lead->SellerLName}}</td>
-                            <td style="text-align: center;">{{ $categories[$lead->Category] ?? 'N/A' }}</td>
+                            <td>{{ $categories[$lead->Category] ?? 'N/A' }}</td>
                             <td>{{$lead->BusName}}</td>
                             <td>{{$lead->Address}}</td>
-                            <td style="text-align: center;">{{$lead->Phone}}</td>
-                            <td style="text-align: center;">{{$lead->AppointmentDate}}</td>
-                            <td class="list-btn" style="text-align: center;">
-                                <a href="{{ route('show.lead', $lead->LeadID) }}">
-                                    <button class="btn btn-sm" title="View">
+                            <td>{{$lead->Phone}}</td>
+                            <td>{{$lead->AppointmentDate}}</td>
+                            <td class="list-btn">
+                                <a href="{{ route('show.lead', $lead->LeadID) }}"><button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
-                                    </button>
-                                </a>
-                                <a href="{{ route('edit.lead', $lead->LeadID) }}">
-                                    <button class="btn btn-sm" title="Edit">
+                                    </button></a>
+                                <a href="{{ route('edit.lead', $lead->LeadID) }}"> <button class="btn btn-sm" title="Edit">
                                         <i class="fas fa-edit"></i>
-                                    </button>
-                                </a>
+                                    </button></a>
                                 <form id="delete-form-{{ $lead->LeadID }}" action="{{ route('lead.destroy', $lead->LeadID) }}" method="post">
                                     @csrf
                                     @method('DELETE')
@@ -88,12 +84,14 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
+                               <!--  <button class="btn btn-sm" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button> -->
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-
                 <div id="pagination" class="d-flex justify-content-end">
                     {{ $leads->appends(request()->query())->links('vendor.pagination.custom') }}
                 </div>
