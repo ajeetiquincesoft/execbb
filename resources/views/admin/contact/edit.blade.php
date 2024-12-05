@@ -128,12 +128,10 @@
         document.getElementById("contact").reset();
     }
     $(document).ready(function() {
-        // Define custom phone validation
-        $.validator.addMethod("phone", function(value, element) {
-            // Regex for phone validation (international and local formats)
-            var phoneRegex = /^(\+?\d{1,3}[- ]?)?(\(?\d{1,4}\)?[- ]?)?[\d- ]{6,10}$/;
-            return this.optional(element) || phoneRegex.test(value);
-        }, "Please enter a valid phone number.");
+        // Custom method for regex validation
+        $.validator.addMethod("regex", function(value, element, regexpr) {
+            return this.optional(element) || regexpr.test(value);
+        }, "Please check your input.");
         $('#contact').validate({
             rules: {
                 type: {
@@ -162,7 +160,7 @@
                 },
                 phone: {
                     required: true,
-                    phone: true
+                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
                 },
                 fax: {
                     required: true
@@ -178,8 +176,8 @@
             },
             messages: {
                 phone: {
-                    required: "Please enter a phone number.",
-                    pattern: "Please enter a valid phone number."
+                    required: 'Phone number is required.',
+                    regex: 'Must be a valid phone number.'
                 },
                 email: {
                     required: "Please enter an email address.",

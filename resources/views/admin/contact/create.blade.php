@@ -127,7 +127,6 @@
         document.getElementById("contact").reset();
     }
     $(document).ready(function() {
-        // Define custom phone validation
          // Custom method for regex validation
          $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value);
