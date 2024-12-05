@@ -24,7 +24,7 @@ class BuyerController extends Controller
                                     ->orWhere('Email', 'LIKE', '%' . $query . '%');
             }
             
-            $buyers = $buyers->orderBy('created_at', 'desc')->paginate(10);
+            $buyers = $buyers->orderBy('BuyerID', 'desc')->paginate(10);
             //dd($buyers);
             return view('admin.buyer.index', compact('buyers'));
         } catch (\Exception $e) {
