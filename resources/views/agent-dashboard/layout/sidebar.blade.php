@@ -47,7 +47,6 @@
             <ul class="acc-list" style="list-style-type: none; padding: 0;">
               <li class="nav-item {{ request()->routeIs('agent.reports') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('agent.reports')}}">Reports</a></li>
               <li class="nav-item {{ request()->routeIs('agent.email.buyer') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('agent.email.buyer')}}">Email Buyer</a></li>
-              <li class="nav-item">Welcome</li>
             </ul>
           </div>
         </div>
