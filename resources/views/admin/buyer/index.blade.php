@@ -1,6 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
     <div class="row card">
         <div class="list-header">
 
@@ -10,7 +15,7 @@
                         <h4 class="mb-0">Buyers</h4>
                     </div>
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                        <a href="#">
+                        <a href="{{route('buyerForm')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
                             <img class="create_img" src="{{ url('assets/images/Buyers.png') }}"> Add Buyer
                             </button></a>
@@ -56,6 +61,10 @@
                                 <a href="{{ route('show.buyer', $buyer->BuyerID) }}">
                                     <button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
+                                    </button></a>
+                                    <a href="{{ route('edit.buyer.form', $buyer->BuyerID) }}">
+                                    <button class="btn btn-sm" title="Edit">
+                                        <i class="fas fa-edit"></i>
                                     </button></a>
                                     <form action="{{ route('buyer.destroy', $buyer->BuyerID) }}" method="post" class="buyer_delete" id="delete-buyer-{{ $buyer->BuyerID }}">
                                     @csrf
