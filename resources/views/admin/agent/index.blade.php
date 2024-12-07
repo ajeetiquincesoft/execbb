@@ -57,7 +57,7 @@
                             <td>{{ $agent->Address1}}</td>
                             <td>{{ $agent->Telephone}}</td>
                             <td>{{ $agent->Email}}</td>
-                            <td class="list-btn-new">
+                            <td class="list-btn">
                                 <a href="{{ route('show.agent', $agent->AgentUserRegisterId) }}">
                                     <button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
