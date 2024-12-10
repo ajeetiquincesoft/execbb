@@ -480,35 +480,35 @@
                 <div class="row mb-3">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="buyerAttorney">Buyer Attorney</label>
-                        <input type="text" class="form-control" id="buyerAttorney" name="buyerAttorney">
+                        <input type="text" class="form-control" id="buyerAttorney" name="buyerAttorney" value="{{ $offer->BuyerAttorney}}">
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="sellerAttorney">Seller Attorney</label>
-                        <input type="text" class="form-control" id="sellerAttorney" name="sellerAttorney">
+                        <input type="text" class="form-control" id="sellerAttorney" name="sellerAttorney" value="{{ $offer->SellerAttorney}}">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="buyerAccountant">Buyer Accountant</label>
-                        <input type="text" class="form-control" id="buyerAccountant" name="buyerAccountant">
+                        <input type="text" class="form-control" id="buyerAccountant" name="buyerAccountant" value="{{ $offer->BuyerAccountant}}">
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="sellerAccountant">Seller Accountant</label>
-                        <input type="text" class="form-control" id="sellerAccountant" name="sellerAccountant">
+                        <input type="text" class="form-control" id="sellerAccountant" name="sellerAccountant" value="{{ $offer->SellerAccountant}}">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="landlord">Landlord</label>
-                        <input type="text" class="form-control" id="landlord" name="landlord">
+                        <input type="text" class="form-control" id="landlord" name="landlord" value="{{ $offer->Landlord}}">
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-3">
                         <label for="referral">Referral</label>
-                        <input type="text" class="form-control" id="referral" name="referral">
+                        <input type="text" class="form-control" id="referral" name="referral" value="{{ $offer->Referral}}">
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-3">
                         <label for="referralFeePaid">Referral Fee Paid</label>
-                        <input type="text" class="form-control" id="referralFeePaid" name="referralFeePaid">
+                        <input type="text" class="form-control" id="referralFeePaid" name="referralFeePaid" value="{{ $offer->ReferralFeePaid}}">
                     </div>
                 </div>
                 <div class="row mb-3">

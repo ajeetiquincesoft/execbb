@@ -79,7 +79,7 @@ class OfferController extends Controller
     {
         $step = session('step', 1);
         $this->validateStep($request, $step);
-       
+
         // Logic to handle form submission based on current step
         if ($step == 1) {
             if (session()->has('offerData.offer_id')) {
@@ -235,7 +235,13 @@ class OfferController extends Controller
             if (!$offer) {
                 return back()->with('error', 'Offer not found!');
             }
-            // Update the fields contact info with the request data
+            $offer->BuyerAttorney = $request->buyerAttorney;
+            $offer->SellerAttorney = $request->sellerAttorney;
+            $offer->BuyerAccountant = $request->buyerAccountant;
+            $offer->SellerAccountant = $request->sellerAccountant;
+            $offer->Landlord = $request->landlord;
+            $offer->Referral = $request->referral;
+            $offer->ReferralFeePaid = $request->referralFeePaid;
             $offer->SchedCloseDate = $request->schedClosedDate;
             $offer->SchedCloseTime = $request->schedCloseTime;
             $offer->AttorneyLetters = $request->attorneyLetters;
@@ -281,20 +287,22 @@ class OfferController extends Controller
             $request->session()->put('offerData.realEstateIncluded',  $realEstateIncluded);
             $request->session()->put('offerData.optionToBuy',  $optionToBuy);
         } elseif ($step == 6) {
-            $offer_id = session()->get('offerData.offer_id');
-            $offer = Offer::where('OfferID', $offer_id)->first();
-            if (!$offer) {
-                return back()->with('error', 'Offer not found!');
-            }
-            // Update the fields with the request data
-            $offer->Contingencies = $request->contingencies;
-            $offer->Comments = $request->comments;
+            if ($request->has('next')) {
+                $offer_id = session()->get('offerData.offer_id');
+                $offer = Offer::where('OfferID', $offer_id)->first();
+                if (!$offer) {
+                    return back()->with('error', 'Offer not found!');
+                }
+                // Update the fields with the request data
+                $offer->Contingencies = $request->contingencies;
+                $offer->Comments = $request->comments;
 
-            // Save the updated record
-            $offer->offer_step = $step;
-            $offer->save();
-            session()->forget(['offerData', 'step']);
-            return redirect()->route('all.offer')->with('success', 'Your offer create successful!');
+                // Save the updated record
+                $offer->offer_step = $step;
+                $offer->save();
+                session()->forget(['offerData', 'step']);
+                return redirect()->route('all.offer')->with('success', 'Your offer create successfully!');
+            }
         }
 
         // Update the session with the next step
@@ -483,6 +491,14 @@ class OfferController extends Controller
         } elseif ($step == 4) {
             if ($request->has('schedClosedDate')) {
                 // Update the fields contact info with the request data
+                $offer->BuyerAttorney = $request->buyerAttorney;
+                $offer->SellerAttorney = $request->sellerAttorney;
+                $offer->BuyerAccountant = $request->buyerAccountant;
+                $offer->SellerAccountant = $request->sellerAccountant;
+                $offer->Landlord = $request->landlord;
+                $offer->Referral = $request->referral;
+                $offer->ReferralFeePaid = $request->referralFeePaid;
+
                 $offer->SchedCloseDate = $request->schedClosedDate;
                 $offer->SchedCloseTime = $request->schedCloseTime;
                 $offer->AttorneyLetters = $request->attorneyLetters;
@@ -527,17 +543,18 @@ class OfferController extends Controller
                 $request->session()->put('offerData.optionToBuy',  $optionToBuy);
             }
         } elseif ($step == 6) {
+            if ($request->has('next')) {
+                // Update the fields with the request data
+                if ($request->has('comments')) {
+                    $offer->Contingencies = $request->contingencies;
+                    $offer->Comments = $request->comments;
 
-            // Update the fields with the request data
-            if ($request->has('comments')) {
-                $offer->Contingencies = $request->contingencies;
-                $offer->Comments = $request->comments;
-
-                // Save the updated record
-                $offer->offer_step = $step;
-                $offer->save();
-                session()->forget(['offerData', 'step']);
-                return redirect()->route('all.offer')->with('success', 'Your offer has been update successful!');
+                    // Save the updated record
+                    $offer->offer_step = $step;
+                    $offer->save();
+                    session()->forget(['offerData', 'step']);
+                    return redirect()->route('all.offer')->with('success', 'Your offer has been update successfully!');
+                }
             }
         }
 

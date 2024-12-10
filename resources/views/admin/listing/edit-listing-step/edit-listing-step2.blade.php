@@ -110,15 +110,15 @@
                                 <label>Interest</label>
                                 <div class="d-flex">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestHot" name="interest" value="Hot"  {{ $listingData->Interest == 'Hot' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestHot" name="motivation" value="Hot"  {{ $listingData->Motivation == 'Hot' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestHot">Hot</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestMedium" name="interest" value="Medium" {{  $listingData->Interest == 'Medium' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestMedium" name="motivation" value="Medium" {{  $listingData->Motivation == 'Medium' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestMedium">Medium</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="interestCold" name="interest" value="Cold" {{  $listingData->Interest == 'Cold' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-check-input" id="interestCold" name="motivation" value="Cold" {{  $listingData->Motivation == 'Cold' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="interestCold">Cold</label>
                                     </div>
                                 </div>

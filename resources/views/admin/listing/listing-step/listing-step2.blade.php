@@ -111,15 +111,15 @@
                         <label>Interest</label>
                         <div class="d-flex">
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestHot" name="interest" value="Hot" {{ (old('interest') == 'Hot' || session('formData.interest') == 'Hot') ? 'checked' : '' }}>
+                                <input type="radio" class="form-check-input" id="interestHot" name="motivation" value="Hot" {{ (old('motivation') == 'Hot' || session('formData.motivation') == 'Hot') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="interestHot">Hot</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestMedium" name="interest" value="Medium" {{ (old('interest') == 'Medium' || session('formData.interest') == 'Medium') ? 'checked' : '' }}>
+                                <input type="radio" class="form-check-input" id="interestMedium" name="motivation" value="Medium" {{ (old('motivation') == 'Medium' || session('formData.motivation') == 'Medium') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="interestMedium">Medium</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestCold" name="interest" value="Cold" {{ (old('interest') == 'Cold' || session('formData.interest') == 'Cold') ? 'checked' : '' }}>
+                                <input type="radio" class="form-check-input" id="interestCold" name="motivation" value="Cold" {{ (old('motivation') == 'Cold' || session('formData.motivation') == 'Cold') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="interestCold">Cold</label>
                             </div>
                         </div>

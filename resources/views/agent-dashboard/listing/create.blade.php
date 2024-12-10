@@ -331,15 +331,15 @@
                         <label>Interest</label>
                         <div class="d-flex">
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestHot" name="interest" value="Hot" {{ (old('interest') == 'Hot' || session('listingData.interest') == 'Hot') ? 'checked' : '' }}>
+                                <input type="radio" class="form-check-input" id="interestHot" name="motivation" value="Hot" {{ (old('motivation') == 'Hot' || session('listingData.motivation') == 'Hot') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="interestHot">Hot</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestMedium" name="interest" value="Medium" {{ (old('interest') == 'Medium' || session('listingData.interest') == 'Medium') ? 'checked' : '' }}>
+                                <input type="radio" class="form-check-input" id="interestMedium" name="motivation" value="Medium" {{ (old('motivation') == 'Medium' || session('listingData.motivation') == 'Medium') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="interestMedium">Medium</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="interestCold" name="interest" value="Cold" {{ (old('interest') == 'Cold' || session('listingData.interest') == 'Cold') ? 'checked' : '' }}>
+                                <input type="radio" class="form-check-input" id="interestCold" name="motivation" value="Cold" {{ (old('motivation') == 'Cold' || session('listingData.motivation') == 'Cold') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="interestCold">Cold</label>
                             </div>
                         </div>

@@ -19,21 +19,21 @@
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="costOfSales">Cost of Sales <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="costOfSales" name="costOfSales"  value="">
+                                    <input type="number" class="form-control" id="costOfSales" name="costOfSales"  value="{{$listingData->CostOfSale}}">
                                     @error('costOfSales')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="grossProfit">Gross Profit <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="grossProfit" name="grossProfit"  value="">
+                                    <input type="number" class="form-control" id="grossProfit" name="grossProfit"  value="{{$listingData->GrossProfit}}">
                                     @error('grossProfit')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
                                     <label for="totalExpenses">Total Expenses <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="totalExpenses" name="totalExpenses"  value="">
+                                    <input type="number" class="form-control" id="totalExpenses" name="totalExpenses"  value="{{$listingData->TotalExpenses}}">
                                     @error('totalExpenses')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror

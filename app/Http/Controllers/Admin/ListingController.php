@@ -392,7 +392,7 @@ class ListingController extends Controller
             'Seats' => $request->numSeats,
             'YrsEstablished' => $yearsEstablished,
             'YrsPresentOwner' => $request->yearsPrevOwner,
-            'Interest' => $request->interest,
+            'Motivation' => $request->motivation,
             'PTEmp' => $request->PTEmp,
             'FTEmp' => $request->FTEmp,
             'Steps' => 2
@@ -485,9 +485,9 @@ class ListingController extends Controller
         ]);
         $listing = Listing::where('ListingID', $request->id)->update([
             'AnnualSales' => $request->annualSales,
-            /*  '' => $request->costOfSales,
-                '' => $request->grossProfit,
-                '' => $request->totalExpenses, */
+            'CostOfSale' => $request->costOfSales,
+            'GrossProfit' => $request->grossProfit,
+            'TotalExpenses' => $request->totalExpenses,
             'COG1Label' => $request->goods_name1,
             'COG2Label' => $request->goods_name2,
             'COG3Label' => $request->goods_name3,
@@ -793,7 +793,7 @@ class ListingController extends Controller
             'Seats' => $request->numSeats,
             'YrsEstablished' => $yearsEstablished,
             'YrsPresentOwner' => $request->yearsPrevOwner,
-            'Interest' => $request->interest,
+            'Motivation' => $request->motivation,
             'PTEmp' => $request->PTEmp,
             'FTEmp' => $request->FTEmp,
             'Steps' => 2
@@ -888,9 +888,9 @@ class ListingController extends Controller
         }
         $listing = Listing::where('ListingID', $id)->update([
             'AnnualSales' => $request->annualSales,
-            /*  '' => $request->costOfSales,
-            '' => $request->grossProfit,
-            '' => $request->totalExpenses, */
+            'CostOfSale' => $request->costOfSales,
+            'GrossProfit' => $request->grossProfit,
+            'TotalExpenses' => $request->totalExpenses,
             'COG1Label' => $request->goods_name1,
             'COG2Label' => $request->goods_name2,
             'COG3Label' => $request->goods_name3,

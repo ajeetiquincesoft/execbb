@@ -44,7 +44,7 @@ class AgentListingController extends Controller
         $previous = Listing::where('ListingID', '<', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'desc')->first();
         // Get the next listing ID
         $next = Listing::where('ListingID', '>', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'asc')->first();
-        return view('agent-dashboard.listing.show', compact('listing','previous','next'));
+        return view('agent-dashboard.listing.show', compact('listing', 'previous', 'next'));
     }
     public function getOptions($id)
     {
@@ -228,7 +228,7 @@ class AgentListingController extends Controller
                 'Seats' => $request->numSeats,
                 'YrsEstablished' => $request->yearsEstablished,
                 'YrsPresentOwner' => $request->yearsPrevOwner,
-                'Interest' => $request->interest,
+                'Motivation' => $request->motivation,
                 'PTEmp' => $request->PTEmp,
                 'FTEmp' => $request->FTEmp,
                 'Steps' => 2
@@ -299,11 +299,9 @@ class AgentListingController extends Controller
             if ($listing) {
                 // Update the attributes
                 $listing->AnnualSales = $request->annualSales;
-                // Uncomment and update the following lines as needed
-                // $listing->CostOfSales = $request->costOfSales;
-                // $listing->GrossProfit = $request->grossProfit;
-                // $listing->TotalExpenses = $request->totalExpenses;
-
+                $listing->CostOfSale = $request->costOfSales;
+                $listing->GrossProfit = $request->grossProfit;
+                $listing->TotalExpenses = $request->totalExpenses;
                 $listing->COG1Label = $request->goods_name1;
                 $listing->COG2Label = $request->goods_name2;
                 $listing->COG3Label = $request->goods_name3;
@@ -333,25 +331,26 @@ class AgentListingController extends Controller
             $mergedData = array_merge($listingData, $request->all());
             $request->session()->put('listingData', $mergedData);
         } elseif ($step == 5) {
+            if ($request->has('next')) {
+                $listing_id = session()->get('listingData.listing_id');
+                $listing = Listing::where('ListingID', $listing_id)->first();
+                if (!$listing) {
+                    return back()->with('error', 'Listing not found!');
+                }
+                // Update the fields with the request data
+                $listing->Highlights = $request->highlights;
+                $listing->Comments = $request->comments;
+                $listing->Directions = $request->directions;
+                $listing->LeadID = $request->leadId;
+                $listing->Status = 'published';
+                $listing->Active = 1;
 
-            $listing_id = session()->get('listingData.listing_id');
-            $listing = Listing::where('ListingID', $listing_id)->first();
-            if (!$listing) {
-                return back()->with('error', 'Listing not found!');
+                // Save the updated record
+                $listing->Steps = $step;
+                $listing->save();
+                session()->forget(['listingData', 'step']);
+                return redirect()->route('agent.all.listing')->with('success', 'Your listing create successfully!');
             }
-            // Update the fields with the request data
-            $listing->Highlights = $request->highlights;
-            $listing->Comments = $request->comments;
-            $listing->Directions = $request->directions;
-            $listing->LeadID = $request->leadId;
-            $listing->Status = 'published';
-            $listing->Active = 1;
-
-            // Save the updated record
-            $listing->Steps = $step;
-            $listing->save();
-            session()->forget(['listingData', 'step']);
-            return redirect()->route('agent.all.listing')->with('success', 'Your listing create successful!');
         }
         // Update the session with the next step
         if ($request->has('previous')) {
@@ -376,7 +375,7 @@ class AgentListingController extends Controller
         }
         if ($previousListingId != $id) {
             session(['step' => 1]);
-            session(['listingData.prevListingId' => $id]); 
+            session(['listingData.prevListingId' => $id]);
         }
         $step = session('step', 1);
         $listingDatas = session('listingData', []);
@@ -394,11 +393,11 @@ class AgentListingController extends Controller
         }
         $listingTypes = DB::table('listing_types')->get();
         $leads = DB::table('leads')->get();
-         // Get the previous listing ID
-         $previous = Listing::where('ListingID', '<', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'desc')->first();
-         // Get the next listing ID
-         $next = Listing::where('ListingID', '>', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'asc')->first();
-        return view('agent-dashboard.listing.edit', compact('step', 'listingDatas', 'categoryData', 'states', 'sub_categories', 'counties', 'agents', 'listingTypes', 'leads', 'listingData', 'selectedAgents','previous','next'));
+        // Get the previous listing ID
+        $previous = Listing::where('ListingID', '<', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'desc')->first();
+        // Get the next listing ID
+        $next = Listing::where('ListingID', '>', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'asc')->first();
+        return view('agent-dashboard.listing.edit', compact('step', 'listingDatas', 'categoryData', 'states', 'sub_categories', 'counties', 'agents', 'listingTypes', 'leads', 'listingData', 'selectedAgents', 'previous', 'next'));
     }
     public function editProcessForm(Request $request, $id)
     {
@@ -486,7 +485,7 @@ class AgentListingController extends Controller
                 $listing->Seats = $request->numSeats;
                 $listing->YrsEstablished = $request->yearsEstablished;
                 $listing->YrsPresentOwner = $request->yearsPrevOwner;
-                $listing->Interest = $request->interest;
+                $listing->Motivation = $request->motivation;
                 $listing->PTEmp = $request->PTEmp;
                 $listing->FTEmp = $request->FTEmp;
                 $listing->Steps = 2;
@@ -542,11 +541,9 @@ class AgentListingController extends Controller
             if ($request->has('annualSales')) {
                 // Update the attributes
                 $listing->AnnualSales = $request->annualSales;
-                // Uncomment and update the following lines as needed
-                // $listing->CostOfSales = $request->costOfSales;
-                // $listing->GrossProfit = $request->grossProfit;
-                // $listing->TotalExpenses = $request->totalExpenses;
-
+                $listing->CostOfSale = $request->costOfSales;
+                $listing->GrossProfit = $request->grossProfit;
+                $listing->TotalExpenses = $request->totalExpenses;
                 $listing->COG1Label = $request->goods_name1;
                 $listing->COG2Label = $request->goods_name2;
                 $listing->COG3Label = $request->goods_name3;
@@ -577,18 +574,20 @@ class AgentListingController extends Controller
                 $request->session()->put('listingData', $mergedData);
             }
         } elseif ($step == 5) {
-            if ($request->has('highlights')) {
-                $listing->Highlights = $request->highlights;
-                $listing->Comments = $request->comments;
-                $listing->Directions = $request->directions;
-                $listing->LeadID = $request->leadId;
-                $listing->Status = 'published';
-                $listing->Active = 1;
-                // Save the updated record
-                $listing->Steps = $step;
-                $listing->save();
-                session()->forget(['listingData', 'step']);
-                return redirect()->route('agent.all.listing')->with('success', 'Your listing create successful!');
+            if ($request->has('next')) {
+                if ($request->has('highlights')) {
+                    $listing->Highlights = $request->highlights;
+                    $listing->Comments = $request->comments;
+                    $listing->Directions = $request->directions;
+                    $listing->LeadID = $request->leadId;
+                    $listing->Status = 'published';
+                    $listing->Active = 1;
+                    // Save the updated record
+                    $listing->Steps = $step;
+                    $listing->save();
+                    session()->forget(['listingData', 'step']);
+                    return redirect()->route('agent.all.listing')->with('success', 'Your listing create successfully!');
+                }
             }
         }
         // Update the session with the next step
@@ -608,7 +607,7 @@ class AgentListingController extends Controller
     {
         // Initialize validation rules as an empty array
         $rules = [];
-        
+
         // Check if the "next" button is pressed (we assume the button name is 'next')
         if ($request->has('next')) {
             // Switch case based on the current step
@@ -680,25 +679,24 @@ class AgentListingController extends Controller
                     ];
                     break;
             }
-            
+
             // Validate the request with the current step's rules
             $request->validate($rules);
         }
     }
-    
+
     public function destroy(Request $request, $id)
     {
-            // Find the listing by custom ID
-            $listing = Listing::where('ListingID', $id)->first();
-            if (!$listing) {
-                return redirect()->route('agent.all.listing')
-                    ->with('err_message', 'Listing not found.');
-            }
-            // Delete the listing
-            $listing->delete();
+        // Find the listing by custom ID
+        $listing = Listing::where('ListingID', $id)->first();
+        if (!$listing) {
             return redirect()->route('agent.all.listing')
-                ->with('success', 'Listing deleted successfully.');
-        
+                ->with('err_message', 'Listing not found.');
+        }
+        // Delete the listing
+        $listing->delete();
+        return redirect()->route('agent.all.listing')
+            ->with('success', 'Listing deleted successfully.');
     }
     public function prevNext(Request $request, $id)
     {
@@ -707,5 +705,4 @@ class AgentListingController extends Controller
         $step = session('step', 1);
         return redirect()->route('agent.edit.listing.form', $id);
     }
-    
 }

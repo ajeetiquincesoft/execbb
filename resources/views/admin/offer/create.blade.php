@@ -479,35 +479,35 @@
                 <div class="row mb-3">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="buyerAttorney">Buyer Attorney</label>
-                        <input type="text" class="form-control" id="buyerAttorney" name="buyerAttorney">
+                        <input type="text" class="form-control" id="buyerAttorney" name="buyerAttorney" value="{{ session('offerData.buyerAttorney') ?? old('buyerAttorney')}}">
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="sellerAttorney">Seller Attorney</label>
-                        <input type="text" class="form-control" id="sellerAttorney" name="sellerAttorney">
+                        <input type="text" class="form-control" id="sellerAttorney" name="sellerAttorney" value="{{ session('offerData.sellerAttorney') ?? old('sellerAttorney')}}">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="buyerAccountant">Buyer Accountant</label>
-                        <input type="text" class="form-control" id="buyerAccountant" name="buyerAccountant">
+                        <input type="text" class="form-control" id="buyerAccountant" name="buyerAccountant" value="{{ session('offerData.buyerAccountant') ?? old('buyerAccountant')}}">
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="sellerAccountant">Seller Accountant</label>
-                        <input type="text" class="form-control" id="sellerAccountant" name="sellerAccountant">
+                        <input type="text" class="form-control" id="sellerAccountant" name="sellerAccountant" value="{{ session('offerData.sellerAccountant') ?? old('sellerAccountant')}}">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
                         <label for="landlord">Landlord</label>
-                        <input type="text" class="form-control" id="landlord" name="landlord">
+                        <input type="text" class="form-control" id="landlord" name="landlord" value="{{ session('offerData.landlord') ?? old('landlord')}}">
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-3">
                         <label for="referral">Referral</label>
-                        <input type="text" class="form-control" id="referral" name="referral">
+                        <input type="text" class="form-control" id="referral" name="referral" value="{{ session('offerData.referral') ?? old('referral')}}">
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 mb-3">
                         <label for="referralFeePaid">Referral Fee Paid</label>
-                        <input type="text" class="form-control" id="referralFeePaid" name="referralFeePaid">
+                        <input type="text" class="form-control" id="referralFeePaid" name="referralFeePaid" value="{{ session('offerData.referralFeePaid') ?? old('referralFeePaid')}}">
                     </div>
                 </div>
                 <div class="row mb-3">
