@@ -19,7 +19,7 @@
                 <hr>
                 <div class="row mb-2">
                     <div class="col-md-6 mb-3">
-                        <label for="Recipient Email">Recipient Email</label>
+                        <label for="Recipient Email">Recipient Email <span class="text-danger">*</span></label>
                         <select id="recipientEmail" name="recipientEmail[]" class="form-select" multiple>
                             @foreach($buyers as $key=>$buyer)
                             <option value="{{$buyer->Email}}">{{$buyer->Email}}</option>
@@ -30,7 +30,7 @@
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="Subject">Subject</label>
+                        <label for="Subject">Subject <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm" id="subject" name="subject" value="{{old('subject')}}">
                         @error('subject')
                         <div class="text-danger">{{ $message }}</div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12 mb-3">
-                        <label for="Content">Content</label>
+                        <label for="Content">Content <span class="text-danger">*</span></label>
                         <textarea class="form-control ckeditor" id="emai_content" name="email_content" required>{{ old('email_content') }}</textarea>
                         @error('email_content')
                         <div class="text-danger">{{ $message }}</div>
