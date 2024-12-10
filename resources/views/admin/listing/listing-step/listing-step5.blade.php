@@ -14,13 +14,13 @@
                     <!-- One "tab" for each step in the form: -->
                    
                     <div class="tab" style="display: block;">
-                        <h4>Comments</h4>
+                        <h4>Comments </h4>
                         <hr>
                         <div class="comment-area w-100">
                             <div class="row mb-3">
                                 <!-- Highlights -->
                                 <div class="col">
-                                    <label for="highlights" class="form-label">Highlights</label>
+                                    <label for="highlights" class="form-label">Highlights <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="highlights" name="highlights" rows="4">{{ old('highlights') }}</textarea>
                                     @error('highlights')
                                     <small class="text-danger">{{ $message }}</small>
@@ -38,7 +38,7 @@
                             <div class="row mb-3">
                                 <!-- Comments -->
                                 <div class="col">
-                                    <label for="comments" class="form-label">Comments</label>
+                                    <label for="comments" class="form-label">Comments <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="comments" name="comments" rows="4">{{ old('comments') }}</textarea>
                                     @error('comments')
                                     <small class="text-danger">{{ $message }}</small>
@@ -48,7 +48,7 @@
                             <div class="row mb-3">
                                 <!-- Lead ID -->
                                 <div class="col">
-                                    <label for="leadId" class="form-label">Lead ID</label>
+                                    <label for="leadId" class="form-label">Lead ID <span class="text-danger">*</span></label>
                                     <select id="leadId" name="leadId" class="form-select">
                                         <option value="" selected="">Select lead</option>
                                         @foreach($leads as $key=>$lead)
