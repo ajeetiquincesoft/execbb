@@ -8,6 +8,8 @@ use App\Models\Listing;
 use App\Models\Agent;
 use App\Models\Buyer;
 use App\Models\Offer;
+use App\Models\Contact;
+use App\Models\Referral;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
@@ -30,6 +32,8 @@ class ReportsController extends Controller
             'offer' => ['model' => new Offer, 'fileName' => 'offers.csv', 'orderColumn' => 'OfferID'],
             'agent' => ['model' => new Agent, 'fileName' => 'agents.csv', 'orderColumn' => 'AgentTableID'],
             'buyer' => ['model' => new Buyer, 'fileName' => 'buyers.csv', 'orderColumn' => 'BuyerID'],
+            'contact' => ['model' => new Contact, 'fileName' => 'contacts.csv', 'orderColumn' => 'ContactID'],
+            'referral' => ['model' => new Referral, 'fileName' => 'referrals.csv', 'orderColumn' => 'RefID'],
             'leads' => ['tableName' => 'leads', 'fileName' => 'leads.csv', 'orderColumn' => 'LeadID'],
         ];
         // Validate the report name

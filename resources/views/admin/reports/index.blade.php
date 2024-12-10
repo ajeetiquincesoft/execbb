@@ -17,6 +17,8 @@
                             <option value="offer">Offer</option>
                             <option value="agent">Agent</option>
                             <option value="buyer">Buyer</option>
+                            <option value="contact">Contact</option>
+                            <option value="referral">Referral</option>
                         </select>
                         @error('report')
                         <div class="text-danger">{{ $message }}</div>
