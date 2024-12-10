@@ -78,28 +78,41 @@
         });
 </script>
 <script>
-  
-           $(document).ready(function () {
-                $('#emailBuyer').validate({
-                    rules: {
-                        recipientEmail: {
-                            required: true
-                        },
-                        subject: {
-                            required: true
-                        },
-                        emai_content: {
-                            required: true
-                        },
-                        
-                    },
-                    messages: {
-                      
-                    },
-                    submitHandler: function (form) {
-                        form.submit();
-                    }
-                });
-            });
+    $(document).ready(function() {
+        $.validator.addMethod('requiredMultiSelect', function(value, element) {
+            // Check if any option is selected
+            return this.optional(element) || $(element).val().length > 0;
+        }, 'Please select at least one recipient');
+        $('#emailBuyer').validate({
+            
+            rules: {
+                "recipientEmail[]": {
+                    required: true,
+                    requiredMultiSelect: true
+                },
+                subject: {
+                    required: true
+                },
+                email_content: {
+                    required: true
+                },
+
+            },
+            ignore: ":disabled",
+            messages: {
+                "recipientEmail[]": {
+                    requiredMultiSelect: "Please select at least one recipient"
+                }
+
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+        $('#recipientEmail').on('change', function() {
+            // Validate the form when the selection changes
+            $('#emailBuyer').valid();
+        });
+    });
 </script>
 @endsection

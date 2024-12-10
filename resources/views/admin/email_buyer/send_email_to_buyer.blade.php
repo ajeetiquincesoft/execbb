@@ -64,7 +64,7 @@
         /* Set the min-height to whatever you need */
     }
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 
 <script>
@@ -75,28 +75,42 @@
             console.error(error);
         });
 </script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        $.validator.addMethod('requiredMultiSelect', function(value, element) {
+            // Check if any option is selected
+            return this.optional(element) || $(element).val().length > 0;
+        }, 'Please select at least one recipient');
         $('#emailBuyer').validate({
+            
             rules: {
-                recipientEmail: {
-                    required: true
+                "recipientEmail[]": {
+                    required: true,
+                    requiredMultiSelect: true
                 },
                 subject: {
                     required: true
                 },
-                emai_content: {
+                email_content: {
                     required: true
                 },
 
             },
+            ignore: ":disabled",
             messages: {
+                "recipientEmail[]": {
+                    requiredMultiSelect: "Please select at least one recipient"
+                }
 
             },
             submitHandler: function(form) {
                 form.submit();
             }
+        });
+        $('#recipientEmail').on('change', function() {
+            // Validate the form when the selection changes
+            $('#emailBuyer').valid();
         });
     });
 </script>
