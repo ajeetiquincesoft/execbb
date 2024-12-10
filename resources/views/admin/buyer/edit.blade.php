@@ -138,7 +138,7 @@
                                     name="corporateBuyer" value="1" {{ (old('corporateBuyer') || session('buyerData.corporateBuyer') == 1) ? 'checked' : '' }}>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label class="form-label" for="preferredTerms">Proffered Terms <span class="text-danger">*</span></label>
+                                <label class="form-label" for="preferredTerms">Proffered Terms </label>
                                 <input type="number" class="form-control" id="preferredTerms" name="preferredTerms"  value="">
                             </div>
                             <div class="col-md-3 mb-3">
@@ -199,7 +199,7 @@
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label" for="motivation">Motivation <span class="text-danger">*</span></label>
+                                    <label class="form-label" for="motivation">Motivation</label>
                                     <div class="d-flex justify-content-between">
                                         <input type="radio" id="motivation1" name="motivation" value="1" {{ $buyerData->Interest == 1 ? 'checked' : '' }}>
                                         <label class="form-label" for="motivation1">1 - Hot</label>
@@ -444,12 +444,6 @@
                 },
                 businessPhone: {
                     regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
-                },
-                preferredTerms:{
-                    required: true
-                },
-                motivation:{
-                    required: true
                 }
                 
             },

@@ -114,7 +114,7 @@ class BuyerController extends Controller
                 $buyer->callWhen = $request->callWhen;
 
                 /*  $buyer->corporateBuyer = $request->corporateBuyer;*/
-                $buyer->Group = $request->preferredTerms;
+                $buyer->Group = $request->preferredTerms ?? 0;
                 $buyer->ExpDate = $request->monthExpDate;
                 $buyer->OptOut = $emailOptOut;
 
@@ -139,7 +139,7 @@ class BuyerController extends Controller
             $buyer->PartnerName = $request->partnerName;
             $buyer->PartnerPhone = $request->partnerPhone;
             $buyer->CurrentEmploy = $request->currentEmployment1;
-            $buyer->Interest = $request->motivation;
+            $buyer->Interest = $request->motivation ?? 0;
             $buyer->Comments = $request->comments;
             // Save the new record to the database
             $buyer->save();
@@ -253,7 +253,7 @@ class BuyerController extends Controller
                 $buyer->callWhen = $request->callWhen;
 
                 /*  $buyer->corporateBuyer = $request->corporateBuyer;*/
-                $buyer->Group = $request->preferredTerms;
+                $buyer->Group = $request->preferredTerms ?? 0;
                 $buyer->ExpDate = $request->monthExpDate;
                 $buyer->OptOut = $emailOptOut;
 
@@ -274,7 +274,7 @@ class BuyerController extends Controller
                 $buyer->PartnerName = $request->partnerName;
                 $buyer->PartnerPhone = $request->partnerPhone;
                 $buyer->CurrentEmploy = $request->currentEmployment1;
-                $buyer->Interest = $request->motivation;
+                $buyer->Interest = $request->motivation ?? 0;
                 $buyer->Comments = $request->comments;
                 // Save the new record to the database
                 $buyer->save();
