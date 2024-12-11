@@ -42,7 +42,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Referral ID</th>
+                            <th scope="col">#</th>
                             <th scope="col">Company Name</th>
                             <th scope="col">Agent Name</th>
                             <th scope="col">Address</th>
@@ -56,7 +56,7 @@
                     <tbody id="agentsResult">
                         @foreach($referrals as $index =>$referral)
                         <tr>
-                            <td>{{$referral->RefID  }}</td>
+                            <td>{{ $index + 1 + ($referrals->currentPage() - 1) * $referrals->perPage() }}</td>
                             <td>{{ $referral->RefCompany}}</td>
                             <td>{{ $referral->AgentName}}</td>
                             <td>{{ $referral->Address1}}</td>

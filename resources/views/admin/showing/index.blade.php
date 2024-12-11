@@ -42,7 +42,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Showing ID</th>
+                            <th scope="col">#</th>
                             <th scope="col">Agent Name</th>
                             <th scope="col">Buyer Name</th>
                             <th scope="col">Date</th>
@@ -55,7 +55,7 @@
                     <tbody id="agentsResult">
                         @foreach($showings as $index =>$showing)
                         <tr>
-                            <td>{{ $showing->ShowingID}}</td>
+                            <td>{{ $index + 1 + ($showings->currentPage() - 1) * $showings->perPage() }}</td>
                             <td>{{ $showing->AgentID}}</td>
                             <td>{{ $buyerName[$showing->BuyerID] ?? 'N/A'}}</td>
                             <td>{{ $showing->Date}}</td>

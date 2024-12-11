@@ -41,7 +41,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Contact ID</th>
+                            <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Company Name</th>
                             <th scope="col">Phone</th>
@@ -53,7 +53,7 @@
                     <tbody id="agentsResult">
                         @foreach($contacts as $index =>$contact)
                         <tr>
-                            <td>{{$contact->ContactID }}</td>
+                        <td>{{ $index + 1 + ($contacts->currentPage() - 1) * $contacts->perPage() }}</td>
                             <td>{{ $contact->FName}}</td>
                             <td>{{ $contact->CompanyName}}</td>
                             <td>{{ $contact->Phone}}</td>
