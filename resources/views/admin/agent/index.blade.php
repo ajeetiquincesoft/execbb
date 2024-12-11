@@ -51,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody id="agentsResult">
-                        @foreach($agents as $index =>$agent)
+                        @forelse($agents as $index =>$agent)
                         <tr>
                             <td>{{ $index + 1 + ($agents->currentPage() - 1) * $agents->perPage() }}</td>
                             <td>{{ $agent->AgentID}}</td>
@@ -80,7 +80,11 @@
                                 </button> -->
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="12" class="text-center no-data-found">No agent found.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">

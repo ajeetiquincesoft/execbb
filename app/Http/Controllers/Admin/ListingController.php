@@ -980,4 +980,19 @@ class ListingController extends Controller
             return redirect()->back()->with('success_message', 'There are some error! can not be update.');
         }
     }
+    public function bulkAction(Request $request)
+    {
+        $action = $request->action;
+        $listing_id = $request->listing_id;
+        if ($action == "active") {
+            Listing::whereIn('ListingID', $listing_id)->update(['Active' => '1']);
+            return response()->json(array('message' => 'Listing status has been change successfully!'));
+        } else if ($action == "Inactive") {
+            Listing::whereIn('ListingID', $listing_id)->update(['Active' => '0']);
+            return response()->json(array('message' => 'Listing status has been change successfully!'));
+        } else {
+            Listing::whereIn('ListingID', $listing_id)->delete();
+            return response()->json(array('message' => 'Listing delete successfully!'));
+        }
+    }
 }

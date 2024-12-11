@@ -376,4 +376,19 @@ class BuyerController extends Controller
             $request->validate($rules);
         }
     }
+    public function bulkAction(Request $request)
+    {
+        $action = $request->action;
+        $buyer_id = $request->buyer_id;
+        if ($action == "active") {
+            Buyer::whereIn('BuyerID', $buyer_id)->update(['Active' => '1']);
+            return response()->json(array('message' => 'Buyer status has been change successfully!'));
+        } else if ($action == "Inactive") {
+            Buyer::whereIn('BuyerID', $buyer_id)->update(['Active' => '0']);
+            return response()->json(array('message' => 'Buyer status has been change successfully!'));
+        } else {
+            Buyer::whereIn('BuyerID', $buyer_id)->delete();
+            return response()->json(array('message' => 'Buyer delete successfully!'));
+        }
+    }
 }

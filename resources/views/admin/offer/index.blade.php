@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
-@if (session('success'))
+    @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-@endif
+    @endif
     <div class="row card">
         <div class="list-header">
 
@@ -17,7 +17,7 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.offer')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Off-Esc-Close.png') }}"> Add Offer
+                                <img class="create_img" src="{{ url('assets/images/Off-Esc-Close.png') }}"> Add Offer
                             </button></a>
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
@@ -26,7 +26,7 @@
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="input-group-text">
-                                        <i class="fas fa-search"></i> 
+                                        <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
@@ -48,9 +48,9 @@
                         </tr>
                     </thead>
                     <tbody id="agentsResult">
-                        @foreach($offers as $index =>$offer)
+                        @forelse($offers as $index =>$offer)
                         <tr>
-                            <td>{{$offer->OfferID}}</td>
+                            <td>{{ $index + 1 + ($offers->currentPage() - 1) * $offers->perPage() }}</td>
                             <td>{{ $company_name[$offer->ListingID] ?? 'N/A' }}</td>
                             <td>{{ $offer->Status}}</td>
                             <td class="list-btn">
@@ -69,12 +69,16 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
-                               <!--  <button class="btn btn-sm" title="Download">
+                                <!--  <button class="btn btn-sm" title="Download">
                                     <i class="fas fa-download"></i>
                                 </button> -->
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="12" class="text-center no-data-found">No offer found.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">

@@ -145,6 +145,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::post('update/listing/step3/{id}', [ListingController::class, 'updateStep3'])->name('update.listing.step3');
   Route::post('update/listing/step4/{id}', [ListingController::class, 'updateStep4'])->name('update.listing.step4');
   Route::post('update/listing/step5/{id}', [ListingController::class, 'updateStep5'])->name('update.listing.step5');
+  Route::post('/listing/bulkAction', [ListingController::class, 'bulkAction'])->name('listing.bulkAction');
   //End route for listing
   //route for import/export
   Route::get('get/options/{id}', [ListingController::class, 'getOptions'])->name('get.options');
@@ -162,13 +163,14 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   //end route for leads
 
   //routes for buyers
-  Route::get('/buyer', [BuyerController::class,'showForm'])->name('buyerForm');
-  Route::post('/buyer',  [BuyerController::class,'processForm'])->name('buyerForm.process');
+  Route::get('/buyer', [BuyerController::class, 'showForm'])->name('buyerForm');
+  Route::post('/buyer',  [BuyerController::class, 'processForm'])->name('buyerForm.process');
   Route::get('/buyer/edit/{id}', [BuyerController::class, 'editForm'])->name('edit.buyer.form');
- Route::post('/buyer/edit/{id}', [BuyerController::class, 'editProcessForm'])->name('edit.buyer.form.process'); 
+  Route::post('/buyer/edit/{id}', [BuyerController::class, 'editProcessForm'])->name('edit.buyer.form.process');
   Route::get('/buyer/list', [BuyerController::class, 'index'])->name('list.buyer');
   Route::get('view/buyer/{id}', [BuyerController::class, 'show'])->name('show.buyer');
   Route::delete('/buyer/{id}', [BuyerController::class, 'destroy'])->name('buyer.destroy');
+  Route::post('/buyer/bulkAction', [BuyerController::class, 'bulkAction'])->name('buyer.bulkAction');
   //end route for buyers
 
   //routes for offers

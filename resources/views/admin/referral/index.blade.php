@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody id="agentsResult">
-                        @foreach($referrals as $index =>$referral)
+                        @forelse($referrals as $index =>$referral)
                         <tr>
                             <td>{{ $index + 1 + ($referrals->currentPage() - 1) * $referrals->perPage() }}</td>
                             <td>{{ $referral->RefCompany}}</td>
@@ -85,7 +85,11 @@
                                 </button> -->
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="12" class="text-center no-data-found">No referral found.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">
