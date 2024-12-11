@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
-@if (session('success'))
+    @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-@endif
+    @endif
     <div class="row card">
         <div class="list-header">
 
@@ -17,7 +17,7 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.referral')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Referrals.png') }}"> Add referral
+                                <img class="create_img" src="{{ url('assets/images/Referrals.png') }}"> Add referral
                             </button></a>
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
@@ -26,12 +26,12 @@
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="input-group-text">
-                                        <i class="fas fa-search"></i> 
+                                        <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
                         </form>
-                       
+
                     </div>
                 </div>
             </div>
@@ -65,14 +65,14 @@
                             <td>{{ $referral->Zip }}</td>
                             <td>{{ $referral->Phone }}</td>
                             <td class="list-btn">
-                            <a href="{{route('show.referral',$referral->RefID)}}">
-                                        <button class="btn btn-sm" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button></a>
-                            <a href="{{route('edit.referral',$referral->RefID)}}">
-                                        <button class="btn btn-sm" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button></a>
+                                <a href="{{route('show.referral',$referral->RefID)}}">
+                                    <button class="btn btn-sm" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </button></a>
+                                <a href="{{route('edit.referral',$referral->RefID)}}">
+                                    <button class="btn btn-sm" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button></a>
                                 <form action="{{route('referral.destroy',$referral->RefID)}}" method="post" class="referral_delete" id="delete-referral-{{ $referral->RefID }}">
                                     @csrf
                                     @method('DELETE')

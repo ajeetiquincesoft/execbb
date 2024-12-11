@@ -12,6 +12,7 @@ use Throwable;
 use Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class ListingController extends Controller
 {
@@ -253,7 +254,13 @@ class ListingController extends Controller
         $featuredListingcheckboxValue = $request->has('featuredListing') ? 1 : 0;
         if (session()->has('formData.listing_id')) {
             $listing_id = session()->get('formData.listing_id');
+            $model = Listing::findOrFail($listing_id);
             if ($request->hasFile('listing_img')) {
+                $oldImagePath = public_path('assets/uploads/images/' . $model->imagepath);
+                if (File::exists($oldImagePath)) {
+                    // Delete the old image from the directory
+                    File::delete($oldImagePath);
+                }
                 $image = $request->file('listing_img');
                 $path = public_path() . '/assets/uploads/images/';
                 $filename = time() . '.' . $image->getClientOriginalExtension();
@@ -704,6 +711,7 @@ class ListingController extends Controller
             'user_email' => 'required|email',
             'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
+        $model = Listing::findOrFail($id);
         $filename = '';
         $categoryData = DB::table('categories')->where('CategoryID', $request->bus_category)->first();
         $category_name = $categoryData->BusinessCategory;
@@ -711,6 +719,11 @@ class ListingController extends Controller
         $franchisecheckboxValue = $request->has('franchise') ? 1 : 0;
         $featuredListingcheckboxValue = $request->has('featuredListing') ? 1 : 0;
         if ($request->hasFile('listing_img')) {
+            $oldImagePath = public_path('assets/uploads/images/' . $model->imagepath);
+            if (File::exists($oldImagePath)) {
+                // Delete the old image from the directory
+                File::delete($oldImagePath);
+            }
             $image = $request->file('listing_img');
             $path = public_path() . '/assets/uploads/images/';
             $filename = time() . '.' . $image->getClientOriginalExtension();
@@ -944,6 +957,12 @@ class ListingController extends Controller
     public function updateImage(Request $request, $id)
     {
         if ($request->hasFile('avatar')) {
+            $model = Listing::findOrFail($id);
+            $oldImagePath = public_path('assets/uploads/images/' . $model->imagepath);
+            if (File::exists($oldImagePath)) {
+                // Delete the old image from the directory
+                File::delete($oldImagePath);
+            }
             $image = $request->file('avatar');
             $path = public_path() . '/assets/uploads/images/';
             $filename = time() . '.' . $image->getClientOriginalExtension();

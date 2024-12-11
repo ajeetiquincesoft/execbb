@@ -1,16 +1,16 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
-@if (session('success'))
+    @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-@endif
-@if (session('success'))
+    @endif
+    @if (session('success'))
     <div class="alert alert-error">
         {{ session('error') }}
     </div>
-@endif
+    @endif
     <div class="row card">
         <div class="list-header">
 
@@ -22,7 +22,7 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.referral-type')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Referrals.png') }}"> Add Referral type
+                                <img class="create_img" src="{{ url('assets/images/Referrals.png') }}"> Add Referral type
                             </button></a>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 ml-auto" id="login_activity_search">
@@ -31,7 +31,7 @@
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="input-group-text">
-                                        <i class="fas fa-search"></i> 
+                                        <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
@@ -57,24 +57,24 @@
                             <td>{{ $index + 1 + ($referral_types->currentPage() - 1) * $referral_types->perPage() }}</td>
                             <td>{{ $referral_type->RefTypeDescript }}</td>
                             <td class="list-btn">
-                           
-                            <a href="{{route('edit.referral-type',$referral_type->RefTypeID)}}">
-                                <button class="btn btn-sm" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button></a>
+
+                                <a href="{{route('edit.referral-type',$referral_type->RefTypeID)}}">
+                                    <button class="btn btn-sm" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button></a>
                                 <form action="{{route('referral-type.destroy',$referral_type->RefTypeID)}}" method="post" class="referral_type_delete" id="delete-referral-type-{{ $referral_type->RefTypeID }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-sm" title="Delete" onclick="referralTypeDelete('{{ $referral_type->RefTypeID}}')">
-                                <i class="fas fa-trash"></i>
-                                </button>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-sm" title="Delete" onclick="referralTypeDelete('{{ $referral_type->RefTypeID}}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </form>
                                 <!-- <button class="btn btn-sm" title="Download">
                                     <i class="fas fa-download"></i>
                                 </button> -->
                             </td>
                         </tr>
-                        @endforeach 
+                        @endforeach
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">

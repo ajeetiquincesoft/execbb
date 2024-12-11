@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
-@if (session('success'))
+    @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-@endif
+    @endif
     <div class="row card">
         <div class="list-header">
 
@@ -17,7 +17,7 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.showing')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add showing
+                                <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add showing
                             </button></a>
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
@@ -26,12 +26,12 @@
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="input-group-text">
-                                        <i class="fas fa-search"></i> 
+                                        <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
                         </form>
-                       
+
                     </div>
                 </div>
             </div>
@@ -63,22 +63,22 @@
                             <td>{{ $showing->OfferMade }}</td>
                             <td>{{ $showing->FollowUp }}</td>
                             <td class="list-btn">
-                            <a href="{{route('show.showing',$showing->ShowingID)}}">
-                                        <button class="btn btn-sm" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button></a>
-                            <a href="{{route('edit.showing',$showing->ShowingID)}}">
-                                <button class="btn btn-sm" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button></a>
+                                <a href="{{route('show.showing',$showing->ShowingID)}}">
+                                    <button class="btn btn-sm" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </button></a>
+                                <a href="{{route('edit.showing',$showing->ShowingID)}}">
+                                    <button class="btn btn-sm" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button></a>
                                 <form action="{{route('showing.destroy',$showing->ShowingID)}}" method="post" class="showing_delete" id="delete-showing-{{ $showing->ShowingID }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-sm" title="Delete" onclick="showingDelete('{{ $showing->ShowingID}}')">
-                                <i class="fas fa-trash"></i>
-                                </button>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-sm" title="Delete" onclick="showingDelete('{{ $showing->ShowingID}}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </form>
-                                
+
                                 <!-- <button class="btn btn-sm" title="Download">
                                     <i class="fas fa-download"></i>
                                 </button> -->

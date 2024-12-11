@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
-@if (session('success'))
+    @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-@endif
+    @endif
     <div class="row card">
         <div class="list-header">
 
@@ -17,7 +17,7 @@
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.agent')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Agents.png') }}"> Add Agent
+                                <img class="create_img" src="{{ url('assets/images/Agents.png') }}"> Add Agent
                             </button></a>
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
@@ -26,7 +26,7 @@
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="input-group-text">
-                                        <i class="fas fa-search"></i> 
+                                        <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
@@ -41,6 +41,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
+                            <th scope="col">#</th>
                             <th scope="col">Agent ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Address</th>
@@ -52,6 +53,7 @@
                     <tbody id="agentsResult">
                         @foreach($agents as $index =>$agent)
                         <tr>
+                            <td>{{ $index + 1 + ($agents->currentPage() - 1) * $agents->perPage() }}</td>
                             <td>{{ $agent->AgentID}}</td>
                             <td>{{ $agent->FName}} {{ $agent->LName}}</td>
                             <td>{{ $agent->Address1}}</td>
