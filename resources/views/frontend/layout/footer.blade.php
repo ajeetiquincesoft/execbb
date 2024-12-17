@@ -44,7 +44,7 @@
                     <div class="col-md-6 col-lg-6 col-xl-2">
                         <h4>Buyers</h4>
                         <ul class="list-unstyled">
-                            <li><a href="{{route('register.with.ebb')}}">Register with EBB</a></li>
+                            <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
                             <li><a href="#">Proffered Buyers Program</a></li>
                             <li><a href="#">Tools</a></li>
                             <li><a href="#">Resources</a></li>

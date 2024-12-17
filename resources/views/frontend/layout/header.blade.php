@@ -5,7 +5,7 @@
         <!-- <a class="navbar-brand" href="#">
                 <img src="Group 220.png" alt="Logo" style="height: 50px;">
             </a> -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{route('home')}}">
             <img src="{{ asset('assets/images/main_logo.png') }}" alt="Logo" class="logo">
         </a>
 
@@ -61,7 +61,7 @@
                 </div> -->
             <div class="custom-links">
                 <a href="{{route('login')}}" class="me-2">Sign In</a>
-                <a href="#">Join</a>
+                <a href="{{route('register.ebb.buyer')}}">Join</a>
             </div>
 
         </div>

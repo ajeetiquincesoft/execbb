@@ -18,6 +18,11 @@ class RegisterWithEbbController extends Controller
 
         return response()->json($options);
     }
+    public function register()
+    {
+        session()->forget(['buyerData', 'step']);
+        return redirect()->route('register.with.ebb');
+    }
     public function registerWithEbb(Request $request)
     {
         //session()->forget(['buyerData', 'step']);

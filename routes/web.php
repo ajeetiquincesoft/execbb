@@ -51,7 +51,8 @@ use App\Http\Controllers\RegisterWithEbbController;
 
 Route::get('/', function () {
   return view('frontend.home');
-});
+})->name('home');
+Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');
 Route::get('/get/business/type/{id}', [RegisterWithEbbController::class, 'getBusType'])->name('get.business.type');

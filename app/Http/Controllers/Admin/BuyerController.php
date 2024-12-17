@@ -44,9 +44,7 @@ class BuyerController extends Controller
         $counties = DB::table('counties')->get();
         $sub_categories = DB::table('sub_categories')->get();
         $agents = User::with('agent_info')->where('role_name', 'agent')->get();
-        $listingTypes = DB::table('listing_types')->get();
-        $leads = DB::table('leads')->get();
-        return view('admin.buyer.create', compact('step', 'buyerData', 'categoryData', 'states', 'sub_categories', 'counties', 'agents', 'listingTypes', 'leads'));
+        return view('admin.buyer.create', compact('step', 'buyerData', 'categoryData', 'states', 'sub_categories', 'counties', 'agents'));
     }
     // Process the form data and move to the next step
     public function processForm(Request $request)
@@ -224,10 +222,8 @@ class BuyerController extends Controller
         $counties = DB::table('counties')->get();
         $sub_categories = DB::table('sub_categories')->get();
         $agents = User::with('agent_info')->where('role_name', 'agent')->get();
-        $listingTypes = DB::table('listing_types')->get();
-        $leads = DB::table('leads')->get();
 
-        return view('admin.buyer.edit', compact('step', 'buyerDatas', 'buyerData', 'categoryData', 'states', 'sub_categories', 'counties', 'agents', 'listingTypes', 'leads'));
+        return view('admin.buyer.edit', compact('step', 'buyerDatas', 'buyerData', 'categoryData', 'states', 'sub_categories', 'counties', 'agents'));
     }
     public function editProcessForm(Request $request, $id)
     {
