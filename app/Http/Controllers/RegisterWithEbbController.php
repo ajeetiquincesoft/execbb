@@ -40,6 +40,11 @@ class RegisterWithEbbController extends Controller
             $step = session('step', 1);
             $this->validateStep($request, $step);
             if ($step == 1) {
+                $existingUser = User::where('email', $request->email)->where('role_name','buyer')->first();
+                // If the email exists in the users table, rollback and show an error
+                if ($existingUser) {
+                    return back()->with('error', 'Email is already registered!')->withInput();
+                }
                 // Check if the buyer already exists
                 if (session()->has('buyerData.buyer_id')) {
                     $buyer_id = session()->get('buyerData.buyer_id');

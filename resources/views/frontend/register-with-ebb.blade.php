@@ -12,6 +12,12 @@
                 <p class="m-0 mb-3 an_account" style="color: #5D5D5D;">Already have an account? <a href="{{route('login')}}" class="buyer_program">Sign in here</a></p>
             </div>
         </div>
+        @if(Session::has('error'))
+            <div class="alert alert-danger alert-block" id="alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ Session::get('error') }}</strong>
+            </div>
+            @endif
         <div class="col-lg-7 mt-0 column-divider">
             <div class="RegisterWithEbb">
                 <form method="POST" action="{{ route('store.register.with.ebb') }}" id="registerEbb">
@@ -119,10 +125,10 @@
                         <div class="mb-3">
                             <select class="form-select form-select-lg" id="callWhen" name="callWhen">
                                 <option selected disabled>Best Time to Contact</option>
-                                <option value="9:00 am - 11:00 pm">9:00 am - 11:00 pm</option>
-                                <option value="11:00 am - 2:00 pm">11:00 am - 2:00 pm</option>
-                                <option value="2:00 pm - 5:00 pm">2:00 pm - 5:00 pm</option>
-                                <option value="After 5:00 pm">After 5:00 pm</option>
+                                <option value="9:00 am - 11:00 pm" {{ (old('callWhen') == '9:00 am - 11:00 pm' || session('buyerData.callWhen') == '9:00 am - 11:00 pm') ? 'selected' : '' }}>9:00 am - 11:00 pm</option>
+                                <option value="11:00 am - 2:00 pm" {{ (old('callWhen') == '11:00 am - 2:00 pm' || session('buyerData.callWhen') == '11:00 am - 2:00 pm') ? 'selected' : '' }}>11:00 am - 2:00 pm</option>
+                                <option value="2:00 pm - 5:00 pm" {{ (old('callWhen') == '2:00 pm - 5:00 pm' || session('buyerData.callWhen') == '2:00 pm - 5:00 pm') ? 'selected' : '' }}>2:00 pm - 5:00 pm</option>
+                                <option value="After 5:00 pm" {{ (old('callWhen') == 'After 5:00 pm' || session('buyerData.callWhen') == 'After 5:00 pm') ? 'selected' : '' }}>After 5:00 pm</option>
                             </select>
                         </div>
                     </div>
