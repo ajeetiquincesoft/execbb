@@ -101,7 +101,8 @@ class BuyerController extends Controller
                 $request->session()->put('buyerData', $mergedData);
                 $request->session()->put('buyerData.buyer_id',  $buyer_id);
             } else {
-                $check = $this->buyerRegistration($request->all());
+                $data = $request->all();
+                $check = $this->buyerRegistration($data);
                 $buyer = new Buyer;
                 $buyer->Honorific = $request->honorific;
                 $buyer->FName = $request->firstName;
@@ -401,9 +402,9 @@ class BuyerController extends Controller
     }
     public function buyerRegistration(array $data)
     {
-        $password = $data['first_name'] . '@123';
+        $password = $data['firstName'] . '@123';
         return User::create([
-            'name' => $data['first_name'],
+            'name' => $data['firstName'],
             'email' => $data['email'],
             'role_name' => 'buyer',
             'password' => Hash::make($password)
