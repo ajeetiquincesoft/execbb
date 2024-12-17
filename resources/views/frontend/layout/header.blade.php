@@ -60,7 +60,7 @@
                     <a href="#" class="">join</a>
                 </div> -->
             <div class="custom-links">
-                <a href="#" class="me-2">Sign In</a>
+                <a href="{{route('login')}}" class="me-2">Sign In</a>
                 <a href="#">Join</a>
             </div>
 

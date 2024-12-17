@@ -9,7 +9,7 @@
                 <div class="d-flex pb-1">
                     <h5 class="fw-normal mb-2 m-0 client_login">Register with EBB</h5>
                 </div>
-                <p class="m-0 mb-3 an_account" style="color: #5D5D5D;">Already have an account? <a href="#!" class="buyer_program">Sign in here</a></p>
+                <p class="m-0 mb-3 an_account" style="color: #5D5D5D;">Already have an account? <a href="{{route('login')}}" class="buyer_program">Sign in here</a></p>
             </div>
         </div>
         <div class="col-lg-7 mt-0 column-divider">
