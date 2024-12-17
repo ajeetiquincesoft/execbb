@@ -30,6 +30,8 @@ use App\Http\Controllers\Agent\AgentListingController;
 use App\Http\Controllers\Agent\AgentLoginActivityController;
 use App\Http\Controllers\Agent\AgentEmailBuyerController;
 use App\Http\Controllers\Agent\AgentReportController;
+//Controller for frontend
+use App\Http\Controllers\RegisterWithEbbController;
 
 
 
@@ -48,8 +50,11 @@ use App\Http\Controllers\Agent\AgentReportController;
 */
 
 Route::get('/', function () {
-  return view('custom-welcome');
+  return view('frontend.home');
 });
+Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
+Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');
+Route::get('/get/business/type/{id}', [RegisterWithEbbController::class, 'getBusType'])->name('get.business.type');
 Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::get('/', [AdminAuthController::class, 'dashboard']);
   Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
