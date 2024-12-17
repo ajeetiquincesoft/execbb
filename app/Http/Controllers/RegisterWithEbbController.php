@@ -114,7 +114,8 @@ class RegisterWithEbbController extends Controller
                     if (!$buyer) {
                         return back()->with('error', 'Buyer not found!');
                     }
-
+                    $buyerData = $request->session()->get('buyerData', []);
+                    $check = $this->buyerRegistration($buyerData);
                     // Update the buyer data in step 2
                     $buyer->CurrentEmploy = $request->business_interest;
                     $buyer->Interest = $request->Interest ?? 0;
@@ -128,13 +129,12 @@ class RegisterWithEbbController extends Controller
                     $buyer->BusCounty4 = $request->desiredCounty4;
                     $buyer->BusLocation = $request->desiredLocation;
                     $buyer->Comments = $request->comments;
+                    $buyer->user_id  =  $check->id;
 
                     // Save the updated buyer record
                     $buyer->save();
 
                     // Handle session and other operations
-                    $buyerData = $request->session()->get('buyerData', []);
-                    $this->buyerRegistration($buyerData);
                     session()->forget(['buyerData', 'step']);
 
                     // Commit the transaction if all operations are successful

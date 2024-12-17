@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Buyer;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class BuyerController extends Controller
 {
@@ -53,6 +54,11 @@ class BuyerController extends Controller
         $step = session('step', 1);
         $this->validateStep($request, $step);
         if ($step == 1) {
+            $existingUser = User::where('email', $request->email)->where('role_name','buyer')->first();
+                // If the email exists in the users table, rollback and show an error
+                if ($existingUser) {
+                    return back()->with('error', 'Email is already registered!')->withInput();
+                }
             $corporateBuyer = $request->has('corporateBuyer') ? 1 : 0;
             $emailOptOut = $request->has('emailOptOut') ? 1 : 0;
             if (session()->has('buyerData.buyer_id')) {
@@ -95,6 +101,7 @@ class BuyerController extends Controller
                 $request->session()->put('buyerData', $mergedData);
                 $request->session()->put('buyerData.buyer_id',  $buyer_id);
             } else {
+                $check = $this->buyerRegistration($request->all());
                 $buyer = new Buyer;
                 $buyer->Honorific = $request->honorific;
                 $buyer->FName = $request->firstName;
@@ -121,6 +128,7 @@ class BuyerController extends Controller
                 $buyer->SocSecNo = $request->ssNumber;
                 $buyer->BusPhone = $request->businessPhone;
                 $buyer->Pager = $request->pager;
+                $buyer->user_id = $check->id;
 
 
                 $buyer->save();
@@ -390,5 +398,15 @@ class BuyerController extends Controller
             Buyer::whereIn('BuyerID', $buyer_id)->delete();
             return response()->json(array('message' => 'Buyer delete successfully!'));
         }
+    }
+    public function buyerRegistration(array $data)
+    {
+        $password = $data['first_name'] . '@123';
+        return User::create([
+            'name' => $data['first_name'],
+            'email' => $data['email'],
+            'role_name' => 'buyer',
+            'password' => Hash::make($password)
+        ]);
     }
 }
