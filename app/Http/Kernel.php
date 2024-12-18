@@ -49,6 +49,9 @@ class Kernel extends HttpKernel
         ],
         'agentcheck' => [
             \App\Http\Middleware\AgentCheckMiddleware::class,
+        ],
+        'buyercheck' => [
+            \App\Http\Middleware\BuyerCheckMiddleware::class,
         ]
     ];
 

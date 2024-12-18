@@ -19,9 +19,10 @@
                         Buy a Business
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="buyDropdown">
-                        <li><a class="dropdown-item" href="#">Franchises</a></li>
-                        <li><a class="dropdown-item" href="#">Retail</a></li>
-                        <li><a class="dropdown-item" href="#">E-Commerce</a></li>
+                        <li><a class="dropdown-item" href="{{route('ebb.buyers')}}">Buyers</a></li>
+                        <li><a class="dropdown-item" href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
+                        <li><a class="dropdown-item" href="{{route('buyer.tools')}}">Tools</a></li>
+                        <li><a class="dropdown-item" href="#">Resources</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -29,7 +30,7 @@
                         Sell a Business
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="sellDropdown">
-                        <li><a class="dropdown-item" href="#">Valuation</a></li>
+                        <li><a class="dropdown-item" href="{{route('seller')}}">Sellers</a></li>
                         <li><a class="dropdown-item" href="#">Consultation</a></li>
                     </ul>
                 </li>

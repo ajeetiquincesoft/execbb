@@ -630,3 +630,10 @@ height: 120px; /* Reduce height */
     }
   }
 /* css end date 16/12/2024*/
+.breadcrumb-item+.breadcrumb-item::before {
+  content: "•";
+  /* Use a dot instead of slash */
+  color: #999;
+  /* Dot color */
+  font-weight: bold;
+}

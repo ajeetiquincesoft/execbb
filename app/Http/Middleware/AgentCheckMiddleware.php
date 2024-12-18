@@ -21,7 +21,7 @@ class AgentCheckMiddleware
             $userrole = Auth::user()->role_name;
         }
         // dd( $userrole);
-          if (!Auth::check()  || $userrole == 'admin') {
+          if (!Auth::check()  || $userrole == 'admin' || $userrole == 'buyer') {
               // User is not authenticated, redirect to login or throw exception
               return redirect('login');
           }

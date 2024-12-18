@@ -45,6 +45,10 @@ class AdminAuthController extends Controller
                 return redirect()->intended('agent/dashboard')
                         ->withSuccess('Signed in');
             }
+            if($userrole == 'buyer'){
+                return redirect()->intended('buyer/dashboard')
+                        ->withSuccess('Signed in');
+            }
             
         }
         return redirect()->back()->withErrors(['emailPassword' => 'Email address or password is incorrect.'])->withInput();

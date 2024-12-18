@@ -5,8 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-class AuthCheckMiddleware
+class BuyerCheckMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,13 +19,11 @@ class AuthCheckMiddleware
         if(Auth::check()){
             $userrole = Auth::user()->role_name;
         }
-        
-      // dd( $userrole);
-        if (!Auth::check() || $userrole == 'agent' || $userrole == 'buyer') {
-            //dd( $userrole);
-            // User is not authenticated, redirect to login or throw exception
-            return redirect('login');
-        }
-        return $next($request);
+        // dd( $userrole);
+          if (!Auth::check()  || $userrole == 'admin' || $userrole == 'agent') {
+              // User is not authenticated, redirect to login or throw exception
+              return redirect('login');
+          }
+          return $next($request);
     }
 }

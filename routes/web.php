@@ -30,6 +30,9 @@ use App\Http\Controllers\Agent\AgentListingController;
 use App\Http\Controllers\Agent\AgentLoginActivityController;
 use App\Http\Controllers\Agent\AgentEmailBuyerController;
 use App\Http\Controllers\Agent\AgentReportController;
+
+//Controller for buyer
+use App\Http\Controllers\Buyer\BuyerAuthController;
 //Controller for frontend
 use App\Http\Controllers\RegisterWithEbbController;
 
@@ -52,6 +55,15 @@ use App\Http\Controllers\RegisterWithEbbController;
 Route::get('/', function () {
   return view('frontend.home');
 })->name('home');
+Route::get('/buyers', function () {
+  return view('frontend.buyers');
+})->name('ebb.buyers');
+Route::get('/buyer/tools', function () {
+  return view('frontend.buyer-tools');
+})->name('buyer.tools');
+Route::get('/seller', function () {
+  return view('frontend.sellers');
+})->name('seller');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');
@@ -266,6 +278,11 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('reports', [AgentReportController::class, 'index'])->name('reports');
   Route::post('/export/reports', [AgentReportController::class, 'export'])->name('export.reports');
   //End route for admin reports
+
+});
+
+Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.'], function () {
+  Route::get('/dashboard', [BuyerAuthController::class, 'buyerDashboard'])->name('dashboard');
 
 });
 

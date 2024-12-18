@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="BDate">BDate <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="BDate" name="BDate" value="{{$buyerData->BDate}}">
+                                <input type="date" class="form-control" id="BDate" name="BDate" value="{{$buyerData->BDate}}" max="{{ \Carbon\Carbon::now()->toDateString() }}">
                                 @error('BDate')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
