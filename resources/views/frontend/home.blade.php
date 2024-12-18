@@ -5,9 +5,9 @@
 $imagePath = asset('assets/images/Mask_group.png');
 @endphp
 <div class="position-relative text-center text-white" style="background-image: url('{{ $imagePath }}'); background-size: cover; background-position: center; height: 500px;">
-    <div class="container h-100 d-flex flex-column justify-content-center">
+    <div class="container position-absolute top-50 start-50 translate-middle d-flex flex-column justify-content-center">
         <h1 class="fw-bold mb-4">Business Listing Search</h1>
-        <div class="bg-white">
+        <div class="bus_lis_search">
             <div class="listing_search d-flex align-items-center">
                 <input type="text" class="form-control form-control-lg" placeholder="Industry">
                 <select class="form-select form-select-lg">
@@ -25,21 +25,21 @@ $imagePath = asset('assets/images/Mask_group.png');
 </div>
 
 <!-- Highlights Section -->
-<div class="bg-dark text-white py-5">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-3">
+<div class="bg-dark-color text-white py-5">
+    <div class="container prefect_bus">
+        <div class="row">
+            <div class="col-md-3 border-right px-5">
                 <h5>The Perfect Business Opportunity</h5>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 border-right px-5">
                 <h5>Largest Marketplace of Sellers</h5>
                 <p>50,000+ Businesses Listed</p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 border-right px-5">
                 <h5>Extensive Buyer Network</h5>
                 <p>50k+ Successful Sales</p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 px-5">
                 <h5>Highest Visitor Volume</h5>
                 <p>12m Monthly Page Views</p>
             </div>
@@ -48,13 +48,12 @@ $imagePath = asset('assets/images/Mask_group.png');
 </div>
 
 <!-- Categories Section -->
-<div class="container py-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Top Business Categories</h2>
-        <a href="#" class="btn btn">See More Categories</a>
-    </div>
-
-    <div class="container">
+<div class="bus_listing">
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Top Business Categories</h2>
+            <a href="#" class="btn btn">See More Categories</a>
+        </div>
         <div class="row g-3 bus_cat">
             <!-- Column 1 -->
             <div class="col">
@@ -98,137 +97,116 @@ $imagePath = asset('assets/images/Mask_group.png');
                 <a href="#" class="text-decoration-none text-primary">Convenience Store/Deli</a>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>
 
 <!-- Bussiness Listings -->
 
-<div class="container my-5">
+<div class="container my-5 business_listing_slider">
     <h2 class="text mb-4">Featured Business Listings</h2>
-
-    <!-- Carousel -->
-    <div id="businessSlider" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicators -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#businessSlider" data-bs-slide-to="0" class="active" aria-current="true"></button>
-            <button type="button" data-bs-target="#businessSlider" data-bs-slide-to="1"></button>
-        </div>
-
-        <!-- Carousel Items -->
-        <div class="carousel-inner">
-            <!-- Slide 1 -->
-            <div class="carousel-item active">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                    <!-- Card 1 -->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="{{asset('assets/images/feature_listing_1.png')}}" class="card-img-top" alt="East Hanover, NJ">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">East Hanover, NJ</h5>
-                                <p class="card-text">List Price: $289000</p>
-                                <p class="card-text">Down Pay: $289000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="{{asset('assets/images/feature_listing_2.png')}}" class="card-img-top" alt="Union City, NJ">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Union City, NJ</h5>
-                                <p class="card-text">List Price: $289000</p>
-                                <p class="card-text">Down Pay: $289000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="{{asset('assets/images/feature_listing_3.png')}}" class="card-img-top" alt="Bronx, NY">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Bron X, NY</h5>
-                                <p class="card-text">List Price: $289000</p>
-                                <p class="card-text">Down Pay: $289000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 4 -->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="{{asset('assets/images/feature_listing_4.png')}}" class="card-img-top" alt="Jersey City, NJ">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Jersey City, NJ</h5>
-                                <p class="card-text">List Price: $289000</p>
-                                <p class="card-text">Down Pay: $289000</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 2 -->
-            <div class="carousel-item">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                    <!-- Reuse same cards for demonstration -->
-                    <!-- Card 1 -->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="{{asset('assets/images/feature_listing_1.png')}}" class="card-img-top" alt="East Hanover, NJ">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">East Hanover, NJ</h5>
-                                <p class="card-text">List Price: $289000</p>
-                                <p class="card-text">Down Pay: $289000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="{{asset('assets/images/feature_listing_2.png')}}" class="card-img-top" alt="Union City, NJ">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Union City, NJ</h5>
-                                <p class="card-text">List Price: $289000</p>
-                                <p class="card-text">Down Pay: $289000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="{{asset('assets/images/feature_listing_3.png')}}" class="card-img-top" alt="Bronx, NY">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Bron X, NY</h5>
-                                <p class="card-text">List Price: $289000</p>
-                                <p class="card-text">Down Pay: $289000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 4 -->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="{{asset('assets/images/feature_listing_4.png')}}" class="card-img-top" alt="Jersey City, NJ">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Jersey City, NJ</h5>
-                                <p class="card-text">List Price: $289000</p>
-                                <p class="card-text">Down Pay: $289000</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#businessSlider" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#businessSlider" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+    <!-- Previous and Next buttons (as divs) -->
+    <div class="carousel-controls">
+        <div class="carousel-prev"><i class="fas fa-chevron-left"></i></div>
+        <div class="carousel-next"><i class="fas fa-chevron-right"></i></div>
     </div>
+    <!-- Carousel Items -->
+    <div class="slider card-container">
+        <!-- Card 1 -->
+
+        <div class="card shadow-sm">
+            <img src="{{asset('assets/images/feature_listing_1.png')}}" class="card-img-top" alt="East Hanover, NJ">
+            <div class="card-body text-center">
+                <h5 class="card-title card-title-slider">East Hanover, NJ</h5>
+                <p class="card-text mb-0">List Price: $289000</p>
+                <p class="card-text">Down Pay: $289000</p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+
+        <div class="card shadow-sm">
+            <img src="{{asset('assets/images/feature_listing_2.png')}}" class="card-img-top" alt="Union City, NJ">
+            <div class="card-body text-center">
+                <h5 class="card-title card-title-slider">Union City, NJ</h5>
+                <p class="card-text mb-0">List Price: $289000</p>
+                <p class="card-text">Down Pay: $289000</p>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+
+        <div class="card shadow-sm">
+            <img src="{{asset('assets/images/feature_listing_3.png')}}" class="card-img-top" alt="Bronx, NY">
+            <div class="card-body text-center">
+                <h5 class="card-title card-title-slider">Bron X, NY</h5>
+                <p class="card-text mb-0">List Price: $289000</p>
+                <p class="card-text">Down Pay: $289000</p>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+
+        <div class="card shadow-sm">
+            <img src="{{asset('assets/images/feature_listing_4.png')}}" class="card-img-top" alt="Jersey City, NJ">
+            <div class="card-body text-center">
+                <h5 class="card-title card-title-slider">Jersey City, NJ</h5>
+                <p class="card-text mb-0">List Price: $289000</p>
+                <p class="card-text">Down Pay: $289000</p>
+            </div>
+        </div>
+
+        <!-- Card 1 -->
+
+        <div class="card shadow-sm">
+            <img src="{{asset('assets/images/feature_listing_1.png')}}" class="card-img-top" alt="East Hanover, NJ">
+            <div class="card-body text-center">
+                <h5 class="card-title card-title-slider">East Hanover, NJ</h5>
+                <p class="card-text mb-0">List Price: $289000</p>
+                <p class="card-text">Down Pay: $289000</p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+
+        <div class="card shadow-sm">
+            <img src="{{asset('assets/images/feature_listing_2.png')}}" class="card-img-top" alt="Union City, NJ">
+            <div class="card-body text-center">
+                <h5 class="card-title card-title-slider">Union City, NJ</h5>
+                <p class="card-text mb-0">List Price: $289000</p>
+                <p class="card-text">Down Pay: $289000</p>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+
+        <div class="card shadow-sm">
+            <img src="{{asset('assets/images/feature_listing_3.png')}}" class="card-img-top" alt="Bronx, NY">
+            <div class="card-body text-center">
+                <h5 class="card-title card-title-slider">Bron X, NY</h5>
+                <p class="card-text mb-0">List Price: $289000</p>
+                <p class="card-text">Down Pay: $289000</p>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+
+        <div class="card shadow-sm">
+            <img src="{{asset('assets/images/feature_listing_4.png')}}" class="card-img-top" alt="Jersey City, NJ">
+            <div class="card-body text-center">
+                <h5 class="card-title card-title-slider">Jersey City, NJ</h5>
+                <p class="card-text mb-0">List Price: $289000</p>
+                <p class="card-text">Down Pay: $289000</p>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
 </div>
 
 <!-- LEADING AGENTS -->
@@ -244,7 +222,7 @@ $imagePath = asset('assets/images/Mask_group.png');
             <div class="col">
                 <div class="agent-card d-flex">
                     <img src="{{asset('assets/images/larry_bodner_picture_1.png')}}" alt="Larry Bodner" class="agent-image">
-                    <div>
+                    <div class="leading_agent">
                         <h5 class="mb-1">Larry Bodner</h5>
                         <p class="mb-0">Mr. Bodner has over thirty years of successful business ownership experience.</p>
                     </div>
@@ -254,7 +232,7 @@ $imagePath = asset('assets/images/Mask_group.png');
             <div class="col">
                 <div class="agent-card d-flex">
                     <img src="{{asset('assets/images/larry_bodner_picture_2.png')}}" alt="Arthur Casares" class="agent-image">
-                    <div>
+                    <div class="leading_agent">
                         <h5 class="mb-1">Arthur Casares</h5>
                         <p class="mb-0">Larry Svoboda Larry has over 30 years experience buying, selling and operating businesses.</p>
                     </div>
@@ -264,7 +242,7 @@ $imagePath = asset('assets/images/Mask_group.png');
             <div class="col">
                 <div class="agent-card d-flex">
                     <img src="{{asset('assets/images/larry_bodner_picture_3.png')}}" alt="Howard Goldberg" class="agent-image">
-                    <div>
+                    <div class="leading_agent">
                         <h5 class="mb-1">Howard Goldberg</h5>
                         <p class="mb-0">Howard was a partner & president of a major New Jersey liquor & wine wholesale distributing company.</p>
                     </div>
@@ -335,7 +313,7 @@ $imagePath = asset('assets/images/Mask_group.png');
 
 <!-- OUR SERVICES -->
 
-<div class="container services-section">
+<div class="container services-section my-5">
     <h2>Our Services</h2>
     <div class="py-">
         <div class="align-items-center d-flex justify-content-between mb-4 w-100">
@@ -380,7 +358,7 @@ $imagePath = asset('assets/images/Mask_group.png');
 <!-- WHY EBB -->
 
 <!-- <title>Why EBB</title> -->
-<div class="container-fluid p-0 why-ebb-section d-flex align-items-center">
+<div class="container-fluid my-5 why-ebb-section d-flex align-items-center">
     <div class="row w-100">
         <div class="col-lg-7 col-md-12 image-container">
             <div class="overlay"></div>
@@ -454,4 +432,132 @@ $imagePath = asset('assets/images/Mask_group.png');
         </div>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Initialize the Slick slider
+    $(document).ready(function() {
+        $('.slider').slick({
+            infinite: true, // Loop through the slides
+            slidesToShow: 4, // Show four slides at a time
+            slidesToScroll: 1, // Move one slide per click
+            prevArrow: $('.carousel-prev'), // Link the previous button to the slick carousel
+            nextArrow: $('.carousel-next'),
+            dots: true, // Display navigation dots
+            autoplay: true, // Auto slide
+            autoplaySpeed: 2000, // Time between slides
+            fade: false, // Disable fade transition
+            speed: 500, // Transition speed in ms
+
+            // Responsive settings
+            responsive: [{
+                    breakpoint: 1024, // For tablets
+                    settings: {
+                        slidesToShow: 3 // Show 3 items on smaller screens
+                    }
+                },
+                {
+                    breakpoint: 768, // For mobile devices
+                    settings: {
+                        slidesToShow: 2 // Show 2 items on smaller screens
+                    }
+                },
+                {
+                    breakpoint: 480, // For very small devices
+                    settings: {
+                        slidesToShow: 1 // Show 1 item on very small screens
+                    }
+                }
+            ]
+        });
+    });
+</script>
+<style>
+    /* Style the carousel controls (prev & next buttons) */
+    .business_listing_slider {
+        position: relative;
+    }
+
+    .carousel-controls {
+        position: absolute;
+        top: 0px;
+        right: 35px;
+        display: flex;
+        gap: 10px;
+        /* Space between the buttons */
+        z-index: 10;
+        /* Ensure buttons stay on top of the slider */
+    }
+
+    /* Styling for the div controls */
+    .carousel-prev,
+    .carousel-next {
+        font-size: 18px;
+        /* Adjust size for < and > symbols */
+        color: #34485C;
+        /* Text color */
+        padding: 8px 12px;
+        /* Padding around the symbol */
+        cursor: pointer;
+        border-radius: 50%;
+        /* Make it round */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Ensure the slider is positioned relative to the parent container */
+    .slider {
+        position: relative;
+        padding-bottom: 30px;
+    }
+
+    /* Add margin between the cards */
+    .slider .card {
+        margin-right: 20px;
+        /* Add horizontal gap between cards */
+    }
+
+    /* Adjust the last card in the row */
+    .slider .slick-slide:last-child .card {
+        margin-right: 0;
+    }
+
+    /* Optional: If you want more control, you can adjust the card size */
+    .slider .card {
+        width: 100%;
+        /* Optional: Ensure card width fits properly in the slider */
+        max-width: 100%;
+        /* Optional: Makes sure the card doesn't exceed the container width */
+    }
+    .border-right {
+    border-right: 1px solid #806132; /* White border between sections */
+}
+.prefect_bus p {
+    color: #D9D9D9;
+    font-size: 12px;
+}
+.bg-dark-color {
+    background-color: #040404;
+}
+.listing_search button {
+    border-radius: 0;
+    border: 0;
+    height: 48px;
+}
+.listing_search.d-flex.align-items-center {
+    width: 64%;
+    margin: 0 auto;
+}
+.listing_search input select button {
+    border: 0px;
+    height: 55px;
+}
+.prefect_bus h5 {
+    line-height: 30px;
+}
+.leading_agent p {
+    font-size: 13px;
+}
+</style>
 @endsection
