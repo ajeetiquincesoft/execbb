@@ -313,7 +313,7 @@ $imagePath = asset('assets/images/Mask_group.png');
 
 <!-- OUR SERVICES -->
 
-<div class="container services-section my-5">
+<div class="container services-section">
     <h2>Our Services</h2>
     <div class="py-">
         <div class="align-items-center d-flex justify-content-between mb-4 w-100">
@@ -383,7 +383,7 @@ $imagePath = asset('assets/images/Mask_group.png');
 </div>
 
 <!-- PHASES -->
-<section class="phases-section py-5">
+<section class="phases-section py-1">
     <div class="container text-center">
         <!-- Heading Section -->
         <p class="text-uppercase text-muted small fw-bold">Phases</p>
