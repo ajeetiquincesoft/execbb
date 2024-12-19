@@ -69,6 +69,9 @@ Route::get('/buyer/tools', function () {
 Route::get('/seller', function () {
   return view('frontend.sellers');
 })->name('seller');
+Route::get('/services', function () {
+  return view('frontend.our-services');
+})->name('services');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

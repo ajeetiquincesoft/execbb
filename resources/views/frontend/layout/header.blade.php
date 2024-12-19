@@ -42,7 +42,7 @@
                         Services
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                        <li><a class="dropdown-item" href="#">Services</a></li>
+                        <li><a class="dropdown-item" href="{{route('services')}}">Services</a></li>
                         <li><a class="dropdown-item" href="#">Financing</a></li>
                         <li><a class="dropdown-item" href="#">Consulting</a></li>
                         <li><a class="dropdown-item" href="#">Preferred Buyer Program</a></li>

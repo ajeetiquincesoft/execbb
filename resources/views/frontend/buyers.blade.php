@@ -29,6 +29,7 @@
                 If you are a first-time buyer, make sure you are prepared and understand what buying a business entails.
             </p>
         </div>
+        <hr class="pursuit_hr mb-5">
         <!-- Content Section -->
         <div class="row">
             <!-- Left Section -->
