@@ -39,9 +39,9 @@
 
                             <!-- Dropdown menu -->
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="delete">Delete</a>
-                                <a class="dropdown-item" href="active">Active</a>
-                                <a class="dropdown-item" href="Inactive">Inactive</a>
+                                <a class="dropdown-item-val" href="delete">Delete</a>
+                                <a class="dropdown-item-val" href="active">Active</a>
+                                <a class="dropdown-item-val" href="Inactive">Inactive</a>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                 $('#checkAll').prop('checked', false);
             }
         });
-        $('.dropdown-item').on('click', function(event) {
+        $('.dropdown-item-val').on('click', function(event) {
             // Prevent the default behavior of the link
             event.preventDefault();
 
