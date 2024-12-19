@@ -3,6 +3,7 @@
 <!-- Hero Section -->
 @php
 $imagePath = asset('assets/images/Mask_group.png');
+$buyersImagePath = asset('assets/images/buyers1.png');
 @endphp
 <div class="position-relative text-center text-white" style="background-image: url('{{ $imagePath }}'); background-size: cover; background-position: center; height: 500px;">
     <div class="container position-absolute top-50 start-50 translate-middle d-flex flex-column justify-content-center">
@@ -57,43 +58,43 @@ $imagePath = asset('assets/images/Mask_group.png');
         <div class="row g-3 bus_cat">
             <!-- Column 1 -->
             <div class="col">
-                <a href="#" class="text-decoration-none text-primary">Bagel</a><br>
-                <a href="#" class="text-decoration-none text-primary">Retail</a><br>
+                <a href="#" class="text-decoration-none text-primary">Bagel</a>
+                <a href="#" class="text-decoration-none text-primary">Retail</a>
                 <a href="#" class="text-decoration-none text-primary">Pizzeria</a>
             </div>
 
             <!-- Column 2 -->
             <div class="col">
-                <a href="#" class="text-decoration-none text-primary">Car Wash</a><br>
-                <a href="#" class="text-decoration-none text-primary">Childcare</a><br>
+                <a href="#" class="text-decoration-none text-primary">Car Wash</a>
+                <a href="#" class="text-decoration-none text-primary">Childcare</a>
                 <a href="#" class="text-decoration-none text-primary">Franchises</a>
             </div>
 
             <!-- Column 3 -->
             <div class="col">
-                <a href="#" class="text-decoration-none text-primary">Automotive</a><br>
-                <a href="#" class="text-decoration-none text-primary">Laundromat</a><br>
+                <a href="#" class="text-decoration-none text-primary">Automotive</a>
+                <a href="#" class="text-decoration-none text-primary">Laundromat</a>
                 <a href="#" class="text-decoration-none text-primary">Asset Sales</a>
             </div>
 
             <!-- Column 4 -->
             <div class="col">
-                <a href="#" class="text-decoration-none text-primary">Gas Stations</a><br>
-                <a href="#" class="text-decoration-none text-primary">Dry Cleaner</a><br>
+                <a href="#" class="text-decoration-none text-primary">Gas Stations</a>
+                <a href="#" class="text-decoration-none text-primary">Dry Cleaner</a>
                 <a href="#" class="text-decoration-none text-primary">Liquor Store</a>
             </div>
 
             <!-- Column 5 -->
             <div class="col">
-                <a href="#" class="text-decoration-none text-primary">Restaurant/ Bar</a><br>
-                <a href="#" class="text-decoration-none text-primary">Service Business</a><br>
+                <a href="#" class="text-decoration-none text-primary">Restaurant/ Bar</a>
+                <a href="#" class="text-decoration-none text-primary">Service Business</a>
                 <a href="#" class="text-decoration-none text-primary">SBA qualified Deals</a>
             </div>
 
             <!-- Column 6 -->
             <div class="col">
-                <a href="#" class="text-decoration-none text-primary">Commercial Real Estate</a><br>
-                <a href="#" class="text-decoration-none text-primary">Mergers & Acquisitions</a><br>
+                <a href="#" class="text-decoration-none text-primary">Commercial Real Estate</a>
+                <a href="#" class="text-decoration-none text-primary">Mergers & Acquisitions</a>
                 <a href="#" class="text-decoration-none text-primary">Convenience Store/Deli</a>
             </div>
         </div>
@@ -259,7 +260,7 @@ $imagePath = asset('assets/images/Mask_group.png');
     <div class="row">
         <!-- Sellers Section -->
         <div class="col-md-6">
-            <div class="custom-section">
+            <div class="custom-section"  style="background: url('{{ $buyersImagePath}}') no-repeat center center;">
                 <h2 class="section-title">Sellers</h2>
                 <div class="divider"></div>
                 <div class="list-item">
@@ -285,7 +286,7 @@ $imagePath = asset('assets/images/Mask_group.png');
 
         <!-- Buyers Section -->
         <div class="col-md-6">
-            <div class="custom-section">
+            <div class="custom-section"  style="background: url('{{ $buyersImagePath}}') no-repeat center center;">
                 <h2 class="section-title">Buyers</h2>
                 <div class="divider"></div>
                 <div class="list-item">
@@ -315,10 +316,10 @@ $imagePath = asset('assets/images/Mask_group.png');
 
 <div class="container services-section">
     <h2>Our Services</h2>
-    <div class="py-">
+    <div class="">
         <div class="align-items-center d-flex justify-content-between mb-4 w-100">
             <a>EBB Offers Buyers/Sellers 1 Stop Shopping</a>
-            <a href="#" class="btn btn">View All Services</a>
+            <a href="#" class="btn btn view_all_services">View All Services</a>
         </div>
 
         <div class="row g-4">
@@ -358,7 +359,7 @@ $imagePath = asset('assets/images/Mask_group.png');
 <!-- WHY EBB -->
 
 <!-- <title>Why EBB</title> -->
-<div class="container-fluid my-5 why-ebb-section d-flex align-items-center">
+<div class="container-fluid why-ebb-section d-flex align-items-center">
     <div class="row w-100">
         <div class="col-lg-7 col-md-12 image-container">
             <div class="overlay"></div>
@@ -383,10 +384,10 @@ $imagePath = asset('assets/images/Mask_group.png');
 </div>
 
 <!-- PHASES -->
-<section class="phases-section py-1">
+<section class="phases-section">
     <div class="container text-center">
         <!-- Heading Section -->
-        <p class="text-uppercase text-muted small fw-bold">Phases</p>
+        <p class="text-uppercase text-muted small fw-bold phase_title">Phases</p>
         <h2 class="fw-bold mb-3">Phases of Buying A Business</h2>
         <p class="text-muted mb-5">
             Buying a business is a complex and time-consuming process that can be broken down into four main phases.

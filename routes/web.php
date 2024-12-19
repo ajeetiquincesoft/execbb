@@ -56,7 +56,12 @@ Route::get('/', function () {
   return view('frontend.home');
 })->name('home');
 Route::get('/buyers', function () {
-  return view('frontend.buyers');
+  $breadcrumbs = [
+    ['title' => 'Home', 'url' => url('/')],
+    ['title' => 'Buy a Business', 'url' => url('#')],
+    ['title' => 'Buyers', 'url' => url("/buyers")],
+];
+  return view('frontend.buyers',compact('breadcrumbs'));
 })->name('ebb.buyers');
 Route::get('/buyer/tools', function () {
   return view('frontend.buyer-tools');

@@ -270,8 +270,11 @@ li.nav-item.dropdown {
 /*** continue button  end ***/
 
 /* css date 16/12/2024*/
-.bus_cat .col a {
+.bus_cat a {
     color: #7F2149 !important;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 500;
 }
  /* LEADING AGENTS */
  h2.section-title-agents {
@@ -322,7 +325,6 @@ height: 120px; /* Reduce height */
   }
 
   .custom-section {
-    background: url('background-01 1.png') no-repeat center center;
     background-size: cover;
     padding: 40px 20px;
     border-radius: 10px;
@@ -643,4 +645,12 @@ height: 120px; /* Reduce height */
 }
 .bus_listing {
   background-color: #F2E9ED;
+}
+a.btn.btn.view_all_services {
+  font-weight: 600;
+  text-decoration: underline;
+  color: #806132;
+}
+.phase_title {
+  color: #806132 !important;
 }

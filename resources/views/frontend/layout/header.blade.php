@@ -31,7 +31,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="sellDropdown">
                         <li><a class="dropdown-item" href="{{route('seller')}}">Sellers</a></li>
-                        <li><a class="dropdown-item" href="#">Consultation</a></li>
+                        <li><a class="dropdown-item" href="#">List with EBB</a></li>
+                        <li><a class="dropdown-item" href="#">Open List with EBB</a></li>
+                        <li><a class="dropdown-item" href="#">Tools</a></li>
+                        <li><a class="dropdown-item" href="#">Resources</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -39,8 +42,12 @@
                         Services
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                        <li><a class="dropdown-item" href="#">Business Planning</a></li>
-                        <li><a class="dropdown-item" href="#">Legal Assistance</a></li>
+                        <li><a class="dropdown-item" href="#">Services</a></li>
+                        <li><a class="dropdown-item" href="#">Financing</a></li>
+                        <li><a class="dropdown-item" href="#">Consulting</a></li>
+                        <li><a class="dropdown-item" href="#">Preferred Buyer Program</a></li>
+                        <li><a class="dropdown-item" href="#">Mergers & Acquisitions</a></li>
+                        <li><a class="dropdown-item" href="#">Business Valuation</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
