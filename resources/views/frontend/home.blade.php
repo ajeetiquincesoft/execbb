@@ -557,8 +557,5 @@ $buyersImagePath = asset('assets/images/buyers1.png');
 .prefect_bus h5 {
     line-height: 30px;
 }
-.leading_agent p {
-    font-size: 13px;
-}
 </style>
 @endsection

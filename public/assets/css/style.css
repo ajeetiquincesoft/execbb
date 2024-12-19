@@ -654,3 +654,6 @@ a.btn.btn.view_all_services {
 .phase_title {
   color: #806132 !important;
 }
+.leading_agent p {
+  font-size: 13px;
+}
