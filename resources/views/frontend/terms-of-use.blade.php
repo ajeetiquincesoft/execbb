@@ -136,6 +136,7 @@
     color: #5D5D5D;
     font-weight: 400;
     line-height: 26px;
+    font-size: 14px;
 }
 </style>
 @endsection
