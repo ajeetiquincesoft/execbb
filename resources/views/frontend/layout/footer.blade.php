@@ -62,7 +62,7 @@
                             <li><a href="#">Join EBB</a></li>
                             <li><a href="#">Strategic Alliance</a></li>
                             <li><a href="{{route('faqs')}}">FAQs</a></li>
-                            <li><a href="#">Teams of Use</a></li>
+                            <li><a href="{{route('terms.of.use')}}">Teams of Use</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                         </ul>
                     </div>
