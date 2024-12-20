@@ -132,7 +132,7 @@
         color: #806132;
     }
     p.faq_answer {
-    font-family: 'Gilroy';
+    font-family: 'Urbanist';
     color: #5D5D5D;
     font-weight: 400;
     line-height: 26px;
