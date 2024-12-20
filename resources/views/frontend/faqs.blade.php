@@ -455,7 +455,9 @@
     outline: none; 
 }
 .accordion-item {
-    margin-bottom: 20px; /* Adjust the value as needed */
+    margin-bottom: 20px;
+    border: 1px solid #D5D5D5 !important;
+    border-radius: 0 !important;
 }
 </style>
 @endsection
