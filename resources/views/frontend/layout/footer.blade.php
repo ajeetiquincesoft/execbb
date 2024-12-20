@@ -61,7 +61,7 @@
                             <li><a href="#">Broker Profiles</a></li>
                             <li><a href="#">Join EBB</a></li>
                             <li><a href="#">Strategic Alliance</a></li>
-                            <li><a href="#">FAQs</a></li>
+                            <li><a href="{{route('faqs')}}">FAQs</a></li>
                             <li><a href="#">Teams of Use</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                         </ul>
@@ -72,7 +72,7 @@
                         <h4>Quick Links</h4>
                         <ul class="list-unstyled">
                             <li><a href="#">Resources</a></li>
-                            <li><a href="#">FAQs</a></li>
+                            <li><a href="{{route('faqs')}}">FAQs</a></li>
                             <li><a href="#">Blog/News</a></li>
                         </ul>
                     </div>

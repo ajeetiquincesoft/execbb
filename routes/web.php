@@ -87,6 +87,9 @@ Route::get('/list-with-ebb', function () {
 Route::get('/open-list-with-ebb', function () {
   return view('frontend.open-list-with-ebb');
 })->name('open-list.with.ebb');
+Route::get('/faqs', function () {
+  return view('frontend.faqs');
+})->name('faqs');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');
