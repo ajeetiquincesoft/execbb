@@ -60,12 +60,15 @@ Route::get('/buyers', function () {
     ['title' => 'Home', 'url' => url('/')],
     ['title' => 'Buy a Business', 'url' => url('#')],
     ['title' => 'Buyers', 'url' => url("/buyers")],
-];
-  return view('frontend.buyers',compact('breadcrumbs'));
+  ];
+  return view('frontend.buyers', compact('breadcrumbs'));
 })->name('ebb.buyers');
 Route::get('/buyer/tools', function () {
   return view('frontend.buyer-tools');
 })->name('buyer.tools');
+Route::get('/seller/tools', function () {
+  return view('frontend.seller-tools');
+})->name('seller.tools');
 Route::get('/seller', function () {
   return view('frontend.sellers');
 })->name('seller');
@@ -75,6 +78,15 @@ Route::get('/services', function () {
 Route::get('/business/agent', function () {
   return view('frontend.business-agent');
 })->name('business.agent');
+Route::get('/business/agent/profile', function () {
+  return view('frontend.business-agent-profile');
+})->name('business.agent.profile');
+Route::get('/list-with-ebb', function () {
+  return view('frontend.list-with-ebb');
+})->name('list.with.ebb');
+Route::get('/open-list-with-ebb', function () {
+  return view('frontend.open-list-with-ebb');
+})->name('open-list.with.ebb');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');
@@ -294,7 +306,6 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
 
 Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.'], function () {
   Route::get('/dashboard', [BuyerAuthController::class, 'buyerDashboard'])->name('dashboard');
-
 });
 
 Route::get('login', [AdminAuthController::class, 'index'])->name('login');

@@ -34,8 +34,8 @@
                         <h4>Sellers</h4>
                         <ul class="list-unstyled">
                             <li><a href="#">Selling a Business</a></li>
-                            <li><a href="#">Register with EBB</a></li>
-                            <li><a href="#">Tools</a></li>
+                            <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
+                            <li><a href="{{route('seller.tools')}}">Tools</a></li>
                             <li><a href="#">Resources</a></li>
                         </ul>
                     </div>
@@ -46,7 +46,7 @@
                         <ul class="list-unstyled">
                             <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
                             <li><a href="#">Proffered Buyers Program</a></li>
-                            <li><a href="#">Tools</a></li>
+                            <li><a href="{{route('buyer.tools')}}">Tools</a></li>
                             <li><a href="#">Resources</a></li>
                         </ul>
                     </div>

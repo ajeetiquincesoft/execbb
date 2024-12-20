@@ -1,3 +1,12 @@
+
+/* Bold font face (TTF only) */
+ @font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Medium.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+} 
+
 body {
     font-family: 'Urbanist', sans-serif;
 }
@@ -48,8 +57,8 @@ h2 {
   }
   
   .btn-primary {
-    background-color: #97164a !important; /* Search button color */
-    border-color: #C2185B !important;
+    background-color: #7F2149 !important; /* Search button color */
+    border-color: #7F2149 !important;
     color: #fff !important;             
   }
   .custom-heading {
@@ -80,7 +89,7 @@ h2 {
 
 .custom-link:hover {
     color: #ffffff; /* White text on hover */
-    background-color: #e61111; /* Bootstrap primary hover background */
+    background-color: #7F2149; /* Bootstrap primary hover background */
     padding: 5px 10px;
     border-radius: 5px;
     text-decoration: none;
@@ -656,4 +665,9 @@ a.btn.btn.view_all_services {
 }
 .leading_agent p {
   font-size: 13px;
+  font-family: 'Mulish';
+  color: #5D5D5D;
+}
+.leading_agent h5 {
+  font-family: 'Gilroy'; 
 }

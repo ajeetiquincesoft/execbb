@@ -31,9 +31,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="sellDropdown">
                         <li><a class="dropdown-item" href="{{route('seller')}}">Sellers</a></li>
-                        <li><a class="dropdown-item" href="#">List with EBB</a></li>
-                        <li><a class="dropdown-item" href="#">Open List with EBB</a></li>
-                        <li><a class="dropdown-item" href="#">Tools</a></li>
+                        <li><a class="dropdown-item" href="{{route('list.with.ebb')}}">List with EBB</a></li>
+                        <li><a class="dropdown-item" href="{{route('open-list.with.ebb')}}">Open List with EBB</a></li>
+                        <li><a class="dropdown-item" href="{{route('seller.tools')}}">Tools</a></li>
                         <li><a class="dropdown-item" href="#">Resources</a></li>
                     </ul>
                 </li>
@@ -56,7 +56,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="agentDropdown">
                         <li><a class="dropdown-item" href="{{route('business.agent')}}">Business Agent</a></li>
-                        <li><a class="dropdown-item" href="#">Join Us</a></li>
+                        <li><a class="dropdown-item" href="{{route('business.agent.profile')}}">Join Us</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
