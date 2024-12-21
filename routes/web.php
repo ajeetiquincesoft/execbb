@@ -93,6 +93,15 @@ Route::get('/faqs', function () {
 Route::get('/terms-of-use', function () {
   return view('frontend.terms-of-use');
 })->name('terms.of.use');
+Route::get('/contact-us', function () {
+  return view('frontend.contact-us');
+})->name('contact.us');
+Route::get('/seller-register-with-ebb', function () {
+  return view('frontend.seller-register-with-ebb');
+})->name('seller.register.with.ebb');
+Route::get('/privacy-policy', function () {
+  return view('frontend.privacy-policy');
+})->name('privacy.policy');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

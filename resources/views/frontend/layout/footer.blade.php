@@ -34,7 +34,7 @@
                         <h4>Sellers</h4>
                         <ul class="list-unstyled">
                             <li><a href="#">Selling a Business</a></li>
-                            <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
+                            <li><a href="{{route('seller.register.with.ebb')}}">Register with EBB</a></li>
                             <li><a href="{{route('seller.tools')}}">Tools</a></li>
                             <li><a href="#">Resources</a></li>
                         </ul>
@@ -63,7 +63,7 @@
                             <li><a href="#">Strategic Alliance</a></li>
                             <li><a href="{{route('faqs')}}">FAQs</a></li>
                             <li><a href="{{route('terms.of.use')}}">Teams of Use</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="{{route('privacy.policy')}}">Privacy Policy</a></li>
                         </ul>
                     </div>
     
