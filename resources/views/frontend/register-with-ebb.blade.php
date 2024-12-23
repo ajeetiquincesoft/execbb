@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Register with ebb Start -->
-<div class="container py-5 container-padding" style="background-color: #FFFFFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+<div class="container py-5 container-padding" style="background-color: #FFFFFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-top:60px;">
     <div class="row g-5">
         <div class="col-md-12 d-flex align-items-center justify-content-center">
             <div class="text-black" style="width: 100%;">
