@@ -165,7 +165,7 @@
     }
 
     .Content-text {
-        margin-right: 100px;
+        margin-right: 80px;
         margin-left: 47px;
         font-family: 'Mulish', sans-serif;
         color: #5D5D5D;
@@ -178,7 +178,7 @@
     .boxes-button-section {
         background: #FFFFFF;
         padding: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         margin-top: 12px;
     }
 
