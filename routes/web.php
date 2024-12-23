@@ -102,6 +102,9 @@ Route::get('/seller-register-with-ebb', function () {
 Route::get('/privacy-policy', function () {
   return view('frontend.privacy-policy');
 })->name('privacy.policy');
+Route::get('/about-us', function () {
+  return view('frontend.about-us');
+})->name('about.us');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

@@ -57,6 +57,7 @@
              <div class="col-md-6 col-lg-6 col-xl-2">
                  <h4>About EBB</h4>
                  <ul class="list-unstyled">
+                     <li><a href="{{route('about.us')}}">Company</a></li>
                      <li><a href="#">Management</a></li>
                      <li><a href="#">Why EBB</a></li>
                      <li><a href="#">Success Stories</a></li>
