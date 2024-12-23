@@ -46,7 +46,6 @@
     padding: 45px;
     border-radius: 8px;
     margin: -13px auto;
-    max-width: 1200px;
 }
 h1 {
     font-size: 1.3rem !important;
