@@ -52,7 +52,6 @@
         padding: 79px;
         border-radius: 8px;
         margin: -13px auto;
-        max-width: 1200px;
     }
 
     h1 {
