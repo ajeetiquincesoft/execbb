@@ -114,6 +114,9 @@ Route::get('/why-ebb', function () {
 Route::get('/join-ebb', function () {
   return view('frontend.join-ebb');
 })->name('join.ebb');
+Route::get('/strategic-alliances', function () {
+  return view('frontend.strategic-alliances');
+})->name('strategic.alliances');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');
