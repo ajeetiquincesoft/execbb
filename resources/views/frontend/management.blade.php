@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">About Us</a></li>
+                <li class="breadcrumb-item active"><a href="#">Management</a></li>
             </ol>
         </nav>
     </div>
@@ -17,10 +17,10 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">About EBB</h5>
+                <h5 class="main-heading">Management</h5>
             </div>
         </div>
-        <div class="row px-5">
+        <div class="row px-5 mt-5">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
