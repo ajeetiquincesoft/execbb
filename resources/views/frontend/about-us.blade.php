@@ -23,7 +23,7 @@
         </div>
         <div class="row px-5">
             <!-- Main Content -->
-            <div class="col-md-7 main-head">
+            <div class="col-md-8 main-head">
                 <div class="Content-text">
                     <h3 class="section-heading">The Business Brokerage Specialists</h3>
                     <p>Since 1985, EBB has been selling companies in almost every sector, handling a wide range of
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <!-- Side Panel -->
-            <div class="col-md-5" style="background-color: #F8F8F8;;">
+            <div class="col-md-4" style="background-color: #F8F8F8;;">
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
