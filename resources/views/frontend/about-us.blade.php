@@ -51,30 +51,33 @@
                         <div class="boxes-button-section">
                             <div class="EBB-team-title">
                                 <h5>Join the EBB Team</h5>
-                            </div>
-                            <p>Our strength is our brokers. Learn how you can <a href="#"
+                                <p>Our strength is our brokers. Learn how you can <a href="#"
                                     style="color: #7F2149; text-decoration: underline;">become part of our all-star
                                     team</a> .</p>
+                            </div>
+                            
                         </div>
                         <div class="boxes-button-section">
                             <div class="EBB-team-title">
                                 <h5>Sell It Through EBB</h5>
+                                <p><a href="#" style="color: #7F2149; text-decoration: underline;">List</a>
+                            your business with EBB.</p>
                             </div>
-                            <a href="#" style="color: #7F2149; text-decoration: underline;">List</a>
-                            your business with EBB.
+                            
                         </div>
                         <div class="boxes-button-section">
                             <div class="EBB-team-title">
                                 <h5>Accelerate Your Search</h5>
+                                <p><a href="#" style="color: #7F2149; text-decoration: underline;">EBB Preferred Buyer</a>
+                            and benefit from our full services.</p>
                             </div>
-                            <a href="#" style="color: #7F2149; text-decoration: underline;">EBB Preferred Buyer</a>
-                            and benefit from our full services.
+                            
                         </div>
                         <div class="boxes-button-section">
                             <div class="EBB-team-title">
                                 <h5>
-                                    <a href="#" style="color: #806132; text-decoration: underline;">A Message</a>
-                                    from EBB's President Larry Bodner
+                                    <p><a href="#" style="color: #806132; text-decoration: underline;">A Message</a>
+                                    from EBB's President Larry Bodner</p>
                                 </h5>
                             </div>
                         </div>
@@ -115,14 +118,12 @@
         .sub-heading {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 40px;
             color: #000;
         }
         .section-heading {
             font-size: 20px;
             font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 10px;
             color: #000;
             font-family: 'Urbanist';
         }
