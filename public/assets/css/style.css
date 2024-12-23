@@ -9,6 +9,7 @@
 
 body {
     font-family: 'Urbanist', sans-serif;
+    background-color: #f8f8f8;
 }
 h2 {
     font-size: 24px;
@@ -328,10 +329,6 @@ height: 120px; /* Reduce height */
     text-decoration: underline;
   }
   /* SELLER & BUYER */
-
-  body {
-    background-color: #ffffff; /* Light beige background color */
-  }
 
   .custom-section {
     background-size: cover;
