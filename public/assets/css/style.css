@@ -672,5 +672,5 @@ a.btn.btn.view_all_services {
   font-family: 'Gilroy'; 
 }
 .container-fluid-footer{
-  background-color: #f8f8f8;
+  background-color: #f8f8f8 !important;
 }
