@@ -671,3 +671,6 @@ a.btn.btn.view_all_services {
 .leading_agent h5 {
   font-family: 'Gilroy'; 
 }
+.container-fluid-footer{
+  background-color: #f8f8f8;
+}

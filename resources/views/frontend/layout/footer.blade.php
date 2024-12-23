@@ -1,7 +1,7 @@
  <!-- FOOTER -->
 
  <!-- Newsletter Section -->
- <div class="container-fluid">
+ <div class="container-fluid-footer">
      <div class="container form-sec" style="z-index: 999;">
          <div class="row newsletter">
              <div class="col-lg-4">
