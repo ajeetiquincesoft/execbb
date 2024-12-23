@@ -58,7 +58,7 @@
                  <h4>About EBB</h4>
                  <ul class="list-unstyled">
                      <li><a href="{{route('about.us')}}">Company</a></li>
-                     <li><a href="#">Management</a></li>
+                     <li><a href="{{route('management')}}">Management</a></li>
                      <li><a href="#">Why EBB</a></li>
                      <li><a href="#">Success Stories</a></li>
                      <li><a href="#">Broker Profiles</a></li>
