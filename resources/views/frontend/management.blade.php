@@ -18,31 +18,18 @@
         <div class="row">
             <div class="about_EBB">
                 <h5 class="main-heading">About EBB</h5>
-                <h6 class="sub-heading">Executive Business Brokers - A Large, Active Business Brokerage Firm</h6>
             </div>
         </div>
         <div class="row px-5">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading">The Business Brokerage Specialists</h3>
-                    <p>Since 1985, EBB has been selling companies in almost every sector, handling a wide range of
-                        business opportunities from retail to wholesale, manufacturing to service.</p>
-                    <h3 class="section-heading">We are in the Business of Selling Businesses</h3>
-                    <p>The businesses we sell are companies with annual sales under $10M. The prices of these
-                        companies range from $100K to $5M, requiring liquid investments of $50K to $2M.</p>
-                    <h3 class="section-heading">We Bring Buyers and Sellers Together</h3>
-                    <p>EBB brings together individuals with various levels of experience and provides them with
-                        buying tools and selling tools. We guide and facilitate the process of buying and selling a
-                        business, saving our clients both time and money. Our fees are paid by the seller.</p>
-                    <h3 class="section-heading">Reach Qualified Buyers and Sellers</h3>
-                    <p>Our proprietary national database of thousands of qualified buyers and sellers ensures that
-                        your listing reaches a vast audience. EBB also qualifies these prospects through our buyer
-                        screening process.</p>
-                    <h3 class="section-heading">No Geographic Restrictions</h3>
-                    <p>EBB is a member of the International Business Brokerage Association and is affiliated with
-                        many Internet marketing companies. Through these affiliations we have access to buyers and
-                        sellers on a local, national and an international basis.</p>
+                    <h3 class="section-heading">A Results Driven Leader</h3>
+                    <p>Executive Business Brokers' President Larry Bodner established the business in 1985 to provide small to mid-sized business owners with value-added professional services.</p>
+                    <h3 class="section-heading">Years of  Experience</h3>
+                    <p>Since 1985, Larry has successfully guided sellers and  buyers through transfers of ownership and business valuations. He has represented manufacturing, distribution, retail and private sector clients in sales ranging from $100K to  $5M.</p>
+                    <h3 class="section-heading">Unique Perspective</h3>
+                    <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a business  valuable, how to present a business to prospective buyers, how to  negotiate terms and how to secure the maximum price for a business.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -81,7 +68,6 @@
                             </h5>
                         </div>
                     </div>
-                    <img src="{{ asset('assets/images/about-us_logo.png') }}" alt="IBBA Logo" class="img-fluid ibba-logo">
                 </div>
             </div>
         </div>
