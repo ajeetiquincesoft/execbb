@@ -111,6 +111,9 @@ Route::get('/management', function () {
 Route::get('/why-ebb', function () {
   return view('frontend.why-ebb');
 })->name('why.ebb');
+Route::get('/join-ebb', function () {
+  return view('frontend.join-ebb');
+})->name('join.ebb');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

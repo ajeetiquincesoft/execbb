@@ -62,7 +62,7 @@
                      <li><a href="{{route('why.ebb')}}">Why EBB</a></li>
                      <li><a href="#">Success Stories</a></li>
                      <li><a href="#">Broker Profiles</a></li>
-                     <li><a href="#">Join EBB</a></li>
+                     <li><a href="{{route('join.ebb')}}">Join EBB</a></li>
                      <li><a href="#">Strategic Alliance</a></li>
                      <li><a href="{{route('faqs')}}">FAQs</a></li>
                      <li><a href="{{route('terms.of.use')}}">Teams of Use</a></li>
