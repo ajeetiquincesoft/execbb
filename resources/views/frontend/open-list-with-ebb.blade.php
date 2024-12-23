@@ -1,7 +1,7 @@
 @extends('frontend.layout.master')
 @section('content')
 <!-- Breadcrumb Section -->
-<div class="breadcrumb-container py-3">
+<div class="breadcrumb-container open-list">
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -117,7 +117,7 @@
             border: 1px solid #ddd;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 65px;
-            margin: 20px auto;
+            margin: 0px auto;
             max-width: 1100px;
         }
         .main-title {
@@ -164,6 +164,9 @@
         }
         .card-EBB {
             margin: 0 20px;
+        }
+        .open-list{
+            padding-top: 20px;
         }
 </style>
 @endsection
