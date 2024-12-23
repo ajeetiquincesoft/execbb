@@ -76,8 +76,8 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <p><a href="#" style="color: #806132; text-decoration: underline;">A Message</a>
-                                    from EBB's President Larry Bodner</p>
+                                <a href="#" style="color: #806132; text-decoration: underline;">A Message</a>
+                                    from EBB's President Larry Bodner
                             </h5>
                         </div>
                     </div>
