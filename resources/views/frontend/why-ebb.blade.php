@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Management</a></li>
+                <li class="breadcrumb-item active"><a href="#">Why EBB?</a></li>
             </ol>
         </nav>
     </div>
@@ -17,19 +17,19 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Management</h5>
+                <h5 class="main-heading">Why EBB?</h5>
             </div>
         </div>
         <div class="row px-5 mt-5">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading">A Results Driven Leader</h3>
-                    <p>Executive Business Brokers' President Larry Bodner established the business in 1985 to provide small to mid-sized business owners with value-added professional services.</p>
-                    <h3 class="section-heading mt-5">Years of  Experience</h3>
-                    <p>Since 1985, Larry has successfully guided sellers and  buyers through transfers of ownership and business valuations. He has represented manufacturing, distribution, retail and private sector clients in sales ranging from $100K to  $5M.</p>
-                    <h3 class="section-heading mt-5">Unique Perspective</h3>
-                    <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a business  valuable, how to present a business to prospective buyers, how to  negotiate terms and how to secure the maximum price for a business.</p>
+                    <h3 class="section-heading">Buying and Selling a Business is Easier with EBB</h3>
+                    <p>Executive Business Brokers has handled the marketing and sales efforts for over 1,000 small to mid-sized businesses in retail, service, and manufacturing and distribution industries. Our consultative approach to buying and selling  makes selling a business easier.</p>
+                    <h3 class="section-heading mt-5">EBB Guides You through the Process</h3>
+                    <p>As an objective third party we will review your business operation to help you determine its fair market value in today’s marketplace.  We will also coordinate and attend meetings with the various professionals involved and help accountants and attorneys address the various issues involved with the sale..</p>
+                    <h3 class="section-heading mt-5">EBB Locates the Right Buyers</h3>
+                    <p>Our aggressive <a href="#" class="sellorgive">multi-level marketing</a> effort that includes direct mail, advertising, networking and the Internet  draws buyers. Through our screening process we qualify them by determining their intent, requirements and financial resources. <span>ALL prospective buyers sign a  confidentiality and non-disclosure agreements prior to viewing  details of your businesses.</span></p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -177,6 +177,9 @@
     .EBB-team-title {
         padding-top: 16px;
         padding-left: 16px;
+    }
+    .Content-text span{
+        font-weight: bold;
     }
 </style>
 @endsection

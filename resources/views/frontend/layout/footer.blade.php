@@ -59,7 +59,7 @@
                  <ul class="list-unstyled">
                      <li><a href="{{route('about.us')}}">Company</a></li>
                      <li><a href="{{route('management')}}">Management</a></li>
-                     <li><a href="#">Why EBB</a></li>
+                     <li><a href="{{route('why.ebb')}}">Why EBB</a></li>
                      <li><a href="#">Success Stories</a></li>
                      <li><a href="#">Broker Profiles</a></li>
                      <li><a href="#">Join EBB</a></li>
