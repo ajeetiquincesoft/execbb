@@ -43,8 +43,8 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
                             <li><a class="dropdown-item" href="{{route('services')}}">Services</a></li>
-                            <li><a class="dropdown-item" href="#">Financing</a></li>
-                            <li><a class="dropdown-item" href="#">Consulting</a></li>
+                            <li><a class="dropdown-item" href="{{route('financing')}}">Financing</a></li>
+                            <li><a class="dropdown-item" href="{{route('consulting')}}">Consulting</a></li>
                             <li><a class="dropdown-item" href="#">Preferred Buyer Program</a></li>
                             <li><a class="dropdown-item" href="#">Mergers & Acquisitions</a></li>
                             <li><a class="dropdown-item" href="#">Business Valuation</a></li>
