@@ -116,8 +116,9 @@
             background-color: #fff;
             border: 1px solid #ddd;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 45px;
+            padding: 65px;
             margin: 0px auto;
+            max-width: 1100px;
         }
         .main-title {
             font-size: x-large;
