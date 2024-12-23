@@ -170,7 +170,8 @@
             margin-bottom: 20px;
             margin-top: 20px;
         }
-        .EBB-team-title {
+        .EBB-team-title h5 {
+            font-weight: bold;
             color: #806132;
             font-family: Mulish;
         }
