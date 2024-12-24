@@ -16,7 +16,7 @@
 <div class="container my-7">
     <div class="content-box">
         <div class="row">
-            <div class="Services">
+            <div class="about_EBB">
                 <h5 class="main-heading">Mergers and Acquisitions</h5>
             </div>
         </div>
