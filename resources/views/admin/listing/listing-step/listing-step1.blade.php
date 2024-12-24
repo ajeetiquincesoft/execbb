@@ -134,14 +134,14 @@
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </label>
-                        <div class="avatar-upload-agent">
-                            <div id="imagePreview" class="avatar-circle"></div>
+                        <div class="avatar-upload-agent1">
+                            <div id="imagePreview" class="avatar-circle1"></div>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="avatar-upload-agent">
-                            <div class="avatar-circle">
+                            <div class="avatar-circle1">
                                 @if(session('formData.listing_img'))
                                 <img id="avatar-preview" src="{{ asset('assets/uploads/images/' . session('formData.listing_img')) }}" alt="Avatar Preview" class="avatar_agent">
                                 @endif

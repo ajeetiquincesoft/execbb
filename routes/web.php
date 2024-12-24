@@ -33,8 +33,11 @@ use App\Http\Controllers\Agent\AgentReportController;
 
 //Controller for buyer
 use App\Http\Controllers\Buyer\BuyerAuthController;
+
 //Controller for frontend
 use App\Http\Controllers\RegisterWithEbbController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
 
 
 
@@ -51,10 +54,8 @@ use App\Http\Controllers\RegisterWithEbbController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-  return view('frontend.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 Route::get('/buyers', function () {
   $breadcrumbs = [
     ['title' => 'Home', 'url' => url('/')],
@@ -123,6 +124,15 @@ Route::get('/financing', function () {
 Route::get('/consulting', function () {
   return view('frontend.consulting');
 })->name('consulting');
+Route::get('/preferred-buyers-program', function () {
+  return view('frontend.preferred-buyers-program');
+})->name('preferred.buyers.program');
+Route::get('/mergers-and-acquisitions', function () {
+  return view('frontend.mergers-and-acquisitions');
+})->name('mergers.and.acquisitions');
+Route::get('/business-valuation', function () {
+  return view('frontend.business-valuation');
+})->name('business.valuation');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

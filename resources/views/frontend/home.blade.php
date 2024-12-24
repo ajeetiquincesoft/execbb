@@ -8,20 +8,22 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 <div class="position-relative text-center text-white" style="background-image: url('{{ $imagePath }}'); background-size: cover; background-position: center; height: 500px;">
     <div class="container position-absolute top-50 start-50 translate-middle d-flex flex-column justify-content-center">
         <h1 class="fw-bold mb-4">Business Listing Search</h1>
+        <form class="listing_search" method="get" action="{{ route('search.index') }}">
         <div class="bus_lis_search">
             <div class="listing_search d-flex align-items-center">
-                <input type="text" class="form-control form-control-lg" placeholder="Industry">
-                <select class="form-select form-select-lg">
-                    <option selected disabled>State</option>
-                    <option value="NY">New York</option>
-                    <option value="CA">California</option>
-                    <option value="TX">Texas</option>
+                <input type="text" class="form-control form-control-lg" placeholder="Industry" name="industry" value="{{ request('industry') }}">
+                <select class="form-select form-select-lg" name="state">
+                    <option selected value="" disabled>State</option>
+                    @foreach($states as $state)
+                    <option value="{{$state->State}}">{{$state->StateName}}</option>
+                    @endforeach
                 </select>
                 <div class="d-flex justify-content-center align-items-center full-screen">
-                    <button class="btn btn-primary px-4 py-2">Search</button>
+                    <button type="submit" class="btn btn-primary px-4 py-2">Search</button>
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </div>
 
@@ -113,93 +115,17 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     </div>
     <!-- Carousel Items -->
     <div class="slider card-container">
-        <!-- Card 1 -->
-
+    @foreach($listings as $listing)
         <div class="card shadow-sm">
-            <img src="{{asset('assets/images/feature_listing_1.png')}}" class="card-img-top" alt="East Hanover, NJ">
+            <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
             <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">East Hanover, NJ</h5>
-                <p class="card-text mb-0">List Price: $289000</p>
-                <p class="card-text">Down Pay: $289000</p>
+                <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
+                <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
+                <p class="card-text">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
             </div>
         </div>
-
-        <!-- Card 2 -->
-
-        <div class="card shadow-sm">
-            <img src="{{asset('assets/images/feature_listing_2.png')}}" class="card-img-top" alt="Union City, NJ">
-            <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">Union City, NJ</h5>
-                <p class="card-text mb-0">List Price: $289000</p>
-                <p class="card-text">Down Pay: $289000</p>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-
-        <div class="card shadow-sm">
-            <img src="{{asset('assets/images/feature_listing_3.png')}}" class="card-img-top" alt="Bronx, NY">
-            <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">Bron X, NY</h5>
-                <p class="card-text mb-0">List Price: $289000</p>
-                <p class="card-text">Down Pay: $289000</p>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-
-        <div class="card shadow-sm">
-            <img src="{{asset('assets/images/feature_listing_4.png')}}" class="card-img-top" alt="Jersey City, NJ">
-            <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">Jersey City, NJ</h5>
-                <p class="card-text mb-0">List Price: $289000</p>
-                <p class="card-text">Down Pay: $289000</p>
-            </div>
-        </div>
-
-        <!-- Card 1 -->
-
-        <div class="card shadow-sm">
-            <img src="{{asset('assets/images/feature_listing_1.png')}}" class="card-img-top" alt="East Hanover, NJ">
-            <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">East Hanover, NJ</h5>
-                <p class="card-text mb-0">List Price: $289000</p>
-                <p class="card-text">Down Pay: $289000</p>
-            </div>
-        </div>
-
-        <!-- Card 2 -->
-
-        <div class="card shadow-sm">
-            <img src="{{asset('assets/images/feature_listing_2.png')}}" class="card-img-top" alt="Union City, NJ">
-            <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">Union City, NJ</h5>
-                <p class="card-text mb-0">List Price: $289000</p>
-                <p class="card-text">Down Pay: $289000</p>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-
-        <div class="card shadow-sm">
-            <img src="{{asset('assets/images/feature_listing_3.png')}}" class="card-img-top" alt="Bronx, NY">
-            <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">Bron X, NY</h5>
-                <p class="card-text mb-0">List Price: $289000</p>
-                <p class="card-text">Down Pay: $289000</p>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-
-        <div class="card shadow-sm">
-            <img src="{{asset('assets/images/feature_listing_4.png')}}" class="card-img-top" alt="Jersey City, NJ">
-            <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">Jersey City, NJ</h5>
-                <p class="card-text mb-0">List Price: $289000</p>
-                <p class="card-text">Down Pay: $289000</p>
-            </div>
-        </div>
+        @endforeach
+        
 
 
 
@@ -444,7 +370,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
             prevArrow: $('.carousel-prev'), // Link the previous button to the slick carousel
             nextArrow: $('.carousel-next'),
             dots: true, // Display navigation dots
-            autoplay: true, // Auto slide
+            autoplay: false, // Auto slide
             autoplaySpeed: 2000, // Time between slides
             fade: false, // Disable fade transition
             speed: 500, // Transition speed in ms

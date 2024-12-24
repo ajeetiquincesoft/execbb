@@ -675,3 +675,97 @@ a.btn.btn.view_all_services {
 .container-fluid-footer{
   background-color: #f8f8f8 !important;
 }
+/*pagination css*/
+/* General Pagination Container */
+.pagination-wrapper {
+  text-align: center; /* Center pagination */
+  margin-top: 20px; /* Space above the pagination */
+}
+
+/* Pagination List */
+.pagination {
+  display: inline-flex;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Pagination Links (Individual items) */
+.pagination li {
+  margin: 0 5px; /* Space between pagination items */
+}
+
+/* Pagination Links Styling */
+.pagination a {
+  display: inline-block;
+  padding: 8px 16px; /* Size of the pagination links */
+  font-size: 16px; /* Font size for the links */
+  text-decoration: none; /* Remove underline */
+  color: #7F2149; /* Default link color */
+  background-color: #fff; /* Background color */
+  border: 1px solid #ddd; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  transition: all 0.3s ease; /* Smooth transition for hover and active states */
+}
+
+/* Active Pagination Link */
+.pagination li.active a {
+  background-color: #7F2149; /* Background color for the active page */
+  color: white; /* Text color for the active page */
+  border-color: #7F2149; /* Border color for the active page */
+}
+
+/* Disabled State for Previous and Next Links */
+.pagination li.disabled a {
+  color: #6c757d; /* Disabled link color */
+  pointer-events: none; /* Disable clicking */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+  border-color: #ddd; /* Light border for disabled */
+}
+
+/* Hover Effects */
+.pagination a:hover {
+  background-color: #f0f0f0; /* Light background color on hover */
+  border-color: #ccc; /* Darken the border on hover */
+}
+
+/* Custom Arrows (Left and Right) */
+.pagination a:before {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Customize "Previous" and "Next" Text */
+.pagination a:first-child {
+  padding-left: 12px; /* Add padding to the left for the previous arrow */
+}
+
+.pagination a:last-child {
+  padding-right: 12px; /* Add padding to the right for the next arrow */
+}
+
+/* Add space for the dots separator */
+.pagination .disabled span {
+  padding: 8px 16px;
+  font-size: 16px;
+  color: #6c757d; /* Grey color for "..." */
+}
+
+/* Ensure proper spacing for the arrows */
+.pagination li a {
+  font-weight: bold;
+}
+
+/* Responsive Design - Adjust for smaller screens */
+@media (max-width: 767px) {
+  .pagination a {
+      padding: 6px 12px; /* Reduce padding on smaller screens */
+      font-size: 14px; /* Smaller font size on mobile */
+  }
+
+  .pagination li {
+      margin: 0 3px; /* Less margin on mobile */
+  }
+}
+
+/*pagination css end*/
