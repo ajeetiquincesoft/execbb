@@ -105,7 +105,7 @@ class AgentController extends Controller
             $agent->save();
             // call the event
             //Mail::to('santosh3257@gmail.com')->send(new AgentWelcome());
-            //event(new AgentRegister($request->all()));
+            event(new AgentRegister($request->all()));
             DB::commit();
             return redirect('admin/agent/list')->with('success', 'Agent register successfully');
         } catch (QueryException $e) {
