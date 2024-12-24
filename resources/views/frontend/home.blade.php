@@ -3,7 +3,7 @@
 <!-- Hero Section -->
 @php
 $imagePath = asset('assets/images/Mask_group.png');
-$buyersImagePath = asset('assets/images/buyers1.png');
+$buyersImagePath = asset('assets/images/Buyers1.png');
 @endphp
 <div class="position-relative text-center text-white" style="background-image: url('{{ $imagePath }}'); background-size: cover; background-position: center; height: 500px;">
     <div class="container position-absolute top-50 start-50 translate-middle d-flex flex-column justify-content-center">
