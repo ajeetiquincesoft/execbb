@@ -18,7 +18,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="appointment">Appointment <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="appointment" name="appointment" value="{{$lead->AppointmentDate}}">
+                                <input type="date" class="form-control" id="appointment" name="appointment" value="{{$lead->AppointmentDate}}" min="{{ \Carbon\Carbon::now()->toDateString() }}">
                                 @error('appointment')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -28,7 +28,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="time">Time <span class="text-danger">*</span></label>
-                                <input type="datetime-local" class="form-control" id="time" name="time"  value="{{$lead->AppointmentTime}}">
+                                <input type="datetime-local" class="form-control" id="time" name="time"  value="{{$lead->AppointmentTime}}" min="{{ \Carbon\Carbon::now()->toDateTimeString() }}">
                                 @error('time')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -38,7 +38,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="leadDate">Lead Date <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="leadDate" name="leadDate"  value="{{$lead->LDate}}">
+                                <input type="date" class="form-control" id="leadDate" name="leadDate"  value="{{$lead->LDate}}" max="{{ \Carbon\Carbon::now()->toDateString() }}">
                                 @error('leadDate')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
