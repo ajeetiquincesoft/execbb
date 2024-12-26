@@ -137,8 +137,8 @@
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </label>
-                        <div class="avatar-upload-agent">
-                            <div id="imagePreview" class="avatar-circle"></div>
+                        <div class="avatar-upload-agent1">
+                            <div id="imagePreview" class="avatar-circle1"></div>
                         </div>
                     </div>
 
