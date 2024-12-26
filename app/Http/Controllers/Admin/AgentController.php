@@ -102,19 +102,10 @@ class AgentController extends Controller
 
                 $agent->image = $filename;
             }
-           /*  $agent->save(); */
-
-           $email = 'santosh@yopmail.com';
-
-           Mail::send([], [], function ($message) use ($email) {
-               $message->from('example@example.com', 'Santosh')
-                       ->to($email)
-                       ->subject('Simple Email Subject')
-                       ->setBody('<h1>This is a simple email body.</h1>', 'text/html'); // HTML body content
-           });
+            $agent->save();
             // call the event
             //Mail::to('santosh3257@gmail.com')->send(new AgentWelcome());
-            //event(new AgentRegister($request->all()));
+            event(new AgentRegister($request->all()));
             DB::commit();
             return redirect('admin/agent/list')->with('success', 'Agent register successfully');
         } catch (QueryException $e) {
