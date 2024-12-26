@@ -17,7 +17,7 @@ class SearchController extends Controller
             $listings = Listing::where('BusType', 'LIKE', '%' . $listing_type . '%')
             ->orWhere('State', '==', $state);
         }
-        $listings = $listings->orderBy('created_at', 'desc')->paginate(3);
+        $listings = $listings->orderBy('created_at', 'desc')->paginate(9);
             //dd(count($listings));
            // dd($listings);
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */

@@ -55,8 +55,8 @@
                             Business Agent
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="agentDropdown">
-                            <li><a class="dropdown-item" href="{{route('business.agent')}}">Business Agent</a></li>
-                            <li><a class="dropdown-item" href="{{route('business.agent.profile')}}">Join Us</a></li>
+                            <li><a class="dropdown-item" href="{{route('all.brokers')}}">Business Agent</a></li>
+                            <li><a class="dropdown-item" href="#">Join Us</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

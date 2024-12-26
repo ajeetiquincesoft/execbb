@@ -22,8 +22,8 @@
         <hr class="pursuit_hr mb-5">
         <div class="row agent_search mb-5">
             <div class="col-md-12">
-                <form action="#" method="post" class="">
-                    <input type="text" class="form-control" placeholder="Find Agent" required="">
+                <form action="{{route('all.brokers')}}" method="get" class="">
+                    <input type="text" class="form-control" placeholder="Find Agent" name="query" value="{{ request('query') }}" required="">
                     <button type="submit">Search Agent</button>
                 </form>
             </div>
@@ -36,129 +36,38 @@
         <!-- Content Section -->
         <div class="row row-cols-1 row-cols-md-3 g-4 my-3">
             <!-- Agent Card 1 -->
+            @foreach($agents as $agent)
+            @php
+                $text = strip_tags($agent->Comments);
+                $words = explode(' ',$text);
+                $limitedComment = implode(' ', array_slice($words, 0, 15));
+
+                if(count($words) > 15) {
+                    $limitedComment .= '...';
+                }
+            @endphp
             <div class="col">
                 <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/larry_bodner_picture.png') }}" alt="Larry Bodner" class="agent-image">
+                    @if(!empty($agent->image))
+                    <img src="{{asset('assets/uploads/images/'. $agent->image)}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
+                    @else
+                    <img src="{{asset('assets/images/avatar.png')}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
+                    @endif
                     <div class="leading_agent">
-                        <h5 class="mb-1">Larry Bodner</h5>
-                        <p class="mb-0">Mr. Bodner has over thirty years of successful business ownership experience.</p>
+                        <h5 class="mb-1">{{$agent->FName}} {{$agent->LName}}</h5>
+                        <p class="mb-0">{!! $limitedComment !!}</p>
                     </div>
                 </div>
                 <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
+                    <a href="{{route('view.broker.profile', $agent->AgentUserRegisterId)}}" class="agent_btn">Contact Agent</a>
                 </div>
             </div>
-            <!-- Agent Card 2 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/douglas_bodner.png') }}" alt="Arthur Casares" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Arthur Casares</h5>
-                        <p class="mb-0">Larry Svoboda Larry has over 30 years experience buying, selling and operating businesses.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
-            <!-- Agent Card 3 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/arthur_picture.png') }}" alt="Howard Goldberg" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Howard Goldberg</h5>
-                        <p class="mb-0">Howard was a partner &amp; president of a major New Jersey liquor &amp; wine wholesale.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
+            @endforeach
+        
         </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4 my-3">
-            <!-- Agent Card 1 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/larry_bodner_picture.png') }}" alt="Larry Bodner" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Larry Bodner</h5>
-                        <p class="mb-0">Mr. Bodner has over thirty years of successful business ownership experience.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
-            <!-- Agent Card 2 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/douglas_bodner.png') }}" alt="Arthur Casares" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Arthur Casares</h5>
-                        <p class="mb-0">Larry Svoboda Larry has over 30 years experience buying, selling and operating businesses.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
-            <!-- Agent Card 3 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/arthur_picture.png') }}" alt="Howard Goldberg" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Howard Goldberg</h5>
-                        <p class="mb-0">Howard was a partner &amp; president of a major New Jersey liquor &amp; wine wholesale.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
-        </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4 my-3">
-            <!-- Agent Card 1 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/larry_bodner_picture.png') }}" alt="Larry Bodner" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Larry Bodner</h5>
-                        <p class="mb-0">Mr. Bodner has over thirty years of successful business ownership experience.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
-            <!-- Agent Card 2 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/douglas_bodner.png') }}" alt="Arthur Casares" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Arthur Casares</h5>
-                        <p class="mb-0">Larry Svoboda Larry has over 30 years experience buying, selling and operating businesses.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
-            <!-- Agent Card 3 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/arthur_picture.png') }}" alt="Howard Goldberg" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Howard Goldberg</h5>
-                        <p class="mb-0">Howard was a partner &amp; president of a major New Jersey liquor &amp; wine wholesale.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="see_agent"><a href="#" class="see_all_agent">See All Agents</a></div>
+       
+        <div id="pagination" class="d-flex justify-content-end">
+            {{ $agents->appends(request()->query())->links('vendor.pagination.custom') }}
         </div>
 
 

@@ -24,7 +24,11 @@
             <div class="col-md-4 mb-5">
                 <div class="card-container">
                     <div class="card shadow-sm" style="width: 18rem;">
+                        @if(!empty($listing->imagepath))
                         <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+                        @else
+                        <img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+                        @endif
                         <div class="card-body text-center">
                             <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
                             <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>

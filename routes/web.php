@@ -38,6 +38,7 @@ use App\Http\Controllers\Buyer\BuyerAuthController;
 use App\Http\Controllers\RegisterWithEbbController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\BrokersController;
 
 
 
@@ -56,6 +57,8 @@ use App\Http\Controllers\SearchController;
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+Route::get('/all/brokers', [BrokersController::class, 'index'])->name('all.brokers');
+Route::get('view/broker/profile/{id}', [BrokersController::class, 'brokerProfile'])->name('view.broker.profile');
 Route::get('/buyers', function () {
   $breadcrumbs = [
     ['title' => 'Home', 'url' => url('/')],
@@ -76,12 +79,6 @@ Route::get('/seller', function () {
 Route::get('/services', function () {
   return view('frontend.our-services');
 })->name('services');
-Route::get('/business/agent', function () {
-  return view('frontend.business-agent');
-})->name('business.agent');
-Route::get('/business/agent/profile', function () {
-  return view('frontend.business-agent-profile');
-})->name('business.agent.profile');
 Route::get('/list-with-ebb', function () {
   return view('frontend.list-with-ebb');
 })->name('list.with.ebb');

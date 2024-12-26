@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="agentHomephone">Home phone <span class="text-danger">*</span></label>
                             <input type="text" placeholder="" id="home_phone" class="form-control"
@@ -109,7 +109,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="agentFax">Fax</label>
                             <input type="text" placeholder="" id="fax" class="form-control"
@@ -119,7 +119,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group mb-3">
                             <label for="agentEmail">Email <span class="text-danger">*</span></label>
                             <input type="text" placeholder="" id="email" class="form-control"
@@ -129,7 +129,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="form-group mb-3">
                             <label for="agentComment">Comment</label>
                             <input type="text" placeholder="" id="comment" class="form-control"
@@ -137,6 +137,14 @@
                             @if ($errors->has('comment'))
                             <span class="text-danger">{{ $errors->first('comment') }}</span>
                             @endif
+                        </div>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                        <label for="agentComment">Comment</label>
+                        <textarea class="form-control ckeditor" id="comment" name="comment">{{$agent->agent_info->Comments }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -267,6 +275,22 @@
 <div p-8>
     <p>&nbsp;</p>
 </div>
+<style>
+    .ck-editor__editable {
+        min-height: 300px !important;
+    }
+</style>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#comment'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {

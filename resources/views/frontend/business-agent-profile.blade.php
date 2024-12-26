@@ -25,25 +25,29 @@
         <div class="row mb-5">
             <div class="col-md-4">
                 <div class="ag_img">
-                    <img src="{{ asset('assets/images/howard_goldberg_01.png') }}" alt="agent_image" class="agent_profile_image" />
+                    <!-- <img src="{{ asset('assets/images/howard_goldberg_01.png') }}" alt="agent_image" class="agent_profile_image" /> -->
+                    @if(!empty($agent->image))
+                    <img src="{{asset('assets/uploads/images/'. $agent->image)}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent_profile_image">
+                    @else
+                    <img src="{{asset('assets/images/avatar.png')}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent_profile_image">
+                    @endif
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="profile_content">
-                    <h3>Howard Goldberg</h3>
-                    <p>Howard was a partner and president of a major New Jersey liquor and wine wholesale distributing company which he sold in 1989. He then became vice president/director of sales of another major liquor/wine distributing company in New Jersey, distributing statewide.</p>
-                    <p>After a total of thirty-three years in the wholesale business he joined Executive Business Brokers in 1994. Howard holds a New Jersey Real Estate license and has been very successful in the negotiations and sales of many types of businesses. He specializes in the sale of liquor stores and restaurants.</p>
+                    <h3>{{$agent->FName}} {{$agent->LName}}</h3>
+                    <p>{!! $agent->Comments !!}</p>
                 </div>
                 <div class="content_information">
                     <h3>Contact Information</h3>
                     <hr class="pursuit_hr mb-2">
                     <div class="con_img d-inline-block">
                         <img src="{{ asset('assets/images/contact_img.png') }}" alt="agent_image" class="info_image" />
-                        <span>Office: (908) 851-9040, ext. 217</span>
+                        <span>Office: {{$agent->Telephone}}, ext. {{$agent->Extension}}</span>
                     </div>
                     <div class="ph_img d-inline-block">
                         <img src="{{ asset('assets/images/message_img.png') }}" alt="agent_image" class="info_image" />
-                        <span>larrybodner@executivebusinessbrokers.com</span>
+                        <span>{{$agent->Email}}</span>
                     </div>
                     <hr class="pursuit_hr mb-2">
                 </div>
@@ -54,44 +58,33 @@
         <h3 class="fw-bold ebb_offer">More Agents</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4 my-3">
             <!-- Agent Card 1 -->
+            @foreach($agents as $more_agent)
+            @php
+                $text = strip_tags($more_agent->Comments);
+                $words = explode(' ',$text);
+                $limitedComment = implode(' ', array_slice($words, 0, 15));
+
+                if(count($words) > 15) {
+                    $limitedComment .= '...';
+                }
+            @endphp
             <div class="col">
                 <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/larry_bodner_picture.png') }}" alt="Larry Bodner" class="agent-image">
+                @if(!empty($more_agent->image))
+                    <img src="{{asset('assets/uploads/images/'. $more_agent->image)}}" alt="{{$more_agent->FName}} {{$more_agent->LName}}" class="agent-image">
+                    @else
+                    <img src="{{asset('assets/images/avatar.png')}}" alt="{{$more_agent->FName}} {{$more_agent->LName}}" class="agent-image">
+                    @endif
                     <div class="leading_agent">
-                        <h5 class="mb-1">Larry Bodner</h5>
-                        <p class="mb-0">Mr. Bodner has over thirty years of successful business ownership experience.</p>
+                        <h5 class="mb-1">{{$more_agent->FName}} {{$more_agent->LName}}</h5>
+                        <p class="mb-0">{{$limitedComment}}</p>
                     </div>
                 </div>
                 <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
+                    <a href="{{route('view.broker.profile', $more_agent->AgentUserRegisterId)}}" class="agent_btn">Contact Agent</a>
                 </div>
             </div>
-            <!-- Agent Card 2 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/douglas_bodner.png') }}" alt="Arthur Casares" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Arthur Casares</h5>
-                        <p class="mb-0">Larry Svoboda Larry has over 30 years experience buying, selling and operating businesses.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
-            <!-- Agent Card 3 -->
-            <div class="col">
-                <div class="agent-info d-flex">
-                    <img src="{{ asset('assets/images/arthur_picture.png') }}" alt="Howard Goldberg" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Howard Goldberg</h5>
-                        <p class="mb-0">Howard was a partner &amp; president of a major New Jersey liquor &amp; wine wholesale.</p>
-                    </div>
-                </div>
-                <div class="contact_agent">
-                    <a href="#" class="agent_btn">Contact Agent</a>
-                </div>
-            </div>
+            @endforeach
         </div>
 
 

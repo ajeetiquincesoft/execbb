@@ -9,20 +9,20 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     <div class="container position-absolute top-50 start-50 translate-middle d-flex flex-column justify-content-center">
         <h1 class="fw-bold mb-4">Business Listing Search</h1>
         <form class="listing_search" method="get" action="{{ route('search.index') }}">
-        <div class="bus_lis_search">
-            <div class="listing_search d-flex align-items-center">
-                <input type="text" class="form-control form-control-lg" placeholder="Industry" name="industry" value="{{ request('industry') }}">
-                <select class="form-select form-select-lg" name="state">
-                    <option selected value="" disabled>State</option>
-                    @foreach($states as $state)
-                    <option value="{{$state->State}}">{{$state->StateName}}</option>
-                    @endforeach
-                </select>
-                <div class="d-flex justify-content-center align-items-center full-screen">
-                    <button type="submit" class="btn btn-primary px-4 py-2">Search</button>
+            <div class="bus_lis_search">
+                <div class="listing_search d-flex align-items-center">
+                    <input type="text" class="form-control form-control-lg" placeholder="Industry" name="industry" value="{{ request('industry') }}">
+                    <select class="form-select form-select-lg" name="state">
+                        <option selected value="" disabled>State</option>
+                        @foreach($states as $state)
+                        <option value="{{$state->State}}">{{$state->StateName}}</option>
+                        @endforeach
+                    </select>
+                    <div class="d-flex justify-content-center align-items-center full-screen">
+                        <button type="submit" class="btn btn-primary px-4 py-2">Search</button>
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
     </div>
 </div>
@@ -115,9 +115,14 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     </div>
     <!-- Carousel Items -->
     <div class="slider card-container">
-    @foreach($listings as $listing)
+        @foreach($listings as $listing)
         <div class="card shadow-sm">
+            <!-- <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"> -->
+            @if(!empty($listing->imagepath))
             <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+            @else
+            <img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+            @endif
             <div class="card-body text-center">
                 <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
                 <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
@@ -125,15 +130,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
             </div>
         </div>
         @endforeach
-        
-
-
-
-
-
     </div>
-
-
 </div>
 
 <!-- LEADING AGENTS -->
@@ -142,39 +139,34 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="section-title-agents">Leading Agents</h2>
-            <a href="#" class="see-all-brokers">See All Brokers</a>
+            <a href="{{route('all.brokers')}}" class="see-all-brokers">See All Brokers</a>
         </div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <!-- Agent Card 1 -->
+            @foreach($agents as $agent)
+            @php
+            $text = strip_tags($agent->Comments);
+            $words = explode(' ',$text);
+            $limitedComment = implode(' ', array_slice($words, 0, 12));
+
+            if(count($words) > 15) {
+            $limitedComment .= '...';
+            }
+            @endphp
             <div class="col">
                 <div class="agent-card d-flex">
-                    <img src="{{asset('assets/images/larry_bodner_picture_1.png')}}" alt="Larry Bodner" class="agent-image">
+                    @if(!empty($agent->image))
+                    <img src="{{asset('assets/uploads/images/'. $agent->image)}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
+                    @else
+                    <img src="{{asset('assets/images/avatar.png')}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
+                    @endif
                     <div class="leading_agent">
-                        <h5 class="mb-1">Larry Bodner</h5>
-                        <p class="mb-0">Mr. Bodner has over thirty years of successful business ownership experience.</p>
+                        <h5 class="mb-1">{{$agent->FName}} {{$agent->LName}}</h5>
+                        <p class="mb-0">{{$limitedComment}}</p>
                     </div>
                 </div>
             </div>
-            <!-- Agent Card 2 -->
-            <div class="col">
-                <div class="agent-card d-flex">
-                    <img src="{{asset('assets/images/larry_bodner_picture_2.png')}}" alt="Arthur Casares" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Arthur Casares</h5>
-                        <p class="mb-0">Larry Svoboda Larry has over 30 years experience buying, selling and operating businesses.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Agent Card 3 -->
-            <div class="col">
-                <div class="agent-card d-flex">
-                    <img src="{{asset('assets/images/larry_bodner_picture_3.png')}}" alt="Howard Goldberg" class="agent-image">
-                    <div class="leading_agent">
-                        <h5 class="mb-1">Howard Goldberg</h5>
-                        <p class="mb-0">Howard was a partner & president of a major New Jersey liquor & wine wholesale distributing company.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -186,7 +178,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     <div class="row">
         <!-- Sellers Section -->
         <div class="col-md-6">
-            <div class="custom-section"  style="background: url('{{ $buyersImagePath}}') no-repeat center center;">
+            <div class="custom-section" style="background: url('{{ $buyersImagePath}}') no-repeat center center;">
                 <h2 class="section-title">Sellers</h2>
                 <div class="divider"></div>
                 <div class="list-item">
@@ -212,7 +204,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 
         <!-- Buyers Section -->
         <div class="col-md-6">
-            <div class="custom-section"  style="background: url('{{ $buyersImagePath}}') no-repeat center center;">
+            <div class="custom-section" style="background: url('{{ $buyersImagePath}}') no-repeat center center;">
                 <h2 class="section-title">Buyers</h2>
                 <div class="divider"></div>
                 <div class="list-item">
@@ -457,31 +449,39 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         max-width: 100%;
         /* Optional: Makes sure the card doesn't exceed the container width */
     }
+
     .border-right {
-    border-right: 1px solid #806132; /* White border between sections */
-}
-.prefect_bus p {
-    color: #D9D9D9;
-    font-size: 12px;
-}
-.bg-dark-color {
-    background-color: #040404;
-}
-.listing_search button {
-    border-radius: 0;
-    border: 0;
-    height: 48px;
-}
-.listing_search.d-flex.align-items-center {
-    width: 64%;
-    margin: 0 auto;
-}
-.listing_search input select button {
-    border: 0px;
-    height: 55px;
-}
-.prefect_bus h5 {
-    line-height: 30px;
-}
+        border-right: 1px solid #806132;
+        /* White border between sections */
+    }
+
+    .prefect_bus p {
+        color: #D9D9D9;
+        font-size: 12px;
+    }
+
+    .bg-dark-color {
+        background-color: #040404;
+    }
+
+    .listing_search button {
+        border-radius: 0;
+        border: 0;
+        height: 48px;
+    }
+
+    .listing_search.d-flex.align-items-center {
+        width: 64%;
+        margin: 0 auto;
+    }
+
+    .listing_search input select button {
+        border: 0px;
+        height: 55px;
+    }
+
+    .prefect_bus h5 {
+        line-height: 30px;
+    }
 </style>
 @endsection
