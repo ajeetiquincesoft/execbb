@@ -156,6 +156,7 @@ class AgentListingController extends Controller
                 $request->session()->put('listingData.reviewCheckbox',  $reviewcheckboxValue);
                 $request->session()->put('listingData.franchCheckbox',  $franchisecheckboxValue);
                 $request->session()->put('listingData.featureCheckbox',  $featuredListingcheckboxValue);
+
             } else {
                 $categoryData = DB::table('categories')->where('CategoryID', $request->bus_category)->first();
                 $category_name = $categoryData->BusinessCategory;
@@ -193,7 +194,6 @@ class AgentListingController extends Controller
                     $path = public_path() . '/assets/uploads/images/';
                     $filename = time() . '.' . $image->getClientOriginalExtension();
                     $image->move($path, $filename);
-
                     $listing->imagepath = $filename;
                 }
                 $listing->save();
@@ -202,6 +202,7 @@ class AgentListingController extends Controller
                 $request->session()->put('listingData', $mergedData);
                 $insertedId = $listing->ListingID;
                 $request->session()->put('listingData.listing_id',  $insertedId);
+                $request->session()->put('listingData.listing_img', $filename);
                 $request->session()->put('listingData.reviewCheckbox',  $reviewcheckboxValue);
                 $request->session()->put('listingData.franchCheckbox',  $franchisecheckboxValue);
                 $request->session()->put('listingData.featureCheckbox',  $featuredListingcheckboxValue);
