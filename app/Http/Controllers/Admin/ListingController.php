@@ -136,6 +136,9 @@ class ListingController extends Controller
                 ->orWhere('SHomeAdd1', 'LIKE', '%' . $query . '%')
                 ->orWhere('SCity', 'LIKE', '%' . $query . '%')
                 ->orWhere('SHomePh', 'LIKE', '%' . $query . '%')
+                ->orWhere('Address1', 'LIKE', '%' . $query . '%')
+                ->orWhere('City', 'LIKE', '%' . $query . '%')
+                ->orWhere('Phone', 'LIKE', '%' . $query . '%')
                 ->orWhere('Email', 'LIKE', '%' . $query . '%');
         }
         $listings = $listings->orderBy('created_at', 'desc')

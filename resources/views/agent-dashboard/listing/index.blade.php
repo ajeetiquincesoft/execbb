@@ -70,7 +70,12 @@
                             <td>{{$listing->SCity ? $listing->SCity : $listing->City}}</td>
                             <td>{{$listing->SHomePh ? $listing->SHomePh : $listing->Phone}}</td>
                             <td>{{$listing->Email}}</td>
-                            <td>{{ucfirst($listing->Status)}}</td>
+                            <td>@if($listing->Active == 1)
+                                <span class="badge badge-success">Active</span>
+                                @else
+                                <span class="badge badge-danger">Inactive</span>
+                                @endif
+                            </td>
                             <td class="list-btn">
                                 <a href="{{ route('agent.show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
                                 <i class="fas fa-eye"></i>

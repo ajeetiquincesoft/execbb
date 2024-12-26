@@ -28,6 +28,9 @@ class AgentListingController extends Controller
                     ->orWhere('SHomeAdd1', 'LIKE', '%' . $query . '%')
                     ->orWhere('SCity', 'LIKE', '%' . $query . '%')
                     ->orWhere('SHomePh', 'LIKE', '%' . $query . '%')
+                    ->orWhere('Address1', 'LIKE', '%' . $query . '%')
+                    ->orWhere('City', 'LIKE', '%' . $query . '%')
+                    ->orWhere('Phone', 'LIKE', '%' . $query . '%')
                     ->orWhere('Email', 'LIKE', '%' . $query . '%')
                     ->orWhere('Status', 'LIKE', '%' . $query . '%');
             });
