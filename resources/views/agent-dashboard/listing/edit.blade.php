@@ -408,14 +408,14 @@
                     <h4 class="form-sec mb-3">Listing Data</h4>
                     <div class="col-md-3 mb-3">
                         <label for="listingDate">Listing Date <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="listingDate" name="listingDate" value="{{$listingData->ListDate}}">
+                        <input type="date" class="form-control" id="listingDate" name="listingDate" value="{{$listingData->ListDate}}" max="{{ \Carbon\Carbon::now()->toDateString() }}">
                         @error('listingDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="expDate">Exp Date <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="expDate" name="expDate" value="{{$listingData->ExpDate}}">
+                        <input type="date" class="form-control" id="expDate" name="expDate" value="{{$listingData->ExpDate}}" min="{{ \Carbon\Carbon::now()->toDateString() }}">
                         @error('expDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
