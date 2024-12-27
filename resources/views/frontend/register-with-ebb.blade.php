@@ -271,8 +271,7 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-12 mb-3">
-                                <label class="form-label" for="desire_location">Preferred City/Town</label>
-                                <input type="text" class="form-control form-control-lg" id="desiredLocation" name="desiredLocation" value=""/>
+                                <input type="text" class="form-control form-control-lg" id="desiredLocation" name="desiredLocation" placeholder="Preferred City/Town" value=""/>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -428,16 +427,10 @@
                 },
                 home_phone: {
                     required: true,
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
+                    regex: /^\d{10}$/
                 },
                 business_phone: {
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
-                },
-                business_interest: {
-                    required: true
-                },
-                Interest: {
-                    required: true
+                    regex: /^\d{10}$/
                 },
                 bus_category1: {
                     required: true
