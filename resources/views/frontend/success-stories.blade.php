@@ -109,7 +109,7 @@
     }
     .testimonial-card {
       background-color: #fff;
-      height: 300px;
+      height: 260px;
       margin-top: 50px;
       border-radius: 10px;
       padding: 25px;
