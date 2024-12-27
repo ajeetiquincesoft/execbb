@@ -276,10 +276,10 @@
                 },
                 phone: {
                     required: true,
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                    regex:/^\d{10}$/
                 },
                 user_home_phone: {
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                    regex: /^\d{10}$/
                 },
                 first_name: {
                     required: true

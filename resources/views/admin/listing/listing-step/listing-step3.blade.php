@@ -223,14 +223,14 @@
                         },
                         managementAgentPhone: {
                             required: true,
-                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
+                            regex: /^\d{10}$/
                         },
                         referringAgentName: {
                             required: true
                         },
                         referringAgentPhone: {
                             required: true,
-                            regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
+                            regex: /^\d{10}$/
                         },
                         listingDate: {
                             required: true

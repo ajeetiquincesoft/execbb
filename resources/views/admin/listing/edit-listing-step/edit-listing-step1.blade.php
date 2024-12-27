@@ -270,10 +270,10 @@
                 },
                 phone: {
                     required: true,
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                    regex: /^\d{10}$/ // Custom regex rule
                 },
                 user_home_phone: {
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                    regex: /^\d{10}$/ // Custom regex rule
                 },
                 first_name: {
                     required: true
