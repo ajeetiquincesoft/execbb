@@ -130,6 +130,9 @@ Route::get('/mergers-and-acquisitions', function () {
 Route::get('/business-valuation', function () {
   return view('frontend.business-valuation');
 })->name('business.valuation');
+Route::get('/success-stories', function () {
+  return view('frontend.success-stories');
+})->name('success.stories');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

@@ -60,7 +60,7 @@
                      <li><a href="{{route('about.us')}}">Company</a></li>
                      <li><a href="{{route('management')}}">Management</a></li>
                      <li><a href="{{route('why.ebb')}}">Why EBB</a></li>
-                     <li><a href="#">Success Stories</a></li>
+                     <li><a href="{{route('success.stories')}}">Success Stories</a></li>
                      <li><a href="{{route('all.brokers')}}">Broker Profiles</a></li>
                      <li><a href="{{route('join.ebb')}}">Join EBB</a></li>
                      <li><a href="{{route('strategic.alliances')}}">Strategic Alliance</a></li>
