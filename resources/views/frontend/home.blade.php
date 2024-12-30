@@ -237,7 +237,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     <div class="">
         <div class="align-items-center d-flex justify-content-between mb-4 w-100">
             <a>EBB Offers Buyers/Sellers 1 Stop Shopping</a>
-            <a href="#" class="btn btn view_all_services">View All Services</a>
+            <a href="{{route('services')}}" class="btn btn view_all_services" target="_blank">View All Services</a>
         </div>
 
         <div class="row g-4">
