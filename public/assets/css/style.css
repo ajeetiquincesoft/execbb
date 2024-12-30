@@ -184,9 +184,13 @@ h2 {
 }
 
 .newsletter h4 {
-    font-size: 20px;
+    font-size: 25px;
+    float: left;
 }
-
+.our_subscribe {
+  margin-left: 65px;
+  font-family: 'Gilroy';
+}
 .newsletter input[type="email"] {
     border: none;
     padding: 10px;

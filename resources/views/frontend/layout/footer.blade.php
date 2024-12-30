@@ -5,8 +5,10 @@
      <div class="container form-sec" style="z-index: 999;">
          <div class="row newsletter">
              <div class="col-lg-4">
-                 <h4>Subscribe</h4>
-                 <h4>to our Newsletter</h4>
+                 <div class="our_subscribe">
+                     <h4>Subscribe</h4>
+                     <h4>to our Newsletter</h4>
+                 </div>
              </div>
              <div class="col-lg-8">
                  <form action="#" method="post" class="subscribe-form">
@@ -49,7 +51,7 @@
                      <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
                      <li><a href="{{route('preferred.buyers.program')}}">Proffered Buyers Program</a></li>
                      <li><a href="{{route('buyer.tools')}}">Tools</a></li>
-                    <!--  <li><a href="#">Resources</a></li> -->
+                     <!--  <li><a href="#">Resources</a></li> -->
                  </ul>
              </div>
 
@@ -76,7 +78,7 @@
                  <ul class="list-unstyled">
                      <!-- <li><a href="#">Resources</a></li> -->
                      <li><a href="{{route('faqs')}}">FAQs</a></li>
-                    <!--  <li><a href="#">Blog/News</a></li> -->
+                     <!--  <li><a href="#">Blog/News</a></li> -->
                  </ul>
              </div>
          </div>
