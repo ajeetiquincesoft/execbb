@@ -20,7 +20,7 @@
                 <h5 class="main-heading">Management</h5>
             </div>
         </div>
-        <div class="row px-5 mt-5">
+        <div class="row px-5 mt-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
@@ -144,7 +144,7 @@
         margin: 20px;
     }
 
-    p {
+    .ab_ebb p {
         font-size: 14px;
         color: #5D5D5D;
         line-height: 22px;

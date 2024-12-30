@@ -47,7 +47,7 @@
                  <h4>Buyers</h4>
                  <ul class="list-unstyled">
                      <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
-                     <li><a href="#">Proffered Buyers Program</a></li>
+                     <li><a href="{{route('preferred.buyers.program')}}">Proffered Buyers Program</a></li>
                      <li><a href="{{route('buyer.tools')}}">Tools</a></li>
                     <!--  <li><a href="#">Resources</a></li> -->
                  </ul>
