@@ -362,7 +362,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
             prevArrow: $('.carousel-prev'), // Link the previous button to the slick carousel
             nextArrow: $('.carousel-next'),
             dots: true, // Display navigation dots
-            autoplay: false, // Auto slide
+            autoplay: true, // Auto slide
             autoplaySpeed: 2000, // Time between slides
             fade: false, // Disable fade transition
             speed: 500, // Transition speed in ms
