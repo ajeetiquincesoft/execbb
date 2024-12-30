@@ -769,3 +769,7 @@ a.btn.btn.view_all_services {
 }
 
 /*pagination css end*/
+.subscribe-form {
+  display: flex;
+  align-items: center;
+}

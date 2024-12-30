@@ -9,8 +9,8 @@
                  <h4>to our Newsletter</h4>
              </div>
              <div class="col-lg-8">
-                 <form action="#" method="post" class="">
-                     <input type="email" placeholder="Your Email Address" required>
+                 <form action="#" method="post" class="subscribe-form">
+                     <input type="email" class="form-control" placeholder="Your Email Address" required>
                      <button type="submit">Subscribe Now</button>
                  </form>
              </div>
