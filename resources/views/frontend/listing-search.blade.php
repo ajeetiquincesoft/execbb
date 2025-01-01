@@ -14,9 +14,12 @@
 <!-- About us page no-14 HTML-->
 <div class="container my-7">
     <div class="content-box">
-        <div class="row">
-            <div class="about_EBB">
-                <h5 class="main-heading">Search</h5>
+    <div class="row agent_search mb-5">
+            <div class="col-md-12">
+                <form action="{{route('business.listing.search')}}" method="get" class="">
+                    <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
+                    <button type="submit">Search Listing</button>
+                </form>
             </div>
         </div>
         <div class="row px-5 mt-5">
@@ -76,5 +79,20 @@
         padding-bottom: 33px;
         text-align: center;
     }
+    .agent_search button {
+    background-color: #7F2149;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 0px;
+}
+.agent_search input.form-control {
+    width: 85%;
+    display: inline-block;
+    height: 45px;
+    border: 1px solid #B3B3B3;
+}
 </style>
 @endsection

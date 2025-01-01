@@ -10,6 +10,7 @@ use App\Models\Listing;
 use App\Models\Buyer;
 use App\Models\Agent;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AgentListingController extends Controller
 {
@@ -191,6 +192,7 @@ class AgentListingController extends Controller
                 $listing->Review = $reviewcheckboxValue;
                 $listing->SubCat = $request->bus_type;
                 $listing->RefAgentID = $userID;
+                $listing->CreatedBy = Auth::id();
                 $listing->Steps = 1;
                 if ($request->hasFile('listing_img')) {
                     $image = $request->file('listing_img');

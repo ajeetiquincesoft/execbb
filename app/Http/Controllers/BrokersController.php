@@ -19,7 +19,7 @@ class BrokersController extends Controller
         return view('frontend.business-agent',compact('agents'));
     }
     public function brokerProfile($id){
-        $agent = Agent::where('AgentUserRegisterId', $id)->orderBy('created_at','desc')->first();
+        $agent = Agent::where('AgentUserRegisterId', $id)->first();
         $agents = Agent::where('AgentUserRegisterId', '!=', $id)->orderBy('created_at','desc')->limit(3)->get();
         return view('frontend.business-agent-profile',compact('agent','agents'));
 

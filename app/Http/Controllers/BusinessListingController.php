@@ -5,25 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
+use App\Models\User;
 
-class SearchController extends Controller
+class BusinessListingController extends Controller
 {
     public function index(Request $request)
-    {
-        $listing_type = $request->input('industry');
-        $state = $request->input('state');
-        $listings = Listing::query();
-        if ($listing_type || $state) {
-            $listings = Listing::where('BusType', 'LIKE', '%' . $listing_type . '%')
-            ->orWhere('State', '==', $state);
-        }
-        $listings = $listings->orderBy('created_at', 'desc')->paginate(9);
-            //dd(count($listings));
-           // dd($listings);
-        /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
-        return view('frontend.listing-search', compact('listings'));
-    }
-    public function searchBusinessListing(Request $request)
     {
         $query = $request->input('query');
         $listings = Listing::query();
@@ -42,6 +28,14 @@ class SearchController extends Controller
         $listings = $listings->orderBy('created_at', 'desc')
             ->paginate(6);
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
-        return view('frontend.listing-search', compact('listings'));
+        return view('frontend.business-listing', compact('listings'));
+    }
+    public function viewBusinessListing($id){
+        $listing = Listing::where('ListingID', $id)->first();
+        $user = User::where('id', $listing->CreatedBy)->first();
+        $userName = $user->name;
+        $listings = Listing::where('ListingID', '!=', $id)->orderBy('created_at','desc')->limit(4)->get();
+        return view('frontend.single-business-listing',compact('listing','listings','userName'));
+
     }
 }

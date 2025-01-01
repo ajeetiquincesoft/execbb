@@ -122,7 +122,7 @@ class RegisterWithEbbController extends Controller
                     $buyerData = $request->session()->get('buyerData', []);
                     $check = $this->buyerRegistration($buyerData);
                     // Update the buyer data in step 2
-                    $buyer->CurrentEmploy = $request->business_interest;
+                    $buyer->TypeBus = $request->business_interest;
                     $buyer->Interest = $request->Interest ?? 0;
                     $buyer->BusType1 = $request->bus_type1;
                     $buyer->BusType2 = $request->bus_type2;
@@ -133,6 +133,14 @@ class RegisterWithEbbController extends Controller
                     $buyer->BusCounty3 = $request->desiredCounty3;
                     $buyer->BusCounty4 = $request->desiredCounty4;
                     $buyer->BusLocation = $request->desiredLocation;
+                    $buyer->NetWorth = $request->netWorth;
+                    $buyer->CashAvailable = $request->cashAvailable;
+                    $buyer->PPMin = $request->priceRangeMinimum;
+                    $buyer->PPMax = $request->priceRangeMaximum;
+                    $buyer->VolMin = $request->salesVolumeMinimum;
+                    $buyer->VolMax = $request->salesVolumeMaximum;
+                    $buyer->NetProfMin = $request->netIncomeMinimum;
+                    $buyer->NetProfMax = $request->netIncomeMaximum;
                     $buyer->Comments = $request->comments;
                     $buyer->user_id  =  $check->id;
 

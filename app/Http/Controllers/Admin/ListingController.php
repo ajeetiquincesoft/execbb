@@ -13,6 +13,7 @@ use Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -342,6 +343,7 @@ class ListingController extends Controller
             $listing->Pager = $request->user_pager;
             $listing->Review = $reviewcheckboxValue;
             $listing->SubCat = $request->bus_type;
+            $listing->CreatedBy = Auth::id();
             $listing->Steps = 1;
             if ($request->hasFile('listing_img')) {
                 $image = $request->file('listing_img');

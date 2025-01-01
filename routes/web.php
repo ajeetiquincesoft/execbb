@@ -39,6 +39,7 @@ use App\Http\Controllers\RegisterWithEbbController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BrokersController;
+use App\Http\Controllers\BusinessListingController;
 
 
 
@@ -57,8 +58,11 @@ use App\Http\Controllers\BrokersController;
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+Route::get('/business/listing/search', [SearchController::class, 'searchBusinessListing'])->name('business.listing.search');
 Route::get('/all/brokers', [BrokersController::class, 'index'])->name('all.brokers');
 Route::get('view/broker/profile/{id}', [BrokersController::class, 'brokerProfile'])->name('view.broker.profile');
+Route::get('/business/listings', [BusinessListingController::class, 'index'])->name('business.listings');
+Route::get('view/business/listing/{id}', [BusinessListingController::class, 'viewBusinessListing'])->name('view.business.listing');
 Route::get('/buyers', function () {
   $breadcrumbs = [
     ['title' => 'Home', 'url' => url('/')],
