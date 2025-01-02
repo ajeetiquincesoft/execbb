@@ -14,14 +14,49 @@
 <!-- About us page no-14 HTML-->
 <div class="container my-7">
     <div class="content-box">
-    <div class="row agent_search mb-5">
+        <!-- <div class="row agent_search mb-5">
             <div class="col-md-12">
                 <form action="{{route('business.listing.search')}}" method="get" class="">
                     <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
                     <button type="submit">Search Listing</button>
                 </form>
             </div>
-        </div>
+        </div> -->
+        <form action="{{route('business.listing.search')}}" method="get" class="">
+            <div class="row lis_search mb-5">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select class="form-control" id="industry" name="industry">
+                            <option value="">Industry</option>
+                            @foreach($categoryData as $category)
+                            <option value="{{$category->CategoryID}}"  {{ request('industry') == $category->CategoryID ? 'selected' : '' }}>{{$category->BusinessCategory}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Second Column -->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select class="form-control" id="state" name="state">
+                            <option value="">State</option>
+                            @foreach($states as $state)
+                            <option value="{{$state->State}}"  {{ request('state') == $state->State ? 'selected' : '' }}>{{$state->StateName}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}">
+                    </div>
+
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit">Search Listing</button>
+                </div>
+            </div>
+        </form>
         <div class="row px-5 mt-5">
             @forelse($listings as $listing)
             <div class="col-md-4 mb-5">
@@ -79,20 +114,22 @@
         padding-bottom: 33px;
         text-align: center;
     }
-    .agent_search button {
-    background-color: #7F2149;
-    font-size: 16px;
-    line-height: 24px;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 0px;
-}
-.agent_search input.form-control {
-    width: 85%;
-    display: inline-block;
-    height: 45px;
-    border: 1px solid #B3B3B3;
-}
+
+    .lis_search button {
+        background-color: #7F2149;
+        font-size: 16px;
+        line-height: 24px;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 0px;
+    }
+
+    .lis_search .form-control {
+        width: 100%;
+        display: inline-block;
+        height: 45px;
+        border: 1px solid #B3B3B3;
+    }
 </style>
 @endsection

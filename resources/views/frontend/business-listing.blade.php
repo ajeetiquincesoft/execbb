@@ -34,7 +34,7 @@
                         <select class="form-control" id="industry" name="industry">
                             <option value="">Industry</option>
                             @foreach($categoryData as $category)
-                            <option value="{{$category->CategoryID}}"  {{ request('industry') == $category->CategoryID ? 'selected' : '' }}>{{$category->BusinessCategory}}</option>
+                            <option value="{{$category->CategoryID}}" {{ request('industry') == $category->CategoryID ? 'selected' : '' }}>{{$category->BusinessCategory}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -46,7 +46,7 @@
                         <select class="form-control" id="state" name="state">
                             <option value="">State</option>
                             @foreach($states as $state)
-                            <option value="{{$state->State}}"  {{ request('state') == $state->State ? 'selected' : '' }}>{{$state->StateName}}</option>
+                            <option value="{{$state->State}}" {{ request('state') == $state->State ? 'selected' : '' }}>{{$state->StateName}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -60,36 +60,35 @@
                 <div class="col-md-2 d-flex align-items-end">
                     <button type="submit">Search Listing</button>
                 </div>
+            </div>
         </form>
-    </div>
-    </form>
-    <div class="row px-5 mt-5">
-        @forelse($listings as $listing)
-        <div class="col-md-4 mb-5">
-            <div class="card-container">
-                <div class="card shadow-sm" style="width: 18rem;">
-                    @if(!empty($listing->imagepath))
-                    <a href="{{route('view.business.listing',$listing->ListingID)}}" target="_blank"><img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
-                    @else
-                    <a href="{{route('view.business.listing',$listing->ListingID)}}" target="_blank"><img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
-                    @endif
-                    <div class="card-body text-center">
-                        <a href="{{route('view.business.listing',$listing->ListingID)}}" target="_blank">
-                            <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
-                        </a>
-                        <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
-                        <p class="card-text">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
+        <div class="row px-5 mt-5">
+            @forelse($listings as $listing)
+            <div class="col-md-4 mb-5">
+                <div class="card-container">
+                    <div class="card shadow-sm" style="width: 18rem;">
+                        @if(!empty($listing->imagepath))
+                        <a href="{{route('view.business.listing',$listing->ListingID)}}" target="_blank"><img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
+                        @else
+                        <a href="{{route('view.business.listing',$listing->ListingID)}}" target="_blank"><img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
+                        @endif
+                        <div class="card-body text-center">
+                            <a href="{{route('view.business.listing',$listing->ListingID)}}" target="_blank">
+                                <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
+                            </a>
+                            <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
+                            <p class="card-text">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
+            @empty
+            <span>No result found!</span>
+            @endforelse
         </div>
-        @empty
-        <span>No result found!</span>
-        @endforelse
-    </div>
-    <div id="pagination" class="d-flex justify-content-end">
-        {{ $listings->appends(request()->query())->links('vendor.pagination.custom') }}
-    </div>
+        <div id="pagination" class="d-flex justify-content-end">
+            {{ $listings->appends(request()->query())->links('vendor.pagination.custom') }}
+        </div>
 
 
 

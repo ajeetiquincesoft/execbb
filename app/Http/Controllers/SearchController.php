@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -21,27 +22,42 @@ class SearchController extends Controller
             //dd(count($listings));
            // dd($listings);
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
-        return view('frontend.listing-search', compact('listings'));
+        $states = DB::table('states')->get();
+        $categoryData = DB::table('categories')->get();
+        return view('frontend.listing-search', compact('listings','states','categoryData'));
     }
     public function searchBusinessListing(Request $request)
     {
         $query = $request->input('query');
+        $industry = $request->input('industry');
+        $state = $request->input('state');
+        
+        // Start the query
         $listings = Listing::query();
+        
+        // Apply search query filter
         if ($query) {
-            $listings = Listing::where('SellerFName', 'LIKE', '%' . $query . '%')
-                ->orWhere('SellerLName', 'LIKE', '%' . $query . '%')
-                ->orWhere('SellerCorpName', 'LIKE', '%' . $query . '%')
-                ->orWhere('SHomeAdd1', 'LIKE', '%' . $query . '%')
-                ->orWhere('SCity', 'LIKE', '%' . $query . '%')
-                ->orWhere('SHomePh', 'LIKE', '%' . $query . '%')
-                ->orWhere('Address1', 'LIKE', '%' . $query . '%')
-                ->orWhere('City', 'LIKE', '%' . $query . '%')
-                ->orWhere('Phone', 'LIKE', '%' . $query . '%')
-                ->orWhere('Email', 'LIKE', '%' . $query . '%');
+            $listings = $listings->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('City', 'LIKE', '%' . $query . '%');
+            });
         }
-        $listings = $listings->orderBy('created_at', 'desc')
-            ->paginate(6);
+        
+        // Apply industry filter if set
+        if ($industry) {
+            $listings = $listings->where('BusCategory', $industry);
+        }
+        
+        // Apply state filter if set
+        if ($state) {
+            $listings = $listings->where('State', $state);
+        }
+        
+        // Order by creation date and paginate the results
+        $listings = $listings->orderBy('created_at', 'desc')->paginate(6);
+        
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
-        return view('frontend.listing-search', compact('listings'));
+        $states = DB::table('states')->get();
+        $categoryData = DB::table('categories')->get();
+        return view('frontend.listing-search', compact('listings','states','categoryData'));
     }
 }
