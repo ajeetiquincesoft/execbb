@@ -107,7 +107,10 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 <!-- Bussiness Listings -->
 
 <div class="container my-5 business_listing_slider">
-    <h2 class="text mb-4">Featured Business Listings</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text mb-4">Featured Business Listings</h2>
+        <a href="{{route('business.listings')}}" class="see_all_listing" target="_blank">See All Listings</a>
+    </div>
     <!-- Previous and Next buttons (as divs) -->
     <div class="carousel-controls">
         <div class="carousel-prev"><i class="fas fa-chevron-left"></i></div>
@@ -119,12 +122,14 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         <div class="card shadow-sm">
             <!-- <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"> -->
             @if(!empty($listing->imagepath))
-            <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+            <a href="{{route('view.business.listing',$listing->ListingID)}}"><img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
             @else
-            <img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+            <a href="{{route('view.business.listing',$listing->ListingID)}}"><img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
             @endif
             <div class="card-body text-center">
-                <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
+                <a href="{{route('view.business.listing',$listing->ListingID)}}" class="home_business_listing">
+                    <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
+                </a>
                 <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
                 <p class="card-text">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
             </div>
@@ -139,7 +144,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="section-title-agents">Leading Agents</h2>
-            <a href="{{route('all.brokers')}}" class="see-all-brokers">See All Brokers</a>
+            <a href="{{route('all.brokers')}}" class="see-all-brokers" target="_blank">See All Brokers</a>
         </div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <!-- Agent Card 1 -->
@@ -156,12 +161,12 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
             <div class="col">
                 <div class="agent-card d-flex">
                     @if(!empty($agent->image))
-                    <img src="{{asset('assets/uploads/images/'. $agent->image)}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
+                    <a href="{{route('view.broker.profile',$agent->AgentUserRegisterId)}}" target="_blank"><img src="{{asset('assets/uploads/images/'. $agent->image)}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image"></a>
                     @else
-                    <img src="{{asset('assets/images/avatar.png')}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
+                    <a href="{{route('view.broker.profile',$agent->AgentUserRegisterId)}}" target="_blank"><img src="{{asset('assets/images/avatar.png')}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image"></a>
                     @endif
                     <div class="leading_agent">
-                        <h5 class="mb-1">{{$agent->FName}} {{$agent->LName}}</h5>
+                    <a href="{{route('view.broker.profile',$agent->AgentUserRegisterId)}}" target="_blank"><h5 class="mb-1">{{ucfirst($agent->FName)}} {{ucfirst($agent->LName)}}</h5></a>
                         <p class="mb-0">{{$limitedComment}}</p>
                     </div>
                 </div>
@@ -397,15 +402,13 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     }
 
     .carousel-controls {
-        position: absolute;
-        top: 0px;
-        right: 35px;
-        display: flex;
-        gap: 10px;
-        /* Space between the buttons */
-        z-index: 10;
-        /* Ensure buttons stay on top of the slider */
-    }
+    position: absolute;
+    top: 40px;
+    right: 35px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
 
     /* Styling for the div controls */
     .carousel-prev,
@@ -483,5 +486,14 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     .prefect_bus h5 {
         line-height: 30px;
     }
+
+    .home_business_listing {
+        text-decoration: none;
+    }
+    .see_all_listing {
+    font-weight: 600;
+    text-decoration: underline;
+    color: #806132;
+}
 </style>
 @endsection

@@ -136,11 +136,11 @@
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/gross_profit.png') }}" alt=""><span class="ml-2 fw-600">Gross Profit</span></td>
-                        <td class="text-end">{{$listing->AnnualNetProfit}}</td>
+                        <td class="text-end">{{$listing->GrossProfit}}</td>
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/total_expenses.png') }}" alt=""><span class="ml-2 fw-600">Total Expenses</span></td>
-                        <td class="text-end">{{$listing->AnnualNetProfit}}</td>
+                        <td class="text-end">{{$listing->TotalExpenses}}</td>
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/operating_profit.png') }}" alt=""><span class="ml-2 fw-600">Operating Profit</span></td>

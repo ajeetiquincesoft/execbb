@@ -303,6 +303,7 @@ li.nav-item.dropdown {
  .leading-agents {
     background-color: #7F2149; /* Dark pink background */
     padding: 40px 20px;
+    height: 280px;
   }
 
   .agent-card {
@@ -314,12 +315,20 @@ text-align: left;
 padding: 15px; /* Reduce padding */
 height: 120px; /* Reduce height */
 }
+.agent-card a {
+  flex-shrink: 0; /* Prevent shrinking of the <a> tag */
+  display: block;
+}
 
-  .agent-image {
-    border-radius: 10px;
-    object-fit: cover;
-    margin-right: 15px;
-  }
+.agent-card a img.agent-image {
+  object-fit: cover;
+  margin-right: 15px;
+  width: 80px; /* Set a fixed width for the image */
+  height: 80px; /* Set a fixed height to avoid stretching */
+  display: block; /* Ensure the image behaves correctly */
+}
+
+
 
   .section-title {
     color: #fff;
@@ -671,10 +680,14 @@ a.btn.btn.view_all_services {
 .leading_agent p {
   font-size: 13px;
   font-family: 'Mulish';
-  color: #5D5D5D;
+  color: #333333;
 }
 .leading_agent h5 {
   font-family: 'Gilroy'; 
+}
+.leading_agent a {
+  text-decoration: none;
+  color: #000;
 }
 .container-fluid-footer{
   background-color: #f8f8f8 !important;

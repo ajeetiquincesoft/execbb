@@ -40,6 +40,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BrokersController;
 use App\Http\Controllers\BusinessListingController;
+use App\Http\Controllers\BuyerCommentController;
 
 
 
@@ -63,6 +64,7 @@ Route::get('/all/brokers', [BrokersController::class, 'index'])->name('all.broke
 Route::get('view/broker/profile/{id}', [BrokersController::class, 'brokerProfile'])->name('view.broker.profile');
 Route::get('/business/listings', [BusinessListingController::class, 'index'])->name('business.listings');
 Route::get('view/business/listing/{id}', [BusinessListingController::class, 'viewBusinessListing'])->name('view.business.listing');
+Route::post('/buyer/comment/{id}', [BuyerCommentController::class, 'buyerComment'])->name('buyer.comment');
 Route::get('/buyers', function () {
   $breadcrumbs = [
     ['title' => 'Home', 'url' => url('/')],

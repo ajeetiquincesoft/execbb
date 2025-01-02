@@ -14,4 +14,8 @@ class Listing extends Model
     {
         return $this->hasMany(Offer::class, 'ListingID');
     }
+    public function comments()
+    {
+        return $this->hasMany(BuyerComment::class,'ListingID');
+    }
 }

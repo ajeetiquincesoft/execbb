@@ -69,7 +69,12 @@
                 </div> -->
                 <div class="custom-links">
                     <a href="{{route('login')}}" class="me-2">Sign In</a>
-                    <a href="{{route('register.ebb.buyer')}}">Join</a>
+                    <a href="{{route('register.ebb.buyer')}}" class="me-2">Join</a>
+                    @auth
+                    @if(auth()->user()->role_name === 'buyer')
+                    <a href="{{ route('signout') }}"> Logout</a>
+                    @endif
+                    @endauth
                 </div>
 
             </div>

@@ -11,4 +11,8 @@ class Buyer extends Model
     protected $primaryKey = 'BuyerID';
     protected $table = 'buyers';
     protected $guarded = ['step'];
+    public function comments()
+    {
+        return $this->hasMany(BuyerComment::class,'BuyerID');
+    }
 }
