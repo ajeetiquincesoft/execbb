@@ -29,15 +29,15 @@
                     <h3 class="section-heading mt-5">Matchmaker</h3>
                     <p>When you register, you are asked to identify key factors, such as location, business type, price, and down payment. Our proprietary software generates a list of businesses that matches your criteria.</p>
                     <h3 class="section-heading mt-5">Access Detailed Information Online</h3>
-                    <p>Once you have signed a confidentiality agreement, you will have 24/7 access to business profiles, which includes the business’ name, its address, photographs and financial information</p>
+                    <p>Once you have signed a confidentiality agreement, you will have 24/7 access to <a href="#" class="sellorgive">business profiles</a>, which includes the business’ name, its address, photographs and financial information</p>
                     <h3 class="section-heading mt-5">Receive Information First</h3>
-                    <p>Instead of checking with us, you will automatically receive monthly reports and new business listings, changes and updates as they occur via E-mail.</p>
+                    <p>Instead of checking with us, you will automatically receive monthly reports and new <a href="{{route('business.listings')}}" class="sellorgive" target="_blank">business listings</a>, changes and updates as they occur via E-mail.</p>
                     <h3 class="section-heading mt-5">Your Registration Fee is Refundable</h3>
                     <p>Registration fees for the Preferred Buyer Program are refundable when you buy a business through EBB.</p>
                     <h3 class="section-heading mt-5">Register Now!</h3>
-                    <p> 1 Month for $69.00</p>
-                    <p> 3 Months for $150.00</p>
-                    <p> 6 Months for $250.00</p>
+                    <p><a href="{{route('register.with.ebb')}}" class="sellorgive" taget="_blank">1 Month for $69.00</a></p>
+                    <p><a href="{{route('register.with.ebb')}}" class="sellorgive" taget="_blank">3 Months for $150.00</a></p>
+                    <p><a href="{{route('register.with.ebb')}}" class="sellorgive" taget="_blank">6 Months for $250.00</a></p>
                   </div>
             </div>
             <!-- Side Panel -->
@@ -56,7 +56,7 @@
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <p>Get the right terms and rate, work with our <a href="#" style="color: #7F2149; text-decoration: underline;">mortgage specialists.</a></p>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists.</a></p>
                         </div>
                     </div>
                     <div class="boxes-button-section">

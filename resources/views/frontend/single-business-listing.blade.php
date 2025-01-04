@@ -30,13 +30,12 @@
                 <img src="{{ asset('assets/images/business_image.jpg') }}" alt="" class="business_listing_image">
                 @endif
                 <p>{{$listing->Comments}}</p>
+                <div class="tags single-badge">
+                    <span class="badge">{{$listing->BusType}}</span>
+                    <span class="badge">{{$subCatName}}</span>
+                </div>
 
                 <hr>
-                <div class="tags">
-                    <span class="badge bg-primary">Technology</span>
-                    <span class="badge bg-secondary">Web Development</span>
-                    <span class="badge bg-success">Bootstrap</span>
-                </div>
             </article>
 
             <!-- Comments Section -->
@@ -284,13 +283,14 @@
     }
 
     ul.list-group.list-group-flush.recent_listing li a {
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: bold;
-        color: #7F2149;
-        font-family: 'Urbanist';
-        text-transform: capitalize;
-    }
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #7F2149;
+    font-family: 'Urbanist';
+    text-transform: capitalize;
+    text-decoration-line: underline;
+}
     .listing_sidebar img{
         width: 15px;
         margin-right: 10px;
@@ -302,6 +302,20 @@
     .listing_sidebar td{
         font-size: 15px;
     }
-    
+    .card-header {
+    background-color: #806132;
+    color: #ffffff;
+    border-radius: 0 !important;
+}
+.card.mb-4 {
+    border-radius: 0;
+}
+.single-badge .badge {
+    background-color: #D9D9D9;
+    padding: 14px;
+    color: #333333;
+    border-radius: 1px;
+    font-size: 15px;
+}
 </style>
 @endsection

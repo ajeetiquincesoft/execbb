@@ -41,6 +41,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BrokersController;
 use App\Http\Controllers\BusinessListingController;
 use App\Http\Controllers\BuyerCommentController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\NewsletterController;
 
 
 
@@ -65,6 +67,9 @@ Route::get('view/broker/profile/{id}', [BrokersController::class, 'brokerProfile
 Route::get('/business/listings', [BusinessListingController::class, 'index'])->name('business.listings');
 Route::get('view/business/listing/{id}', [BusinessListingController::class, 'viewBusinessListing'])->name('view.business.listing');
 Route::post('/buyer/comment/{id}', [BuyerCommentController::class, 'buyerComment'])->name('buyer.comment');
+Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact.us');
+Route::post('/contact/submit', [ContactUsController::class, 'sendEmail'])->name('contact.submit');
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
 Route::get('/buyers', function () {
   $breadcrumbs = [
     ['title' => 'Home', 'url' => url('/')],
@@ -97,18 +102,15 @@ Route::get('/faqs', function () {
 Route::get('/terms-of-use', function () {
   return view('frontend.terms-of-use');
 })->name('terms.of.use');
-Route::get('/contact-us', function () {
-  return view('frontend.contact-us');
-})->name('contact.us');
 Route::get('/seller-register-with-ebb', function () {
   return view('frontend.seller-register-with-ebb');
 })->name('seller.register.with.ebb');
 Route::get('/privacy-policy', function () {
   return view('frontend.privacy-policy');
 })->name('privacy.policy');
-Route::get('/about-us', function () {
-  return view('frontend.about-us');
-})->name('about.us');
+Route::get('/company', function () {
+  return view('frontend.company');
+})->name('company');
 Route::get('/management', function () {
   return view('frontend.management');
 })->name('management');

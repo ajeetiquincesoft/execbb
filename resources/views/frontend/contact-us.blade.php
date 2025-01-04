@@ -14,68 +14,76 @@
 </div>
 <!-- Main Container -->
 <div class="container my-5 container-padding contact-us">
+@if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
     <div class="row">
         <!-- Contact Information Form -->
         <div class="col-md-8 border-right-contact">
-            <h1 class="Contact-text">Contact Information</h1>
+            <h1 class="Contact-text">Contact Us</h1>
             <div class="form-text">
-                <form>
+                <form method="POST" action="{{ route('contact.submit') }}" name="contact-form" id="contact-form">
+                    @csrf
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control" placeholder="First Name">
+                            <input type="text" class="form-control" placeholder="First Name" name="first_name">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control" placeholder="Last Name">
+                            <input type="text" class="form-control" placeholder="Last Name" name="last_name">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Mailing Address">
+                        <input type="text" class="form-control" placeholder="Mailing Address" name="address">
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control" placeholder="City/Town">
+                            <input type="text" class="form-control" placeholder="City/Town" name="city">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <select class="form-select">
-                                <option selected disabled>State</option>
-                                <option value="1">State 1</option>
-                                <option value="2">State 2</option>
-                                <option value="3">State 3</option>
+                            <select class="form-select" name="state">
+                                <option value="" selected disabled>State</option>
+                                @foreach($states as $state)
+                                <option value="{{ $state->State }}">{{ strtoupper($state->State) }}</option>
+                               @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control" placeholder="County">
+                            <input type="text" class="form-control" placeholder="County" name="country">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control" placeholder="Zip Code">
+                            <input type="text" class="form-control" placeholder="Zip Code" name="zip">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control" placeholder="Day Time Phone">
+                            <input type="text" class="form-control" placeholder="Day Time Phone" name="day_time_phone">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control" placeholder="Evening Phone">
+                            <input type="text" class="form-control" placeholder="Evening Phone" name="evening_phone">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control" placeholder="Cellular Phone">
+                            <input type="text" class="form-control" placeholder="Cellular Phone" name="cellular_phone">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="email" class="form-control" placeholder="Email Address">
+                        <input type="email" class="form-control" placeholder="Email Address" name="email">
                     </div>
                     <div class="mb-3">
-                        <select class="form-select">
-                            <option selected disabled>Best Time to Contact</option>
-                            <option value="Morning">Morning</option>
-                            <option value="Afternoon">Afternoon</option>
-                            <option value="Evening">Evening</option>
+                        <select class="form-select" name="time_to_connect">
+                            <option value="" selected disabled>Best Time to Contact</option>
+                            <option value="9:00 am - 11:00 pm">9:00 am - 11:00 pm</option>
+                            <option value="11:00 am - 2:00 pm">11:00 am - 2:00 pm</option>
+                            <option value="2:00 pm - 5:00 pm">2:00 pm - 5:00 pm</option>
+                            <option value="After 5:00 pm">After 5:00 pm</option>
                         </select>
                     </div>
                     <div class="mb-5 custom-input">
-                        <textarea class="form-control custom-textarea" rows="4" placeholder="Message"></textarea>
+                        <textarea class="form-control custom-textarea" rows="4" placeholder="Message" name="message"></textarea>
                     </div>
                     <div class="Ques-btn">
                         <h6 class="fw-bold">Which Statement Describes you?*</h6>
@@ -131,6 +139,69 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+        $.validator.addMethod("regex", function(value, element, regexpr) {
+            return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
+        }, "Invalid phone number format.");
+        var form = $('#contact-form');
+        form.validate({
+            rules: {
+                first_name: {
+                    required: true
+                },
+                last_name: {
+                    required: true
+                },
+                address: {
+                    required: true
+                },
+                city: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                country: {
+                    required: true
+                },
+                zip: {
+                    required: true,
+                    minlength: 5, // Minimum length for US ZIP code
+                    maxlength: 10 // Maximum length for 9-digit ZIP code
+                },
+                day_time_phone: {
+                    required: true,
+                    regex: /^\d{10}$/
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                time_to_connect: {
+                    required: true
+                }
+
+            },
+            messages: {
+                day_time_phone: {
+                    required: 'Phone number is required.',
+                    regex: 'Must be a valid phone number.'
+                },
+                evening_phone: {
+                    regex: 'Must be a valid phone number.'
+                },
+                cellular_phone: {
+                    regex: 'Must be a valid phone number.'
+                }
+            },
+            submitHandler: function(form) {
+                form.submit(); // Proceed with form submission if valid
+            }
+        });
+    });
+</script>
 <style>
     .breadcrumb-container {
         background-color: #F8F8F8;

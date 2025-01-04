@@ -27,10 +27,10 @@
                     <h3 class="section-heading-join mb-4">A Career with Promise</h3>
                     <p class="join_us_p">Business brokerage is a niche industry that offers opportunity and unlimited earning potential. Regardless of the economic environment, people buy and sell businesses for many reasons. In the US, where 20% of the 16M private small businesses are for sale at any one time, there is a huge opportunity for intermediaries.</p>
                     <p class="join_us_p">Professional business brokers deal with both current and potential business owners. For many, the decision to purchase or sell a business is one of the largest financial decisions they will ever make. The <a href="#" class="sellorgive">role of a business broker</a> is to help turn their hopes and dreams into a reality.</p>
-                    <p class="join_us_p">Executive Business Brokers is looking for individuals who fit the <a href="#" class="sellorgive">business broker profile</a>. They are honest professionals who work hard, have self-discipline, communicate well with others and possess a
+                    <p class="join_us_p">Executive Business Brokers is looking for individuals who fit the <a href="all.brokers" class="sellorgive" target="_blank">business broker profile</a>. They are honest professionals who work hard, have self-discipline, communicate well with others and possess a
                         willingness to learn. Our <a href="#" class="sellorgive">compensation</a> is competitive with the industry.</p>
                     <p class="join_us_p">As part of our team, you will benefit from our name recognition and reputation for quality professional service, our <a href="#" class="sellorgive">extensive marketing programs</a> and our <a href="#" class="sellorgive">comprehensive training program</a> that will support your efforts and teach you proven methods designed to ensure your success.</p>
-                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="#" class="sellorgive">contact us</a>.</p>
+                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a>.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -39,8 +39,8 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="#"
-                                    style="color: #7F2149; text-decoration: underline;">become part of our all-star
+                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}"
+                                    style="color: #7F2149; text-decoration: underline;" target="_blank">become part of our all-star
                                     team</a> .</p>
                         </div>
 

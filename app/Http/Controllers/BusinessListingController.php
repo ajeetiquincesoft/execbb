@@ -48,10 +48,11 @@ class BusinessListingController extends Controller
         $listing = Listing::with('comments')->where('ListingID', $id)->first();
         if($listing){
             $user = User::where('id', $listing->CreatedBy)->first();
+            $subCatName = DB::table('sub_categories')->where('SubCatID', $listing->SubCat)->value('SubCategory');
         $userName = $user->name;
         $comments = $listing->comments;
         $listings = Listing::where('ListingID', '!=', $id)->orderBy('created_at','desc')->limit(4)->get();
-        return view('frontend.single-business-listing', compact('listing','listings','userName','comments'));
+        return view('frontend.single-business-listing', compact('listing','listings','userName','comments','subCatName'));
 
         }
         else{

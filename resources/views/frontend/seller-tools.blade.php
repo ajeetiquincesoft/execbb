@@ -33,7 +33,7 @@
         <div class="card-custom">
             <div class="card-title">Determining Price</div>
             <div class="card-text">
-            There are many methods of <a href="#">establishing the value of a business.</a> You may want to identify which method or combination of methods you believe would be most appropriate to value your business.
+            There are many methods of <a href="{{route('business.valuation')}}" target="_blank">establishing the value of a business.</a> You may want to identify which method or combination of methods you believe would be most appropriate to value your business.
             </div>
         </div>
         <!-- Card 3 -->

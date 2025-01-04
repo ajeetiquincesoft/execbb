@@ -40,7 +40,7 @@
         <div class="card-custom">
             <div class="card-title">Determining Price</div>
             <div class="card-text">
-                There are many methods of establishing the value of a business. Learn more about <a href="#">business valuations</a> - it's an important part of the buying process.
+                There are many methods of establishing the value of a business. Learn more about <a href="{{route('business.valuation')}}" target="_blank">business valuations</a> - it's an important part of the buying process.
             </div>
         </div>
     </div>

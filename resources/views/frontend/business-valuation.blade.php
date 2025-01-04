@@ -28,7 +28,7 @@
                     <p>Valuing a business is not an exact science. There is no right way to determine price, as there are many <a href="#" style="color: #7F2149; text-decoration: underline;">methods</a> of doing so. <a href="#" style="color: #7F2149; text-decoration: underline;">Many factors</a> play into value – the economy, management, location, cash flow, lease, etc.</p>
                     <p>EBB uses a multiple of the seller’s discretionary cash (SDC) to determine a business’ worth in the marketplace. Because each business has a different model and set of circumstances, we believe the SDC model rewards business with higher profits.</p>
                     <p>While multiples vary from industry to industry, they generally fall into the 1X – 4X the <a href="#" style="color: #7F2149; text-decoration: underline;"> Sellers Discretionary Cash</a> (SDC) plus the depreciated value of the fixtures and equipment and the wholesale value of the saleable inventory.</p>
-                    <p><a href="#" style="color: #7F2149; text-decoration: underline;">Ask EBB </a>to help you determine the value of your business.</p>
+                    <p><a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask EBB </a>to help you determine the value of your business.</p>
                   </div>
             </div>
             <!-- Side Panel -->
@@ -37,20 +37,20 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Determining Fair Market Value</h5>
-                            <p>Don't know how to set a price? Contact EBB for a <a href="#" style="color: #7F2149; text-decoration: underline;"> FREE valuation.</a></p>
+                            <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank"> FREE valuation.</a></p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="#" style="color: #7F2149; text-decoration: underline;">List</a>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
                                 your business with EBB.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Align Your Business with Us</h5>
-                            <p>Set up a <a href="#" style="color: #7F2149; text-decoration: underline;">strategic alliance</a>
+                            <p>Set up a <a href="{{route('strategic.alliances')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">strategic alliance</a>
                             with EBB and receive commissions and business.</p>
                         </div>
                     </div>

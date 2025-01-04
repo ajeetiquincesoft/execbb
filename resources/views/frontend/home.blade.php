@@ -192,7 +192,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                     </span>
                     <div>
                         <p class="list-item-title">Ask the Experts to Sell Your Business</p>
-                        <p class="list-item-description">Looking for help to sell your business? <a href="#">EBB can guide you</a> through the process from business valuations to locating buyers.</p>
+                        <p class="list-item-description">Looking for help to sell your business? <a href="{{route('list.with.ebb')}}" target="_blank">EBB can guide you</a> through the process from business valuations to locating buyers.</p>
                     </div>
                 </div>
                 <div class="list-item">
@@ -201,7 +201,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                     </span>
                     <div>
                         <p class="list-item-title">EBB Offers Several Listing Programs</p>
-                        <p class="list-item-description">List with EBB and benefit from our database, reputation, and marketing efforts that draw in qualified buyers. <a href="#">Replica Watches</a></p>
+                        <p class="list-item-description"><a href="{{route('open-list.with.ebb')}}" target="_blank">List with EBB</a> and benefit from our database, reputation, and marketing efforts that draw in qualified buyers. <a href="https://50graphics.com/" target="_blank">Replica Watches</a></p>
                     </div>
                 </div>
             </div>
@@ -218,7 +218,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                     </span>
                     <div>
                         <p class="list-item-title">Accelerate Your Search</p>
-                        <p class="list-item-description">Become an <a href="#">EBB Preferred Buyer</a> and benefit from our full services; access detailed information on 100s of businesses online 24/7.</p>
+                        <p class="list-item-description">Become an <a href="{{route('preferred.buyers.program')}}" target="_blank">EBB Preferred Buyer</a> and benefit from our full services; access detailed information on 100s of businesses online 24/7.</p>
                     </div>
                 </div>
                 <div class="list-item">
@@ -227,7 +227,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                     </span>
                     <div>
                         <p class="list-item-title">Secure Financing Through EBB</p>
-                        <p class="list-item-description">Work with one of <a href="#">our mortgage specialists</a> to get the terms and rate that is right for you.</p>
+                        <p class="list-item-description">Work with one of <a href="{{route('financing')}}" target="_blank">our mortgage specialists</a> to get the terms and rate that is right for you.</p>
                     </div>
                 </div>
             </div>

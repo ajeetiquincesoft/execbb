@@ -26,10 +26,10 @@ h2 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .card:hover {
+  /* .card:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  }
+  } */
   
   .card-img-top {
     height: 150px;
@@ -787,6 +787,28 @@ a.btn.btn.view_all_services {
 
 /*pagination css end*/
 .subscribe-form {
-  display: flex;
-  align-items: center;
+  /* Optional: set a maximum width for the form */
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.subscribe-form input,
+.subscribe-form button {
+  display: inline-block; /* Make both input and button inline */
+  vertical-align: middle; /* Align the items vertically */
+}
+.subscribe-form button {
+  padding: 11px 0px;
+}
+
+.subscribe-form input {
+  width: 70%; /* Adjust width of the email input */
+}
+
+.subscribe-form button {
+  width: 25%; /* Adjust width of the submit button */
+}
+
+.newserror {
+  margin-top: 10px;
 }

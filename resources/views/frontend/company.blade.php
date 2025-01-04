@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">About Us</a></li>
+                <li class="breadcrumb-item active"><a href="#">Company</a></li>
             </ol>
         </nav>
     </div>
@@ -17,7 +17,7 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">About EBB</h5>
+                <h5 class="main-heading">Company</h5>
                 <h6 class="sub-heading">Executive Business Brokers - A Large, Active Business Brokerage Firm</h6>
             </div>
         </div>
@@ -33,7 +33,7 @@
                         companies range from $100K to $5M, requiring liquid investments of $50K to $2M.</p>
                     <h3 class="section-heading">We Bring Buyers and Sellers Together</h3>
                     <p>EBB brings together individuals with various levels of experience and provides them with
-                        buying tools and selling tools. We guide and facilitate the process of buying and selling a
+                        <a href="{{route('buyer.tools')}}" class="sellorgive" target="_blank">buying tools</a> and <a href="{{route('seller.tools')}}" class="sellorgive" target="_blank">selling tools</a>. We guide and facilitate the process of buying and selling a
                         business, saving our clients both time and money. Our fees are paid by the seller.</p>
                     <h3 class="section-heading">Reach Qualified Buyers and Sellers</h3>
                     <p>Our proprietary national database of thousands of qualified buyers and sellers ensures that
@@ -51,8 +51,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="#"
-                                    style="color: #7F2149; text-decoration: underline;">become part of our all-star
+                            <p>Our strength is our brokers. Learn how you can<a href="{{route('join.ebb')}}" class="sellorgive" target="_blank"> become part of our all-star
                                     team</a> .</p>
                         </div>
 
@@ -60,7 +59,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="#" style="color: #7F2149; text-decoration: underline;">List</a>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
                                 your business with EBB.</p>
                         </div>
 
@@ -68,7 +67,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="#" style="color: #7F2149; text-decoration: underline;">EBB Preferred Buyer</a>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a>
                                 and benefit from our full services.</p>
                         </div>
 

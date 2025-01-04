@@ -38,7 +38,7 @@
             <!-- Card 2 -->
             <div class="card-custom">
                 <h3>Business Evaluation.</h3>
-                <p>EBB evaluates your company to provide you with a <a href="#">business valuation.</a></p>
+                <p>EBB evaluates your company to provide you with a <a href="{{route('business.valuation')}}" class="sellorgive" target="_blank">business valuation.</a></p>
             </div>
             <!-- Card 3 -->
             <div class="card-custom">

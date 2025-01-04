@@ -40,13 +40,13 @@
             <div class="col-lg-6 col-md-12">
                 <h2 class="text-gold fw-bold">Start Your Search Now</h2>
                 <p class="text-muted">
-                    If you are already aware of the process, you can start your search by:
+                    If you are already aware of the <a href="#" target="_blank" class="text-gold">process</a>, you can start your search by:
                 </p>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Registering with EBB</li>
-                    <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Looking through our <a href="#" class="text-gold">business listings</a></li>
-                    <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Joining the <a href="#" class="text-gold">EBB Preferred Buyer Program</a> For Serious Buyers Only!</li>
-                    <li><i class="bi bi-check-circle-fill icon-purple"></i> Ask EBB’s <a href="#" class="text-gold">M&A Experts</a> for help</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i><a href="{{route('register.with.ebb')}}" class="text-gold" target="_blank">Registering with EBB</a></li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Looking through our <a href="{{route('business.listings')}}" class="text-gold" target="_blank">business listings</a></li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Joining the <a href="{{route('preferred.buyers.program')}}"class="text-gold" target="_blank">EBB Preferred Buyer Program</a> For Serious Buyers Only!</li>
+                    <li><i class="bi bi-check-circle-fill icon-purple"></i> Ask EBB’s <a href="{{route('mergers.and.acquisitions')}}" class="text-gold" target="_blank">M&A Experts</a> for help</li>
                 </ul>
             </div>
         </div>

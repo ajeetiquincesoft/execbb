@@ -31,7 +31,7 @@
                     <p>- How to Structure the Deal</p>
                     <p>- Determining <a href="#" style="color: #7F2149; text-decoration: underline;">Market Value</a></p>
                     <p>- Conducting <a href="#" style="color: #7F2149; text-decoration: underline;">Due Diligence</a> on a Business</p>
-                    <p>Interested in exploring your M&A options with EBB? We encourage you to  <a href="#" style="color: #7F2149; text-decoration: underline;">contact us</a> for more information.</p>
+                    <p>Interested in exploring your M&A options with EBB? We encourage you to  <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">contact us</a> for more information.</p>
                   </div>
             </div>
             <!-- Side Panel -->
@@ -40,20 +40,20 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Determining Fair Market Value</h5>
-                            <p>Don't know how to set a price? Contact EBB for a <a href="#" style="color: #7F2149; text-decoration: underline;">FREE valuation.</a></p>
+                            <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">FREE valuation.</a></p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="#" style="color: #7F2149; text-decoration: underline;">List</a>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
                                 your business with EBB.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Align Your Business with Us</h5>
-                            <p>Set up a <a href="#" style="color: #7F2149; text-decoration: underline;">strategic alliance</a>
+                            <p>Set up a <a href="{{route('strategic.alliances')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">strategic alliance</a>
                             with EBB and receive commissions and business.</p>
                         </div>
                     </div>

@@ -14,9 +14,14 @@ class SearchController extends Controller
         $listing_type = $request->input('industry');
         $state = $request->input('state');
         $listings = Listing::query();
-        if ($listing_type || $state) {
-            $listings = Listing::where('BusType', 'LIKE', '%' . $listing_type . '%')
-            ->orWhere('State', '==', $state);
+        if ($listing_type) {
+            $listings = $listings->where(function ($queryBuilder) use ($listing_type) {
+                $queryBuilder->where('BusType', 'LIKE', '%' . $listing_type . '%');
+            });
+        }
+        // Apply industry filter if set
+        if ($state) {
+            $listings = $listings->where('State', $state);
         }
         $listings = $listings->orderBy('created_at', 'desc')->paginate(9);
             //dd(count($listings));
@@ -53,7 +58,7 @@ class SearchController extends Controller
         }
         
         // Order by creation date and paginate the results
-        $listings = $listings->orderBy('created_at', 'desc')->paginate(6);
+        $listings = $listings->orderBy('created_at', 'desc')->paginate(9);
         
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
         $states = DB::table('states')->get();
