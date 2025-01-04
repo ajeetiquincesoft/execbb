@@ -14,12 +14,12 @@
 </div>
 <!-- Main Container -->
 <div class="container my-5 container-padding contact-us">
-@if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Success!</strong> {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <div class="row">
         <!-- Contact Information Form -->
         <div class="col-md-8 border-right-contact">
@@ -30,38 +30,62 @@
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3">
                             <input type="text" class="form-control" placeholder="First Name" name="first_name">
+                            @if ($errors->has('first_name'))
+                            <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                            @endif
                         </div>
                         <div class="col-md-6 mb-3">
                             <input type="text" class="form-control" placeholder="Last Name" name="last_name">
+                            @if ($errors->has('last_name'))
+                            <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Mailing Address" name="address">
+                        @if ($errors->has('address'))
+                        <span class="text-danger">{{ $errors->first('address') }}</span>
+                        @endif
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3">
                             <input type="text" class="form-control" placeholder="City/Town" name="city">
+                            @if ($errors->has('city'))
+                            <span class="text-danger">{{ $errors->first('city') }}</span>
+                            @endif
                         </div>
                         <div class="col-md-6 mb-3">
                             <select class="form-select" name="state">
                                 <option value="" selected disabled>State</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->State }}">{{ strtoupper($state->State) }}</option>
-                               @endforeach
+                                @endforeach
                             </select>
+                            @if ($errors->has('state'))
+                            <span class="text-danger">{{ $errors->first('state') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3">
                             <input type="text" class="form-control" placeholder="County" name="country">
+                            @if ($errors->has('country'))
+                            <span class="text-danger">{{ $errors->first('country') }}</span>
+                            @endif
                         </div>
                         <div class="col-md-6 mb-3">
                             <input type="text" class="form-control" placeholder="Zip Code" name="zip">
+                            @if ($errors->has('zip'))
+                            <span class="text-danger">{{ $errors->first('zip') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4 mb-3">
                             <input type="text" class="form-control" placeholder="Day Time Phone" name="day_time_phone">
+                            @if ($errors->has('day_time_phone'))
+                            <span class="text-danger">{{ $errors->first('day_time_phone') }}</span>
+                            @endif
                         </div>
                         <div class="col-md-4 mb-3">
                             <input type="text" class="form-control" placeholder="Evening Phone" name="evening_phone">
@@ -72,6 +96,9 @@
                     </div>
                     <div class="mb-3">
                         <input type="email" class="form-control" placeholder="Email Address" name="email">
+                        @if ($errors->has('email'))
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                        @endif
                     </div>
                     <div class="mb-3">
                         <select class="form-select" name="time_to_connect">
@@ -81,6 +108,9 @@
                             <option value="2:00 pm - 5:00 pm">2:00 pm - 5:00 pm</option>
                             <option value="After 5:00 pm">After 5:00 pm</option>
                         </select>
+                        @if ($errors->has('time_to_connect'))
+                        <span class="text-danger">{{ $errors->first('time_to_connect') }}</span>
+                        @endif
                     </div>
                     <div class="mb-5 custom-input">
                         <textarea class="form-control custom-textarea" rows="4" placeholder="Message" name="message"></textarea>
@@ -141,7 +171,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
+    $(document).ready(function() {
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
         }, "Invalid phone number format.");
