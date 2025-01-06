@@ -547,6 +547,9 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 .our_service_title a {
     font-size: 15px;
 }
+.services-section {
+    padding: 0px 15px;
+}
 .why-ebb-section {
     height: auto;
     padding-left: 30px;
@@ -556,6 +559,9 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 }
 .why_ebb_btn {
     text-align: center;
+}
+.phase_title {
+    padding-top: 15px;
 }
 .newsletter.row {
     top: 85px;
