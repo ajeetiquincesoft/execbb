@@ -50,7 +50,7 @@
                      <!-- <li><a href="#">Selling a Business</a></li> -->
                      <li><a href="{{route('seller.register.with.ebb')}}">Register with EBB</a></li>
                      <li><a href="{{route('seller.tools')}}">Tools</a></li>
-                     <!-- <li><a href="#">Resources</a></li> -->
+                     <li><a href="{{route('seller.resource')}}">Resources</a></li>
                  </ul>
              </div>
 
@@ -61,7 +61,7 @@
                      <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
                      <li><a href="{{route('preferred.buyers.program')}}">Proffered Buyers Program</a></li>
                      <li><a href="{{route('buyer.tools')}}">Tools</a></li>
-                     <!--  <li><a href="#">Resources</a></li> -->
+                     <li><a href="{{route('buyer.resource')}}">Resources</a></li>
                  </ul>
              </div>
 

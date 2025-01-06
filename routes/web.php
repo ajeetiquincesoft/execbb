@@ -141,6 +141,12 @@ Route::get('/business-valuation', function () {
 Route::get('/success-stories', function () {
   return view('frontend.success-stories');
 })->name('success.stories');
+Route::get('/buyer-resource', function () {
+  return view('frontend.buyer_resource');
+})->name('buyer.resource');
+Route::get('/seller-resource', function () {
+  return view('frontend.seller_resource');
+})->name('seller.resource');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

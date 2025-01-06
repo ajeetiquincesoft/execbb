@@ -22,7 +22,7 @@
                             <li><a class="dropdown-item" href="{{route('ebb.buyers')}}">Buyers</a></li>
                             <li><a class="dropdown-item" href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
                             <li><a class="dropdown-item" href="{{route('buyer.tools')}}">Tools</a></li>
-                            <!-- <li><a class="dropdown-item" href="#">Resources</a></li> -->
+                            <li><a class="dropdown-item" href="{{route('buyer.resource')}}">Resources</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -34,7 +34,7 @@
                             <li><a class="dropdown-item" href="{{route('list.with.ebb')}}">List with EBB</a></li>
                             <li><a class="dropdown-item" href="{{route('open-list.with.ebb')}}">Open List with EBB</a></li>
                             <li><a class="dropdown-item" href="{{route('seller.tools')}}">Tools</a></li>
-                            <!-- <li><a class="dropdown-item" href="#">Resources</a></li> -->
+                            <li><a class="dropdown-item" href="{{route('seller.resource')}}">Resources</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
