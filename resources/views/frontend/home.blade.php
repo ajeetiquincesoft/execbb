@@ -10,7 +10,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         <h1 class="fw-bold mb-4">Business Listing Search</h1>
         <form class="listing_search" method="get" action="{{ route('search.index') }}">
             <div class="bus_lis_search">
-                <div class="listing_search d-flex align-items-center">
+                <div class="listing_search d-md-flex align-items-center">
                     <input type="text" class="form-control form-control-lg" placeholder="Industry" name="industry" value="{{ request('industry') }}">
                     <select class="form-select form-select-lg" name="state">
                         <option selected value="" disabled>State</option>
@@ -31,18 +31,18 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 <div class="bg-dark-color text-white py-5">
     <div class="container prefect_bus">
         <div class="row">
-            <div class="col-md-3 border-right px-5">
+            <div class="col-12 col-md-6 col-lg-3 border-right px-5">
                 <h5>The Perfect Business Opportunity</h5>
             </div>
-            <div class="col-md-3 border-right px-5">
+            <div class="col-12 col-md-6 col-lg-3 border-right px-5">
                 <h5>Largest Marketplace of Sellers</h5>
                 <p>50,000+ Businesses Listed</p>
             </div>
-            <div class="col-md-3 border-right px-5">
+            <div class="col-12 col-md-6 col-lg-3 border-right px-5">
                 <h5>Extensive Buyer Network</h5>
                 <p>50k+ Successful Sales</p>
             </div>
-            <div class="col-md-3 px-5">
+            <div class="col-12 col-md-6 col-lg-3 px-5">
                 <h5>Highest Visitor Volume</h5>
                 <p>12m Monthly Page Views</p>
             </div>
@@ -53,9 +53,11 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 <!-- Categories Section -->
 <div class="bus_listing">
     <div class="container py-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-md-flex justify-content-between align-items-center mb-4 top_business">
             <h2>Top Business Categories</h2>
+            <div class="see_more">
             <a href="#" class="btn btn">See More Categories</a>
+            </div>
         </div>
         <div class="row g-3 bus_cat">
             <!-- Column 1 -->
@@ -107,7 +109,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 <!-- Bussiness Listings -->
 
 <div class="container my-5 business_listing_slider">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-md-flex justify-content-between align-items-center mb-4">
         <h2 class="text mb-4">Featured Business Listings</h2>
         <a href="{{route('business.listings')}}" class="see_all_listing" target="_blank">See All Listings</a>
     </div>
@@ -159,7 +161,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
             }
             @endphp
             <div class="col">
-                <div class="agent-card d-flex">
+                <div class="agent-card d-lg-flex">
                     @if(!empty($agent->image))
                     <a href="{{route('view.broker.profile',$agent->AgentUserRegisterId)}}" target="_blank"><img src="{{asset('assets/uploads/images/'. $agent->image)}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image"></a>
                     @else
@@ -239,8 +241,8 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 
 <div class="container services-section">
     <h2>Our Services</h2>
-    <div class="">
-        <div class="align-items-center d-flex justify-content-between mb-4 w-100">
+    <div class="our_service_title">
+        <div class="align-items-center d-md-flex justify-content-between mb-4 w-100">
             <a>EBB Offers Buyers/Sellers 1 Stop Shopping</a>
             <a href="{{route('services')}}" class="btn btn view_all_services" target="_blank">View All Services</a>
         </div>
@@ -282,13 +284,13 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 <!-- WHY EBB -->
 
 <!-- <title>Why EBB</title> -->
-<div class="container-fluid why-ebb-section d-flex align-items-center">
+<div class="container-fluid why-ebb-section d-md-flex align-items-center">
     <div class="row w-100">
         <div class="col-lg-7 col-md-12 image-container">
             <div class="overlay"></div>
             <img src="{{asset('assets/images/why_ebb.png')}}" alt="Handshake" class="img-fluid">
         </div>
-        <div class="col-lg-5 col-md-12 text-container d-flex align-items-center">
+        <div class="col-lg-5 col-md-12 text-container d-md-flex align-items-center">
             <div class="content px-4">
                 <h2 class="title">Why EBB?</h2>
                 <h3 class="subtitle">Buying and Selling a Business is Easier with EBB</h3>
@@ -300,7 +302,9 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                 <p class="description">
                     Our consultative approach to buying and selling makes selling a business easier.
                 </p>
+                <div class="why_ebb_btn">
                 <a href="#" class="btn learn-more-btn">Learn More</a>
+                        </div>
             </div>
         </div>
     </div>
@@ -473,7 +477,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         height: 48px;
     }
 
-    .listing_search.d-flex.align-items-center {
+    .listing_search.d-md-flex.align-items-center {
         width: 64%;
         margin: 0 auto;
     }
@@ -495,5 +499,222 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     text-decoration: underline;
     color: #806132;
 }
+/* Small devices (phones, 600px and down) */
+@media screen and (max-width: 600px) {
+    .top_business h2{
+    text-align: center;
+}
+.see_more {
+    text-align: center;
+}
+    .listing_search.d-md-flex.align-items-center {
+    width: 100%;
+    margin: 0 auto;
+}
+.listing_search .form-control,
+.listing_search .form-select{
+    margin-bottom: 10px;
+}
+.prefect_bus h5, .prefect_bus p {
+    text-align: center;
+}
+.carousel-controls {
+    top: 50px;
+}
+.leading-agents .section-title-agents {
+    font-size: 18px;
+}
+.leading-agents .see-all-brokers {
+    font-size: 12px; 
+}
+.leading-agents {
+    height: auto;
+}
+.agent-card a img.agent-image {
+    float: left;
+}
+.agent-card {
+    height: auto;
+}
+.custom-section {
+    padding: 0 10px;
+    height: auto;
+}
+.custom-section h2 {
+    text-align: center;
+    padding-top: 15px;
+}
+.our_service_title a {
+    font-size: 15px;
+}
+.why-ebb-section {
+    height: auto;
+}
+.why_ebb_btn {
+    text-align: center;
+}
+.newsletter.row {
+    top: 85px;
+}
+.our_subscribe {
+    margin-left: 0px;
+}
+.newsletter h4 {
+    font-size: 20px;
+    float: none;
+    display: inline-block;
+}
+.subscribe-form button {
+    width: 50%;
+}
+.newsletter input[type="email"] {
+    width: 100%;
+    margin-bottom: 10px;
+    
+}
+.footer p,.footer h4 {
+    text-align: center;
+}
+.footer ul li {
+    text-align: center;
+}
+.footer-logo {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+}
+@media screen and (min-width: 601px) and (max-width: 768px) {
+    .navbar .container {
+    max-width: 100%;
+}
+    .agent-card a img.agent-image {
+    float: left;
+}
+    .agent-card {
+    height: 110px;
+} 
+.listing_search.d-md-flex.align-items-center {
+    width: 100%;
+    margin: 0 auto;
+}
+.prefect_bus h5, .prefect_bus p {
+    text-align: center;
+}
+
+    .leading-agents {
+    height: auto;
+}
+.why-ebb-section {
+    height: auto;
+}
+.custom-section {
+    padding: 0 10px;
+    height: auto;
+}
+.custom-section h2 {
+    text-align: center;
+    padding-top: 15px;
+}
+.newsletter.row {
+    top: 70px;
+}
+.newsletter h4 {
+    font-size: 25px;
+    float: none;
+    display: inline-block;
+}
+.our_subscribe {
+    margin-left: 0px;
+}
+.footer p,.footer h4 {
+    text-align: center;
+}
+.footer ul li {
+    text-align: center;
+}
+.footer-logo {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+}
+/* Tablets (portrait and landscape) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .navbar .container {
+    max-width: 100%;
+}
+    .listing_search.d-md-flex.align-items-center {
+    width: 100%;
+    margin: 0 auto;
+}
+.prefect_bus h5, .prefect_bus p {
+    text-align: center;
+}
+.prefect_bus .border-right {
+    border-right: none;
+}
+
+    .leading-agents {
+    height: auto;
+}
+
+.why-ebb-section {
+    height: auto;
+}
+.agent-card {
+    height: 175px;
+}
+.agent-card a img.agent-image {
+    float: left;
+}
+.custom-section {
+    padding: 0 10px;
+    height: 475px;
+}
+.custom-section h2 {
+    text-align: center;
+    padding-top: 15px;
+}
+.newsletter.row {
+    top: 70px;
+}
+.newsletter h4 {
+    font-size: 25px;
+    float: none;
+    display: inline-block;
+}
+.our_subscribe {
+    margin-left: 0px;
+}
+.footer p,.footer h4 {
+    text-align: center;
+}
+.footer ul li {
+    text-align: center;
+}
+.footer-logo {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+}
+
+/* Desktops (laptops and large screens) */
+@media screen and (min-width: 1025px) {
+    .agent-card {
+    height: 120px;
+}
+.agent-card a img.agent-image {
+    float: left;
+}
+}
+
+/* Large desktops */
+@media screen and (min-width: 1601px) {
+  /* styles for large desktops */
+}
+
 </style>
 @endsection
