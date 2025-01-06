@@ -625,11 +625,6 @@ height: 120px; /* Reduce height */
   
   /* Responsive Design */
   @media (max-width: 768px) {
-    .custom-card {
-        padding: 1.5rem;
-        margin: 0 auto;
-    }
-  
     .number-badge {
         font-size: 1.2rem;
     }

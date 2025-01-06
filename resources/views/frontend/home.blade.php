@@ -501,6 +501,10 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 }
 /* Small devices (phones, 600px and down) */
 @media screen and (max-width: 600px) {
+    .custom-card {
+        padding: 1.5rem;
+        margin: 0 auto;
+    }
     .top_business h2{
     text-align: center;
 }
