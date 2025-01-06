@@ -599,6 +599,10 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 }
 }
 @media screen and (min-width: 601px) and (max-width: 768px) {
+    .services-section {
+    padding: 0px 15px;
+    text-align: center;
+}
     .custom-card {
     width: 100%;
     max-width: 100%;
