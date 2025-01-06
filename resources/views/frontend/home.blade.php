@@ -551,6 +551,9 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     height: auto;
     padding-left: 30px;
 }
+.text-container {
+    padding: 3rem 0rem; 
+}
 .why_ebb_btn {
     text-align: center;
 }
