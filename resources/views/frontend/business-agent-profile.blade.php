@@ -60,17 +60,17 @@
             <!-- Agent Card 1 -->
             @foreach($agents as $more_agent)
             @php
-                $text = strip_tags($more_agent->Comments);
-                $words = explode(' ',$text);
-                $limitedComment = implode(' ', array_slice($words, 0, 15));
+            $text = strip_tags($more_agent->Comments);
+            $words = explode(' ',$text);
+            $limitedComment = implode(' ', array_slice($words, 0, 15));
 
-                if(count($words) > 15) {
-                    $limitedComment .= '...';
-                }
+            if(count($words) > 15) {
+            $limitedComment .= '...';
+            }
             @endphp
             <div class="col">
-                <div class="agent-info d-flex">
-                @if(!empty($more_agent->image))
+                <div class="agent-info">
+                    @if(!empty($more_agent->image))
                     <img src="{{asset('assets/uploads/images/'. $more_agent->image)}}" alt="{{$more_agent->FName}} {{$more_agent->LName}}" class="agent-image">
                     @else
                     <img src="{{asset('assets/images/avatar.png')}}" alt="{{$more_agent->FName}} {{$more_agent->LName}}" class="agent-image">
@@ -157,7 +157,6 @@
 
     .agent-info {
         padding: 15px;
-        height: 120px;
     }
 
     .contact_agent {
@@ -175,9 +174,12 @@
     }
 
     .agent-info .agent-image {
-        border-radius: 0px;
         object-fit: cover;
         margin-right: 15px;
+        width: 80px;
+        height: 80px;
+        display: block;
+        float: left;
     }
 
     img.agent_profile_image {

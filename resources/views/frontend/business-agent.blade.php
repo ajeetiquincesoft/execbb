@@ -20,34 +20,39 @@
             <h1 class="fw-bold">Agent Profile</h1>
         </div>
         <hr class="pursuit_hr mb-5">
-        <div class="row agent_search mb-5">
-            <div class="col-md-12">
-                <form action="{{route('all.brokers')}}" method="get" class="">
-                    <input type="text" class="form-control" placeholder="Find Agent" name="query" value="{{ request('query') }}" required="">
-                    <button type="submit">Search Agent</button>
-                </form>
+        <form action="{{route('all.brokers')}}" method="get" class="">
+            <div class="row agent_search mb-5">
+                <div class="col-12 col-sm-8 col-md-10">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Find Agent" name="query" value="{{ request('query') }}" required="">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-2 col-md-2 d-md-flex align-items-end brksearch">
+                    <button type="submit">Search</button>
+                </div>
             </div>
-        </div>
+        </form>
+
         <div class="text-center mb-5">
             <h1 class="fw-bold ebb_offer">EBB's Strength is Our Brokers</h1>
             <p class="text-muted ser_content">Our team of professionals was recruited for their knowledge and qualified service orientation. The passion of our people is critical to our success. Together we share a common set of values that are rooted in integrity, professionalism and excellence.</p>
         </div>
-        
+
         <!-- Content Section -->
         <div class="row row-cols-1 row-cols-md-3 g-4 my-3">
             <!-- Agent Card 1 -->
             @foreach($agents as $agent)
             @php
-                $text = strip_tags($agent->Comments);
-                $words = explode(' ',$text);
-                $limitedComment = implode(' ', array_slice($words, 0, 15));
+            $text = strip_tags($agent->Comments);
+            $words = explode(' ',$text);
+            $limitedComment = implode(' ', array_slice($words, 0, 15));
 
-                if(count($words) > 15) {
-                    $limitedComment .= '...';
-                }
+            if(count($words) > 15) {
+            $limitedComment .= '...';
+            }
             @endphp
             <div class="col">
-                <div class="agent-info d-flex">
+                <div class="agent-info">
                     @if(!empty($agent->image))
                     <img src="{{asset('assets/uploads/images/'. $agent->image)}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
                     @else
@@ -63,9 +68,9 @@
                 </div>
             </div>
             @endforeach
-        
+
         </div>
-       
+
         <div id="pagination" class="d-flex justify-content-end">
             {{ $agents->appends(request()->query())->links('vendor.pagination.custom') }}
         </div>
@@ -149,7 +154,6 @@
 
     .agent-info {
         padding: 15px;
-        height: 120px;
     }
 
     .contact_agent {
@@ -167,9 +171,12 @@
     }
 
     .agent-info .agent-image {
-        border-radius: 0px;
         object-fit: cover;
         margin-right: 15px;
+        width: 80px;
+        height: 80px;
+        display: block;
+        float: left;
     }
 
     a.see_all_agent {
@@ -186,20 +193,29 @@
         margin-top: 100px;
         text-align: center;
     }
+
     .agent_search button {
-    background-color: #7F2149;
-    font-size: 16px;
-    line-height: 24px;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 0px;
-}
-.agent_search input.form-control {
-    width: 85%;
-    display: inline-block;
-    height: 45px;
-    border: 1px solid #B3B3B3;
-}
+        background-color: #7F2149;
+        font-size: 16px;
+        line-height: 24px;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 0px;
+    }
+
+    .agent_search input.form-control {
+        width: 100%;
+        display: inline-block;
+        height: 45px;
+        border: 1px solid #B3B3B3;
+    }
+
+    @media screen and (min-width: 575px) and (max-width: 768px) {
+        .agent_search input.form-control {
+            width: 100% !important;
+            margin-bottom: 0px;
+        }
+    }
 </style>
 @endsection
