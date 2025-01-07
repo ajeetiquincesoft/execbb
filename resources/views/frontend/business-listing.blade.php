@@ -29,7 +29,7 @@
         <hr class="pursuit_hr mb-5">
         <form action="{{route('business.listings')}}" method="get" class="">
             <div class="row lis_search mb-5">
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-md-3">
                     <div class="form-group">
                         <select class="form-control" id="industry" name="industry">
                             <option value="">Industry</option>
@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- Second Column -->
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-md-3">
                     <div class="form-group">
                         <select class="form-control" id="state" name="state">
                             <option value="">State</option>
@@ -51,22 +51,22 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-12 col-sm-6 col-md-4">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}">
                     </div>
 
                 </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button type="submit">Search Listing</button>
+                <div class="col-12 col-sm-6 col-md-2 d-md-flex align-items-end">
+                    <button type="submit">Search</button>
                 </div>
             </div>
         </form>
-        <div class="row px-5 mt-5">
+        <div class="row mt-5 bislis_search">
             @forelse($listings as $listing)
-            <div class="col-md-4 mb-5">
+            <div class="col-12 col-sm-6 col-md-4 mb-5">
                 <div class="card-container">
-                    <div class="card shadow-sm" style="width: 18rem;">
+                    <div class="card shadow-sm">
                         @if(!empty($listing->imagepath))
                         <a href="{{route('view.business.listing',$listing->ListingID)}}" target="_blank"><img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                         @else

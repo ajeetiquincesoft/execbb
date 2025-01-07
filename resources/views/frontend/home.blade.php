@@ -56,7 +56,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         <div class="d-md-flex justify-content-between align-items-center mb-4 top_business">
             <h2>Top Business Categories</h2>
             <div class="see_more">
-            <a href="#" class="btn btn">See More Categories</a>
+                <a href="#" class="btn btn">See More Categories</a>
             </div>
         </div>
         <div class="row g-3 bus_cat row-cols-3 row-cols-md-3">
@@ -168,7 +168,9 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                     <a href="{{route('view.broker.profile',$agent->AgentUserRegisterId)}}" target="_blank"><img src="{{asset('assets/images/avatar.png')}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image"></a>
                     @endif
                     <div class="leading_agent">
-                    <a href="{{route('view.broker.profile',$agent->AgentUserRegisterId)}}" target="_blank"><h5 class="mb-1">{{ucfirst($agent->FName)}} {{ucfirst($agent->LName)}}</h5></a>
+                        <a href="{{route('view.broker.profile',$agent->AgentUserRegisterId)}}" target="_blank">
+                            <h5 class="mb-1">{{ucfirst($agent->FName)}} {{ucfirst($agent->LName)}}</h5>
+                        </a>
                         <p class="mb-0">{{$limitedComment}}</p>
                     </div>
                 </div>
@@ -303,8 +305,8 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                     Our consultative approach to buying and selling makes selling a business easier.
                 </p>
                 <div class="why_ebb_btn">
-                <a href="#" class="btn learn-more-btn">Learn More</a>
-                        </div>
+                    <a href="#" class="btn learn-more-btn">Learn More</a>
+                </div>
             </div>
         </div>
     </div>
@@ -406,13 +408,13 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     }
 
     .carousel-controls {
-    position: absolute;
-    top: 40px;
-    right: 35px;
-    display: flex;
-    gap: 10px;
-    z-index: 10;
-}
+        position: absolute;
+        top: 40px;
+        right: 35px;
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
 
     /* Styling for the div controls */
     .carousel-prev,
@@ -494,253 +496,227 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     .home_business_listing {
         text-decoration: none;
     }
+
     .see_all_listing {
-    font-weight: 600;
-    text-decoration: underline;
-    color: #806132;
-}
-/* Small devices (phones, 600px and down) */
-@media screen and (max-width: 600px) {
-    .custom-card {
-        padding: 1.5rem;
-        margin: 0 auto;
+        font-weight: 600;
+        text-decoration: underline;
+        color: #806132;
     }
-    .top_business h2{
-    text-align: center;
-}
-.see_more {
-    text-align: center;
-}
-    .listing_search.d-md-flex.align-items-center {
-    width: 100%;
-    margin: 0 auto;
-}
-.listing_search .form-control,
-.listing_search .form-select{
-    margin-bottom: 10px;
-}
-.prefect_bus h5, .prefect_bus p {
-    text-align: center;
-}
-.carousel-controls {
-    top: 50px;
-}
-.leading-agents .section-title-agents {
-    font-size: 18px;
-}
-.leading-agents .see-all-brokers {
-    font-size: 12px; 
-}
-.leading-agents {
-    height: auto;
-}
-.agent-card a img.agent-image {
-    float: left;
-}
-.agent-card {
-    height: auto;
-}
-.custom-section {
-    padding: 0 10px;
-    height: auto;
-}
-.custom-section h2 {
-    text-align: center;
-    padding-top: 15px;
-}
-.our_service_title a {
-    font-size: 15px;
-}
-.services-section {
-    padding: 0px 15px;
-}
-.why-ebb-section {
-    height: auto;
-    padding-left: 30px;
-}
-.text-container {
-    padding: 3rem 0rem; 
-}
-.why_ebb_btn {
-    text-align: center;
-}
-.phase_title {
-    padding-top: 15px;
-}
-.newsletter.row {
-    top: 85px;
-}
-.our_subscribe {
-    margin-left: 0px;
-}
-.newsletter h4 {
-    font-size: 20px;
-    float: none;
-    display: inline-block;
-}
-.subscribe-form button {
-    width: 50%;
-}
-.newsletter input[type="email"] {
-    width: 100%;
-    margin-bottom: 10px;
-    
-}
-.footer p,.footer h4 {
-    text-align: center;
-}
-.footer ul li {
-    text-align: center;
-}
-.footer-logo {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-}
-}
-@media screen and (min-width: 601px) and (max-width: 768px) {
-    .services-section {
-    padding: 0px 15px;
-    text-align: center;
-}
-    .custom-card {
-    width: 100%;
-    max-width: 100%;
-    height: 167px;
-}
-    .phase_title {
-    padding-top: 15px;
-}
-    .navbar .container {
-    max-width: 100%;
-}
-    .agent-card a img.agent-image {
-    float: left;
-}
-    .agent-card {
-    height: 110px;
-} 
-.listing_search.d-md-flex.align-items-center {
-    width: 100%;
-    margin: 0 auto;
-}
-.prefect_bus h5, .prefect_bus p {
-    text-align: center;
-}
 
-    .leading-agents {
-    height: auto;
-}
-.why-ebb-section {
-    height: auto;
-}
-.custom-section {
-    padding: 0 10px;
-    height: auto;
-}
-.custom-section h2 {
-    text-align: center;
-    padding-top: 15px;
-}
-.newsletter.row {
-    top: 70px;
-}
-.newsletter h4 {
-    font-size: 25px;
-    float: none;
-    display: inline-block;
-}
-.our_subscribe {
-    margin-left: 0px;
-}
-.footer p,.footer h4 {
-    text-align: center;
-}
-.footer ul li {
-    text-align: center;
-}
-.footer-logo {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-}
+    /* Small devices (phones, 600px and down) */
+    @media screen and (max-width: 600px) {
+        .custom-card {
+            padding: 1.5rem;
+            margin: 0 auto;
+        }
 
-}
-/* Tablets (portrait and landscape) */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-    .navbar .container {
-    max-width: 100%;
-}
-    .listing_search.d-md-flex.align-items-center {
-    width: 100%;
-    margin: 0 auto;
-}
-.prefect_bus h5, .prefect_bus p {
-    text-align: center;
-}
-.prefect_bus .border-right {
-    border-right: none;
-}
+        .top_business h2 {
+            text-align: center;
+        }
 
-    .leading-agents {
-    height: auto;
-}
+        .see_more {
+            text-align: center;
+        }
 
-.why-ebb-section {
-    height: auto;
-}
-.agent-card {
-    height: 175px;
-}
-.agent-card a img.agent-image {
-    float: left;
-}
-.custom-section {
-    padding: 0 10px;
-    height: 475px;
-}
-.custom-section h2 {
-    text-align: center;
-    padding-top: 15px;
-}
-.newsletter.row {
-    top: 70px;
-}
-.newsletter h4 {
-    font-size: 25px;
-    float: none;
-    display: inline-block;
-}
-.our_subscribe {
-    margin-left: 0px;
-}
-.footer p,.footer h4 {
-    text-align: center;
-}
-.footer ul li {
-    text-align: center;
-}
-.footer-logo {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-}
-}
+        .listing_search.d-md-flex.align-items-center {
+            width: 100%;
+            margin: 0 auto;
+        }
 
-/* Desktops (laptops and large screens) */
-@media screen and (min-width: 1025px) {
-    .agent-card {
-    height: 120px;
-}
-.agent-card a img.agent-image {
-    float: left;
-}
-}
+        .listing_search .form-control,
+        .listing_search .form-select {
+            margin-bottom: 10px;
+        }
 
-/* Large desktops */
-@media screen and (min-width: 1601px) {
-  /* styles for large desktops */
-}
+        .prefect_bus h5,
+        .prefect_bus p {
+            text-align: center;
+        }
 
+        .carousel-controls {
+            top: 50px;
+        }
+
+        .leading-agents .section-title-agents {
+            font-size: 18px;
+        }
+
+        .leading-agents .see-all-brokers {
+            font-size: 12px;
+        }
+
+        .leading-agents {
+            height: auto;
+        }
+
+        .agent-card a img.agent-image {
+            float: left;
+        }
+
+        .agent-card {
+            height: auto;
+        }
+
+        .custom-section {
+            padding: 0 10px;
+            height: auto;
+        }
+
+        .custom-section h2 {
+            text-align: center;
+            padding-top: 15px;
+        }
+
+        .our_service_title a {
+            font-size: 15px;
+        }
+
+        .services-section {
+            padding: 0px 15px;
+        }
+
+        .why-ebb-section {
+            height: auto;
+            padding-left: 30px;
+        }
+
+        .text-container {
+            padding: 3rem 0rem;
+        }
+
+        .why_ebb_btn {
+            text-align: center;
+        }
+
+        .phase_title {
+            padding-top: 15px;
+        }
+
+
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 768px) {
+        .services-section {
+            padding: 0px 15px;
+            text-align: center;
+        }
+
+        .custom-card {
+            width: 100%;
+            max-width: 100%;
+            height: 167px;
+        }
+
+        .phase_title {
+            padding-top: 15px;
+        }
+
+        .navbar .container {
+            max-width: 100%;
+        }
+
+        .agent-card a img.agent-image {
+            float: left;
+        }
+
+        .agent-card {
+            height: 110px;
+        }
+
+        .listing_search.d-md-flex.align-items-center {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .prefect_bus h5,
+        .prefect_bus p {
+            text-align: center;
+        }
+
+        .leading-agents {
+            height: auto;
+        }
+
+        .why-ebb-section {
+            height: auto;
+        }
+
+        .custom-section {
+            padding: 0 10px;
+            height: auto;
+        }
+
+        .custom-section h2 {
+            text-align: center;
+            padding-top: 15px;
+        }
+
+
+
+    }
+
+    /* Tablets (portrait and landscape) */
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+        .navbar .container {
+            max-width: 100%;
+        }
+
+        .listing_search.d-md-flex.align-items-center {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .prefect_bus h5,
+        .prefect_bus p {
+            text-align: center;
+        }
+
+        .prefect_bus .border-right {
+            border-right: none;
+        }
+
+        .leading-agents {
+            height: auto;
+        }
+
+        .why-ebb-section {
+            height: auto;
+        }
+
+        .agent-card {
+            height: 175px;
+        }
+
+        .agent-card a img.agent-image {
+            float: left;
+        }
+
+        .custom-section {
+            padding: 0 10px;
+            height: 475px;
+        }
+
+        .custom-section h2 {
+            text-align: center;
+            padding-top: 15px;
+        }
+
+    }
+
+    /* Desktops (laptops and large screens) */
+    @media screen and (min-width: 1025px) {
+        .agent-card {
+            height: 120px;
+        }
+
+        .agent-card a img.agent-image {
+            float: left;
+        }
+    }
+
+    /* Large desktops */
+    @media screen and (min-width: 1601px) {
+        /* styles for large desktops */
+    }
 </style>
 @endsection
