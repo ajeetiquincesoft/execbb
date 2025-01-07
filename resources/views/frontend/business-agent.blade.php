@@ -216,6 +216,10 @@
             width: 100% !important;
             margin-bottom: 0px;
         }
+
+        .row.agent_search.mb-5 {
+            justify-content: center;
+        }
     }
 </style>
 @endsection

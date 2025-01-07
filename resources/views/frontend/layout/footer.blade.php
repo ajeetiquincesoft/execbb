@@ -95,7 +95,7 @@
          <hr class="footer-line">
          <div class="row g-4 align-items-center">
              <div class="col-md-12 text-center mb-md-0">
-                 <span class="text-white copyrights">Copyrights 2025 Executive Business Brokers. All Rights Reserved.</span>
+                 <span class="text-white copyrights">Copyrights {{ date('Y') }} Executive Business Brokers. All Rights Reserved.</span>
              </div>
          </div>
 

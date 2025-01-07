@@ -925,6 +925,10 @@ a.btn.btn.view_all_services {
     text-transform: capitalize;
   }
 
+  .con_img.d-inline-block {
+    margin-bottom: 10px;
+  }
+
   .lis_search .form-control,
   .lis_search .form-select {
     margin-bottom: 10px;

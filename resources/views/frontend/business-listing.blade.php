@@ -216,6 +216,7 @@
         color: white;
         padding: 10px 20px;
         border-radius: 0px;
+        width: 100%;
     }
 
     .lis_search .form-control {

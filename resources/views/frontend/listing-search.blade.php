@@ -29,7 +29,7 @@
                         <select class="form-control" id="industry" name="industry">
                             <option value="">Industry</option>
                             @foreach($categoryData as $category)
-                            <option value="{{$category->CategoryID}}"  {{ request('industry') == $category->CategoryID ? 'selected' : '' }}>{{$category->BusinessCategory}}</option>
+                            <option value="{{$category->CategoryID}}" {{ request('industry') == $category->CategoryID ? 'selected' : '' }}>{{$category->BusinessCategory}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -41,7 +41,7 @@
                         <select class="form-control" id="state" name="state">
                             <option value="">State</option>
                             @foreach($states as $state)
-                            <option value="{{$state->State}}"  {{ request('state') == $state->State ? 'selected' : '' }}>{{$state->StateName}}</option>
+                            <option value="{{$state->State}}" {{ request('state') == $state->State ? 'selected' : '' }}>{{$state->StateName}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -63,12 +63,14 @@
                 <div class="card-container">
                     <div class="card shadow-sm">
                         @if(!empty($listing->imagepath))
-                        <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+                        <a href="{{route('view.business.listing',$listing->ListingID)}}"><img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                         @else
-                        <img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+                        <a href="{{route('view.business.listing',$listing->ListingID)}}"><img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                         @endif
                         <div class="card-body text-center">
-                            <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
+                            <a href="{{route('view.business.listing',$listing->ListingID)}}">
+                                <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
+                            </a>
                             <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
                             <p class="card-text">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
                         </div>
@@ -123,6 +125,7 @@
         color: white;
         padding: 10px 20px;
         border-radius: 0px;
+        width: 100%;
     }
 
     .lis_search .form-control {
@@ -131,6 +134,9 @@
         height: 45px;
         border: 1px solid #B3B3B3;
     }
-  
+
+    .bis_search a {
+        text-decoration: none;
+    }
 </style>
 @endsection
