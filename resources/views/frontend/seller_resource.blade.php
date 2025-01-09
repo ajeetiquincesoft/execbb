@@ -22,33 +22,33 @@
                 <!-- <h6 class="sub-heading">Executive Business Brokers - A Large, Active Business Brokerage Firm</h6> -->
             </div>
         </div>
-        <div class="row px-5">
+        <div class="row px-3 px-md-5">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
                     <h3 class="section-heading">Books </h3>
                     <div class="container my-5">
                         <div class="row g-4">
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <a href="https://www.amazon.com/exec/obidos/ASIN/0028629035/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_1.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <a href="https://www.amazon.com/exec/obidos/ASIN/1574100874/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_2.jpg')}}" alt="Image 2" class="seller_resource_img"></a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <a href="https://www.amazon.com/exec/obidos/ASIN/0965657833/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_8.jpg')}}" alt="Image 2" class="seller_resource_img"></a>
                             </div>
                         </div>
                     </div>
                     <div class="container my-5">
                         <div class="row g-4">
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <a href="https://www.amazon.com/exec/obidos/ASIN/1558507027/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_4.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <a href="https://www.amazon.com/exec/obidos/ASIN/1580620051/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_6.jpg')}}" alt="Image 3" class="seller_resource_img"></a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-12 col-md-4">
                                 <a href="https://www.amazon.com/exec/obidos/ASIN/0471150479/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_7.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
                             </div>
                         </div>
@@ -184,8 +184,6 @@
         }
 
         .Content-text {
-            margin-right: 192px;
-            margin-left: 47px;
             font-family: 'Mulish', sans-serif;
             color: #5D5D5D;
         }
