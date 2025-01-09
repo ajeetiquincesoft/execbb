@@ -9,7 +9,7 @@
                         <div class="d-flex justify-content-center pb-1">
                             <h5 class="fw-normal mb-2 text-center m-0 client_login">Client Log In</h5>
                         </div>
-                        <p class="m-0 mb-3 an_account" style="color: #5D5D5D;">Don't have an account? <a href="#!" style="color: #7F2149;">Create your free account</a></p>
+                        <p class="m-0 mb-3 an_account" style="color: #5D5D5D;">Don't have an account? <a href="{{route('register.ebb.buyer')}}" style="color: #7F2149;">Create your free account</a></p>
 
                         <form method="POST" action="{{ route('login.custom') }}" id="login_user">
                             @csrf

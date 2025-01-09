@@ -26,7 +26,7 @@
                         @method('PUT')
                         <div class="avatar-upload">
                           <input type="file" id="avatar" name="avatar" accept="image/*" onchange="previewImage(event)">
-                          <label for="avatar">
+                          <label for="avatar" class="circular-image">
                           @if($listing->imagepath)
                               <img id="avatar-preview" src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" alt="Avatar Preview" class="avatar">
                               @else

@@ -8,8 +8,8 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Business Listing</a></li>
+                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('business.listings')}}">Business Listing</a></li>
                 <li class="breadcrumb-item active"><a href="#">Listing View</a></li>
             </ol>
         </nav>
@@ -21,7 +21,7 @@
         <!-- Main Post Content -->
         <div class="col-lg-8">
             <article>
-                <h1 class="mb-4">{{ucfirst($listing->SellerCorpName)}}</h1>
+                <h1 class="mb-4">{{ucwords($listing->SellerCorpName)}}</h1>
                 <p class="text-muted">By {{ucfirst($userName)}} | {{ \Carbon\Carbon::parse($listing->created_at)->format('F d, Y') }}</p>
                 <!-- <img src="https://via.placeholder.com/1200x600" class="img-fluid mb-4" alt="Post Image"> -->
                 @if(!empty($listing->imagepath))
@@ -30,6 +30,16 @@
                 <img src="{{ asset('assets/images/business_image.jpg') }}" alt="" class="business_listing_image">
                 @endif
                 <p>{{$listing->Comments}}</p>
+                @if(auth()->check())
+                @if(auth()->user()->role_name === 'buyer')
+                <div class="icon-container" data-listing-id="{{ $listing->ListingID }}" data-liked="{{ $likeVal ?? 0 }}">
+                    <i class="fa fa-thumbs-o-up icon-text thumbs-up {{ $activeClass }}" aria-hidden="true"></i>
+                    <span class="text {{ $activeClass }}">Like</span>
+                    <p class="total_likes">Total Likes: <span>{{$likeCount}}</span></p>
+                   
+                </div>
+                @endif
+                @endif
                 <div class="tags single-badge">
                     <span class="badge">{{$listing->BusType}}</span>
                     <span class="badge">{{$subCatName}}</span>
@@ -41,18 +51,21 @@
             <!-- Comments Section -->
             <section class="mt-5">
                 <h4>Comments</h4>
-                @forelse($comments as $comment)
-                <div class="media mb-4">
-                    <img src="{{asset('assets/images/user.png')}}" class="img-fluid rounded-circle mb-3 comment_image" alt="User Avatar">
-                    <div class="media-body">
-                        <h5 class="mt-0">{{ucfirst($comment->Name)}}</h5>
-                        <p>{{$comment->Comment}}</p>
-                        <small>Posted on {{ \Carbon\Carbon::parse($comment->CommentDate)->format('F d, Y') }}</small>
+                <div id="comments-container">
+                    @foreach($buyerComments as $comment)
+                    <div class="media mb-4 buycomment">
+                        <img src="{{asset('assets/images/user.png')}}" class="img-fluid rounded-circle mb-3 comment_image" alt="User Avatar">
+                        <div class="media-body">
+                            <h5 class="mt-0">{{ucfirst($comment->Name)}}</h5>
+                            <p>{{$comment->Comment}}</p>
+                            <small>Posted on {{ \Carbon\Carbon::parse($comment->CommentDate)->format('F d, Y') }}</small>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @empty
-                <p>There is no comments for a listing.</p>
-                @endforelse
+                @if($buyerCommentsCount > 5)
+                <div id="loading">Loading more comments...</div>
+                @endif
                 <hr>
                 @if(auth()->check())
                 @if(auth()->user()->role_name === 'buyer')
@@ -62,15 +75,15 @@
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="user_name" name="user_name" required>
+                        <input type="text" class="form-control" id="user_name" name="user_name">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="user_email" name="user_email" required>
+                        <input type="email" class="form-control" id="user_email" name="user_email">
                     </div>
                     <div class="mb-3">
                         <label for="comment" class="form-label">Comment</label>
-                        <textarea class="form-control" id="user_comment" rows="4" name="user_comment" required></textarea>
+                        <textarea class="form-control" id="user_comment" rows="4" name="user_comment"></textarea>
                     </div>
                     <button type="submit" class="comment_btn">Comment</button>
                 </form>
@@ -88,7 +101,7 @@
         <!-- Sidebar -->
         <div class="col-lg-4">
             <div class="sticky-top1">
-              <!--   <div class="card mb-4">
+                <!--   <div class="card mb-4">
                     <div class="card-header">About Author</div>
                     <div class="card-body">
                         <img src="{{asset('assets/images/user.png')}}" class="img-fluid rounded-circle mb-3" alt="Author Image">
@@ -231,12 +244,11 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="card mb-4">
                     <div class="card-header">Recent Business listing</div>
                     <ul class="list-group list-group-flush recent_listing">
-                        @foreach($listings as $listing)
-                        <li class="list-group-item"><a href="{{route('view.business.listing',$listing->ListingID)}}">{{$listing->SellerCorpName}}</a></li>
+                        @foreach($listings as $businessListing)
+                        <li class="list-group-item"><a href="{{route('view.business.listing',$businessListing->ListingID)}}">{{$businessListing->SellerCorpName}}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -283,39 +295,219 @@
     }
 
     ul.list-group.list-group-flush.recent_listing li a {
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    color: #7F2149;
-    font-family: 'Urbanist';
-    text-transform: capitalize;
-    text-decoration-line: underline;
-}
-    .listing_sidebar img{
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        color: #7F2149;
+        font-family: 'Urbanist';
+        text-transform: capitalize;
+        text-decoration-line: underline;
+    }
+
+    .listing_sidebar img {
         width: 15px;
         margin-right: 10px;
 
     }
-    .listing_sidebar .text-end{
+
+    .listing_sidebar .text-end {
         font-size: 15px;
     }
-    .listing_sidebar td{
+
+    .listing_sidebar td {
         font-size: 15px;
     }
+
     .card-header {
+        background-color: #806132;
+        color: #ffffff;
+        border-radius: 0 !important;
+    }
+
+    .card.mb-4 {
+        border-radius: 0;
+    }
+
+    .single-badge .badge {
+        background-color: #D9D9D9;
+        padding: 14px;
+        color: #333333;
+        border-radius: 1px;
+        font-size: 15px;
+    }
+
+    /* Styling for each icon and text */
+
+    .icon-container {
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .icon-text {
+        margin-right: 5px;
+        font-size: 16px;
+    }
+
+    .text {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .icon-text,
+    .text {
+        color: #333333;
+    }
+
+    .active {
+        color: #4169E1;
+
+    }
+
+    .total_likes {
+        float: right;
+        font-size: 16px;
+        font-weight: bold;
+        width: 14%;
+        display: block;
+        margin: 0;
+    }
+
+    .total_likes span {
+        color: #4169E1;
+    }
+    .buycomment {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    }
+    #loading {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #7F2149;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#loading:hover {
     background-color: #806132;
-    color: #ffffff;
-    border-radius: 0 !important;
-}
-.card.mb-4 {
-    border-radius: 0;
-}
-.single-badge .badge {
-    background-color: #D9D9D9;
-    padding: 14px;
-    color: #333333;
-    border-radius: 1px;
-    font-size: 15px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.icon-container').click(function() {
+            var listing_id = $(this).attr('data-listing-id');
+            var like_val = $(this).attr('data-liked');
+            $(this).find('.icon-text, .text').toggleClass('active');
+            $.ajax({
+                url: "{{ route('listing.like') }}", // Make sure to update the route
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}", // CSRF token
+                    liked: like_val,
+                    listing_id: listing_id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('.icon-container').attr('data-liked', response.liked);
+                        $('.total_likes span').text(response.like_count);
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Something went wrong. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+<script>
+  $(document).ready(function() {
+        var form = $('.buyer-comment');
+        form.validate({
+            rules: {
+                user_email: {
+                    required: true,
+                    email: true
+                },
+                user_name: {
+                    required: true
+                },
+                user_comment: {
+                    required: true
+                }
+            },
+            messages: {
+            },
+            submitHandler: function(form) {
+                form.submit(); // Proceed with form submission if valid
+            }
+        });
+    });
+</script>
+<script>
+   $(document).ready(function() {
+    let page = 2; // Start from page 2 since page 1 is already loaded
+    var listing_id = <?php echo $listing->ListingID; ?>;
+    let loading = false;
+
+    // Listen for the "Loading more comments" button click
+    $('#loading').on('click', function() {
+        // Check if the AJAX request is already in progress
+        if (!loading) {
+            loading = true; // Set loading flag to true
+            $('#loading').text('Loading...'); // Change button text to "Loading..."
+
+            // Load more comments via AJAX
+            $.ajax({
+                url: "{{ route('load.more.comments') }}", // Endpoint for loading more comments
+                type: 'GET',
+                data: {
+                    _token: "{{ csrf_token() }}", // CSRF token
+                    listing_id: listing_id,
+                    page: page // Send the current page number
+                },
+                success: function(response) {
+                    if (response.comments.length > 0) {
+                        // Append the new comments to the container
+                        response.comments.forEach(function(comment) {
+                            $('#comments-container').append(`
+                                <div class="media mb-4 buycomment">
+                                    <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3 comment_image" alt="User Avatar">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">${comment.Name}</h5>
+                                        <p>${comment.Comment}</p>
+                                        <small>Posted on ${comment.formatted_date}</small>
+                                    </div>
+                                </div>
+                            `);
+                        });
+
+                        // Increment the page for the next request
+                        page++;
+                    }
+
+                    // Hide the loading indicator and reset button text
+                    $('#loading').text('Loading more comments...').hide();
+                    loading = false;
+                },
+                error: function() {
+                    console.log('Error loading comments');
+                    loading = false;
+                    $('#loading').text('Error, try again').show();
+                }
+            });
+        }
+    });
+});
+
+</script>
+
+       
 @endsection

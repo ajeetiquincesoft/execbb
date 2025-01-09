@@ -996,6 +996,33 @@ a.btn.btn.view_all_services {
     margin-right: auto;
     margin-left: auto;
   }
+  .remove-mobile-padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.remove-mobile-padding .img-fluid {
+  height: 200px;
+  width: 100%;
+}
+.main-container {
+  padding: 10px 10px !important;
+ 
+}
+.buyer_tool h1 {
+  font-size: 20px !important;
+  margin-bottom: 15px;
+}
+.buyer_tool .card-container {
+  margin-top: 0px;
+}
+.buyer_tool .card-custom {
+  padding: 5px 10px;
+  
+}
+.buyer_tool br {
+  display: none;
+  
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1058,6 +1085,32 @@ a.btn.btn.view_all_services {
     margin-right: auto;
     margin-left: auto;
   }
+  .main-container {
+    padding: 10px 10px !important;
+   
+  }
+  .buyer_tool h1 {
+    font-size: 20px !important;
+    margin-bottom: 15px;
+  }
+  .buyer_tool .card-container {
+    margin-top: 0px;
+  }
+  .buyer_tool .card-custom {
+    padding: 5px 10px;
+    
+  }
+  .buyer_tool br {
+    display: none;
+    
+  }
+  .buyer_tool .card-container{
+    display: inherit;
+  }
+  .buyer_tool .card-custom {
+    max-width: 100%;
+    
+}
 }
 
 /* Tablets (portrait and landscape) */

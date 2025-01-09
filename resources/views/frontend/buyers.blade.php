@@ -20,7 +20,7 @@
 </div>
 <!-- Main Section -->
 <section class="main-section" style="background-color: #F8F8F8;">
-    <div class="container py-5 container-padding" style="background-color: #FFFFFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <div class="container py-5 remove-mobile-padding container-padding" style="background-color: #FFFFFF; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
         <!-- Heading and Description -->
         <div class="text-center mb-5">
             <h1 class="fw-bold">In Pursuit of the Right Business</h1>
@@ -43,7 +43,7 @@
                     If you are already aware of the <a href="#" target="_blank" class="text-gold">process</a>, you can start your search by:
                 </p>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i><a href="{{route('register.with.ebb')}}" class="text-gold" target="_blank">Registering with EBB</a></li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i><a href="{{route('register.with.ebb')}}" class="text-gold" target="_blank"> Registering with EBB</a></li>
                     <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Looking through our <a href="{{route('business.listings')}}" class="text-gold" target="_blank">business listings</a></li>
                     <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Joining the <a href="{{route('preferred.buyers.program')}}"class="text-gold" target="_blank">EBB Preferred Buyer Program</a> For Serious Buyers Only!</li>
                     <li><i class="bi bi-check-circle-fill icon-purple"></i> Ask EBB’s <a href="{{route('mergers.and.acquisitions')}}" class="text-gold" target="_blank">M&A Experts</a> for help</li>

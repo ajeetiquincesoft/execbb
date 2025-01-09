@@ -37,7 +37,7 @@
      <div class="container main-sec">
          <div class="row">
              <!-- Logo & Address -->
-             <div class="col-12 col-md-6 col-lg-3 mb-4 mb-md-0">
+             <div class="col-12 col-md-6 col-lg-4 mb-4 mb-md-0">
                  <img src="{{ asset('assets/images/footer_logo_220.png') }}" alt="Logo" class="footer-logo">
                  <p>2583 Morris Avenue Union,<br>New Jersey 07083</p>
                  <p>T: 908.851.9040 | F: 908.851.9066</p>

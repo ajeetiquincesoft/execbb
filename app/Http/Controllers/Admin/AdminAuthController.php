@@ -86,7 +86,7 @@ class AdminAuthController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
-            $listings = Listing::count();
+            $listings = Listing::where('Active',1)->count();
             $agents = Agent::count();
             $buyers = Buyer::count();
             $showings = Showing::count();

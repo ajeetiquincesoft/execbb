@@ -99,7 +99,7 @@
           <div class="card" style="height: 360px;">
             <div class="card-body text-center">
               <p class="text-start text-5A102A">Active Listings</p>
-              <h3 class="text-start text-5E5E5E">781</h3>
+              <h3 class="text-start text-5E5E5E">{{$listings}}</h3>
               <div class="d-flex justify-content-center align-items-center">
                 <div class="legend-container">
                   <ul style="list-style-type: none; ">

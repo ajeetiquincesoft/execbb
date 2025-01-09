@@ -43,6 +43,7 @@ use App\Http\Controllers\BusinessListingController;
 use App\Http\Controllers\BuyerCommentController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\ListingLikeController;
 
 
 
@@ -66,10 +67,12 @@ Route::get('/all/brokers', [BrokersController::class, 'index'])->name('all.broke
 Route::get('view/broker/profile/{id}', [BrokersController::class, 'brokerProfile'])->name('view.broker.profile');
 Route::get('/business/listings', [BusinessListingController::class, 'index'])->name('business.listings');
 Route::get('view/business/listing/{id}', [BusinessListingController::class, 'viewBusinessListing'])->name('view.business.listing');
+Route::get('/load-more-comments', [BusinessListingController::class, 'loadMoreComments'])->name('load.more.comments');
 Route::post('/buyer/comment/{id}', [BuyerCommentController::class, 'buyerComment'])->name('buyer.comment');
 Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact.us');
 Route::post('/contact/submit', [ContactUsController::class, 'sendEmail'])->name('contact.submit');
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
+Route::post('/listing/like', [ListingLikeController::class, 'listingLike'])->name('listing.like');
 Route::get('/buyers', function () {
   $breadcrumbs = [
     ['title' => 'Home', 'url' => url('/')],
