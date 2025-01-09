@@ -1018,11 +1018,15 @@ a.btn.btn.view_all_services {
 .buyer_tool .card-custom {
   padding: 20px 10px;
   margin-bottom: 10px;
+  max-width: 100%;
   
 }
 .buyer_tool br {
   display: none;
   
+}
+.buyer_tool .card-container {
+  display: inherit;
 }
 }
 
