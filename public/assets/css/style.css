@@ -1090,6 +1090,10 @@ a.btn.btn.view_all_services {
     margin-right: auto;
     margin-left: auto;
   }
+  .buyer_tool .card-custom {
+    margin-bottom: 10px;
+  }
+
   .buyer_tool .card-container{
     display: inherit;
   }
