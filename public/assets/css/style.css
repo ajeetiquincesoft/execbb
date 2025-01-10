@@ -1034,6 +1034,13 @@ a.btn.btn.view_all_services {
 .Content-text .section-heading {
   text-align: center;
 }
+.services_consulting .Content-text{
+  margin-right: 0px;
+}
+.Content-text .section-heading {
+  text-align: center;
+}
+
 }
 
 /* Tablets (portrait and landscape) */

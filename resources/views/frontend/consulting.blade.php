@@ -20,9 +20,9 @@
                 <h5 class="main-heading">Consulting</h5>
             </div>
         </div>
-        <div class="row px-5 mt-5">
+        <div class="row px-0 px-md-5 mt-0 mt-md-5">
             <!-- Main Content -->
-            <div class="col-md-8 main-head">
+            <div class="col-md-8 main-head services_consulting">
                 <div class="Content-text">
                     <h3 class="section-heading">Asking the Experts for Advice</h3>
                     <p>Executive Business Brokers (EBB) offers consulting services for any aspect of buying/selling a business. We work with buyers and sellers to:</p>
