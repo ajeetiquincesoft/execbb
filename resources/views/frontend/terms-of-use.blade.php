@@ -23,7 +23,7 @@
         <div class="text-center mb-5 general_qus">
             <h1 class="fw-bold">Web Site Terms and Conditions</h1>
         </div>
-        <div class="row mb-5 px-2">
+        <div class="row mb-5 px-5">
             <div class="col-md-12">
                 <p class="faq_answer">This Web site (the "Service") is an online information and business service provided by Executive Business Brokers, Inc. ("EBB"), subject to your compliance with the terms and conditions set forth below.</p>
 
