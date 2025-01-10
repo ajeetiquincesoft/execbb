@@ -13,8 +13,8 @@
     </div>
 </div>
 <!-- Main Section -->
-<section class="main-section terms_of_use" style="background-color: #F8F8F8;">
-    <div class="container py-5 container-padding" style="background-color: #FFFFFF; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+<div class="container my-7 container-padding terms_of_use">
+    <div class="content-box">
         <!-- Heading and Description -->
         <div class="text-center mb-5">
             <h1 class="fw-bold">Terms Of Use</h1>
@@ -61,16 +61,9 @@
 
                 <p class="faq_answer">11. Collection and Use. EBB will collect and use customer identifiable information to create and inform you of products and services that better meet your needs. This means that EBB may use your customer identifiable information, in conjunction with information available from other sources, to market new services to you that we think will be of interest to you, but we will not disclose your customer identifiable information to third parties who want to market products to you. When you access the Internet, the computers that host Web sites you visit (Web servers) automatically receive some anonymous information. This "usage data" may include a record of which pages a Web browser has visited. EBB servers receive usage data when customers visit EBB Web sites, and when you visit other sites as well. EBB may use usage data to provide advertising about goods and services that may be of interest to EBB customers, or to provide customized features and services. EBB and its advertisers may use various kinds of software devices to collect information about Internet use. Small files called "cookies" may be attached to your Web browser. These files identify your browser and save information such as passwords so that Web sites can recognize you. You can set your browser to disable cookies, but some EBB Web sites (and other Web sites) may not work properly if you do this. In addition, on some Web sites, EBB and its advertisers may use small bits of code called "one-pixel gifs," or "clear gifs" embedded in some Web pages, to make cookies more effective. EBB will not associate the information these software devices collect with your name or email address. EBB uses advertising companies to deliver ads on some EBB Web sites. The advertising companies may also receive some anonymous information about ad viewing by Internet users on EBB Web sites and other Internet sites. This information may also be associated with a customer's Web browser. (This means that advertising companies may know where your computer goes on the Internet, but they don't know who you are unless you tell them.) EBB does not supply customer identifiable information to advertising companies or to individual advertisers or other third parties. If you go to another Web site, including an advertiser's Web site (for example by clicking on an ad), and request information or enter a contest, be aware that you may be authorizing another company, including an advertising company, to use information you supply.</p>
             </div>
-
         </div>
-
-
-
-
-
-
     </div>
-</section>
+</div>
 <style>
     .breadcrumb-container {
         background-color: #F8F8F8;
@@ -139,6 +132,12 @@
         font-weight: 400;
         line-height: 26px;
         font-size: 14px;
+    }
+
+    .content-box {
+        background-color: #FFFFFF;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 </style>
 @endsection
