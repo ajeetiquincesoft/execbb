@@ -20,9 +20,9 @@
                 <h5 class="main-heading">Business Valuation</h5>
             </div>
         </div>
-        <div class="row px-5 mt-5">
+        <div class="rowpx-0 px-md-5 mt-0 mt-md-5">
             <!-- Main Content -->
-            <div class="col-md-8 main-head">
+            <div class="col-md-8 main-head bus_valu">
                 <div class="Content-text">
                     <h3 class="section-heading">How EBB Determines a Business' Worth</h3>
                     <p>Valuing a business is not an exact science. There is no right way to determine price, as there are many <a href="#" style="color: #7F2149; text-decoration: underline;">methods</a> of doing so. <a href="#" style="color: #7F2149; text-decoration: underline;">Many factors</a> play into value – the economy, management, location, cash flow, lease, etc.</p>

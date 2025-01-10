@@ -1043,6 +1043,10 @@ a.btn.btn.view_all_services {
 .mar_acq .Content-text{
   margin-right: 0px;
 }
+.bus_valu .Content-text{
+  margin-right: 0px;
+}
+
 }
 
 /* Tablets (portrait and landscape) */
@@ -1129,6 +1133,9 @@ a.btn.btn.view_all_services {
   margin-right: 0px;
 }
 .mar_acq .Content-text{
+  margin-right: 0px;
+}
+.bus_valu .Content-text{
   margin-right: 0px;
 }
 }
