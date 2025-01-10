@@ -1033,6 +1033,7 @@ a.btn.btn.view_all_services {
 }
 .Content-text .section-heading , .Content-text p{
   text-align: center;
+  padding: 0 10px;
 }
 .services_consulting .Content-text{
   margin-right: 0px;
@@ -1158,6 +1159,7 @@ a.btn.btn.view_all_services {
 }
 .Content-text .section-heading , .Content-text p{
   text-align: center;
+  padding: 0 10px;
 }
 .services_consulting .Content-text{
   margin-right: 0px;

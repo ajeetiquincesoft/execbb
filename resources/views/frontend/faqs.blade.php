@@ -14,7 +14,7 @@
 </div>
 <!-- Main Section -->
 <section class="main-section faqs" style="background-color: #F8F8F8;">
-    <div class="container py-5 my-7 container-padding" style="background-color: #FFFFFF; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <div class="container py-5 container-padding" style="background-color: #FFFFFF; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
         <!-- Heading and Description -->
         <div class="text-center mb-5">
             <h1 class="fw-bold">FAQ’s</h1>
