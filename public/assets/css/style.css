@@ -1076,6 +1076,10 @@ a.btn.btn.view_all_services {
   height: auto !important;
  
 }
+.section-heading-join {
+  font-size: 25px !important;
+  text-align: center;
+}
 }
 
 /* Tablets (portrait and landscape) */
