@@ -161,7 +161,7 @@ h1 {
 .List_with_EBB {
     position: relative;
     text-align: center;
-    margin-top: 40px;
+    margin: 40px 0px;
 }
 .btn-custom:hover {
     background-color: #8E0F50;
