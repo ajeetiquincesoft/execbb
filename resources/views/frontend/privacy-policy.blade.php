@@ -20,7 +20,7 @@
             <h1 class="fw-bold">Privacy Policy</h1>
         </div>
         <hr class="pursuit_hr mb-5">
-        <div class="row mb-5">
+        <div class="row mb-5 px-2">
             <div class="col-md-12">
                 <p class="faq_answer">Executive Business Brokers Inc. is the owner of this site and wishes to express that your privacy is of the utmost concern to us. We guarantee to treat any information received from you with the highest level of <a href="https://www.perfake.me/" class="sellorgive" target="_blank">Rolex Replica Watches</a> respect and confidentiality. The information submitted to us will be used primarily for the purpose of matching your business purchase needs with current or new businesses listed with Executive Business Brokers and its affiliates and for providing products and services related to the buying and selling of a business. Any information received is necessary to provide a level of certainty of interest and to assist in your qualifying. It is also needed in order to aid with the continual improvement of the site, compile basic demographic <a href="https://www.perfake.me/" class="sellorgive" target="_blank">Replica Watches</a> data and to generally improve the services offered to you.
                     The company will not sell or rent your confidential information to any independent third parties, except for Executive Business Brokers partners that provide products or services related to buying and selling a business. In addition, we may share your information with the business seller in which you specifically requested additional information concerning their business.</p>
