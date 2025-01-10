@@ -120,32 +120,35 @@
                     </div>
                     <div class="row">
                         <!-- Radio Button Group 1 -->
-                        <div class="col-12 d-flex statement-desc">
-                            <div class="d-flex align-items-center me-3">
+                        <div class="col-12 d-flex flex-wrap">
+                            <div class="d-flex align-items-center me-3 mb-2">
                                 <label class="form-check-label me-3" for="seller">Seller</label>
                                 <input class="form-check-input" type="radio" name="role" id="seller" value="seller">
                             </div>
-                            <div class="d-flex align-items-center me-3">
+                            <div class="d-flex align-items-center me-3 mb-2">
                                 <label class="form-check-label me-3" for="buyer">Buyer</label>
                                 <input class="form-check-input" type="radio" name="role" id="buyer" value="buyer">
                             </div>
-                            <div class="d-flex align-items-center me-3">
+                            <div class="d-flex align-items-center me-3 mb-2">
                                 <label class="form-check-label me-3" for="borrower">Borrower</label>
                                 <input class="form-check-input" type="radio" name="role" id="borrower" value="borrower">
                             </div>
-                            <div class="d-flex align-items-center me-3">
+                            <div class="d-flex align-items-center me-3 mb-2">
                                 <label class="form-check-label me-3" for="brokerInquiry">Broker Inquiry</label>
                                 <input class="form-check-input" type="radio" name="role" id="brokerInquiry" value="brokerInquiry">
                             </div>
                         </div>
+
                         <div class="col-12 mb-3 statement-desc">
                             <div class="d-flex align-items-center me-3">
-                                <label class="form-check-label me-3" for="seekingEmployment">seekingEmployment</label>
+                                <label class="form-check-label me-3" for="seekingEmployment">Seeking Employment</label>
                                 <input class="form-check-input" type="radio" name="role" id="seekingEmployment" value="seekingEmployment">
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-custom px-5 py-2">Submit</button>
+                    <div class="con_submit">
+                        <button type="submit" class="btn btn-custom px-5 py-2">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
