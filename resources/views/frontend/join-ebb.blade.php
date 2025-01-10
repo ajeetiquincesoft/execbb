@@ -154,10 +154,11 @@
     }
 
     .ab_ebb p {
-        font-size: 14px;
-        color: #5D5D5D;
-        line-height: 22px;
-    }
+    font-size: 14px;
+    color: #5D5D5D;
+    line-height: 22px;
+    padding: 0px 15px;
+}
 
     .Content-text {
         margin-right: 80px;
