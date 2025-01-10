@@ -13,7 +13,7 @@
     </div>
 </div>
 <!-- Main Container -->
-<div class="main-container">
+<div class="main-container list_ebb">
         <!-- Title -->
         <h1>List Your Business with EBB</h1>
         <!-- Hero Section -->
@@ -27,7 +27,7 @@
                 <p>This is where Executive Business Brokers can help you. We are  experts at selling businesses and can <a href="#">guide you through the process.</a> When you list your business with us, our  services include:</p>
             </div>
         </div>
-        <div class="after-hero-section"></div>
+        
         <!-- Cards Section -->
         <div class="cards-container">
             <!-- Card 1 -->
@@ -97,12 +97,14 @@ p.subtext a {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 /* Header Text */
-h1 {
+.list_ebb h1 {
     font-size: 1.5rem !important;
     text-align: center;
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 25px;
+    border-bottom: 1px solid #B3B3B3;
+    padding-bottom: 30px;
 }
 /* Hero Section */
 .hero-section img {
@@ -168,29 +170,14 @@ h1 {
     color: #fff;
 }
 .align-items-center {
-    align-items: center;
-    margin-top: 90px !important;
-}
-/* h1::after {
-    content: "";
-    display: block;
-    width: 660px;
-    height: 1px;
-    background-color: #B3B3B3;
-    position: absolute; 
-    left: 60%; 
-    transform: translateX(-50%); 
-    margin-top: 41px; 
-} */
-/* New Section Styling */
-/* .after-hero-section {
-    display: block;
-    height: 1px; 
-    width: 100%; 
     margin-top: 50px;
-    background-color: #B3B3B3;
-    text-align: center;
-} */
+    border-bottom: 1px solid #B3B3B3;
+    padding-bottom: 50px;
+}
+.after-hero-section-border {
+    border: 1px solid #B3B3B3;
+    margin-top: 50px;
+}
 .hero-text a {
     color: #7F2149; /* Purple for links */
     text-decoration: underline; /* Optional: underline for emphasis */
