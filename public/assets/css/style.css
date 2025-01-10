@@ -1031,14 +1031,14 @@ a.btn.btn.view_all_services {
 .services_financing .Content-text{
   margin-right: 0px;
 }
-.Content-text .section-heading {
-  text-align: center !important;
+.Content-text .section-heading , .Content-text p{
+  text-align: center;
 }
 .services_consulting .Content-text{
   margin-right: 0px;
 }
-.Content-text .section-heading {
-  text-align: center !important;
+.Content-text .section-heading , .Content-text p{
+  text-align: center;
 }
 
 }
@@ -1113,6 +1113,18 @@ a.btn.btn.view_all_services {
   .buyer_tool .card-custom {
     max-width: 100%;
     
+}
+.services_financing .Content-text{
+  margin-right: 0px;
+}
+.Content-text .section-heading , .Content-text p{
+  text-align: center;
+}
+.services_consulting .Content-text{
+  margin-right: 0px;
+}
+.Content-text .section-heading , .Content-text p{
+  text-align: center;
 }
 }
 
