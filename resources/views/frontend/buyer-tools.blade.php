@@ -13,44 +13,46 @@
         </nav>
     </div>
 </div>
-<div class="container main-container buyer_tool">
-    <!-- Main Header -->
-    <h1>We Believe It is Important to Educate Our Clients</h1>
-    <p class="subtext">
-        This section identifies some of the issues you will need to address and the <a href="#">sources of anxiety</a> that you may experience when buying a business.
-    </p>
-    <hr>
-    <!-- Cards Section -->
-    <div class="card-container">
-    <div class="row">
-        <!-- Card 1 -->
-        <div class="col-12 col-md-4">
-            <div class="card-custom">
-                <div class="card-title">Business<br> Organizations</div>
-                <div class="card-text">
-                    Before you embark upon your search, identify the <a href="#">business structure</a> that would be most appropriate for your situation.
+<div class="container my-7">
+    <div class="main-container buyer_tool">
+        <!-- Main Header -->
+        <h1>We Believe It is Important to Educate Our Clients</h1>
+        <p class="subtext">
+            This section identifies some of the issues you will need to address and the <a href="#">sources of anxiety</a> that you may experience when buying a business.
+        </p>
+        <hr>
+        <!-- Cards Section -->
+        <div class="card-container">
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-12 col-md-4">
+                    <div class="card-custom">
+                        <div class="card-title">Business<br> Organizations</div>
+                        <div class="card-text">
+                            Before you embark upon your search, identify the <a href="#">business structure</a> that would be most appropriate for your situation.
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-12 col-md-4">
+                    <div class="card-custom">
+                        <div class="card-title">Phases of Buying<br>a Business</div>
+                        <div class="card-text">
+                            There are four main phases to buying a business. Familiarize yourself with <a href="#">the process</a> before you start your search.
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-12 col-md-4">
+                    <div class="card-custom">
+                        <div class="card-title">Determining Price</div>
+                        <div class="card-text">
+                            There are many methods of establishing the value of a business. Learn more about <a href="{{route('business.valuation')}}" target="_blank">business valuations</a> - it's an important part of the buying process.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Card 2 -->
-        <div class="col-12 col-md-4">
-            <div class="card-custom">
-                <div class="card-title">Phases of Buying<br>a Business</div>
-                <div class="card-text">
-                    There are four main phases to buying a business. Familiarize yourself with <a href="#">the process</a> before you start your search.
-                </div>
-            </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="col-12 col-md-4">
-            <div class="card-custom">
-                <div class="card-title">Determining Price</div>
-                <div class="card-text">
-                    There are many methods of establishing the value of a business. Learn more about <a href="{{route('business.valuation')}}" target="_blank">business valuations</a> - it's an important part of the buying process.
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
 </div>
 <style>
