@@ -1028,6 +1028,12 @@ a.btn.btn.view_all_services {
 .buyer_tool .card-container {
   display: inherit;
 }
+.services_financing .Content-text{
+  margin-right: 0px;
+}
+.Content-text .section-heading {
+  text-align: center;
+}
 }
 
 /* Tablets (portrait and landscape) */

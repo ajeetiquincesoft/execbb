@@ -72,13 +72,9 @@
     ClassicEditor
         .create(document.querySelector('#emai_content'))
         .then(editor => {
-            // Bind the CKEditor content change to manually update the textarea and trigger validation
             editor.model.document.on('change:data', function() {
-                // Update the hidden textarea with CKEditor content
                 const emailContent = editor.getData();
                 $('#emai_content').val(emailContent);
-
-                // Trigger validation after content update
                 $('#emailBuyer').valid();
             });
         })

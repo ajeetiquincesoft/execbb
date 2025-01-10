@@ -19,7 +19,7 @@
                         <div class="comment-area w-100">
                             <div class="row mb-3">
                                 <!-- Highlights -->
-                                <div class="col">
+                                <div class="col lis_highlights">
                                     <label for="highlights" class="form-label">Highlights <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="highlights" name="highlights" rows="4">{{ old('highlights') }}</textarea>
                                     @error('highlights')
@@ -37,7 +37,7 @@
 
                             <div class="row mb-3">
                                 <!-- Comments -->
-                                <div class="col">
+                                <div class="col lis_comment">
                                     <label for="comments" class="form-label">Comments <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="comments" name="comments" rows="4">{{ old('comments') }}</textarea>
                                     @error('comments')
@@ -75,6 +75,38 @@
             <p>&nbsp;</p>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+        <script>
+        ClassicEditor
+            .create(document.querySelector('#comments'))
+            .then(editor => {
+            editor.model.document.on('change:data', function() {
+                const emailContent = editor.getData();
+                $('#comments').val(emailContent);
+                $('#addnewliststep5').valid();
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        ClassicEditor
+            .create(document.querySelector('#highlights'))
+            .then(editor => {
+            editor.model.document.on('change:data', function() {
+                const emailContent = editor.getData();
+                $('#highlights').val(emailContent);
+                $('#addnewliststep5').valid();
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        ClassicEditor
+            .create(document.querySelector('#directions'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
         <script>
            $(document).ready(function () {
                 $('#addnewliststep5').validate({
@@ -89,8 +121,19 @@
                             required: true
                         } 
                     },
+                    ignore: ":disabled",
                     messages: {
                 
+                    },
+                    errorPlacement: function(error, element) {
+                      if (element.attr("name") == "comments") {
+                            error.appendTo(element.closest(".lis_comment")); // Put the error after the field
+                        } else if (element.attr("name") == "highlights") {
+                            error.appendTo(element.closest(".lis_highlights")); // Put the error after the field
+                        }
+                        else {
+                            error.insertAfter(element);
+                        }
                     },
                     submitHandler: function (form) { 
                         form.submit();

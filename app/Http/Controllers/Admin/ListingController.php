@@ -545,7 +545,7 @@ class ListingController extends Controller
         ]);
         $listing = Listing::where('ListingID', $request->id)->update([
             'Highlights' => $request->highlights,
-            'Comments' => $request->Comments,
+            'Comments' => $request->comments,
             'Directions' => $request->directions,
             'LeadID' => $request->leadId,
             'Steps' => 5,

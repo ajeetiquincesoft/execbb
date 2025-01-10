@@ -20,9 +20,9 @@
                 <h5 class="main-heading">Financing</h5>
             </div>
         </div>
-        <div class="row px-5 mt-5">
+        <div class="row px-0 px-md-5 mt-0 mt-md-5">
             <!-- Main Content -->
-            <div class="col-md-8 main-head">
+            <div class="col-md-8 main-head services_financing">
                 <div class="Content-text">
                     <h3 class="section-heading">Financing Through EBB Has Its Advantages</h3>
                     <p>If you are purchasing an EBB listed business, consider financing it through one of our mortgage affiliates instead of working with a third party.</p>

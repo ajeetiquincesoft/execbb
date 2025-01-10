@@ -29,7 +29,7 @@
                 @else
                 <img src="{{ asset('assets/images/business_image.jpg') }}" alt="" class="business_listing_image">
                 @endif
-                <p>{{$listing->Comments}}</p>
+                <p>{!! $listing->Comments !!}</p>
                 @if(auth()->check())
                 @if(auth()->user()->role_name === 'buyer')
                 <div class="icon-container" data-listing-id="{{ $listing->ListingID }}" data-liked="{{ $likeVal ?? 0 }}">
