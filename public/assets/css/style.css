@@ -1032,13 +1032,13 @@ a.btn.btn.view_all_services {
   margin-right: 0px;
 }
 .Content-text .section-heading {
-  text-align: center;
+  text-align: center !important;
 }
 .services_consulting .Content-text{
   margin-right: 0px;
 }
 .Content-text .section-heading {
-  text-align: center;
+  text-align: center !important;
 }
 
 }
