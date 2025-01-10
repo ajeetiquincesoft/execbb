@@ -171,26 +171,26 @@ h1 {
     align-items: center;
     margin-top: 90px !important;
 }
-h1::after {
+/* h1::after {
     content: "";
     display: block;
     width: 660px;
-    height: 1px; /* Line thickness */
-    background-color: #B3B3B3; /* Line color */
-    position: absolute; /* Allows positioning relative to h1 */
-    left: 60%; /* Move the element to the center */
-    transform: translateX(-50%); /* Adjust it back to center */
-    margin-top: 41px; /* Vertical spacing */
-}
+    height: 1px;
+    background-color: #B3B3B3;
+    position: absolute; 
+    left: 60%; 
+    transform: translateX(-50%); 
+    margin-top: 41px; 
+} */
 /* New Section Styling */
-.after-hero-section {
+/* .after-hero-section {
     display: block;
-    height: 1px; /* Ensures it behaves as a block element */
-    width: 100%; /* Takes the full width of the container */
-    margin-top: 50px; /* Adds space between hero and this section */
-    background-color: #B3B3B3; /* Light background for visibility */
-    text-align: center; /* Centers the text content */
-}
+    height: 1px; 
+    width: 100%; 
+    margin-top: 50px;
+    background-color: #B3B3B3;
+    text-align: center;
+} */
 .hero-text a {
     color: #7F2149; /* Purple for links */
     text-decoration: underline; /* Optional: underline for emphasis */
