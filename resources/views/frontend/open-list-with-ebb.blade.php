@@ -149,7 +149,6 @@
         .btn.reg {
             background-color: #7F2149;
             color: white;
-            border: 1px sold;
             border-radius: 1px;
         }
         .b, strong {

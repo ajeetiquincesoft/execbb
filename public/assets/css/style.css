@@ -1060,6 +1060,12 @@ a.btn.btn.view_all_services {
   padding-left: 0 !important;
   text-align: center;
 }
+.box-container {
+  padding: 65px 12px !important;
+}
+.card-EBB {
+  margin: 18px 0px 0px 0px !important;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1165,6 +1171,12 @@ a.btn.btn.view_all_services {
   padding-left: 0 !important;
   text-align: center;
 }
+.EBB-border {
+  border-right: none !important;
+}
+.card-EBB {
+  margin: 18px 0px 0px 0px !important;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1210,4 +1222,11 @@ a.btn.btn.view_all_services {
     margin-right: auto;
     margin-left: auto;
   }
+  .card-title-color {
+    color: #806132;
+    font-size: 26px;
+}
+.btn.reg {
+  font-size: 11px;
+}
 }
