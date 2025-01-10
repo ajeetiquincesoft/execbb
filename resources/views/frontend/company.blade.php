@@ -21,7 +21,7 @@
                 <h6 class="sub-heading">Executive Business Brokers - A Large, Active Business Brokerage Firm</h6>
             </div>
         </div>
-        <div class="row px-5 ab_ebb">
+        <div class="row px-0 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
