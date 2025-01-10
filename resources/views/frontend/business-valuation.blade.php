@@ -20,7 +20,7 @@
                 <h5 class="main-heading">Business Valuation</h5>
             </div>
         </div>
-        <div class="rowpx-0 px-md-5 mt-0 mt-md-5">
+        <div class="row px-0 px-md-5 mt-0 mt-md-5">
             <!-- Main Content -->
             <div class="col-md-8 main-head bus_valu">
                 <div class="Content-text">
