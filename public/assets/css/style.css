@@ -1066,6 +1066,9 @@ a.btn.btn.view_all_services {
 .card-EBB {
   margin: 18px 0px 0px 0px !important;
 }
+.EBB-border {
+  border-right: none !important;
+}
 }
 
 /* Tablets (portrait and landscape) */
