@@ -1187,6 +1187,10 @@ a.btn.btn.view_all_services {
 .card-EBB {
   margin: 18px 0px 0px 0px !important;
 }
+.testimonial-card {
+  height: auto !important;
+ 
+}
 }
 
 /* Tablets (portrait and landscape) */
