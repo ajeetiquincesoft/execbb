@@ -1151,6 +1151,16 @@ a.btn.btn.view_all_services {
 .bus_valu .Content-text{
   margin-right: 0px;
 }
+.col-md-8.border-right-contact {
+  border-right: none !important;
+  padding-right: 0px !important;
+}
+.con_submit .btn-custom.px-5.py-2 {
+  margin-left: 0;
+}
+.con_submit {
+  text-align: center;
+}
 .contact-right-part {
   padding-left: 0 !important;
   text-align: center;
