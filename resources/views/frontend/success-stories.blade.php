@@ -16,7 +16,7 @@
 <div class="container">
     <div class="content-box">
       <div class="success-stories">
-        <h1>Success Stories</h1>
+        <h1 class="border_success">Success Stories</h1>
         <div class="title-section">
           <h4>BUYERS on EBB</h4>
         </div>
@@ -91,17 +91,7 @@
       font-size: 25px;
       font-weight: bold;
       color: #000;
-      position: relative;
-      display: inline-block;
     }
-    .success-stories h1::after {
-    content: "";
-    display: block;
-    width: 980px;
-    height: 1px;
-    background-color: #B3B3B3;
-    margin: 25px auto 20px;
-}
     .success-stories p {
       font-size: 16px;
       color: #555;
@@ -158,6 +148,11 @@
     .title-section h4 {
     color: #806132;
     font-weight: 900;
+    margin-top: 30px;
+}
+h1.border_success {
+    border-bottom: 1px solid #B3B3B3;
+    padding-bottom: 30px;
 }
 </style>
 @endsection
