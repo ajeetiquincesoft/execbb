@@ -1037,10 +1037,10 @@ a.btn.btn.view_all_services {
 .services_consulting .Content-text{
   margin-right: 0px;
 }
-.Content-text .section-heading , .Content-text p{
-  text-align: center;
-}
 .ab_ebb .Content-text{
+  margin-right: 0px;
+}
+.mar_acq .Content-text{
   margin-right: 0px;
 }
 }
@@ -1125,10 +1125,10 @@ a.btn.btn.view_all_services {
 .services_consulting .Content-text{
   margin-right: 0px;
 }
-.Content-text .section-heading , .Content-text p{
-  text-align: center;
-}
 .ab_ebb .Content-text{
+  margin-right: 0px;
+}
+.mar_acq .Content-text{
   margin-right: 0px;
 }
 }

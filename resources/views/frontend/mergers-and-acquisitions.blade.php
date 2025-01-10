@@ -20,9 +20,9 @@
                 <h5 class="main-heading">Mergers and Acquisitions</h5>
             </div>
         </div>
-        <div class="row px-5 mt-5">
+        <div class="row px-0 px-md-5 mt-0 mt-md-5">
             <!-- Main Content -->
-            <div class="col-md-8 main-head">
+            <div class="col-md-8 main-head mar_acq">
                 <div class="Content-text">
                     <h3 class="section-heading">Growth Through Merger or Acquisition</h3>
                     <p>In most cases it is more profitable for a business to grow by acquisition. It is also faster, more economical, less risky and easier to finance.  If you are considering a merger/acquisition, our advice is for you to base your purchase on strategic value, not price.</p>
