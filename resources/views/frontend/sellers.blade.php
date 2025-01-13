@@ -21,7 +21,6 @@
         <p class="subtext">
             Executive Business Brokers (EBB) works with business owners that have various levels of experience. To accommodate different needs, we offer several services to save buyers both time and money by helping you through the complex process of selling a business.
         </p>
-        <hr>
         <!-- Cards Section -->
         <div class="card-container">
             <!-- Card 1 -->
@@ -72,6 +71,8 @@
         margin-left: 68px;
         margin-right: 50px;
         text-align: center;
+        border-bottom: 1px solid #B3B3B3;
+        padding-bottom: 40px;
     }
 
     a {
