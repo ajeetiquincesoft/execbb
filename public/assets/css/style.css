@@ -1071,7 +1071,7 @@ a.btn.btn.view_all_services {
   border-right: none !important;
 }
 .content-box {
-  padding: 30px 0px !important;
+  padding: 30px 10px !important;
 }
 .testimonial-card {
   height: auto !important;
@@ -1274,5 +1274,8 @@ a.btn.btn.view_all_services {
 }
 .btn.reg {
   font-size: 11px;
+}
+.RegisterWithEbb button.btn.bg-5a102a.text-white.btn-block {
+  margin-bottom: 10px;
 }
 }
