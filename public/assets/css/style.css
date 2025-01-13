@@ -1088,7 +1088,11 @@ a.btn.btn.view_all_services {
   margin-bottom: 10px;
 }
 .container-padding {
-  padding: 0 0px;
+  padding: 0 10px;
+}
+.content-box-ebb {
+  padding: 20px 10px;
+ 
 }
 }
 
@@ -1213,7 +1217,11 @@ a.btn.btn.view_all_services {
   margin-bottom: 10px;
 }
 .container-padding {
-  padding: 0 0px;
+  padding: 0 20px;
+}
+.content-box-ebb {
+  padding: 30px 20px;
+ 
 }
 }
 
