@@ -20,7 +20,7 @@
 </div>
 <!-- Main Section -->
 <section class="main-section" style="background-color: #F8F8F8;">
-    <div class="container py-5 remove-mobile-padding container-padding">
+    <div class="container remove-mobile-padding container-padding">
         <div class="content-box-ebb">
             <!-- Heading and Description -->
             <div class="text-center mb-5">
