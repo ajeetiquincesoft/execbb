@@ -20,7 +20,7 @@
                 <h5 class="main-heading">Strategic Alliances</h5>
             </div>
         </div>
-        <div class="row px-5 mt-5 ab_ebb">
+        <div class="row px-3 px-md-5 mt-0 mt-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
