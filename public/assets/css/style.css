@@ -1122,6 +1122,10 @@ hr.pursuit_hr {
   margin-left: 10px;
   margin-right: 10px;
 }
+.main-container-service hr {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1264,6 +1268,10 @@ hr.pursuit_hr {
   margin-right: auto;
   max-width: 100%; /* Ensures the image resizes to fit its container */
   height: auto; /* Keeps the aspect ratio of the image */
+}
+.main-container-service hr {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
 }
 }
 
