@@ -37,7 +37,7 @@
                         <div class="EBB-team-title">
                             <h5>Join the EBB Team</h5>
                             <p>Our strength is our brokers. Learn how you can<a href="{{route('join.ebb')}}"
-                            style="color: #7F2149; text-decoration: underline;" target="_blank"> become part of our all-star
+                                    style="color: #7F2149; text-decoration: underline;" target="_blank"> become part of our all-star
                                     team</a> .</p>
                         </div>
 
@@ -98,7 +98,9 @@
         margin-bottom: 20px;
         color: #000;
         border-bottom: 1px solid #B3B3B3;
-        padding-bottom: 33px;
+        padding-bottom: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .sub-heading {
