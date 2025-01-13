@@ -48,7 +48,7 @@
         <div class="text-center mb-5 general_qus">
             <h1 class="fw-bold">Sponsor Sites</h1>
         </div>
-        <div class="row mb-5px-3 px-md-5">
+        <div class="row mb-5 px-3 px-md-5">
             <div class="col-md-12">
                 <p class="faq_answer">www.Executivebusinessbrokers.com provides links to third party sponsors. These sponsors are independent of this site and regulated by their own policies and procedures.
                     If you have any questions or concerns regarding privacy, please do not hesitate to contact us at admin@Executivebusinessbrokers.com and expect a prompt response to any issues you may have.</p>
