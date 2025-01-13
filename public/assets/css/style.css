@@ -1102,6 +1102,9 @@ hr.pursuit_hr {
   margin-left: 10px;
   margin-right: 10px;
 }
+.our_services_sec h3, .our_services_sec img, .our_services_sec p {
+  text-align: center;
+}
 }
 
 /* Tablets (portrait and landscape) */

@@ -27,7 +27,7 @@
             <p class="text-muted ser_content">EBB’s services are available to any buyer or seller. This includes individuals who are interested in a business listed with us, as well as parties who are purchasing elsewhere and are looking for consulting services.</p>
         </div>
         <!-- Content Section -->
-        <div class="row our_services_sec px-5">
+        <div class="row our_services_sec px-3 px-md-5">
             <!-- Left Section -->
             <div class="col-lg-6 col-md-6 mb-4">
                 <img src="{{ asset('assets/images/services_4.png') }}">
