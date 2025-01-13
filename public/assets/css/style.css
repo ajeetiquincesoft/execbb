@@ -1081,6 +1081,10 @@ a.btn.btn.view_all_services {
   font-size: 25px !important;
   text-align: center;
 }
+.column-divider {
+  border-right: none;
+  padding-right: 0;
+}
 }
 
 /* Tablets (portrait and landscape) */
