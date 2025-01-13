@@ -1088,11 +1088,15 @@ a.btn.btn.view_all_services {
   margin-bottom: 10px;
 }
 .container-padding {
-  padding: 0 15px;
+  padding: 0 10px;
 }
 .content-box-ebb {
   padding: 20px 10px !important;
  
+}
+h2.align_your_self {
+  text-align: center;
+  font-size: 22px;
 }
 }
 
@@ -1274,8 +1278,5 @@ a.btn.btn.view_all_services {
 }
 .btn.reg {
   font-size: 11px;
-}
-.RegisterWithEbb button.btn.bg-5a102a.text-white.btn-block {
-  margin-bottom: 10px;
 }
 }
