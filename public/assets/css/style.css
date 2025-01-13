@@ -995,6 +995,7 @@ a.btn.btn.view_all_services {
     display: block;
     margin-right: auto;
     margin-left: auto;
+    width: 180px;
   }
   .remove-mobile-padding {
     padding-top: 0 !important;
@@ -1181,6 +1182,7 @@ hr.pursuit_hr {
     display: block;
     margin-right: auto;
     margin-left: auto;
+    width: 200px;
   }
   .buyer_tool .card-custom {
     margin-bottom: 10px;
@@ -1314,6 +1316,7 @@ hr.pursuit_hr {
     display: block;
     margin-right: auto;
     margin-left: auto;
+    width: 220px;
   }
   .card-title-color {
     color: #806132;

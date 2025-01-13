@@ -37,14 +37,14 @@
      <div class="container main-sec">
          <div class="row">
              <!-- Logo & Address -->
-             <div class="col-12 col-md-6 col-lg-4 mb-4 mb-md-0">
+             <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4 mb-md-4">
                  <img src="{{ asset('assets/images/footer_logo_220.png') }}" alt="Logo" class="footer-logo">
                  <p>2583 Morris Avenue Union,<br>New Jersey 07083</p>
                  <p>T: 908.851.9040 | F: 908.851.9066</p>
              </div>
 
              <!-- Sellers Section -->
-             <div class="col-12 col-md-6 col-lg-2 mb-4 mb-md-0">
+             <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4 mb-md-4">
                  <h4>Sellers</h4>
                  <ul class="list-unstyled">
                      <!-- <li><a href="#">Selling a Business</a></li> -->
@@ -55,7 +55,7 @@
              </div>
 
              <!-- Buyers Section -->
-             <div class="col-12 col-md-6 col-lg-2 mb-4 mb-md-0">
+             <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4 mb-md-4">
                  <h4>Buyers</h4>
                  <ul class="list-unstyled">
                      <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
@@ -66,7 +66,7 @@
              </div>
 
              <!-- About EBB Section -->
-             <div class="col-12 col-md-6 col-lg-2 mb-4 mb-md-0">
+             <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4 mb-md-4">
                  <h4>About EBB</h4>
                  <ul class="list-unstyled">
                      <li><a href="{{route('company')}}">Company</a></li>
@@ -83,7 +83,7 @@
              </div>
 
              <!-- Quick Links Section -->
-             <div class="col-12 col-md-6 col-lg-2 mb-4 mb-md-0">
+             <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4 mb-md-4">
                  <h4>Quick Links</h4>
                  <ul class="list-unstyled">
                      <!-- <li><a href="#">Resources</a></li> -->
