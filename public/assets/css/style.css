@@ -1098,6 +1098,10 @@ h2.align_your_self {
   text-align: center;
   font-size: 22px;
 }
+hr.pursuit_hr {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1227,6 +1231,10 @@ h2.align_your_self {
   padding: 30px 20px !important;
  
 }
+hr.pursuit_hr {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1278,5 +1286,9 @@ h2.align_your_self {
 }
 .btn.reg {
   font-size: 11px;
+}
+hr.pursuit_hr {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 }
