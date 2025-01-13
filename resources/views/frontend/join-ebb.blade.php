@@ -20,7 +20,7 @@
                 <h5 class="main-heading">Join EBB</h5>
             </div>
         </div>
-        <div class="row px-0 px-md-5 mt-2 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 mt-2 mt-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
