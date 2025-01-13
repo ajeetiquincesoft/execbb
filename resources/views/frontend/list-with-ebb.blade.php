@@ -5,7 +5,7 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Sell a Business</a></li>
                 <li class="breadcrumb-item active" aria-current="page">List With EBB</li>
             </ol>
@@ -13,7 +13,8 @@
     </div>
 </div>
 <!-- Main Container -->
-<div class="main-container list_ebb">
+<div class="container py-7">
+    <div class="main-container list_ebb">
         <!-- Title -->
         <h1>List Your Business with EBB</h1>
         <!-- Hero Section -->
@@ -24,10 +25,10 @@
             <div class="col-md-6 hero-text">
                 <h2>Selling a business is a complex, time consuming process</h2>
                 <p>It requires finding buyers, qualifying them, and negotiating the deal. At the same time, you still need to run your business.</p>
-                <p>This is where Executive Business Brokers can help you. We are  experts at selling businesses and can <a href="#">guide you through the process.</a> When you list your business with us, our  services include:</p>
+                <p>This is where Executive Business Brokers can help you. We are experts at selling businesses and can <a href="#">guide you through the process.</a> When you list your business with us, our services include:</p>
             </div>
         </div>
-        
+
         <!-- Cards Section -->
         <div class="cards-container">
             <!-- Card 1 -->
@@ -48,12 +49,12 @@
             <!-- Card 4 -->
             <div class="card-custom">
                 <h3>Marketing Materials.</h3>
-                <p>EBB prepares  sales materials based on <a href="#">information from the seller</a> that outlines the businesses operation and finances  for prospective buyers.</p>
+                <p>EBB prepares sales materials based on <a href="#">information from the seller</a> that outlines the businesses operation and finances for prospective buyers.</p>
             </div>
             <!-- Card 5 -->
             <div class="card-custom">
                 <h3>Confidential Marketing.</h3>
-                <p>All prospective buyers sign a  confidentiality agreement prior to viewing the financial details and specifics of your businesses.</p>
+                <p>All prospective buyers sign a confidentiality agreement prior to viewing the financial details and specifics of your businesses.</p>
             </div>
             <!-- Card 6 -->
             <div class="card-custom">
@@ -62,12 +63,13 @@
             </div>
         </div>
         <div class="List_with_EBB">
-        <!-- Button -->
-        <a href="#" class="btn-custom">List With EBB</a>
+            <!-- Button -->
+            <a href="#" class="btn-custom">List With EBB</a>
+        </div>
     </div>
 </div>
 <style>
-     .breadcrumb-container {
+    .breadcrumb-container {
         background-color: #F8F8F8;
     }
 
@@ -79,109 +81,129 @@
     .breadcrumb-item.active {
         color: #333333;
     }
+
     .breadcrumb {
         background: transparent;
     }
-   .card-custom a {
-    color: #7F2149 !important;
-}
-p.subtext a {
-    color: #1D1C1C !important;
-}
-/* Main Container */
-.main-container {
-    background-color: #fff;
-    padding: 54px;
-    max-width: 1133px;
-    margin: -8px auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-/* Header Text */
-.list_ebb h1 {
-    font-size: 1.5rem !important;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 25px;
-    border-bottom: 1px solid #B3B3B3;
-    padding-bottom: 30px;
-}
-/* Hero Section */
-.hero-section img {
-    width: 100%;
-    border-radius: 6px;
-}
-.hero-section .hero-text {
-    padding: 20px 60px;
-}
-.hero-section h2 {
-    font-size: 28px;
-    font-weight: 600;
-    color: #806132;
-}
-.hero-section p {
-    font-size: 15px;
-    color: #555;
-    line-height: 1.6;
-}
-/* Cards Section */
-.cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-top: 50px;
-    justify-content: center;
-}
-.card-custom {
-    background-color: #F7F5F2;
-    padding: 32px;
-    border: none;
-    flex: 1 1 30%;
-    min-width: 250px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.card-custom h3 {
-    font-size: 22px;
-    font-weight: 600;
-    color: #806132;
-    margin-bottom: 10px;
-}
-.card-custom p {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.5;
-}
-/* Button Section */
-.btn-custom {
-    background-color: #7F2149;
-    color: #fff;
-    font-size: 15px;
-    padding: 15px 26px;
-    text-decoration: none;
-    text-align: center;
-}
-.List_with_EBB {
-    position: relative;
-    text-align: center;
-    margin: 40px 0px;
-}
-.btn-custom:hover {
-    background-color: #8E0F50;
-    color: #fff;
-}
-.align-items-center {
-    margin-top: 50px;
-    border-bottom: 1px solid #B3B3B3;
-    padding-bottom: 50px;
-}
-.after-hero-section-border {
-    border: 1px solid #B3B3B3;
-    margin-top: 50px;
-}
-.hero-text a {
-    color: #7F2149; /* Purple for links */
-    text-decoration: underline; /* Optional: underline for emphasis */
-}
-  
+
+    .card-custom a {
+        color: #7F2149 !important;
+    }
+
+    p.subtext a {
+        color: #1D1C1C !important;
+    }
+
+    /* Main Container */
+    .main-container {
+        background-color: #fff;
+        padding: 54px;
+        max-width: 1133px;
+        margin: -8px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Header Text */
+    .list_ebb h1 {
+        font-size: 1.5rem !important;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #B3B3B3;
+        padding-bottom: 30px;
+    }
+
+    /* Hero Section */
+    .hero-section img {
+        width: 100%;
+        border-radius: 6px;
+    }
+
+    .hero-section .hero-text {
+        padding: 20px 60px;
+    }
+
+    .hero-section h2 {
+        font-size: 28px;
+        font-weight: 600;
+        color: #806132;
+    }
+
+    .hero-section p {
+        font-size: 15px;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    /* Cards Section */
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-top: 50px;
+        justify-content: center;
+    }
+
+    .card-custom {
+        background-color: #F7F5F2;
+        padding: 32px;
+        border: none;
+        flex: 1 1 30%;
+        min-width: 250px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-custom h3 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #806132;
+        margin-bottom: 10px;
+    }
+
+    .card-custom p {
+        font-size: 16px;
+        color: #555;
+        line-height: 1.5;
+    }
+
+    /* Button Section */
+    .btn-custom {
+        background-color: #7F2149;
+        color: #fff;
+        font-size: 15px;
+        padding: 15px 26px;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .List_with_EBB {
+        position: relative;
+        text-align: center;
+        margin: 40px 0px;
+    }
+
+    .btn-custom:hover {
+        background-color: #8E0F50;
+        color: #fff;
+    }
+
+    .align-items-center {
+        margin-top: 50px;
+        border-bottom: 1px solid #B3B3B3;
+        padding-bottom: 50px;
+    }
+
+    .after-hero-section-border {
+        border: 1px solid #B3B3B3;
+        margin-top: 50px;
+    }
+
+    .hero-text a {
+        color: #7F2149;
+        /* Purple for links */
+        text-decoration: underline;
+        /* Optional: underline for emphasis */
+    }
 </style>
 @endsection
