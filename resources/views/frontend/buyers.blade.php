@@ -20,7 +20,7 @@
 </div>
 <!-- Main Section -->
 <section class="main-section" style="background-color: #F8F8F8;">
-    <div class="container remove-mobile-padding container-padding">
+    <div class="container py-5 remove-mobile-padding container-padding">
         <div class="content-box-ebb">
             <!-- Heading and Description -->
             <div class="text-center mb-5">
@@ -131,7 +131,7 @@
     .content-box-ebb {
         background-color: #FFFFFF;
         padding: 30px;
-        /* margin-top: 20px; */
+        margin-top: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 </style>
