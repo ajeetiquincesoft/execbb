@@ -1083,7 +1083,9 @@ a.btn.btn.view_all_services {
 }
 .column-divider {
   border-right: none;
-  padding-right: 0;
+}
+.RegisterWithEbb button.btn.bg-5a102a.text-white.btn-block {
+  margin-bottom: 10px;
 }
 }
 
