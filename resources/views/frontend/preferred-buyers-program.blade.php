@@ -66,7 +66,7 @@
                     </div>
                     <div class="boxes-button-section">
                       <div class="EBB-team-title">
-                          <p>When buying a business,<a href="#" style="color: #7F2149; text-decoration: underline;">consider these factors.</a></p>
+                          <p>When buying a business,<a href="#" style="color: #7F2149; text-decoration: underline;"> consider these factors.</a></p>
                       </div>
                   </div>
                 </div>
