@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="container py-7">
-    <div class="main-container">
+    <div class="main-container-service">
         <!-- Main Header -->
         <h1>Determining How to Sell Your Business</h1>
         <p class="subtext">
@@ -51,7 +51,7 @@
         color: #333333;
     }
 
-    .main-container {
+    .main-container-service {
         background-color: #fff;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         padding: 45px;
