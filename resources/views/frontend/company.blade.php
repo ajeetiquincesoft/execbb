@@ -113,7 +113,9 @@
         margin-bottom: 20px;
         color: #000;
         border-bottom: 1px solid #B3B3B3;
-        padding-bottom: 33px;
+        padding-bottom: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .sub-heading {
