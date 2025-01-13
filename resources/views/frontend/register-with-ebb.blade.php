@@ -3,7 +3,7 @@
 @section('content')
 <!-- Register with ebb Start -->
 <div class="container py-7 container-padding54">
-    <div class="content-box">
+    <div class="content-box-ebb">
         <div class="row g-5">
             <div class="col-md-12 d-flex align-items-center justify-content-center">
                 <div class="text-black" style="width: 100%;">
@@ -386,7 +386,7 @@
 </div>
 <!-- Register with ebb End -->
  <style>
-     .content-box {
+     .content-box-ebb {
         background-color: #FFFFFF;
         padding: 30px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
