@@ -1203,6 +1203,12 @@ a.btn.btn.view_all_services {
   height: auto !important;
  
 }
+.column-divider {
+  border-right: none;
+}
+.RegisterWithEbb button.btn.bg-5a102a.text-white.btn-block {
+  margin-bottom: 10px;
+}
 }
 
 /* Tablets (portrait and landscape) */
