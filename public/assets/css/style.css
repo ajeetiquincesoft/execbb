@@ -1263,6 +1263,13 @@ hr.pursuit_hr {
   max-width: 100%; /* Ensures the image resizes to fit its container */
   height: auto; /* Keeps the aspect ratio of the image */
 }
+.main-container-service {
+  padding: 45px 0px !important;
+}
+.main-container-service .subtext {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 }
 
 /* Tablets (portrait and landscape) */
