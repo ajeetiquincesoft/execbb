@@ -49,10 +49,10 @@
 </div>
 <style>
     .main-container {
-        background-color: #fff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 79px;
-        margin: -13px auto;
+        background-color: #FFFFFF;
+        padding: 30px;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
