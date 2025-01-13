@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Register with ebb Start -->
-<div class="container py-7 container-padding54">
+<div class="container py-7 container-padding">
     <div class="content-box-ebb">
         <div class="row g-5">
             <div class="col-md-12 d-flex align-items-center justify-content-center">

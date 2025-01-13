@@ -1087,6 +1087,9 @@ a.btn.btn.view_all_services {
 .RegisterWithEbb button.btn.bg-5a102a.text-white.btn-block {
   margin-bottom: 10px;
 }
+.container-padding {
+  padding: 0 0px;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1208,6 +1211,9 @@ a.btn.btn.view_all_services {
 }
 .RegisterWithEbb button.btn.bg-5a102a.text-white.btn-block {
   margin-bottom: 10px;
+}
+.container-padding {
+  padding: 0 0px;
 }
 }
 
