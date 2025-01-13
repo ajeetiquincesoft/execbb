@@ -14,7 +14,8 @@
 </div>
 <!-- Main Section -->
 <section class="main-section our_services" style="background-color: #F8F8F8;">
-    <div class="container py-5 container-padding" style="background-color: #FFFFFF; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <div class="container py-7 container-padding">
+    <div class="content-box-ebb">
         <!-- Heading and Description -->
         <div class="text-center mb-5">
             <h1 class="fw-bold">Our Services</h1>
@@ -57,7 +58,7 @@
                 </p>
             </div>
         </div>
-       
+        </div>
     </div>
 </section>
 <style>
@@ -128,5 +129,11 @@ p.text-muted.ser_content {
     margin: 0;
     line-height: 25px;
 }
+.content-box-ebb {
+        background-color: #FFFFFF;
+        padding: 30px;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 </style>
 @endsection
