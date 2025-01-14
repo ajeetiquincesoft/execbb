@@ -11,6 +11,7 @@ use App\Models\Buyer;
 use App\Models\Agent;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AgentListingController extends Controller
 {
@@ -260,6 +261,11 @@ class AgentListingController extends Controller
             } else {
                 $RefAgentID = auth()->user()->id;
             }
+            $validStatus ='';
+            $currentDate = Carbon::now();
+            if($request->expDate == '' || $request->expDate > $currentDate){
+                $validStatus = 'valid';
+            }
             if ($listing) {
                 // Update the attributes
                 $listing->MgtAgentName = $request->managementAgentName;
@@ -287,6 +293,7 @@ class AgentListingController extends Controller
                 $listing->RealEstate = $realEstate;
                 $listing->ToBuy = $optionToBuy;
                 $listing->SoldEBB = $soldByEBB;
+                $listing->Status = $validStatus;
                 $listing->Steps = 3;
 
                 // Save the model to the database
@@ -348,7 +355,7 @@ class AgentListingController extends Controller
                 $listing->Comments = $request->comments;
                 $listing->Directions = $request->directions;
                 $listing->LeadID = $request->leadId;
-                $listing->Status = 'published';
+                $listing->Status = 'valid';
                 $listing->Active = 1;
 
                 // Save the updated record
@@ -504,6 +511,11 @@ class AgentListingController extends Controller
             }
         } elseif ($step == 3) {
             if ($request->has('managementAgentName')) {
+                $validStatus ='';
+                $currentDate = Carbon::now();
+                if($request->expDate == '' || $request->expDate > $currentDate){
+                    $validStatus = 'valid';
+                }
                 // Update the fields with the request Escrow data
                 $untilSolid = $request->has('untilSolid') ? 1 : 0;
                 $realEstate = $request->has('realEstate') ? 1 : 0;
@@ -534,6 +546,7 @@ class AgentListingController extends Controller
                 $listing->RealEstate = $realEstate;
                 $listing->ToBuy = $optionToBuy;
                 $listing->SoldEBB = $soldByEBB;
+                $listing->Status = $validStatus;
                 $listing->Steps = 3;
 
                 // Save the model to the database
@@ -586,7 +599,7 @@ class AgentListingController extends Controller
                     $listing->Comments = $request->comments;
                     $listing->Directions = $request->directions;
                     $listing->LeadID = $request->leadId;
-                    $listing->Status = 'published';
+                    $listing->Status = 'valid';
                     $listing->Active = 1;
                     // Save the updated record
                     $listing->Steps = $step;

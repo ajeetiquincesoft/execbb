@@ -14,7 +14,7 @@
                             <div class="row mb-3">
                                 <!-- Highlights -->
                                 <div class="col lis_highlights">
-                                    <label for="highlights" class="form-label">Highlights <span class="text-danger">*</span></label>
+                                    <label for="highlights" class="form-label">Highlights</label>
                                     <textarea class="form-control" id="highlights" name="highlights" rows="4">{{$listingData->Highlights}}</textarea>
                                     @error('highlights')
                                     <small class="text-danger">{{ $message }}</small>
@@ -32,7 +32,7 @@
                             <div class="row mb-3">
                                 <!-- Comments -->
                                 <div class="col lis_comment">
-                                    <label for="comments" class="form-label">Comments <span class="text-danger">*</span></label>
+                                    <label for="comments" class="form-label">Comments</label>
                                     <textarea class="form-control" id="comments" name="comments" rows="4">{{$listingData->Comments}}</textarea>
                                     @error('comments')
                                     <small class="text-danger">{{ $message }}</small>
@@ -105,12 +105,6 @@
            $(document).ready(function () {
                 $('#addnewliststep5').validate({
                     rules: {
-                        highlights: {
-                            required: true
-                        },
-                        comments: {
-                            required: true
-                        },
                         leadId: {
                             required: true
                         } 

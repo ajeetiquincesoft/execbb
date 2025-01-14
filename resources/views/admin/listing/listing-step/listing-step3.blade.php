@@ -70,7 +70,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="expDate">Exp Date <span class="text-danger">*</span></label>
+                                <label for="expDate">Exp Date</label>
                                 <input type="date" class="form-control" id="expDate" name="expDate"  value="{{ session('formData.expDate') ?? old('expDate')}}" min="{{ \Carbon\Carbon::now()->toDateString() }}">
                                     @error('expDate')
                                         <small class="text-danger">{{ $message }}</small>
@@ -157,9 +157,10 @@
                         <div class="row mb-2">
                             <h4 class="form-sec mb-3">Real Estate Data</h4>
                             <div class="col-md-3 mb-3">
-                                <label for="agent">Agent</label>
+                                <label for="agent">Agent <span class="text-danger">*</span></label>
                                <!--  <input type="text" class="form-control" id="agent" name="agent"  value="{{ session('formData.agent') ? session('formData.agent') : '' }}"> -->
                                <select id="agent" name="agents" class="form-select select2">
+                               <option value="">Select agent</option>
                                     @foreach($agents as $key=>$agent)
                                     <option value="{{$agent->agent_info->AgentID }}" {{ (old('agents') == $agent->agent_info->AgentID  || session('formData.agents') == $agent->agent_info->AgentID ) ? 'selected' : '' }}>{{$agent->name}}</option>
                                     @endforeach
@@ -233,9 +234,6 @@
                             regex: /^\d{10}$/
                         },
                         listingDate: {
-                            required: true
-                        },
-                        expDate: {
                             required: true
                         },
                         coBroker: {

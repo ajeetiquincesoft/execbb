@@ -42,7 +42,7 @@ class BusinessListingController extends Controller
         }
         
         // Order by creation date and paginate the results
-        $listings = $listings->orderBy('created_at', 'desc')->paginate(6);
+        $listings = $listings->where('Active', 1)->where('Status', 'valid')->orderBy('created_at', 'desc')->paginate(6);
         
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
         $states = DB::table('states')->get();

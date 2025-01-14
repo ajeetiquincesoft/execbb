@@ -12,7 +12,9 @@ class HomeController extends Controller
 {
     public function index(){
         $states = DB::table('states')->get();
-        $listings = Listing::latest()->take(5)->get();
+        $listings = Listing::where('Active', 1)->where('Status', 'valid')->latest()
+                   ->take(5)
+                   ->get();
         $agents = Agent::latest()->take(3)->get();
         return view('frontend.home',compact('listings','states','agents'));
     }

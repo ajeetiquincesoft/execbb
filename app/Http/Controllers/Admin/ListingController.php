@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ListingController extends Controller
 {
@@ -435,7 +436,6 @@ class ListingController extends Controller
             'referringAgentName' => 'required',
             'referringAgentPhone' => 'required',
             'listingDate' => 'required',
-            'expDate' => 'required',
             'coBroker' => 'required',
             'reasonForSale' => 'required',
             'agents' => 'required',
@@ -444,6 +444,11 @@ class ListingController extends Controller
         $realEstate = $request->has('realEstate') ? 1 : 0;
         $optionToBuy = $request->has('optionToBuy') ? 1 : 0;
         $soldByEBB = $request->has('soldByEBB') ? 1 : 0;
+        $currentDate = Carbon::now();
+        $validStatus ='';
+        if($request->expDate == '' || $request->expDate > $currentDate){
+            $validStatus = 'valid';
+        }
         $listing = Listing::where('ListingID', $request->id)->update([
             'MgtAgentName' => $request->managementAgentName,
             'MgtAgentPh' => $request->managementAgentPhone,
@@ -470,6 +475,7 @@ class ListingController extends Controller
             'RealEstate' => $realEstate,
             'ToBuy' => $optionToBuy,
             'SoldEBB' => $soldByEBB,
+            'Status' => $validStatus,
             'Steps' => 3
         ]);
         if ($listing) {
@@ -539,8 +545,6 @@ class ListingController extends Controller
     public function storeStep5(Request $request)
     {
         $request->validate([
-            'highlights' => 'required',
-            'comments' => 'required',
             'leadId' => 'required',
         ]);
         $listing = Listing::where('ListingID', $request->id)->update([
@@ -549,7 +553,7 @@ class ListingController extends Controller
             'Directions' => $request->directions,
             'LeadID' => $request->leadId,
             'Steps' => 5,
-            'Status' => 'published',
+            'Status' => 'valid',
             'Active' => 1
         ]);
         if ($listing) {
@@ -835,7 +839,6 @@ class ListingController extends Controller
             'referringAgentName' => 'required',
             'referringAgentPhone' => 'required',
             'listingDate' => 'required',
-            'expDate' => 'required',
             'coBroker' => 'required',
             'reasonForSale' => 'required',
             'agents' => 'required',
@@ -850,6 +853,11 @@ class ListingController extends Controller
             $updateStep = $listingStep->Steps;
         } else {
             $updateStep = $currentStep;
+        }
+        $currentDate = Carbon::now();
+        $validStatus ='';
+        if($request->expDate == '' || $request->expDate > $currentDate){
+            $validStatus = 'valid';
         }
         $listing = Listing::where('ListingID', $id)->update([
             'MgtAgentName' => $request->managementAgentName,
@@ -877,6 +885,7 @@ class ListingController extends Controller
             'RealEstate' => $realEstate,
             'ToBuy' => $optionToBuy,
             'SoldEBB' => $soldByEBB,
+            'Status' => $validStatus,
             'Steps' => $updateStep
         ]);
         if ($listing) {
@@ -942,8 +951,6 @@ class ListingController extends Controller
     public function updateStep5(Request $request, $id)
     {
         $request->validate([
-            'highlights' => 'required',
-            'comments' => 'required',
             'leadId' => 'required',
         ]);
         $listing = Listing::where('ListingID', $id)->update([
@@ -952,7 +959,7 @@ class ListingController extends Controller
             'Comments' => $request->comments,
             'LeadID' => $request->leadId,
             'Steps' => 5,
-            'Status' => 'published',
+            'Status' => 'valid',
             'Active' => 1
         ]);
         if ($listing) {

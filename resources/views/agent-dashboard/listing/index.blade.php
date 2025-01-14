@@ -56,6 +56,7 @@
                             <th scope="col">City</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Active/Inactive</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -76,6 +77,7 @@
                                 <span class="badge badge-danger">Inactive</span>
                                 @endif
                             </td>
+                            <td>{{ucfirst($listing->Status)}}</td>
                             <td class="list-btn">
                                 <a href="{{ route('agent.show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
                                 <i class="fas fa-eye"></i>

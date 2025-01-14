@@ -113,6 +113,9 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         <h2 class="text mb-4">Featured Business Listings</h2>
         <a href="{{route('business.listings')}}" class="see_all_listing" target="_blank">See All Listings</a>
     </div>
+    @if($listings->isEmpty())
+    <p class="no_lis">No listings available.</p>
+    @else
     <!-- Previous and Next buttons (as divs) -->
     <div class="carousel-controls">
         <div class="carousel-prev"><i class="fas fa-chevron-left"></i></div>
@@ -138,6 +141,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         </div>
         @endforeach
     </div>
+    @endif
 </div>
 
 <!-- LEADING AGENTS -->
@@ -718,5 +722,10 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     @media screen and (min-width: 1601px) {
         /* styles for large desktops */
     }
+    .no_lis {
+    text-align: center;
+    font-weight: bold;
+    color: #333333;
+}
 </style>
 @endsection
