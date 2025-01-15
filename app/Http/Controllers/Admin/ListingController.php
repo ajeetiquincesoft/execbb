@@ -1002,7 +1002,11 @@ class ListingController extends Controller
         } else if ($action == "Inactive") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '0']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
-        } else {
+        } else if($action == "close"){
+            Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'close','Active' => '0']);
+        return response()->json(array('message' => 'Listing status has been change successfully!'));
+        }
+         else {
             Listing::whereIn('ListingID', $listing_id)->delete();
             return response()->json(array('message' => 'Listing delete successfully!'));
         }

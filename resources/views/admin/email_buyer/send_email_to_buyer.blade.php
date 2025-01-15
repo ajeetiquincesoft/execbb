@@ -18,7 +18,7 @@
                 <h1>Email Buyer:</h1>
                 <hr>
                 <div class="row mb-2">
-                    <div class="col-md-6 mb-3 rep_email">
+                    <div class="col-12 col-md-6 mb-3 rep_email">
                         <label for="Recipient Email">Recipient Email <span class="text-danger">*</span></label>
                         <select id="recipientEmail" name="recipientEmail[]" class="form-select" multiple>
                             @foreach($buyers as $key=>$buyer)
@@ -29,7 +29,7 @@
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-12 col-md-6 mb-3">
                         <label for="Subject">Subject <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm" id="subject" name="subject" value="{{old('subject')}}">
                         @error('subject')

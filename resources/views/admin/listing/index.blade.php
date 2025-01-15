@@ -42,6 +42,7 @@
                                 <a class="dropdown-item dropdown-item-val" href="delete">Delete</a>
                                 <a class="dropdown-item dropdown-item-val" href="active">Active</a>
                                 <a class="dropdown-item dropdown-item-val" href="Inactive">Inactive</a>
+                                <a class="dropdown-item dropdown-item-val" href="close">Close</a>
                             </div>
                         </div>
                     </div>
