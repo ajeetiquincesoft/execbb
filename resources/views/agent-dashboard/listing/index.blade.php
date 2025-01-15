@@ -49,7 +49,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Listing ID</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Company</th>
                             <th scope="col">Address</th>
