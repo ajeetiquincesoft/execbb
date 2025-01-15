@@ -262,7 +262,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="adDate">Ad Date</label>
-                                <input type="date" class="form-control" id="adDate" name="adDate"  value="{{ $lead->AdDate}}">
+                                <input type="date" class="form-control" id="adDate" name="adDate"  value="{{ $lead->AdDate}}" min="{{ \Carbon\Carbon::now()->toDateString() }}">
                             </div>
                         </div>
                         <!-- SFBO -->
