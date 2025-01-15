@@ -297,7 +297,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
             <img src="{{asset('assets/images/why_ebb.png')}}" alt="Handshake" class="img-fluid">
         </div>
         <div class="col-lg-5 col-md-12 text-container d-md-flex align-items-center">
-            <div class="content px-4">
+            <div class="content px-4 px-sm-0 ebb_padding_remove">
                 <h2 class="title">Why EBB?</h2>
                 <h3 class="subtitle">Buying and Selling a Business is Easier with EBB</h3>
                 <p class="description">
@@ -322,9 +322,11 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         <!-- Heading Section -->
         <p class="text-uppercase text-muted small fw-bold phase_title">Phases</p>
         <h2 class="fw-bold mb-3">Phases of Buying A Business</h2>
-        <p class="text-muted mb-5">
+        <div class="phase_complex">
+        <p class="text-muted phase_complex_center">
             Buying a business is a complex and time-consuming process that can be broken down into four main phases.
         </p>
+                        </div>
 
         <!-- Phase Cards Section -->
         <div class="row justify-content-center">

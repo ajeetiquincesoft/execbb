@@ -123,7 +123,7 @@
                                 </tr>
                                 <tr>
                                     <td><img src="{{ url('assets/images/phone.png') }}" alt="" class="icon"> Phone</td>
-                                    <td class="text-end">{{ $listing->SHomePh }}</td>
+                                    <td class="text-end">{{ $listing->Phone }}</td>
                                 </tr>
                                 <tr>
                                     <td><img src="{{ url('assets/images/email.png') }}" alt="" class="icon"> Email</td>
@@ -131,11 +131,11 @@
                                 </tr>
                                 <tr>
                                     <td><img src="{{ url('assets/images/fax.png') }}" alt="" class="icon"> Fax</td>
-                                    <td class="text-end">{{ $listing->SHomeFax }}</td>
+                                    <td class="text-end">{{ $listing->Fax }}</td>
                                 </tr>
                                 <tr>
                                     <td><img src="{{ url('assets/images/location.png') }}" alt="" class="icon"> Address</td>
-                                    <td class="text-end">{{ $listing->SHomeAdd1 }}</td>
+                                    <td class="text-end">{{ $listing->Address1 }}</td>
                                 </tr>
                             </tbody>
                         </table>

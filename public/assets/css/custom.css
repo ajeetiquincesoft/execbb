@@ -304,4 +304,20 @@ tbody>tr>td {
   text-overflow: ellipsis;
   width: 20%;
 }
+@media screen and (max-width: 768px) {
+  ol.my_menu.breadcrumb.breadcrumb-list.m-0.ms-2 {
+    flex-wrap: nowrap;
+}
+#sidebarToggle{
+  margin-bottom: 0px !important;
+}
+}
+@media screen and (max-width: 990px) {
+.col-12.col-md-6.col-lg-2.d-flex.justify-content-end.action_bt {
+  justify-content: flex-start !important;
+}
+.col-12.col-md-6.col-lg-3.d-flex.justify-content-end.add-list-btn {
+  margin-bottom: 20px;
+}
+}
 

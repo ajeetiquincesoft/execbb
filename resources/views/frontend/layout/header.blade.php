@@ -59,7 +59,7 @@
                             <!-- <li><a class="dropdown-item" href="#">Join Us</a></li> -->
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item simple_menu">
                         <a class="nav-link" href="{{route('contact.us')}}">Contact Us</a>
                     </li>
                 </ul>

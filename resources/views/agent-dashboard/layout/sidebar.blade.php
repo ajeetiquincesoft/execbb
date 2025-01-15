@@ -63,7 +63,7 @@
           <div class="accordion-body">
             <ul class="acc-list" style="list-style-type: none; padding: 0;">
               <li class="nav-item {{ request()->routeIs('agent.reset.password') ? 'activenavitem' : '' }}">
-                <a class="nav-link-dropdown" href="{{route('agent.reset.password')}}">Change Pwd</a>
+                <a class="nav-link-dropdown" href="{{route('agent.reset.password')}}">Reset Pwd</a>
               </li>
               <li class="nav-item {{ request()->routeIs('agent.login.activities') ? 'activenavitem' : '' }}">
                 <a class="nav-link-dropdown" href="{{route('agent.login.activities')}}">Login List</a>

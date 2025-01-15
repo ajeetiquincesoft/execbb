@@ -51,7 +51,7 @@
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/phone.png') }}" alt=""><span class="ml-2 fw-600">Phone</span></td>
-                        <td class="text-end">{{$listing->SHomePh}}</td>
+                        <td class="text-end">{{$listing->Phone}}</td>
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/email.png') }}" alt=""><span class="ml-2 fw-600">Email</span></td>
@@ -59,11 +59,11 @@
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/fax.png') }}" alt=""><span class="ml-2 fw-600">fax</span></td>
-                        <td class="text-end">{{$listing->SHomeFax}}</td>
+                        <td class="text-end">{{$listing->Fax}}</td>
                       </tr>
                       <tr>
                         <td><img src="{{ url('assets/images/location.png') }}" alt=""><span class="ml-2 fw-600">Address</span></td>
-                        <td class="text-end">{{$listing->SHomeAdd1}}</td>
+                        <td class="text-end">{{$listing->Address1}}</td>
                       </tr>
                     </tbody>
                   </table>

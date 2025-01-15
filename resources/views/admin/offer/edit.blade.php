@@ -89,21 +89,21 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="expDate">Exp. Date <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="expDate" name="expDate" value="{{ $offer->ExpDate}}">
+                        <input type="date" class="form-control" id="expDate" name="expDate" value="{{ $offer->ExpDate}}" min="{{ \Carbon\Carbon::now()->toDateString() }}">
                         @error('expDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="accDate">Acc Date <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="accDate" name="accDate" value="{{ $offer->AccDate}}">
+                        <input type="date" class="form-control" id="accDate" name="accDate" value="{{ $offer->AccDate}}" min="{{ \Carbon\Carbon::now()->toDateString() }}">
                         @error('accDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="closeDate">Close Date <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="closeDate" name="closeDate" value="{{$offer->ClosingDate}}">
+                        <input type="date" class="form-control" id="closeDate" name="closeDate" value="{{$offer->ClosingDate}}" min="{{ \Carbon\Carbon::now()->toDateString() }}">
                         @error('closeDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror

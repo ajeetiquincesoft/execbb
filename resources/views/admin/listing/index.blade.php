@@ -12,17 +12,17 @@
 
             <div class="container-fluid py-3 border-bottom">
                 <div class="row align-items-center">
-                    <div class="col-md-3">
+                    <div class="col-12 col-md-6 col-lg-3">
                         <h4 class="mb-0">Listings</h4>
                     </div>
-                    <div class="col-md-3 d-flex justify-content-end add-list-btn">
+                    <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end add-list-btn">
                         <a href="{{route('listing.form')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
                                 <img class="create_img" src="{{ url('assets/images/Listing.png') }}"> Add Listing
                             </button>
                         </a>
                     </div>
-                    <div class="col-md-2 d-flex justify-content-end">
+                    <div class="col-12 col-md-6 col-lg-2 d-flex justify-content-end action_bt">
                         <div class="btn-group">
                             <!-- Checkbox button -->
                             <div class="btn btn-primary btn-lg pl-4 pr-0 check-button header-btn">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4" id="list-search">
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-4" id="list-search">
                         <form method="GET" action="{{ route('all.listing') }}">
                             <div class="input-group" style="max-width: 300px;">
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
@@ -74,7 +74,7 @@
                             <th scope="col">City</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Active/Inactive</th>
+                            <th scope="col">Act/Ina</th>
                             <th scope="col">Status</th>
                             <th scope="col" style="width: 120px;">Action</th>
                         </tr>
@@ -258,67 +258,97 @@
     });
 </script>
 <style>
-    /* Checkbox Button - Adjust Height and Alignment */
+    /* General Styles for Desktop */
     .check-button {
         display: flex;
         align-items: center;
-        /* Center the checkbox vertically */
         justify-content: center;
         height: 40px;
-        /* Set a fixed height for the button */
         padding: 0 20px;
-        /* Padding for better spacing inside the button */
     }
 
     /* Dropdown Button - Adjust Height */
     .dropdown-toggle-split {
         height: 40px;
-        /* Same height for consistency */
         padding: 10px 20px;
-        /* Add some padding to the button for better spacing */
         display: flex;
         align-items: center;
-        /* Center content vertically */
     }
 
     /* Dropdown Menu - Position and Alignment */
     .dropdown-menu {
         min-width: 160px;
-        /* Set a minimum width for the dropdown */
         padding: 0;
-        /* Remove padding from the dropdown */
         border-radius: 10px;
-        /* Rounded corners for the dropdown */
     }
 
     /* Dropdown items height adjustment */
     .dropdown-item {
         height: 40px;
-        /* Set a consistent height for dropdown items */
         display: flex;
         align-items: center;
-        /* Vertically center the text */
         padding: 10px 20px;
-        /* Padding for dropdown items */
     }
+
+    /* Responsive Styles for Mobile Devices */
+    @media (max-width: 768px) {
+
+        /* Adjust check-button padding and height for smaller screens */
+        .check-button {
+            height: 35px;
+            padding: 0 15px;
+        }
+
+        /* Adjust dropdown button padding and height */
+        .dropdown-toggle-split {
+            height: 35px;
+            padding: 8px 15px;
+        }
+
+        /* Adjust dropdown menu width and items for mobile */
+        .dropdown-menu {
+            min-width: 140px;
+        }
+
+        /* Adjust dropdown item height and padding */
+        .dropdown-item {
+            height: 35px;
+            padding: 8px 15px;
+        }
+    }
+
+    /* Extra small screen styles (mobile portrait) */
+    @media (max-width: 480px) {
+
+        /* Further adjust check-button height for very small screens */
+        .check-button {
+            height: 30px;
+            padding: 0 10px;
+        }
+
+        /* Further adjust dropdown button height and padding */
+        .dropdown-toggle-split {
+            height: 30px;
+            padding: 6px 10px;
+        }
+
+        /* Further adjust dropdown menu width and items for smaller mobile screens */
+        .dropdown-menu {
+            min-width: 130px;
+        }
+
+        /* Further adjust dropdown item height and padding */
+        .dropdown-item {
+            height: 30px;
+            padding: 6px 10px;
+        }
+    }
+
 
     /* Responsive layout for smaller screens */
     @media (max-width: 768px) {
-        .btn-group {
-            flex-direction: column;
-            /* Stack the buttons vertically */
-            align-items: flex-start;
-            /* Align items to the left */
-            width: 100%;
-        }
-
         .btn {
-            width: 100%;
-            /* Make buttons take the full width on small screens */
-            height: 45px;
-            /* Slightly larger height for better interaction */
             margin-bottom: 10px;
-            /* Space between stacked buttons */
         }
     }
 </style>

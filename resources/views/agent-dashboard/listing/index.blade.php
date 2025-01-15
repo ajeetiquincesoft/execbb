@@ -56,7 +56,7 @@
                             <th scope="col">City</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Active/Inactive</th>
+                            <th scope="col">Act/Ina</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>

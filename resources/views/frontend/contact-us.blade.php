@@ -82,16 +82,16 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control" placeholder="Day Time Phone" name="day_time_phone">
+                            <input type="text" class="form-control" placeholder="Day Time Phone" name="day_time_phone" id="day_time_phone">
                             @if ($errors->has('day_time_phone'))
                             <span class="text-danger">{{ $errors->first('day_time_phone') }}</span>
                             @endif
                         </div>
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control" placeholder="Evening Phone" name="evening_phone">
+                            <input type="text" class="form-control" placeholder="Evening Phone" name="evening_phone" id="evening_phone">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control" placeholder="Cellular Phone" name="cellular_phone">
+                            <input type="text" class="form-control" placeholder="Cellular Phone" name="cellular_phone" id="cellular_phone">
                         </div>
                     </div>
                     <div class="mb-3">
@@ -113,7 +113,7 @@
                         @endif
                     </div>
                     <div class="mb-5 custom-input">
-                        <textarea class="form-control custom-textarea" rows="4" placeholder="Message" name="message"></textarea>
+                        <textarea class="form-control custom-textarea" rows="5"  placeholder="Enter up to 500 characters" name="message"  maxlength="500"></textarea>
                     </div>
                     <div class="Ques-btn">
                         <h6 class="fw-bold">Which Statement Describes you?*</h6>
@@ -122,27 +122,32 @@
                         <!-- Radio Button Group 1 -->
                         <div class="col-12 d-flex flex-wrap">
                             <div class="d-flex align-items-center me-3 mb-2">
-                                <label class="form-check-label me-3" for="seller">Seller</label>
-                                <input class="form-check-input" type="radio" name="role" id="seller" value="seller">
+                                <input class="form-check-input me-3" type="radio" name="role" id="seller" value="seller">
+                                <label class="form-check-label" for="seller">Seller</label>
+
                             </div>
                             <div class="d-flex align-items-center me-3 mb-2">
-                                <label class="form-check-label me-3" for="buyer">Buyer</label>
-                                <input class="form-check-input" type="radio" name="role" id="buyer" value="buyer">
+                                <input class="form-check-input me-3" type="radio" name="role" id="buyer" value="buyer">
+                                <label class="form-check-label" for="buyer">Buyer</label>
+
                             </div>
                             <div class="d-flex align-items-center me-3 mb-2">
-                                <label class="form-check-label me-3" for="borrower">Borrower</label>
-                                <input class="form-check-input" type="radio" name="role" id="borrower" value="borrower">
+                                <input class="form-check-input me-3" type="radio" name="role" id="borrower" value="borrower">
+                                <label class="form-check-label" for="borrower">Borrower</label>
+
                             </div>
                             <div class="d-flex align-items-center me-3 mb-2">
-                                <label class="form-check-label me-3" for="brokerInquiry">Broker Inquiry</label>
-                                <input class="form-check-input" type="radio" name="role" id="brokerInquiry" value="brokerInquiry">
+                                <input class="form-check-input me-3" type="radio" name="role" id="brokerInquiry" value="brokerInquiry">
+                                <label class="form-check-label" for="brokerInquiry">Broker Inquiry</label>
+
                             </div>
                         </div>
 
                         <div class="col-12 mb-3 statement-desc">
                             <div class="d-flex align-items-center me-3">
-                                <label class="form-check-label me-3" for="seekingEmployment">Seeking Employment</label>
-                                <input class="form-check-input" type="radio" name="role" id="seekingEmployment" value="seekingEmployment">
+                                <input class="form-check-input me-3" type="radio" name="role" id="seekingEmployment" value="seekingEmployment">
+                                <label class="form-check-label" for="seekingEmployment">Seeking Employment</label>
+
                             </div>
                         </div>
                     </div>
@@ -175,6 +180,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('#day_time_phone, #evening_phone, #cellular_phone').on('input', function() {
+        this.value = this.value.replace(/\D/g, '');
+    });
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
         }, "Invalid phone number format.");

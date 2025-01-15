@@ -96,7 +96,7 @@
               <li class="nav-item {{ request()->routeIs('categories') || request()->routeIs('create.category') || request()->routeIs('edit.categories') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('categories')}}">Categories</a></li>
 
               <!-- <li class="nav-item">Settings</li> -->
-              <li class="nav-item {{ request()->routeIs('reset.password') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('reset.password')}}">Change Pwd</a></li>
+              <li class="nav-item {{ request()->routeIs('reset.password') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('reset.password')}}">Reset Pwd</a></li>
 
               <li class="nav-item {{ request()->routeIs('login.activities') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('login.activities')}}">Login List</a></li>
             </ul>
