@@ -356,7 +356,7 @@ class AgentListingController extends Controller
                 $listing->Directions = $request->directions;
                 $listing->LeadID = $request->leadId;
                 $listing->Status = 'valid';
-                $listing->Active = 1;
+                $listing->Active = 0;
 
                 // Save the updated record
                 $listing->Steps = $step;
@@ -600,7 +600,7 @@ class AgentListingController extends Controller
                     $listing->Directions = $request->directions;
                     $listing->LeadID = $request->leadId;
                     $listing->Status = 'valid';
-                    $listing->Active = 1;
+                    $listing->Active = 0;
                     // Save the updated record
                     $listing->Steps = $step;
                     $listing->save();
