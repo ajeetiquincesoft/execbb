@@ -583,7 +583,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 
         .why-ebb-section {
             height: auto;
-            padding: 0px 15px;
+            padding: 0px 15px !important;
         }
 
         .text-container {
