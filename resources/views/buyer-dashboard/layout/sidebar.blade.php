@@ -1,7 +1,7 @@
 <div id="sidebar" class=" text-white">
   <div class="position-relative img-bg ">
     <div class="p-3">
-      <a href="{{url('buyer/dashboard')}}"><img class="sidebar-logo" src="{{ url('assets/images/SidebarLogo.png') }}" alt=""></a>
+      <a href="{{url('buyer/dashboard')}}"><img class="sidebar-logo" src="{{ url('assets/images/main_logo.png') }}" alt=""></a>
       <button class="close-btn" aria-label="Close">&times;</button>
     </div>
 

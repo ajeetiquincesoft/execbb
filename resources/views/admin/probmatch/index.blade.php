@@ -19,7 +19,7 @@
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                         <h4 class="mb-0">ProbMatch</h4>
                     </div>
-                    <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.probmatch')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
                             <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add ProbMatch

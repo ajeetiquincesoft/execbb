@@ -2,44 +2,55 @@
 .alert.alert-success {
   text-align: center;
 }
+
 .agent_btn {
-    float: left;
-    margin-right: 5px;
+  float: left;
+  margin-right: 5px;
 }
+
 .d-grid.mx-auto.agentSignup {
   width: 15%;
 }
+
 button.btn.agentBtn {
   background-color: #5a102a;
   color: #fff;
   font-size: 18px;
   border: none;
 }
-.agent_delete{
+
+.agent_delete {
   display: inline;
 }
+
 .page-item.active .page-link {
   background-color: #5a102a !important;
   border-color: #5a102a !important;
   color: white !important;
 }
+
 #alert-success {
   text-align: center;
 }
-.upload_user_image{
+
+.upload_user_image {
   height: 80px;
   width: 80px;
 }
-.view_upload_image{
+
+.view_upload_image {
   height: 80px;
   width: 80px;
 }
+
 .error {
   color: #FF0000 !important;
 }
+
 img.create_img {
   height: 20px;
 }
+
 /* pagination style */
 .pagination {
   display: flex;
@@ -52,12 +63,14 @@ img.create_img {
   margin: 0 5px;
 }
 
-.pagination a, .pagination span {
+.pagination a,
+.pagination span {
   padding: 4px 10px;
- /*  border: 1px solid #007bff;*/
-  color: #000000; 
+  /*  border: 1px solid #007bff;*/
+  color: #000000;
   text-decoration: none;
-  border-radius: 25px; /* Rounded corners */
+  border-radius: 25px;
+  /* Rounded corners */
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -76,21 +89,30 @@ img.create_img {
   color: #ccc;
   cursor: not-allowed;
 }
+
 .rounded {
   border-radius: 1rem !important;
 }
+
 .pagination li:not(.disabled) a:hover {
-  background-color: transparent; /* Remove hover background */
-  color: #000000; /* Keep text color same */
+  background-color: transparent;
+  /* Remove hover background */
+  color: #000000;
+  /* Keep text color same */
 }
+
 /* end pagination style */
 .avatar-upload {
   position: relative;
-  width: 150px; /* Set desired width */
-  height: 150px; /* Set desired height */
+  width: 150px;
+  /* Set desired width */
+  height: 150px;
+  /* Set desired height */
   overflow: hidden;
-  border-radius: 50%; /* Make it circular */
- /*  border: 1px solid #000000; */ /* Border style */
+  border-radius: 50%;
+  /* Make it circular */
+  /*  border: 1px solid #000000; */
+  /* Border style */
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -99,8 +121,10 @@ img.create_img {
 }
 
 .avatar-upload input[type="file"] {
-  display: none; /* Hide the default file input */
+  display: none;
+  /* Hide the default file input */
 }
+
 .avatar_img_upload {
   display: none;
   margin: 10px 0px;
@@ -111,8 +135,10 @@ img.create_img {
   border-radius: 20px;
   font-size: 12px;
 }
+
 .avatar-upload label {
-  cursor: pointer; /* Change cursor to pointer */
+  cursor: pointer;
+  /* Change cursor to pointer */
 }
 
 .avatar {
@@ -121,6 +147,7 @@ img.create_img {
   object-fit: cover;
   object-position: center;
 }
+
 .circular-image {
   width: 120px;
   height: 120px;
@@ -130,16 +157,20 @@ img.create_img {
   justify-content: center;
   align-items: center;
 }
+
 /* icon css*/
 i.fas.fa-eye {
   color: #28a745;
 }
+
 i.fas.fa-edit {
   color: #007bff;
 }
+
 i.fas.fa-trash {
   color: #dc3545;
 }
+
 /*end icons css*/
 /*css start for agent*/
 
@@ -149,79 +180,107 @@ i.fas.fa-trash {
 
 /* Circular container */
 .avatar-circle {
-  width: 100px; /* Set the size of the circle */
-  height: 100px; /* Set the size of the circle */
-  border-radius: 50%; /* Makes the container circular */
-  overflow: hidden; /* Ensures the image fits within the circle */
-  display: inline-block; /* Keeps the container inline with other elements */
+  width: 100px;
+  /* Set the size of the circle */
+  height: 100px;
+  /* Set the size of the circle */
+  border-radius: 50%;
+  /* Makes the container circular */
+  overflow: hidden;
+  /* Ensures the image fits within the circle */
+  display: inline-block;
+  /* Keeps the container inline with other elements */
 }
 
 /* Image inside the circular container */
 .avatar_agent {
-  width: 100%; /* Ensure the image takes the full width of the container */
-  height: 100%; /* Ensure the image takes the full height of the container */
-  object-fit: cover; /* Ensures the image covers the circle while maintaining aspect ratio */
+  width: 100%;
+  /* Ensure the image takes the full width of the container */
+  height: 100%;
+  /* Ensure the image takes the full height of the container */
+  object-fit: cover;
+  /* Ensures the image covers the circle while maintaining aspect ratio */
 }
+
 /*end css*/
 
 /*style for view page card body*/
 .card-body {
-  padding: 20px; /* Adds padding inside the card body */
-  background-color: #f8f9fa; /* Light background color for the card body */
-  border-radius: 8px; /* Rounded corners for the card */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow around the card */
+  padding: 20px;
+  /* Adds padding inside the card body */
+  background-color: #f8f9fa;
+  /* Light background color for the card body */
+  border-radius: 8px;
+  /* Rounded corners for the card */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Light shadow around the card */
 }
 
 /* Scrollable section */
 .scrollable-activity {
-/*   max-height: 600px; 
+  /*   max-height: 600px; 
   overflow-y: auto;  */
   margin-top: 10px;
 }
 
 /* Styling for individual activities */
 .activity {
-  padding: 15px; /* Adds padding to each activity block */
-  border-bottom: 1px solid #e0e0e0; /* Light border to separate activities */
-  margin-bottom: 15px; /* Adds space between each activity block */
+  padding: 15px;
+  /* Adds padding to each activity block */
+  border-bottom: 1px solid #e0e0e0;
+  /* Light border to separate activities */
+  margin-bottom: 15px;
+  /* Adds space between each activity block */
 }
 
 /* Title of the activity (bold and spaced) */
 .activity-title {
   font-weight: bold;
-  margin-bottom: 5px; /* Space between the title and the time */
-  font-size: 1.1em; /* Slightly larger font size for the title */
+  margin-bottom: 5px;
+  /* Space between the title and the time */
+  font-size: 1.1em;
+  /* Slightly larger font size for the title */
 }
 
 /* Time of the activity */
 .activity-time {
-  font-size: 0.9em; /* Smaller text for the time */
-  color: #6c757d; /* Gray color for the time */
-  margin-bottom: 10px; /* Adds space between time and content */
+  font-size: 0.9em;
+  /* Smaller text for the time */
+  color: #6c757d;
+  /* Gray color for the time */
+  margin-bottom: 10px;
+  /* Adds space between time and content */
 }
 
 /* Content of the activity */
 .activity-content {
   font-size: 1em;
-  color: #495057; /* Darker text color for readability */
-  line-height: 1.5; /* Adds spacing between lines for readability */
+  color: #495057;
+  /* Darker text color for readability */
+  line-height: 1.5;
+  /* Adds spacing between lines for readability */
 }
 
 /* Spacing between activities and inside the card */
-.activity + .activity {
-  margin-top: 15px; /* Adds space between consecutive activities */
+.activity+.activity {
+  margin-top: 15px;
+  /* Adds space between consecutive activities */
 }
 
 /* Optional: Add some hover effect for interactivity */
 .activity:hover {
-  background-color: #f1f1f1; /* Light gray background on hover */
-  cursor: pointer; /* Change cursor to pointer when hovering over an activity */
+  background-color: #f1f1f1;
+  /* Light gray background on hover */
+  cursor: pointer;
+  /* Change cursor to pointer when hovering over an activity */
 }
 
 /* Optional: Add padding inside the activity content */
 .activity-content {
-  padding: 5px 0; /* Adds padding to the content for better spacing */
+  padding: 5px 0;
+  /* Adds padding to the content for better spacing */
 }
+
 /*end css for card body view page*/
 
 
@@ -231,15 +290,18 @@ i.fas.fa-trash {
   position: relative;
   top: 7px;
 }
+
 .acc-list .nav-item a {
   color: #ffffff;
 }
+
 .acc-list .nav-item a:hover {
   background-color: #93744b;
   border-radius: 5px;
   color: white !important;
   text-decoration: none;
 }
+
 /* css for previous and next button*/
 .next-back-page button {
   background-color: #5d1229;
@@ -258,6 +320,7 @@ i.fas.fa-trash {
 .next-back-page button:hover {
   background-color: #5d1229;
 }
+
 .next-back-page a:hover {
   text-decoration: none;
 }
@@ -266,58 +329,101 @@ i.fas.fa-trash {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
+
 .nextPreviousButtons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 /* css end for previous and next button*/
 
 /* Remove background color, border, and text color from the accordion button */
 .accordion-button-main {
-  background-color: transparent !important;  /* Remove background color */
-  border: none !important;                    /* Remove border */
-  color: inherit !important;                  /* Inherit text color from parent */
+  background-color: transparent !important;
+  /* Remove background color */
+  border: none !important;
+  /* Remove border */
+  color: inherit !important;
+  /* Inherit text color from parent */
 }
 
 /* Remove background color when the accordion button is active (expanded) */
 .accordion-button-main:not(.collapsed) {
-  background-color: transparent !important;  /* Keep it transparent when active */
-  color: inherit !important;                  /* Keep the text color unchanged */
+  background-color: transparent !important;
+  /* Keep it transparent when active */
+  color: inherit !important;
+  /* Keep the text color unchanged */
 }
 
 /* Optional: Remove hover effect */
 .accordion-button-main:hover {
-  background-color: transparent !important;  /* Keep transparent on hover */
+  background-color: transparent !important;
+  /* Keep transparent on hover */
 }
 
 /* Optional: Style for the icon if present inside the button (optional) */
 .accordion-button-main i {
-  color: inherit !important;  /* Inherit color for any icon inside */
+  color: inherit !important;
+  /* Inherit color for any icon inside */
 }
+
 tbody>tr>td {
   font-size: 14px;
 }
+
 .table th {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 20%;
 }
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 500px) {
+  .add-list-btn {
+    justify-content: flex-start !important;
+  }
+  .action_bt {
+    justify-content: flex-start !important;
+  }
+  .add-list-btn {
+    margin-top: 10px;
+  }
+  #list-search .input-group {
+    width: 100%;
+    max-width: 400px !important;
+}
+}
+@media only screen and (min-width: 501px) and (max-width: 767px) {
+  .add-list-btn {
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 767px) {
   ol.my_menu.breadcrumb.breadcrumb-list.m-0.ms-2 {
     flex-wrap: nowrap;
-}
-#sidebarToggle{
-  margin-bottom: 0px !important;
-}
-}
-@media screen and (max-width: 990px) {
-.col-12.col-md-6.col-lg-2.d-flex.justify-content-end.action_bt {
-  justify-content: flex-start !important;
-}
-.col-12.col-md-6.col-lg-3.d-flex.justify-content-end.add-list-btn {
-  margin-bottom: 20px;
+  }
+
+  #sidebarToggle {
+    margin-bottom: 0px !important;
+  }
+
+  #login_activity_search {
+    margin-top: 10px;
+  }
+  #list-search .input-group {
+    width: 100%;
+    max-width: 650px !important;
 }
 }
 
+@media screen and (max-width: 990px) {
+ 
+}
+
+@media only screen and (min-width: 768px) and (max-width: 990px) {
+  .add-list-btn {
+    margin-bottom: 10px;
+  }
+
+}

@@ -63,6 +63,9 @@
         min-height: 300px !important;
         /* Set the min-height to whatever you need */
     }
+    .rep_email .select2-container {
+    width: 100% !important; /* Ensures the Select2 container takes up full width */
+}
 </style>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
