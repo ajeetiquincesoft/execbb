@@ -291,7 +291,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 
 <!-- <title>Why EBB</title> -->
 <div class="container-fluid why-ebb-section d-md-flex align-items-center">
-    <div class="row w-100">
+    <div class="row">
         <div class="col-lg-7 col-md-12 image-container">
             <div class="overlay"></div>
             <img src="{{asset('assets/images/why_ebb.png')}}" alt="Handshake" class="img-fluid">
@@ -583,7 +583,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 
         .why-ebb-section {
             height: auto;
-            padding-left: 30px;
+            padding: 0px 15px;
         }
 
         .text-container {
