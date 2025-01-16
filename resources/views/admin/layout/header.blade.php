@@ -65,12 +65,10 @@
           @foreach ($breadcrumbs as $key => $label)
           @if ($route == $key)
           @if ($route == 'email.buyer' || $route == 'reports')
-          <li class="breadcrumb-item"><a class="nav-link" href="#">Report</a></li>
           <li class="breadcrumb-item">
             <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>
           </li>
           @elseif (in_array($route, ['edit.probmatch','edit.criteriarank','edit.contact-type','edit.referral-type','edit.categories','probmatch', 'criteriarank', 'contact-type', 'referral-type', 'categories', 'reset.password', 'login.activities']))
-          <li class="breadcrumb-item"><a class="nav-link" href="#">System</a></li>
           @if($route == 'edit.probmatch' && !empty($id))
           <li class="breadcrumb-item">
             <a class="nav-link" href="{{ route('probmatch') }}">Prob Match</a>

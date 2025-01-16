@@ -355,6 +355,7 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('get/options/{id}', [AgentListingController::class, 'getOptions'])->name('get.options');
   Route::get('/listing/next/prev/{id}', [AgentListingController::class, 'prevNext'])->name('edit.prev.next');
   Route::delete('/listing/destroy/{id}', [AgentListingController::class, 'destroy'])->name('listing.destroy');
+  Route::post('/agent/listing/bulkAction', [AgentListingController::class, 'bulkAction'])->name('listing.bulkAction');
 
   //Route for send email to buyers
   Route::get('email/buyer', [AgentEmailBuyerController::class, 'index'])->name('email.buyer');
