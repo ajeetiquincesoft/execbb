@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Listing;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class UpdateStatus extends Command
 {
@@ -39,7 +40,7 @@ class UpdateStatus extends Command
      */
     public function handle()
     {
-        $currentDate = Carbon::now(); // Get current date
+        $currentDate = Carbon::now();
         $records = Listing::where('ExpDate', '<', $currentDate)
                             ->whereNotNull('ExpDate')
                             ->where('Status', '!=', 'expired')
@@ -52,5 +53,15 @@ class UpdateStatus extends Command
         }
 
         $this->info('All expired records have been updated.');
+        try {
+            Mail::raw('The cron job has successfully run and updated expired listings.', function ($message) {
+                $message->to('santosh3257@gmail.com')
+                        ->subject('Test Cron Job Notification');
+            });
+
+            $this->info('Test email sent successfully.');
+        } catch (\Exception $e) {
+            $this->error('Failed to send test email: ' . $e->getMessage());
+        }
     }
 }
