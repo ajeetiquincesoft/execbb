@@ -277,7 +277,6 @@
     max-height: 500px;
     object-fit: cover;
     display: block;
-    padding-bottom: 20px;
 }
 
     img.img-fluid.rounded-circle.mb-3.comment_image {
