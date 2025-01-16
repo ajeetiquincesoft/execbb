@@ -270,11 +270,15 @@
     .breadcrumb-item.active {
         color: #333333;
     }
-
     .business_listing_image {
-        width: 100%;
-        padding-bottom: 20px;
-    }
+    width: 100%;
+    padding-bottom: 20px;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    display: block;
+    padding-bottom: 20px;
+}
 
     img.img-fluid.rounded-circle.mb-3.comment_image {
         width: 45px;
