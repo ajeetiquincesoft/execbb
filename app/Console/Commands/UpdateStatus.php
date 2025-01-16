@@ -47,7 +47,6 @@ class UpdateStatus extends Command
 
         foreach ($records as $record) {
             $record->Status = 'expired';
-            $record->Active = 0;
             $record->save();
             $this->info('Record ' . $record->id . ' updated to expired');
         }

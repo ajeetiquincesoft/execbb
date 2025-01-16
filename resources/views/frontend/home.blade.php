@@ -59,7 +59,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                 <a href="#" class="btn btn">See More Categories</a>
             </div>
         </div>
-        <div class="row g-3 bus_cat row-cols-3 row-cols-md-3">
+        <div class="row g-3 bus_cat row-cols-3 row-cols-md-3 row-cols-lg-6">
             <!-- Column 1 -->
             <div class="col">
                 <a href="#" class="text-decoration-none text-primary">Bagel</a>

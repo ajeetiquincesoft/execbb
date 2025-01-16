@@ -10,10 +10,10 @@
                         <h4 class="mb-0">Buyers</h4>
                     </div>
                     <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                        <a href="#">
+                        <!-- <a href="#">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
                             <img class="create_img" src="{{ url('assets/images/Buyers.png') }}"> Add Buyers
-                            </button></a>
+                            </button></a> -->
                     </div>
                     <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
                         <form method="GET" action="{{ route('agent.list.buyer') }}">

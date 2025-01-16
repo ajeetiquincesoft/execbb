@@ -194,6 +194,7 @@ class AgentListingController extends Controller
                 $listing->SubCat = $request->bus_type;
                 $listing->RefAgentID = $userID;
                 $listing->CreatedBy = Auth::id();
+                $listing->Status = 'invalid';
                 $listing->Steps = 1;
                 if ($request->hasFile('listing_img')) {
                     $image = $request->file('listing_img');
@@ -735,7 +736,7 @@ class AgentListingController extends Controller
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '0']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if($action == "close"){
-            Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'close','Active' => '0']);
+            Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'close']);
         return response()->json(array('message' => 'Listing status has been change successfully!'));
         }
          else {

@@ -344,6 +344,7 @@ class ListingController extends Controller
             $listing->Pager = $request->user_pager;
             $listing->Review = $reviewcheckboxValue;
             $listing->SubCat = $request->bus_type;
+            $listing->Status = 'invalid';
             $listing->CreatedBy = Auth::id();
             $listing->Steps = 1;
             if ($request->hasFile('listing_img')) {
@@ -1003,7 +1004,7 @@ class ListingController extends Controller
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '0']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if($action == "close"){
-            Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'close','Active' => '0']);
+            Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'close']);
         return response()->json(array('message' => 'Listing status has been change successfully!'));
         }
          else {
