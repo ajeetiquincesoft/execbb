@@ -23,7 +23,7 @@ class SearchController extends Controller
         if ($state) {
             $listings = $listings->where('State', $state);
         }
-        $listings = $listings->orderBy('created_at', 'desc')->paginate(9);
+        $listings = $listings->where('Active', 1)->where('Status', 'valid')->orderBy('created_at', 'desc')->paginate(9);
             //dd(count($listings));
            // dd($listings);
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
