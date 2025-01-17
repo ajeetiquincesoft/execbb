@@ -378,7 +378,9 @@ tbody>tr>td {
   text-overflow: ellipsis;
   width: 20%;
 }
-
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: transparent !important;
+}
 @media screen and (max-width: 500px) {
   .add-list-btn {
     justify-content: flex-start !important;
