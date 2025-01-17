@@ -441,22 +441,20 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     }
 
     .slider {
-    position: relative;
-    padding-bottom: 30px;
-    display: flex; /* Make sure slider uses flexbox for alignment */
-    flex-wrap: nowrap; /* Prevent wrapping of slides */
-}
+        position: relative;
+        padding-bottom: 30px;
+    }
+    .slider .card {
+        margin-right: 20px;
+    }
+    .slider .slick-slide:last-child .card {
+        margin-right: 0;
+    }
 
-.slider .card {
-    margin-right: 20px; /* Add margin between cards */
-    width: 200px; /* Fix the width of each card */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
-}
-
-.slider .slick-slide:last-child .card {
-    margin-right: 0; /* Remove margin for the last item */
-}
-
+    .slider .card {
+        width: 100%;
+        max-width: 100%;
+    }
 
     .border-right {
         border-right: 1px solid #806132;
