@@ -242,6 +242,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('#phone, #homePhone').on('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
         $('#addnewliststep1').validate({
             rules: {
                 user_email: {

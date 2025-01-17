@@ -764,6 +764,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('#phone, #homePhone, #managementAgentPhone, #referringAgentPhone').on('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
         }, "Invalid phone number format.");
