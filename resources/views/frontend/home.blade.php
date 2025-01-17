@@ -445,7 +445,12 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         padding-bottom: 30px;
     }
     .slider .card {
-        margin-right: 10px;
+        position: absolute;
+        top: 1rem;
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        overflow: hidden;
     }
     .slider .slick-slide:last-child .card {
         margin-right: 0;
