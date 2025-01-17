@@ -12,7 +12,7 @@
 </div>
 <div class="container-fluid content bg-light">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-12 col-lg-12 col-xl-5 mb-5 mb-xl-0">
           <div class="card">
             <div class="card-body">
               <div class="profile-info">
@@ -319,7 +319,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-12 col-lg-12 col-xl-7">
           <div class="card">
             <div class="card-header">
               <h5>Activities</h5>
