@@ -379,7 +379,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
             prevArrow: $('.carousel-prev'), // Link the previous button to the slick carousel
             nextArrow: $('.carousel-next'),
             dots: true, // Display navigation dots
-            autoplay: false, // Auto slide
+            autoplay: true, // Auto slide
             autoplaySpeed: 2000, // Time between slides
             fade: false, // Disable fade transition
             speed: 500, // Transition speed in ms
@@ -445,7 +445,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         padding-bottom: 30px;
     }
     .slider .card {
-        margin-left: 10px;
+        margin-right: 10px;
     }
     .slider .slick-slide:last-child .card {
         margin-right: 0;
