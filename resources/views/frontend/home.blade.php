@@ -441,20 +441,27 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
     }
 
     .slider {
-        position: relative;
-        padding-bottom: 30px;
-    }
-    .slider .card {
-        margin-right: 10px;
-    }
-    .slider .slick-slide:last-child .card {
-        margin-right: 0;
-    }
+    position: relative;
+    padding-bottom: 30px;
+    width: 100%; /* Make the slider container take full width of its parent */
+}
 
-    .slider .card {
-        width: 100%;
-        max-width: 100%;
-    }
+/* Individual cards inside the slider */
+.slider .card {
+    margin-right: 20px; /* Gap between the cards */
+    width: calc(25% - 20px); /* 4 items fit within the slider width, and we subtract the margin between items */
+    box-sizing: border-box; /* Include padding and border in the element's width calculation */
+}
+
+/* Remove the margin for the last card */
+.slider .slick-slide:last-child .card {
+    margin-right: 0;
+}
+
+/* Ensure cards take up the full width of the container */
+.slider .slick-track {
+    display: flex;
+}
 
     .border-right {
         border-right: 1px solid #806132;
