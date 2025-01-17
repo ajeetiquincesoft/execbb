@@ -113,7 +113,7 @@
                         @endif
                     </div>
                     <div class="mb-5 custom-input">
-                        <textarea class="form-control custom-textarea" rows="5"  placeholder="Enter up to 500 characters" name="message"  maxlength="500"></textarea>
+                        <textarea class="form-control custom-textarea" rows="5" placeholder="Enter up to 500 characters" name="message" maxlength="500"></textarea>
                     </div>
                     <div class="Ques-btn">
                         <h6 class="fw-bold">Which Statement Describes you?*</h6>
@@ -181,8 +181,8 @@
 <script>
     $(document).ready(function() {
         $('#day_time_phone, #evening_phone, #cellular_phone').on('input', function() {
-        this.value = this.value.replace(/\D/g, '');
-    });
+            this.value = this.value.replace(/\D/g, '');
+        });
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
         }, "Invalid phone number format.");
@@ -351,6 +351,13 @@
 
     .statement-desc .form-check-input[type=radio] {
         margin-top: -0.75em;
+    }
+
+    .form-control:focus::placeholder,
+    .form-control:not(:placeholder-shown)::placeholder {
+        font-size: 12px;
+        transform: translateY(-10px);
+        color: #007bff;
     }
 </style>
 @endsection

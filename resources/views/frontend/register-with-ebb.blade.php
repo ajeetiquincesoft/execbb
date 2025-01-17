@@ -392,6 +392,12 @@
         margin-top: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+    .form-control:focus::placeholder,
+.form-control:not(:placeholder-shown)::placeholder {
+  font-size: 12px;
+  transform: translateY(-10px);
+  color: #007bff;
+}
     </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
