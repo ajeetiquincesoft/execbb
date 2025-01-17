@@ -29,12 +29,10 @@
                 @foreach ($breadcrumbs as $key => $label)
                     @if ($route == $key)
                       @if ($route == 'agent.email.buyer' || $route == 'agent.reports')
-                        <li class="breadcrumb-item"><a class="nav-link" href="#">Report</a></li>
                         <li class="breadcrumb-item">
                           <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>
                         </li>
                         @elseif (in_array($route, ['agent.reset.password', 'agent.login.activities']))
-                            <li class="breadcrumb-item"><a class="nav-link" href="#">System</a></li>
                             <li class="breadcrumb-item">
                                 <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>
                             </li>
