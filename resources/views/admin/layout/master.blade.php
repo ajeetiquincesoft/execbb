@@ -44,7 +44,7 @@
   @include('admin.layout.sidebar')
 
   <!-- Content -->
-  <div id="content">
+  <div id="content" class="exebb_broker">
     <!--header section-->
     @include('admin.layout.header')
     <!--end header section-->
