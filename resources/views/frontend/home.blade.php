@@ -440,29 +440,23 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
         transition: background-color 0.3s ease;
     }
 
-    /* Ensure the slider is positioned relative to the parent container */
     .slider {
-        position: relative;
-        padding-bottom: 30px;
-    }
+    position: relative;
+    padding-bottom: 30px;
+    display: flex; /* Make sure slider uses flexbox for alignment */
+    flex-wrap: nowrap; /* Prevent wrapping of slides */
+}
 
-    /* Add margin between the cards */
-    .slider .card {
-        margin-right: 20px;
-        /* Add horizontal gap between cards */
-    }
-    /* Adjust the last card in the row */
-    .slider .slick-slide:last-child .card {
-        margin-right: 0;
-    }
+.slider .card {
+    margin-right: 20px; /* Add margin between cards */
+    width: 200px; /* Fix the width of each card */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
 
-    /* Optional: If you want more control, you can adjust the card size */
-    .slider .card {
-        width: 100%;
-        /* Optional: Ensure card width fits properly in the slider */
-        max-width: 100%;
-        /* Optional: Makes sure the card doesn't exceed the container width */
-    }
+.slider .slick-slide:last-child .card {
+    margin-right: 0; /* Remove margin for the last item */
+}
+
 
     .border-right {
         border-right: 1px solid #806132;
