@@ -1,8 +1,8 @@
 @extends('frontend.layout.master')
 @section('content')
-<div class="container py-5 bg-5a102a">
+<div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-xl-4">
+        <div class="col col-md-6 col-lg-6 col-xl-6">
             <div class="row g-0">
                 <div class="col-md-12 d-flex align-items-center content-center">
                     <div class="card-body text-black" style="width: 100%;">

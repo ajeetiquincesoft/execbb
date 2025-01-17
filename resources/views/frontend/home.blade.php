@@ -448,7 +448,7 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 
     /* Add margin between the cards */
     .slider .card {
-        margin-right: 20px;
+        margin-right: 30px;
         /* Add horizontal gap between cards */
     }
 
