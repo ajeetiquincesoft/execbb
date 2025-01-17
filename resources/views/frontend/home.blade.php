@@ -448,10 +448,12 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
 
     /* Add margin between the cards */
     .slider .card {
-        margin-right: 30px;
+        margin-right: 20px;
         /* Add horizontal gap between cards */
     }
-
+    .slider .card:nth-last-child(-n+4) {
+    margin-right: 0;
+}
     /* Adjust the last card in the row */
     .slider .slick-slide:last-child .card {
         margin-right: 0;
