@@ -149,7 +149,7 @@
             // event.preventDefault();
 
             // Get the href value of the clicked item
-            var action_val = $(this).val();
+            var status_val = $(this).val();
 
             // Get the selected listing ids from checkboxes
             let selectedIds = $('.listing-check:checked').map(function() {
@@ -164,7 +164,7 @@
                         dataType: 'json',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            action: action_val,
+                            status_val: status_val,
                             lead_id: selectedIds
                         },
                         success: function(data) {
