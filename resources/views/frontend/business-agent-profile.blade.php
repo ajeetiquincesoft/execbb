@@ -157,6 +157,7 @@
 
     .agent-info {
         padding: 15px;
+        height: 110px;
     }
 
     .contact_agent {
