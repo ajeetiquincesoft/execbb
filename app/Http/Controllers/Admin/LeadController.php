@@ -14,21 +14,24 @@ class LeadController extends Controller
         $query = $request->input('query');
         $leads = DB::table('leads');
         $categories = DB::table('categories')->pluck('BusinessCategory', 'CategoryID');
+        $lead_status = DB::table('lead_status')->pluck('Status', 'LeadStatusID');
         if ($query) {
         $leads = DB::table('leads')
         ->leftJoin('categories', 'leads.Category', '=', 'categories.CategoryID')
-        ->select('leads.*', 'categories.BusinessCategory as category_name') 
+        ->leftJoin('lead_status', 'leads.Status', '=', 'lead_status.LeadStatusID')
+        ->select('leads.*', 'categories.BusinessCategory as category_name', 'lead_status.Status as status') 
         ->where('leads.SellerFName', 'LIKE', '%' . $query . '%')
         ->orWhere('leads.SellerLName', 'LIKE', '%' . $query . '%')
         ->orWhere('leads.BusName', 'LIKE', '%' . $query . '%')
         ->orWhere('leads.Address', 'LIKE', '%' . $query . '%')
         ->orWhere('leads.Phone', 'LIKE', '%' . $query . '%')
         ->orWhere('leads.AppointmentDate', 'LIKE', '%' . $query . '%')
-        ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%');
+        ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%')
+        ->orWhere('lead_status.Status', 'LIKE', '%' . $query . '%');
         }
         $leads = $leads->orderBy('created_at', 'desc')
         ->paginate(10);
-        return view('admin.lead.index', compact('leads','categories'));
+        return view('admin.lead.index', compact('leads','categories','lead_status'));
     }
     public function create(){
         $categoryData = DB::table('categories')->get();
@@ -73,7 +76,7 @@ class LeadController extends Controller
             'AdDate' => $request->adDate,
             'Phone' => $request->busPhone,
             'Comments' => $request->comments,
-            'AgentID' => 'FD',
+            /* 'AgentID' => 'FD', */
             'LDate' => $request->leadDate,
             'Listed' => $listed,
             'SellerFName' => $request->firstName,
@@ -148,7 +151,7 @@ class LeadController extends Controller
         'AdDate' => $request->adDate,
         'Phone' => $request->busPhone,
         'Comments' => $request->comments,
-        'AgentID' => 'FD',
+        /* 'AgentID' => 'FD', */
         'LDate' => $request->leadDate,
         'Listed' => $listed,
         'SellerFName' => $request->firstName,

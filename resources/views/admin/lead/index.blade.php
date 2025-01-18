@@ -57,6 +57,7 @@
                             <th scope="col">Address</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Appoinment Date</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -70,6 +71,7 @@
                             <td>{{$lead->Address}}</td>
                             <td>{{$lead->Phone}}</td>
                             <td>{{$lead->AppointmentDate}}</td>
+                            <td>{{ $lead_status[$lead->Status] ?? 'N/A' }}</td>
                             <td class="list-btn">
                                 <a href="{{ route('show.lead', $lead->LeadID) }}"><button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
