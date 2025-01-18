@@ -732,7 +732,7 @@ class AgentListingController extends Controller
         if ($action == "active") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '1']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
-        } else if ($action == "Inactive") {
+        } else if ($action == "inactive") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '0']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "close") {
@@ -749,7 +749,7 @@ class AgentListingController extends Controller
         } else if ($action == "sole exclusive") {
             Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'sole exclusive']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
-        } else {
+        } else if ($action == "delete") {
             Listing::whereIn('ListingID', $listing_id)->delete();
             return response()->json(array('message' => 'Listing delete successfully!'));
         }

@@ -152,7 +152,6 @@
 
             // Get the href value of the clicked item
             var action_val = $(this).val();
-
             // Get the selected listing ids from checkboxes
             let selectedIds = $('.listing-check:checked').map(function() {
                 return $(this).val();
