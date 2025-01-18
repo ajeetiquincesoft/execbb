@@ -68,10 +68,10 @@
                             <th scope="col">Lead ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Category</th>
-                            <th scope="col">Business Name</th>
+                            <th scope="col">Bus. Name</th>
                             <th scope="col">Address</th>
                             <th scope="col">Phone</th>
-                            <th scope="col">Appoinment Date</th>
+                            <th scope="col">Appt. Date</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
