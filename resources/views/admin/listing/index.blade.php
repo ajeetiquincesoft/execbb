@@ -33,28 +33,6 @@
                             <option value="delete">Delete</option>
                             <option value="close">Close</option>
                         </select>
-                        <!-- <div class="btn-group">
-                            
-                            <div class="btn btn-primary btn-lg pl-4 pr-0 check-button header-btn">
-                                <label class="custom-control custom-checkbox mb-0 d-inline-block">
-                                    <input type="checkbox" class="custom-control-input" id="checkAll">
-                                    <span class="custom-control-label">&nbsp;</span>
-                                </label>
-                            </div>
-
-                            
-                            <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-
-                        
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item dropdown-item-val" href="delete">Delete</a>
-                                <a class="dropdown-item dropdown-item-val" href="active">Active</a>
-                                <a class="dropdown-item dropdown-item-val" href="Inactive">Inactive</a>
-                                <a class="dropdown-item dropdown-item-val" href="close">Close</a>
-                            </div>
-                        </div> -->
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 col-xl-4" id="list-search">
                         <form method="GET" action="{{ route('all.listing') }}">
@@ -78,7 +56,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col" class="checkList"><label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
-                                    <input type="checkbox" name="checkListing" value="" class="custom-control-input listing-check" id="checkAll">
+                                    <input type="checkbox" name="checkListing" value="" class="custom-control-input" id="checkAll">
                                     <span class="custom-control-label">&nbsp;</span>
                                 </label></th>
                             <th scope="col">#</th>
@@ -273,100 +251,4 @@
 
     });
 </script>
-<style>
-    /* General Styles for Desktop */
-    .check-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 40px;
-        padding: 0 20px;
-    }
-
-    /* Dropdown Button - Adjust Height */
-    .dropdown-toggle-split {
-        height: 40px;
-        padding: 10px 20px;
-        display: flex;
-        align-items: center;
-    }
-
-    /* Dropdown Menu - Position and Alignment */
-    .dropdown-menu {
-        min-width: 160px;
-        padding: 0;
-        border-radius: 10px;
-    }
-
-    /* Dropdown items height adjustment */
-    .dropdown-item {
-        height: 40px;
-        display: flex;
-        align-items: center;
-        padding: 10px 20px;
-    }
-
-    /* Responsive Styles for Mobile Devices */
-    @media (max-width: 768px) {
-
-        /* Adjust check-button padding and height for smaller screens */
-        .check-button {
-            height: 35px;
-            padding: 0 15px;
-        }
-
-        /* Adjust dropdown button padding and height */
-        .dropdown-toggle-split {
-            height: 35px;
-            padding: 8px 15px;
-        }
-
-        /* Adjust dropdown menu width and items for mobile */
-        .dropdown-menu {
-            min-width: 140px;
-        }
-
-        /* Adjust dropdown item height and padding */
-        .dropdown-item {
-            height: 35px;
-            padding: 8px 15px;
-        }
-    }
-
-    /* Extra small screen styles (mobile portrait) */
-    @media (max-width: 480px) {
-
-        /* Further adjust check-button height for very small screens */
-        .check-button {
-            height: 30px;
-            padding: 0 10px;
-        }
-
-        /* Further adjust dropdown button height and padding */
-        .dropdown-toggle-split {
-            height: 30px;
-            padding: 6px 10px;
-        }
-
-        /* Further adjust dropdown menu width and items for smaller mobile screens */
-        .dropdown-menu {
-            min-width: 130px;
-        }
-
-        /* Further adjust dropdown item height and padding */
-        .dropdown-item {
-            height: 30px;
-            padding: 6px 10px;
-        }
-    }
-
-
-    /* Responsive layout for smaller screens */
-    @media (max-width: 768px) {
-        .btn {
-            margin-bottom: 10px;
-        }
-    }
-</style>
-
 @endsection
