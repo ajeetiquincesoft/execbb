@@ -161,7 +161,6 @@ class AgentListingController extends Controller
                 $request->session()->put('listingData.reviewCheckbox',  $reviewcheckboxValue);
                 $request->session()->put('listingData.franchCheckbox',  $franchisecheckboxValue);
                 $request->session()->put('listingData.featureCheckbox',  $featuredListingcheckboxValue);
-
             } else {
                 $categoryData = DB::table('categories')->where('CategoryID', $request->bus_category)->first();
                 $category_name = $categoryData->BusinessCategory;
@@ -262,9 +261,9 @@ class AgentListingController extends Controller
             } else {
                 $RefAgentID = auth()->user()->id;
             }
-            $validStatus ='';
+            $validStatus = '';
             $currentDate = Carbon::now();
-            if($request->expDate == '' || $request->expDate > $currentDate){
+            if ($request->expDate == '' || $request->expDate > $currentDate) {
                 $validStatus = 'valid';
             }
             if ($listing) {
@@ -512,9 +511,9 @@ class AgentListingController extends Controller
             }
         } elseif ($step == 3) {
             if ($request->has('managementAgentName')) {
-                $validStatus ='';
+                $validStatus = '';
                 $currentDate = Carbon::now();
-                if($request->expDate == '' || $request->expDate > $currentDate){
+                if ($request->expDate == '' || $request->expDate > $currentDate) {
                     $validStatus = 'valid';
                 }
                 // Update the fields with the request Escrow data
@@ -729,17 +728,28 @@ class AgentListingController extends Controller
     {
         $action = $request->action;
         $listing_id = $request->listing_id;
+        $currentDate = Carbon::now();
         if ($action == "active") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '1']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "Inactive") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '0']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
-        } else if($action == "close"){
+        } else if ($action == "close") {
             Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'close']);
-        return response()->json(array('message' => 'Listing status has been change successfully!'));
-        }
-         else {
+            return response()->json(array('message' => 'Listing status has been change successfully!'));
+        } else if ($action == "valid") {
+            Listing::whereIn('ListingID', $listing_id)
+                ->where('Active', 1)
+                ->where('ExpDate', '>', $currentDate)
+                ->where('Status', '!=', 'valid')
+                ->orWhereNull('ExpDate')
+                ->update(['Status' => 'valid']);
+            return response()->json(array('message' => 'Listing status has been change successfully!'));
+        } else if ($action == "sole exclusive") {
+            Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'sole exclusive']);
+            return response()->json(array('message' => 'Listing status has been change successfully!'));
+        } else {
             Listing::whereIn('ListingID', $listing_id)->delete();
             return response()->json(array('message' => 'Listing delete successfully!'));
         }

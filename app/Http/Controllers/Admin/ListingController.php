@@ -446,8 +446,8 @@ class ListingController extends Controller
         $optionToBuy = $request->has('optionToBuy') ? 1 : 0;
         $soldByEBB = $request->has('soldByEBB') ? 1 : 0;
         $currentDate = Carbon::now();
-        $validStatus ='';
-        if($request->expDate == '' || $request->expDate > $currentDate){
+        $validStatus = '';
+        if ($request->expDate == '' || $request->expDate > $currentDate) {
             $validStatus = 'valid';
         }
         $listing = Listing::where('ListingID', $request->id)->update([
@@ -856,8 +856,8 @@ class ListingController extends Controller
             $updateStep = $currentStep;
         }
         $currentDate = Carbon::now();
-        $validStatus ='';
-        if($request->expDate == '' || $request->expDate > $currentDate){
+        $validStatus = '';
+        if ($request->expDate == '' || $request->expDate > $currentDate) {
             $validStatus = 'valid';
         }
         $listing = Listing::where('ListingID', $id)->update([
@@ -997,17 +997,28 @@ class ListingController extends Controller
     {
         $action = $request->action;
         $listing_id = $request->listing_id;
+        $currentDate = Carbon::now();
         if ($action == "active") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '1']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "Inactive") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '0']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
-        } else if($action == "close"){
+        } else if ($action == "close") {
             Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'close']);
-        return response()->json(array('message' => 'Listing status has been change successfully!'));
-        }
-         else {
+            return response()->json(array('message' => 'Listing status has been change successfully!'));
+        } else if ($action == "valid") {
+            Listing::whereIn('ListingID', $listing_id)
+                ->where('Active', 1)
+                ->where('ExpDate', '>', $currentDate)
+                ->where('Status', '!=', 'valid')
+                ->orWhereNull('ExpDate')
+                ->update(['Status' => 'valid']);
+            return response()->json(array('message' => 'Listing status has been change successfully!'));
+        } else if ($action == "sole exclusive") {
+            Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'sole exclusive']);
+            return response()->json(array('message' => 'Listing status has been change successfully!'));
+        } else {
             Listing::whereIn('ListingID', $listing_id)->delete();
             return response()->json(array('message' => 'Listing delete successfully!'));
         }

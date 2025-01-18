@@ -18,7 +18,7 @@
 
             <div class="container-fluid py-3 border-bottom">
                 <div class="row align-items-center">
-                    <div class="col-12 col-md-6 col-lg-3">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <h4 class="mb-0">Listings</h4>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end add-list-btn">
@@ -28,9 +28,19 @@
                             </button>
                         </a>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2 d-flex justify-content-end action_bt">
-                        <div class="btn-group">
-                            <!-- Checkbox button -->
+                    <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end action_bt">
+                        <select class="form-control" id="change_status">
+                            <option value="">Change Listing Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="valid">Valid</option>
+                            <option value="sole exclusive">Sole-Exclusive</option>
+                            <option value="expired">Expired</option>
+                            <option value="delete">Delete</option>
+                            <option value="close">Close</option>
+                        </select>
+                        <!-- <div class="btn-group">
+                          
                             <div class="btn btn-primary btn-lg pl-4 pr-0 check-button header-btn">
                                 <label class="custom-control custom-checkbox mb-0 d-inline-block">
                                     <input type="checkbox" class="custom-control-input" id="checkAll">
@@ -38,19 +48,19 @@
                                 </label>
                             </div>
 
-                            <!-- Dropdown button -->
+                            
                             <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
 
-                            <!-- Dropdown menu -->
+                           
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item dropdown-item-val" href="delete">Delete</a>
                                 <a class="dropdown-item dropdown-item-val" href="active">Active</a>
                                 <a class="dropdown-item dropdown-item-val" href="Inactive">Inactive</a>
                                 <a class="dropdown-item dropdown-item-val" href="close">Close</a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-12 col-md-6 col-lg-4 col-xl-4" id="list-search">
                         <form method="GET" action="{{ route('agent.all.listing') }}">
@@ -73,8 +83,11 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
+                            <th scope="col" class="checkList"><label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+                                    <input type="checkbox" name="checkListing" value="" class="custom-control-input listing-check" id="checkAll">
+                                    <span class="custom-control-label">&nbsp;</span>
+                                </label></th>
                             <th scope="col">#</th>
-                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Company</th>
                             <th scope="col">Address</th>
@@ -157,12 +170,12 @@
                 $('#checkAll').prop('checked', false);
             }
         });
-        $('.dropdown-item-val').on('click', function(event) {
+        $('#change_status').change(function() {
             // Prevent the default behavior of the link
-            event.preventDefault();
+            // event.preventDefault();
 
             // Get the href value of the clicked item
-            var action_val = $(this).attr('href');
+            var action_val = $(this).val();
 
             // Get the selected listing ids from checkboxes
             let selectedIds = $('.listing-check:checked').map(function() {
@@ -254,6 +267,8 @@
                     icon: 'warning',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#5e0f2f',
+                }).then(() => {
+                    location.reload();
                 });
             }
         });
