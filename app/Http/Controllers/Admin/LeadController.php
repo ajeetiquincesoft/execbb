@@ -205,5 +205,9 @@ class LeadController extends Controller
                 ->with('success', 'Lead deleted successfully.');
       
     }
+    public function bulkAction(Request $request)
+    {
+       
+    }
    
 }
