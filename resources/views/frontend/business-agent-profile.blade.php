@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-8">
                 <div class="profile_content">
-                    <h3>{{$agent->FName}} {{$agent->LName}}</h3>
+                    <h3>{{ucfirst($agent->FName)}} {{ucfirst($agent->LName)}}</h3>
                     <p>{!! $agent->Comments !!}</p>
                 </div>
                 <div class="content_information">
@@ -62,9 +62,9 @@
             @php
             $text = strip_tags($more_agent->Comments);
             $words = explode(' ',$text);
-            $limitedComment = implode(' ', array_slice($words, 0, 15));
+            $limitedComment = implode(' ', array_slice($words, 0, 11));
 
-            if(count($words) > 15) {
+            if(count($words) > 11) {
             $limitedComment .= '...';
             }
             @endphp
@@ -76,7 +76,7 @@
                     <img src="{{asset('assets/images/avatar.png')}}" alt="{{$more_agent->FName}} {{$more_agent->LName}}" class="agent-image">
                     @endif
                     <div class="leading_agent">
-                        <h5 class="mb-1">{{$more_agent->FName}} {{$more_agent->LName}}</h5>
+                        <h5 class="mb-1">{{ucfirst($more_agent->FName)}} {{ucfirst($more_agent->LName)}}</h5>
                         <p class="mb-0">{{$limitedComment}}</p>
                     </div>
                 </div>

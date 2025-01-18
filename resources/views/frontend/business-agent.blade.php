@@ -45,9 +45,9 @@
             @php
             $text = strip_tags($agent->Comments);
             $words = explode(' ',$text);
-            $limitedComment = implode(' ', array_slice($words, 0, 15));
+            $limitedComment = implode(' ', array_slice($words, 0, 11));
 
-            if(count($words) > 15) {
+            if(count($words) > 11) {
             $limitedComment .= '...';
             }
             @endphp
@@ -59,7 +59,7 @@
                     <img src="{{asset('assets/images/avatar.png')}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
                     @endif
                     <div class="leading_agent">
-                        <h5 class="mb-1">{{$agent->FName}} {{$agent->LName}}</h5>
+                        <h5 class="mb-1">{{ucfirst($agent->FName)}} {{ucfirst($agent->LName)}}</h5>
                         <p class="mb-0">{!! $limitedComment !!}</p>
                     </div>
                 </div>
@@ -154,6 +154,7 @@
 
     .agent-info {
         padding: 15px;
+        height: 110px;
     }
 
     .contact_agent {

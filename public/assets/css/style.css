@@ -1153,6 +1153,9 @@ hr.pursuit_hr {
 section.phases-section {
   margin-top: 0px;
 }
+.agent-info {
+  height: 125px !important;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1308,6 +1311,9 @@ hr.pursuit_hr {
 
 /* Tablets (portrait and landscape) */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+  .agent-info {
+    height: 150px !important;
+  }
   .navbar .container {
     max-width: 100%;
   }
@@ -1360,5 +1366,13 @@ hr.pursuit_hr {
 hr.pursuit_hr {
   margin-left: 10px;
   margin-right: 10px;
+}
+}
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+  .agent-info {
+    height: 150px !important;
+}
+a.agent_btn {
+  font-size: 15px !important;
 }
 }
