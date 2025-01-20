@@ -94,6 +94,10 @@
                             <td>{{$lead->AppointmentDate}}</td>
                             <td>{{ $lead_status[$lead->Status] ?? 'N/A' }}</td>
                             <td class="list-btn">
+                                <button class="btn btn-sm" title="Assign" data-bs-toggle="modal" data-bs-target="#assignAgentModal" data-lead-id="{{$lead->LeadID}}" data-agent-id="{{ $lead->AgentID }}">
+                                <i class="fas fa-user-plus"></i>
+                                </button>
+                            
                                 <a href="{{ route('show.lead', $lead->LeadID) }}"><button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
                                     </button></a>
@@ -126,9 +130,68 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="assignAgentModal" tabindex="-1" aria-labelledby="assignAgentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignAgentModalLabel">Assign Agent</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form to select agent -->
+                <form action="{{route('lead.assign')}}" method="POST" id="assign_lead_to_agent">
+                    @csrf
+                    <input type="hidden" name="lead_id" id="lead_id">
+                    <div class="mb-3">
+                        <label for="agent" class="form-label">Select Agent</label>
+                        <select name="agent_id" id="agent" class="form-select">
+                            <option value="">Select an agent</option>
+                            @foreach($agents as $agent)
+                                <option value="{{ $agent->agent_info->AgentID }}">{{ $agent->agent_info->FName }} {{ $agent->agent_info->LName }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Assign</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // JavaScript/jQuery to handle the lead ID dynamically
+    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+        button.addEventListener('click', function () {
+            var leadId = this.getAttribute('data-lead-id'); 
+            var currentAgentId = this.getAttribute('data-agent-id');
+            document.getElementById('lead_id').value = leadId;
+            var selectElement = document.getElementById('agent');
+            if (currentAgentId) {
+                selectElement.value = currentAgentId;
+            } else {
+                selectElement.value = '';
+            }
+        });
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('#assign_lead_to_agent').validate({
+            rules: {
+                appointment: {
+                    required: true
+                }
+            },
+            messages: {
+              
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

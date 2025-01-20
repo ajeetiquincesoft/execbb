@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Listing;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,6 +16,7 @@ class LeadController extends Controller
         $leads = DB::table('leads');
         $categories = DB::table('categories')->pluck('BusinessCategory', 'CategoryID');
         $lead_status = DB::table('lead_status')->pluck('Status', 'LeadStatusID');
+        $agents = User::with('agent_info')->where('role_name', 'agent')->get();
         if ($query) {
             $leads = DB::table('leads')
                 ->leftJoin('categories', 'leads.Category', '=', 'categories.CategoryID')
@@ -32,7 +33,7 @@ class LeadController extends Controller
         }
         $leads = $leads->orderBy('created_at', 'desc')
             ->paginate(10);
-        return view('admin.lead.index', compact('leads', 'categories', 'lead_status'));
+        return view('admin.lead.index', compact('leads', 'categories', 'lead_status','agents'));
     }
     public function create()
     {
@@ -213,5 +214,15 @@ class LeadController extends Controller
                 'Status' => $status_val
             ]);
         return response()->json(array('message' => 'Lead status has been change successfully!'));
+    }
+    public function leadAssign(Request $request){
+        $agent_id = $request->agent_id;
+        $lead_id = $request->lead_id;
+        DB::table('leads')
+            ->where('LeadID', $lead_id)
+            ->update([
+                'AgentID' => $agent_id
+            ]);
+            return redirect()->back()->with('success', 'Agent Assigned successfully');
     }
 }
