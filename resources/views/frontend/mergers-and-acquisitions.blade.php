@@ -29,8 +29,8 @@
                     <p>Each year, EBB assists buyers and sellers with acquiring or selling  businesses for strategic reasons. In some instances, we have been able to match buyers with businesses not originally up for sale.</p>
                     <p>Specifically, we can help you find a business and locate a buyer, then negotiate and close the deal. More importantly, we can help you understand the more complex issues around acquiring or merging a business into your company, such as:</p>
                     <p>- How to Structure the Deal</p>
-                    <p>- Determining <a href="#" style="color: #7F2149; text-decoration: underline;">Market Value</a></p>
-                    <p>- Conducting <a href="#" style="color: #7F2149; text-decoration: underline;">Due Diligence</a> on a Business</p>
+                    <p>- Determining <a href="{{route('business.valuation')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Market Value</a></p>
+                    <p>- Conducting <a href="{{route('duediligence')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Due Diligence</a> on a Business</p>
                     <p>Interested in exploring your M&A options with EBB? We encourage you to  <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">contact us</a> for more information.</p>
                   </div>
             </div>
@@ -60,7 +60,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>10 Questions to Ask</h5>
-                            <p>Considering a business broker? <a href="#" style="color: #7F2149; text-decoration: underline;">Ask the right questions</a>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a>
                             when you interview prospective brokers.</p>
                         </div>
                     </div>

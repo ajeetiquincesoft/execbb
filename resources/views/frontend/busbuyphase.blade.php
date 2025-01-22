@@ -7,7 +7,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Management</a></li>
+                <li class="breadcrumb-item"><a href="#">Tool</a></li>
+                <li class="breadcrumb-item active"><a href="#">Process</a></li>
             </ol>
         </nav>
     </div>
@@ -17,19 +18,24 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Management</h5>
+                <h5 class="main-heading">Process</h5>
+                <h6 class="sub-heading">Phases of Buying A Business</h6>
+                <p class="sub-title">Buying a business is a complex and time consuming process that can be broken down into four main phases.</p>
             </div>
         </div>
-        <div class="row px-3 px-md-5 mt-0 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading">A Results Driven Leader</h3>
-                    <p>Executive Business Brokers' President Larry Bodner established the business in 1985 to provide small to mid-sized business owners with value-added professional services.</p>
-                    <h3 class="section-heading mt-5">Years of  Experience</h3>
-                    <p>Since 1985, Larry has successfully guided sellers and  buyers through transfers of ownership and business valuations. He has represented manufacturing, distribution, retail and private sector clients in sales ranging from $100K to  $5M.</p>
-                    <h3 class="section-heading mt-5">Unique Perspective</h3>
-                    <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a business  valuable, how to present a business to prospective buyers, how to  negotiate terms and how to secure the maximum price for a business.</p>
+                    <h3 class="section-heading">Phase I: Confidentiality Agreement</h3>
+                    <p>Signing this document gives you access to sensitive information regarding the seller and their business. It also protects the seller by ensuring you will keep information disclosed during negotiations confidential.<a href="javascript:void(0);" class="showingAgreement" style="color: #7F2149; text-decoration: underline;"> Example</a></p>
+                    <h3 class="section-heading">Phase 2: Preliminary Negotiations/Letter of Intent</h3>
+                    <p>Both parties negotiate a letter of intent, which is non-binding and forms the basis for the definitive agreement. It outlines the deal structure, the purchase price and form, payment terms and closing contingencies.<a href="javascript:void(0);" class="offerToPurchase" style="color: #7F2149; text-decoration: underline;"> Example</a></p>
+                    <h3 class="section-heading">Phase 3: Due Diligence</h3>
+                    <p>During <a href="{{route('duediligence')}}" class="sellorgive" target="_blank">due diligence</a> - this vitally important phase - you will examine the business background, finance, human resources, tax and legal matters.</p>
+                    <h3 class="section-heading">Phase 4: Negotiation/Definitive Acquisition Agreement</h3>
+                    <p>There are four main sections of the Definitive Acquisition Agreement: purchase price, representations, indemnification and covenants.</p>
+                    <img src="{{ asset('assets/images/logo_adobe.gif') }}" alt="IBBA Logo" class="img-fluid adove-logo">
                 </div>
             </div>
             <!-- Side Panel -->
@@ -37,25 +43,22 @@
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" class="sellorgive" target="_blank">become part of our all-star
-                                    team</a> .</p>
-                        </div>
-
-                    </div>
-                    <div class="boxes-button-section">
-                        <div class="EBB-team-title">
-                            <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
-                                your business with EBB.</p>
-                        </div>
-
-                    </div>
-                    <div class="boxes-button-section">
-                        <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a>
-                                and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" class="sellorgive" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
+                        </div>
+
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>Factors to Consider</h5>
+                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">consider these factors</a>.</p>
+                        </div>
+
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>Business Organizations</h5>
+                            <p>Learn about the different types of <a href="{{route('organization')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">business status</a>.</p>
                         </div>
 
                     </div>
@@ -107,9 +110,13 @@
     .sub-heading {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 40px;
         color: #000;
     }
+    .sub-title {
+    margin-bottom: 40px;
+    font-family: 'Mulish';
+    color: #5D5D5D;
+}
 
     .section-heading {
         font-size: 20px;
@@ -137,12 +144,10 @@
         text-decoration: underline;
     }
 
-    .ibba-logo {
+    .adove-logo {
         margin-top: 25px;
         display: block;
         max-width: 100%;
-        height: 40px;
-        margin: 20px;
     }
 
     .ab_ebb p {
@@ -179,4 +184,18 @@
         padding-left: 16px;
     }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+     $(document).ready(function() {
+        $('.offerToPurchase').on('click', function() {
+            var pdfPath = '/pdfs/Offer_To_Purchase.pdf';
+            window.open(pdfPath, '_blank'); 
+        });
+        $('.showingAgreement').on('click', function() {
+            var pdfPath = '/pdfs/Confidentiality_Showing_Agreement_2005_website.pdf';
+            window.open(pdfPath, '_blank'); 
+        });
+        
+    });
+    </script>
 @endsection

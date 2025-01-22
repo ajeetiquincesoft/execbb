@@ -99,7 +99,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <p><a href="#" style="color: #7F2149; text-decoration: underline;">A Message</a>
+                                <p><a href="{{route('message')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">A Message</a>
                                     from EBB's President Larry Bodner</p>
                             </h5>
                         </div>

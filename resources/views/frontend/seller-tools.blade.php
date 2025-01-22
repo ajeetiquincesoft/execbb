@@ -18,7 +18,7 @@
         <!-- Main Header -->
         <h1>Educated Clients Make Buying Easier</h1>
         <p class="subtext">
-            EBB believes purchases are made easier when clients understand the process. This section identifies some of the issues that you will need to address and the <a href="#">sources of anxiety</a> that the buyer may experience.
+            EBB believes purchases are made easier when clients understand the process. This section identifies some of the issues that you will need to address and the <a href="{{route('anxiety')}}" target="_blank">sources of anxiety</a> that the buyer may experience.
         </p>
         <hr>
         <!-- Cards Section -->
@@ -27,7 +27,7 @@
             <div class="card-custom">
                 <div class="card-title">Preparing For the Sale</div>
                 <div class="card-text">
-                    Before you think about selling your business, <a href="#">make sure you are prepared.</a> There are three phases to the selling process: 1) Getting Ready, 2) Finding Buyers, 3) Negotiating & Closing the Deal.
+                    Before you think about selling your business, <a href="{{route('salesprep')}}" target="_blank">make sure you are prepared.</a> There are three phases to the selling process: 1) Getting Ready, 2) Finding Buyers, 3) Negotiating & Closing the Deal.
                 </div>
             </div>
             <!-- Card 2 -->
@@ -41,7 +41,7 @@
             <div class="card-custom">
                 <div class="card-title">Five Mistakes Sellers Make</div>
                 <div class="card-text">
-                    Watch out! Avoid the <a href="#">five most common mistakes</a> sellers make, which include: 1) Improper/incomplete documentation, 2) dealing with only one buyer, 3) not preparing an exit plan, 4) not knowing the value of your business, and 5) not seeking professional advice.
+                    Watch out! Avoid the <a href="{{route('fivemistakes')}}" target="_blank">five most common mistakes</a> sellers make, which include: 1) Improper/incomplete documentation, 2) dealing with only one buyer, 3) not preparing an exit plan, 4) not knowing the value of your business, and 5) not seeking professional advice.
                 </div>
             </div>
         </div>

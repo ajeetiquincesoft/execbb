@@ -6,8 +6,9 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Management</a></li>
+                <li class="breadcrumb-item"><a href="#">Services </a></li>
+                <li class="breadcrumb-item"><a href="#">Consulting  </a></li>
+                <li class="breadcrumb-item active"><a href="#">Business Valuation</a></li>
             </ol>
         </nav>
     </div>
@@ -17,31 +18,42 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Management</h5>
+                <h5 class="main-heading">Valuation Meth</h5>
             </div>
         </div>
-        <div class="row px-3 px-md-5 mt-0 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 mt-0 mt-md-5">
             <!-- Main Content -->
-            <div class="col-md-8 main-head">
+            <div class="col-md-8 main-head mar_acq">
                 <div class="Content-text">
-                    <h3 class="section-heading">A Results Driven Leader</h3>
-                    <p>Executive Business Brokers' President Larry Bodner established the business in 1985 to provide small to mid-sized business owners with value-added professional services.</p>
-                    <h3 class="section-heading mt-5">Years of  Experience</h3>
-                    <p>Since 1985, Larry has successfully guided sellers and  buyers through transfers of ownership and business valuations. He has represented manufacturing, distribution, retail and private sector clients in sales ranging from $100K to  $5M.</p>
-                    <h3 class="section-heading mt-5">Unique Perspective</h3>
-                    <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a business  valuable, how to present a business to prospective buyers, how to  negotiate terms and how to secure the maximum price for a business.</p>
-                </div>
+                    <h3 class="section-heading">Methods Used for Business Valuation</h3>
+                    <p>Here are several methods for determining the value of a business. Executive Business Brokers uses a multiple of the seller's discretionary cash (SDC) to determine a business' worth in the marketplace.</p>
+                    <h3 class="section-heading">Multiple of Discretionary Cash (SDC)</h3>
+                    <p>This Method uses a multiple of seller's discretionary cash flow.  Retail businesses generally range from 0-2 times the SDC.  Manufacturing, distributing and service businesses range from 0-4 times SDC.  Plus the depreciated value of the fixtures & equipment, wholesale value of the salable inventory and market value of the real estate if included.</p>
+                    <h3 class="section-heading">Tangible Assets (Balance Sheet Method)</h3>
+                    <p>Sometimes used to evaluate a business that is losing money. Value is based on current assets.</p>
+                    <h3 class="section-heading">Cost to Create Approach</h3>
+                    <p>Used when purchasing an existing business. Value is based on estimating the start up costs minus what is missing plus a premium for the time saved.</p>
+                    <h3 class="section-heading">Rule of Thumb Method</h3>
+                    <p>Uses averages to provide a frame of reference for a business’ worth in a particular industry.</p>
+                    <h3 class="section-heading">Book Value</h3>
+                    <p>The least controversial method. Value is based on the business’ assets and liabilities.</p>
+                    <h3 class="section-heading">Multipliers</h3>
+                    <p>Uses an industry average sales figure from recent sales of comparable business. The value of a business is determined by multiplying the sales by the gross sales.</p>
+                    <h3 class="section-heading">Excess Earning Method</h3>
+                    <p>Estimated from an industry average and is similar to the capitalized earnings approach. Here the return on assets is separated from other earnings ("excess" earnings) generated.</p>
+                    <h3 class="section-heading">Capitalized Earning Approach</h3>
+                    <p>Based on the rate of return in earnings that the investor expects.</p>
+                   
+                  </div>
             </div>
             <!-- Side Panel -->
             <div class="col-md-4" style="background-color: #F8F8F8;;">
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" class="sellorgive" target="_blank">become part of our all-star
-                                    team</a> .</p>
+                            <h5>Determining Fair Market Value</h5>
+                            <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">FREE valuation.</a></p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
@@ -49,22 +61,19 @@
                             <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
                                 your business with EBB.</p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a>
-                                and benefit from our full services.</p>
+                            <h5>Align Your Business with Us</h5>
+                            <p>Set up a <a href="{{route('strategic.alliances')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">strategic alliance</a>
+                            with EBB and receive commissions and business.</p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
-                                    from EBB's President Larry Bodner
-                            </h5>
+                            <h5>10 Questions to Ask</h5>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a>
+                            when you interview prospective brokers.</p>
                         </div>
                     </div>
                 </div>
@@ -145,7 +154,7 @@
         margin: 20px;
     }
 
-    .ab_ebb p {
+    p {
         font-size: 14px;
         color: #5D5D5D;
         line-height: 22px;

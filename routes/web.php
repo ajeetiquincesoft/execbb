@@ -44,6 +44,7 @@ use App\Http\Controllers\BuyerCommentController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ListingLikeController;
+use App\Http\Controllers\MortgageCalculatorController;
 
 
 
@@ -73,6 +74,8 @@ Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact.
 Route::post('/contact/submit', [ContactUsController::class, 'sendEmail'])->name('contact.submit');
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
 Route::post('/listing/like', [ListingLikeController::class, 'listingLike'])->name('listing.like');
+Route::get('/calculate-mortgage-form', [MortgageCalculatorController::class, 'showForm'])->name('calculate.mortgage.form');
+Route::post('/calculate-mortgage', [MortgageCalculatorController::class, 'calculateMortgage'])->name('calculate.mortgage');
 Route::get('/buyers', function () {
   $breadcrumbs = [
     ['title' => 'Home', 'url' => url('/')],
@@ -150,6 +153,87 @@ Route::get('/buyer-resource', function () {
 Route::get('/seller-resource', function () {
   return view('frontend.seller_resource');
 })->name('seller.resource');
+Route::get('/busbuyphase', function () {
+  return view('frontend.busbuyphase');
+})->name('busbuyphase');
+Route::get('/considerations', function () {
+  return view('frontend.considerations');
+})->name('considerations');
+Route::get('/open-consider-pdf', function () {
+  return response()->file(public_path('pdfs/w1_what_to_consider.pdf'));
+})->name('open.consider.pdf');
+Route::get('/duediligence', function () {
+  return view('frontend.duediligence');
+})->name('duediligence');
+Route::get('/organization', function () {
+  return view('frontend.organization');
+})->name('organization');
+Route::get('/proprietor', function () {
+  return view('frontend.proprietor');
+})->name('proprietor');
+Route::get('/partnership', function () {
+  return view('frontend.partnership');
+})->name('partnership');
+Route::get('/corp', function () {
+  return view('frontend.corp');
+})->name('corp');
+Route::get('/ccorp', function () {
+  return view('frontend.ccorp');
+})->name('ccorp');
+Route::get('/scorp', function () {
+  return view('frontend.scorp');
+})->name('scorp');
+Route::get('/llccomp', function () {
+  return view('frontend.llccomp');
+})->name('llccomp');
+Route::get('/qsss', function () {
+  return view('frontend.qsss');
+})->name('qsss');
+Route::get('/anxiety', function () {
+  return view('frontend.anxiety');
+})->name('anxiety');
+Route::get('/salesprep', function () {
+  return view('frontend.salesprep');
+})->name('salesprep');
+Route::get('/twelvepoints', function () {
+  return view('frontend.twelvepoints');
+})->name('twelvepoints');
+Route::get('/questions', function () {
+  return view('frontend.questions');
+})->name('questions');
+Route::get('/multimarketing', function () {
+  return view('frontend.multimarketing');
+})->name('multimarketing');
+Route::get('/sellerinfo', function () {
+  return view('frontend.sellerinfo');
+})->name('sellerinfo');
+Route::get('/fivemistakes', function () {
+  return view('frontend.fivemistakes');
+})->name('fivemistakes');
+Route::get('/factsheet', function () {
+  return view('frontend.factsheet');
+})->name('factsheet');
+Route::get('/valuationmeth', function () {
+  return view('frontend.valuationmeth');
+})->name('valuationmeth');
+Route::get('/valuationfactors', function () {
+  return view('frontend.valuationfactors');
+})->name('valuationfactors');
+Route::get('/job-description', function () {
+  return view('frontend.job_description');
+})->name('job_description');
+Route::get('/compensation', function () {
+  return view('frontend.compensation');
+})->name('compensation');
+Route::get('/qualifications', function () {
+  return view('frontend.qualifications');
+})->name('qualifications');
+Route::get('/training', function () {
+  return view('frontend.training');
+})->name('training');
+Route::get('/message', function () {
+  return view('frontend.message');
+})->name('message');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

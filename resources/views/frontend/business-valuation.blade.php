@@ -25,7 +25,7 @@
             <div class="col-md-8 main-head bus_valu">
                 <div class="Content-text">
                     <h3 class="section-heading">How EBB Determines a Business' Worth</h3>
-                    <p>Valuing a business is not an exact science. There is no right way to determine price, as there are many <a href="#" style="color: #7F2149; text-decoration: underline;">methods</a> of doing so. <a href="#" style="color: #7F2149; text-decoration: underline;">Many factors</a> play into value – the economy, management, location, cash flow, lease, etc.</p>
+                    <p>Valuing a business is not an exact science. There is no right way to determine price, as there are many <a href="{{route('valuationmeth')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">methods</a> of doing so. <a href="{{route('valuationfactors')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Many factors</a> play into value – the economy, management, location, cash flow, lease, etc.</p>
                     <p>EBB uses a multiple of the seller’s discretionary cash (SDC) to determine a business’ worth in the marketplace. Because each business has a different model and set of circumstances, we believe the SDC model rewards business with higher profits.</p>
                     <p>While multiples vary from industry to industry, they generally fall into the 1X – 4X the <a href="#" style="color: #7F2149; text-decoration: underline;"> Sellers Discretionary Cash</a> (SDC) plus the depreciated value of the fixtures and equipment and the wholesale value of the saleable inventory.</p>
                     <p><a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask EBB </a>to help you determine the value of your business.</p>
@@ -57,7 +57,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>10 Questions to Ask</h5>
-                            <p>Considering a business broker? <a href="#" style="color: #7F2149; text-decoration: underline;">Ask the right questions</a>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;">Ask the right questions</a>
                             when you interview prospective brokers.</p>
                         </div>
                     </div>

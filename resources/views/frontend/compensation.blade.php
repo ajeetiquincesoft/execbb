@@ -6,8 +6,9 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Join EBB</a></li>
+                <li class="breadcrumb-item"><a href="#">About EBB</a></li>
+                <li class="breadcrumb-item"><a href="#">Join EBB</a></li>
+                <li class="breadcrumb-item active"><a href="#">Compensation</a></li>
             </ol>
         </nav>
     </div>
@@ -17,18 +18,23 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Join EBB</h5>
+                <h5 class="main-heading">Compensation</h5>
             </div>
         </div>
         <div class="row px-3 px-md-5 mt-2 mt-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading-join mb-4">A Career with Promise</h3>
-                    <p class="join_us_p">Business brokerage is a niche industry that offers opportunity and unlimited earning potential. Regardless of the economic environment, people buy and sell businesses for many reasons. In the US, where 20% of the 16M private small businesses are for sale at any one time, there is a huge opportunity for intermediaries.</p>
-                    <p class="join_us_p">Professional business brokers deal with both current and potential business owners. For many, the decision to purchase or sell a business is one of the largest financial decisions they will ever make. The <a href="{{route('job_description')}}" class="sellorgive" target="_blank">role of a business broker</a> is to help turn their hopes and dreams into a reality.</p>
-                    <p class="join_us_p">Executive Business Brokers is looking for individuals who fit the <a href="{{route('qualifications')}}" class="sellorgive" target="_blank">business broker profile</a>. They are honest professionals who work hard, have self-discipline, communicate well with others and possess a willingness to learn. Our <a href="{{route('compensation')}}" class="sellorgive" target="_blank">compensation</a> is competitive with the industry.</p>
-                    <p class="join_us_p">As part of our team, you will benefit from our name recognition and reputation for quality professional service, our <a href="{{route('multimarketing')}}" class="sellorgive" target="_blank">extensive marketing programs</a> and our <a href="{{route('training')}}" class="sellorgive" target="_blank">comprehensive training program</a> that will support your efforts and teach you proven methods designed to ensure your success.</p>
+                    <h3 class="section-heading-join mb-4">Business Brokers are Well Compensated</h3>
+                    <p class="join_us_p">The earning potential for a motivated business broker is unlimited. Individuals who <a href="{{route('qualifications')}}" class="sellorgive" target="_blank">fit the profile</a>, as well as possess strong interpersonal skills and the desire to work hard - can succeed as a business broker.</p>
+                    <p class="join_us_p">Executive Business Brokers (EBB) receives a 10% commission on the total selling price. Our minimum success fee is set at $12,500.00. The listing and selling agents each receive 25% of the total commission
+                    collected as compensation. When the listing agent is also the selling agent, the payout is 50%.</p>
+                    <p class="join_us_p">EBB concentrates on the small to mid-sized segment of the market. These companies are retail, wholesale & distribution, manufacturing, services and franchises. Their annual sales volumes are under $10M and their sale price ranges from $100K to $5M+.</p>
+                    <p class="join_us_p">This is a straight commission opportunity. EBB Business Brokers are independent contractors (1099), who set their own hours, work on their own territories and within the industries they are most comfortable.
+                    Most of our business brokers work only on those transactions that make sense to them and we support their efforts.</p>
+                    <p class="join_us_p">EBB employs the latest technologies to ensure their success. We also provide valuable marketing and administrative support. Our business brokers receive a steady supply of buyer leads from us and have
+                    remote access to our proprietary database of over 20K buyers and 100’s of business listings.</p>
+                    <p class="join_us_p">Generally there is a learning curve and typically a new broker will not begin to see any commissions for a minimum of 90 days. Successful brokers who achieve the goals outlined in EBB's New Agent's Business Plan, designed to help brokers set and reach income objectives, will begin to generate new deals monthly.</p>
                     <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a>.</p>
                 </div>
             </div>
@@ -42,6 +48,7 @@
                                     style="color: #7F2149; text-decoration: underline;" target="_blank">become part of our all-star
                                     team</a> .</p>
                         </div>
+
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
@@ -74,6 +81,14 @@
                             </ul>
                         </div>
 
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                    from EBB's President Larry Bodner
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>

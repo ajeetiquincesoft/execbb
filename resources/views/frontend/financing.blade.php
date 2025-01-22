@@ -63,7 +63,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>10 Questions to Ask</h5>
-                            <p>Considering a business broker? <a href="#" style="color: #7F2149; text-decoration: underline;">Ask the right questions</a>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a>
                             when you interview prospective brokers.</p>
                         </div>
 

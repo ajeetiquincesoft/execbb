@@ -41,7 +41,7 @@
                 <div class="col-lg-6 col-md-12">
                     <h2 class="text-gold fw-bold">Start Your Search Now</h2>
                     <p class="text-muted">
-                        If you are already aware of the <a href="#" target="_blank" class="text-gold">process</a>, you can start your search by:
+                        If you are already aware of the <a href="{{route('busbuyphase')}}" target="_blank" class="text-gold">process</a>, you can start your search by:
                     </p>
                     <ul class="list-unstyled">
                         <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i><a href="{{route('register.with.ebb')}}" class="text-gold" target="_blank"> Registering with EBB</a></li>
@@ -57,7 +57,7 @@
                     <h3 class="fw-bold">Familiarize Yourself with the Buying Process</h3>
                     <p class="text-muted">
                         A large portion of your success will depend largely on how you select a business. There are many important
-                        <a href="#" class="text-gold">factors to consider</a>. Some of the more critical ones include:
+                        <a href="{{route('considerations')}}" class="text-gold" target="_blank">factors to consider</a>. Some of the more critical ones include:
                     </p>
                     <ul class="list-unstyled">
                         <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Knowing why you want to own a business</li>

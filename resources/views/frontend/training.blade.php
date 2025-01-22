@@ -6,8 +6,9 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Join EBB</a></li>
+                <li class="breadcrumb-item"><a href="#">About EBB</a></li>
+                <li class="breadcrumb-item"><a href="#">Join EBB</a></li>
+                <li class="breadcrumb-item active"><a href="#">Training</a></li>
             </ol>
         </nav>
     </div>
@@ -17,18 +18,41 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Join EBB</h5>
+                <h5 class="main-heading">Training</h5>
             </div>
         </div>
-        <div class="row px-3 px-md-5 mt-2 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading-join mb-4">A Career with Promise</h3>
-                    <p class="join_us_p">Business brokerage is a niche industry that offers opportunity and unlimited earning potential. Regardless of the economic environment, people buy and sell businesses for many reasons. In the US, where 20% of the 16M private small businesses are for sale at any one time, there is a huge opportunity for intermediaries.</p>
-                    <p class="join_us_p">Professional business brokers deal with both current and potential business owners. For many, the decision to purchase or sell a business is one of the largest financial decisions they will ever make. The <a href="{{route('job_description')}}" class="sellorgive" target="_blank">role of a business broker</a> is to help turn their hopes and dreams into a reality.</p>
-                    <p class="join_us_p">Executive Business Brokers is looking for individuals who fit the <a href="{{route('qualifications')}}" class="sellorgive" target="_blank">business broker profile</a>. They are honest professionals who work hard, have self-discipline, communicate well with others and possess a willingness to learn. Our <a href="{{route('compensation')}}" class="sellorgive" target="_blank">compensation</a> is competitive with the industry.</p>
-                    <p class="join_us_p">As part of our team, you will benefit from our name recognition and reputation for quality professional service, our <a href="{{route('multimarketing')}}" class="sellorgive" target="_blank">extensive marketing programs</a> and our <a href="{{route('training')}}" class="sellorgive" target="_blank">comprehensive training program</a> that will support your efforts and teach you proven methods designed to ensure your success.</p>
+                    <h3 class="section-heading">Comprehensive Training</h3>
+                    <p>Held over three days at our corporate headquarters, the Executive Business Brokers (EBB) comprehensive training program is designed to equip you with the knowledge, tools and technology you need to become a successful business broker. The topics we cover include:</p>
+                    <h3 class="section-heading">Business Management</h3>
+                    <p>- Setting up and operating effectively</p>
+                    <p>- Setting goals and objectives</p>
+                    <p>- Time management</p>
+                    <p>- Problem solving</p>
+                    <p>- The systems and techniques for successfully managing the sale of a business</p>
+                    <p>- Information management</p>
+                    <p>- Office policies and procedures</p>
+                    <p>- Remotely accessing and using EBB’s proprietary database</p>
+                    <h3 class="section-heading">Deal Structuring</h3>
+                    <p>- Structuring a deal</p>
+                    <p>- Understanding and using the appropriate forms</p>
+                    <p>- Preparation of Offer to Purchase Agreements</p>
+                    <p>- Understanding lease agreements</p>
+                    <p>- Financing solutions</p>
+                    <h3 class="section-heading">Putting a Business Up for Sale</h3>
+                    <p>- Appraising the fair market value of a business</p>
+                    <p>- Establishing a fair price and terms</p>
+                    <p>- Recasting financial statements</p>
+                    <p>- Applicable accounting principals</p>
+                    <h3 class="section-heading">Selling Businesses</h3>
+                    <p>- Marketing a business for sale</p>
+                    <p>- Listing techniques and relevant terminology</p>
+                    <p>- Finding buyers and sellers</p>
+                    <p>- Separating the prospects from the suspects</p>
+                    <p>- Recognizing buyer and seller motivations</p>
                     <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a>.</p>
                 </div>
             </div>
@@ -38,9 +62,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}"
-                                    style="color: #7F2149; text-decoration: underline;" target="_blank">become part of our all-star
-                                    team</a> .</p>
+                            <p>EBB can <a href="#" style="color: #7F2149; text-decoration: underline;" >Send us</a> your resumé.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
@@ -74,6 +96,14 @@
                             </ul>
                         </div>
 
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                    from EBB's President Larry Bodner
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,14 +145,19 @@
     .sub-heading {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 40px;
         color: #000;
     }
 
-    .section-heading-join {
-        font-size: 30px;
+    .sub-title {
+        margin-bottom: 40px;
+        font-family: 'Mulish';
+        color: #5D5D5D;
+    }
+
+    .section-heading {
+        font-size: 20px;
         font-weight: bold;
-        color: #806132;
+        color: #000;
         font-family: 'Urbanist';
     }
 
@@ -145,20 +180,17 @@
         text-decoration: underline;
     }
 
-    .ibba-logo {
+    .adove-logo {
         margin-top: 25px;
         display: block;
         max-width: 100%;
-        height: 40px;
-        margin: 20px;
     }
 
     .ab_ebb p {
-    font-size: 14px;
-    color: #5D5D5D;
-    line-height: 22px;
-    padding: 0px 15px;
-}
+        font-size: 14px;
+        color: #5D5D5D;
+        line-height: 22px;
+    }
 
     .Content-text {
         margin-right: 80px;
@@ -187,21 +219,5 @@
         padding-top: 16px;
         padding-left: 16px;
     }
-
-    .Content-text span {
-        font-weight: bold;
-    }
-    .text-purple {
-    color: #7F2149;
-    margin-right: 10px;
-}
-.EBB-team-title ul li {
-    margin: 20px 0px;
-    font-family: 'Mulish';
-    font-size: 14px;
-}
-p.join_us_p {
-    font-family: 'Urbanist' !important;
-}
 </style>
 @endsection

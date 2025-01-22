@@ -85,13 +85,13 @@
                         <div class="EBB-team-title">
                             <h5>Phases of Buying a Business</h5>
                         </div>
-                        <p>Before you start familiarize yourself with the <a href="#" style="color: #7F2149; text-decoration: underline;">phases.</a></p>
+                        <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">phases.</a></p>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Factors to Consider</h5>
                         </div>
-                        <p>When buying a business, <a href="#" style="color: #7F2149; text-decoration: underline;">consider these factors</a>.</p>
+                        <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">consider these factors</a>.</p>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">

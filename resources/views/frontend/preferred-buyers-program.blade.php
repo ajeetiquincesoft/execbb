@@ -29,7 +29,7 @@
                     <h3 class="section-heading mt-5">Matchmaker</h3>
                     <p>When you register, you are asked to identify key factors, such as location, business type, price, and down payment. Our proprietary software generates a list of businesses that matches your criteria.</p>
                     <h3 class="section-heading mt-5">Access Detailed Information Online</h3>
-                    <p>Once you have signed a confidentiality agreement, you will have 24/7 access to <a href="#" class="sellorgive">business profiles</a>, which includes the business’ name, its address, photographs and financial information</p>
+                    <p>Once you have signed a confidentiality agreement, you will have 24/7 access to <a href="javascript:void(0);" class="sellorgive factSheet">business profiles</a>, which includes the business’ name, its address, photographs and financial information</p>
                     <h3 class="section-heading mt-5">Receive Information First</h3>
                     <p>Instead of checking with us, you will automatically receive monthly reports and new <a href="{{route('business.listings')}}" class="sellorgive" target="_blank">business listings</a>, changes and updates as they occur via E-mail.</p>
                     <h3 class="section-heading mt-5">Your Registration Fee is Refundable</h3>
@@ -45,7 +45,7 @@
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5><p><a href="#" style="color: #7F2149; text-decoration: underline;">A Message</a>
+                            <h5><p><a href="{{route('message')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">A Message</a>
                               from EBB's President Larry Bodner</p></h5>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="boxes-button-section">
                       <div class="EBB-team-title">
-                          <p>When buying a business,<a href="#" style="color: #7F2149; text-decoration: underline;"> consider these factors.</a></p>
+                          <p>When buying a business,<a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank"> consider these factors.</a></p>
                       </div>
                   </div>
                 </div>
@@ -181,4 +181,13 @@
         padding-left: 16px;
     }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+     $(document).ready(function() {
+        $('.factSheet').on('click', function() {
+            window.open('{{ route("factsheet") }}', '_blank');
+        });
+        
+    });
+    </script>
 @endsection

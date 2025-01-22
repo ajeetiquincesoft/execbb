@@ -6,8 +6,8 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Management</a></li>
+                <li class="breadcrumb-item"><a href="#">Sellers </a></li>
+                <li class="breadcrumb-item active"><a href="#">Seller Information</a></li>
             </ol>
         </nav>
     </div>
@@ -17,19 +17,27 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Management</h5>
+                <h5 class="main-heading">Seller Information</h5>
             </div>
         </div>
-        <div class="row px-3 px-md-5 mt-0 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading">A Results Driven Leader</h3>
-                    <p>Executive Business Brokers' President Larry Bodner established the business in 1985 to provide small to mid-sized business owners with value-added professional services.</p>
-                    <h3 class="section-heading mt-5">Years of  Experience</h3>
-                    <p>Since 1985, Larry has successfully guided sellers and  buyers through transfers of ownership and business valuations. He has represented manufacturing, distribution, retail and private sector clients in sales ranging from $100K to  $5M.</p>
-                    <h3 class="section-heading mt-5">Unique Perspective</h3>
-                    <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a business  valuable, how to present a business to prospective buyers, how to  negotiate terms and how to secure the maximum price for a business.</p>
+                    <h3 class="section-heading">Pertinent Business Information in the Listing</h3>
+                    <p>EBB’s sales materials are based on this type of information, which is provided to us by the seller:</p>
+                    <p>- Historical federal tax returns, financial statements and balance sheets going back 3 years</p>
+                    <p>- Year-to-date financial statement and balance sheet</p>
+                    <p>- Detailed list of fixtures and equipment included in the sale</p>
+                    <p>- Detailed list of inventory included in the sale</p>
+                    <p>- Site survey and appraisal for the real estate, if available and applicable</p>
+                    <p>- Photographs of the facility</p>
+                    <p>- Breakdown of sales by customer & products/services</p>
+                    <p>- Breakdown of accounts receivable by customer, amount and by aging</p>
+                    <p>- Detailed list of contract obligations the buyer may have to assume</p>
+                    <p>- Copy of premises lease</p>
+                    <p>Much of the information in your business listing – the financial details, specifics on revenue and inventory - is sensitive in nature. That is why we only share this type of information with qualified candidates who have signed confidentiality agreements.</p>
+
                 </div>
             </div>
             <!-- Side Panel -->
@@ -37,34 +45,25 @@
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" class="sellorgive" target="_blank">become part of our all-star
-                                    team</a> .</p>
+                            <h5>Tips For Selling Your Business</h5>
+                            <ul>
+                                <li>Put the Books in Order</li>
+                                <li>Determine the Value of the Business</li>
+                                <li>Continue to Manage the Business While Selling It</li>
+                                <li>Negotiate Effectively by Calling in an Expert</li>
+                            </ul>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
-                                your business with EBB.</p>
+                            <h5>Ask the Experts to Sell Your Business</h5>
+                            <p>EBB can <a href="{{route('services')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">guide you through the process</a> from business valuations to locating buyers.</p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a>
-                                and benefit from our full services.</p>
-                        </div>
-
-                    </div>
-                    <div class="boxes-button-section">
-                        <div class="EBB-team-title">
-                            <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
-                                    from EBB's President Larry Bodner
-                            </h5>
+                            <h5>10 Questions to Ask</h5>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a> when you interview prospective brokers.</p>
                         </div>
                     </div>
                 </div>
@@ -107,8 +106,13 @@
     .sub-heading {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 40px;
         color: #000;
+    }
+
+    .sub-title {
+        margin-bottom: 40px;
+        font-family: 'Mulish';
+        color: #5D5D5D;
     }
 
     .section-heading {
@@ -137,12 +141,10 @@
         text-decoration: underline;
     }
 
-    .ibba-logo {
+    .adove-logo {
         margin-top: 25px;
         display: block;
         max-width: 100%;
-        height: 40px;
-        margin: 20px;
     }
 
     .ab_ebb p {

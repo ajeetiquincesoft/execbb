@@ -6,8 +6,9 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Management</a></li>
+                <li class="breadcrumb-item"><a href="#">Buyers</a></li>
+                <li class="breadcrumb-item"><a href="#">Tools</a></li>
+                <li class="breadcrumb-item active"><a href="#">Business Organizations</a></li>
             </ol>
         </nav>
     </div>
@@ -17,19 +18,25 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Management</h5>
+                <h5 class="main-heading">Limited Liability Company</h5>
             </div>
         </div>
-        <div class="row px-3 px-md-5 mt-0 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading">A Results Driven Leader</h3>
-                    <p>Executive Business Brokers' President Larry Bodner established the business in 1985 to provide small to mid-sized business owners with value-added professional services.</p>
-                    <h3 class="section-heading mt-5">Years of  Experience</h3>
-                    <p>Since 1985, Larry has successfully guided sellers and  buyers through transfers of ownership and business valuations. He has represented manufacturing, distribution, retail and private sector clients in sales ranging from $100K to  $5M.</p>
-                    <h3 class="section-heading mt-5">Unique Perspective</h3>
-                    <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a business  valuable, how to present a business to prospective buyers, how to  negotiate terms and how to secure the maximum price for a business.</p>
+                    <h3 class="section-heading">Limited Liability Company</h3>
+                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" target="_blank">New Jersey’s Web site</a>.
+                        Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
+                    <p>The NJ Limited Liability Company (LLC) Act, N.J.S.A. 42:2b-1, provides for the establishment of LLCs in NJ. To form a LLC a Certificate of Formation is filed with the <a href="https://www.nj.gov/treasury/revenue/" style="color: #7F2149; text-decoration: underline;" target="_blank">Division of Revenue</a>. It should include:</p>
+                    <p>- LLC’s name, the registered agent’s name and address, and the
+                        registered office address.</p>
+                    <p>- Latest date of dissolution, if applicable.</p>
+                    <p>- A statement that the LLC has 1+ members, and may stipulate that
+                        the entity will be formed at any date/time after filing the certificate
+                        of formation.</p>
+                    <p>LLCs are a separate legal entity and can continue until cancellation of the LLC's certificate of formation. Foreign LLCs must register with the Division of Revenue before conducting business in NJ.</p>
+                    <p>Typically LLCs are governed by an operating or other written agreement that sets forth details relating to membership, including relative rights, powers, and duties (e.g., voting). It may also indicate the LLC is headed by a manager and may even provide for classes/groups of members in the manner established in the operating agreement.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -37,34 +44,26 @@
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" class="sellorgive" target="_blank">become part of our all-star
-                                    team</a> .</p>
-                        </div>
-
-                    </div>
-                    <div class="boxes-button-section">
-                        <div class="EBB-team-title">
-                            <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
-                                your business with EBB.</p>
-                        </div>
-
-                    </div>
-                    <div class="boxes-button-section">
-                        <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a>
-                                and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
-                                    from EBB's President Larry Bodner
-                            </h5>
+                            <h5>Phases of Buying a Business</h5>
+                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">phases</a>.</p>
+                        </div>
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>Factors to Consider</h5>
+                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">consider these factors</a>.</p>
+                        </div>
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>Secure Financing Through EBB</h5>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists</a>.</p>
                         </div>
                     </div>
                 </div>
@@ -107,8 +106,13 @@
     .sub-heading {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 40px;
         color: #000;
+    }
+
+    .sub-title {
+        margin-bottom: 40px;
+        font-family: 'Mulish';
+        color: #5D5D5D;
     }
 
     .section-heading {
@@ -137,12 +141,10 @@
         text-decoration: underline;
     }
 
-    .ibba-logo {
+    .adove-logo {
         margin-top: 25px;
         display: block;
         max-width: 100%;
-        height: 40px;
-        margin: 20px;
     }
 
     .ab_ebb p {

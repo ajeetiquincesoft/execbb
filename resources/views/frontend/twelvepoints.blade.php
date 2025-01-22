@@ -6,8 +6,8 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Management</a></li>
+                <li class="breadcrumb-item"><a href="#">Sellers </a></li>
+                <li class="breadcrumb-item active"><a href="#">Resources</a></li>
             </ol>
         </nav>
     </div>
@@ -17,19 +17,27 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Management</h5>
+                <h5 class="main-heading">12 Point Process</h5>
             </div>
         </div>
-        <div class="row px-3 px-md-5 mt-0 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading">A Results Driven Leader</h3>
-                    <p>Executive Business Brokers' President Larry Bodner established the business in 1985 to provide small to mid-sized business owners with value-added professional services.</p>
-                    <h3 class="section-heading mt-5">Years of  Experience</h3>
-                    <p>Since 1985, Larry has successfully guided sellers and  buyers through transfers of ownership and business valuations. He has represented manufacturing, distribution, retail and private sector clients in sales ranging from $100K to  $5M.</p>
-                    <h3 class="section-heading mt-5">Unique Perspective</h3>
-                    <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a business  valuable, how to present a business to prospective buyers, how to  negotiate terms and how to secure the maximum price for a business.</p>
+                    <h3 class="section-heading">Executive Business Brokers' 12 Point Process</h3>
+                    <p>1. Establish a <a href="{{route('business.valuation')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">fair and accurate selling price</a> through hands-on
+                    assessment.</p>
+                    <p>2. Offer advice on the attractiveness and value of the business.</p>
+                    <p>3. Determine the time frame for selling the business.</p>
+                    <p>4. Devise strategies and tactics to sell the business in the shortest time</p>
+                    <p>5. Enter co-brokerage agreements to enhance the sale of the business.</p>
+                    <p>6. Expose the business to potential buyers daily through proven <a href="{{route('multimarketing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">media sources</a> – including the Internet.</p>
+                    <p>7. Screen and pre-qualify buyers.</p>
+                    <p>8. Provide reports on the status of the process.</p>
+                    <p>9. Provide owners with feedback on their business from prospective buyers.</p>
+                    <p>10. Negotiate on behalf of the seller and assist the buyer in coming to a purchase decision.</p>
+                    <p>11. Assist the buyer in arranging <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">financing.</a></p>
+                    <p>12. Expedite the process by assisting the accountants, attorneys and landlords.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -37,36 +45,29 @@
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" class="sellorgive" target="_blank">become part of our all-star
-                                    team</a> .</p>
-                        </div>
-
-                    </div>
-                    <div class="boxes-button-section">
-                        <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
-                                your business with EBB.</p>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a> your business with EBB..</p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a>
-                                and benefit from our full services.</p>
+                            <h5>10 Questions to Ask</h5>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a> when you interview prospective brokers.</p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
-                                    from EBB's President Larry Bodner
-                            </h5>
+                            <h5>Tips For Selling Your Business</h5>
+                            <p><ul>
+                                <li>Put the Books in Order</li>
+                                <li>Determine the Value of the Business</li>
+                                <li>Continue to Manage the Business While Selling It</li>
+                                <li>Negotiate Effectively by Calling in an Expert</li>
+                            </ul>
+                        </p>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -107,8 +108,13 @@
     .sub-heading {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 40px;
         color: #000;
+    }
+
+    .sub-title {
+        margin-bottom: 40px;
+        font-family: 'Mulish';
+        color: #5D5D5D;
     }
 
     .section-heading {
@@ -137,12 +143,10 @@
         text-decoration: underline;
     }
 
-    .ibba-logo {
+    .adove-logo {
         margin-top: 25px;
         display: block;
         max-width: 100%;
-        height: 40px;
-        margin: 20px;
     }
 
     .ab_ebb p {

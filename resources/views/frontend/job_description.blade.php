@@ -6,8 +6,9 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Join EBB</a></li>
+                <li class="breadcrumb-item"><a href="#">About EBB</a></li>
+                <li class="breadcrumb-item"><a href="#">Join EBB</a></li>
+                <li class="breadcrumb-item active"><a href="#">Job Description</a></li>
             </ol>
         </nav>
     </div>
@@ -17,19 +18,18 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Join EBB</h5>
+                <h5 class="main-heading">Job Description</h5>
             </div>
         </div>
         <div class="row px-3 px-md-5 mt-2 mt-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading-join mb-4">A Career with Promise</h3>
-                    <p class="join_us_p">Business brokerage is a niche industry that offers opportunity and unlimited earning potential. Regardless of the economic environment, people buy and sell businesses for many reasons. In the US, where 20% of the 16M private small businesses are for sale at any one time, there is a huge opportunity for intermediaries.</p>
-                    <p class="join_us_p">Professional business brokers deal with both current and potential business owners. For many, the decision to purchase or sell a business is one of the largest financial decisions they will ever make. The <a href="{{route('job_description')}}" class="sellorgive" target="_blank">role of a business broker</a> is to help turn their hopes and dreams into a reality.</p>
-                    <p class="join_us_p">Executive Business Brokers is looking for individuals who fit the <a href="{{route('qualifications')}}" class="sellorgive" target="_blank">business broker profile</a>. They are honest professionals who work hard, have self-discipline, communicate well with others and possess a willingness to learn. Our <a href="{{route('compensation')}}" class="sellorgive" target="_blank">compensation</a> is competitive with the industry.</p>
-                    <p class="join_us_p">As part of our team, you will benefit from our name recognition and reputation for quality professional service, our <a href="{{route('multimarketing')}}" class="sellorgive" target="_blank">extensive marketing programs</a> and our <a href="{{route('training')}}" class="sellorgive" target="_blank">comprehensive training program</a> that will support your efforts and teach you proven methods designed to ensure your success.</p>
-                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a>.</p>
+                    <h3 class="section-heading-join mb-4">Conduits For Change</h3>
+                    <p class="join_us_p">The business broker comes into contact with both buyers and sellers. Each has their own reason for buying or selling a business. A buyer’s motivation may be financial freedom, flexibility or empowerment, while a seller could be retiring, have fallen ill or experienced a breakup in their marriage or their business partnership.</p>
+                    <p class="join_us_p"><a href="https://www.finetimepieces.net/" class="sellorgive" target="_blank">replica watches</a> It is the role of the business broker to help these individuals experience a smooth transfer of ownership. As an intermediary, they identify the businesses for sale in a marketing area and enter into listing agreements with sellers. In addition, business brokers help buyers find the businesses that meet their requirements, then help them make an informed decision as to which business is right for them.</p>
+                    <p class="join_us_p">Bringing buyers and sellers together can be very rewarding. It also pays well! Business brokers work with the business owner, accountants, attorneys, landlords and bankers. For this service, a <a href="{{route('compensation')}}" class="sellorgive" target="_blank">broker’s fee</a> is paid by the seller of the business upon closing on the transaction.</p>
+                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, <a href="https://www.finetimepieces.net/breitling.html" class="sellorgive" target="_blank">Breitling Replica Watches</a> we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a>.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -42,6 +42,7 @@
                                     style="color: #7F2149; text-decoration: underline;" target="_blank">become part of our all-star
                                     team</a> .</p>
                         </div>
+
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
@@ -74,6 +75,14 @@
                             </ul>
                         </div>
 
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                    from EBB's President Larry Bodner
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -6,8 +6,9 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active"><a href="#">Management</a></li>
+                <li class="breadcrumb-item"><a href="#">Services</a></li>
+                <li class="breadcrumb-item"><a href="#">Consulting </a></li>
+                <li class="breadcrumb-item active"><a href="#">Due Diligence</a></li>
             </ol>
         </nav>
     </div>
@@ -17,19 +18,20 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Management</h5>
+                <h5 class="main-heading">Due Diligence</h5>
             </div>
         </div>
-        <div class="row px-3 px-md-5 mt-0 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading">A Results Driven Leader</h3>
-                    <p>Executive Business Brokers' President Larry Bodner established the business in 1985 to provide small to mid-sized business owners with value-added professional services.</p>
-                    <h3 class="section-heading mt-5">Years of  Experience</h3>
-                    <p>Since 1985, Larry has successfully guided sellers and  buyers through transfers of ownership and business valuations. He has represented manufacturing, distribution, retail and private sector clients in sales ranging from $100K to  $5M.</p>
-                    <h3 class="section-heading mt-5">Unique Perspective</h3>
-                    <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a business  valuable, how to present a business to prospective buyers, how to  negotiate terms and how to secure the maximum price for a business.</p>
+                    <h3 class="section-heading">A Crucial Step</h3>
+                    <p>This important step is the close examination of public and proprietary information related to the assets and liabilities of the business being purchased. Due diligence covers background, finance, human resources, tax and legal matters.</p>
+                    <p>For a buyer, due diligence is vitally important in helping to:</p>
+                    <p>- Confirm the Accuracy of the Sellers Representations</p>
+                    <p>- Identify Potential Business Conflicts</p>
+                    <p>- Determine the Best Method to Integrate the Business into Another Business</p>
+                    <p><a href="javascript:void(0);" class="checkList" style="color: #7F2149; text-decoration: underline;">Due Diligence Check List</a></p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -37,34 +39,26 @@
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" class="sellorgive" target="_blank">become part of our all-star
-                                    team</a> .</p>
+                            <h5>Determining Fair Market Value</h5>
+                            <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">FREE valuation</a>.</p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
-                                your business with EBB.</p>
+                            <p>List <a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">your business with EBB.</a></p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a>
-                                and benefit from our full services.</p>
+                            <h5>Align Your Business with Us</h5>
+                            <p>Set up a <a href="{{route('strategic.alliances')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">strategic alliance</a> with EBB and receive commissions and business.</p>
                         </div>
-
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
-                                    from EBB's President Larry Bodner
-                            </h5>
+                            <h5>10 Questions to Ask</h5>
+                            <p>Considering a business broker? <a href="#" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a> when you interview prospective brokers.</p>
                         </div>
                     </div>
                 </div>
@@ -107,9 +101,13 @@
     .sub-heading {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 40px;
         color: #000;
     }
+    .sub-title {
+    margin-bottom: 40px;
+    font-family: 'Mulish';
+    color: #5D5D5D;
+}
 
     .section-heading {
         font-size: 20px;
@@ -137,12 +135,10 @@
         text-decoration: underline;
     }
 
-    .ibba-logo {
+    .adove-logo {
         margin-top: 25px;
         display: block;
         max-width: 100%;
-        height: 40px;
-        margin: 20px;
     }
 
     .ab_ebb p {
@@ -178,5 +174,15 @@
         padding-top: 16px;
         padding-left: 16px;
     }
-</style>
+</style> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+     $(document).ready(function() {
+        $('.checkList').on('click', function() {
+            var pdfPath = '/pdfs/W2_Items_Due_Diligence_R.pdf';
+            window.open(pdfPath, '_blank'); 
+        });
+        
+    });
+    </script>
 @endsection

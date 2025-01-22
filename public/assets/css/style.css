@@ -879,7 +879,11 @@ a.btn.btn.view_all_services {
 .pagination li a {
   font-weight: bold;
 }
-
+.EBB-team-title ul li {
+  font-size: 14px;
+  line-height: 22px;
+  color: #5D5D5D;
+}
 /* Responsive Design - Adjust for smaller screens */
 @media (max-width: 767px) {
   .pagination a {
