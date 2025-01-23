@@ -6,8 +6,7 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Sellers </a></li>
-                <li class="breadcrumb-item"><a href="#">Sellers </a></li>
+                <li class="breadcrumb-item"><a href="{{route('seller')}}">Sellers </a></li>
                 <li class="breadcrumb-item active"><a href="#">Multimarketing</a></li>
             </ol>
         </nav>

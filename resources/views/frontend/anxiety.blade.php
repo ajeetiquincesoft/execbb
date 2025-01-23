@@ -6,8 +6,8 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Buyers</a></li>
-                <li class="breadcrumb-item"><a href="#">Tools</a></li>
+                <li class="breadcrumb-item"><a href="{{route('ebb.buyers')}}">Buyers</a></li>
+                <li class="breadcrumb-item"><a href="{{route('buyer.tools')}}">Tools</a></li>
                 <li class="breadcrumb-item active"><a href="#">Anxiety</a></li>
             </ol>
         </nav>

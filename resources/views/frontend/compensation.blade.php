@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">About EBB</a></li>
-                <li class="breadcrumb-item"><a href="#">Join EBB</a></li>
+                <li class="breadcrumb-item"><a href="{{route('join.ebb')}}">Join EBB</a></li>
                 <li class="breadcrumb-item active"><a href="#">Compensation</a></li>
             </ol>
         </nav>
