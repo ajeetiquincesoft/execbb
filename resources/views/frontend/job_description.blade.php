@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 mt-2 mt-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text question">
+                <div class="Content-text">
                     <h3 class="section-heading-join mb-4">Conduits For Change</h3>
                     <p class="join_us_p">The business broker comes into contact with both buyers and sellers. Each has their own reason for buying or selling a business. A buyer’s motivation may be financial freedom, flexibility or empowerment, while a seller could be retiring, have fallen ill or experienced a breakup in their marriage or their business partnership.</p>
                     <p class="join_us_p"><a href="https://www.finetimepieces.net/" class="sellorgive" >replica watches</a> It is the role of the business broker to help these individuals experience a smooth transfer of ownership. As an intermediary, they identify the businesses for sale in a marketing area and enter into listing agreements with sellers. In addition, business brokers help buyers find the businesses that meet their requirements, then help them make an informed decision as to which business is right for them.</p>
