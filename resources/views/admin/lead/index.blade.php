@@ -65,7 +65,7 @@
                                     <input type="checkbox" name="checkListing" value="" class="custom-control-input" id="checkAll">
                                     <span class="custom-control-label">&nbsp;</span>
                                 </label></th>
-                            <th scope="col">Lead ID</th>
+                            <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Category</th>
                             <th scope="col">Bus. Name</th>
@@ -95,7 +95,7 @@
                             <td>{{ $lead_status[$lead->Status] ?? 'N/A' }}</td>
                             <td class="list-btn">
                                 <button class="btn btn-sm" title="Assign" data-bs-toggle="modal" data-bs-target="#assignAgentModal" data-lead-id="{{$lead->LeadID}}" data-agent-id="{{ $lead->AgentID }}">
-                                <i class="fas fa-user-plus"></i>
+                                <i class="fas fa-user-plus" style="color: #6c757d;"></i>
                                 </button>
                             
                                 <a href="{{ route('show.lead', $lead->LeadID) }}"><button class="btn btn-sm" title="View">
