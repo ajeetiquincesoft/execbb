@@ -33,8 +33,8 @@
                             <h3 class="card-title-color">Sole & Exclusive Right to Sell</h3>
                             <p class="card-text">Executive Business Brokers (EBB) retains sole and exclusive rights to sell your business.</p>
                             <div class="btn-color">
-                                <a href="#" class="btn reg">Register</a>
-                                <a href="#" class="btn reg">View Agreement</a>
+                                <a href="{{route('register.ebb.buyer')}}" class="btn reg">Register</a>
+                                <a href="javascript:void(0);" class="btn reg sole_exclusive">View Agreement</a>
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -56,8 +56,8 @@
                             <h3 class="card-title-color">Agency Exclusive Agreement</h3>
                             <p class="card-text">EBB is the exclusive brokerage agency, but the seller retains the flexibility of trying to sell the business on his/her own while gaining valuable exposure to our buyers. EBB’s fee is paid only if you decide to accept an offer from one of our buyers. If you find your own buyer there is no commission due to EBB.</p>
                             <div class="btn-color">
-                                <a href="#" class="btn reg">Register</a>
-                                <a href="#" class="btn reg">View Agreement</a>
+                                <a href="{{route('register.ebb.buyer')}}" class="btn reg">Register</a>
+                                <a href="javascript:void(0);" class="btn reg agency_exclusive">View Agreement</a>
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -79,8 +79,8 @@
                             <h3 class="card-title-color">Open Listing Agreement</h3>
                             <p class="card-text">The seller can hire as many Brokers as he/she wishes and also reserve the right to sell the business on his/her own. The commission is paid only to the Broker that initiated the sale.</p>
                             <div class="btn-color">
-                                <a href="#" class="btn reg">Register</a>
-                                <a href="#" class="btn reg">View Agreement</a>
+                                <a href="{{route('register.ebb.buyer')}}" class="btn reg">Register</a>
+                                <a href="javascript:void(0);" class="btn reg open_listing">View Agreement</a>
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -183,4 +183,22 @@
         padding-top: 20px;
     }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+     $(document).ready(function() {
+        $('.sole_exclusive').on('click', function() {
+            var pdfPath = '/pdfs/Sole_and_Exclusive_Right_to_Sell_2005.pdf';
+            window.open(pdfPath, '_blank'); 
+        });
+        $('.agency_exclusive').on('click', function() {
+            var pdfPath = '/pdfs/Agency_Exclusive_Listing_Agreement_website_2005.pdf';
+            window.open(pdfPath, '_blank'); 
+        });
+        $('.open_listing').on('click', function() {
+            var pdfPath = '/pdfs/Open_Listing_Agreement_2005.pdf';
+            window.open(pdfPath, '_blank'); 
+        });
+        
+    });
+    </script>
 @endsection
