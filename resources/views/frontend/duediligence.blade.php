@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">A Crucial Step</h3>
                     <p>This important step is the close examination of public and proprietary information related to the assets and liabilities of the business being purchased. Due diligence covers background, finance, human resources, tax and legal matters.</p>
                     <p>For a buyer, due diligence is vitally important in helping to:</p>
