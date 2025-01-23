@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">Sources of Anxiety and Additional Expense</h3>
                     <p>It is important for you, the buyer, to be aware of the issues that will cause great angst and sometimes additional expense when you go to buy a business.</p>
                     <p>Even after the tentative agreement has been made, there are several issues that could cause the deal to fall apart. Here are some of those problems and suggestions on how to avoid them.</p>

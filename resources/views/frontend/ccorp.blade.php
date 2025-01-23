@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">C Corporation</h3>
                     <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" >New Jersey’s Web site</a>.
                         Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
