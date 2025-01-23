@@ -29,7 +29,7 @@
                     <p>This information came from the <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" >State of New Jersey’s Web site.</a> Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
 
                     <p>There are three most commonly used business organizations: Sole Proprietorship, Partnership and Corporation. Here are the advantages and disadvantages of each.</p>
-                    <div class="business_table">
+                    <div class="business_table table-responsive">
                         <table style="width:100%">
                             <tr>
                                 <th></th>
