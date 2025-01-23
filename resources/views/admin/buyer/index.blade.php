@@ -70,6 +70,7 @@
                             <th scope="col">Address</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Act/Ina</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -87,6 +88,12 @@
                             <td>{{ $buyer->Address1}}</td>
                             <td>{{ $buyer->HomePhone}}</td>
                             <td>{{ $buyer->Email}}</td>
+                            <td>@if($buyer->Active == 1)
+                                <span class="badge badge-success">Active</span>
+                                @else
+                                <span class="badge badge-danger">Inactive</span>
+                                @endif
+                            </td>
                             <td class="list-btn">
                                 <a href="{{ route('show.buyer', $buyer->BuyerID) }}">
                                     <button class="btn btn-sm" title="View">
