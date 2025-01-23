@@ -161,7 +161,6 @@
     }
 
     .Content-text {
-        margin-right: 80px;
         font-family: 'Mulish', sans-serif;
         color: #5D5D5D;
     }
