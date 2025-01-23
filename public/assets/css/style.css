@@ -172,17 +172,18 @@ h2 {
 }
 
 .footer ul li a {
-  color: #bbb;
+  color: #D9D9D9;
   text-decoration: none;
 }
 
 .footer ul li a:hover {
-  color: white;
+  color: #D9D9D9;
 }
 
 .footer p {
   margin: 0;
   line-height: 1.8;
+  color: #D9D9D9;
 }
 
 .footer-logo {
