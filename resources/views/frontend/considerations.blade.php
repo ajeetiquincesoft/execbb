@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">Factors to Consider</h3>
                     <p>When evaluating whether a business is the right purchase for you there are many things to consider.</p>
                     <p>Even though you may be buying a successful existing business or <a href="#" class="sellorgive" >franchise</a>, you need to be aware of many other factors.  For example, you should have a complete understanding of what is and is not included with the sale. </p>
