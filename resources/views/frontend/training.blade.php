@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">Comprehensive Training</h3>
                     <p>Held over three days at our corporate headquarters, the Executive Business Brokers (EBB) comprehensive training program is designed to equip you with the knowledge, tools and technology you need to become a successful business broker. The topics we cover include:</p>
                     <h3 class="section-heading">Business Management</h3>
@@ -219,5 +219,14 @@
         padding-top: 16px;
         padding-left: 16px;
     }
+    .EBB-team-title ul li {
+    margin: 20px 0px;
+    font-family: 'Mulish';
+    font-size: 14px;
+}
+.text-purple {
+    color: #7F2149;
+    margin-right: 10px;
+}
 </style>
 @endsection
