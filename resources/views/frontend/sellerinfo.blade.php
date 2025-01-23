@@ -23,7 +23,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">Pertinent Business Information in the Listing</h3>
                     <p>EBB’s sales materials are based on this type of information, which is provided to us by the seller:</p>
                     <p>- Historical federal tax returns, financial statements and balance sheets going back 3 years</p>

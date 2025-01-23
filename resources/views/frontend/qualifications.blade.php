@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 mt-2 mt-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading-join mb-4">Are You a Strong Candidate?</h3>
                     <p class="join_us_p">Executive Business Brokers is looking for individuals who possess strong interpersonal skills, have the desire to work hard, and are persistent and patient.</p>
                     <p class="join_us_p">For this type of position, a strong background in business or sales helps. Many of <a href="{{route('all.brokers')}}" class="sellorgive" >our brokers</a> have owned their own businesses or spearheaded new ventures for their previous employer. This type of experience has given them a unique perspective and insight into the operation and management of businesses.</p>
