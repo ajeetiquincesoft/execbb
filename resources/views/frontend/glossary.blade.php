@@ -42,22 +42,24 @@
                         <a href="{{ url('glossary?flag=v') }}">V</a>
                         <a href="{{ url('glossary?flag=w') }}">W</a>
                     </div>
-                    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%">
-                        <tbody>
-                            @foreach($glossaryTerms as $term => $definition)
-                            <tr>
-                                <td width="162" align="left" valign="top"><a name="{{ $term }}">{{ ucfirst($term) }}</a></td>
-                                <td width="246" align="left" valign="top">{{ $definition }}<br>&nbsp;</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%">
+                            <tbody>
+                                @foreach($glossaryTerms as $term => $definition)
+                                <tr>
+                                    <td width="162" align="left" valign="top"><a name="{{ $term }}">{{ ucfirst($term) }}</a></td>
+                                    <td width="246" align="left" valign="top">{{ $definition }}<br>&nbsp;</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- Side Panel -->
             <div class="col-md-4" style="background-color: #F8F8F8;;">
                 <div class="Ebb-section-about">
-                <div class="boxes-button-section">
+                    <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Become a Broker</h5>
                             <ul class="list-unstyled tips-list-join">
@@ -92,21 +94,21 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Secure Financing Through EBB</h5>
-                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" class="sellorgive" >mortgage specialists</a>.</p>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" class="sellorgive">mortgage specialists</a>.</p>
                         </div>
 
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" class="sellorgive" >EBB Preferred Buyer</a> and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" class="sellorgive">EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
 
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" style="color: #7F2149; text-decoration: underline;" >become part of our all-star team</a>.</p>
+                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" style="color: #7F2149; text-decoration: underline;">become part of our all-star team</a>.</p>
                         </div>
                     </div>
                 </div>
@@ -223,14 +225,16 @@
         padding-top: 16px;
         padding-left: 16px;
     }
+
     .EBB-team-title ul li {
-    margin: 20px 0px;
-    font-family: 'Mulish';
-    font-size: 14px;
-}
-.text-purple {
-    color: #7F2149;
-    margin-right: 10px;
-}
+        margin: 20px 0px;
+        font-family: 'Mulish';
+        font-size: 14px;
+    }
+
+    .text-purple {
+        color: #7F2149;
+        margin-right: 10px;
+    }
 </style>
 @endsection

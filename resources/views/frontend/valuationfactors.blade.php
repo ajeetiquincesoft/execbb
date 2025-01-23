@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 mt-0 mt-md-5">
             <!-- Main Content -->
             <div class="col-md-8 main-head mar_acq">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">Factors Effecting Valuation</h3>
                     <p>While business valuations are very subjective, there are 16 key factors to take into consideration when valuing a business.</p>
                     <ol type="1" class="factor_valuation">
