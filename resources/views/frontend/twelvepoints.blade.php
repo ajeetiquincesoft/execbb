@@ -23,7 +23,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">Executive Business Brokers' 12 Point Process</h3>
                     <p>1. Establish a <a href="{{route('business.valuation')}}" style="color: #7F2149; text-decoration: underline;" >fair and accurate selling price</a> through hands-on
                     assessment.</p>
