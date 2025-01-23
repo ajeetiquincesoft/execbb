@@ -24,7 +24,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">Assessing Business Brokers</h3>
                     <p>If you are considering a business broker to help you sell your business, you should spend some time assessing whether they are knowledgeable, professional and experienced.</p>
                     <p>EBB suggests you interview at least 2 brokers and ask these questions:</p>

@@ -1160,6 +1160,9 @@ section.phases-section {
 .agent-info {
   height: 125px !important;
 }
+.Content-text.question h3, .Content-text.question p{
+  text-align: inherit;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1310,6 +1313,9 @@ hr.pursuit_hr {
 .main-container-service .subtext {
   margin-left: 10px;
   margin-right: 10px;
+}
+.Content-text.question h3, .Content-text.question p{
+  text-align: inherit;
 }
 }
 
