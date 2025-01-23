@@ -148,7 +148,7 @@
     }
 
     .adove-logo {
-        margin: 10px 0px;
+        margin: 15px 0px;
         max-width: 100%;
     }
 
