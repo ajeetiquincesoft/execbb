@@ -54,12 +54,12 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>10 Questions to Ask</h5>
-                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a> when you interview prospective brokers.</p>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" >Ask the right questions</a> when you interview prospective brokers.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Mortgage Calculator</h5>
+                            <h5 id="openWindowCalculator">Mortgage Calculator</h5>
                         </div>
                     </div>
                 </div>
@@ -176,5 +176,16 @@
         padding-top: 16px;
         padding-left: 16px;
     }
+    h5#openWindowCalculator {
+        cursor: pointer;
+    }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#openWindowCalculator').click(function() {
+            window.open("{{ route('calculate.mortgage.form') }}", 'newWindow', 'width=700,height=500,scrollbars=yes,resizable=yes');
+        });
+    });
+</script>
 @endsection

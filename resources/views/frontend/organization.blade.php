@@ -26,7 +26,7 @@
             <div class="col-md-12 main-head">
                 <div class="Content-text">
                     <h3 class="section-heading">Types of Business Organizations</h3>
-                    <p>This information came from the <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" target="_blank">State of New Jersey’s Web site.</a> Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
+                    <p>This information came from the <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" >State of New Jersey’s Web site.</a> Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
 
                     <p>There are three most commonly used business organizations: Sole Proprietorship, Partnership and Corporation. Here are the advantages and disadvantages of each.</p>
                     <div class="business_table">
@@ -38,7 +38,7 @@
                             </tr>
                             <tr>
                                 <td  style="vertical-align: top; padding-left: 10px;">
-                                    <p><a href="{{route('proprietor')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Sole Proprietorship</a></p>
+                                    <p><a href="{{route('proprietor')}}" style="color: #7F2149; text-decoration: underline;" >Sole Proprietorship</a></p>
                                 </td>
                                 <td>
                                     <p>- Low start-up costs</p>
@@ -57,7 +57,7 @@
                             </tr>
                             <tr>
                                 <td  style="vertical-align: top; padding-left: 10px;">
-                                    <p><a href="{{route('partnership')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Partnership</a></p>
+                                    <p><a href="{{route('partnership')}}" style="color: #7F2149; text-decoration: underline;" >Partnership</a></p>
                                 </td>
                                 <td>
                                     <p>- Ease of formation</p>
@@ -76,7 +76,7 @@
                             </tr>
                             <tr>
                                 <td  style="vertical-align: top; padding-left: 10px;">
-                                    <p><a href="{{route('corp')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Corporation</a></p>
+                                    <p><a href="{{route('corp')}}" style="color: #7F2149; text-decoration: underline;" >Corporation</a></p>
                                 </td>
                                 <td>
                                     <p>- Limited liability</p>

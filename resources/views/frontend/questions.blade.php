@@ -46,12 +46,12 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a> your business with EBB..</p>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" >List</a> your business with EBB..</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5><a href="{{route('twelvepoints')}}" style="color: #806132;" target="_blank">EBB's 12 point process</a></h5>
+                            <h5><a href="{{route('twelvepoints')}}" style="color: #806132;" >EBB's 12 point process</a></h5>
                         </div>
                     </div>
                     <div class="boxes-button-section">
@@ -69,7 +69,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" >A Message</a>
                                     from EBB's President Larry Bodner
                             </h5>
                         </div>

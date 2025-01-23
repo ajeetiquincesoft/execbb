@@ -27,11 +27,11 @@
                 <div class="Content-text">
                     <h3 class="section-heading-join mb-4">Are You a Strong Candidate?</h3>
                     <p class="join_us_p">Executive Business Brokers is looking for individuals who possess strong interpersonal skills, have the desire to work hard, and are persistent and patient.</p>
-                    <p class="join_us_p">For this type of position, a strong background in business or sales helps. Many of <a href="{{route('all.brokers')}}" class="sellorgive" target="_blank">our brokers</a> have owned their own businesses or spearheaded new ventures for their previous employer. This type of experience has given them a unique perspective and insight into the operation and management of businesses.</p>
+                    <p class="join_us_p">For this type of position, a strong background in business or sales helps. Many of <a href="{{route('all.brokers')}}" class="sellorgive" >our brokers</a> have owned their own businesses or spearheaded new ventures for their previous employer. This type of experience has given them a unique perspective and insight into the operation and management of businesses.</p>
                     <p class="join_us_p">As an intermediary, a business broker also possesses creative problem solving skills to help them meet and overcome challenging situations. They also need good organizational and time management skills to help them juggle all the sales leads and businesses they have listed.</p>
                     <p class="join_us_p">Most importantly, a business broker should enjoy talking and working with people. They need to be self-motivated, creative and resourceful. Many of our business brokers derive a sense of achievement out
                     of helping others solve problems.</p>
-                    <p class="join_us_p">If you believe you fit the profile of a business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a>.</p>
+                    <p class="join_us_p">If you believe you fit the profile of a business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" >contact us</a>.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -41,7 +41,7 @@
                         <div class="EBB-team-title">
                             <h5>Join the EBB Team</h5>
                             <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}"
-                                    style="color: #7F2149; text-decoration: underline;" target="_blank">become part of our all-star
+                                    style="color: #7F2149; text-decoration: underline;" >become part of our all-star
                                     team</a> .</p>
                         </div>
 
@@ -81,7 +81,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" >A Message</a>
                                     from EBB's President Larry Bodner
                             </h5>
                         </div>

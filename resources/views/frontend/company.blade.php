@@ -33,7 +33,7 @@
                         companies range from $100K to $5M, requiring liquid investments of $50K to $2M.</p>
                     <h3 class="section-heading">We Bring Buyers and Sellers Together</h3>
                     <p>EBB brings together individuals with various levels of experience and provides them with
-                        <a href="{{route('buyer.tools')}}" class="sellorgive" target="_blank">buying tools</a> and <a href="{{route('seller.tools')}}" class="sellorgive" target="_blank">selling tools</a>. We guide and facilitate the process of buying and selling a
+                        <a href="{{route('buyer.tools')}}" class="sellorgive" >buying tools</a> and <a href="{{route('seller.tools')}}" class="sellorgive" >selling tools</a>. We guide and facilitate the process of buying and selling a
                         business, saving our clients both time and money. Our fees are paid by the seller.</p>
                     <h3 class="section-heading">Reach Qualified Buyers and Sellers</h3>
                     <p>Our proprietary national database of thousands of qualified buyers and sellers ensures that
@@ -51,7 +51,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can<a href="{{route('join.ebb')}}" class="sellorgive" target="_blank"> become part of our all-star
+                            <p>Our strength is our brokers. Learn how you can<a href="{{route('join.ebb')}}" class="sellorgive" > become part of our all-star
                                     team</a> .</p>
                         </div>
 
@@ -59,7 +59,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" >List</a>
                                 your business with EBB.</p>
                         </div>
 
@@ -67,7 +67,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" >EBB Preferred Buyer</a>
                                 and benefit from our full services.</p>
                         </div>
 
@@ -75,7 +75,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" >A Message</a>
                                     from EBB's President Larry Bodner
                             </h5>
                         </div>

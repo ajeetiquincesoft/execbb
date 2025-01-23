@@ -26,7 +26,7 @@
             <div class="col-md-8 main-head">
                 <div class="Content-text">
                     <h3 class="section-heading">Sole Proprietorship</h3>
-                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" target="_blank">New Jersey’s Web site</a>.
+                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" >New Jersey’s Web site</a>.
                         Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
                     <p>This is a business where one person furnishes all the capital and assumes all the responsibility and liability. The business terminates upon the death of the owner.</p>
                     <p>If you have the skills and capital necessary to operate your business, then this form of business organization should be considered very carefully.</p>
@@ -38,25 +38,25 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" >EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Phases of Buying a Business</h5>
-                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">phases</a>.</p>
+                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" >phases</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Factors to Consider</h5>
-                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">consider these factors</a>.</p>
+                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" >consider these factors</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Secure Financing Through EBB</h5>
-                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists</a>.</p>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" >mortgage specialists</a>.</p>
                         </div>
                     </div>
                 </div>

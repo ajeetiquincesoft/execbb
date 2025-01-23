@@ -27,9 +27,9 @@
                 <div class="Content-text">
                     <h3 class="section-heading-join mb-4">Conduits For Change</h3>
                     <p class="join_us_p">The business broker comes into contact with both buyers and sellers. Each has their own reason for buying or selling a business. A buyer’s motivation may be financial freedom, flexibility or empowerment, while a seller could be retiring, have fallen ill or experienced a breakup in their marriage or their business partnership.</p>
-                    <p class="join_us_p"><a href="https://www.finetimepieces.net/" class="sellorgive" target="_blank">replica watches</a> It is the role of the business broker to help these individuals experience a smooth transfer of ownership. As an intermediary, they identify the businesses for sale in a marketing area and enter into listing agreements with sellers. In addition, business brokers help buyers find the businesses that meet their requirements, then help them make an informed decision as to which business is right for them.</p>
-                    <p class="join_us_p">Bringing buyers and sellers together can be very rewarding. It also pays well! Business brokers work with the business owner, accountants, attorneys, landlords and bankers. For this service, a <a href="{{route('compensation')}}" class="sellorgive" target="_blank">broker’s fee</a> is paid by the seller of the business upon closing on the transaction.</p>
-                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, <a href="https://www.finetimepieces.net/breitling.html" class="sellorgive" target="_blank">Breitling Replica Watches</a> we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a>.</p>
+                    <p class="join_us_p"><a href="https://www.finetimepieces.net/" class="sellorgive" >replica watches</a> It is the role of the business broker to help these individuals experience a smooth transfer of ownership. As an intermediary, they identify the businesses for sale in a marketing area and enter into listing agreements with sellers. In addition, business brokers help buyers find the businesses that meet their requirements, then help them make an informed decision as to which business is right for them.</p>
+                    <p class="join_us_p">Bringing buyers and sellers together can be very rewarding. It also pays well! Business brokers work with the business owner, accountants, attorneys, landlords and bankers. For this service, a <a href="{{route('compensation')}}" class="sellorgive" >broker’s fee</a> is paid by the seller of the business upon closing on the transaction.</p>
+                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, <a href="https://www.finetimepieces.net/breitling.html" class="sellorgive" >Breitling Replica Watches</a> we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" >contact us</a>.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -39,7 +39,7 @@
                         <div class="EBB-team-title">
                             <h5>Join the EBB Team</h5>
                             <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}"
-                                    style="color: #7F2149; text-decoration: underline;" target="_blank">become part of our all-star
+                                    style="color: #7F2149; text-decoration: underline;" >become part of our all-star
                                     team</a> .</p>
                         </div>
 
@@ -79,7 +79,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" >A Message</a>
                                     from EBB's President Larry Bodner
                             </h5>
                         </div>

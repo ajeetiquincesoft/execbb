@@ -18,7 +18,7 @@
         <!-- Main Header -->
         <h1>We Believe It is Important to Educate Our Clients</h1>
         <p class="subtext">
-            This section identifies some of the issues you will need to address and the <a href="{{route('anxiety')}}" target="_blank">sources of anxiety</a> that you may experience when buying a business.
+            This section identifies some of the issues you will need to address and the <a href="{{route('anxiety')}}" >sources of anxiety</a> that you may experience when buying a business.
         </p>
         <hr>
         <!-- Cards Section -->
@@ -29,7 +29,7 @@
                     <div class="card-custom">
                         <div class="card-title">Business<br> Organizations</div>
                         <div class="card-text">
-                            Before you embark upon your search, identify the <a href="{{route('organization')}}" target="_blank">business structure</a> that would be most appropriate for your situation.
+                            Before you embark upon your search, identify the <a href="{{route('organization')}}" >business structure</a> that would be most appropriate for your situation.
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <div class="card-custom">
                         <div class="card-title">Phases of Buying<br>a Business</div>
                         <div class="card-text">
-                            There are four main phases to buying a business. Familiarize yourself with <a href="{{route('busbuyphase')}}" target="_blank">the process</a> before you start your search.
+                            There are four main phases to buying a business. Familiarize yourself with <a href="{{route('busbuyphase')}}" >the process</a> before you start your search.
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="card-custom">
                         <div class="card-title">Determining Price</div>
                         <div class="card-text">
-                            There are many methods of establishing the value of a business. Learn more about <a href="{{route('business.valuation')}}" target="_blank">business valuations</a> - it's an important part of the buying process.
+                            There are many methods of establishing the value of a business. Learn more about <a href="{{route('business.valuation')}}" >business valuations</a> - it's an important part of the buying process.
                         </div>
                     </div>
                 </div>

@@ -30,9 +30,9 @@
                     <p>Even after the tentative agreement has been made, there are several issues that could cause the deal to fall apart. Here are some of those problems and suggestions on how to avoid them.</p>
                     <p>- Problems are not revealed. To avoid: bring any issues to the table
                         in the beginning. You will have a better chance of resolving them.</p>
-                    <p>- Second thoughts on the agreed upon price or buying/selling the business. To avoid: Make sure there is a <a href="{{route('business.valuation')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">business valuation</a> methodology (not a gut feeling) behind the selling/offer price.</p>
-                    <p>- Impatience - the process is taking too long. To avoid: Make sure the seller has all the necessary information documents ready for <a href="{{route('duediligence')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">due diligence</a>.</p>
-                    <p>- Inability to reach an agreement. To avoid: Enlist the help of an <a href="{{route('why.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">experienced business</a> broker who knows what to communicate early on in the process.</p>
+                    <p>- Second thoughts on the agreed upon price or buying/selling the business. To avoid: Make sure there is a <a href="{{route('business.valuation')}}" style="color: #7F2149; text-decoration: underline;" >business valuation</a> methodology (not a gut feeling) behind the selling/offer price.</p>
+                    <p>- Impatience - the process is taking too long. To avoid: Make sure the seller has all the necessary information documents ready for <a href="{{route('duediligence')}}" style="color: #7F2149; text-decoration: underline;" >due diligence</a>.</p>
+                    <p>- Inability to reach an agreement. To avoid: Enlist the help of an <a href="{{route('why.ebb')}}" style="color: #7F2149; text-decoration: underline;" >experienced business</a> broker who knows what to communicate early on in the process.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -41,7 +41,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" >EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
@@ -53,13 +53,13 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                         <h5>Secure Financing Through EBB</h5>
-                        <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists</a>.</p>
+                        <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" >mortgage specialists</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                         <h5>Determining Fair Market Value</h5>
-                        <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">FREE valuation</a>.</p>
+                        <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" >FREE valuation</a>.</p>
                         </div>
                     </div>
                 </div>

@@ -53,18 +53,18 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Ask the Experts to Sell Your Business</h5>
-                            <p>EBB can <a href="{{route('services')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">guide you through the process</a> from business valuations to locating buyers.</p>
+                            <p>EBB can <a href="{{route('services')}}" style="color: #7F2149; text-decoration: underline;" >guide you through the process</a> from business valuations to locating buyers.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5><a href="{{route('twelvepoints')}}" style="color: #806132;" target="_blank">EBB's 12 point process</a></h5>
+                            <h5><a href="{{route('twelvepoints')}}" style="color: #806132;" >EBB's 12 point process</a></h5>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Determining Fair Market Value</h5>
-                            <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">FREE valuation</a>.</p>
+                            <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" >FREE valuation</a>.</p>
                         </div>
                     </div>
                 </div>

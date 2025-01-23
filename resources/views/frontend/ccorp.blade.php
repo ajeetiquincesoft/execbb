@@ -26,9 +26,9 @@
             <div class="col-md-8 main-head">
                 <div class="Content-text">
                     <h3 class="section-heading">C Corporation</h3>
-                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" target="_blank">New Jersey’s Web site</a>.
+                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" >New Jersey’s Web site</a>.
                         Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
-                    <p>A C corporation is not actually a business structure, but the "tax status" of a company. All corporations are C Corporations unless they opt to take advantage of a provision in both federal and state tax laws to become <a href="{{route('scorp')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">S corporations</a>.</p>
+                    <p>A C corporation is not actually a business structure, but the "tax status" of a company. All corporations are C Corporations unless they opt to take advantage of a provision in both federal and state tax laws to become <a href="{{route('scorp')}}" style="color: #7F2149; text-decoration: underline;" >S corporations</a>.</p>
                     <p>Taxes on profits of a C Corporation are paid both by the corporation itself and by the shareholders when the profits are received as dividends. However, shareholders cannot deduct any losses posted by the C Corporation.</p>
                 </div>
             </div>
@@ -38,25 +38,25 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" >EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Phases of Buying a Business</h5>
-                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">phases</a>.</p>
+                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" >phases</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Factors to Consider</h5>
-                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">consider these factors</a>.</p>
+                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" >consider these factors</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Secure Financing Through EBB</h5>
-                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists</a>.</p>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" >mortgage specialists</a>.</p>
                         </div>
                     </div>
                 </div>

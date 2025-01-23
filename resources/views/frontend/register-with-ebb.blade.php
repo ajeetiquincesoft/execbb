@@ -379,7 +379,7 @@
             <div class="col-lg-5 mt-0 register_ebb">
                 <p class="mb-4 notice">Notice: To register, you must use Internet Explorer. Please set this site to compatibility mode.</p>
                 <p class="mb-4">EBB's listings are available free to everyone who uses our site. To view the detailed information, which is confidential in nature, we will ask you to sign a confidentiality agreement when you register.</p>
-                <p class="mb-4">For buyers who are aggressively looking to find a business, we recommend that you sign up for our <a href="{{route('preferred.buyers.program')}}" class="buyer_program" target="_blank">Preferred Buyer Program.</a></p>
+                <p class="mb-4">For buyers who are aggressively looking to find a business, we recommend that you sign up for our <a href="{{route('preferred.buyers.program')}}" class="buyer_program" >Preferred Buyer Program.</a></p>
             </div>
         </div>
     </div>

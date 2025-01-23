@@ -26,7 +26,7 @@
             <div class="col-md-8 main-head">
                 <div class="Content-text">
                     <h3 class="section-heading">S Corporation</h3>
-                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" target="_blank">New Jersey’s Web site</a>.
+                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" >New Jersey’s Web site</a>.
                         Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
                     <p>S Corporations pay a lower corporate tax rate and the shareholders report their pro rata share of S corporation income on their NJ individual income tax returns. The combined tax between the electing S Corporation and its shareholders generally will not exceed the 9% NJ Corporation Business Tax Rate. The rate is 7.5% for corporations with entire net income of $100,000 or less.</p>
                     <p>A corporation may elect to be a NJ S Corporation only if it meets ALL of these conditions:</p>
@@ -49,25 +49,25 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" >EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Phases of Buying a Business</h5>
-                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">phases</a>.</p>
+                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" >phases</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Factors to Consider</h5>
-                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">consider these factors</a>.</p>
+                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" >consider these factors</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Secure Financing Through EBB</h5>
-                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists</a>.</p>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" >mortgage specialists</a>.</p>
                         </div>
                     </div>
                 </div>

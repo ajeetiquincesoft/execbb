@@ -28,14 +28,14 @@
                     <p>Executive Business Brokers (EBB) offers consulting services for any aspect of buying/selling a business. We work with buyers and sellers to:</p>
 
                     <h3 class="section-heading mt-5">Determine the Value of a Business</h3>
-                    <p>EBB offers <a href="{{route('business.valuation')}}" class="sellorgive" target="_blank">business valuations</a> as a consulting service to sellers interested in listing their business FSBO (For Sale By Owner) or to sellers who simply want to know the value of their business.</p>
+                    <p>EBB offers <a href="{{route('business.valuation')}}" class="sellorgive" >business valuations</a> as a consulting service to sellers interested in listing their business FSBO (For Sale By Owner) or to sellers who simply want to know the value of their business.</p>
 
                     <h3 class="section-heading mt-5">Comment on the Structure of the Deal</h3>
                     <p>EBB is often asked – as an impartial and objective third party - to comment on the structure of a deal for a business not offered through EBB. We can provide objective advice and guidance in order to help you achieve the best results.</p>
 
                     <h3 class="section-heading mt-5">Prepare a Business for Sale</h3>
                     <p>Not all sellers are ready for sale and need help to develop an exit strategy. EBB can evaluate your business operation and identify what you need to do to prepare for a sale.</p>
-                    <p>Need help? <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a> for more information on any of our consulting services.</p>
+                    <p>Need help? <a href="{{route('contact.us')}}" class="sellorgive" >contact us</a> for more information on any of our consulting services.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -44,14 +44,14 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Determining Fair Market Value</h5>
-                            <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">become FREE valuation</a> .</p>
+                            <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}" style="color: #7F2149; text-decoration: underline;" >become FREE valuation</a> .</p>
                         </div>
 
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" >List</a>
                                 your business with EBB.</p>
                         </div>
 
@@ -59,7 +59,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Align Your Business with Us</h5>
-                            <p>Set up a <a href="{{route('strategic.alliances')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">strategic alliance</a>
+                            <p>Set up a <a href="{{route('strategic.alliances')}}" style="color: #7F2149; text-decoration: underline;" >strategic alliance</a>
                             with EBB and receive commissions and business.</p>
                         </div>
 
@@ -67,7 +67,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>10 Questions to Ask</h5>
-                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" >Ask the right questions</a>
                             when you interview prospective brokers.</p>
                         </div>
 

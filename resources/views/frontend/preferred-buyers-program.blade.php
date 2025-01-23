@@ -31,7 +31,7 @@
                     <h3 class="section-heading mt-5">Access Detailed Information Online</h3>
                     <p>Once you have signed a confidentiality agreement, you will have 24/7 access to <a href="javascript:void(0);" class="sellorgive factSheet">business profiles</a>, which includes the business’ name, its address, photographs and financial information</p>
                     <h3 class="section-heading mt-5">Receive Information First</h3>
-                    <p>Instead of checking with us, you will automatically receive monthly reports and new <a href="{{route('business.listings')}}" class="sellorgive" target="_blank">business listings</a>, changes and updates as they occur via E-mail.</p>
+                    <p>Instead of checking with us, you will automatically receive monthly reports and new <a href="{{route('business.listings')}}" class="sellorgive" >business listings</a>, changes and updates as they occur via E-mail.</p>
                     <h3 class="section-heading mt-5">Your Registration Fee is Refundable</h3>
                     <p>Registration fees for the Preferred Buyer Program are refundable when you buy a business through EBB.</p>
                     <h3 class="section-heading mt-5">Register Now!</h3>
@@ -45,7 +45,7 @@
                 <div class="Ebb-section-about">
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5><p><a href="{{route('message')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">A Message</a>
+                            <h5><p><a href="{{route('message')}}" style="color: #7F2149; text-decoration: underline;" >A Message</a>
                               from EBB's President Larry Bodner</p></h5>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists.</a></p>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" >mortgage specialists.</a></p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
@@ -66,7 +66,7 @@
                     </div>
                     <div class="boxes-button-section">
                       <div class="EBB-team-title">
-                          <p>When buying a business,<a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank"> consider these factors.</a></p>
+                          <p>When buying a business,<a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" > consider these factors.</a></p>
                       </div>
                   </div>
                 </div>

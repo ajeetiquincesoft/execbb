@@ -6,9 +6,7 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">About EBB</a></li>
-                <li class="breadcrumb-item"><a href="#">Join EBB</a></li>
-                <li class="breadcrumb-item active"><a href="#">Compensation</a></li>
+                <li class="breadcrumb-item active"><a href="#">Glossary of Terms</a></li>
             </ol>
         </nav>
     </div>
@@ -18,39 +16,48 @@
     <div class="content-box">
         <div class="row">
             <div class="about_EBB">
-                <h5 class="main-heading">Compensation</h5>
+                <h5 class="main-heading">Glossary of Terms</h5>
             </div>
         </div>
-        <div class="row px-3 px-md-5 mt-2 mt-md-5 ab_ebb">
+        <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
                 <div class="Content-text">
-                    <h3 class="section-heading-join mb-4">Business Brokers are Well Compensated</h3>
-                    <p class="join_us_p">The earning potential for a motivated business broker is unlimited. Individuals who <a href="{{route('qualifications')}}" class="sellorgive" >fit the profile</a>, as well as possess strong interpersonal skills and the desire to work hard - can succeed as a business broker.</p>
-                    <p class="join_us_p">Executive Business Brokers (EBB) receives a 10% commission on the total selling price. Our minimum success fee is set at $12,500.00. The listing and selling agents each receive 25% of the total commission
-                    collected as compensation. When the listing agent is also the selling agent, the payout is 50%.</p>
-                    <p class="join_us_p">EBB concentrates on the small to mid-sized segment of the market. These companies are retail, wholesale & distribution, manufacturing, services and franchises. Their annual sales volumes are under $10M and their sale price ranges from $100K to $5M+.</p>
-                    <p class="join_us_p">This is a straight commission opportunity. EBB Business Brokers are independent contractors (1099), who set their own hours, work on their own territories and within the industries they are most comfortable.
-                    Most of our business brokers work only on those transactions that make sense to them and we support their efforts.</p>
-                    <p class="join_us_p">EBB employs the latest technologies to ensure their success. We also provide valuable marketing and administrative support. Our business brokers receive a steady supply of buyer leads from us and have
-                    remote access to our proprietary database of over 20K buyers and 100’s of business listings.</p>
-                    <p class="join_us_p">Generally there is a learning curve and typically a new broker will not begin to see any commissions for a minimum of 90 days. Successful brokers who achieve the goals outlined in EBB's New Agent's Business Plan, designed to help brokers set and reach income objectives, will begin to generate new deals monthly.</p>
-                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" >contact us</a>.</p>
+                    <div align="center" bis_skin_checked="1" style="margin-bottom:20px;">
+                        <a href="{{ url('glossary?flag=a') }}">A</a>
+                        <a href="{{ url('glossary?flag=b') }}">B</a>
+                        <a href="{{ url('glossary?flag=c') }}">C</a>
+                        <a href="{{ url('glossary?flag=d') }}">D</a>
+                        <a href="{{ url('glossary?flag=e') }}">E</a>
+                        <a href="{{ url('glossary?flag=f') }}">F</a>
+                        <a href="{{ url('glossary?flag=g') }}">G</a>
+                        <a href="{{ url('glossary?flag=i') }}">I</a>
+                        <a href="{{ url('glossary?flag=l') }}">L</a>
+                        <a href="{{ url('glossary?flag=n') }}">N</a>
+                        <a href="{{ url('glossary?flag=p') }}">P</a>
+                        <a href="{{ url('glossary?flag=q') }}">Q</a>
+                        <a href="{{ url('glossary?flag=r') }}">R</a>
+                        <a href="{{ url('glossary?flag=s') }}">S</a>
+                        <a href="{{ url('glossary?flag=u') }}">U</a>
+                        <a href="{{ url('glossary?flag=v') }}">V</a>
+                        <a href="{{ url('glossary?flag=w') }}">W</a>
+                    </div>
+                    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%">
+                        <tbody>
+                            @foreach($glossaryTerms as $term => $definition)
+                            <tr>
+                                <td width="162" align="left" valign="top"><a name="{{ $term }}">{{ ucfirst($term) }}</a></td>
+                                <td width="246" align="left" valign="top">{{ $definition }}<br>&nbsp;</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- Side Panel -->
             <div class="col-md-4" style="background-color: #F8F8F8;;">
                 <div class="Ebb-section-about">
-                    <div class="boxes-button-section">
-                        <div class="EBB-team-title">
-                            <h5>Join the EBB Team</h5>
-                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}"
-                                    style="color: #7F2149; text-decoration: underline;" >become part of our all-star
-                                    team</a> .</p>
-                        </div>
-
-                    </div>
-                    <div class="boxes-button-section">
+                <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Become a Broker</h5>
                             <ul class="list-unstyled tips-list-join">
@@ -84,10 +91,22 @@
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" >A Message</a>
-                                    from EBB's President Larry Bodner
-                            </h5>
+                            <h5>Secure Financing Through EBB</h5>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" class="sellorgive" >mortgage specialists</a>.</p>
+                        </div>
+
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>Accelerate Your Search</h5>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" class="sellorgive" >EBB Preferred Buyer</a> and benefit from our full services.</p>
+                        </div>
+
+                    </div>
+                    <div class="boxes-button-section">
+                        <div class="EBB-team-title">
+                            <h5>Join the EBB Team</h5>
+                            <p>Our strength is our brokers. Learn how you can <a href="{{route('join.ebb')}}" style="color: #7F2149; text-decoration: underline;" >become part of our all-star team</a>.</p>
                         </div>
                     </div>
                 </div>
@@ -130,14 +149,19 @@
     .sub-heading {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 40px;
         color: #000;
     }
 
-    .section-heading-join {
-        font-size: 30px;
+    .sub-title {
+        margin-bottom: 40px;
+        font-family: 'Mulish';
+        color: #5D5D5D;
+    }
+
+    .section-heading {
+        font-size: 20px;
         font-weight: bold;
-        color: #806132;
+        color: #000;
         font-family: 'Urbanist';
     }
 
@@ -160,20 +184,17 @@
         text-decoration: underline;
     }
 
-    .ibba-logo {
+    .adove-logo {
         margin-top: 25px;
         display: block;
         max-width: 100%;
-        height: 40px;
-        margin: 20px;
     }
 
     .ab_ebb p {
-    font-size: 14px;
-    color: #5D5D5D;
-    line-height: 22px;
-    padding: 0px 15px;
-}
+        font-size: 14px;
+        color: #5D5D5D;
+        line-height: 22px;
+    }
 
     .Content-text {
         margin-right: 80px;
@@ -202,21 +223,14 @@
         padding-top: 16px;
         padding-left: 16px;
     }
-
-    .Content-text span {
-        font-weight: bold;
-    }
-    .text-purple {
-    color: #7F2149;
-    margin-right: 10px;
-}
-.EBB-team-title ul li {
+    .EBB-team-title ul li {
     margin: 20px 0px;
     font-family: 'Mulish';
     font-size: 14px;
 }
-p.join_us_p {
-    font-family: 'Urbanist' !important;
+.text-purple {
+    color: #7F2149;
+    margin-right: 10px;
 }
 </style>
 @endsection

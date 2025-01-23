@@ -25,18 +25,18 @@
             <div class="col-md-8 main-head">
                 <div class="Content-text">
                     <h3 class="section-heading">Executive Business Brokers' 12 Point Process</h3>
-                    <p>1. Establish a <a href="{{route('business.valuation')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">fair and accurate selling price</a> through hands-on
+                    <p>1. Establish a <a href="{{route('business.valuation')}}" style="color: #7F2149; text-decoration: underline;" >fair and accurate selling price</a> through hands-on
                     assessment.</p>
                     <p>2. Offer advice on the attractiveness and value of the business.</p>
                     <p>3. Determine the time frame for selling the business.</p>
                     <p>4. Devise strategies and tactics to sell the business in the shortest time</p>
                     <p>5. Enter co-brokerage agreements to enhance the sale of the business.</p>
-                    <p>6. Expose the business to potential buyers daily through proven <a href="{{route('multimarketing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">media sources</a> – including the Internet.</p>
+                    <p>6. Expose the business to potential buyers daily through proven <a href="{{route('multimarketing')}}" style="color: #7F2149; text-decoration: underline;" >media sources</a> – including the Internet.</p>
                     <p>7. Screen and pre-qualify buyers.</p>
                     <p>8. Provide reports on the status of the process.</p>
                     <p>9. Provide owners with feedback on their business from prospective buyers.</p>
                     <p>10. Negotiate on behalf of the seller and assist the buyer in coming to a purchase decision.</p>
-                    <p>11. Assist the buyer in arranging <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">financing.</a></p>
+                    <p>11. Assist the buyer in arranging <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" >financing.</a></p>
                     <p>12. Expedite the process by assisting the accountants, attorneys and landlords.</p>
                 </div>
             </div>
@@ -46,13 +46,13 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a> your business with EBB..</p>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" >List</a> your business with EBB..</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>10 Questions to Ask</h5>
-                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a> when you interview prospective brokers.</p>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" >Ask the right questions</a> when you interview prospective brokers.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">

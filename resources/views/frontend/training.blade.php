@@ -53,7 +53,7 @@
                     <p>- Finding buyers and sellers</p>
                     <p>- Separating the prospects from the suspects</p>
                     <p>- Recognizing buyer and seller motivations</p>
-                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a>.</p>
+                    <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker, we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a href="{{route('contact.us')}}" class="sellorgive" >contact us</a>.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -100,7 +100,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" >A Message</a>
                                     from EBB's President Larry Bodner
                             </h5>
                         </div>

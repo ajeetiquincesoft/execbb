@@ -27,14 +27,14 @@
             <div class="card-custom">
                 <div class="card-title">Consulting<br>Services.</div>
                 <div class="card-text">
-                    EBB can help you with <a href="{{route('duediligence')}}" class="sellorgive" target="_blank">due diligence,</a> determine your <a href="{{route('business.valuation')}}" class="sellorgive" target="_blank">business' valuation</a> or advise you on whether you should sell, <a href="{{route('mergers.and.acquisitions')}}" class="sellorgive" target="_blank">merge or acquire</a> a new business.
+                    EBB can help you with <a href="{{route('duediligence')}}" class="sellorgive" >due diligence,</a> determine your <a href="{{route('business.valuation')}}" class="sellorgive" >business' valuation</a> or advise you on whether you should sell, <a href="{{route('mergers.and.acquisitions')}}" class="sellorgive" >merge or acquire</a> a new business.
                 </div>
             </div>
             <!-- Card 2 -->
             <div class="card-custom">
                 <div class="card-title">Educational<br>information for Free.</div>
                 <div class="card-text">
-                    If this is your first time selling a business, we recommend that you familiarize yourself with <a href="{{route('salesprep')}}" class="sellorgive">the process</a> to make sure that you prepare for the sale and use of our <a href="{{route('seller.resource')}}" class="sellorgive" target="_blank">resource center.</a>
+                    If this is your first time selling a business, we recommend that you familiarize yourself with <a href="{{route('salesprep')}}" class="sellorgive">the process</a> to make sure that you prepare for the sale and use of our <a href="{{route('seller.resource')}}" class="sellorgive" >resource center.</a>
                 </div>
             </div>
         </div>

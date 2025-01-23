@@ -30,36 +30,36 @@
                     <div class="container my-5">
                         <div class="row g-4">
                             <div class="col-12 col-md-4">
-                                <a href="https://www.amazon.com/exec/obidos/ASIN/0028629035/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_1.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
+                                <a href="https://www.amazon.com/exec/obidos/ASIN/0028629035/executivebu0f-20" ><img src="{{asset('assets/images/image_1.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
                             </div>
                             <div class="col-12 col-md-4">
-                                <a href="https://www.amazon.com/exec/obidos/ASIN/1574100874/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_2.jpg')}}" alt="Image 2" class="seller_resource_img"></a>
+                                <a href="https://www.amazon.com/exec/obidos/ASIN/1574100874/executivebu0f-20" ><img src="{{asset('assets/images/image_2.jpg')}}" alt="Image 2" class="seller_resource_img"></a>
                             </div>
                             <div class="col-12 col-md-4">
-                                <a href="https://www.amazon.com/exec/obidos/ASIN/0965657833/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_8.jpg')}}" alt="Image 2" class="seller_resource_img"></a>
+                                <a href="https://www.amazon.com/exec/obidos/ASIN/0965657833/executivebu0f-20" ><img src="{{asset('assets/images/image_8.jpg')}}" alt="Image 2" class="seller_resource_img"></a>
                             </div>
                         </div>
                     </div>
                     <div class="container my-5">
                         <div class="row g-4">
                             <div class="col-12 col-md-4">
-                                <a href="https://www.amazon.com/exec/obidos/ASIN/1558507027/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_4.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
+                                <a href="https://www.amazon.com/exec/obidos/ASIN/1558507027/executivebu0f-20" ><img src="{{asset('assets/images/image_4.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
                             </div>
                             <div class="col-12 col-md-4">
-                                <a href="https://www.amazon.com/exec/obidos/ASIN/1580620051/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_6.jpg')}}" alt="Image 3" class="seller_resource_img"></a>
+                                <a href="https://www.amazon.com/exec/obidos/ASIN/1580620051/executivebu0f-20" ><img src="{{asset('assets/images/image_6.jpg')}}" alt="Image 3" class="seller_resource_img"></a>
                             </div>
                             <div class="col-12 col-md-4">
-                                <a href="https://www.amazon.com/exec/obidos/ASIN/0471150479/executivebu0f-20" target="_blank"><img src="{{asset('assets/images/image_7.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
+                                <a href="https://www.amazon.com/exec/obidos/ASIN/0471150479/executivebu0f-20" ><img src="{{asset('assets/images/image_7.jpg')}}" alt="Image 1" class="seller_resource_img"></a>
                             </div>
                         </div>
                     </div>
                     <h3 class="section-heading">Government Agencies </h3>
-                    <p><a href="https://www.nj.gov/treasury/revenue/dcr/geninfo/corpman.html" style="color: #7F2149; text-decoration: underline;" target="_blank">NJ Business Entity Filings</a></p>
-                    <p><a href="https://www.nj.gov/commerce/" style="color: #7F2149; text-decoration: underline;" target="_blank">NJ Department of Commerce</a></p>
-                    <p><a href="https://www.nj.gov/treasury/revenue/" style="color: #7F2149; text-decoration: underline;" target="_blank">NJ Division of Revenue</a></p>
-                    <p><a href="https://www.ftc.gov/" style="color: #7F2149; text-decoration: underline;" target="_blank">Federal Trade Commission</a></p>
-                    <p><a href="http://www.irs.ustreas.gov/" style="color: #7F2149; text-decoration: underline;" target="_blank">IRS</a></p>
-                    <p><a href="http://www.sbaonline.sba.gov/" style="color: #7F2149; text-decoration: underline;" target="_blank">Small Business Administration
+                    <p><a href="https://www.nj.gov/treasury/revenue/dcr/geninfo/corpman.html" style="color: #7F2149; text-decoration: underline;" >NJ Business Entity Filings</a></p>
+                    <p><a href="https://www.nj.gov/commerce/" style="color: #7F2149; text-decoration: underline;" >NJ Department of Commerce</a></p>
+                    <p><a href="https://www.nj.gov/treasury/revenue/" style="color: #7F2149; text-decoration: underline;" >NJ Division of Revenue</a></p>
+                    <p><a href="https://www.ftc.gov/" style="color: #7F2149; text-decoration: underline;" >Federal Trade Commission</a></p>
+                    <p><a href="http://www.irs.ustreas.gov/" style="color: #7F2149; text-decoration: underline;" >IRS</a></p>
+                    <p><a href="http://www.sbaonline.sba.gov/" style="color: #7F2149; text-decoration: underline;" >Small Business Administration
                         </a></p>
                 </div>
             </div>
@@ -70,11 +70,11 @@
                         <div class="EBB-team-title">
                             <h5>Ask the Experts to Sell Your Business</h5>
                         </div>
-                        <p>EBB can <a href="{{route('services')}}" class="sellorgive" target="_blank">guide you through the process</a> from business valuations to locating buyers.</p>
+                        <p>EBB can <a href="{{route('services')}}" class="sellorgive" >guide you through the process</a> from business valuations to locating buyers.</p>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
-                            <h5>Mortgage Calculator</h5>
+                            <h5 id="openWindowCalculator">Mortgage Calculator</h5>
                         </div>
                     </div>
                     <div class="boxes-button-section">
@@ -99,7 +99,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <p><a href="{{route('message')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">A Message</a>
+                                <p><a href="{{route('message')}}" style="color: #7F2149; text-decoration: underline;" >A Message</a>
                                     from EBB's President Larry Bodner</p>
                             </h5>
                         </div>
@@ -213,5 +213,16 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        h5#openWindowCalculator {
+        cursor: pointer;
+    }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#openWindowCalculator').click(function() {
+            window.open("{{ route('calculate.mortgage.form') }}", 'newWindow', 'width=700,height=500,scrollbars=yes,resizable=yes');
+        });
+    });
+</script>
     @endsection

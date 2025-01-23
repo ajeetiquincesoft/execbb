@@ -57,13 +57,13 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Ask the Experts to Sell Your Business</h5>
-                            <p>EBB can <a href="{{route('services')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">guide you through the process</a> from business valuations to locating buyers.</p>
+                            <p>EBB can <a href="{{route('services')}}" style="color: #7F2149; text-decoration: underline;" >guide you through the process</a> from business valuations to locating buyers.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>10 Questions to Ask</h5>
-                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a> when you interview prospective brokers.</p>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" >Ask the right questions</a> when you interview prospective brokers.</p>
                         </div>
                     </div>
                 </div>

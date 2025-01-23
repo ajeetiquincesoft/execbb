@@ -25,7 +25,7 @@
             <div class="col-md-6 hero-text">
                 <h2>Selling a business is a complex, time consuming process</h2>
                 <p>It requires finding buyers, qualifying them, and negotiating the deal. At the same time, you still need to run your business.</p>
-                <p>This is where Executive Business Brokers can help you. We are experts at selling businesses and can <a href="{{route('salesprep')}}" target="_blank">guide you through the process.</a> When you list your business with us, our services include:</p>
+                <p>This is where Executive Business Brokers can help you. We are experts at selling businesses and can <a href="{{route('salesprep')}}" >guide you through the process.</a> When you list your business with us, our services include:</p>
             </div>
         </div>
 
@@ -39,7 +39,7 @@
             <!-- Card 2 -->
             <div class="card-custom">
                 <h3>Business Evaluation.</h3>
-                <p>EBB evaluates your company to provide you with a <a href="{{route('business.valuation')}}" class="sellorgive" target="_blank">business valuation.</a></p>
+                <p>EBB evaluates your company to provide you with a <a href="{{route('business.valuation')}}" class="sellorgive" >business valuation.</a></p>
             </div>
             <!-- Card 3 -->
             <div class="card-custom">
@@ -49,7 +49,7 @@
             <!-- Card 4 -->
             <div class="card-custom">
                 <h3>Marketing Materials.</h3>
-                <p>EBB prepares sales materials based on <a href="{{route('sellerinfo')}}" target="_blank">information from the seller</a> that outlines the businesses operation and finances for prospective buyers.</p>
+                <p>EBB prepares sales materials based on <a href="{{route('sellerinfo')}}" >information from the seller</a> that outlines the businesses operation and finances for prospective buyers.</p>
             </div>
             <!-- Card 5 -->
             <div class="card-custom">

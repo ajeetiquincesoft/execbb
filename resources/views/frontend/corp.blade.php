@@ -26,12 +26,12 @@
             <div class="col-md-8 main-head">
                 <div class="Content-text">
                     <h3 class="section-heading">Corporation</h3>
-                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" target="_blank">New Jersey’s Web site</a>.
+                    <p>This information came from the State of <a href="https://www.nj.gov/Business.shtml" style="color: #7F2149; text-decoration: underline;" >New Jersey’s Web site</a>.
                         Check with your accountant, lawyer or small business advisor for the most current information or changes to the tax law for this type of business organization.</p>
                     <p>In a Corporation the liability of the owners is limited to the amount they pay for their shares of stock. A Corporation is a legal entity, and its continuity is unaffected by death or the transfer of shares of stock by any or all owners.</p>
                     <p>One disadvantage of most Corporations is double taxation; income tax is levied upon profits and dividends after they are paid to the stockholders</p>
                     <p>However, in S Corporations the profits are passed through to the individual stockholders, much the same way as in a partnership.  The result is no federal income tax to the corporation as an entity.</p>
-                    <p>There are many differences between <a href="{{route('ccorp')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">C Corporations</a>, <a href="{{route('scorp')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">S Corporations</a> and <a href="{{route('llccomp')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">LLCs</a>.  There is also a taxation arrangement known as a <a href="{{route('qsss')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">QSSS</a>.</p>
+                    <p>There are many differences between <a href="{{route('ccorp')}}" style="color: #7F2149; text-decoration: underline;" >C Corporations</a>, <a href="{{route('scorp')}}" style="color: #7F2149; text-decoration: underline;" >S Corporations</a> and <a href="{{route('llccomp')}}" style="color: #7F2149; text-decoration: underline;" >LLCs</a>.  There is also a taxation arrangement known as a <a href="{{route('qsss')}}" style="color: #7F2149; text-decoration: underline;" >QSSS</a>.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -40,25 +40,25 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" >EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Phases of Buying a Business</h5>
-                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">phases</a>.</p>
+                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" >phases</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Factors to Consider</h5>
-                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">consider these factors</a>.</p>
+                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" >consider these factors</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Secure Financing Through EBB</h5>
-                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists</a>.</p>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" >mortgage specialists</a>.</p>
                         </div>
                     </div>
                 </div>

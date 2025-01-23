@@ -45,6 +45,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ListingLikeController;
 use App\Http\Controllers\MortgageCalculatorController;
+use App\Http\Controllers\GlossaryController;
 
 
 
@@ -234,6 +235,7 @@ Route::get('/training', function () {
 Route::get('/message', function () {
   return view('frontend.message');
 })->name('message');
+Route::get('/glossary', [GlossaryController::class, 'index'])->name('glossary');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
 Route::post('/register/with/ebb',  [RegisterWithEbbController::class, 'storeRegisterWithEbb'])->name('store.register.with.ebb');

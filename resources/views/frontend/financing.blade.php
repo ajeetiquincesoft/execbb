@@ -30,7 +30,7 @@
                     <p>Each transaction carries with it a unique set of circumstances that should be reflected in the financing. The importance in understanding the particulars of the sale (the individuals, their situations and goals, the deal terms, etc), gives us – your team - a unique advantage over other finance providers.</p>
                     <h3 class="section-heading mt-5">Competitive Rates and the Right Terms</h3>
                     <p>When you work with an EBB business broker and their mortgage specialist affiliates, you get financing at a competitive rate AND terms that are right for your situation.</p>
-                    <p>Need a business loan? We encourage you to <a href="{{route('contact.us')}}" class="sellorgive" target="_blank">contact us</a> for more information about our financing.</p>
+                    <p>Need a business loan? We encourage you to <a href="{{route('contact.us')}}" class="sellorgive" >contact us</a> for more information about our financing.</p>
                 </div>
             </div>
             <!-- Side Panel -->
@@ -40,14 +40,14 @@
                         <div class="EBB-team-title">
                             <h5>Determining Fair Market Value</h5>
                             <p>Don't know how to set a price? Contact EBB for a <a href="{{route('contact.us')}}"
-                                    style="color: #7F2149; text-decoration: underline;" target="_blank">become FREE valuation</a> .</p>
+                                    style="color: #7F2149; text-decoration: underline;" >become FREE valuation</a> .</p>
                         </div>
 
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Sell It Through EBB</h5>
-                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">List</a>
+                            <p><a href="{{route('list.with.ebb')}}" style="color: #7F2149; text-decoration: underline;" >List</a>
                                 your business with EBB.</p>
                         </div>
 
@@ -55,7 +55,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Align Your Business with Us</h5>
-                            <p>Set up a <a href="{{route('strategic.alliances')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">strategic alliance</a>
+                            <p>Set up a <a href="{{route('strategic.alliances')}}" style="color: #7F2149; text-decoration: underline;" >strategic alliance</a>
                             with EBB and receive commissions and business.</p>
                         </div>
 
@@ -63,7 +63,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>10 Questions to Ask</h5>
-                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">Ask the right questions</a>
+                            <p>Considering a business broker? <a href="{{route('questions')}}" style="color: #7F2149; text-decoration: underline;" >Ask the right questions</a>
                             when you interview prospective brokers.</p>
                         </div>
 

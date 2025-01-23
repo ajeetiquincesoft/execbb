@@ -27,7 +27,7 @@
                 <div class="Content-text">
                     <h3 class="section-heading">Factors to Consider</h3>
                     <p>When evaluating whether a business is the right purchase for you there are many things to consider.</p>
-                    <p>Even though you may be buying a successful existing business or <a href="#" class="sellorgive" target="_blank">franchise</a>, you need to be aware of many other factors.  For example, you should have a complete understanding of what is and is not included with the sale. </p>
+                    <p>Even though you may be buying a successful existing business or <a href="#" class="sellorgive" >franchise</a>, you need to be aware of many other factors.  For example, you should have a complete understanding of what is and is not included with the sale. </p>
                     <p><a href="javascript:void(0);" class="openPdf" style="color: #7F2149; text-decoration: underline;">What to consider</a> When buying a business, it is important to consider five main areas:</p>
                     <p>- Finances & Legal Issues</p>
                     <p>- Marketing Program</p>
@@ -42,7 +42,7 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" style="color: #7F2149; text-decoration: underline;" >EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
@@ -54,13 +54,13 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Phases of Buying a Business</h5>
-                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">phases</a>.</p>
+                            <p>Before you start familiarize yourself with the <a href="{{route('busbuyphase')}}" style="color: #7F2149; text-decoration: underline;" >phases</a>.</p>
                         </div>
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Secure Financing Through EBB</h5>
-                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">mortgage specialists</a>.</p>
+                            <p>Get the right terms and rate, work with our <a href="{{route('financing')}}" style="color: #7F2149; text-decoration: underline;" >mortgage specialists</a>.</p>
                         </div>
                     </div>
                 </div>

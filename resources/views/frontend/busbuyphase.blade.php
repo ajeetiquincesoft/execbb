@@ -32,7 +32,7 @@
                     <h3 class="section-heading">Phase 2: Preliminary Negotiations/Letter of Intent</h3>
                     <p>Both parties negotiate a letter of intent, which is non-binding and forms the basis for the definitive agreement. It outlines the deal structure, the purchase price and form, payment terms and closing contingencies.<a href="javascript:void(0);" class="offerToPurchase" style="color: #7F2149; text-decoration: underline;"> Example</a></p>
                     <h3 class="section-heading">Phase 3: Due Diligence</h3>
-                    <p>During <a href="{{route('duediligence')}}" class="sellorgive" target="_blank">due diligence</a> - this vitally important phase - you will examine the business background, finance, human resources, tax and legal matters.</p>
+                    <p>During <a href="{{route('duediligence')}}" class="sellorgive" >due diligence</a> - this vitally important phase - you will examine the business background, finance, human resources, tax and legal matters.</p>
                     <h3 class="section-heading">Phase 4: Negotiation/Definitive Acquisition Agreement</h3>
                     <p>There are four main sections of the Definitive Acquisition Agreement: purchase price, representations, indemnification and covenants.</p>
                     <img src="{{ asset('assets/images/logo_adobe.gif') }}" alt="IBBA Logo" class="img-fluid adove-logo">
@@ -44,28 +44,28 @@
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Accelerate Your Search</h5>
-                            <p>Become an <a href="{{route('preferred.buyers.program')}}" class="sellorgive" target="_blank">EBB Preferred Buyer</a> and benefit from our full services.</p>
+                            <p>Become an <a href="{{route('preferred.buyers.program')}}" class="sellorgive" >EBB Preferred Buyer</a> and benefit from our full services.</p>
                         </div>
 
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Factors to Consider</h5>
-                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">consider these factors</a>.</p>
+                            <p>When buying a business, <a href="{{route('considerations')}}" style="color: #7F2149; text-decoration: underline;" >consider these factors</a>.</p>
                         </div>
 
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>Business Organizations</h5>
-                            <p>Learn about the different types of <a href="{{route('organization')}}" style="color: #7F2149; text-decoration: underline;" target="_blank">business status</a>.</p>
+                            <p>Learn about the different types of <a href="{{route('organization')}}" style="color: #7F2149; text-decoration: underline;" >business status</a>.</p>
                         </div>
 
                     </div>
                     <div class="boxes-button-section">
                         <div class="EBB-team-title">
                             <h5>
-                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" target="_blank">A Message</a>
+                                <a href="{{route('message')}}" style="color: #806132; text-decoration: underline;" >A Message</a>
                                     from EBB's President Larry Bodner
                             </h5>
                         </div>
