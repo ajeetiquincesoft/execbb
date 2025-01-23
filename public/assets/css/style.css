@@ -1163,6 +1163,9 @@ section.phases-section {
 .Content-text.question h3, .Content-text.question p{
   text-align: inherit;
 }
+.adove_img {
+  text-align: center;
+}
 }
 
 /* Tablets (portrait and landscape) */
@@ -1316,6 +1319,9 @@ hr.pursuit_hr {
 }
 .Content-text.question h3, .Content-text.question p{
   text-align: inherit;
+}
+.adove_img {
+  text-align: center;
 }
 }
 
