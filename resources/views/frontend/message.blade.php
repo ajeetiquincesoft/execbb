@@ -23,7 +23,7 @@
         <div class="row px-3 px-md-5 ab_ebb">
             <!-- Main Content -->
             <div class="col-md-8 main-head">
-                <div class="Content-text">
+                <div class="Content-text question">
                     <h3 class="section-heading">Driving the American Dream, Our Business is Selling Businesses</h3>
                     <p>I have always had a great respect and admiration for the drive, determination and risk in which business owners take on in the pursuit of independence. I first saw this entrepreneurial spirit in my parents, who have owned and operated a small business for over 35 years.</p>
                     <p>At Executive Business Brokers (EBB) we believe in this spirit. It is what makes our country so great, and we are proud and honored to have helped so many entrepreneurs realize their dream. Since 1985, EBB has been recognized for our commitment to excellence in the representation of the clients we serve. While holding steadfast to our integrity, professionalism and traditional ethical values, we have remained a responsive leader in a dynamic and constantly changing marketplace.</p>
