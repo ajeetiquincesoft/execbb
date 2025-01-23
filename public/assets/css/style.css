@@ -301,6 +301,7 @@ p.valid_email {
 .copyrights {
   padding-bottom: 1rem;
   display: block;
+  color: #F4F4F4;
 }
 
 .error {
