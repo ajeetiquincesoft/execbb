@@ -304,13 +304,19 @@
                 },
                 home_phone: {
                     required: true,
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
+                },
+                city: {
+                    regex: /^[a-zA-Z\s]+$/
                 }
             },
             messages: {
                 home_phone: {
                     required: 'Phone number is required.',
                     regex: 'Must be a valid phone number.'
+                },
+                city: {
+                    regex: 'City can only contain letters and spaces.'
                 }
             },
             submitHandler: function(form) {
@@ -322,6 +328,10 @@
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value);
         }, "Please check your input.");
+        
+        $('#agent-form input').on('keyup change', function() {
+            $(this).valid();
+        });
 
     });
 </script>
