@@ -140,21 +140,21 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="state" class="col">State</label>
-                            <select id="state" class="form-select" name="state">
-                                <option value="" selected="">Select state</option>
-                                @foreach($states as $key=>$value)
-                                <option value="{{$value->State}}" {{ (old('state') == $value->State)  ? 'selected' : '' }}>{{$value->StateName}}</option>
-                                @endforeach
-                            </select>
-                            @error('state')
-                            <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                        <select id="state" class="form-select" name="state">
+                            <option value="" selected="">Select state</option>
+                            @foreach($states as $key=>$value)
+                            <option value="{{$value->State}}" {{ (old('state') == $value->State)  ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            @endforeach
+                        </select>
+                        @error('state')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="zip" class="col">Zip</label>
-                            <input type=" text" class="form-control" id="zip" name="zip" placeholder="Zip">
+                        <input type=" text" class="form-control" id="zip" name="zip" placeholder="Zip">
                     </div>
                 </div>
                 <!-- County Dropdown -->
@@ -279,7 +279,7 @@
                         <input class="form-control" id="comments" name="comments"></input>
                     </div>
                 </div>
-                
+
                 <div class="d-flex justify-content-center" style="overflow:auto;">
                     <div>
                         <button class="btn-primary" type="submit" id="prevBtn">Save</button>
@@ -332,9 +332,9 @@
 </script> -->
 
 <script>
-     function resetLeadForm() {
-    document.getElementById("leadForm").reset();
-    window.scrollTo(0, 0);
+    function resetLeadForm() {
+        document.getElementById("leadForm").reset();
+        window.scrollTo(0, 0);
     }
     $(document).ready(function() {
         $('#leadForm').validate({
@@ -365,15 +365,18 @@
                 },
                 busPhone: {
                     required: true,
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
                 },
                 home_phone: {
                     required: true,
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
                 },
                 cellPhone: {
                     required: true,
-                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/ // Custom regex rule
+                    regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
+                },
+                city: {
+                    regex: /^[a-zA-Z\s]+$/
                 }
             },
             messages: {
@@ -388,6 +391,9 @@
                 cellPhone: {
                     required: 'Phone number is required.',
                     regex: 'Must be a valid phone number.'
+                },
+                city: {
+                    regex: 'City can only contain letters and spaces.'
                 }
             },
             submitHandler: function(form) {
@@ -399,6 +405,10 @@
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value);
         }, "Please check your input.");
+
+        $('#leadForm input').on('keyup change', function() {
+            $(this).valid();
+        });
 
     });
 </script>
