@@ -189,15 +189,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Define custom phone validation
-        $.validator.addMethod("phone", function(value, element) {
-            // Regex for phone validation (international and local formats)
-            var phoneRegex =  /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
-            return this.optional(element) || phoneRegex.test(value);
-        }, "Please enter a valid phone number.");
-        $.validator.addMethod("regex", function(value, element, regexp) {
-            return this.optional(element) || regexp.test(value);
-        }, "Invalid format.");
         $('#editReferral_form').validate({
             rules: {
                 follow_up: {
@@ -210,7 +201,8 @@
                     required: true
                 },
                 city: {
-                    required: true
+                    required: true,
+                    regex: /^[a-zA-Z\s]+$/
                 },
                 state: {
                     required: true
@@ -225,6 +217,9 @@
                 },
                 referral_phone: {
                     phone: true
+                },
+                referral_city: {
+                    regex: /^[a-zA-Z\s]+$/
                 }
             },
             messages: {
@@ -235,11 +230,29 @@
                 zip: {
                     required: "Please enter a zip code.",
                     regex: "Please enter a valid zip code."
+                },
+                city: {
+                    regex: 'City can only contain letters and spaces.'
+                },
+                referral_city: {
+                    regex: 'City can only contain letters and spaces.'
                 }
             },
             submitHandler: function(form) {
                 form.submit();
             }
+        });
+        // Define custom phone validation
+        $.validator.addMethod("phone", function(value, element) {
+            // Regex for phone validation (international and local formats)
+            var phoneRegex = /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
+            return this.optional(element) || phoneRegex.test(value);
+        }, "Please enter a valid phone number.");
+        $.validator.addMethod("regex", function(value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        }, "Please check your input.");
+        $('#editReferral_form input').on('keyup change', function() {
+            $(this).valid();
         });
     });
 </script>
