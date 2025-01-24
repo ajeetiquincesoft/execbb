@@ -149,7 +149,8 @@
                     required: true
                 },
                 city: {
-                    required: true
+                    required: true,
+                    regex: /^[a-zA-Z\s]+$/
                 },
                 contact_state: {
                     required: true
@@ -181,11 +182,17 @@
                 email: {
                     required: "Please enter an email address.",
                     email: "Please enter a valid email address."
+                },
+                city: {
+                    regex: 'City can only contain letters and spaces.'
                 }
             },
             submitHandler: function(form) {
                 form.submit();
             }
+        });
+        $('#contact input').on('keyup change', function() {
+            $(this).valid();
         });
     });
 </script>
