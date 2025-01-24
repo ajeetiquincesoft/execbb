@@ -12,7 +12,7 @@
                                 </div>
                                 @if(Session::has('success_message'))
                                 <div class="alert alert-success alert-block" id="alert-success">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     <strong>{{ Session::get('success_message') }}</strong>
                                 </div>
                                 @endif
