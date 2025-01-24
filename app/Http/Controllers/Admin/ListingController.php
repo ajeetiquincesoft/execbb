@@ -344,7 +344,7 @@ class ListingController extends Controller
             $listing->Pager = $request->user_pager;
             $listing->Review = $reviewcheckboxValue;
             $listing->SubCat = $request->bus_type;
-            $listing->Status = 'invalid';
+            $listing->Status = 'valid';
             $listing->CreatedBy = Auth::id();
             $listing->Steps = 1;
             if ($request->hasFile('listing_img')) {
