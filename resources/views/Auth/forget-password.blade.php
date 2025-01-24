@@ -1,13 +1,13 @@
 @extends('frontend.layout.master')
 @section('content')
-    <div class="container py-5 bg-5a102a">
+    <div class="container py-5">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-xl-4">
                     <div class="row g-0">
                         <div class="col-md-12 d-flex align-items-center">
                             <div class="card-body text-black">
                                 <div class="d-flex d-flex justify-content-center mb-3 pb-1">
-                                    <span class="h1 fw-bold mb-0"> <img src="{{ url('assets/images/SidebarLogo.png') }}"
+                                    <span class="h1 fw-bold mb-0"> <img src="{{ url('assets/images/main_logo.png') }}"
                                             alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" /></span>
                                 </div>
                                 @if(Session::has('success_message'))
