@@ -120,14 +120,14 @@
                     </div>
                     <div class="col-md-4" style="height: 70px;">
                         <label for="downPayment">Down Payment <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="downPayment" name="downPayment" value="{{ $offer->DownPaymnt}}">
+                        <input type="number" class="form-control" id="downPayment" name="downPayment" value="{{ $offer->DownPaymnt}}">
                         @error('downPayment')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md-4" style="height: 70px;">
                         <label for="commAmount">Comm. Amount <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="commAmount" name="commAmount" value="{{ $offer->Commission}}">
+                        <input type="number" class="form-control" id="commAmount" name="commAmount" value="{{ $offer->Commission}}">
                         @error('commAmount')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -144,7 +144,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="balanceDue">Balance Due <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="balanceDue" name="balanceDue" value="{{ $offer->BalanceDue}}">
+                        <input type="number" class="form-control" id="balanceDue" name="balanceDue" value="{{ $offer->BalanceDue}}">
                         @error('balanceDue')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
