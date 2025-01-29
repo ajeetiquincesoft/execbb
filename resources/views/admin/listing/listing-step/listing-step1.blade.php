@@ -191,7 +191,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="user_zip_code" class="form-label">State</label>
+                        <label for="user_zip_code" class="form-label">Zip</label>
                         <input type="text" id="Zip2" class="form-control" placeholder="Zip" name="user_zip_code" value="{{ session('formData.user_zip_code') ?? old('user_zip_code')}}">
                         @error('user_zip_code')
                         <small class="text-danger">{{ $message }}</small>
