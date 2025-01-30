@@ -9,6 +9,8 @@ use App\Models\Agent;
 use App\Models\Offer;
 use App\Models\Listing;
 use Illuminate\Support\Facades\DB;
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 
 class OfferController extends Controller
 {
@@ -31,7 +33,7 @@ class OfferController extends Controller
     }
     public function create()
     {
-        session()->forget(['offerData', 'step']);
+        session()->forget(['offerData', 'step','activityCreated']);
         return redirect()->route('offer.form');
     }
     public function destroy(Request $request, $id)
@@ -45,7 +47,12 @@ class OfferController extends Controller
             return redirect()->route('all.offer')
                 ->with('err_message', 'Offer not found.');
         }
-
+        $companyName = Listing::where('ListingID', $request->companyName)->pluck('SellerCorpName')->toArray();
+        Activity::create([
+            'action' => 'Offer delete',
+            'user_id' => Auth::id(),
+            'details' => 'deleted a offer. offer for: ' . $companyName[0],
+        ]);
         // Delete the offer
         Offer::where('OfferID', $id)->delete();
 
@@ -128,6 +135,12 @@ class OfferController extends Controller
                 $offer->BalanceDue = $request->balanceDue;
                 $offer->offer_step = $step;
                 $offer->save();
+                $companyName = Listing::where('ListingID', $request->companyName)->pluck('SellerCorpName')->toArray();
+                Activity::create([
+                    'action' => 'Offer add',
+                    'user_id' => Auth::id(),
+                    'details' => 'created a new offer for: ' . $companyName[0],
+                ]);
                 $offerData = $request->session()->get('offerData', []);
                 $mergedData = array_merge($offerData, $request->all());
                 $request->session()->put('offerData', $mergedData);
@@ -369,6 +382,7 @@ class OfferController extends Controller
         if (!$offer) {
             return back()->with('error', 'Offer not found!');
         }
+        $activityCreated = session()->get('activityCreated', false);
         if ($step == 1) {
             // dd($request->all());
             /*  $offerData = $request->session()->get('offerData', []);
@@ -393,6 +407,15 @@ class OfferController extends Controller
                 // Save the updated record
                 $offer->offer_step = $step;
                 $offer->save();
+                if (!$activityCreated) {
+                $companyName = Listing::where('ListingID', $request->companyName)->pluck('SellerCorpName')->toArray();
+                Activity::create([
+                    'action' => 'Offer update',
+                    'user_id' => Auth::id(),
+                    'details' => 'update offer for: ' . $companyName[0],
+                ]);
+                session(['activityCreated' => true]);
+            }
                 $offerData = $request->session()->get('offerData', []);
                 $mergedData = array_merge($offerData, $request->all());
                 $request->session()->put('offerData', $mergedData);
@@ -608,6 +631,7 @@ class OfferController extends Controller
         if (!$offer) {
             return back()->with('error', 'Offer not found!');
         }
+        $activities = Activity::latest()->paginate(10);
         // Get the previous Offer ID
         $previous = Offer::where('OfferID', '<', $id)->orderBy('OfferID', 'desc')->first();
         // Get the next Offer ID
@@ -615,7 +639,7 @@ class OfferController extends Controller
         $company_name = DB::table('listings')->pluck('SellerCorpName', 'ListingID');
         $buyer_name = Buyer::selectRaw("CONCAT(FName, ' ', LName) AS full_name, BuyerID")
             ->pluck('full_name', 'BuyerID');
-        return view('admin.offer.show', compact('offer', 'previous', 'next', 'company_name', 'buyer_name'));
+        return view('admin.offer.show', compact('offer', 'previous', 'next', 'company_name', 'buyer_name','activities'));
     }
     public function prevNext(Request $request, $id)
     {

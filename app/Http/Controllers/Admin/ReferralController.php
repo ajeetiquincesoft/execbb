@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Referral;
 use Illuminate\Support\Facades\DB;
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 
 class ReferralController extends Controller
 {
@@ -69,6 +71,11 @@ class ReferralController extends Controller
         $referral->ReferredInterest = $request->ref_interest;
         $referral->ReferredDBA = $request->ref_dba;
         $referral->save();
+        Activity::create([
+            'action' => 'Referral add',
+            'user_id' => Auth::id(),
+            'details' => 'created a new referral with name: ' . $request->follow_up,
+        ]);
         return redirect()->route('all.referral')->with('success', 'Your referral create successful!');
 
     }
@@ -123,6 +130,11 @@ class ReferralController extends Controller
         $referral->ReferredInterest = $request->ref_interest;
         $referral->ReferredDBA = $request->ref_dba;
         $referral->save();
+        Activity::create([
+            'action' => 'Referral update',
+            'user_id' => Auth::id(),
+            'details' => 'update referral with name: ' .$request->follow_up,
+        ]);
         return redirect()->route('all.referral')->with('success', 'Your referral update successful!');
 
     }
@@ -132,12 +144,13 @@ class ReferralController extends Controller
         if (!$referral) {
             return back()->with('error', 'Contact not found!');
         }
+        $activities = Activity::latest()->paginate(10);
         // Get the previous Referral ID
         $previous = Referral::where('RefID', '<', $id)->orderBy('RefID', 'desc')->first();
         // Get the next referral ID
         $next = Referral::where('RefID', '>', $id)->orderBy('RefID', 'asc')->first();
         
-       return view('admin.referral.show', compact('referral', 'previous', 'next'));
+       return view('admin.referral.show', compact('referral', 'previous', 'next','activities'));
 
     }
     public function destroy(Request $request, $id)
@@ -150,7 +163,11 @@ class ReferralController extends Controller
                 return redirect()->route('all.referral')
                     ->with('err_message', 'Referral not found.');
             }
-
+            Activity::create([
+                'action' => 'Referral delete',
+                'user_id' => Auth::id(),
+                'details' => 'deleted a referral of name: ' . $referral->RefCompany,
+            ]);
             // Delete the contact
             Referral::where('RefID', $id)->delete();
 

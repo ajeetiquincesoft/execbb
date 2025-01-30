@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use Illuminate\Support\Facades\DB;
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -58,6 +60,11 @@ class ContactController extends Controller
         $contact->Type = $request->type;
         $contact->Comments = $request->comments;
         $contact->save();
+        Activity::create([
+            'action' => 'Contact add',
+            'user_id' => Auth::id(),
+            'details' => 'created a new contact with email: ' . $request->email,
+        ]);
         return redirect()->route('all.contact')->with('success', 'Your contact create successfully!');
 
     }
@@ -104,6 +111,11 @@ class ContactController extends Controller
         $contact->Type = $request->type;
         $contact->Comments = $request->comments;
         $contact->save();
+        Activity::create([
+            'action' => 'Contact update',
+            'user_id' => Auth::id(),
+            'details' => 'update contact with email: ' .$request->email,
+        ]);
         return redirect()->route('all.contact')->with('success', 'Your contact update successfully!');
 
 
@@ -114,13 +126,14 @@ class ContactController extends Controller
         if (!$contact) {
             return back()->with('error', 'Contact not found!');
         }
+        $activities = Activity::latest()->paginate(10);
         // Get the previous contact ID
         $previous = Contact::where('ContactID', '<', $id)->orderBy('ContactID', 'desc')->first();
         // Get the next contact ID
         $next = Contact::where('ContactID', '>', $id)->orderBy('ContactID', 'asc')->first();
         $contact_type = DB::table('contact_types')->pluck('Description', 'Type');
         
-       return view('admin.contact.show', compact('contact', 'previous', 'next','contact_type'));
+       return view('admin.contact.show', compact('contact', 'previous', 'next','contact_type','activities'));
 
     }
     public function destroy(Request $request, $id)
@@ -133,7 +146,11 @@ class ContactController extends Controller
                 return redirect()->route('all.contact')
                     ->with('err_message', 'Contact not found.');
             }
-
+            Activity::create([
+                'action' => 'Contact delete',
+                'user_id' => Auth::id(),
+                'details' => 'deleted a contact of email: ' . $contact->Email,
+            ]);
             // Delete the contact
             Contact::where('ContactID', $id)->delete();
 

@@ -9,6 +9,8 @@ use App\Models\Agent;
 use App\Models\Buyer;
 use App\Models\Listing;
 use Illuminate\Support\Facades\DB;
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 class ShowingController extends Controller
 {
     public function index(Request $request){
@@ -69,7 +71,11 @@ class ShowingController extends Controller
             }
             
         }
-     
+        Activity::create([
+            'action' => 'Showing add',
+            'user_id' => Auth::id(),
+            'details' => 'created a new showing',
+        ]);
         return redirect()->route('all.showing')->with('success', 'Your showing create successful!');
 
     }
@@ -104,6 +110,11 @@ class ShowingController extends Controller
         $showing->OfferMade =  isset($request->offer_made) ? 1 : 0;
         $showing->FollowUp = $request->follow_up;
         $showing->save();
+        Activity::create([
+            'action' => 'Showing update',
+            'user_id' => Auth::id(),
+            'details' => 'update showing',
+        ]);
         return redirect()->route('all.showing')->with('success', 'Your showing update successful!');
 
     }
@@ -113,13 +124,14 @@ class ShowingController extends Controller
         if (!$showing) {
             return back()->with('error', 'Showing not found!');
         }
+        $activities = Activity::latest()->paginate(10);
         // Get the previous showing ID
         $previous = Showing::where('ShowingID', '<', $id)->orderBy('ShowingID', 'desc')->first();
         // Get the next showing ID
         $next = Showing::where('ShowingID', '>', $id)->orderBy('ShowingID', 'asc')->first();
         $dbaName = Listing::pluck('SellerCorpName', 'ListingID');
         $buyerName = Buyer::pluck('FName', 'BuyerID');
-       return view('admin.showing.show', compact('showing', 'previous', 'next','dbaName','buyerName'));
+       return view('admin.showing.show', compact('showing', 'previous', 'next','dbaName','buyerName','activities'));
 
     }
     public function destroy(Request $request, $id)
@@ -132,7 +144,11 @@ class ShowingController extends Controller
                 return redirect()->route('all.showing')
                     ->with('err_message', 'Showing not found.');
             }
-
+            Activity::create([
+                'action' => 'Showing delete',
+                'user_id' => Auth::id(),
+                'details' => 'delete a showing',
+            ]);
             // Delete the contact
             Showing::where('ShowingID', $id)->delete();
 

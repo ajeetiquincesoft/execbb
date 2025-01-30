@@ -8,6 +8,8 @@ use App\Models\Buyer;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 
 class BuyerController extends Controller
 {
@@ -131,6 +133,16 @@ class BuyerController extends Controller
 
 
                 $buyer->save();
+                Activity::create([
+                    'action' => 'Buyer add',
+                    'user_id' => Auth::id(),
+                    'details' => 'created a new buyer with name: ' . $request->firstName .' '.$request->lastName,
+                ]);
+                Activity::create([
+                    'action' => 'Buyer registered',
+                    'user_id' => $check->id,
+                    'details' => 'registered buyer with email: ' . $request->email,
+                ]);
                 $buyerData = $request->session()->get('buyerData', []);
                 $mergedData = array_merge($buyerData, $request->all());
                 $request->session()->put('buyerData', $mergedData);
@@ -235,6 +247,7 @@ class BuyerController extends Controller
         if (!$buyer) {
             return back()->with('error', 'Listing not found!');
         }
+        $logCreated = session()->get('logCreated', false);
         // dd( $buyer);
         if ($step == 1) {
             $corporateBuyer = $request->has('corporateBuyer') ? 1 : 0;
@@ -269,6 +282,16 @@ class BuyerController extends Controller
 
                 // Save the new record to the database
                 $buyer->save();
+                if (!$logCreated) {
+                    Activity::create([
+                        'action' => 'Buyer update',
+                        'user_id' => Auth::id(),
+                        'details' => 'update buyer with name: ' . $request->firstName .' '.$request->lastName,
+                    ]);
+    
+                    // Mark the log as created in the session to prevent duplicate logs
+                    session(['logCreated' => true]);
+                }
                 $buyerData = $request->session()->get('buyerData', []);
                 $mergedData = array_merge($buyerData, $request->all());
                 $request->session()->put('buyerData', $mergedData);
@@ -332,16 +355,22 @@ class BuyerController extends Controller
     {
 
         $buyer = Buyer::where('BuyerID', $id)->first();
+        $activities = Activity::latest()->paginate(10);
         // Get the previous buyer ID
         $previous = Buyer::where('BuyerID', '<', $id)->orderBy('BuyerID', 'desc')->first();
         // Get the next buyer ID
         $next = Buyer::where('BuyerID', '>', $id)->orderBy('BuyerID', 'asc')->first();
-        return view('admin.buyer.show', compact('buyer', 'previous', 'next'));
+        return view('admin.buyer.show', compact('buyer', 'previous', 'next','activities'));
     }
     public function destroy(Request $request, $id)
     {
         try {
             $buyer = Buyer::find($id);
+            Activity::create([
+                'action' => 'Buyer delete',
+                'user_id' => Auth::id(),
+                'details' => 'deleted a buyer. Buyer details: Email: ' . $buyer->Email,
+            ]);
             $buyer->delete();
             return redirect()->route('list.buyer')
                 ->with('success', 'Buyer deleted successfully');
@@ -385,14 +414,30 @@ class BuyerController extends Controller
     {
         $action = $request->action;
         $buyer_id = $request->buyer_id;
+        $emails = Buyer::whereIn('BuyerID', $buyer_id)->pluck('Email')->toArray();
         if ($action == "active") {
             Buyer::whereIn('BuyerID', $buyer_id)->update(['Active' => '1']);
+            Activity::create([
+                'action' => 'Buyer status update',
+                'user_id' =>  Auth::id(),
+                'details' => 'set buyer as active. Buyer Email: ' . implode(", ", $emails),
+            ]);
             return response()->json(array('message' => 'Buyer status has been change successfully!'));
         } else if ($action == "Inactive") {
             Buyer::whereIn('BuyerID', $buyer_id)->update(['Active' => '0']);
+            Activity::create([
+                'action' => 'Buyer status update',
+                'user_id' =>  Auth::id(),
+                'details' => 'set buyer as inactive. Buyer Email: ' . implode(", ", $emails),
+            ]);
             return response()->json(array('message' => 'Buyer status has been change successfully!'));
         } else {
             Buyer::whereIn('BuyerID', $buyer_id)->delete();
+            Activity::create([
+                'action' => 'Buyer delete',
+                'user_id' =>  Auth::id(),
+                'details' => 'deleted buyer. Buyer Email: ' . implode(", ", $emails),
+            ]);
             return response()->json(array('message' => 'Buyer delete successfully!'));
         }
     }

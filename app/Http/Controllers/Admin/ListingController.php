@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Listing;
 use App\Models\User;
+use App\Models\Activity;
 use Throwable;
 use Session;
 use Illuminate\Support\Facades\Log;
@@ -15,9 +16,31 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Notifications\SendNotification;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Database;
 
 class ListingController extends Controller
 {
+    protected $database;
+    protected $reference;
+
+    public function __construct()
+    {
+        // Set the path to your Firebase service account JSON file
+        $serviceAccountPath = storage_path('app/firebase/exeb-443511-firebase-adminsdk-fbsvc-99ad7c8b12.json');
+
+        // Initialize Firebase with the service account and database URI
+        $firebase = (new Factory)
+            ->withServiceAccount($serviceAccountPath)
+            ->withDatabaseUri('https://exeb-443511-default-rtdb.firebaseio.com');
+
+        // Create the database instance
+        $this->database = $firebase->createDatabase();
+
+        // Set the reference to 'notifications'
+        $this->reference = $this->database->getReference('notifications');
+    }
     public function getOptions($id)
     {
         // Fetch options based on the selected ID (e.g., from a database)
@@ -162,6 +185,19 @@ class ListingController extends Controller
             }
 
             // Delete the listing
+            Activity::create([
+                'action' => 'Listing delete',
+                'user_id' => Auth::id(),
+                'details' => 'deleted a listing. Listing details: ID: ' . $listing->ListingID . ', Business Name: ' . $listing->SellerCorpName,
+            ]);
+            $data = [
+                'title' => 'Listing delete',
+                'body' => 'Admin deleted a listing.',
+                'timestamp' => Carbon::now()->toIso8601String(),
+                'user_id' => $listing->RefAgentID,
+                'is_read' => false,
+            ];
+            $this->reference->push($data);
             $listing->delete();
 
             return redirect()->route('all.listing')
@@ -173,11 +209,12 @@ class ListingController extends Controller
     public function show($id)
     {
         $listing = Listing::where('ListingID', $id)->first();
+        $activities = Activity::latest()->paginate(10);
         // Get the previous listing ID
         $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
         // Get the next listing ID
         $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
-        return view('admin.listing.show', compact('listing', 'previous', 'next'));
+        return view('admin.listing.show', compact('listing', 'previous', 'next', 'activities'));
     }
     public function createStep1()
     {
@@ -369,6 +406,11 @@ class ListingController extends Controller
             $completeStep[] = 1;
             session(['complete_step' => $completeStep]);
             Log::info('Session Data:', $request->session()->all());
+            Activity::create([
+                'action' => 'Listing add',
+                'user_id' => Auth::id(),
+                'details' => 'create listing for all users, listing is ' . $listing->SellerCorpName,
+            ]);
             return redirect()->route('create.listing.step2')->with('success', 'Listing created successfully!');
         }
     }
@@ -773,6 +815,11 @@ class ListingController extends Controller
             'imagepath' => $imagepath,
             'SubCat' => $request->bus_type
         ]);
+        Activity::create([
+            'action' => 'Listing update',
+            'user_id' => Auth::id(),
+            'details' => 'update listing, listing is ' .  $request->cropName,
+        ]);
         return redirect()->route('edit.listing.step2', ['id' => $id])->with('success', 'Listing updated successfully!');
     }
     public function updateStep2(Request $request, $id)
@@ -987,25 +1034,110 @@ class ListingController extends Controller
         $listing_img = Listing::where('ListingID', $id)->update([
             'imagepath' => $filename,
         ]);
+        $userId = Auth::id();
+        $listingData = Listing::findOrFail($id);
         if ($listing_img) {
+            $data = [
+                'title' => 'Listing image update',
+                'body' => 'Admin update your listing image.',
+                'timestamp' => Carbon::now()->toIso8601String(),
+                'user_id' => $listingData->RefAgentID,
+                'is_read' => false,
+            ];
+            $this->reference->push($data);
+            Activity::create([
+                'action' => 'Listing image update',
+                'user_id' => $userId,
+                'details' => 'update listing image Listing name: ' . $listingData->SellerCorpName,
+            ]);
             return redirect()->back()->with('success_message', 'Listing image update successfully');
         } else {
             return redirect()->back()->with('success_message', 'There are some error! can not be update.');
         }
     }
-    public function bulkAction(Request $request)
+   /*  public function bulkAction(Request $request)
     {
         $action = $request->action;
         $listing_id = $request->listing_id;
         $currentDate = Carbon::now();
+        $userId = Auth::id();
         if ($action == "active") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '1']);
+            $listings = Listing::whereIn('ListingID', $listing_id)
+                ->whereNotNull('RefAgentID')
+                ->where('RefAgentID', '!=', '')
+                ->get(['ListingID', 'RefAgentID']);
+
+            if ($listings->isNotEmpty()) {
+                foreach ($listings as $listing) {
+                    $data = [
+                        'title' => 'Listing status update',
+                        'body' => 'set listings as active.',
+                        'timestamp' => Carbon::now()->toIso8601String(),
+                        'user_id' => $listing->RefAgentID,
+                        'is_read' => false,
+                    ];
+
+                    $this->reference->push($data);
+                }
+            }
+            Activity::create([
+                'action' => 'Listing status update',
+                'user_id' => $userId,
+                'details' => 'set listings as active. Listing IDs: ' . implode(", ", $listing_id),
+            ]);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "inactive") {
             Listing::whereIn('ListingID', $listing_id)->update(['Active' => '0']);
+            $listings = Listing::whereIn('ListingID', $listing_id)
+                ->whereNotNull('RefAgentID')
+                ->where('RefAgentID', '!=', '')
+                ->get(['ListingID', 'RefAgentID']);
+
+            if ($listings->isNotEmpty()) {
+                foreach ($listings as $listing) {
+                    $data = [
+                        'title' => 'Listing status update',
+                        'body' => 'set listings as inactive.',
+                        'timestamp' => Carbon::now()->toIso8601String(),
+                        'user_id' => $listing->RefAgentID,
+                        'is_read' => false,
+                    ];
+
+                    $this->reference->push($data);
+                }
+            }
+            Activity::create([
+                'action' => 'Listing status update',
+                'user_id' => $userId,
+                'details' => 'set listings as inactive. Listing IDs: ' . implode(", ", $listing_id),
+            ]);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "close") {
             Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'close']);
+            $listings = Listing::whereIn('ListingID', $listing_id)
+                ->whereNotNull('RefAgentID')
+                ->where('RefAgentID', '!=', '')
+                ->get(['ListingID', 'RefAgentID']);
+
+            if ($listings->isNotEmpty()) {
+                foreach ($listings as $listing) {
+                    $data = [
+                        'title' => 'Listing status update',
+                        'body' => 'closed listing.',
+                        'timestamp' => Carbon::now()->toIso8601String(),
+                        'user_id' => $listing->RefAgentID,
+                        'is_read' => false,
+                    ];
+
+                    $this->reference->push($data);
+                }
+            }
+            Activity::create([
+                'action' => 'Listing status update',
+                'user_id' => $userId,
+                'details' => 'closed listings. Listing IDs: ' . implode(", ", $listing_id),
+            ]);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "valid") {
             Listing::whereIn('ListingID', $listing_id)
@@ -1014,13 +1146,168 @@ class ListingController extends Controller
                 ->where('Status', '!=', 'valid')
                 ->orWhereNull('ExpDate')
                 ->update(['Status' => 'valid']);
+            $listings = Listing::whereIn('ListingID', $listing_id)
+                ->whereNotNull('RefAgentID')
+                ->where('RefAgentID', '!=', '')
+                ->get(['ListingID', 'RefAgentID']);
+
+            if ($listings->isNotEmpty()) {
+                foreach ($listings as $listing) {
+                    $data = [
+                        'title' => 'Listing status update',
+                        'body' => 'set listings as valid.',
+                        'timestamp' => Carbon::now()->toIso8601String(),
+                        'user_id' => $listing->RefAgentID,
+                        'is_read' => false,
+                    ];
+
+                    $this->reference->push($data);
+                }
+            }
+            Activity::create([
+                'action' => 'Listing status update',
+                'user_id' => $userId,
+                'details' => 'set listings as valid. Listing IDs: ' . implode(", ", $listing_id),
+            ]);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "sole exclusive") {
             Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'sole exclusive']);
+            $listings = Listing::whereIn('ListingID', $listing_id)
+                ->whereNotNull('RefAgentID')
+                ->where('RefAgentID', '!=', '')
+                ->get(['ListingID', 'RefAgentID']);
+
+            if ($listings->isNotEmpty()) {
+                foreach ($listings as $listing) {
+                    $data = [
+                        'title' => 'Listing status update',
+                        'body' => 'set listings as sole exclusive.',
+                        'timestamp' => Carbon::now()->toIso8601String(),
+                        'user_id' => $listing->RefAgentID,
+                        'is_read' => false,
+                    ];
+
+                    $this->reference->push($data);
+                }
+            }
+            Activity::create([
+                'action' => 'Listing status update',
+                'user_id' => $userId,
+                'details' => 'set listings as sole exclusive. Listing IDs: ' . implode(", ", $listing_id),
+            ]);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "delete") {
             Listing::whereIn('ListingID', $listing_id)->delete();
+            $listings = Listing::whereIn('ListingID', $listing_id)
+                ->whereNotNull('RefAgentID')
+                ->where('RefAgentID', '!=', '')
+                ->get(['ListingID', 'RefAgentID']);
+
+            if ($listings->isNotEmpty()) {
+                foreach ($listings as $listing) {
+                    $data = [
+                        'title' => 'Listing delete',
+                        'body' => 'deleted listing',
+                        'timestamp' => Carbon::now()->toIso8601String(),
+                        'user_id' => $listing->RefAgentID,
+                        'is_read' => false,
+                    ];
+
+                    $this->reference->push($data);
+                }
+            }
+            Activity::create([
+                'action' => 'Listing delete',
+                'user_id' => $userId,
+                'details' => 'deleted listings. Listing IDs: ' . implode(", ", $listing_id),
+            ]);
             return response()->json(array('message' => 'Listing delete successfully!'));
         }
+    } */
+    public function bulkAction(Request $request)
+    {
+        $action = $request->action;
+        $listing_id = $request->listing_id;
+        $currentDate = Carbon::now();
+        $userId = Auth::id();
+    
+        // Define a mapping for actions to update columns
+        $statusColumnMapping = [
+            'active' => ['column' => 'Active', 'value' => 1, 'message' => 'set listings as active.'],
+            'inactive' => ['column' => 'Active', 'value' => 0, 'message' => 'set listings as inactive.'],
+            'close' => ['column' => 'Status', 'value' => 'close', 'message' => 'closed listing.'],
+            'valid' => ['column' => 'Status', 'value' => 'valid', 'message' => 'set listings as valid.'],
+            'sole exclusive' => ['column' => 'Status', 'value' => 'sole exclusive', 'message' => 'set listings as sole exclusive.'],
+        ];
+    
+        // Check if the action exists in our mapping
+        if (isset($statusColumnMapping[$action])) {
+            $column = $statusColumnMapping[$action]['column'];
+            $value = $statusColumnMapping[$action]['value'];
+            $message = $statusColumnMapping[$action]['message'];
+    
+            // Update the listings in bulk based on the action
+            Listing::whereIn('ListingID', $listing_id)->update([$column => $value]);
+    
+            // Get the listings for sending notifications
+            $listings = Listing::whereIn('ListingID', $listing_id)
+                ->whereNotNull('RefAgentID')
+                ->where('RefAgentID', '!=', '')
+                ->get(['ListingID', 'RefAgentID']);
+    
+            // Send notifications to the RefAgentID of the listings
+            foreach ($listings as $listing) {
+                $data = [
+                    'title' => 'Listing status update',
+                    'body' => $message,
+                    'timestamp' => Carbon::now()->toIso8601String(),
+                    'user_id' => $listing->RefAgentID,
+                    'is_read' => false,
+                ];
+                $this->reference->push($data);
+            }
+    
+            // Log activity
+            Activity::create([
+                'action' => 'Listing status update',
+                'user_id' => $userId,
+                'details' => $message . ' Listing IDs: ' . implode(", ", $listing_id),
+            ]);
+    
+            return response()->json(['message' => 'Listing status has been changed successfully!']);
+        } elseif ($action === 'delete') {
+            // Handle the delete action
+            Listing::whereIn('ListingID', $listing_id)->delete();
+    
+            // Get the listings for sending notifications
+            $listings = Listing::whereIn('ListingID', $listing_id)
+                ->whereNotNull('RefAgentID')
+                ->where('RefAgentID', '!=', '')
+                ->get(['ListingID', 'RefAgentID']);
+    
+            // Send notifications to the RefAgentID of the listings
+            foreach ($listings as $listing) {
+                $data = [
+                    'title' => 'Listing delete',
+                    'body' => 'deleted listing',
+                    'timestamp' => Carbon::now()->toIso8601String(),
+                    'user_id' => $listing->RefAgentID,
+                    'is_read' => false,
+                ];
+                $this->reference->push($data);
+            }
+    
+            // Log activity
+            Activity::create([
+                'action' => 'Listing delete',
+                'user_id' => $userId,
+                'details' => 'deleted listings. Listing IDs: ' . implode(", ", $listing_id),
+            ]);
+    
+            return response()->json(['message' => 'Listing deleted successfully!']);
+        }
+    
+        return response()->json(['message' => 'Invalid action!'], 400);
     }
+    
 }

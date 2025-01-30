@@ -254,7 +254,7 @@ i.fas.fa-trash {
 
 /* Content of the activity */
 .activity-content {
-  font-size: 1em;
+  font-size: 0.9em;
   color: #495057;
   /* Darker text color for readability */
   line-height: 1.5;

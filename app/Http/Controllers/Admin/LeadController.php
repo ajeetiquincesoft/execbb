@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Agent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Activity;
 
 class LeadController extends Controller
 {
@@ -100,6 +103,11 @@ class LeadController extends Controller
         ]);
         DB::commit();
         if ($insert) {
+            Activity::create([
+                'action' => 'Lead add',
+                'user_id' => Auth::id(),
+                'details' => 'created a lead for all users. Lead details: Name: ' . $request->firstName . ', Business Name: ' . $request->businessName,
+            ]);
             return redirect()->route('all.lead')->with('success', 'Lead generate successfully');
         } else {
             return redirect()->route('all.lead')->with('error', 'There are some error! can not be create.');
@@ -171,6 +179,11 @@ class LeadController extends Controller
             'updated_at' => now(),
         ]);
         if ($update) {
+            Activity::create([
+                'action' => 'Lead update',
+                'user_id' => Auth::id(),
+                'details' => 'update a lead for all users. Lead details: Name: ' . $request->firstName . ', Business Name: ' . $request->businessName,
+            ]);
             return redirect()->route('all.lead')->with('success', 'Lead update successfully');
         } else {
             return redirect()->route('all.lead')->with('error', 'There are some error! can not be update.');
@@ -179,12 +192,13 @@ class LeadController extends Controller
     public function show($id)
     {
         $lead =  DB::table('leads')->where('LeadID', $id)->first();
+        $activities = Activity::latest()->paginate(10);
         //dd($lead->toSql(), $lead->getBindings());
         // Get the previous lead ID
         $previous = DB::table('leads')->where('LeadID', '<', $id)->orderBy('LeadID', 'desc')->first();
         // Get the next lead ID
         $next = DB::table('leads')->where('LeadID', '>', $id)->orderBy('LeadID', 'asc')->first();
-        return view('admin.lead.show', compact('lead', 'previous', 'next'));
+        return view('admin.lead.show', compact('lead', 'previous', 'next','activities'));
     }
     public function destroy(Request $request, $id)
     {
@@ -197,7 +211,11 @@ class LeadController extends Controller
             return redirect()->route('all.lead')
                 ->with('err_message', 'Lead not found.');
         }
-
+        Activity::create([
+            'action' => 'Lead delete',
+            'user_id' => Auth::id(),
+            'details' => 'deleted a lead. Lead details: ID: ' . $lead->LeadID,
+        ]);
         // Delete the lead
         DB::table('leads')->where('LeadID', $id)->delete();
 
@@ -208,20 +226,40 @@ class LeadController extends Controller
     {
         $status_val = $request->status_val;
         $lead_id = $request->lead_id;
+        $status = DB::table('lead_status')->where('LeadStatusID', $status_val)->first();
+        if (!$status) {
+            return response()->json(['error' => 'Invalid status ID'], 400);
+        }
+        $userId = Auth::id();
         DB::table('leads')
             ->whereIn('LeadID', $lead_id)
             ->update([
                 'Status' => $status_val
+            ]);
+            Activity::create([
+                'action' => 'Lead status update',
+                'user_id' => $userId,
+                'details' => 'set leads status as ' .  $status->Status . '. Lead IDs: ' . implode(", ", $lead_id),
             ]);
         return response()->json(array('message' => 'Lead status has been change successfully!'));
     }
     public function leadAssign(Request $request){
         $agent_id = $request->agent_id;
         $lead_id = $request->lead_id;
+        $userId = Auth::id();
+        $agentInfo = Agent::where('AgentID',$agent_id)->first();
+        if (!$agentInfo) {
+            return response()->json(['error' => 'Invalid agent ID'], 400);
+        }
         DB::table('leads')
             ->where('LeadID', $lead_id)
             ->update([
                 'AgentID' => $agent_id
+            ]);
+            Activity::create([
+                'action' => 'Assign lead to agent',
+                'user_id' => $userId,
+                'details' => 'assign leads to agent, agent name: ' .  $agentInfo->FName . '. Lead ID: ' . $lead_id,
             ]);
             return redirect()->back()->with('success', 'Agent Assigned successfully');
     }

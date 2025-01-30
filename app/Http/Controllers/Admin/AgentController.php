@@ -16,6 +16,8 @@ use App\Mail\AgentWelcome;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Activity;
 
 
 class AgentController extends Controller
@@ -107,6 +109,11 @@ class AgentController extends Controller
             //Mail::to('santosh3257@gmail.com')->send(new AgentWelcome());
             event(new AgentRegister($request->all()));
             DB::commit();
+            Activity::create([
+                'action' => 'Agent registered',
+                'user_id' => $check->id,
+                'details' => 'registered agent with email: ' . $request->email,
+            ]);
             return redirect('admin/agent/list')->with('success', 'Agent register successfully');
         } catch (QueryException $e) {
             DB::rollBack();
@@ -199,6 +206,12 @@ class AgentController extends Controller
 
         ]);
         if ($agent) {
+            $userId = Auth::id();
+            Activity::create([
+                'action' => 'Agent update',
+                'user_id' => $userId,
+                'details' => 'update agent information agent name:' . $request->first_name.' '.$request->last_name,
+            ]);
             return redirect('admin/agent/list')->with('success', 'Agent update successfully');
         } else {
             return redirect()->back()->with('success_message', 'There are some error! can not be update.');
@@ -208,6 +221,7 @@ class AgentController extends Controller
     {
 
         $agent = User::with('agent_info')->find($id);
+        $activities = Activity::latest()->paginate(10);
         /* dd($agent->agent_info->AgentID);
             $agent_details = $agent->agent_info->get();
             dd($agent_details->FName); */
@@ -215,12 +229,17 @@ class AgentController extends Controller
         $previous = User::where('id', '<', $id)->where('role_name', '=', 'agent')->orderBy('id', 'desc')->first();
         // Get the next post ID
         $next = User::where('id', '>', $id)->where('role_name', '=', 'agent')->orderBy('id', 'asc')->first();
-        return view('admin.agent.show', compact('agent', 'previous', 'next'));
+        return view('admin.agent.show', compact('agent', 'previous', 'next','activities'));
     }
     public function destroy(Request $request, $id)
     {
         try {
             $agent = User::find($id);
+            Activity::create([
+                'action' => 'Agent delete',
+                'user_id' => Auth::id(),
+                'details' =>  'deleted a agent. agent name: ' . $agent->FName .' '.$agent->LName,
+            ]);
             $agent->delete();
             return redirect()->route('list.agent')
                 ->with('success', 'Agent deleted successfully');
@@ -249,6 +268,12 @@ class AgentController extends Controller
             'image' => $filename,
         ]);
         if ($agent) {
+            $agentInfo = Agent::where('AgentUserRegisterId', $id)->first();
+            Activity::create([
+                'action' => 'Update agent profile image',
+                'user_id' => Auth::id(),
+                'details' =>  'update agent profile image. agent name: ' . $agentInfo->FName .' '.$agentInfo->LName,
+            ]);
             return redirect()->back()->with('success_message', 'Agent profile image update successfully');
         } else {
             return redirect()->back()->with('success_message', 'There are some error! can not be update.');
