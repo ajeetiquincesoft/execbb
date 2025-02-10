@@ -33,7 +33,7 @@
                         <select class="form-control" id="status" name="status">
                             <option value="" selected>Select Status</option>
                             @foreach($offer_types as $offer_type)
-                            <option value="{{$offer_type->Status}}" {{ (old('status') == $offer_type->Status  || session('offerData.status') == $offer_type->Status) ? 'selected' : '' }}>{{$offer_type->Status}}</option>
+                            <option value="{{$offer_type->Status}}" {{ (old('status') == $offer_type->Status  || session('offerData.status') == $offer_type->Status || $offer_type->Status == 'Pending') ? 'selected' : '' }}>{{$offer_type->Status}}</option>
                             @endforeach
                         </select>
                         @error('status')

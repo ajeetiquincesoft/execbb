@@ -134,6 +134,7 @@
                             <input type="file" id="fileUpload" accept="image/*" style="display:none;" name="listing_img">
                             <span class="button-text"> <img src="{{url('assets/images/uploadicon.svg')}}" alt="">Upload</span>
                         </label>
+                        <div id="listingImgError" style="color:#dc3545;"></div>
                         <div id="imagePreview"></div>
                     </div>
                     @if(!empty($listingData->imagepath))
@@ -770,6 +771,48 @@
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
         }, "Invalid phone number format.");
+         // Add custom method for validating image extensions
+         $.validator.addMethod("imageExtension", function(value, element) {
+            // Check if the file input value matches the allowed extensions (jpg, jpeg, png, svg)
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.svg)$/i;
+            return this.optional(element) || allowedExtensions.test(value);
+        }, "Only .jpg, .jpeg, .png, and .svg files are allowed.");
+        // Custom image dimension validation
+        // Flag to check if validation should pass
+        let isValidImage = true;
+        // Custom validation method for image dimensions
+        $.validator.addMethod("imageDimensions", function(value, element) {
+            var imageFile = element.files[0];
+
+            if (!imageFile) {
+                return true; // No file selected, skip validation
+            }
+
+            var img = new Image();
+            var $element = $(element);
+
+            img.onload = function() {
+                var width = img.width;
+                var height = img.height;
+                var isValid = width >= 800 && height >= 500;
+
+                // Store validation result in a data attribute
+                $element.data("valid-image", isValid);
+
+                // Manually trigger validation again
+                if (isValid) {
+                    $("#fileUpload").valid();
+                }
+            };
+
+            img.src = URL.createObjectURL(imageFile);
+
+            // Return stored validation result or assume false if not yet loaded
+            return $element.data("valid-image") === true;
+        }, "Image must be at least 800px by 500px.");
+        $.validator.setDefaults({
+            ignore: []
+        });
         var form = $('#listingAgentForm');
         form.validate({
             rules: {
@@ -818,8 +861,8 @@
                     required: true
                 },
                 listing_img: {
-                    extension: "jpeg,png,gif,svg",
-                    filesize: 5 * 1024 * 1024 // 5MB
+                    imageExtension: true,
+                    imageDimensions: true
                 },
                 buildingSize: {
                     required: true
@@ -932,8 +975,18 @@
                     regex: 'City can only contain letters and spaces.'
                 },
                 listing_img: {
-                    extension: 'File must be a valid image type (jpeg, png, gif, svg).',
-                    filesize: 'File size must be less than 5MB.'
+                    imageExtension: 'Only .jpg, .jpeg, .png, and .svg files are allowed.'
+                }
+            },
+            errorPlacement: function(error, element) {
+                // Custom placement for errors
+                console.log(element.attr('name'));
+                if (element.attr('name') == 'listing_img') {
+                    // Place the error outside the label in the #listingImgError div
+                    error.appendTo('#listingImgError');
+                } else {
+                    // Default placement for other fields
+                    error.insertAfter(element);
                 }
             },
             submitHandler: function(form) {
@@ -1116,6 +1169,8 @@
 </script>
 <script>
     document.getElementById('fileUpload').addEventListener('change', function(event) {
+        isValidImage = true;
+        $('#fileUpload').valid();
         const file = event.target.files[0];
 
         if (file) {

@@ -31,9 +31,12 @@ use App\Http\Controllers\Agent\AgentLoginActivityController;
 use App\Http\Controllers\Agent\AgentEmailBuyerController;
 use App\Http\Controllers\Agent\AgentReportController;
 use App\Http\Controllers\Agent\NotificationController;
+use App\Http\Controllers\Agent\AgentLeadController;
 
 //Controller for buyer
 use App\Http\Controllers\Buyer\BuyerAuthController;
+use App\Http\Controllers\Buyer\BuyerProfileController;
+use App\Http\Controllers\Buyer\BuyerChangePasswordController;
 
 //Controller for frontend
 use App\Http\Controllers\RegisterWithEbbController;
@@ -376,6 +379,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::post('/offer/{id}', [OfferController::class, 'editProcessForm'])->name('edit.offer.form.process');
   Route::get('/offer/next/prev/{id}', [OfferController::class, 'prevNext'])->name('edit.prev.next');
   Route::get('view/offer/{id}', [OfferController::class, 'show'])->name('show.offer');
+  Route::post('/offer/bulkAction/process', [OfferController::class, 'offerBulkAction'])->name('offer.bulkAction.process');
   //end route for offers
   //routes for Contacts
   Route::get('/contact/all', [ContactController::class, 'index'])->name('all.contact');
@@ -455,11 +459,20 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::post('/export/reports', [AgentReportController::class, 'export'])->name('export.reports');
   //End route for admin reports
   Route::post('notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
+  //Route for lead 
+  Route::get('all/leads', [AgentLeadController::class, 'index'])->name('all.leads');
+  Route::get('view/lead/{id}', [AgentLeadController::class, 'show'])->name('show.lead');
+  //end route for lead
 
 });
 
 Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.'], function () {
   Route::get('/dashboard', [BuyerAuthController::class, 'buyerDashboard'])->name('dashboard');
+  Route::get('/profile', [BuyerProfileController::class, 'buyerProfile'])->name('profile');
+  Route::get('/bus/sub-category/{id}', [BuyerProfileController::class, 'getBusCategory'])->name('bus.sub.category');
+  Route::post('update/buyer/info/{id}', [BuyerProfileController::class, 'updateBuyerInfo'])->name('update.info');
+  Route::get('/buyer/change/password', [BuyerChangePasswordController::class, 'index'])->name('change.password');
+  Route::post('/buyer/change/password', [BuyerChangePasswordController::class, 'buyerChangePassword'])->name('modify.password');
 });
 
 Route::get('login', [AdminAuthController::class, 'index'])->name('login');

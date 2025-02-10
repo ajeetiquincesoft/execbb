@@ -443,3 +443,6 @@ tbody>tr>td {
   }
 
 }
+.text-danger {
+  display: inline-block;
+}

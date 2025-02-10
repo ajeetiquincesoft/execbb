@@ -130,10 +130,11 @@
                         <label for="fileUpload" class="upload-button mt-1">
                             <input type="file" id="fileUpload" accept="image/*" style="display:none;" name="listing_img">
                             <span class="button-text"> <img src="{{url('assets/images/uploadicon.svg')}}" alt="">Upload</span>
-                            @error('listing_img')
-                            <small class="text-danger">{{ $message }}</small>
-                            @enderror
                         </label>
+                        @error('listing_img')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                        <div id="listingImgError" class="text-danger"></div>
                         <div class="avatar-upload-agent1">
                             <div id="imagePreview" class="avatar-circle1"></div>
                         </div>
@@ -245,6 +246,50 @@
         $('#phone, #homePhone').on('input', function() {
             this.value = this.value.replace(/\D/g, '');
         });
+        // Add custom method for validating image extensions
+        $.validator.addMethod("imageExtension", function(value, element) {
+            // Check if the file input value matches the allowed extensions (jpg, jpeg, png, svg)
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.svg)$/i;
+            return this.optional(element) || allowedExtensions.test(value);
+        }, "Only .jpg, .jpeg, .png, and .svg files are allowed.");
+        // Custom image dimension validation
+        // Flag to check if validation should pass
+        let isValidImage = true;
+
+        // Custom validation method for image dimensions
+        $.validator.addMethod("imageDimensions", function(value, element) {
+            var imageFile = element.files[0];
+
+            if (!imageFile) {
+                return true; // No file selected, skip validation
+            }
+
+            var img = new Image();
+            var $element = $(element);
+
+            img.onload = function() {
+                var width = img.width;
+                var height = img.height;
+                var isValid = width >= 800 && height >= 500;
+
+                // Store validation result in a data attribute
+                $element.data("valid-image", isValid);
+
+                // Manually trigger validation again
+                if(isValid){
+                    $("#fileUpload").valid();
+                }
+            };
+
+            img.src = URL.createObjectURL(imageFile);
+
+            // Return stored validation result or assume false if not yet loaded
+            return $element.data("valid-image") === true;
+        }, "Image must be at least 800px by 500px.");
+
+        $.validator.setDefaults({
+            ignore: []
+        });
         $('#addnewliststep1').validate({
             rules: {
                 user_email: {
@@ -280,7 +325,7 @@
                 },
                 phone: {
                     required: true,
-                    regex:/^\d{10}$/
+                    regex: /^\d{10}$/
                 },
                 user_home_phone: {
                     regex: /^\d{10}$/
@@ -292,10 +337,10 @@
                     required: true
                 },
                 listing_img: {
-                    extension: "jpeg,png,gif,svg",
-                    filesize: 5 * 1024 * 1024 // 5MB
+                    imageExtension: true,
+                    imageDimensions: true
                 },
-                user_city:{
+                user_city: {
                     regex: /^[a-zA-Z\s]+$/
                 }
             },
@@ -315,8 +360,19 @@
                     regex: 'City can only contain letters and spaces.'
                 },
                 listing_img: {
-                    extension: 'File must be a valid image type (jpeg, png, gif, svg).',
-                    filesize: 'File size must be less than 2MB.'
+                    imageExtension: 'Only .jpg, .jpeg, .png, and .svg files are allowed.',
+                    imageDimensions: 'Image must be at least 800px by 500px.'
+                }
+            },
+            errorPlacement: function(error, element) {
+                // Custom placement for errors
+                console.log(element.attr('name'));
+                if (element.attr('name') == 'listing_img') {
+                    // Place the error outside the label in the #listingImgError div
+                    error.appendTo('#listingImgError');
+                } else {
+                    // Default placement for other fields
+                    error.insertAfter(element);
                 }
             },
             submitHandler: function(form) {
@@ -328,15 +384,10 @@
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value);
         }, "Please check your input.");
-
-        // Custom method for file size validation
-        $.validator.addMethod("filesize", function(value, element, param) {
-            return this.optional(element) || (element.files[0].size <= param);
-        }, "File size must be less than {0} bytes.");
-
         $('#addnewliststep1 input').on('keyup change', function() {
             $(this).valid(); // Trigger validation for the input field
         });
+
     });
 </script>
 <style>
@@ -494,82 +545,10 @@
         });
     });
 </script>
-<!--  <script>
-        var currentTab = 0; // Current tab is set to be the first tab (0)
-        showTab(currentTab); // Display the current tab
-
-        function showTab(n) {
-            // This function will display the specified tab of the form ...
-            var x = document.getElementsByClassName("tab");
-            x[n].style.display = "block";
-            // ... and fix the Previous/Next buttons:
-            if (n == 0) {
-                document.getElementById("prevBtn").style.display = "none";
-            } else {
-                document.getElementById("prevBtn").style.display = "inline";
-            }
-            if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Submit";
-            } else {
-                document.getElementById("nextBtn").innerHTML = "Next";
-            }
-            // ... and run a function that displays the correct step indicator:
-            fixStepIndicator(n)
-        }
-
-        function nextPrev(n) {
-            // This function will figure out which tab to display
-            var x = document.getElementsByClassName("tab");
-            // Exit the function if any field in the current tab is invalid:
-            // if (n == 1 && !validateForm()) return false;
-            // Hide the current tab:
-            x[currentTab].style.display = "none";
-            // Increase or decrease the current tab by 1:
-            currentTab = currentTab + n;
-            // if you have reached the end of the form... :
-            if (currentTab >= x.length) {
-                //...the form gets submitted:
-                document.getElementById("regForm").submit();
-                return false;
-            }
-            // Otherwise, display the correct tab:
-            showTab(currentTab);
-        }
-
-        function validateForm() {
-            // This function deals with validation of the form fields
-            var x, y, i, valid = true;
-            x = document.getElementsByClassName("tab");
-            y = x[currentTab].getElementsByTagName("input");
-            // A loop that checks every input field in the current tab:
-            for (i = 0; i < y.length; i++) {
-                // If a field is empty...
-                if (y[i].value == "") {
-                    // add an "invalid" class to the field:
-                    y[i].className += " invalid";
-                    // and set the current valid status to false:
-                    valid = false;
-                }
-            }
-            // If the valid status is true, mark the step as finished and valid:
-            if (valid) {
-                document.getElementsByClassName("step")[currentTab].className += " finish";
-            }
-            return valid; // return the valid status
-        }
-
-        function fixStepIndicator(n) {
-            // This function removes the "active" class of all steps...
-            var i, x = document.getElementsByClassName("step");
-            for (i = 0; i < x.length; i++) {
-                x[i].className = x[i].className.replace(" active", "");
-            }
-            //... and adds the "active" class to the current step:
-            x[n].className += " active";
-        }
-    </script> -->
 <script>
     document.getElementById('fileUpload').addEventListener('change', function(event) {
+        isValidImage = true;
+        /* $('#fileUpload').valid(); */
         const file = event.target.files[0];
 
         if (file) {

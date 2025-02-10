@@ -23,6 +23,8 @@
           'agent.login.activities' => 'Login Activities',
           'agent.email.buyer' => 'Email Buyer',
           'agent.reports' => 'Reports',
+          'agent.all.leads' => 'Leads',
+          'agent.show.lead' => 'View Lead',
           ];
           @endphp
 
@@ -46,6 +48,13 @@
           @elseif (in_array($route, ['agent.show.listing', 'agent.edit.listing.form']))
           <li class="breadcrumb-item">
             <a class="nav-link" href="{{ route('agent.all.listing') }}">Listing</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a class="nav-link" href="{{ route($route,$id)}}">{{ $label }}</a>
+          </li>
+          @elseif (in_array($route, ['agent.show.lead']))
+          <li class="breadcrumb-item">
+            <a class="nav-link" href="{{ route('agent.all.leads') }}">Leads</a>
           </li>
           <li class="breadcrumb-item">
             <a class="nav-link" href="{{ route($route,$id)}}">{{ $label }}</a>

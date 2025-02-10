@@ -122,31 +122,41 @@
                         <!-- Radio Button Group 1 -->
                         <div class="col-12 d-flex flex-wrap">
                             <div class="d-flex align-items-center me-3 mb-2">
-                                <input class="form-check-input me-3" type="radio" name="role" id="seller" value="seller">
-                                <label class="form-check-label" for="seller">Seller</label>
+                                <div class="custom-radio">
+                                    <input class="form-check-input me-3" type="radio" name="role" id="seller" value="seller">
+                                    <label class="form-check-label" for="seller">Seller</label>
+                                </div>
 
                             </div>
                             <div class="d-flex align-items-center me-3 mb-2">
-                                <input class="form-check-input me-3" type="radio" name="role" id="buyer" value="buyer">
-                                <label class="form-check-label" for="buyer">Buyer</label>
+                                <div class="custom-radio">
+                                    <input class="form-check-input me-3" type="radio" name="role" id="buyer" value="buyer">
+                                    <label class="form-check-label" for="buyer">Buyer</label>
+                                </div>
 
                             </div>
                             <div class="d-flex align-items-center me-3 mb-2">
-                                <input class="form-check-input me-3" type="radio" name="role" id="borrower" value="borrower">
-                                <label class="form-check-label" for="borrower">Borrower</label>
+                                <div class="custom-radio">
+                                    <input class="form-check-input me-3" type="radio" name="role" id="borrower" value="borrower">
+                                    <label class="form-check-label" for="borrower">Borrower</label>
+                                </div>
 
                             </div>
                             <div class="d-flex align-items-center me-3 mb-2">
-                                <input class="form-check-input me-3" type="radio" name="role" id="brokerInquiry" value="brokerInquiry">
-                                <label class="form-check-label" for="brokerInquiry">Broker Inquiry</label>
+                                <div class="custom-radio">
+                                    <input class="form-check-input me-3" type="radio" name="role" id="brokerInquiry" value="brokerInquiry">
+                                    <label class="form-check-label" for="brokerInquiry">Broker Inquiry</label>
+                                </div>
 
                             </div>
                         </div>
 
                         <div class="col-12 mb-3 statement-desc">
                             <div class="d-flex align-items-center me-3">
-                                <input class="form-check-input me-3" type="radio" name="role" id="seekingEmployment" value="seekingEmployment">
-                                <label class="form-check-label" for="seekingEmployment">Seeking Employment</label>
+                                <div class="custom-radio">
+                                    <input class="form-check-input me-3" type="radio" name="role" id="seekingEmployment" value="seekingEmployment">
+                                    <label class="form-check-label" for="seekingEmployment">Seeking Employment</label>
+                                </div>
 
                             </div>
                         </div>

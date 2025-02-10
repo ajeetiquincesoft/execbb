@@ -193,7 +193,7 @@ class AgentListingController extends Controller
                 $listing->SubCat = $request->bus_type;
                 $listing->RefAgentID = $userID;
                 $listing->CreatedBy = Auth::id();
-                $listing->Status = 'valid';
+                $listing->Status = 'review';
                 $listing->Steps = 1;
                 if ($request->hasFile('listing_img')) {
                     $image = $request->file('listing_img');
@@ -745,9 +745,6 @@ class AgentListingController extends Controller
                 ->where('Status', '!=', 'valid')
                 ->orWhereNull('ExpDate')
                 ->update(['Status' => 'valid']);
-            return response()->json(array('message' => 'Listing status has been change successfully!'));
-        } else if ($action == "sole exclusive") {
-            Listing::whereIn('ListingID', $listing_id)->update(['Status' => 'sole exclusive']);
             return response()->json(array('message' => 'Listing status has been change successfully!'));
         } else if ($action == "delete") {
             Listing::whereIn('ListingID', $listing_id)->delete();

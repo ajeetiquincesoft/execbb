@@ -12,7 +12,8 @@ class BuyerAuthController extends Controller
     {
         
         if(Auth::check()){
-            return view('buyer-dashboard.dashboard');
+            /* return view('buyer-dashboard.dashboard'); */
+            return view('frontend.buyer.buyer_dashboard');
         }
   
         return redirect("login")->withSuccess('You are not allowed to access');

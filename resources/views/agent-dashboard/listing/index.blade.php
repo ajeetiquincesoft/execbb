@@ -34,7 +34,6 @@
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
                             <option value="valid">Valid</option>
-                            <option value="sole exclusive">Sole-Exclusive</option>
                             <option value="delete">Delete</option>
                             <option value="close">Close</option>
                         </select>

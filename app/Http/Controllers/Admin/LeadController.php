@@ -261,6 +261,6 @@ class LeadController extends Controller
                 'user_id' => $userId,
                 'details' => 'assign leads to agent, agent name: ' .  $agentInfo->FName . '. Lead ID: ' . $lead_id,
             ]);
-            return redirect()->back()->with('success', 'Agent Assigned successfully');
+            return redirect()->back()->with('success', 'Lead assigned to agent successfully');
     }
 }

@@ -285,7 +285,7 @@ class ListingController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'user_email' => 'required|email',
-            'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ]);
         $completeStep = session('complete_step', []);
         $filename = '';
@@ -381,7 +381,7 @@ class ListingController extends Controller
             $listing->Pager = $request->user_pager;
             $listing->Review = $reviewcheckboxValue;
             $listing->SubCat = $request->bus_type;
-            $listing->Status = 'valid';
+            $listing->Status = 'review';
             $listing->CreatedBy = Auth::id();
             $listing->Steps = 1;
             if ($request->hasFile('listing_img')) {
@@ -761,7 +761,7 @@ class ListingController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'user_email' => 'required|email',
-            'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ]);
         $model = Listing::findOrFail($id);
         $filename = '';
@@ -1237,7 +1237,6 @@ class ListingController extends Controller
             'inactive' => ['column' => 'Active', 'value' => 0, 'message' => 'set listings as inactive.'],
             'close' => ['column' => 'Status', 'value' => 'close', 'message' => 'closed listing.'],
             'valid' => ['column' => 'Status', 'value' => 'valid', 'message' => 'set listings as valid.'],
-            'sole exclusive' => ['column' => 'Status', 'value' => 'sole exclusive', 'message' => 'set listings as sole exclusive.'],
         ];
     
         // Check if the action exists in our mapping

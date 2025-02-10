@@ -26,6 +26,9 @@
                             </div>
                             <div class="form-outline mb-4">
                                 <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" />
+                                <span id="togglePassword">
+                                    <i class="fa fa-eye" id="eyeIcon"></i>
+                                </span>
                                 @if ($errors->has('password'))
                                 <span class="text-danger">{{ $errors->first('password') }}</span>
                                 @endif
@@ -63,6 +66,26 @@
         text-align: center;
         font-size: 14px;
     }
+
+    /* Password wrapper to position eye icon */
+    .password-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    /* Eye icon inside password field */
+    #togglePassword {
+        float: right;
+        margin-top: -35px;
+        position: relative;
+        z-index: 2;
+        padding-right: 10px;
+    }
+
+    /* Style when hovering over the eye icon */
+    #togglePassword:hover {
+        color: #5a102a;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -88,6 +111,22 @@
                 form.submit();
             }
         });
+    });
+</script>
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function() {
+        var passwordField = document.getElementById("password");
+        var eyeIcon = document.getElementById("eyeIcon");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash"); // Change to eye-slash when showing password
+        } else {
+            passwordField.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye"); // Change back to eye when hiding password
+        }
     });
 </script>
 @endsection

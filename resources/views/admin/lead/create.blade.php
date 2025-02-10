@@ -77,7 +77,7 @@
                         <select id="status" class="form-select" name="status">
                             <option value="" selected="">Select status</option>
                             @foreach($status as $key=>$leadStatus)
-                            <option value="{{$leadStatus->LeadStatusID}}" {{ (old('status') == $leadStatus->LeadStatusID ) ? 'selected' : '' }}>{{$leadStatus->Status}}</option>
+                            <option value="{{$leadStatus->LeadStatusID}}" {{ (old('status') == $leadStatus->LeadStatusID ||  $leadStatus->LeadStatusID == 1) ? 'selected' : '' }}>{{$leadStatus->Status}}</option>
                             @endforeach
                         </select>
                     </div>

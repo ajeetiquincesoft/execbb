@@ -38,7 +38,6 @@ class OfferController extends Controller
     }
     public function destroy(Request $request, $id)
     {
-
         // Find the offer ID
         $offer = Offer::where('OfferID', $id)->first();
         //dd($listing);
@@ -47,7 +46,7 @@ class OfferController extends Controller
             return redirect()->route('all.offer')
                 ->with('err_message', 'Offer not found.');
         }
-        $companyName = Listing::where('ListingID', $request->companyName)->pluck('SellerCorpName')->toArray();
+        $companyName = Listing::where('ListingID', $offer->ListingID)->pluck('SellerCorpName')->toArray();
         Activity::create([
             'action' => 'Offer delete',
             'user_id' => Auth::id(),
@@ -647,5 +646,50 @@ class OfferController extends Controller
         session()->forget(['offerData', 'step']);
         $step = session('step', 1);
         return redirect()->route('edit.offer.form', $id);
+    }
+    public function offerBulkAction(Request $request)
+    {
+        $action = $request->action;
+        $offer_id = $request->offer_id;
+        $userId = Auth::id();
+    
+        // Define a mapping for actions to update columns
+        $statusColumnMapping = [
+            'Pending' => ['column' => 'Status', 'value' => 'Pending', 'message' => 'set offer as pending.'],
+            'Accepted' => ['column' => 'Status', 'value' => 'Accepted', 'message' => 'set offer as accepted.'],
+            'Closed' => ['column' => 'Status', 'value' => 'Closed', 'message' => 'closed offer.'],
+            'Dead' => ['column' => 'Status', 'value' => 'Dead', 'message' => 'set offer as dead.'],
+        ];
+    
+        // Check if the action exists in our mapping
+        if (isset($statusColumnMapping[$action])) {
+            $column = $statusColumnMapping[$action]['column'];
+            $value = $statusColumnMapping[$action]['value'];
+            $message = $statusColumnMapping[$action]['message'];
+    
+            // Update the listings in bulk based on the action
+            Offer::whereIn('OfferID', $offer_id)->update([$column => $value]);
+            // Log activity
+            Activity::create([
+                'action' => 'Offer status update',
+                'user_id' => $userId,
+                'details' => $message . ' Offer IDs: ' . implode(", ", $offer_id),
+            ]);
+    
+            return response()->json(['message' => 'Offer status has been changed successfully!']);
+        } elseif ($action === 'Delete') {
+            // Handle the delete action
+            Offer::whereIn('OfferID', $offer_id)->delete();
+            // Log activity
+            Activity::create([
+                'action' => 'Offer delete',
+                'user_id' => $userId,
+                'details' => 'deleted offers. Offer IDs: ' . implode(", ", $offer_id),
+            ]);
+    
+            return response()->json(['message' => 'Offer deleted successfully!']);
+        }
+    
+        return response()->json(['message' => 'Invalid action!'], 400);
     }
 }

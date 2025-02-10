@@ -21,7 +21,7 @@
               <a href="{{ route('edit.listing.form', $listing->ListingID) }}"><i class="fa fa-edit edit-icon"></i></a>
             </div>
             <div class="text-center">
-              <form action="{{ route('upload.listing.avatar',$listing->ListingID ) }}" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('upload.listing.avatar',$listing->ListingID ) }}" method="POST" enctype="multipart/form-data" id="listing_show_form">
                 @csrf
                 @method('PUT')
                 <div class="avatar-upload">
@@ -34,6 +34,7 @@
                     @endif
                   </label>
                 </div>
+                <div id="listingImgError" style="color:#dc3545;"></div>
                 <button class="avatar_img_upload" type="button" onclick="confirmImage(this.form)">Confirm Image</button>
               </form>
               <h5>{{$listing->SellerFName}} {{$listing->SellerLName}}</h5>
@@ -188,8 +189,90 @@
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Add custom method for validating image extensions
+        $.validator.addMethod("imageExtension", function(value, element) {
+            // Check if the file input value matches the allowed extensions (jpg, jpeg, png, svg)
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.svg)$/i;
+            return this.optional(element) || allowedExtensions.test(value);
+        }, "Only .jpg, .jpeg, .png, and .svg files are allowed.");
+        // Custom image dimension validation
+        // Flag to check if validation should pass
+        let isValidImage = true;
+
+        // Custom validation method for image dimensions
+        $.validator.addMethod("imageDimensions", function(value, element) {
+            var imageFile = element.files[0];
+
+            if (!imageFile) {
+                return true; // No file selected, skip validation
+            }
+
+            var img = new Image();
+            var $element = $(element);
+            $('.avatar_img_upload').hide();
+            img.onload = function() {
+                var width = img.width;
+                var height = img.height;
+                var isValid = width >= 800 && height >= 500;
+                // Store validation result in a data attribute
+                $element.data("valid-image", isValid);
+                
+                // Manually trigger validation again
+                if(isValid){
+                    $("#avatar").valid();
+                    $('.avatar_img_upload').show();
+                }
+            };
+
+            img.src = URL.createObjectURL(imageFile);
+
+            // Return stored validation result or assume false if not yet loaded
+            return $element.data("valid-image") === true;
+        }, "Image must be at least 800px by 500px.");
+
+        $.validator.setDefaults({
+            ignore: []
+        });
+        $('#listing_show_form').validate({
+            rules: {
+              avatar: {
+                    imageExtension: true,
+                    imageDimensions: true
+                }
+            },
+            messages: {
+              avatar: {
+                    imageExtension: 'Only .jpg, .jpeg, .png, and .svg files are allowed.',
+                    imageDimensions: 'Image must be at least 800px by 500px.'
+                }
+            },
+            errorPlacement: function(error, element) {
+                // Custom placement for errors
+                console.log(element.attr('name'));
+                if (element.attr('name') == 'avatar') {
+                    // Place the error outside the label in the #listingImgError div
+                    error.appendTo('#listingImgError');
+                } else {
+                    // Default placement for other fields
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+        $('#listing_show_form input').on('keyup change', function() {
+            $(this).valid(); // Trigger validation for the input field
+        });
+
+    });
+</script>
 <script>
   function previewImage(event) {
+    isValidImage = true;
     const preview = document.getElementById('avatar-preview');
     const file = event.target.files[0];
 
@@ -197,7 +280,7 @@
       const reader = new FileReader();
       reader.onload = function(e) {
         preview.src = e.target.result;
-        $('.avatar_img_upload').show();
+        /* $('.avatar_img_upload').show(); */
       }
       reader.readAsDataURL(file);
     }

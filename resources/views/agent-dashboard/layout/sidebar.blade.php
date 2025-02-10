@@ -31,6 +31,11 @@
                 <img src="{{ url('assets/images/Listing.png') }}">
                 <a class="nav-link" href="{{route('agent.all.listing')}}">Listings</a>
               </li>
+              <li class="nav-item {{ request()->routeIs('agent.all.leads') || request()->routeIs('agent.show.lead') ? 'activenavitem' : '' }}">
+                <!--  <i class="fas fa-briefcase"></i> -->
+                <img src="{{ url('assets/images/Lead.png') }}">
+                <a class="nav-link" href="{{route('agent.all.leads')}}">Leads</a>
+              </li>
             </ul>
           </div>
         </div>

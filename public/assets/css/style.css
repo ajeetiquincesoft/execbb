@@ -1394,3 +1394,188 @@ a.agent_btn {
   font-size: 15px !important;
 }
 }
+
+
+
+ /* Buyer dashboard Styling */
+ .sidebar {
+  background-color: #5a102a;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0; /* This defines the distance from the top of the viewport */
+    overflow-y: auto; 
+}
+
+.sidebar-header {
+  margin-bottom: 20px;
+}
+.sidebar-header h4 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  padding: 10px 0;
+}
+
+.sidebar-menu li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.sidebar-menu li a i {
+  margin-right: 10px;
+}
+
+/* Hover Effect */
+.sidebar-menu li a:hover {
+  background-color: #806132;
+  border-radius: 5px;
+}
+
+/* Content Section */
+.content {
+  background-color: #f8f9fa;
+  padding: 20px;
+ /*  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.content h2 {
+  color: #5a102a;
+  font-weight: bold;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.dashboard-card h5 {
+  font-size: 18px;
+  color: #5a102a;
+  font-weight: bold;
+}
+
+.dashboard-card i {
+  font-size: 20px;
+  margin-right: 5px;
+  color: #7F2149;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .sidebar {
+      margin-bottom: 20px;
+  }
+}
+.save_buyer_info {
+  text-align: center;
+}
+.btn-save {
+  background-color: #5a102a;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+background-color: #806132;
+color: #fff;
+}
+/* End Buyer dashboard Styling */
+
+/* Style the custom radio buttons */
+.custom-radio {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+/* Hide the default radio button */
+.custom-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Create the custom circle for the radio button */
+.custom-radio label {
+  position: relative;
+  padding-left: 30px;  /* Add space for custom radio button */
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Create the circle */
+.custom-radio label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 2px solid #5a102a;  /* Blue color */
+  border-radius: 50%;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+/* Style when radio button is checked */
+.custom-radio input[type="radio"]:checked + label::before {
+  background-color: #5a102a;
+  border-color: #5a102a;
+}
+
+/* Add the check mark when the radio button is checked */
+.custom-radio input[type="radio"]:checked + label::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+/* Hover effect on radio button */
+.custom-radio label:hover::before {
+  border-color: #5a102a;  /* Darker blue */
+}
+
+/* Focus effect for accessibility */
+.custom-radio input[type="radio"]:focus + label::before {
+  border-color: #5a102a;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+/* Style for the labels (text) */
+.custom-radio label {
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.6;
+}
+/* Style the custom radio buttons */

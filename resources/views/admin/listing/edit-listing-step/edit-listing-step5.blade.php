@@ -42,7 +42,7 @@
                             <div class="row mb-3">
                                 <!-- Lead ID -->
                                 <div class="col">
-                                    <label for="leadId" class="form-label">Lead ID <span class="text-danger">*</span></label>
+                                    <label for="leadId" class="form-label">Lead ID</label>
                                     <select id="leadId" name="leadId" class="form-select">
                                         <option value="" selected="">Select lead</option>
                                         @foreach($leads as $key=>$lead)
@@ -104,10 +104,7 @@
         <script>
            $(document).ready(function () {
                 $('#addnewliststep5').validate({
-                    rules: {
-                        leadId: {
-                            required: true
-                        } 
+                    rules: { 
                     },
                     ignore: ":disabled",
                     messages: {
