@@ -240,38 +240,38 @@
             <div class="row mb-2">
                 <h6 class="form-sec mb-3">Financial Information</h6>
                 <div class="col-12 col-md-6 mb-3">
-                    <input type="text" class="form-control form-control-lg" id="netWorth" name="netWorth" value="{{$buyerData->NetWorth}}" placeholder="Net Worth">
+                    <input type="number" class="form-control form-control-lg" id="netWorth" name="netWorth" value="{{$buyerData->NetWorth}}" placeholder="Net Worth">
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <input type="text" class="form-control form-control-lg" id="cashAvailable" name="cashAvailable" value="{{$buyerData->CashAvailable}}" placeholder="Cash Available for Down Payment">
+                    <input type="number" class="form-control form-control-lg" id="cashAvailable" name="cashAvailable" value="{{$buyerData->CashAvailable}}" placeholder="Cash Available for Down Payment">
                 </div>
             </div>
             <div class="row mb-2">
                 <h6 class="form-sec mb-3">Investment Price Range</h6>
                 <div class="col-12 col-md-6 mb-3">
-                    <input type="text" class="form-control form-control-lg" id="priceRangeMinimum" name="priceRangeMinimum" value="{{$buyerData->PPMin}}" placeholder="Minimum">
+                    <input type="number" class="form-control form-control-lg" id="priceRangeMinimum" name="priceRangeMinimum" value="{{$buyerData->PPMin}}" placeholder="Minimum">
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <input type="text" class="form-control form-control-lg" id="priceRangeMaximum" name="priceRangeMaximum" value="{{$buyerData->PPMax}}" placeholder="Maximum">
+                    <input type="number" class="form-control form-control-lg" id="priceRangeMaximum" name="priceRangeMaximum" value="{{$buyerData->PPMax}}" placeholder="Maximum">
                 </div>
             </div>
             <div class="row mb-2">
                 <h6 class="form-sec mb-3">Sales Volume</h6>
                 <div class="col-12 col-md-6 mb-3">
-                    <input type="text" class="form-control form-control-lg" id="salesVolumeMinimum" name="salesVolumeMinimum" value="{{$buyerData->VolMin}}"
+                    <input type="number" class="form-control form-control-lg" id="salesVolumeMinimum" name="salesVolumeMinimum" value="{{$buyerData->VolMin}}"
                         placeholder="Minimum">
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <input type="text" class="form-control form-control-lg" id="salesVolumeMaximum" name="salesVolumeMaximum" value="{{$buyerData->VolMax}}" placeholder="Maximum">
+                    <input type="number" class="form-control form-control-lg" id="salesVolumeMaximum" name="salesVolumeMaximum" value="{{$buyerData->VolMax}}" placeholder="Maximum">
                 </div>
             </div>
             <div class="row mb-2">
                 <h6 class="form-sec mb-3">Amount of Net Income Required</h6>
                 <div class="col-12 col-md-6 mb-3">
-                    <input type="text" class="form-control form-control-lg" id="netIncomeMinimum" name="netIncomeMinimum" value="{{$buyerData->NetProfMin}}" placeholder="Minimum">
+                    <input type="number" class="form-control form-control-lg" id="netIncomeMinimum" name="netIncomeMinimum" value="{{$buyerData->NetProfMin}}" placeholder="Minimum">
                 </div>
                 <div class="col-12 col-md-6 mb-3">
-                    <input type="text" class="form-control form-control-lg" id="netIncomeMaximum" name="netIncomeMaximum" value="{{$buyerData->NetProfMax}}" placeholder="Maximum">
+                    <input type="number" class="form-control form-control-lg" id="netIncomeMaximum" name="netIncomeMaximum" value="{{$buyerData->NetProfMax}}" placeholder="Maximum">
                 </div>
             </div>
             <div class="row mb-2">
