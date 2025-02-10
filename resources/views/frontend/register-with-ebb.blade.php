@@ -314,38 +314,38 @@
                             <div class="row mb-2">
                                 <h6 class="form-sec mb-3">Financial Information</h6>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control form-control-lg" id="netWorth" name="netWorth" value="" placeholder="Net Worth">
+                                    <input type="number" class="form-control form-control-lg" id="netWorth" name="netWorth" value="" placeholder="Net Worth">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control form-control-lg" id="cashAvailable" name="cashAvailable" value="" placeholder="Cash Available for Down Payment">
+                                    <input type="number" class="form-control form-control-lg" id="cashAvailable" name="cashAvailable" value="" placeholder="Cash Available for Down Payment">
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <h6 class="form-sec mb-3">Investment Price Range</h6>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control form-control-lg" id="priceRangeMinimum" name="priceRangeMinimum" value="" placeholder="Minimum">
+                                    <input type="number" class="form-control form-control-lg" id="priceRangeMinimum" name="priceRangeMinimum" value="" placeholder="Minimum">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control form-control-lg" id="priceRangeMaximum" name="priceRangeMaximum" value="" placeholder="Maximum">
+                                    <input type="number" class="form-control form-control-lg" id="priceRangeMaximum" name="priceRangeMaximum" value="" placeholder="Maximum">
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <h6 class="form-sec mb-3">Sales Volume</h6>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control form-control-lg" id="salesVolumeMinimum" name="salesVolumeMinimum" value=""
+                                    <input type="number" class="form-control form-control-lg" id="salesVolumeMinimum" name="salesVolumeMinimum" value=""
                                         placeholder="Minimum">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control form-control-lg" id="salesVolumeMaximum" name="salesVolumeMaximum" value="" placeholder="Maximum">
+                                    <input type="number" class="form-control form-control-lg" id="salesVolumeMaximum" name="salesVolumeMaximum" value="" placeholder="Maximum">
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <h6 class="form-sec mb-3">Amount of Net Income Required</h6>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control form-control-lg" id="netIncomeMinimum" name="netIncomeMinimum" value="" placeholder="Minimum">
+                                    <input type="number" class="form-control form-control-lg" id="netIncomeMinimum" name="netIncomeMinimum" value="" placeholder="Minimum">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control form-control-lg" id="netIncomeMaximum" name="netIncomeMaximum" value="" placeholder="Maximum">
+                                    <input type="number" class="form-control form-control-lg" id="netIncomeMaximum" name="netIncomeMaximum" value="" placeholder="Maximum">
                                 </div>
                             </div>
                             <div class="row mb-2">
