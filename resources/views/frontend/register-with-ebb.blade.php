@@ -141,17 +141,25 @@
                                     <div class="form-group">
                                         <label class="form-label" for="motivation">I am a buyer interested in this type of business:</label>
                                         <div class="d-flex justify-content-between">
-                                            <input type="radio" id="business_interest1" name="business_interest" value="existing business">
-                                            <label class="form-label" for="business_interest1">Existing Business:</label>
+                                            <div class="custom-radio">
+                                                <input type="radio" id="business_interest1" name="business_interest" value="existing business">
+                                                <label class="form-label" for="business_interest1">Existing Business:</label>
+                                            </div>
+                                            <div class="custom-radio">
 
-                                            <input type="radio" id="business_interest2" name="business_interest" value="a startup business">
-                                            <label class="form-label" for="business_interest2">Start-up:</label>
+                                                <input type="radio" id="business_interest2" name="business_interest" value="a startup business">
+                                                <label class="form-label" for="business_interest2">Start-up:</label>
+                                            </div>
+                                            <div class="custom-radio">
 
-                                            <input type="radio" id="business_interest3" name="business_interest" value="a franchise">
-                                            <label class="form-label" for="business_interest3">Franchise:</label>
+                                                <input type="radio" id="business_interest3" name="business_interest" value="a franchise">
+                                                <label class="form-label" for="business_interest3">Franchise:</label>
+                                            </div>
+                                            <div class="custom-radio">
 
-                                            <input type="radio" id="business_interest4" name="business_interest" value="a merger or aquisition">
-                                            <label class="form-label" for="business_interest4">Mergers and Acquisitions:</label>
+                                                <input type="radio" id="business_interest4" name="business_interest" value="a merger or aquisition">
+                                                <label class="form-label" for="business_interest4">Mergers and Acquisitions:</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -161,14 +169,20 @@
                                     <div class="form-group">
                                         <label class="form-label" for="readyToBuy">When will you be ready to buy?</label>
                                         <div class="d-flex justify-content-between">
-                                            <input type="radio" id="readyToBuy1" name="Interest" value="1">
-                                            <label class="form-label" for="readyToBuy">Now:</label>
+                                            <div class="custom-radio">
+                                                <input type="radio" id="readyToBuy1" name="Interest" value="1">
+                                                <label class="form-label" for="readyToBuy1">Now:</label>
+                                            </div>
+                                            <div class="custom-radio">
 
-                                            <input type="radio" id="readyToBuy2" name="Interest" value="2">
-                                            <label class="form-label" for="readyToBuy">Within 6 months:</label>
+                                                <input type="radio" id="readyToBuy2" name="Interest" value="2">
+                                                <label class="form-label" for="readyToBuy2">Within 6 months:</label>
+                                            </div>
+                                            <div class="custom-radio">
 
-                                            <input type="radio" id="readyToBuy3" name="Interest" value="3">
-                                            <label class="form-label" for="readyToBuy">Within a year:</label>
+                                                <input type="radio" id="readyToBuy3" name="Interest" value="3">
+                                                <label class="form-label" for="readyToBuy3">Within a year:</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -379,26 +393,27 @@
             <div class="col-lg-5 mt-0 register_ebb">
                 <p class="mb-4 notice">Notice: To register, you must use Internet Explorer. Please set this site to compatibility mode.</p>
                 <p class="mb-4">EBB's listings are available free to everyone who uses our site. To view the detailed information, which is confidential in nature, we will ask you to sign a confidentiality agreement when you register.</p>
-                <p class="mb-4">For buyers who are aggressively looking to find a business, we recommend that you sign up for our <a href="{{route('preferred.buyers.program')}}" class="buyer_program" >Preferred Buyer Program.</a></p>
+                <p class="mb-4">For buyers who are aggressively looking to find a business, we recommend that you sign up for our <a href="{{route('preferred.buyers.program')}}" class="buyer_program">Preferred Buyer Program.</a></p>
             </div>
         </div>
     </div>
 </div>
 <!-- Register with ebb End -->
- <style>
-     .content-box-ebb {
+<style>
+    .content-box-ebb {
         background-color: #FFFFFF;
         padding: 30px;
         margin-top: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
     .form-control:focus::placeholder,
-.form-control:not(:placeholder-shown)::placeholder {
-  font-size: 12px;
-  transform: translateY(-10px);
-  color: #007bff;
-}
-    </style>
+    .form-control:not(:placeholder-shown)::placeholder {
+        font-size: 12px;
+        transform: translateY(-10px);
+        color: #007bff;
+    }
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
