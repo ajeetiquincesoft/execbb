@@ -467,8 +467,8 @@
                 text: 'You will not be able to recover this message!',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#5e0f2f',
-                cancelButtonColor: '#93744b',
+                confirmButtonColor: '#5a102a',
+                cancelButtonColor: '#806132',
                 confirmButtonText: 'Yes, delete it!',
                 cancelButtonText: 'Cancel',
             }).then((result) => {
