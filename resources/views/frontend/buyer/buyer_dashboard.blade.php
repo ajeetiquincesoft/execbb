@@ -9,16 +9,16 @@
         <div class="col-md-6">
             <div class="card dashboard-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="fa fa-shopping-cart"></i> Total Orders</h5>
-                    <p class="card-text">15 Orders</p>
+                    <h5 class="card-title"><i class="fa fa-heart"></i> Favourites Listings</h5>
+                    <p class="card-text">{{$favourites}} Favourites Listings</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card dashboard-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="fa fa-heart"></i> Wishlist</h5>
-                    <p class="card-text">8 Items</p>
+                    <h5 class="card-title"><i class="fa fa-search"></i> Save Search</h5>
+                    <p class="card-text">{{$saveSearch}} Search</p>
                 </div>
             </div>
         </div>
