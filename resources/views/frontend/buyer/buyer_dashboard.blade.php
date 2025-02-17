@@ -1,6 +1,6 @@
 @extends('frontend.layout.buyer-master')
 @section('content')
-<div class="content">
+<div class="dashboard-content">
     <h2>Welcome, {{ Auth::user()->name }}!</h2>
     <p>This is your dashboard where you can manage your orders, wishlist, and profile.</p>
 
