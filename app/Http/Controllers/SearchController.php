@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
+use App\Models\SavedSearch;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
@@ -36,6 +38,15 @@ class SearchController extends Controller
         $query = $request->input('query');
         $industry = $request->input('industry');
         $state = $request->input('state');
+        if ($request->has('lis_search') && Auth::check()) {
+            $saveSearch = new SavedSearch();
+            $saveSearch->user_id = Auth::id();
+            $saveSearch->search_val = $query;
+            $saveSearch->industry = $industry;
+            $saveSearch->state = $state;
+            $saveSearch->search_for = 'listing';
+            $saveSearch->save();
+            }
         
         // Start the query
         $listings = Listing::query();

@@ -53,7 +53,7 @@
 
                 </div>
                 <div class="col-12 col-sm-6 col-md-2 d-md-flex align-items-end lsbtn">
-                    <button type="submit">Search</button>
+                    <button type="submit" name="lis_search">Search</button>
                 </div>
             </div>
         </form>
