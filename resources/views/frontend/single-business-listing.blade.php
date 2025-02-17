@@ -36,15 +36,35 @@
                     <i class="fa fa-thumbs-o-up icon-text thumbs-up {{ $activeClass }}" aria-hidden="true"></i>
                     <span class="text {{ $activeClass }}">Like</span>
                     <p class="total_likes">Total Likes: <span>{{$likeCount}}</span></p>
-                   
-                </div>
-                @endif
-                @endif
-                <div class="tags single-badge">
-                    <span class="badge">{{$listing->BusType}}</span>
-                    <span class="badge">{{$subCatName}}</span>
-                </div>
 
+                </div>
+                @endif
+                @endif
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="tags single-badge">
+                        <span class="badge">{{$listing->BusType}}</span>
+                        <span class="badge">{{$subCatName}}</span>
+                    </div>
+                    @if (Auth::check())
+                    <div class="favorite-action">
+                        @if ($isFavorite != 0)
+                        <form action="{{ route('buyer.favorites.remove', $listing->ListingID) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-heart-broken"></i> Remove from Favorites
+                            </button>
+                        </form>
+                        @else
+                        <form action="{{ route('buyer.favorites.add', $listing->ListingID) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-heart"></i> Add to Favorites
+                            </button>
+                        </form>
+                        @endif
+                    </div>
+                    @endif
+                </div>
                 <hr>
             </article>
 
@@ -270,14 +290,15 @@
     .breadcrumb-item.active {
         color: #333333;
     }
+
     .business_listing_image {
-    width: 100%;
-    padding-bottom: 20px;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    display: block;
-}
+        width: 100%;
+        padding-bottom: 20px;
+        height: auto;
+        max-height: 500px;
+        object-fit: cover;
+        display: block;
+    }
 
     img.img-fluid.rounded-circle.mb-3.comment_image {
         width: 45px;
@@ -378,27 +399,43 @@
     .total_likes span {
         color: #4169E1;
     }
-    .buycomment {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    }
-    #loading {
-    display: inline-block;
-    cursor: pointer;
-    padding: 10px 20px;
-    background-color: #7F2149;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
-}
 
-#loading:hover {
-    background-color: #806132;
-}
+    .buycomment {
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    #loading {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 20px;
+        background-color: #7F2149;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    #loading:hover {
+        background-color: #806132;
+    }
+
+    .favorite-action button {
+        padding: 8px 20px;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+
+    .favorite-action i {
+        margin-right: 8px;
+    }
+
+    .tags .badge {
+        margin-right: 8px;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -431,7 +468,7 @@
     });
 </script>
 <script>
-  $(document).ready(function() {
+    $(document).ready(function() {
         var form = $('.buyer-comment');
         form.validate({
             rules: {
@@ -446,8 +483,7 @@
                     required: true
                 }
             },
-            messages: {
-            },
+            messages: {},
             submitHandler: function(form) {
                 form.submit(); // Proceed with form submission if valid
             }
@@ -455,32 +491,32 @@
     });
 </script>
 <script>
-   $(document).ready(function() {
-    let page = 2; // Start from page 2 since page 1 is already loaded
-    var listing_id = <?php echo $listing->ListingID; ?>;
-    let loading = false;
+    $(document).ready(function() {
+        let page = 2; // Start from page 2 since page 1 is already loaded
+        var listing_id = <?php echo $listing->ListingID; ?>;
+        let loading = false;
 
-    // Listen for the "Loading more comments" button click
-    $('#loading').on('click', function() {
-        // Check if the AJAX request is already in progress
-        if (!loading) {
-            loading = true; // Set loading flag to true
-            $('#loading').text('Loading...'); // Change button text to "Loading..."
+        // Listen for the "Loading more comments" button click
+        $('#loading').on('click', function() {
+            // Check if the AJAX request is already in progress
+            if (!loading) {
+                loading = true; // Set loading flag to true
+                $('#loading').text('Loading...'); // Change button text to "Loading..."
 
-            // Load more comments via AJAX
-            $.ajax({
-                url: "{{ route('load.more.comments') }}", // Endpoint for loading more comments
-                type: 'GET',
-                data: {
-                    _token: "{{ csrf_token() }}", // CSRF token
-                    listing_id: listing_id,
-                    page: page // Send the current page number
-                },
-                success: function(response) {
-                    if (response.comments.length > 0) {
-                        // Append the new comments to the container
-                        response.comments.forEach(function(comment) {
-                            $('#comments-container').append(`
+                // Load more comments via AJAX
+                $.ajax({
+                    url: "{{ route('load.more.comments') }}", // Endpoint for loading more comments
+                    type: 'GET',
+                    data: {
+                        _token: "{{ csrf_token() }}", // CSRF token
+                        listing_id: listing_id,
+                        page: page // Send the current page number
+                    },
+                    success: function(response) {
+                        if (response.comments.length > 0) {
+                            // Append the new comments to the container
+                            response.comments.forEach(function(comment) {
+                                $('#comments-container').append(`
                                 <div class="media mb-4 buycomment">
                                     <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3 comment_image" alt="User Avatar">
                                     <div class="media-body">
@@ -490,27 +526,26 @@
                                     </div>
                                 </div>
                             `);
-                        });
+                            });
 
-                        // Increment the page for the next request
-                        page++;
+                            // Increment the page for the next request
+                            page++;
+                        }
+
+                        // Hide the loading indicator and reset button text
+                        $('#loading').text('Loading more comments...').hide();
+                        loading = false;
+                    },
+                    error: function() {
+                        console.log('Error loading comments');
+                        loading = false;
+                        $('#loading').text('Error, try again').show();
                     }
-
-                    // Hide the loading indicator and reset button text
-                    $('#loading').text('Loading more comments...').hide();
-                    loading = false;
-                },
-                error: function() {
-                    console.log('Error loading comments');
-                    loading = false;
-                    $('#loading').text('Error, try again').show();
-                }
-            });
-        }
+                });
+            }
+        });
     });
-});
-
 </script>
 
-       
+
 @endsection

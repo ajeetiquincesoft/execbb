@@ -32,11 +32,16 @@ use App\Http\Controllers\Agent\AgentEmailBuyerController;
 use App\Http\Controllers\Agent\AgentReportController;
 use App\Http\Controllers\Agent\NotificationController;
 use App\Http\Controllers\Agent\AgentLeadController;
+use App\Http\Controllers\Agent\AgentMessageController;
 
 //Controller for buyer
 use App\Http\Controllers\Buyer\BuyerAuthController;
 use App\Http\Controllers\Buyer\BuyerProfileController;
 use App\Http\Controllers\Buyer\BuyerChangePasswordController;
+use App\Http\Controllers\Buyer\BuyerMessageController;
+use App\Http\Controllers\Buyer\FavoriteController;
+use App\Http\Controllers\Buyer\SaveSearchController;
+
 
 //Controller for frontend
 use App\Http\Controllers\RegisterWithEbbController;
@@ -66,6 +71,7 @@ use App\Http\Controllers\GlossaryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 Route::get('/business/listing/search', [SearchController::class, 'searchBusinessListing'])->name('business.listing.search');
@@ -463,7 +469,9 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('all/leads', [AgentLeadController::class, 'index'])->name('all.leads');
   Route::get('view/lead/{id}', [AgentLeadController::class, 'show'])->name('show.lead');
   //end route for lead
-
+  Route::get('/all-message-info', [AgentMessageController::class, 'index'])->name('all.message.info');
+  Route::post('/send-message', [AgentMessageController::class, 'sendMessage'])->name('send.message');
+  Route::get('/get-messages', [AgentMessageController::class, 'getMessages'])->name('get.message');
 });
 
 Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.'], function () {
@@ -473,6 +481,13 @@ Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.
   Route::post('update/buyer/info/{id}', [BuyerProfileController::class, 'updateBuyerInfo'])->name('update.info');
   Route::get('/buyer/change/password', [BuyerChangePasswordController::class, 'index'])->name('change.password');
   Route::post('/buyer/change/password', [BuyerChangePasswordController::class, 'buyerChangePassword'])->name('modify.password');
+  Route::get('/all-message', [BuyerMessageController::class, 'index'])->name('all.message');
+  Route::post('/send-message', [BuyerMessageController::class, 'sendMessage'])->name('send.message');
+  Route::get('/get-messages', [BuyerMessageController::class, 'getMessages'])->name('get.message');
+  Route::post('/favourites/add/{listingId}', [FavoriteController::class, 'addFavorite'])->name('favorites.add');
+  Route::post('/favourites/remove/{listingId}', [FavoriteController::class, 'removeFavorite'])->name('favorites.remove');
+  Route::get('/favourites', [FavoriteController::class, 'showFavorites'])->name('favorite.listings');
+  Route::get('/save-search', [SaveSearchController::class, 'index'])->name('save.search');
 });
 
 Route::get('login', [AdminAuthController::class, 'index'])->name('login');

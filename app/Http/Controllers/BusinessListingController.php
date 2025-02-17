@@ -9,9 +9,11 @@ use App\Models\User;
 use App\Models\Like;
 use App\Models\Buyer;
 use App\Models\BuyerComment;
+use App\Models\SavedSearch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\Favorite;
 
 class BusinessListingController extends Controller
 {
@@ -20,7 +22,15 @@ class BusinessListingController extends Controller
         $query = $request->input('query');
         $industry = $request->input('industry');
         $state = $request->input('state');
-        
+        if ($request->has('lis_search') && Auth::check()) {
+        $saveSearch = new SavedSearch();
+        $saveSearch->user_id = Auth::id();
+        $saveSearch->search_val = $query;
+        $saveSearch->industry = $industry;
+        $saveSearch->state = $state;
+        $saveSearch->search_for = 'listing';
+        $saveSearch->save();
+        }
         // Start the query
         $listings = Listing::query();
         
@@ -72,7 +82,8 @@ class BusinessListingController extends Controller
         $likeCount = Like::where('ListingID', $id)->where('liked', 1)->count();
         $buyerComments = BuyerComment::where('ListingID', $id)->orderBy('created_at', 'desc')->paginate(5);
         $buyerCommentsCount = BuyerComment::where('ListingID', $id)->orderBy('created_at', 'desc')->count();
-        return view('frontend.single-business-listing', compact('listing','listings','userName','comments','subCatName','likeVal','activeClass','likeCount','buyerComments','buyerCommentsCount'));
+        $isFavorite = Favorite::where('listing_id', $id)->where('buyer_id', Auth::id())->count();
+        return view('frontend.single-business-listing', compact('listing','listings','userName','comments','subCatName','likeVal','activeClass','likeCount','buyerComments','buyerCommentsCount','isFavorite'));
 
         }
         else{
