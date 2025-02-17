@@ -3,7 +3,7 @@
         <h4>Buyer Dashboard</h4>
     </div>
     <ul class="sidebar-menu">
-        <li class="{{ request()->routeIs('buyer.dashboard') ? 'active' : '' }}">
+        <li class="{{ request()->routeIs('buyer.dashboard') ? 'active' : '' }} dggfh">
             <a href="{{route('buyer.dashboard')}}"><i class="fa fa-home"></i> Dashboard</a>
         </li>
         <li class="{{ request()->routeIs('buyer.orders') ? 'active' : '' }}">
