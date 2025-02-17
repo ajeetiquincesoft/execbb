@@ -1580,7 +1580,7 @@ color: #fff;
 }
 /* Style the custom radio buttons */
 
-ul.sidebar-menu .active {
+.sidebar-menu .active {
   background-color: #806132;
     border-radius: 5px;
 }
