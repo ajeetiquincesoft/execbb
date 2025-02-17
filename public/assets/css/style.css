@@ -1579,3 +1579,8 @@ color: #fff;
   line-height: 1.6;
 }
 /* Style the custom radio buttons */
+
+ul.sidebar-menu .active {
+  background-color: #806132;
+    border-radius: 5px;
+}

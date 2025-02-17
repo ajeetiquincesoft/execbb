@@ -1,6 +1,6 @@
 @extends('frontend.layout.buyer-master')
 @section('content')
-<div class="container mt-5">
+<div class="container">
     <div class="save-search-container">
         <h2 class="text-center mb-2">Your Saved Searches</h2>
         <p class="text-center mb-5">Below are the results of your saved searches. You can view the details of each search.</p>
