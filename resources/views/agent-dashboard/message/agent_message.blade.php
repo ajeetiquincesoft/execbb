@@ -137,7 +137,8 @@
         color: #666;
         padding: 5px;
     }
-    .send_message{
+
+    .send_message {
         display: none;
     }
 </style>
@@ -454,10 +455,31 @@
         };
 
         // ✅ Delete Message (Remove from Firebase)
+        /*   window.deleteMessage = function(msgId) {
+              if (confirm("Are you sure you want to delete this message?")) {
+                  db.ref(`${chatPath}${msgId}`).remove();
+              }
+          }; */
         window.deleteMessage = function(msgId) {
-            if (confirm("Are you sure you want to delete this message?")) {
-                db.ref(`${chatPath}${msgId}`).remove();
-            }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this message!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#5e0f2f',
+                cancelButtonColor: '#93744b',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    db.ref(`${chatPath}${msgId}`).remove();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your message has been deleted.',
+                        'success'
+                    );
+                }
+            });
         };
         // Function to mark all messages from a buyer as read
         function markMessagesAsRead(buyerId) {

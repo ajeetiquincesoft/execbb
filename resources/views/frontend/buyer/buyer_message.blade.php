@@ -137,7 +137,8 @@
         color: #666;
         padding: 5px;
     }
-    .send_message{
+
+    .send_message {
         display: none;
     }
 </style>
@@ -164,7 +165,7 @@
     <div class="chat-section hidden" id="chat-section">
         <h3 id="chat-header">Chat</h3>
         <div id="chat-box" class="chat-box">Welcome to your Buyer Dashboard. If you have any questions or require assistance, our team of agents is available to support you. Whether you need help with your orders, saved searches, or any product-related queries, please don’t hesitate to start a conversation. We’re here to ensure your experience is seamless and efficient.
-        Feel free to reach out anytime.</div>
+            Feel free to reach out anytime.</div>
 
         <div class="chat-input">
             <input type="hidden" id="buyer_id" name="buyer_id" value="{{ auth()->id() }}" />
@@ -455,11 +456,33 @@
         };
 
         // ✅ Delete Message (Remove from Firebase)
+        /*     window.deleteMessage = function(msgId) {
+                if (confirm("Are you sure you want to delete this message?")) {
+                    db.ref(`${chatPath}${msgId}`).remove();
+                }
+            }; */
         window.deleteMessage = function(msgId) {
-            if (confirm("Are you sure you want to delete this message?")) {
-                db.ref(`${chatPath}${msgId}`).remove();
-            }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this message!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#5e0f2f',
+                cancelButtonColor: '#93744b',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    db.ref(`${chatPath}${msgId}`).remove();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your message has been deleted.',
+                        'success'
+                    );
+                }
+            });
         };
+
         // Function to mark all messages from a agent as read
         function markMessagesAsRead(agentId) {
             // Iterate through the messages and set 'read' to true for the selected buyer
