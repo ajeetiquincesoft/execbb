@@ -341,6 +341,10 @@
                 },
                 city: {
                     regex: /^[a-zA-Z\s]+$/
+                },
+                zip: {
+                    minlength: 5,
+                    maxlength: 10
                 }
             },
             messages: {

@@ -61,7 +61,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                        <th scope="col" class="checkList"><label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+                            <th scope="col" class="checkList"><label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
                                     <input type="checkbox" name="checkListing" value="" class="custom-control-input" id="checkAll">
                                     <span class="custom-control-label">&nbsp;</span>
                                 </label></th>
@@ -79,7 +79,7 @@
                     <tbody id="leadResults">
                         @forelse($leads as $key=>$lead)
                         <tr>
-                        <td class="checkList">
+                            <td class="checkList">
                                 <label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
                                     <input type="checkbox" name="lead_id[]" value="{{$lead->LeadID}}" class="custom-control-input listing-check">
                                     <span class="custom-control-label">&nbsp;</span>
@@ -94,10 +94,12 @@
                             <td>{{$lead->AppointmentDate}}</td>
                             <td>{{ $lead_status[$lead->Status] ?? 'N/A' }}</td>
                             <td class="list-btn">
+                                @if(empty($lead->AgentID))
                                 <button class="btn btn-sm" title="Assign" data-bs-toggle="modal" data-bs-target="#assignAgentModal" data-lead-id="{{$lead->LeadID}}" data-agent-id="{{ $lead->AgentID }}">
-                                <i class="fas fa-user-plus" style="color: #6c757d;"></i>
+                                    <i class="fas fa-user-plus" style="color: #6c757d;"></i>
                                 </button>
-                            
+                                @endif
+
                                 <a href="{{ route('show.lead', $lead->LeadID) }}"><button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
                                     </button></a>
@@ -131,7 +133,7 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="assignAgentModal" tabindex="-1" aria-labelledby="assignAgentModalLabel" aria-hidden="true">
+<div class="modal fade" id="assignAgentModal" tabindex="-1" aria-labelledby="assignAgentModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -148,12 +150,12 @@
                         <select name="agent_id" id="agent" class="form-select">
                             <option value="">Select an agent</option>
                             @foreach($agents as $agent)
-                                <option value="{{ $agent->agent_info->AgentID }}">{{ $agent->agent_info->FName }} {{ $agent->agent_info->LName }}</option>
+                            <option value="{{ $agent->agent_info->AgentID }}">{{ $agent->agent_info->FName }} {{ $agent->agent_info->LName }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Assign</button>
+                        <button type="submit" id="assignBtn" class="btn btn-primary" style="display: none;">Assign</button>
                     </div>
                 </form>
             </div>
@@ -161,10 +163,28 @@
     </div>
 </div>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var agentDropdown = document.getElementById("agent");
+        var assignButton = document.getElementById("assignBtn");
+
+        // Initially hide the button if no agent is selected
+        if (agentDropdown.value === "") {
+            assignButton.style.display = "none";
+        }
+
+        // Show or hide the button based on the selected value in the dropdown
+        agentDropdown.addEventListener("change", function() {
+            if (agentDropdown.value === "") {
+                assignButton.style.display = "none";
+            } else {
+                assignButton.style.display = "inline-block";
+            }
+        });
+    });
     // JavaScript/jQuery to handle the lead ID dynamically
     document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
-        button.addEventListener('click', function () {
-            var leadId = this.getAttribute('data-lead-id'); 
+        button.addEventListener('click', function() {
+            var leadId = this.getAttribute('data-lead-id');
             var currentAgentId = this.getAttribute('data-agent-id');
             document.getElementById('lead_id').value = leadId;
             var selectElement = document.getElementById('agent');
@@ -186,7 +206,7 @@
                 }
             },
             messages: {
-              
+
             },
             submitHandler: function(form) {
                 form.submit();
@@ -222,34 +242,34 @@
             // Check if there are any selected listings
             if (selectedIds.length > 0) {
                 $.ajax({
-                        url: "{{ route('lead.bulkAction') }}",
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            status_val: status_val,
-                            lead_id: selectedIds
-                        },
-                        success: function(data) {
-                            Swal.fire({
-                                title: 'Success!',
-                                text: data.message,
-                                icon: 'success',
-                                confirmButtonText: 'OK',
-                                confirmButtonColor: '#5e0f2f',
-                            }).then(() => {
-                                location.reload();
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle error
-                            if (xhr.status === 419) {
-                                alert('CSRF token mismatch. Please reload the page and try again.');
-                            } else {
-                                alert('An error occurred while processing your request.');
-                            }
+                    url: "{{ route('lead.bulkAction') }}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        status_val: status_val,
+                        lead_id: selectedIds
+                    },
+                    success: function(data) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#5e0f2f',
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        if (xhr.status === 419) {
+                            alert('CSRF token mismatch. Please reload the page and try again.');
+                        } else {
+                            alert('An error occurred while processing your request.');
                         }
-                    });
+                    }
+                });
 
             } else {
                 Swal.fire({
