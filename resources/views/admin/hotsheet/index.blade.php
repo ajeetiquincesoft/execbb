@@ -2,8 +2,8 @@
 @section('content')
 <div class="container-fluid content bg-light">
     <div class="hotsheet-content">
-        <h3>Executive Business Brokers</h3>
-        <h3>Hot Sheet Offers</h3>
+        <h1>Executive Business Brokers</h1>
+        <p class="sub-heading">Hot Sheet Offers</p>
         <span class="mb-2">As of: {{ \Carbon\Carbon::now()->format('m/d/Y') }}</span>
     </div>
     <table class="hotsheet-table">
