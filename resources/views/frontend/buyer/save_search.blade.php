@@ -7,12 +7,15 @@
 
         <div class="row">
             @foreach($saveSearch as $result)
+            @php
+                $category = DB::table('categories')->where('CategoryID', $result->industry)->first();
+            @endphp
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card shadow-lg border-light rounded">
                     <div class="card-body">
                         <h5 class="card-title text-primary">{{ ucfirst($result->search_val) }}</h5>
                         <p class="card-text">
-                            <strong>Industry:</strong> {{ $result->industry }}<br>
+                            <strong>Industry:</strong> {{ $category ? $category->BusinessCategory : $result->industry }}<br>
                             <strong>State:</strong> {{ $result->state }}<br>
                             <strong>Search Type:</strong> {{ $result->search_for }}<br>
                             <small class="text-muted">Created on: {{ $result->created_at->format('M d, Y') }}</small>
