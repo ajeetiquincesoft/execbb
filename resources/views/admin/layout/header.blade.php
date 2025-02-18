@@ -59,6 +59,7 @@
           'edit.showing' => 'Edit Showing',
           'show.showing' => 'View Showing',
           'reports' => 'Reports',
+          'hotsheets' => 'Hotsheets',
           ];
           @endphp
 

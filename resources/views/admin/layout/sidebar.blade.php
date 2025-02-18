@@ -33,6 +33,10 @@
                 <img src="{{ url('assets/images/Off-Esc-Close.png') }}">
                 <a class="nav-link" data-name="Off/ Esc/ Close" data-url="#" href="{{route('all.offer')}}">Off/ Esc/ Close</a>
               </li>
+              <li class="nav-item {{ request()->routeIs('hotsheets') ? 'activenavitem' : '' }}">
+                <img src="{{ url('assets/images/Off-Esc-Close.png') }}">
+                <a class="nav-link" data-name="Hotsheet" data-url="#" href="{{route('hotsheets')}}">Hotsheet</a>
+              </li>
               <li class="nav-item {{ request()->routeIs('list.agent') || request()->routeIs('create.agent') || request()->routeIs('edit.agent') || request()->routeIs('show.agent') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Agents.png') }}">
                 <a class="nav-link" data-name="Agents" data-url="{{route('list.agent')}}" href="{{route('list.agent')}}">Agents</a>
