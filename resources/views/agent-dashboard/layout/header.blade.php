@@ -22,6 +22,7 @@
           'agent.reset.password' => 'Change Password',
           'agent.login.activities' => 'Login Activities',
           'agent.email.buyer' => 'Email Buyer',
+          'agent.all.message.info' => 'Messages',
           'agent.reports' => 'Reports',
           'agent.all.leads' => 'Leads',
           'agent.show.lead' => 'View Lead',
@@ -30,7 +31,7 @@
 
           @foreach ($breadcrumbs as $key => $label)
           @if ($route == $key)
-          @if ($route == 'agent.email.buyer' || $route == 'agent.reports')
+          @if ($route == 'agent.email.buyer' || $route == 'agent.reports' || $route == 'agent.all.message.info')
           <li class="breadcrumb-item">
             <a class="nav-link" href="{{ route($route) }}">{{ $breadcrumbs[$route] }}</a>
           </li>
