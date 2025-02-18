@@ -67,8 +67,9 @@ class LeadController extends Controller
         $listed = $request->has('listed') ? 1 : 0;
         $reInc = $request->has('reInc') ? 1 : 0;
         $sfbo = $request->has('sfbo') ? 1 : 0;
+        $changeStatus = $request->has('listed') ? 4 : $request->status;
         $insert = DB::table('leads')->insert([
-            'Status' => $request->status,
+            'Status' => $changeStatus,
             'BusName' => $request->businessName,
             'Address' => $request->address,
             'City' => $request->city,
@@ -145,8 +146,9 @@ class LeadController extends Controller
         $listed = $request->has('listed') ? 1 : 0;
         $reInc = $request->has('reInc') ? 1 : 0;
         $sfbo = $request->has('sfbo') ? 1 : 0;
+        $changeStatus = $request->has('listed') ? 4 : $request->status;
         $update =  DB::table('leads')->where('LeadID', $id)->update([
-            'Status' => $request->status,
+            'Status' => $changeStatus,
             'BusName' => $request->businessName,
             'Address' => $request->address,
             'City' => $request->city,
