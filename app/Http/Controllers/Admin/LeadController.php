@@ -254,7 +254,8 @@ class LeadController extends Controller
         DB::table('leads')
             ->where('LeadID', $lead_id)
             ->update([
-                'AgentID' => $agent_id
+                'AgentID' => $agent_id,
+                'Status' => 2
             ]);
             Activity::create([
                 'action' => 'Assign lead to agent',
