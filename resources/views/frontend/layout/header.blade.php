@@ -70,15 +70,20 @@
                 <div class="custom-links">
                     @auth
                     @if(auth()->user()->role_name === 'buyer')
-                    <a href="{{ route('buyer.dashboard') }}" class="me-2"> Dashboard</a>
-                    <a href="{{ route('signout') }}"> Logout</a>
+                    <a href="{{ route('buyer.dashboard') }}" class="me-2">Buyer Dashboard</a>
+                    <a href="{{ route('signout') }}">Logout</a>
+                    @elseif(auth()->user()->role_name === 'admin')
+                    <a href="{{ route('admin.dashboard') }}" class="me-2">Admin Dashboard</a>
+                    <a href="{{ route('signout') }}">Logout</a>
+                    @elseif(auth()->user()->role_name === 'agent')
+                    <a href="{{ route('agent.dashboard') }}" class="me-2">Agent Dashboard</a>
+                    <a href="{{ route('signout') }}">Logout</a>
                     @endif
                     @else
-                    <a href="{{route('login')}}" class="me-2">Sign In</a>
-                    <a href="{{route('register.ebb.buyer')}}" class="me-2">Join</a>
+                    <a href="{{ route('login') }}" class="me-2">Sign In</a>
+                    <a href="{{ route('register.ebb.buyer') }}" class="me-2">Join</a>
                     @endauth
                 </div>
-
             </div>
         </div>
     </nav>
