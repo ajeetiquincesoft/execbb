@@ -30,7 +30,7 @@
             @foreach($offers as $offer)
             <tr>
                 <td>{{$offer->DateOfOffer}}</td>
-                <td>✓</td>
+                <td>@if($offer->Status == 'Accepted')✓@endif</td>
                 <td>{{$offer->SellerCorpName}}</td>
                 <td>{{$offer->AgentUserRegisterId}}</td>
                 <td>{{$offer->ListingAgent}}</td>
@@ -38,7 +38,7 @@
                 <td>{{$offer->BuyerFName}} {{$offer->BuyerLName}} {{$offer->BuyerID}}</td>
                 <td>{{$offer->PurchasePrice}}</td>
                 <td>{{$offer->DownPaymnt}}</td>
-                <td>Yes</td>
+                <td>{{$offer->Status == 'Accepted' ? 'Yes' : ''}}</td>
                 <td>No</td>
                 <td>{{$offer->DepositCheckNumber}}</td>
                 <td>{{$offer->OfferID}}</td>
