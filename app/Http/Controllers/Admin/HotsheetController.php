@@ -9,17 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class HotsheetController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $offers = DB::table('offers')
-        ->join('listings', 'offers.ListingID', '=', 'listings.ListingID')
-        ->join('buyers', 'offers.BuyerID', '=', 'buyers.BuyerID')
-        ->join('agents', 'offers.ListingAgent', '=', 'agents.AgentID')
-        ->where(function($query) {
-            $query->where('offers.Status', 'Pending')
-                  ->orWhere('offers.Status', 'Accepted');
-        })
-        ->select('offers.*', 'listings.SellerCorpName as SellerCorpName', 'buyers.FName as BuyerFName', 'buyers.LName as BuyerLName', 'agents.AgentUserRegisterId as AgentUserRegisterId')
-        ->get();
-        return view('admin.hotsheet.index',compact('offers'));
+            ->join('listings', 'offers.ListingID', '=', 'listings.ListingID')
+            ->join('buyers', 'offers.BuyerID', '=', 'buyers.BuyerID')
+            ->join('agents', 'offers.ListingAgent', '=', 'agents.AgentID')
+            ->whereIn('offers.Status', ['Pending', 'Accepted'])  // Fetching both statuses
+            ->select('offers.*', 'listings.SellerCorpName as SellerCorpName', 'buyers.FName as BuyerFName', 'buyers.LName as BuyerLName', 'agents.AgentUserRegisterId as AgentUserRegisterId')
+            ->get();
+        return view('admin.hotsheet.index', compact('offers'));
     }
 }
