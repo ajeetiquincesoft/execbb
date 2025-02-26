@@ -76,7 +76,7 @@ class ShowingController extends Controller
             'user_id' => Auth::id(),
             'details' => 'created a new showing',
         ]);
-        return redirect()->route('all.showing')->with('success', 'Your showing create successful!');
+        return redirect()->route('all.showing')->with('success', 'Your showing create successfully!');
 
     }
     public function editShowing(Request $request,$id){
@@ -115,7 +115,7 @@ class ShowingController extends Controller
             'user_id' => Auth::id(),
             'details' => 'update showing',
         ]);
-        return redirect()->route('all.showing')->with('success', 'Your showing update successful!');
+        return redirect()->route('all.showing')->with('success', 'Your showing update successfully!');
 
     }
     public function show($id)

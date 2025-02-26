@@ -1579,8 +1579,66 @@ color: #fff;
   line-height: 1.6;
 }
 /* Style the custom radio buttons */
+/* Search Bar Container */
+.search-bar-container {
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 50px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
 
+/* Search Input Style */
+.search-input {
+  border-radius: 50px 0 0 50px; /* Rounded corners on left side */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+  flex-grow: 1; /* Makes the input field take the remaining space */
+}
+
+.search-input:focus {
+  border-color: #7F2149;
+  box-shadow: 0 0 8px rgba(127, 33, 73, 0.5);
+  outline: none;
+}
+
+/* Search Button Style */
+.search-btn {
+  background-color: #7F2149;
+  border-radius: 0 50px 50px 0; /* Rounded corners on right side */
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.search-btn i {
+  font-size: 18px;
+}
+
+.search-btn:hover {
+  background-color: #5e1839; /* Darker shade for hover */
+}
+
+.search-btn:focus {
+  box-shadow: none;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 576px) {
+  .search-bar-container {
+      max-width: 100%;
+  }
+}
+/*end css for search bar*/
 .sidebar-menu .active {
   background-color: #806132;
     border-radius: 5px;
+}
+ul.list-unstyled.buyer-dash li {
+  margin: 0;
+  padding: 0;
 }

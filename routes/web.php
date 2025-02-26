@@ -42,6 +42,8 @@ use App\Http\Controllers\Buyer\BuyerChangePasswordController;
 use App\Http\Controllers\Buyer\BuyerMessageController;
 use App\Http\Controllers\Buyer\FavoriteController;
 use App\Http\Controllers\Buyer\SaveSearchController;
+use App\Http\Controllers\Buyer\BuyerShowingController;
+use App\Http\Controllers\Buyer\BuyerOfferController;
 
 
 //Controller for frontend
@@ -426,9 +428,9 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::post('/export/reports', [ReportsController::class, 'export'])->name('export.reports');
   //End route for admin reports
 
-   //Route for admin Hotsheets
-   Route::get('hotsheets', [HotsheetController::class, 'index'])->name('hotsheets');
-   //End route for admin Hotsheets
+  //Route for admin Hotsheets
+  Route::get('hotsheets', [HotsheetController::class, 'index'])->name('hotsheets');
+  //End route for admin Hotsheets
 
 });
 Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.'], function () {
@@ -494,6 +496,21 @@ Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.
   Route::post('/favourites/remove/{listingId}', [FavoriteController::class, 'removeFavorite'])->name('favorites.remove');
   Route::get('/favourites', [FavoriteController::class, 'showFavorites'])->name('favorite.listings');
   Route::get('/save-search', [SaveSearchController::class, 'index'])->name('save.search');
+  Route::get('/create-showing', [BuyerShowingController::class, 'create'])->name('create.showing');
+  Route::post('/store-showing', [BuyerShowingController::class, 'store'])->name('store.showing');
+  Route::get('/all-showing', [BuyerShowingController::class, 'index'])->name('all.showing');
+  Route::delete('/showing-destroy/{id}', [BuyerShowingController::class, 'destroy'])->name('showing.destroy');
+  Route::get('edit-showing/{id}', [BuyerShowingController::class, 'editShowing'])->name('edit.showing');
+  Route::put('update-showing/{id}', [BuyerShowingController::class, 'updateShowing'])->name('update.showing');
+  Route::get('view-showing/{id}', [BuyerShowingController::class, 'show'])->name('show.showing');
+  Route::get('/all-offer', [BuyerOfferController::class, 'index'])->name('all.offer');
+  Route::get('create-offer', [BuyerOfferController::class, 'create'])->name('create.offer');
+  Route::get('/offer', [BuyerOfferController::class, 'showForm'])->name('offer.form');
+  Route::post('/offer', [BuyerOfferController::class, 'processForm'])->name('offer.form.process');
+  Route::delete('/offer-destroy/{id}', [BuyerOfferController::class, 'destroy'])->name('offer.destroy');
+  Route::get('/offer/{id}', [BuyerOfferController::class, 'editForm'])->name('edit.offer.form');
+  Route::post('/offer/{id}', [BuyerOfferController::class, 'editProcessForm'])->name('edit.offer.form.process');
+  Route::get('view-offer/{id}', [BuyerOfferController::class, 'show'])->name('show.offer');
 });
 
 Route::get('login', [AdminAuthController::class, 'index'])->name('login');
