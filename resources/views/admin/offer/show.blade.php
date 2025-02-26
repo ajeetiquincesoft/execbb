@@ -108,10 +108,6 @@
                     <td class="text-end">{{$offer->OffBalDownPay}}</td>
                   </tr>
                   <tr>
-                    <td><img src="{{ url('assets/images/price.png') }}" alt=""><span class="ml-2 fw-600">Total Down Pay</span></td>
-                    <td class="text-end">{{$offer->BuyerID}}</td>
-                  </tr>
-                  <tr>
                     <td><img src="{{ url('assets/images/assumation.png') }}" alt=""><span class="ml-2 fw-600">Assumption</span></td>
                     <td class="text-end">{{$offer->OffAssump}}</td>
                   </tr>

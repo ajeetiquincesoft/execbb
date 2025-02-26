@@ -104,13 +104,6 @@ $buyersImagePath = asset('assets/images/Buyers1.png');
                             <span class="item-label">Down Pay. Bal:</span>
                             <span class="item-value">${{ number_format($offer->OffBalDownPay, 2) }}</span>
                         </div>
-
-                        <!-- Total Down Pay -->
-                        <div class="offer-item">
-                            <span class="item-label">Total Down Pay:</span>
-                            <span class="item-value">${{ number_format($offer->BuyerID, 2) }}</span>
-                        </div>
-
                         <!-- Assumption -->
                         <div class="offer-item">
                             <span class="item-label">Assumption:</span>
