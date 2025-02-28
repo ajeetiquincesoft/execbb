@@ -65,7 +65,7 @@ class BusinessListingController extends Controller
         $listing = Listing::with('comments')->where('ListingID', $id)->first();
         if (Auth::check()) {
             $user = Auth::user();
-            if ($user->role_name == 'buyer') {
+            if ($user->role_name == 'buyer' && !empty($listing->RefAgentID)) {
                 // Check if a record with the same listing_id and buyer_id exists
                 $existingVisit = AgentListingViewByBuyer::where('listing_id', $id)
                                                          ->where('buyer_id', $user->id)
