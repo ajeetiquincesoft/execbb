@@ -129,7 +129,7 @@
         });
         $('#recipientEmail').on('change', function() {
             // Validate the form when the selection changes
-            $('#emailBuyer').valid();
+            $('#recipientEmail').valid();
         });
     });
 </script>
