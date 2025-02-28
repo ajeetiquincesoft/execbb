@@ -18,6 +18,7 @@ class HotsheetController extends Controller
             ->whereIn('offers.Status', ['Pending', 'Accepted'])  // Fetching both statuses
             ->select('offers.*', 'listings.SellerCorpName as SellerCorpName', 'buyers.FName as BuyerFName', 'buyers.LName as BuyerLName', 'agents.AgentUserRegisterId as AgentUserRegisterId')
             ->get();
+        dd($offers);
         return view('admin.hotsheet.index', compact('offers'));
     }
 }
