@@ -161,7 +161,7 @@
         <!-- Chat Section -->
         <div class="chat-section hidden" id="chat-section">
             <h3 id="chat-header">Chat</h3>
-            <div id="chat-box" class="chat-box"></div>
+            <div id="chat-box" class="chat-box">Welcome to your Agent Dashboard. If you have any questions or need assistance, our support team is always ready to help. Whether you need guidance with managing listings, responding to buyer inquiries, or any other aspect of your work, don't hesitate to start a conversation. We’re here to ensure you have all the resources and support you need to succeed. Feel free to reach out at any time.</div>
 
             <div class="chat-input">
                 <input type="hidden" id="agent_id" name="agent_id" value="{{ auth()->id() }}" />
