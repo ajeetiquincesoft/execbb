@@ -34,6 +34,10 @@ use App\Http\Controllers\Agent\AgentReportController;
 use App\Http\Controllers\Agent\NotificationController;
 use App\Http\Controllers\Agent\AgentLeadController;
 use App\Http\Controllers\Agent\AgentMessageController;
+use App\Http\Controllers\Agent\AgentHotsheetController;
+use App\Http\Controllers\Agent\AgentListingViewByBuyerController;
+use App\Http\Controllers\Agent\AgentreferralsController;
+
 
 //Controller for buyer
 use App\Http\Controllers\Buyer\BuyerAuthController;
@@ -480,6 +484,9 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('/all-message-info', [AgentMessageController::class, 'index'])->name('all.message.info');
   Route::post('/send-message', [AgentMessageController::class, 'sendMessage'])->name('send.message');
   Route::get('/get-messages', [AgentMessageController::class, 'getMessages'])->name('get.message');
+  Route::get('/download-hotsheet', [AgentHotsheetController::class, 'index'])->name('download.hotsheet');
+  Route::get('/buyer-listing-visit', [AgentListingViewByBuyerController::class, 'index'])->name('buyer.listing.visit');
+  Route::get('/buyer-referrals-list', [AgentreferralsController::class, 'index'])->name('buyer.referrals.list');
 });
 
 Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.'], function () {

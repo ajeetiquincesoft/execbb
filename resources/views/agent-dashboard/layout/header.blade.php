@@ -26,6 +26,8 @@
           'agent.reports' => 'Reports',
           'agent.all.leads' => 'Leads',
           'agent.show.lead' => 'View Lead',
+          'agent.buyer.listing.visit' => 'Listing View By Buyer',
+          'agent.buyer.referrals.list' => 'Referral',
           ];
           @endphp
 

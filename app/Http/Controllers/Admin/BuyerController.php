@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
+use App\Events\BuyerRegister;
 
 class BuyerController extends Controller
 {
@@ -102,6 +103,7 @@ class BuyerController extends Controller
                 $request->session()->put('buyerData.buyer_id',  $buyer_id);
             } else {
                 $data = $request->all();
+                //event(new BuyerRegister($data));
                 $check = $this->buyerRegistration($data);
                 $buyer = new Buyer;
                 $buyer->Honorific = $request->honorific;

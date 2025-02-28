@@ -10,6 +10,8 @@ use App\Events\AgentRegister;
 use App\Listeners\SendEmailToAgent;
 use Illuminate\Auth\Events\Login;
 use App\Listeners\LogLoginActivity;
+use App\Events\BuyerRegister;
+use App\Listeners\SendEmailToBuyer;
 
 
 class EventServiceProvider extends ServiceProvider
@@ -25,6 +27,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AgentRegister::class => [
             SendEmailToAgent::class
+        ],
+        BuyerRegister::class => [
+            SendEmailToBuyer::class
         ],
         Login::class => [
             LogLoginActivity::class,

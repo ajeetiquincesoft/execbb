@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Buyer;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Agent;
 use Illuminate\Support\Facades\Hash;
+use App\Events\BuyerRegister;
 
 class RegisterWithEbbController extends Controller
 {
@@ -18,10 +20,11 @@ class RegisterWithEbbController extends Controller
 
         return response()->json($options);
     }
-    public function register()
+    public function register(Request $request)
     {
+        $queryParams = $request->query();
         session()->forget(['buyerData', 'step']);
-        return redirect()->route('register.with.ebb');
+        return redirect()->route('register.with.ebb', $queryParams);
     }
     public function registerWithEbb(Request $request)
     {
@@ -33,7 +36,13 @@ class RegisterWithEbbController extends Controller
         $counties = DB::table('counties')->get();
         $agents = User::with('agent_info')->where('role_name', 'agent')->get();
         $sub_categories = DB::table('sub_categories')->get();
-        return view('frontend.register-with-ebb', compact('step', 'buyerData', 'categoryData', 'states', 'counties', 'agents', 'sub_categories'));
+        $uniqueAgID = '';
+        if($request->query('agent_id')){
+            $agId = $request->query('agent_id');
+            $getUniqueID = Agent::where('AgentUserRegisterId',$agId)->first();
+            $uniqueAgID = $getUniqueID->AgentID;
+        }
+        return view('frontend.register-with-ebb', compact('step', 'buyerData', 'categoryData', 'states', 'counties', 'agents', 'sub_categories','uniqueAgID'));
     }
 
     public function storeRegisterWithEbb(Request $request)
@@ -84,6 +93,9 @@ class RegisterWithEbbController extends Controller
                     $request->session()->put('buyerData.buyer_id',  $buyer_id);
                 } else {
                     // Create a new buyer
+                    $data = $request->all();
+                    /* event(new BuyerRegister($data)); */
+                    $check = $this->buyerRegistration($data);
                     $buyer = new Buyer;
                     $buyer->FName = $request->first_name;
                     $buyer->LName = $request->last_name;
@@ -98,7 +110,8 @@ class RegisterWithEbbController extends Controller
                     $buyer->BusPhone = $request->business_phone;
                     $buyer->Email = $request->email;
                     $buyer->callWhen = $request->callWhen;
-
+                    $buyer->user_id  =  $check->id;
+                    
                     // Save the new buyer to the database
                     $buyer->save();
 
@@ -119,8 +132,6 @@ class RegisterWithEbbController extends Controller
                     if (!$buyer) {
                         return back()->with('error', 'Buyer not found!');
                     }
-                    $buyerData = $request->session()->get('buyerData', []);
-                    $check = $this->buyerRegistration($buyerData);
                     // Update the buyer data in step 2
                     $buyer->TypeBus = $request->business_interest;
                     $buyer->Interest = $request->Interest ?? 0;
@@ -142,7 +153,6 @@ class RegisterWithEbbController extends Controller
                     $buyer->NetProfMin = $request->netIncomeMinimum;
                     $buyer->NetProfMax = $request->netIncomeMaximum;
                     $buyer->Comments = $request->comments;
-                    $buyer->user_id  =  $check->id;
 
                     // Save the updated buyer record
                     $buyer->save();
@@ -171,7 +181,7 @@ class RegisterWithEbbController extends Controller
             // Commit the transaction if no errors
             DB::commit();
 
-            return redirect()->route('register.with.ebb');
+            return redirect()->route('register.with.ebb', $request->query());
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'An error occurred while processing your request. Please try again.');

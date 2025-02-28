@@ -20,8 +20,8 @@
             </div>
             @endif
             <div class="col-lg-7 mt-0 column-divider">
-                <div class="RegisterWithEbb">
-                    <form method="POST" action="{{ route('store.register.with.ebb') }}" id="registerEbb">
+                <div class="RegisterWithEbb mb-2">
+                    <form method="POST" action="{{ route('store.register.with.ebb', request()->query()) }}" id="registerEbb">
                         @csrf
                         <input type="hidden" name="step" value="{{ session('step', 1) }}">
                         @if (session('step', 1) == 1)
@@ -42,10 +42,17 @@
 
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
-                                        <select class="form-select form-select-lg" id="agent" name="agent">
-                                            <option value="" selected="">Select Agent</option>
-                                            @foreach($agents as $key=>$agent)
-                                            <option value="{{$agent->agent_info->AgentID}}" {{ (old('agent') == $agent->agent_info->AgentID  || session('buyerData.agent') == $agent->agent_info->AgentID ) ? 'selected' : '' }}>{{$agent->agent_info->FName}} {{$agent->agent_info->LName}}</option>
+                                        <select class="form-select form-select-lg" id="agent" name="agent" {{ $uniqueAgID ? 'disabled' : '' }}>
+                                            <option value="" selected>Select Agent</option>
+                                            @foreach($agents as $key => $agent)
+                                            <option value="{{$agent->agent_info->AgentID}}"
+                                                {{ 
+                    (old('agent') == $agent->agent_info->AgentID || 
+                    session('buyerData.agent') == $agent->agent_info->AgentID ||
+                    $uniqueAgID == $agent->agent_info->AgentID) ? 'selected' : '' 
+                }}>
+                                                {{$agent->agent_info->FName}} {{$agent->agent_info->LName}}
+                                            </option>
                                             @endforeach
                                         </select>
                                         @error('agent')
@@ -53,6 +60,9 @@
                                         @enderror
                                         </select>
                                     </div>
+                                    @if(request()->query('agent_id'))
+                                    <input type="hidden" name="agent" value="{{ $uniqueAgID }}">
+                                @endif
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">

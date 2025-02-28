@@ -67,7 +67,7 @@
     }
 </style>
 <script>
-    $(document).ready(function() {
+  /*   $(document).ready(function() {
         // Handle the collapse and expand of settings
         $('#settings-collapse').on('show.bs.collapse', function() {
             // Change the caret to up (▲) when expanding
@@ -76,5 +76,5 @@
             // Change the caret back to down (▼) when collapsing
             $('.caret').html('&#9660;'); // Down caret (▼)
         });
-    });
+    }); */
 </script>

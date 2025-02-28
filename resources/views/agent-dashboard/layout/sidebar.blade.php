@@ -22,20 +22,18 @@
                 <a class="nav-link text-white" data-name="Dashboard" data-url="{{url('agent/dashboard')}}" href="{{url('agent/dashboard')}}">Dashboard</a>
               </li>
               <li class="nav-item {{ request()->routeIs('agent.list.buyer') || request()->routeIs('agent.show.buyer') ? 'activenavitem' : '' }}">
-                <!-- <i class="fas fa-exchange-alt"></i> -->
                 <img src="{{ url('assets/images/Buyers.png') }}">
                 <a class="nav-link" href="{{route('agent.list.buyer')}}">Buyers</a>
               </li>
               <li class="nav-item {{ request()->routeIs('agent.all.listing') || request()->routeIs('agent.listing.form') || request()->routeIs('agent.edit.listing.form') || request()->routeIs('agent.show.listing') ? 'activenavitem' : '' }}">
-                <!--  <i class="fas fa-briefcase"></i> -->
                 <img src="{{ url('assets/images/Listing.png') }}">
                 <a class="nav-link" href="{{route('agent.all.listing')}}">Listings</a>
               </li>
               <li class="nav-item {{ request()->routeIs('agent.all.leads') || request()->routeIs('agent.show.lead') ? 'activenavitem' : '' }}">
-                <!--  <i class="fas fa-briefcase"></i> -->
                 <img src="{{ url('assets/images/Lead.png') }}">
                 <a class="nav-link" href="{{route('agent.all.leads')}}">Leads</a>
               </li>
+              <li class="nav-item {{ request()->routeIs('agent.buyer.listing.visit') ? 'activenavitem' : '' }}"><img src="{{ url('assets/images/Buyers.png') }}"><a class="nav-link" href="{{route('agent.buyer.listing.visit')}}">Buyer Visit</a></li>
             </ul>
           </div>
         </div>
@@ -53,6 +51,8 @@
               <li class="nav-item {{ request()->routeIs('agent.reports') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('agent.reports')}}">Reports</a></li>
               <li class="nav-item {{ request()->routeIs('agent.email.buyer') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('agent.email.buyer')}}">Email Buyer</a></li>
               <li class="nav-item"><a class="nav-link-dropdown" href="{{route('agent.all.message.info')}}">Messages</a></li>
+              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('agent.download.hotsheet')}}">Download Hotsheet</a></li>
+              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('agent.buyer.referrals.list')}}">Referral</a></li>
             </ul>
           </div>
         </div>
