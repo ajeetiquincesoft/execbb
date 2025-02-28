@@ -50,7 +50,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="12" class="text-center no-data-found">No lead found.</td>
+                            <td colspan="12" class="text-center no-data-found">No visitor found.</td>
                         </tr>
                         @endforelse
                     </tbody>
