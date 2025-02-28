@@ -15,7 +15,6 @@ class AgentListingViewByBuyer extends Model
      protected $fillable = [
          'listing_id',
          'buyer_id',
-         'agent_id',
          'viewed_at',
      ];
  
