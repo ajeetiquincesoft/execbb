@@ -34,6 +34,8 @@
                 <a class="nav-link" href="{{route('agent.all.leads')}}">Leads</a>
               </li>
               <li class="nav-item {{ request()->routeIs('agent.buyer.listing.visit') ? 'activenavitem' : '' }}"><img src="{{ url('assets/images/Buyers.png') }}"><a class="nav-link" href="{{route('agent.buyer.listing.visit')}}">Buyer Visit</a></li>
+              <li class="nav-item {{ request()->routeIs('agent.all.message.info') ? 'activenavitem' : '' }}"><img src="{{ url('assets/images/Buyers.png') }}"><a class="nav-link" href="{{route('agent.all.message.info')}}">Messages</a></li>
+              <li class="nav-item {{ request()->routeIs('agent.buyer.referrals.list') ? 'activenavitem' : '' }}"><img src="{{ url('assets/images/Referrals.png') }}"><a class="nav-link" href="{{route('agent.buyer.referrals.list')}}">Referral</a></li>
             </ul>
           </div>
         </div>
@@ -50,9 +52,9 @@
             <ul class="acc-list" style="list-style-type: none; padding: 0;">
               <li class="nav-item {{ request()->routeIs('agent.reports') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('agent.reports')}}">Reports</a></li>
               <li class="nav-item {{ request()->routeIs('agent.email.buyer') ? 'activenavitem' : '' }}"><a class="nav-link-dropdown" href="{{route('agent.email.buyer')}}">Email Buyer</a></li>
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('agent.all.message.info')}}">Messages</a></li>
+             
               <li class="nav-item"><a class="nav-link-dropdown" href="{{route('agent.download.hotsheet')}}">Download Hotsheet</a></li>
-              <li class="nav-item"><a class="nav-link-dropdown" href="{{route('agent.buyer.referrals.list')}}">Referral</a></li>
+              
             </ul>
           </div>
         </div>
