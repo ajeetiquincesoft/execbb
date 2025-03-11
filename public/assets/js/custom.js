@@ -362,6 +362,7 @@ $(document).ready(function () {
 }); */
 $(document).ready(function () {
   $('#recipientEmail').select2();
+  $('#listingName').select2();
 });
 $(document).ready(function () {
   const collapsePanel = document.getElementById('collapsetwo');

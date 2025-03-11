@@ -18,10 +18,10 @@
 
             <div class="container-fluid py-3 border-bottom">
                 <div class="row align-items-center">
-                    <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-8">
                         <h4 class="mb-0">Listings</h4>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end add-list-btn">
+                    <!-- <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end add-list-btn">
                         <a href="{{route('agent.create.listing')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
                                 <img class="create_img" src="{{ url('assets/images/Listing.png') }}"> Add Listing
@@ -37,7 +37,7 @@
                             <option value="delete">Delete</option>
                             <option value="close">Close</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="col-12 col-md-6 col-lg-4 col-xl-4" id="list-search">
                         <form method="GET" action="{{ route('agent.all.listing') }}">
                             <div class="input-group" style="max-width: 300px;">
@@ -102,7 +102,7 @@
                                 <a href="{{ route('agent.show.listing', $listing->ListingID) }}"><button class="btn btn-sm" title="View">
                                         <i class="fas fa-eye"></i>
                                     </button></a>
-                                <a href="{{ route('agent.edit.listing.form', $listing->ListingID) }}"> <button class="btn btn-sm" title="Edit">
+                                <!-- <a href="{{ route('agent.edit.listing.form', $listing->ListingID) }}"> <button class="btn btn-sm" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button></a>
                                 <form id="delete-form-{{ $listing->ListingID }}" action="{{ route('agent.listing.destroy', $listing->ListingID) }}" method="post">
@@ -111,7 +111,7 @@
                                     <button type="button" class="btn btn-sm" title="Delete" onclick="listingDelete('{{ $listing->ListingID }}')">
                                         <i class="fas fa-trash"></i>
                                     </button>
-                                </form>
+                                </form> -->
                                 <!-- <button class="btn btn-sm" title="Download">
                                     <i class="fas fa-download"></i>
                                 </button> -->

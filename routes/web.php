@@ -22,6 +22,9 @@ use App\Http\Controllers\Auth\ForgetPasswordController;
 use App\Http\Controllers\Admin\EmailBuyerController;
 use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\HotsheetController;
+use App\Http\Controllers\Admin\SendListingController;
+use App\Http\Controllers\Admin\DownloadActivityController;
+
 //Controller for agent
 use App\Http\Controllers\Agent\AgentAuthController;
 use App\Http\Controllers\Agent\AgentBuyerController;
@@ -48,6 +51,7 @@ use App\Http\Controllers\Buyer\FavoriteController;
 use App\Http\Controllers\Buyer\SaveSearchController;
 use App\Http\Controllers\Buyer\BuyerShowingController;
 use App\Http\Controllers\Buyer\BuyerOfferController;
+use App\Http\Controllers\Buyer\ShareFactSheetNotificationController;
 
 
 //Controller for frontend
@@ -62,6 +66,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ListingLikeController;
 use App\Http\Controllers\MortgageCalculatorController;
 use App\Http\Controllers\GlossaryController;
+use App\Http\Controllers\factSheetController;
 
 
 
@@ -94,6 +99,7 @@ Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribeNew
 Route::post('/listing/like', [ListingLikeController::class, 'listingLike'])->name('listing.like');
 Route::get('/calculate-mortgage-form', [MortgageCalculatorController::class, 'showForm'])->name('calculate.mortgage.form');
 Route::post('/calculate-mortgage', [MortgageCalculatorController::class, 'calculateMortgage'])->name('calculate.mortgage');
+Route::get('factsheet/{id}', [factSheetController::class, 'index'])->name('listing-factsheet');
 Route::get('/buyers', function () {
   $breadcrumbs = [
     ['title' => 'Home', 'url' => url('/')],
@@ -435,6 +441,13 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   //Route for admin Hotsheets
   Route::get('hotsheets', [HotsheetController::class, 'index'])->name('hotsheets');
   //End route for admin Hotsheets
+  //Route for admin send listing to buyer
+  Route::get('share-listing', [SendListingController::class, 'index'])->name('share.listing');
+  Route::post('share-listing-with-buyer', [SendListingController::class, 'shareListing'])->name('share.listing.with.buyer');
+  //End route for admin send listing to buyer
+  //Route for download activity by admin
+  Route::get('download-activities', [DownloadActivityController::class, 'index'])->name('download.activities');
+  //End route for download activity by admin
 
 });
 Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.'], function () {
@@ -518,6 +531,7 @@ Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.
   Route::get('/offer/{id}', [BuyerOfferController::class, 'editForm'])->name('edit.offer.form');
   Route::post('/offer/{id}', [BuyerOfferController::class, 'editProcessForm'])->name('edit.offer.form.process');
   Route::get('view-offer/{id}', [BuyerOfferController::class, 'show'])->name('show.offer');
+  Route::get('share-factsheet-notification', [ShareFactSheetNotificationController::class, 'index'])->name('share.factsheet.notification');
 });
 
 Route::get('login', [AdminAuthController::class, 'index'])->name('login');
