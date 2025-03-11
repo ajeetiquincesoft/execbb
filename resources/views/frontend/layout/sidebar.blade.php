@@ -179,7 +179,7 @@ $userId = auth()->user()->id;
                     console.log("No notifications found for this user.");
                 }
                 notificationCountBadge.textContent = '0';
-                window.location.href = "http://127.0.0.1:8000/buyer/share-factsheet-notification";
+                window.location.href = "{{ url('buyer/share-factsheet-notification') }}";
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
