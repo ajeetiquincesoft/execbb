@@ -52,7 +52,7 @@
                                     <select id="leadId" name="leadId" class="form-select">
                                         <option value="" selected="">Select lead</option>
                                         @foreach($leads as $key=>$lead)
-                                        <option value="{{$lead->LeadID}}" {{ (old('leadId') == $lead->LeadID || session('formData.leadId') == $lead->LeadID) ? 'selected' : '' }}>{{$lead->LeadID}}</option>
+                                        <option value="{{$lead->LeadID}}" {{ (old('leadId') == $lead->LeadID || session('formData.leadId') == $lead->LeadID) ? 'selected' : '' }}>{{$lead->BusName}} {{$lead->LeadID}}</option>
                                         @endforeach
                                     </select>
                                     @error('leadId')

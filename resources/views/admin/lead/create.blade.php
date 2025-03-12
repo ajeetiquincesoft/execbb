@@ -360,6 +360,9 @@
                 lastName: {
                     required: true
                 },
+                businessName: {
+                    required: true
+                },
                 yearInBus: {
                     required: true
                 },

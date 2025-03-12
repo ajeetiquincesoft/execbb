@@ -12,6 +12,7 @@ use App\Models\Agent;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\Activity;
 
 class AgentListingController extends Controller
 {
@@ -44,12 +45,13 @@ class AgentListingController extends Controller
     public function show($id)
     {
         $user = auth()->user();
+        $activities = Activity::latest()->paginate(10);
         $listing = Listing::where('ListingID', $id)->where('RefAgentID', $user->id)->first();
         // Get the previous listing ID
         $previous = Listing::where('ListingID', '<', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'desc')->first();
         // Get the next listing ID
         $next = Listing::where('ListingID', '>', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'asc')->first();
-        return view('agent-dashboard.listing.show', compact('listing', 'previous', 'next'));
+        return view('agent-dashboard.listing.show', compact('listing', 'previous', 'next', 'activities'));
     }
     public function getOptions($id)
     {
