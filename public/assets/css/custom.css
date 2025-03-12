@@ -446,3 +446,10 @@ tbody>tr>td {
 .text-danger {
   display: inline-block;
 }
+.table-borderless {
+  width: 100%;
+  table-layout: fixed;
+}
+.table-borderless td {
+  width: 50%;
+}
