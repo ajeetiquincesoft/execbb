@@ -532,6 +532,22 @@
         $.validator.addMethod("regex", function(value, element, regexpr) {
             return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
         }, "Invalid phone number format.");
+        $.validator.addMethod("canvasNotEmpty", function(value, element) {
+        var canvas = document.getElementById('signature-pad');
+        var context = canvas.getContext('2d');
+        var canvasData = context.getImageData(0, 0, canvas.width, canvas.height);
+        var isCanvasEmpty = true;
+
+        // Check if there is any non-transparent pixel on the canvas
+        for (var i = 0; i < canvasData.data.length; i += 4) {
+            if (canvasData.data[i + 3] !== 0) { // alpha channel not zero (pixel not transparent)
+                isCanvasEmpty = false;
+                break;
+            }
+        }
+
+        return !isCanvasEmpty; // Returns true if canvas is not empty
+    }, "Please provide your signature.");
         var form = $('#registerEbb');
         form.validate({
             rules: {
@@ -624,7 +640,7 @@
                     required: true
                 },
                 signature: {
-                    required: true
+                    canvasNotEmpty: true
                 }
 
             },
@@ -668,8 +684,13 @@
             form.unbind('submit');
             form.submit();
         });
+           // Handle the Set button click
         $('#set-btn').on('click', function(event) {
-            if (!form.valid()) {
+            if ($('#registerEbb').valid()) {
+                // If form is valid, submit it
+                $('#registerEbb').submit();
+            } else {
+                // Prevent submission if canvas is empty
                 event.preventDefault();
             }
         });
