@@ -10,12 +10,23 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $states = DB::table('states')->get();
-        $listings = Listing::where('Active', 1)->where('Status', 'valid')->latest()
+        /* $listings = Listing::where('Active', 1)->where('Status', 'valid')->latest()
                    ->take(5)
-                   ->get();
+                   ->get(); */
+        $listings = Listing::where('listings.Active', 1)
+            ->where('listings.Status', 'valid')
+            ->whereHas('offers', function ($query) {
+                $query->whereNotIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
+            })
+            ->orderBy('listings.created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        //dd($listings);
         $agents = Agent::latest()->take(3)->get();
-        return view('frontend.home',compact('listings','states','agents'));
+        return view('frontend.home', compact('listings', 'states', 'agents'));
     }
 }

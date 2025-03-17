@@ -25,6 +25,9 @@ class SearchController extends Controller
         if ($state) {
             $listings = $listings->where('State', $state);
         }
+        $listings = $listings->whereHas('offers', function ($query) {
+            $query->whereNotIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
+        });
         $listings = $listings->where('Active', 1)->where('Status', 'valid')->orderBy('created_at', 'desc')->paginate(9);
             //dd(count($listings));
            // dd($listings);
@@ -67,7 +70,9 @@ class SearchController extends Controller
         if ($state) {
             $listings = $listings->where('State', $state);
         }
-        
+        $listings = $listings->whereHas('offers', function ($query) {
+            $query->whereNotIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
+        });
         // Order by creation date and paginate the results
         $listings = $listings->where('Active', 1)->where('Status', 'valid')->orderBy('created_at', 'desc')->paginate(9);
         

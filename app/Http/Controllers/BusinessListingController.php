@@ -51,7 +51,9 @@ class BusinessListingController extends Controller
         if ($state) {
             $listings = $listings->where('State', $state);
         }
-
+        $listings = $listings->whereHas('offers', function ($query) {
+            $query->whereNotIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
+        });
         // Order by creation date and paginate the results
         $listings = $listings->where('Active', 1)->where('Status', 'valid')->orderBy('created_at', 'desc')->paginate(6);
 
@@ -92,7 +94,14 @@ class BusinessListingController extends Controller
             $subCatName = DB::table('sub_categories')->where('SubCatID', $listing->SubCat)->value('SubCategory');
             $userName = $user->name;
             $comments = $listing->comments;
-            $listings = Listing::where('ListingID', '!=', $id)->orderBy('created_at', 'desc')->limit(4)->get();
+            /* $listings = Listing::where('ListingID', '!=', $id)->orderBy('created_at', 'desc')->limit(4)->get(); */
+            $listings = Listing::where('ListingID', '!=', $id)
+            ->whereHas('offers', function ($query) {
+                $query->whereNotIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
+            })
+            ->orderBy('created_at', 'desc')
+            ->limit(4)
+            ->get();
             $likeVal = 1;
             $activeClass = '';
             $likeStatus = Like::where('ListingID', $id)->where('BuyerID', $buyer_id)->first();
