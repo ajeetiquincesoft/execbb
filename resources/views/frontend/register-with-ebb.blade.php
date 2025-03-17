@@ -26,6 +26,96 @@
                         <input type="hidden" name="step" value="{{ session('step', 1) }}">
                         @if (session('step', 1) == 1)
                         <div class="form-multi-tab">
+                            <div class="agreement-container">
+                                <h5 class="fw-bold mb-2 m-0">Confidentiality & Non-Circumvention Agreement</h5>
+
+                                <p class="nda_para">Seller requires purchaser to supply a confidentiality agreement prior to disclosing any information regarding their business. In consideration of Executive Business Brokers (hereafter the "Broker") providing the undersigned with information of businesses available for sale, I understand and agree to the following:</p>
+
+                                <p class="nda_para">1. That any information provided on any business to me by Broker may be sensitive and confidential, and that its disclosure to others may be damaging to the described businesses and their owners.</p>
+
+                                <p class="nda_para">2. Not to disclose any information regarding any business introduced to me by the Broker, to any other person who has not also signed and dated this Agreement. Information that is deemed confidential shall include the fact that any such business is for sale, plus any other data provided through the Broker.</p>
+
+                                <p class="nda_para">3. Not to contact the respective business owner, employees, suppliers, landlord, competitors, or customers except through the Broker.</p>
+
+                                <p class="nda_para">4. Any information provided to me by the Broker with respect to any business was obtained by the seller or other sources and was not verified in any way. I understand and agree that the Broker relied on the seller or such other sources for the accuracy of said information, has no knowledge of the accuracy of said information, and makes no warranty, expressed or implied, as to the accuracy of such information. Understanding that limitation, prior to entering into an agreement to purchase any business, I shall make such independent verification as I deem necessary, of said information. I further agree that the Broker shall not be held liable for any errors, omissions, or misrepresentations in passing on any information that it has received in good faith from any business owners and/or other selling clients, and that it is my responsibility to verify all information. I further agree to indemnify and hold Broker and its employees, agents, and representatives harmless from and against any claims for damages resulting from any errors, omissions, or misrepresentations of the seller or other sources of information regarding any business.</p>
+
+                                <p class="nda_para">5. That should I enter into an agreement to purchase a business that was introduced to me by the Broker, I grant to seller the right to obtain, through standard reporting agencies, financial and credit information concerning myself or the affiliates I represent and understand that this information will be held confidential by the seller and Broker and will only be used for the seller extending credit to me.</p>
+
+                                <p class="nda_para">6. That all correspondence, inquiries, offers to purchase and negotiations relating to the purchase or lease of any business presented to me or affiliates will be conducted exclusively through Broker. I acknowledge that the Broker has supplied me with a valuable service and if I purchase any business which was supplied by Broker with an attempt to exclude Broker, or interfere with the Broker's contractual right to a commission from the sale of a business, or if I receive any interest in the assets of the business in any shape, manner, or form, regardless of the name, legal capacity, or form of the transferee of the assets or title to the business, without the broker being paid, I shall be personally liable to the Broker for a commission equal to up to ten percent (10%) of the total contract price or a minimum of $15,000, whichever is greater (including non-cash consideration, if any) plus reasonable attorney's fees and costs of suit.</p>
+
+                                <p class="nda_para">7. I will not enter into any negotiations for the purchase of any businesses to which the Broker has introduced me without Broker. For a period of one year after we cease to use Broker's services, I will also not enter into any negotiations for the purchase of any businesses to which Broker or any agents of the Broker has introduced to me.</p>
+
+                                <p class="nda_para">8. That if I decline to pursue the acquisition of any business/assets/properties Broker has for sale, for whatever reason, I will return all original documents received by Broker and I shall remain bound by the terms of this confidentiality agreement and furthermore, I will not discuss any information received by Broker with any outside parties.</p>
+
+                                <p class="nda_para">9. In the event, I violate any of the terms of this Agreement, the Broker shall be entitled to recover reasonable attorney's fees and cost of suit.</p>
+
+                                <p class="nda_para">10. This Agreement shall be interpreted and enforced under the laws of the State of New Jersey. The parties hereby consent to jurisdiction in the State of New Jersey and agree that the sole and exclusive forum for litigating any issue arising out of this Agreement shall be the Superior Court of the State of New Jersey. In the event the suit is instituted with regard to any issue arising out of this Agreement, the parties agree to a non-jury trial.</p>
+
+                                <p class="fw-bold">ALL OF THE INFORMATION MUST BE COMPLETED IN ORDER TO OBTAIN INFORMATION ON BUSINESS (ES).</p>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <div class="mb-3">
+                                        <input type="text" id="full_name" name="full_name" class="form-control form-control-lg" placeholder="Full Name" value="{{ session('buyerData.full_name') ?? old('full_name')}}" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="mb-3">
+                                        <input type="text" id="nda_business_interest" name="nda_business_interest" class="form-control form-control-lg" placeholder="Business Interest" value="{{ session('buyerData.nda_business_interest') ?? old('nda_business_interest')}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-12">
+                                    <div class="mb-3">
+                                        <input type="text" id="home_address" name="home_address" class="form-control form-control-lg" placeholder="Home Address Zip" value="{{ session('buyerData.home_address') ?? old('home_address')}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <div class="mb-3">
+                                        <input type="text" id="nda_home_phone" name="nda_home_phone" class="form-control form-control-lg" placeholder="Home Phone" value="{{ session('buyerData.nda_home_phone') ?? old('nda_home_phone')}}" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="mb-3">
+                                        <input type="text" id="nda_cell_phone" name="nda_cell_phone" class="form-control form-control-lg" placeholder="Cell Phone" value="{{ session('buyerData.nda_cell_phone') ?? old('nda_cell_phone')}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <div class="mb-3">
+                                        <input type="email" id="nda_email" name="nda_email" class="form-control form-control-lg" placeholder="E-Mail" value="{{ session('buyerData.nda_email') ?? old('nda_email')}}" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="mb-3">
+                                        <input type="date" id="nda_form_date" name="nda_form_date" class="form-control form-control-lg" placeholder="Date" value="{{ session('buyerData.nda_form_date') ?? old('nda_form_date')}}" max="{{ \Carbon\Carbon::now()->toDateString() }}" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p>Signature</p>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-12">
+                                    <div class="mb-3">
+                                        <canvas id="signature-pad" class="signature-pad" style="border:1px solid #B3B3B3;" width="525" height="200"></canvas>
+                                        <input type="hidden" name="signature" id="signature" value="{{ session('buyerData.signature') ?? old('signature')}}">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="buttons">
+                                <button type="button" id="clear-btn" class="sign_btn">Clear</button>
+                                <button type="button" id="set-btn" class="sign_btn">Set</button>
+                            </div>
+                        </div>
+                        @endif
+                        @if (session('step', 1) == 2)
+                        <div class="form-multi-tab">
                             <div class="row g-3">
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
@@ -62,7 +152,7 @@
                                     </div>
                                     @if(request()->query('agent_id'))
                                     <input type="hidden" name="agent" value="{{ $uniqueAgID }}">
-                                @endif
+                                    @endif
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
@@ -144,7 +234,7 @@
                             </div>
                         </div>
                         @endif
-                        @if (session('step', 1) == 2)
+                        @if (session('step', 1) == 3)
                         <div class="form-multi-tab">
                             <div class="row mb-2">
                                 <div class="col-12 col-md-12 mb-3 interest_business">
@@ -388,7 +478,7 @@
 
                             <!-- Next button or Submit -->
                             <button type="submit" name="next" class="btn bg-5a102a text-white btn-block" id="nextBtn" style="height: 50px; width: 35%;">
-                                {{ session('step', 1) < 2 ? 'Next' : 'Submit' }}
+                                {{ session('step', 1) < 3 ? 'Next' : 'Submit' }}
                             </button>
                         </div>
                     </form>
@@ -423,6 +513,18 @@
         transform: translateY(-10px);
         color: #007bff;
     }
+
+    p.nda_para {
+        font-size: 12px;
+    }
+
+    button#clear-btn,
+    button#set-btn {
+        background-color: #7F2149;
+        color: #fff;
+        border: 0;
+        padding: 10px 20px;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -433,6 +535,30 @@
         var form = $('#registerEbb');
         form.validate({
             rules: {
+                full_name: {
+                    required: true
+                },
+                nda_business_interest: {
+                    required: true
+                },
+                home_address: {
+                    required: true
+                },
+                nda_home_phone: {
+                    required: true,
+                    regex: /^\d{10}$/
+                },
+                nda_cell_phone: {
+                    required: true,
+                    regex: /^\d{10}$/
+                },
+                nda_email: {
+                    required: true,
+                    email: true
+                },
+                nda_form_date: {
+                    required: true
+                },
                 email: {
                     required: true,
                     email: true
@@ -496,9 +622,13 @@
                 },
                 netIncomeMinimum: {
                     required: true
+                },
+                signature: {
+                    required: true
                 }
 
             },
+            ignore: ":disabled",
             messages: {
                 home_phone: {
                     required: 'Phone number is required.',
@@ -506,6 +636,9 @@
                 },
                 business_phone: {
                     regex: 'Must be a valid phone number.'
+                },
+                signature: {
+                    required: 'Please provide your signature.'
                 }
             },
             errorPlacement: function(error, element) {
@@ -535,6 +668,14 @@
             form.unbind('submit');
             form.submit();
         });
+        $('#set-btn').on('click', function(event) {
+            if (!form.valid()) {
+                event.preventDefault();
+            }
+        });
+        const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+        document.getElementById('nda_form_date').value = today;
+        document.getElementById('nda_form_date').max = today;
     });
 </script>
 
@@ -618,4 +759,34 @@
         });
     });
 </script>
+<script type="module">
+    import SignaturePad from 'https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.min.js';
+    // Ensure that the DOM is fully loaded before executing the script
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the canvas element and initialize the SignaturePad
+        const canvas = document.getElementById("signature-pad");
+        const signaturePad = new SignaturePad(canvas);
+
+        // Clear the signature when the clear button is clicked
+        document.getElementById("clear-btn").addEventListener("click", function() {
+            signaturePad.clear();
+        });
+
+        document.getElementById("set-btn").addEventListener("click", function() {
+            const signatureData = signaturePad.toDataURL();
+            document.getElementById("signature").value = signatureData;
+        });
+        const img = new Image();
+        const imgUrl = $('#signature').val();
+        img.src = imgUrl;
+        // Once the image has loaded, draw it on the canvas
+        img.onload = function() {
+            const canvas = document.getElementById('signature-pad');
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+
+    });
+</script>
+
 @endsection

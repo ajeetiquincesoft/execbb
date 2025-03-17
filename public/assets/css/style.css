@@ -1642,3 +1642,6 @@ ul.list-unstyled.buyer-dash li {
   margin: 0;
   padding: 0;
 }
+form#registerEbb .form-control-lg, form#registerEbb .form-select-lg {
+  font-size: 16px;
+}

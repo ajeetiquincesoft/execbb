@@ -280,7 +280,7 @@
     .form-select {
         border-radius: 0;
         border: 1px solid #ccc;
-        padding: 16px;
+        padding: 10px 10px;
         font-size: 0.9rem;
         color: #555;
     }
