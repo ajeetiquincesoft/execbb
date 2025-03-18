@@ -100,17 +100,14 @@
                             <p>Signature</p>
                             <div class="row g-3">
                                 <div class="col-12 col-md-12">
-                                    <div class="mb-3">
+                                    <div class="mb-3 below">
                                         <canvas id="signature-pad" class="signature-pad" style="border:1px solid #B3B3B3;" width="525" height="200"></canvas>
                                         <input type="hidden" name="signature" id="signature" value="{{ session('buyerData.signature') ?? old('signature')}}">
+                                        <div id="clear-btn" class="sign_btn">x</div>
+                                        <div id="set-btn" class="sign_btn">✓</div>
                                     </div>
                                 </div>
 
-                            </div>
-
-                            <div class="buttons">
-                                <button type="button" id="clear-btn" class="sign_btn">Clear</button>
-                                <button type="button" id="set-btn" class="sign_btn">Set</button>
                             </div>
                         </div>
                         @endif
@@ -500,6 +497,9 @@
 </div>
 <!-- Register with ebb End -->
 <style>
+#signature-pad {
+    pointer-events: auto;
+}
     .content-box-ebb {
         background-color: #FFFFFF;
         padding: 30px;
@@ -518,13 +518,30 @@
         font-size: 12px;
     }
 
-    button#clear-btn,
-    button#set-btn {
-        background-color: #7F2149;
-        color: #fff;
-        border: 0;
-        padding: 10px 20px;
+    div#clear-btn {
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
     }
+    div#set-btn {
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 16px;
+    top: 40px;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    }
+    .below {
+    position: relative;
+    margin-bottom: 15px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -533,21 +550,21 @@
             return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
         }, "Invalid phone number format.");
         $.validator.addMethod("canvasNotEmpty", function(value, element) {
-        var canvas = document.getElementById('signature-pad');
-        var context = canvas.getContext('2d');
-        var canvasData = context.getImageData(0, 0, canvas.width, canvas.height);
-        var isCanvasEmpty = true;
+            var canvas = document.getElementById('signature-pad');
+            var context = canvas.getContext('2d');
+            var canvasData = context.getImageData(0, 0, canvas.width, canvas.height);
+            var isCanvasEmpty = true;
 
-        // Check if there is any non-transparent pixel on the canvas
-        for (var i = 0; i < canvasData.data.length; i += 4) {
-            if (canvasData.data[i + 3] !== 0) { // alpha channel not zero (pixel not transparent)
-                isCanvasEmpty = false;
-                break;
+            // Check if there is any non-transparent pixel on the canvas
+            for (var i = 0; i < canvasData.data.length; i += 4) {
+                if (canvasData.data[i + 3] !== 0) { // alpha channel not zero (pixel not transparent)
+                    isCanvasEmpty = false;
+                    break;
+                }
             }
-        }
 
-        return !isCanvasEmpty; // Returns true if canvas is not empty
-    }, "Please provide your signature.");
+            return !isCanvasEmpty; // Returns true if canvas is not empty
+        }, "Please provide your signature.");
         var form = $('#registerEbb');
         form.validate({
             rules: {
@@ -684,11 +701,11 @@
             form.unbind('submit');
             form.submit();
         });
-           // Handle the Set button click
+        // Handle the Set button click
         $('#set-btn').on('click', function(event) {
             if ($('#registerEbb').valid()) {
                 // If form is valid, submit it
-                $('#registerEbb').submit();
+                //$('#registerEbb').submit();
             } else {
                 // Prevent submission if canvas is empty
                 event.preventDefault();
@@ -787,16 +804,20 @@
         // Get the canvas element and initialize the SignaturePad
         const canvas = document.getElementById("signature-pad");
         const signaturePad = new SignaturePad(canvas);
+        const signatureData = document.getElementById("signature");
 
         // Clear the signature when the clear button is clicked
         document.getElementById("clear-btn").addEventListener("click", function() {
             signaturePad.clear();
+            signatureData.value = '';
         });
-
-        document.getElementById("set-btn").addEventListener("click", function() {
-            const signatureData = signaturePad.toDataURL();
-            document.getElementById("signature").value = signatureData;
-        });
+        document.getElementById("set-btn").addEventListener("click", function(event) {
+             event.preventDefault();
+             if (!signaturePad.isEmpty()) {
+             const signatureData = signaturePad.toDataURL();
+             document.getElementById("signature").value = signatureData;
+             }
+         });
         const img = new Image();
         const imgUrl = $('#signature').val();
         img.src = imgUrl;
