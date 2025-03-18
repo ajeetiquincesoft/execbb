@@ -103,8 +103,8 @@
                                     <div class="mb-3 below">
                                         <canvas id="signature-pad" class="signature-pad" style="border:1px solid #B3B3B3;" width="525" height="200"></canvas>
                                         <input type="hidden" name="signature" id="signature" value="{{ session('buyerData.signature') ?? old('signature')}}">
-                                        <div id="clear-btn" class="sign_btn">x</div>
-                                        <div id="set-btn" class="sign_btn">✓</div>
+                                        <div id="clear-btn" class="sign_btn" title="Clear the signature">x</div>
+                                        <div id="set-btn" class="sign_btn" title="Set the signature">✓</div>
                                     </div>
                                 </div>
 
@@ -515,7 +515,7 @@
     }
 
     p.nda_para {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     div#clear-btn {
@@ -703,7 +703,7 @@
         });
         // Handle the Set button click
         $('#set-btn').on('click', function(event) {
-            if ($('#registerEbb').valid()) {
+            if ($('#signature').valid()) {
                 // If form is valid, submit it
                 //$('#registerEbb').submit();
             } else {
