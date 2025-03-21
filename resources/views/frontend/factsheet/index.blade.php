@@ -307,7 +307,7 @@
                                     $total = 1000000;
                                     $percentageCOG3 = ($value / $total) * 100;
                                 @endphp
-                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{$listingData->COG3 ?? 0}}</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{'$' .(number_format($listingData->COG3, 2)) ?? 0}}</u></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentageCOG3, 2) }}%</u></td>
                             </tr>
                             <tr>
@@ -321,10 +321,15 @@
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentageTotalCost, 2) }}%</u></td>
                             </tr>
                             <tr>
+                                @php
+                                    $totalGOP = $listingData->AnnualSales - $totalCost;
+                                    $total = 1000000;
+                                    $percentageGrossOperatingProfit = ($totalGOP / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="164" align="left" height="16" colspan="2"><b>&nbsp;Gross
                                         Operating Profit:</b></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;$729,300.00</u></td>AnnRent
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;74.53%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{ '$' . number_format($totalGOP, 2) }}</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentageGrossOperatingProfit, 2) }}%</u></td>
                             </tr>
                             <tr>
                                 <td style="font-family: Arial; font-size: 10pt" width="164" align="right" height="25" valign="bottom" colspan="2">
@@ -334,93 +339,163 @@
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="25"></td>
                             </tr>
                             <tr>
+                                @php
+                                    $annRent = $listingData->AnnRent;
+                                    $total = 1000000;
+                                    $percentageAnnRent = ($annRent / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Annual Rent:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{ '$' . number_format($listingData->AnnRent, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;4.05%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentageAnnRent, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $commonAreaMaint = $listingData->CommonAreaMaint;
+                                    $total = 1000000;
+                                    $percentageCommonAreaMaint = ($commonAreaMaint / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">
                                     Common Area Maint.:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{ '$' . number_format($listingData->CommonAreaMaint, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;0.05%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentageCommonAreaMaint, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $realEstateTax = $listingData->RealEstateTax;
+                                    $total = 1000000;
+                                    $percentageRealEstateTax = ($realEstateTax / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Real
                                     Estate Tax:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{ '$' . number_format($listingData->RealEstateTax, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;0.26%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentageRealEstateTax, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $annPayroll = $listingData->AnnPayroll;
+                                    $total = 1000000;
+                                    $percentageAnnPayroll = ($annPayroll / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Annual
                                     Payroll:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{ '$' . number_format($listingData->AnnPayroll, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;24.56%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentageAnnPayroll, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $payrollTax = $listingData->PayrollTax;
+                                    $total = 1000000;
+                                    $percentagePayrollTax = ($payrollTax / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Payroll
                                     Tax:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{ '$' . number_format($listingData->PayrollTax, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;2.86%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentagePayrollTax, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $licFee = $listingData->LicFee;
+                                    $total = 1000000;
+                                    $percentageLicFee = ($licFee / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">License
                                     Fee:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>&nbsp;{{ '$' . number_format($listingData->LicFee, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;0.03%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>&nbsp;{{ number_format($percentageLicFee, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $advertising = $listingData->Advertising;
+                                    $total = 1000000;
+                                    $percentageAdvertising = ($advertising / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Advertising:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($listingData->Advertising, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.58%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($percentageAdvertising, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $telephone = $listingData->Telephone;
+                                    $total = 1000000;
+                                    $percentageTelephone = ($telephone / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Telephone:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($listingData->Telephone, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.87%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($percentageTelephone, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $utilities = $listingData->Utilities;
+                                    $total = 1000000;
+                                    $percentageUtilities = ($utilities / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Utilities, Gas / Electric:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($listingData->Utilities, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.99%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($percentageUtilities, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $insurance = $listingData->Insurance;
+                                    $total = 1000000;
+                                    $percentageInsurance = ($insurance / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Insurance:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($listingData->Insurance, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>1.08%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($percentageInsurance, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $acctLeg = $listingData->AcctLeg;
+                                    $total = 1000000;
+                                    $percentageAcctLeg = ($acctLeg / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Accounting / Legal:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($listingData->AcctLeg, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.31%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($percentageAcctLeg, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $maintenance = $listingData->Maintenance;
+                                    $total = 1000000;
+                                    $percentageMaintenance = ($maintenance / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Maintenance:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($listingData->Maintenance, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.05%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($percentageMaintenance, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $trash = $listingData->Trash;
+                                    $total = 1000000;
+                                    $percentageTrash = ($trash / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Trash:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($listingData->Trash, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.02%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($percentageTrash, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $other = $listingData->Other;
+                                    $total = 1000000;
+                                    $percentageOther = ($other / $total) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" align="left" height="16">Other:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($listingData->Other, 2) }}</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>7.75%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($percentageOther, 2) }}%</u></td>
                             </tr>
                             <tr>
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
@@ -435,11 +510,16 @@
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.00%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $totalOperatingExpenses = $listingData->AnnRent + $listingData->CommonAreaMaint + $listingData->RealEstateTax + $listingData->AnnPayroll + $listingData->PayrollTax + $listingData->LicFee + $listingData->Advertising + $listingData->Telephone + $listingData->Utilities + $listingData->Insurance + $listingData->AcctLeg + $listingData->Maintenance + $listingData->Trash + $listingData->Other;
+
+                                    $totalOperatingPercentage = ($totalOperatingExpenses / 1000000) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" align="right" height="16" 152"="" width="11"></td>
                                 <td style="font-family: Arial; font-size: 10pt" align="left" height="16" 152"="" width="153"><b>
                                         Total Operating Exp.:</b></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>$431,640.00</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>44.11%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($totalOperatingExpenses, 2) }}</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{ number_format($totalOperatingPercentage, 2) }}%</u></td>
                             </tr>
                             <tr>
                                 <td style="font-family: Arial; font-size: 10pt" width="164" align="right" height="24" colspan="2">
@@ -465,28 +545,33 @@
                             <tr>
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" height="16">Operating Expenses:</td>
-                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>$431,640.00</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>44.11%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($totalOperatingExpenses, 2) }}</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{number_format($totalOperatingPercentage, 2) }}%</u></td>
                             </tr>
                             <tr>
+                            @php
+                                    $totalOperatingProfit = $listingData->AnnualSales - ($totalCost + $totalOperatingExpenses);
+
+                                    $totalOperatingProfitPercentage = ($totalOperatingProfit / 1000000) * 100;
+                                @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" height="16">Operating Profit:</td>
-                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>$297,660.00</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>30.42%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($totalOperatingProfit, 2) }}</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{number_format($totalOperatingProfitPercentage, 2) }}%</u></td>
                             </tr>
                             <tr>
                                 <td style="font-family: Arial; font-size: 10pt" width="11" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="153" height="16">Other Income:</td>
-                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>$70.00</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.01%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>$0.00</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>0.00%</u></td>
                             </tr>
                             <tr>
                                 <td style="font-family: Arial; font-size: 10pt" width="13" align="right" height="16"></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="137" height="16"><b>Total
                                         Adj.
                                         Cash Flow:</b></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>$297,730.00</u></td>
-                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>30.43%</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="94" align="right" height="16"><u>{{ '$' . number_format($totalOperatingProfit, 2) }}</u></td>
+                                <td style="font-family: Arial; font-size: 10pt" width="70" align="right" height="16"><u>{{number_format($totalOperatingProfitPercentage, 2) }}%</u></td>
                             </tr>
                         </tbody>
                     </table>
