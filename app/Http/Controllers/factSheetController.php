@@ -18,8 +18,9 @@ class factSheetController extends Controller
         if (!$listingData) {
             abort(404, 'Factsheet not found');
         }
+        $annualSaleAmount = $listingData->AnnualSales;
         $categories = DB::table('categories')->pluck('BusinessCategory', 'CategoryID');
         $subCategories = DB::table('sub_categories')->pluck('SubCategory', 'SubCatID');
-        return view('frontend.factsheet.index',compact('listingData','categories','subCategories'));
+        return view('frontend.factsheet.index',compact('listingData','categories','subCategories','annualSaleAmount'));
     }
 }

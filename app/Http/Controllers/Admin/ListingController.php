@@ -539,9 +539,6 @@ class ListingController extends Controller
     {
         $request->validate([
             'annualSales' => 'required',
-            'costOfSales' => 'required',
-            'grossProfit' => 'required',
-            'totalExpenses' => 'required',
 
         ]);
         $listing = Listing::where('ListingID', $request->id)->update([
@@ -549,6 +546,8 @@ class ListingController extends Controller
             'CostOfSale' => $request->costOfSales,
             'GrossProfit' => $request->grossProfit,
             'TotalExpenses' => $request->totalExpenses,
+            'OtherInc' => $request->otherIncome,
+            'AnnualNetProfit' => $request->annNetProfit,
             'COG1Label' => $request->goods_name1,
             'COG2Label' => $request->goods_name2,
             'COG3Label' => $request->goods_name3,
@@ -569,6 +568,10 @@ class ListingController extends Controller
             'Maintenance' => $request->maintenance,
             'Trash' => $request->trash,
             'Other' => $request->other,
+            'Opt1Label' => $request->Opt1Label,
+            'Opt2Label' => $request->Opt2Label,
+            'Opt1' => $request->Opt1,
+            'Opt2' => $request->Opt2,
             'Steps' => 4
         ]);
         if ($listing) {
@@ -949,9 +952,6 @@ class ListingController extends Controller
     {
         $request->validate([
             'annualSales' => 'required',
-            'costOfSales' => 'required',
-            'grossProfit' => 'required',
-            'totalExpenses' => 'required',
 
         ]);
         $currentStep = 4;
@@ -966,6 +966,8 @@ class ListingController extends Controller
             'CostOfSale' => $request->costOfSales,
             'GrossProfit' => $request->grossProfit,
             'TotalExpenses' => $request->totalExpenses,
+            'OtherInc' => $request->otherIncome,
+            'AnnualNetProfit' => $request->annNetProfit,
             'COG1Label' => $request->goods_name1,
             'COG2Label' => $request->goods_name2,
             'COG3Label' => $request->goods_name3,
@@ -986,6 +988,10 @@ class ListingController extends Controller
             'Maintenance' => $request->maintenance,
             'Trash' => $request->trash,
             'Other' => $request->other,
+            'Opt1Label' => $request->Opt1Label,
+            'Opt2Label' => $request->Opt2Label,
+            'Opt1' => $request->Opt1,
+            'Opt2' => $request->Opt2,
             'Steps' => $updateStep
         ]);
         if ($listing) {

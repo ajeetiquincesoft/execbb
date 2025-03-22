@@ -18,23 +18,37 @@
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                                    <label for="costOfSales">Cost of Sales <span class="text-danger">*</span></label>
+                                    <label for="costOfSales">Cost of Sales</label>
                                     <input type="number" class="form-control" id="costOfSales" name="costOfSales"  value="{{$listingData->CostOfSale}}">
                                     @error('costOfSales')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                                    <label for="grossProfit">Gross Profit <span class="text-danger">*</span></label>
+                                    <label for="grossProfit">Gross Profit</label>
                                     <input type="number" class="form-control" id="grossProfit" name="grossProfit"  value="{{$listingData->GrossProfit}}">
                                     @error('grossProfit')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                                    <label for="totalExpenses">Total Expenses <span class="text-danger">*</span></label>
+                                    <label for="totalExpenses">Total Expenses</label>
                                     <input type="number" class="form-control" id="totalExpenses" name="totalExpenses"  value="{{$listingData->TotalExpenses}}">
                                     @error('totalExpenses')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
+                                    <label for="otherIncome">Other Income</label>
+                                    <input type="number" class="form-control" id="otherIncome" name="otherIncome"  value="{{$listingData->OtherInc}}">
+                                    @error('otherIncome')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
+                                    <label for="annNetProfit">Ann Net Profit</label>
+                                    <input type="number" class="form-control" id="annNetProfit" name="annNetProfit"  value="{{$listingData->AnnualNetProfit}}">
+                                    @error('annNetProfit')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 </div>
@@ -134,6 +148,29 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <h4 class="form-sec mb-3">Additional Expenses</h4>
+                            <div class="row mb-3">
+                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
+                                    <label for="Opt1Label">Option 1 Label</label>
+                                    <input type="text" class="form-control" id="Opt1Label" name="Opt1Label"  value="{{$listingData->Opt1Label}}">
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
+                                    <label for="Opt1">Option Cost 1</label>
+                                    <input type="number" class="form-control" id="Opt1" name="Opt1"  value="{{$listingData->Opt1}}">
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
+                                    <label for="Opt2Label">Option 2 Label</label>
+                                    <input type="text" class="form-control" id="Opt2Label" name="Opt2Label"  value="{{$listingData->Opt2Label}}">
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
+                                    <label for="Opt2">Option Cost 2</label>
+                                    <input type="number" class="form-control" id="Opt2" name="Opt2"  value="{{$listingData->Opt2}}">
+                                </div>
+                            </div>
+                            
+
+                        </div>
                     </div>
                     
                     <div class="d-flex justify-content-center" style="overflow:auto;">
@@ -154,15 +191,6 @@
                 $('#addnewliststep4').validate({
                     rules: {
                         annualSales: {
-                            required: true
-                        },
-                        costOfSales: {
-                            required: true
-                        },
-                        grossProfit: {
-                            required: true
-                        },
-                        totalExpenses: {
                             required: true
                         } 
                     },
