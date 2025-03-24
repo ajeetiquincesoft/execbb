@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="BDate">BDate <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="BDate" name="BDate" value="{{ session('buyerData.BDate') ?? old('BDate')}}" max="{{ \Carbon\Carbon::now()->toDateString() }}">
+                        <input type="date" class="form-control" id="BDate" name="BDate" value="{{ session('buyerData.BDate') ?? old('BDate')}}">
                         @error('BDate')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror

@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
-                                        <input type="date" id="BDate" name="BDate" class="form-control form-control-lg" placeholder="BDate" value="{{ session('buyerData.BDate') ?? old('BDate')}}" max="{{ \Carbon\Carbon::now()->toDateString() }}" />
+                                        <input type="date" id="BDate" name="BDate" class="form-control form-control-lg" placeholder="BDate" value="{{ session('buyerData.BDate') ?? old('BDate')}}"/>
                                     </div>
                                 </div>
                             </div>
