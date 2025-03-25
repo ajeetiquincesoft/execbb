@@ -111,7 +111,7 @@
 
                         <!-- formData Data -->
                         <div class="row mb-2">
-                            <h4 class="form-sec mb-3">formData Data</h4>
+                            <h4 class="form-sec mb-3">Pricing Data</h4>
                             <div class="col-md-3 mb-3">
                                 <label for="listPrice">List Price</label>
                                 <input type="number" class="form-control" id="listPrice" name="listPrice"  value="{{ session('formData.listPrice') ?? old('listPrice')}}">
