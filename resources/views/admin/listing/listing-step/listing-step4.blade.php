@@ -201,7 +201,88 @@
                         form.submit();
                     }
                 });
-});
+                var costOfSaleTotal = 0;
+                var operatingExpenses = 0;
+                var totalExpenses = 0;
+                var annNetProfit = 0;
+
+                // Cost of sale expenses
+                var cost0_1 = parseFloat($('#cost0_1').val()) || 0;
+                var cost0_2 = parseFloat($('#cost0_2').val()) || 0;
+                var cost0_3 = parseFloat($('#cost0_3').val()) || 0;
+                costOfSaleTotal = cost0_1 + cost0_2 + cost0_3;
+                $('#costOfSales').val(costOfSaleTotal);
+
+                // Operating expenses
+                var baseAnnRent = parseFloat($('#baseAnnRent').val()) || 0;
+                var commAreaMaint = parseFloat($('#commAreaMaint').val()) || 0;
+                var realEstateTax = parseFloat($('#realEstateTax').val()) || 0;
+                var annPayroll = parseFloat($('#annPayroll').val()) || 0;
+                var payrollTax = parseFloat($('#payrollTax').val()) || 0;
+                var licenseFees = parseFloat($('#licenseFees').val()) || 0;
+                var advertising = parseFloat($('#advertising').val()) || 0;
+                var telephone = parseFloat($('#telephone').val()) || 0;
+                var utilities = parseFloat($('#utilities').val()) || 0;
+                var insurance = parseFloat($('#insurance').val()) || 0;
+                var accountingLegal = parseFloat($('#accountingLegal').val()) || 0;
+                var maintenance = parseFloat($('#maintenance').val()) || 0;
+                var trash = parseFloat($('#trash').val()) || 0;
+                var other = parseFloat($('#other').val()) || 0;
+                var Opt1 = parseFloat($('#Opt1').val()) || 0;
+                var Opt2 = parseFloat($('#Opt2').val()) || 0;
+
+                function updateCalculations() {
+                    // Recalculate cost of sale total
+                    cost0_1 = parseFloat($('#cost0_1').val()) || 0;
+                    cost0_2 = parseFloat($('#cost0_2').val()) || 0;
+                    cost0_3 = parseFloat($('#cost0_3').val()) || 0;
+                    costOfSaleTotal = cost0_1 + cost0_2 + cost0_3;
+                    $('#costOfSales').val(costOfSaleTotal);
+
+                    // Recalculate operating expenses
+                    baseAnnRent = parseFloat($('#baseAnnRent').val()) || 0;
+                    commAreaMaint = parseFloat($('#commAreaMaint').val()) || 0;
+                    realEstateTax = parseFloat($('#realEstateTax').val()) || 0;
+                    annPayroll = parseFloat($('#annPayroll').val()) || 0;
+                    payrollTax = parseFloat($('#payrollTax').val()) || 0;
+                    licenseFees = parseFloat($('#licenseFees').val()) || 0;
+                    advertising = parseFloat($('#advertising').val()) || 0;
+                    telephone = parseFloat($('#telephone').val()) || 0;
+                    utilities = parseFloat($('#utilities').val()) || 0;
+                    insurance = parseFloat($('#insurance').val()) || 0;
+                    accountingLegal = parseFloat($('#accountingLegal').val()) || 0;
+                    maintenance = parseFloat($('#maintenance').val()) || 0;
+                    trash = parseFloat($('#trash').val()) || 0;
+                    other = parseFloat($('#other').val()) || 0;
+                    Opt1 = parseFloat($('#Opt1').val()) || 0;
+                    Opt2 = parseFloat($('#Opt2').val()) || 0;
+                    operatingExpenses = baseAnnRent + commAreaMaint + realEstateTax + annPayroll + payrollTax + licenseFees + advertising + telephone + utilities + insurance + accountingLegal + maintenance + trash + other + Opt1 + Opt2;
+
+                    // Get annual sales and other income
+                    var annualsale = parseFloat($('#annualSales').val()) || 0;
+                    var otherIncome = parseFloat($('#otherIncome').val()) || 0;
+
+                    // Calculate gross profit
+                    var grossProfit = annualsale - costOfSaleTotal;
+                    $('#grossProfit').val(grossProfit);
+
+                    // Calculate total expenses
+                    totalExpenses = costOfSaleTotal + operatingExpenses;
+                    $('#totalExpenses').val(totalExpenses);
+
+                    // Calculate annual net profit
+                    annNetProfit = annualsale - totalExpenses + otherIncome;
+                    $('#annNetProfit').val(annNetProfit);
+                }
+
+                // Attach the input event handler to all relevant fields
+                $('#cost0_1, #cost0_2, #cost0_3, #baseAnnRent, #commAreaMaint, #realEstateTax, #annPayroll, #payrollTax, #licenseFees, #advertising, #telephone, #utilities, #insurance, #accountingLegal, #maintenance, #trash, #other, #Opt1, #Opt2, #annualSales, #otherIncome').on('input', function() {
+                    updateCalculations();
+                });
+
+                // Initial calculation when page loads
+                updateCalculations();
+            });
 
             </script>
         <style>
