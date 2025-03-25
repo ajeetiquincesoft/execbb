@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\UpdateStatus;
+use App\Console\Commands\MatchBuyersAndListingsStoredProcedure;
 
 class Kernel extends ConsoleKernel
 {
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command(UpdateStatus::class)->everyMinute();
+        $schedule->command(MatchBuyersAndListingsStoredProcedure::class)->daily();
     }
 
     /**
