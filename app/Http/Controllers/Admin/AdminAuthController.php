@@ -12,6 +12,7 @@ use App\Models\Agent;
 use App\Models\Buyer;
 use App\Models\Showing;
 use App\Models\Offer;
+use App\Models\AgentListingViewByBuyer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -86,13 +87,61 @@ class AdminAuthController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
-            $listings = Listing::where('Active',1)->count();
+            $listings = Listing::count();
+            $closeListings = Listing::where('Status', 'close')->count();
+            $assignListings = Listing::whereNotNull('RefAgentID')->count();
+            $validActiveListingsCount = Listing::where('Active',1)->where('Status', 'valid')->count();
+            $activeListingsCount = Listing::where('Active',1)->count();
+            $inactiveListingsCount = Listing::where('Active',0)->count();
+            $validActiveListingsPercentage = $listings > 0 ? ($validActiveListingsCount / $listings) * 100 : 0;
+            $activeListingsPercentage = $listings > 0 ? ($activeListingsCount / $listings) * 100 : 0;
+            $inactiveListingsPercentage = $listings > 0 ? ($inactiveListingsCount / $listings) * 100 : 0;
             $agents = Agent::count();
             $buyers = Buyer::count();
             $showings = Showing::count();
             $offers = Offer::count();
             $leads = DB::table('leads')->count();
-            return view('admin.dashboard',compact('listings','agents','buyers','showings','offers','leads'));
+            $buyerViewListingCountByMonth = AgentListingViewByBuyer::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->keyBy('month')
+            ->toArray();
+            //dd($buyerViewListingCountByMonth);
+
+        // Default data for months (if no data for a particular month, set count to 0)
+        $monthlyCounts = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyCounts[] = isset($buyerViewListingCountByMonth[$i]) ? $buyerViewListingCountByMonth[$i]['count'] : 0;
+        }
+                // Prepare data for the line chart
+            $lineChartData = [
+                'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                'datasets' => [
+                    [
+                        'label' => 'Buyer Views',
+                        'data' => $monthlyCounts,  // Monthly counts of buyer views
+                        'borderColor' => '#965a3e',
+                        'fill' => false,
+                        'tension' => 0.4,
+                    ]
+                ]
+            ];
+                // Prepare data for the donut chart (corrected)
+            $donutChartData = [
+                'labels' => [
+                    number_format($validActiveListingsPercentage, 2) . '%', 
+                    number_format($activeListingsPercentage, 2) . '%', 
+                    number_format($inactiveListingsPercentage, 2) . '%'
+                ], // The labels for each segment
+                'datasets' => [
+                    [
+                        'data' => [$validActiveListingsCount,  $activeListingsCount, $inactiveListingsCount],  // The data for each segment
+                        'backgroundColor' => ['#4b0a26', '#b0848c', '#e3c8cb'],  // The colors for each segment
+                    ]
+                ]
+            ];
+            return view('admin.dashboard',compact('listings','agents','buyers','showings','offers','leads','donutChartData','validActiveListingsPercentage','activeListingsPercentage','inactiveListingsPercentage','lineChartData','closeListings','assignListings'));
         }
   
         return redirect("login")->withSuccess('You are not allowed to access');

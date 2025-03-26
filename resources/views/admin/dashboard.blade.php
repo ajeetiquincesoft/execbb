@@ -8,7 +8,7 @@
         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 ">
           <div class="card view-data">
             <div>
-              <h3>Active Listings</h3>
+              <h3>Total Listings</h3>
               <span>{{$listings}}</span>
             </div>
             <div><img src="{{ url('assets/images/Active-Listings.svg') }}"></div>
@@ -69,7 +69,7 @@
           <div class="card view-data">
             <div>
               <h3>Closings</h3>
-              <span>41</span>
+              <span>{{$closeListings}}</span>
             </div>
             <div><img src="{{ url('assets/images/Closings.svg') }}"></div>
           </div>
@@ -79,7 +79,7 @@
           <div class="card view-data">
             <div>
               <h3>Assigned</h3>
-              <span>1784</span>
+              <span>{{$assignListings}}</span>
             </div>
             <div><img src="{{ url('assets/images/Assigned.svg') }}"></div>
           </div>
@@ -98,14 +98,14 @@
         <div class="col-md-6">
           <div class="card" style="height: 360px;">
             <div class="card-body text-center">
-              <p class="text-start text-5A102A">Active Listings</p>
+              <p class="text-start text-5A102A">Total Listings</p>
               <h3 class="text-start text-5E5E5E">{{$listings}}</h3>
               <div class="d-flex justify-content-center align-items-center">
                 <div class="legend-container">
                   <ul style="list-style-type: none; ">
-                    <li><span style="color:#4C1A2A;">&#9679;</span> 75%</li>
-                    <li><span style="color:#9D6B77;">&#9679;</span> 20%</li>
-                    <li><span style="color:#D3B0B7;">&#9679;</span> 5%</li>
+                    <li><span style="color:#4C1A2A;">&#9679;</span>{{ number_format($validActiveListingsPercentage, 2) . '%'}}</li>
+                    <li><span style="color:#9D6B77;">&#9679;</span>{{number_format($activeListingsPercentage, 2) . '%'}}</li>
+                    <li><span style="color:#D3B0B7;">&#9679;</span>{{number_format($inactiveListingsPercentage, 2) . '%'}}</li>
                   </ul>
                 </div>
                 <div class="chart-container" style="width: 100%; max-width: 300px;">
@@ -119,4 +119,39 @@
 
       </div>
     </div>
+    <script>
+      // Line Chart
+const ctx1 = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx1, {
+    type: 'line',
+    data: {!! json_encode($lineChartData) !!},
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: { 
+            y: { 
+                beginAtZero: true, 
+                ticks: { stepSize: 200 } 
+            } 
+        }
+    }
+});
+
+// Donut Chart
+const ctx2 = document.getElementById('myDonutChart').getContext('2d');
+const myDonutChart = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {!! json_encode($donutChartData) !!},
+    options: {
+        cutout: '70%',
+        responsive: true,
+        maintainAspectRatio: false, 
+        plugins: {
+            legend: { display: false }
+        }
+    }
+});
+      </script>
 @endsection

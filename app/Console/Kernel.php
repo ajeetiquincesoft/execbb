@@ -18,8 +18,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command(UpdateStatus::class)->daily();
-        $schedule->command(MatchBuyersAndListingsStoredProcedure::class)->daily();
+        $schedule->command(UpdateStatus::class)->everyMinute();
+        $schedule->command(MatchBuyersAndListingsStoredProcedure::class)->everyMinute();
     }
 
     /**

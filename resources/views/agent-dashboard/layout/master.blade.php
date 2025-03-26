@@ -86,7 +86,7 @@
       });
     });
 
-    const ctx1 = document.getElementById('myChart').getContext('2d');
+   /* const ctx1 = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx1, {
       type: 'line',
       data: {
@@ -133,7 +133,7 @@
         }
       }
     });
-
+ */
   </script>
 </body>
 </html>
