@@ -44,7 +44,6 @@ class AgentAuthController extends Controller
         for ($i = 1; $i <= $currentMonth; $i++) {
             $monthlyCounts[] = isset($buyerViewListingCountByMonth[$i]) ? $buyerViewListingCountByMonth[$i]['count'] : 0;
         }
-            //dd($buyerViewListingCount);
            // Prepare data for the line chart
         $lineChartData = [
             'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
