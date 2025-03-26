@@ -40,7 +40,8 @@ class AgentAuthController extends Controller
 
         // Default data for months (if no data for a particular month, set count to 0)
         $monthlyCounts = [];
-        for ($i = 1; $i <= 12; $i++) {
+        $currentMonth = (int)date('m');
+        for ($i = 1; $i <= $currentMonth; $i++) {
             $monthlyCounts[] = isset($buyerViewListingCountByMonth[$i]) ? $buyerViewListingCountByMonth[$i]['count'] : 0;
         }
             //dd($buyerViewListingCount);

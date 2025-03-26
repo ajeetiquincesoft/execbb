@@ -130,10 +130,12 @@ const myChart = new Chart(ctx1, {
             legend: { display: false }
         },
         scales: { 
-            y: { 
+             y: { 
                 beginAtZero: true, 
-                ticks: { stepSize: 200 } 
-            } 
+                min: 0,   // Set the minimum value to 0
+                max: 100,
+                ticks: { stepSize: 20 } 
+            }
         }
     }
 });
