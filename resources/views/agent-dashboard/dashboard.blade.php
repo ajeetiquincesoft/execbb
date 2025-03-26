@@ -93,8 +93,7 @@
               <div class="d-flex justify-content-center align-items-center">
                 <div class="legend-container">
                   <ul style="list-style-type: none; ">
-                    <li><span style="color:#4C1A2A;">&#9679;</span>{{ number_format($validActiveListingsPercentage, 2) . '%'}}</li>
-                    <li><span style="color:#9D6B77;">&#9679;</span>{{number_format($activeListingsPercentage, 2) . '%'}}</li>
+                    <li><span style="color:#4C1A2A;">&#9679;</span>{{ number_format($activeListingsPercentage, 2) . '%'}}</li>
                     <li><span style="color:#D3B0B7;">&#9679;</span>{{number_format($inactiveListingsPercentage, 2) . '%'}}</li>
                   </ul>
                 </div>

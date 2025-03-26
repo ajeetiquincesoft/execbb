@@ -90,10 +90,8 @@ class AdminAuthController extends Controller
             $listings = Listing::count();
             $closeListings = Listing::where('Status', 'close')->count();
             $assignListings = Listing::whereNotNull('RefAgentID')->count();
-            $validActiveListingsCount = Listing::where('Active',1)->where('Status', 'valid')->count();
             $activeListingsCount = Listing::where('Active',1)->count();
             $inactiveListingsCount = Listing::where('Active',0)->count();
-            $validActiveListingsPercentage = $listings > 0 ? ($validActiveListingsCount / $listings) * 100 : 0;
             $activeListingsPercentage = $listings > 0 ? ($activeListingsCount / $listings) * 100 : 0;
             $inactiveListingsPercentage = $listings > 0 ? ($inactiveListingsCount / $listings) * 100 : 0;
             $agents = Agent::count();
@@ -130,18 +128,17 @@ class AdminAuthController extends Controller
                 // Prepare data for the donut chart (corrected)
             $donutChartData = [
                 'labels' => [
-                    number_format($validActiveListingsPercentage, 2) . '%', 
                     number_format($activeListingsPercentage, 2) . '%', 
                     number_format($inactiveListingsPercentage, 2) . '%'
                 ], // The labels for each segment
                 'datasets' => [
                     [
-                        'data' => [$validActiveListingsCount,  $activeListingsCount, $inactiveListingsCount],  // The data for each segment
-                        'backgroundColor' => ['#4b0a26', '#b0848c', '#e3c8cb'],  // The colors for each segment
+                        'data' => [$activeListingsCount, $inactiveListingsCount],  // The data for each segment
+                        'backgroundColor' => ['#4b0a26', '#b0848c'],  // The colors for each segment
                     ]
                 ]
             ];
-            return view('admin.dashboard',compact('listings','agents','buyers','showings','offers','leads','donutChartData','validActiveListingsPercentage','activeListingsPercentage','inactiveListingsPercentage','lineChartData','closeListings','assignListings'));
+            return view('admin.dashboard',compact('listings','agents','buyers','showings','offers','leads','donutChartData','activeListingsPercentage','inactiveListingsPercentage','lineChartData','closeListings','assignListings'));
         }
   
         return redirect("login")->withSuccess('You are not allowed to access');

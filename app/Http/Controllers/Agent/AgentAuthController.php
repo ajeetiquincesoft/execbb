@@ -22,10 +22,8 @@ class AgentAuthController extends Controller
             $user = auth()->user();
             $agent = Agent::where('AgentUserRegisterId', $user->id)->first();
             $listingsCount = Listing::where('RefAgentID', $user->id)->count();
-            $validActiveListingsCount = Listing::where('RefAgentID', $user->id)->where('Active',1)->where('Status', 'valid')->count();
             $activeListingsCount = Listing::where('RefAgentID', $user->id)->where('Active',1)->count();
             $inactiveListingsCount = Listing::where('RefAgentID', $user->id)->where('Active',0)->count();
-            $validActiveListingsPercentage = $listingsCount > 0 ? ($validActiveListingsCount / $listingsCount) * 100 : 0;
             $activeListingsPercentage = $listingsCount > 0 ? ($activeListingsCount / $listingsCount) * 100 : 0;
             $inactiveListingsPercentage = $listingsCount > 0 ? ($inactiveListingsCount / $listingsCount) * 100 : 0;
             $buyersCount = Buyer::where('AgentID', $agent->AgentID)->whereNotNull('user_id')->count();
@@ -63,18 +61,17 @@ class AgentAuthController extends Controller
             // Prepare data for the donut chart (corrected)
         $donutChartData = [
             'labels' => [
-                number_format($validActiveListingsPercentage, 2) . '%', 
                 number_format($activeListingsPercentage, 2) . '%', 
                 number_format($inactiveListingsPercentage, 2) . '%'
             ], // The labels for each segment
             'datasets' => [
                 [
-                    'data' => [$validActiveListingsCount,  $activeListingsCount, $inactiveListingsCount],  // The data for each segment
-                    'backgroundColor' => ['#4b0a26', '#b0848c', '#e3c8cb'],  // The colors for each segment
+                    'data' => [$activeListingsCount, $inactiveListingsCount],  // The data for each segment
+                    'backgroundColor' => ['#4b0a26', '#b0848c'],  // The colors for each segment
                 ]
             ]
         ];
-            return view('agent-dashboard.dashboard', compact('listingsCount','buyersCount','leadsCount','buyerViewListingCount','lineChartData','donutChartData','validActiveListingsPercentage','activeListingsPercentage','inactiveListingsPercentage'));
+            return view('agent-dashboard.dashboard', compact('listingsCount','buyersCount','leadsCount','buyerViewListingCount','lineChartData','donutChartData','activeListingsPercentage','inactiveListingsPercentage'));
         }
   
         return redirect("login")->withSuccess('You are not allowed to access');
