@@ -118,6 +118,11 @@
 
   </div>
 </div>
+<style>
+  #myChart {
+    height: 290px !important;
+}
+  </style>
 <script>
   // Directly assign the JSON to JS variables
   const lineChartData = {!! json_encode($lineChartData) !!};
