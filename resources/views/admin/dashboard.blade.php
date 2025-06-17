@@ -119,13 +119,14 @@
   </div>
 </div>
 <script>
+  // Directly assign the JSON to JS variables
+  const lineChartData = {!! json_encode($lineChartData) !!};
+  const donutChartData = {!! json_encode($donutChartData) !!};
   // Line Chart
   const ctx1 = document.getElementById('myChart').getContext('2d');
   const myChart = new Chart(ctx1, {
     type: 'line',
-    data: {
-      !!json_encode($lineChartData) !!
-    },
+    data: lineChartData,
     options: {
       responsive: true,
       plugins: {
@@ -150,9 +151,7 @@
   const ctx2 = document.getElementById('myDonutChart').getContext('2d');
   const myDonutChart = new Chart(ctx2, {
     type: 'doughnut',
-    data: {
-      !!json_encode($donutChartData) !!
-    },
+    data: donutChartData,
     options: {
       cutout: '70%',
       responsive: true,
