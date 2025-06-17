@@ -60,7 +60,7 @@
                         <select class="form-control" id="listingAgent" name="listingAgent">
                             <option value="">Select Listing Agent</option>
                             @foreach($agents as $agent)
-                            <option value="{{$agent->AgentID}}" {{ (old('listingAgent') == $agent->AgentID || session('offerData.listingAgent') == $agent->AgentID) ? 'selected' : '' }}>{{$agent->FName}}</option>
+                            <option value="{{$agent->AgentID}}" {{ (old('listingAgent') == $agent->AgentID || session('offerData.listingAgent') == $agent->AgentID) ? 'selected' : '' }}>{{$agent->FName}} {{$agent->LName}}</option>
                             @endforeach
                         </select>
                         @error('listingAgent')
@@ -72,7 +72,7 @@
                         <select class="form-control" id="sellingAgent" name="sellingAgent">
                             <option value="">Select Selling Agent</option>
                             @foreach($agents as $agent)
-                            <option value="{{$agent->AgentID}}" {{ (old('sellingAgent') == $agent->AgentID || session('offerData.sellingAgent') == $agent->AgentID) ? 'selected' : '' }}>{{$agent->FName}}</option>
+                            <option value="{{$agent->AgentID}}" {{ (old('sellingAgent') == $agent->AgentID || session('offerData.sellingAgent') == $agent->AgentID) ? 'selected' : '' }}>{{$agent->FName}} {{$agent->LName}}</option>
                             @endforeach
                         </select>
                         @error('sellingAgent')
@@ -756,6 +756,56 @@
             // Display the result in the third input field
             $('#accepted-totalDownPayBal').val(sum);
         });
+         $('#buyer').select2({
+            placeholder: 'Select Buyer',
+            ajax: {
+                url: "{{ route('buyers.ajax.load') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term || '',
+                        page: params.page || 1
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                id: item.BuyerID,
+                                text: item.FName
+                            }
+                        }),
+                        pagination: {
+                            more: data.length === 20
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0
+        });
+
+        // Preselect if old value exists
+        @if(old('buyer') || session('offerData.buyer'))
+        $.ajax({
+            url: "{{ route('buyers.ajax.load') }}",
+            data: {
+                search: '',
+                page: 1
+            },
+            success: function (data) {
+                let selectedID = "{{ old('buyer') ?? session('offerData.buyer') }}";
+                let match = data.find(item => item.BuyerID == selectedID);
+                if (match) {
+                    let option = new Option(match.FName, match.BuyerID, true, true);
+                    $('#buyer').append(option).trigger('change');
+                }
+            }
+        });
+        @endif
 
     });
 </script>

@@ -24,7 +24,7 @@
                                 <select class="form-select" id="buyer_id" name="buyer_id">
                                     <option value="" selected="">Select Buyers</option>
                                     @foreach($buyers as $buyer)
-                                    <option value="{{$buyer->BuyerID}}" {{ (old('buyer_id') == $buyer->BuyerID) ? 'selected' : '' }}>{{$buyer->FName}} {{$buyer->LName}}</option>
+                                    <option value="{{$buyer->BuyerID}}" {{ (old('buyer_id') == $buyer->BuyerID) ? 'selected' : '' }}>{{$buyer->FName}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -43,7 +43,7 @@
                                 <select class="form-select" id="listing" name="listing[]">
                                     <option value="">Select Listing</option>
                                     @foreach($listings as $listing)
-                                    <option value="{{$listing->ListingID}}"  {{ in_array($listing->ListingID, old('listing', [])) ? 'selected' : '' }}>{{$listing->SellerCorpName}}</option>
+                                    <option value="{{$listing->ListingID}}"  {{ in_array($listing->ListingID, old('listing', [])) ? 'selected' : '' }}>{{ (!empty(trim($listing->CorpName ?? '')) ? $listing->CorpName : $listing->DBA) }}</option>
                                     @endforeach
                                 </select>
                                 @error('listing.0')
@@ -218,6 +218,56 @@
                         form.submit();
                     }
                 });
+                 $('#buyer_id').select2({
+                    placeholder: 'Select Buyer',
+                    ajax: {
+                        url: "{{ route('showings.buyers.ajax.load') }}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                search: params.term || '',
+                                page: params.page || 1
+                            };
+                        },
+                        processResults: function (data, params) {
+                            params.page = params.page || 1;
+
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        id: item.BuyerID,
+                                        text: item.FName
+                                    }
+                                }),
+                                pagination: {
+                                    more: data.length === 20
+                                }
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 0
+                });
+
+                // Preselect if old value exists
+                @if(old('buyer') || session('offerData.buyer'))
+                $.ajax({
+                    url: "{{ route('showings.buyers.ajax.load') }}",
+                    data: {
+                        search: '',
+                        page: 1
+                    },
+                    success: function (data) {
+                        let selectedID = "{{ old('buyer') ?? session('offerData.buyer') }}";
+                        let match = data.find(item => item.BuyerID == selectedID);
+                        if (match) {
+                            let option = new Option(match.FName, match.BuyerID, true, true);
+                            $('#buyer').append(option).trigger('change');
+                        }
+                    }
+                });
+                @endif
             });
 </script>
 @endsection

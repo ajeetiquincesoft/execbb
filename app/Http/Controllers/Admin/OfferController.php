@@ -68,7 +68,8 @@ class OfferController extends Controller
         $step = session('step', 1);
         $offerData = session('offerData', []); // Retrieve saved form data from session
         // dd($offerData);
-        $buyers = Buyer::orderBy('created_at', 'desc')->get();
+        /* $buyers = Buyer::orderBy('created_at', 'desc')->get(); */
+        $buyers = Buyer::orderBy('created_at', 'desc')->take(20)->get();
         $agents = Agent::orderBy('created_at', 'desc')->get();
         $listings = Listing::orderBy('created_at', 'desc')->get();
         $states = DB::table('states')->get();
@@ -358,7 +359,8 @@ class OfferController extends Controller
         $step = session('step', 1);
         $offerData = session('offerData', []);
         $request->session()->put('offerData.offer_id',  $id);
-        $buyers = Buyer::orderBy('created_at', 'desc')->get();
+        /* $buyers = Buyer::orderBy('created_at', 'desc')->get(); */
+        $selectedBuyer = Buyer::find($offer->BuyerID);
         $agents = Agent::orderBy('created_at', 'desc')->get();
         $listings = Listing::orderBy('created_at', 'desc')->get();
         $states = DB::table('states')->get();
@@ -368,7 +370,7 @@ class OfferController extends Controller
         // Get the next offer ID
         $next = Offer::where('OfferID', '>', $id)->orderBy('OfferID', 'asc')->first();
 
-        return view('admin.offer.edit', compact('step', 'offerData', 'buyers', 'agents', 'states', 'listings', 'offer', 'offer_types', 'previous', 'next'));
+        return view('admin.offer.edit', compact('step', 'offerData', 'agents', 'states', 'listings', 'offer', 'offer_types', 'previous', 'next','selectedBuyer'));
     }
     public function editProcessForm(Request $request, $id)
     {
@@ -692,4 +694,25 @@ class OfferController extends Controller
 
         return response()->json(['message' => 'Invalid action!'], 400);
     }
+    public function loadMoreBuyers(Request $request)
+    {
+        $search = $request->get('search');
+        $page = $request->get('page', 1);
+        $limit = 20;
+        $offset = ($page - 1) * $limit;
+
+        $query = Buyer::query();
+
+        if ($search) {
+            $query->where('FName', 'like', "%$search%");
+        }
+
+        $buyers = $query->orderBy('created_at', 'desc')
+                        ->offset($offset)
+                        ->limit($limit)
+                        ->get();
+
+        return response()->json($buyers);
+    }
+
 }

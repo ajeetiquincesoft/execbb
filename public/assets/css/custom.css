@@ -378,48 +378,61 @@ tbody>tr>td {
   text-overflow: ellipsis;
   width: 20%;
 }
+
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: transparent !important;
 }
+
 @media screen and (max-width: 500px) {
   .add-list-btn {
     justify-content: flex-start !important;
   }
+
   .action_bt {
     justify-content: flex-start !important;
   }
+
   .add-list-btn {
     margin: 10px 0px;
   }
+
   #list-search .input-group {
     width: 100%;
     max-width: 400px !important;
+  }
+
+  .my_menu .breadcrumb-item a.nav-link {
+    font-size: 14px;
+  }
+
+  .header-right {
+    margin-right: 5px;
+  }
+
+  .breadcrumb-item+.breadcrumb-item::before {
+    padding-right: 0;
+    top: 5px;
+  }
+
+  .breadcrumb-item+.breadcrumb-item {
+    padding-left: 0;
+  }
+
+  .my_menu .breadcrumb-item .nav-link {
+    padding: .5rem 0.5rem;
+  }
+
+  .container-fluid.content.bg-light {
+    padding: 30px 20px;
+  }
 }
-.my_menu .breadcrumb-item a.nav-link {
-  font-size: 14px;
-}
-.header-right {
-  margin-right: 5px;
-}
-.breadcrumb-item+.breadcrumb-item::before {
-  padding-right: 0;
-  top: 5px;
-}
-.breadcrumb-item+.breadcrumb-item {
-  padding-left: 0;
-}
-.my_menu .breadcrumb-item .nav-link {
-  padding: .5rem 0.5rem;
-}
-.container-fluid.content.bg-light {
-  padding: 30px 20px;
-}
-}
+
 @media only screen and (min-width: 501px) and (max-width: 767px) {
   .add-list-btn {
     margin-bottom: 10px;
   }
 }
+
 @media screen and (max-width: 767px) {
   ol.my_menu.breadcrumb.breadcrumb-list.m-0.ms-2 {
     flex-wrap: nowrap;
@@ -432,24 +445,68 @@ tbody>tr>td {
   #login_activity_search {
     margin-top: 10px;
   }
+
   #list-search .input-group {
     width: 100%;
     max-width: 650px !important;
+  }
 }
-}
+
 @media only screen and (min-width: 768px) and (max-width: 990px) {
   .add-list-btn {
     margin-bottom: 10px;
   }
 
 }
+
 .text-danger {
   display: inline-block;
 }
+
 .table-borderless {
   width: 100%;
   table-layout: fixed;
 }
+
 .table-borderless td {
   width: 50%;
 }
+
+/** css start for select2 **/
+/* Match height with other Bootstrap form-controls */
+.select2-container .select2-selection--single {
+  height: 3em !important;
+  /* Bootstrap default input height */
+  padding: 6px 0px;
+  border: 1px solid #ced4da !important;
+  border-radius: inherit;
+  /* Bootstrap 5 rounded-md */
+}
+
+/* Align text vertically center */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 34px !important;
+}
+
+/* Remove select2 default arrow padding */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 48px !important;
+  top: 0px !important;
+  right: 10px;
+}
+
+/* Match font and spacing with Bootstrap */
+.select2-container .select2-selection--single {
+  font-size: 1rem;
+}
+
+/* Full width fix */
+.select2-container {
+  width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+  color: #495057;
+}
+
+/** css end for select2 **/

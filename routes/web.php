@@ -406,6 +406,8 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::get('/offer/next/prev/{id}', [OfferController::class, 'prevNext'])->name('edit.prev.next');
   Route::get('view/offer/{id}', [OfferController::class, 'show'])->name('show.offer');
   Route::post('/offer/bulkAction/process', [OfferController::class, 'offerBulkAction'])->name('offer.bulkAction.process');
+  Route::get('/ajax/load-buyers', [OfferController::class, 'loadMoreBuyers'])->name('buyers.ajax.load');
+
   //end route for offers
   //routes for Contacts
   Route::get('/contact/all', [ContactController::class, 'index'])->name('all.contact');
@@ -434,6 +436,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::put('update/showing/{id}', [ShowingController::class, 'updateShowing'])->name('update.showing');
   Route::get('view/showing/{id}', [ShowingController::class, 'show'])->name('show.showing');
   Route::delete('showing/destroy/{id}', [ShowingController::class, 'destroy'])->name('showing.destroy');
+  Route::get('/ajax/load-buyers-showings', [OfferController::class, 'loadMoreBuyers'])->name('showings.buyers.ajax.load');
   //end route for showing
   //Route for send email to buyers
   Route::get('email/buyer/ajax', [EmailBuyerController::class, 'ajax'])->name('buyers.email.ajax');

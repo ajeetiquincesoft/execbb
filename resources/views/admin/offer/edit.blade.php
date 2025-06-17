@@ -46,9 +46,9 @@
                         <label for="buyer">Buyer <span class="text-danger">*</span></label>
                         <select class="form-control" id="buyer" name="buyer">
                             <option value="" selected>Select Buyer</option>
-                            @foreach($buyers as $buyer)
-                            <option value="{{$buyer->BuyerID}}" {{ ($buyer->BuyerID  == $offer->BuyerID) ? 'selected' : '' }}>{{$buyer->FName}}</option>
-                            @endforeach
+                             @if(isset($selectedBuyer))
+                                <option value="{{ $selectedBuyer->BuyerID }}" selected>{{ $selectedBuyer->FName }}</option>
+                            @endif
                         </select>
                         @error('buyer')
                         <small class="text-danger">{{ $message }}</small>
@@ -758,6 +758,37 @@
             var input2Value = parseFloat($('#accepted-downPayBal2').val()) || 0;
             var sum = input1Value + input2Value;
             $('#accepted-totalDownPayBal').val(sum);
+        });
+        $('#buyer').select2({
+            placeholder: 'Select Buyer',
+            ajax: {
+                url: "{{ route('buyers.ajax.load') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term || '',
+                        page: params.page || 1
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                id: item.BuyerID,
+                                text: item.FName
+                            };
+                        }),
+                        pagination: {
+                            more: data.length === 20
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0,
+            width: '100%'
         });
     });
 </script>

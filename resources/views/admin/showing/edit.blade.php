@@ -24,9 +24,9 @@
                                 <label for="buyer">Buyers <span class="text-danger">*</span></label>
                                 <select class="form-select" id="buyer_id" name="buyer_id">
                                     <option value="" selected="">Select Buyers</option>
-                                    @foreach($buyers as $buyer)
-                                    <option value="{{$buyer->BuyerID}}" {{ ($showing->BuyerID == $buyer->BuyerID) ? 'selected' : '' }}>{{$buyer->FName}} {{$buyer->LName}}</option>
-                                    @endforeach
+                                    @if(isset($selectedBuyer))
+                                        <option value="{{ $selectedBuyer->BuyerID }}" selected>{{ $selectedBuyer->FName }}</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                         <div class="row mb-2">
                             <div class="col-md-3 mb-3">
                                 <label for="expDate">Date <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="showingDate" name="showingDate" value="{{$showing->Date}}">
+                                <input type="date" class="form-control" id="showingDate" name="showingDate" value="{{ \Carbon\Carbon::parse($showing->Date)->format('Y-m-d') }}">
                                 @error('showingDate')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -44,7 +44,7 @@
                                 <select class="form-select" id="listing" name="listing">
                                     <option value="">Select Listing</option>
                                     @foreach($listings as $listing)
-                                    <option value="{{$listing->ListingID}}"  {{ $listing->ListingID == $showing->ListingID ? 'selected' : '' }}>{{$listing->SellerCorpName}}</option>
+                                    <option value="{{$listing->ListingID}}"  {{ $listing->ListingID == $showing->ListingID ? 'selected' : '' }}>{{ (!empty(trim($listing->CorpName ?? '')) ? $listing->CorpName : $listing->DBA) }}</option>
                                     @endforeach
                                 </select>
                                 @error('listing')
@@ -105,6 +105,37 @@
                     submitHandler: function (form) {
                         form.submit();
                     }
+                });
+                $('#buyer_id').select2({
+                    placeholder: 'Select Buyer',
+                    ajax: {
+                        url: "{{ route('showings.buyers.ajax.load') }}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                search: params.term || '',
+                                page: params.page || 1
+                            };
+                        },
+                        processResults: function (data, params) {
+                            params.page = params.page || 1;
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        id: item.BuyerID,
+                                        text: item.FName
+                                    };
+                                }),
+                                pagination: {
+                                    more: data.length === 20
+                                }
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 0,
+                    width: '100%'
                 });
             });
 </script>

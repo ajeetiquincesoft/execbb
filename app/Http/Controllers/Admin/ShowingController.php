@@ -41,7 +41,8 @@ class ShowingController extends Controller
     }
     public function create(){
         $agents = Agent::orderBy('AgentTableID','desc')->get();
-        $buyers = Buyer::orderBy('BuyerID','desc')->get();
+        /* $buyers = Buyer::orderBy('BuyerID','desc')->get(); */
+        $buyers = Buyer::orderBy('created_at', 'desc')->take(20)->get();
         $listings = Listing::orderBy('ListingID','desc')->get();
        return view('admin.showing.create',compact('agents','buyers','listings'));  
     }
@@ -86,13 +87,14 @@ class ShowingController extends Controller
                 ->with('err_message', 'Referral not found.');
         }
         $agents = Agent::orderBy('AgentTableID','desc')->get();
-        $buyers = Buyer::orderBy('BuyerID','desc')->get();
+        /* $buyers = Buyer::orderBy('BuyerID','desc')->get(); */
+        $selectedBuyer = Buyer::find($showing->BuyerID);
         $listings = Listing::orderBy('ListingID','desc')->get();
          // Get the previous showing ID
          $previous = Showing::where('ShowingID', '<', $id)->orderBy('ShowingID', 'desc')->first();
          // Get the next showing ID
          $next = Showing::where('ShowingID', '>', $id)->orderBy('ShowingID', 'asc')->first();
-       return view('admin.showing.edit',compact('showing','agents','buyers','listings','previous','next'));
+       return view('admin.showing.edit',compact('showing','agents','selectedBuyer','listings','previous','next'));
     }
     public function updateShowing(Request $request,$id){
         $request->validate([
@@ -155,5 +157,25 @@ class ShowingController extends Controller
             return redirect()->route('all.showing')
                 ->with('success', 'Showing deleted successfully.');
       
+    }
+    public function loadMoreBuyers(Request $request)
+    {
+        $search = $request->get('search');
+        $page = $request->get('page', 1);
+        $limit = 20;
+        $offset = ($page - 1) * $limit;
+
+        $query = Buyer::query();
+
+        if ($search) {
+            $query->where('FName', 'like', "%$search%");
+        }
+
+        $buyers = $query->orderBy('created_at', 'desc')
+                        ->offset($offset)
+                        ->limit($limit)
+                        ->get();
+
+        return response()->json($buyers);
     }
 }
