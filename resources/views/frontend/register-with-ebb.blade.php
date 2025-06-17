@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="mb-3">
-                                        <input type="date" id="BDate" name="BDate" class="form-control form-control-lg" placeholder="BDate" value="{{ session('buyerData.BDate') ?? old('BDate')}}"/>
+                                        <input type="date" id="BDate" name="BDate" class="form-control form-control-lg" placeholder="BDate" value="{{ session('buyerData.BDate') ?? old('BDate')}}" />
                                     </div>
                                 </div>
                             </div>
@@ -488,18 +488,19 @@
                 @endif
             </div>
             <div class="col-lg-5 mt-0 register_ebb">
-                <p class="mb-4 notice">Notice: To register, you must use Internet Explorer. Please set this site to compatibility mode.</p>
-                <p class="mb-4">EBB's listings are available free to everyone who uses our site. To view the detailed information, which is confidential in nature, we will ask you to sign a confidentiality agreement when you register.</p>
-                <p class="mb-4">For buyers who are aggressively looking to find a business, we recommend that you sign up for our <a href="{{route('preferred.buyers.program')}}" class="buyer_program">Preferred Buyer Program.</a></p>
+                <!-- <p class="mb-4 notice">Notice: To register, you must use Internet Explorer. Please set this site to compatibility mode.</p> -->
+                <p class="mb-4 notice">EBB's listings are available free to everyone who uses our site. To view the detailed information, which is confidential in nature, we will ask you to sign a confidentiality agreement when you register.</p>
+                <!--  <p class="mb-4">For buyers who are aggressively looking to find a business, we recommend that you sign up for our <a href="{{route('preferred.buyers.program')}}" class="buyer_program">Preferred Buyer Program.</a></p> -->
             </div>
         </div>
     </div>
 </div>
 <!-- Register with ebb End -->
 <style>
-#signature-pad {
-    pointer-events: auto;
-}
+    #signature-pad {
+        pointer-events: auto;
+    }
+
     .content-box-ebb {
         background-color: #FFFFFF;
         padding: 30px;
@@ -519,29 +520,31 @@
     }
 
     div#clear-btn {
-    border: none;
-    outline: none;
-    position: absolute;
-    right: 20px;
-    top: 16px;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
+        border: none;
+        outline: none;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
     }
+
     div#set-btn {
-    border: none;
-    outline: none;
-    position: absolute;
-    right: 16px;
-    top: 40px;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
+        border: none;
+        outline: none;
+        position: absolute;
+        right: 16px;
+        top: 40px;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
     }
+
     .below {
-    position: relative;
-    margin-bottom: 15px;
-}
+        position: relative;
+        margin-bottom: 15px;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -812,12 +815,12 @@
             signatureData.value = '';
         });
         document.getElementById("set-btn").addEventListener("click", function(event) {
-             event.preventDefault();
-             if (!signaturePad.isEmpty()) {
-             const signatureData = signaturePad.toDataURL();
-             document.getElementById("signature").value = signatureData;
-             }
-         });
+            event.preventDefault();
+            if (!signaturePad.isEmpty()) {
+                const signatureData = signaturePad.toDataURL();
+                document.getElementById("signature").value = signatureData;
+            }
+        });
         const img = new Image();
         const imgUrl = $('#signature').val();
         img.src = imgUrl;

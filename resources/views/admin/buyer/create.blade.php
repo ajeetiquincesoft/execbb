@@ -126,7 +126,7 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="form-label" for="callWhen">Call When</label>
-                        <input type="datetime-local" class="form-control" id="callWhen" name="callWhen" value="{{ session('buyerData.callWhen') ?? old('callWhen')}}">
+                        <input type="text" class="form-control" id="callWhen" name="callWhen" value="{{ session('buyerData.callWhen') ?? old('callWhen')}}">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -431,7 +431,7 @@
                 },
                 zip: {
                     required: true,
-                    minlength: 5, // Minimum length for US ZIP code
+                    minlength: 4, // Minimum length for US ZIP code
                     maxlength: 10 // Maximum length for 9-digit ZIP code
                 },
                 country: {

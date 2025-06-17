@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\Offer;
+use App\Models\Buyer;
+use App\Models\Showing;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +21,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Activity;
+use App\Models\Listing;
 
 
 class AgentController extends Controller
@@ -210,7 +214,7 @@ class AgentController extends Controller
             Activity::create([
                 'action' => 'Agent update',
                 'user_id' => $userId,
-                'details' => 'update agent information agent name:' . $request->first_name.' '.$request->last_name,
+                'details' => 'update agent information agent name:' . $request->first_name . ' ' . $request->last_name,
             ]);
             return redirect('admin/agent/list')->with('success', 'Agent update successfully');
         } else {
@@ -229,7 +233,7 @@ class AgentController extends Controller
         $previous = User::where('id', '<', $id)->where('role_name', '=', 'agent')->orderBy('id', 'desc')->first();
         // Get the next post ID
         $next = User::where('id', '>', $id)->where('role_name', '=', 'agent')->orderBy('id', 'asc')->first();
-        return view('admin.agent.show', compact('agent', 'previous', 'next','activities'));
+        return view('admin.agent.show', compact('agent', 'previous', 'next', 'activities'));
     }
     public function destroy(Request $request, $id)
     {
@@ -238,7 +242,7 @@ class AgentController extends Controller
             Activity::create([
                 'action' => 'Agent delete',
                 'user_id' => Auth::id(),
-                'details' =>  'deleted a agent. agent name: ' . $agent->FName .' '.$agent->LName,
+                'details' =>  'deleted a agent. agent name: ' . $agent->FName . ' ' . $agent->LName,
             ]);
             $agent->delete();
             return redirect()->route('list.agent')
@@ -272,11 +276,44 @@ class AgentController extends Controller
             Activity::create([
                 'action' => 'Update agent profile image',
                 'user_id' => Auth::id(),
-                'details' =>  'update agent profile image. agent name: ' . $agentInfo->FName .' '.$agentInfo->LName,
+                'details' =>  'update agent profile image. agent name: ' . $agentInfo->FName . ' ' . $agentInfo->LName,
             ]);
             return redirect()->back()->with('success_message', 'Agent profile image update successfully');
         } else {
             return redirect()->back()->with('success_message', 'There are some error! can not be update.');
         }
+    }
+    public function deactivate(Request $request)
+    {
+        $request->validate([
+            'agent_id' => 'required|exists:agents,AgentUserRegisterId',
+            'new_agent_id' => 'required|exists:agents,AgentUserRegisterId',
+        ]);
+        $oldAgent = Agent::where('AgentUserRegisterId', $request->agent_id)->first();
+        $newAgent = Agent::where('AgentUserRegisterId', $request->new_agent_id)->first();
+        $userAgent = User::where('id', $request->agent_id)->where('role_name', 'agent')->first();
+        if ($oldAgent && $userAgent) {
+            Listing::where('AgentID', $oldAgent->AgentID)->update(['AgentID' => $newAgent->AgentID]);
+            DB::table('leads')->where('AgentID', $oldAgent->AgentID)->update(['AgentID' => $newAgent->AgentID]);
+            Offer::where('ListingAgent', $oldAgent->AgentID)->update(['ListingAgent' => $newAgent->AgentID]);
+            Offer::where('SellingAgent', $oldAgent->AgentID)->update(['SellingAgent' => $newAgent->AgentID]);
+            Buyer::where('AgentID', $oldAgent->AgentID)->update(['AgentID' => $newAgent->AgentID]);
+            Showing::where('AgentID', $oldAgent->AgentID)->update(['AgentID' => $newAgent->AgentID]);
+            $oldAgent->delete();
+            $userAgent->delete();
+        }
+        return redirect()->route('list.agent')->with('success', 'Agent deactivated and data reassigned successfully.');
+    }
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword');
+
+        $agents = Agent::where(function ($query) use ($keyword) {
+            $query->where('FName', 'like', "%$keyword%")
+                ->orWhere('LName', 'like', "%$keyword%")
+                ->orWhere('AgentID', 'like', "%$keyword%");
+        })->limit(20)->get();
+
+        return response()->json($agents);
     }
 }

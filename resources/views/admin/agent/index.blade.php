@@ -75,6 +75,14 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
+                                @php
+                                $id = $agent->AgentUserRegisterId;
+                                $name = $agent->FName . ' ' . $agent->LName;
+                                @endphp
+                                <button type="button" class="btn btn-sm btn-deactivate" title="Deactivate" data-toggle="modal"
+                                    data-target="#deactivateModal" data-agent-id="{{$id}}" data-agent-name="{{$name}}">
+                                    <i class="fas fa-user-slash text-warning"></i>
+                                </button>
                                 <!-- <button class="btn btn-sm" title="Download">
                                     <i class="fas fa-download"></i>
                                 </button> -->
@@ -91,6 +99,38 @@
                     {{ $agents->appends(request()->query())->links('vendor.pagination.custom') }}
                 </div>
             </div>
+            <!-- Deactivation Modal -->
+            <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="deactivateModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <form id="deactivateAgentForm" method="POST" action="{{ route('agent.deactivate') }}">
+                        @csrf
+                        <input type="hidden" name="agent_id" id="deactivateAgentId">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Deactivate Agent</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Deactivating:</strong> <span id="deactivateAgentName"></span></p>
+                                <div class="form-group">
+                                    <label for="new_agent_id">Reassign all data to:</label>
+                                    <input type="text" class="form-control" id="agentSearch" placeholder="Search agents...">
+                                    <select class="form-control mt-2" name="new_agent_id" id="newAgentDropdown" required>
+                                        <!-- Options will be loaded via JS -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Confirm Deactivate</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -203,6 +243,38 @@
             const query = $('#search').val();
             fetch_data(page, query); // Use the current search query
         });
+
+        $('.btn-deactivate').on('click', function() {
+            const agentId = $(this).data('agent-id');
+            const agentName = $(this).data('agent-name');
+            $('#deactivateAgentId').val(agentId);
+            $('#deactivateAgentName').text(agentName);
+            $('#agentSearch').val('');
+            $('#newAgentDropdown').empty();
+        });
+
+        // Dynamic agent search
+        $(document).on('keyup', '#agentSearch', function() {
+            const keyword = $(this).val();
+            if (keyword.length >= 2) {
+                $.ajax({
+                    url: "{{ route('assign.agent.search') }}",
+                    method: 'GET',
+                    data: {
+                        keyword
+                    },
+                    success: function(data) {
+                        let options = '<option value="">Select Agent</option>';
+                        data.forEach(agent => {
+                            options += `<option value="${agent.AgentUserRegisterId}">${agent.FName} ${agent.LName} (${agent.AgentID})</option>`;
+                        });
+                        $('#newAgentDropdown').html(options);
+                    }
+                });
+            }
+        });
+
+
     });
 </script>
 @endsection

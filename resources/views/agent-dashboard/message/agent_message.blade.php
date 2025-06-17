@@ -1,517 +1,880 @@
 @extends('agent-dashboard.layout.master')
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
+<!-- Firebase and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <style>
     .chat-container {
-        max-width: 900px;
-        margin: auto;
-        display: flex;
-        border: 1px solid #ddd;
+        max-width: 1000px;
+        margin: 30px auto;
+        background-color: #ffffff;
         border-radius: 12px;
         overflow: hidden;
-        background: #fff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        font-family: 'Segoe UI', sans-serif;
     }
 
-    .agent-list {
-        width: 30%;
-        background: #f7f9fc;
-        padding: 15px;
-        border-right: 1px solid #ddd;
-    }
-
-    .agent {
-        padding: 12px;
+    .tabs {
         display: flex;
-        align-items: center;
+        background-color: #f5f7fa;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tab-link {
+        flex: 1;
+        padding: 16px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+
+    .tab-link.active {
+        background: #ffffff;
+        border-bottom: 2px solid #5a102a;
+        color: #5a102a;
+    }
+
+    .tab-content {
+        display: none;
+        padding: 0;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .tab-layout {
+        display: flex;
+        gap: 0;
+        border-top: 1px solid #eee;
+    }
+
+    .user-list {
+        width: 35%;
+        max-height: 500px;
+        overflow-y: auto;
+        background-color: #f7f9fc;
+        border-right: 1px solid #e0e0e0;
+    }
+
+    .user-item {
+        padding: 10px;
+        display: flex;
         gap: 10px;
+        align-items: center;
         border-radius: 8px;
         cursor: pointer;
-        transition: all 0.3s;
+        transition: background 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .agent:hover,
-    .agent.active {
-        background: #e3f2fd;
+    .user-item:hover {
+        background-color: #f5f5f5;
     }
 
-    .agent img {
-        width: 35px;
-        height: 35px;
+    .user-item.active {
+        background-color: #e9f3ff;
+        box-shadow: inset 3px 0 0 #5a102a;
+        font-weight: 600;
+    }
+
+    .user-item img {
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid #007bff;
     }
 
-    .chat-section {
-        width: 70%;
+    .chat-area {
+        flex: 1;
         display: flex;
         flex-direction: column;
-        padding: 15px;
-        background: #f9f9f9;
+        padding: 20px;
+        background-color: #fdfdfd;
     }
 
+    #chat-header-admin,
+    #chat-header-buyer {
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    /* .chat-box {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        background-color: #ffffff;
+        border: 1px solid #e3e3e3;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    } */
     .chat-box {
-        height: 450px;
+        height: 300px;
         overflow-y: auto;
         padding: 10px;
         display: flex;
         flex-direction: column;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        gap: 10px;
     }
 
     .message {
-        padding: 10px 14px;
-        margin: 5px 0;
+        max-width: 75%;
+        padding: 12px 16px;
         border-radius: 18px;
         font-size: 14px;
-        max-width: 75%;
+        line-height: 1.4;
         word-break: break-word;
         position: relative;
+        display: inline-block;
     }
 
     .sent {
+        align-self: flex-end;
         background-color: #5a102a;
         color: #ffffff;
-        align-self: flex-end;
     }
 
     .received {
+        align-self: flex-start;
         background-color: #806132;
         color: #ffffff;
-        align-self: flex-start;
     }
 
     .timestamp {
-        font-size: 10px;
-        color: #ffffff;
+        font-size: 11px;
+        color: #f1f1f1;
+        margin-top: 6px;
+        text-align: right;
+        opacity: 0.8;
     }
 
-    .chat-input {
+    .message-input {
         display: flex;
-        align-items: center;
-        background: white;
-        padding: 8px;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        gap: 10px;
+        margin-top: 15px;
     }
 
-    .chat-input input {
+    .message-input input {
         flex: 1;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
         font-size: 14px;
     }
 
-    .chat-input button {
-        background: #5a102a;
-        color: #ffffff;
+    .message-input button {
+        background-color: #5a102a;
+        color: white;
+        padding: 12px 20px;
         border: none;
-        padding: 10px 15px;
-        margin-left: 10px;
-        border-radius: 8px;
+        border-radius: 6px;
+        font-weight: 500;
         cursor: pointer;
+        transition: background-color 0.3s;
     }
 
-    .chat-input button:hover {
-        background: #806132;
+    .message-input button:hover {
+        background-color: #806132;
     }
 
     .message-actions {
-        display: none;
-        /* position: absolute; */
-        top: 50%;
-        right: -40px;
-        transform: translateY(-50%);
-    }
-
-    .message:hover .message-actions {
-        display: inline;
-    }
-
-    .message-actions button {
-        background: none;
-        border: none;
-        cursor: pointer;
+        margin-top: 5px;
         font-size: 12px;
-        color: #666;
-        padding: 5px;
+        text-align: right;
     }
 
-    .send_message {
-        display: none;
+    .message-actions a {
+        color: #ffc107;
+        margin-left: 10px;
+        text-decoration: none;
+        cursor: pointer;
     }
+
+    .message-actions a.delete {
+        color: #dc3545;
+    }
+
+    /* Scrollbar styling */
+    .chat-box::-webkit-scrollbar,
+    .user-list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .chat-box::-webkit-scrollbar-thumb,
+    .user-list::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+
+    .chat-box::-webkit-scrollbar-thumb:hover,
+    .user-list::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+
+    .badge {
+        background-color: #dc3545;
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 12px;
+        margin-left: 6px;
+        display: inline-block;
+    }
+
+    /* css date 04/06/2025*/
+    .user-list .user-search {
+        width: 100%;
+        padding: 10px 15px;
+        margin-bottom: 12px;
+        border: 1.5px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        outline: none;
+    }
+
+    .user-list .user-search::placeholder {
+        color: #999;
+        font-style: italic;
+    }
+
+    .user-list .user-search:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+    }
+
+
+    /*css end*/
 </style>
 
-<div class="row card p-4">
-    <div class="chat-container">
-        <!-- Agent List Sidebar -->
-        <div class="agent-list">
-            <h3>Buyers</h3>
-            @foreach($buyers as $key=>$buyer)
-            <div class="agent" id="buyer-{{$buyer->user_id}}" onclick="selectBuyer('{{ $buyer->user_id }}', '{{ $buyer->FName }}')">
-                <img src="{{ url('assets/images/user.png') }}" alt="User Profile">
-                <span>{{ ucfirst($buyer->FName) }} {{ ucfirst($buyer->LName) }}
-                    <span id="badge-{{$buyer->user_id}}" class="badge bg-danger" style="display: none;">0</span>
-                </span>
+<div class="chat-container">
+    <div class="tabs">
+        <button class="tab-link active" data-tab="admin">Admin Chat</button>
+        <button class="tab-link" data-tab="buyer">Buyer Chat</button>
+    </div>
+
+    @foreach(['admin', 'buyer'] as $role)
+    <div id="{{ $role }}Tab" class="tab-content {{ $loop->first ? 'active' : '' }}">
+        <div class="tab-layout">
+            <div class="user-list" id="user-list-{{ $role }}" data-role="{{ $role }}">
+                <input type="text" class="user-search" placeholder="Search {{ ucfirst($role) }}..." />
+                <div class="user-entries"></div>
+                <div class="loading" style="text-align: center; padding: 10px; display: none;">Loading...</div>
             </div>
-            @endforeach
-        </div>
 
-        <!-- Chat Section -->
-        <div class="chat-section hidden" id="chat-section">
-            <h3 id="chat-header">Chat</h3>
-            <div id="chat-box" class="chat-box">Welcome to your Agent Dashboard. If you have any questions or need assistance, our support team is always ready to help. Whether you need guidance with managing listings, responding to buyer inquiries, or any other aspect of your work, don't hesitate to start a conversation. We’re here to ensure you have all the resources and support you need to succeed. Feel free to reach out at any time.</div>
-
-            <div class="chat-input">
-                <input type="hidden" id="agent_id" name="agent_id" value="{{ auth()->id() }}" />
-                <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="send_message">
-                <button onclick="sendMessage()" class="send_message">Send</button>
+            <div class="chat-area">
+                <h5 id="chat-header-{{ $role }}">Select a user to chat</h5>
+                <div id="chat-box-{{ $role }}" class="chat-box"></div>
+                <div class="message-input">
+                    <input type="text" id="message-{{ $role }}" placeholder="Type a message..." disabled />
+                    <button data-role="{{ $role }}" class="send-btn" disabled>Send</button>
+                </div>
             </div>
         </div>
     </div>
+    @endforeach
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<!-- 
+<div id="firebase-user-data"
+    data-admins='@json($admins)'
+    data-buyers='@json($buyers)'>
+</div>
+
+
 <script>
     $(document).ready(function() {
+        const currentUserId = "{{ auth()->id() }}";
+
         const firebaseConfig = {
             apiKey: "AIzaSyBOFU1nHTH3K92l8WCwUiI8Pz3Ul709OhE",
             authDomain: "exeb-443511.firebaseapp.com",
             databaseURL: "https://exeb-443511-default-rtdb.firebaseio.com",
             projectId: "exeb-443511",
-            storageBucket: "exeb-443511.firebasestorage.app",
+            storageBucket: "exeb-443511.appspot.com",
             messagingSenderId: "953545808773",
-            appId: "1:953545808773:web:d2ca948fe32004f822c2ec",
-            measurementId: "G-16W56RL5G9"
-        };
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.database(app);
-
-        let selectedBuyerId = null;
-        let selectedBuyerName = null;
-        let agentId = $('#agent_id').val();
-
-        // ✅ Make `selectBuyer` global
-        window.selectBuyer = function(buyerId, buyerName) {
-            selectedBuyerId = buyerId;
-            selectedBuyerName = buyerName;
-            $("#chat-header").text(`Chat with ${buyerName}`);
-            $("#chat-section").removeClass("hidden");
-            $("#chat-box").html(""); // Clear previous messages
-
-            let chatPath = `messages/${agentId}_${selectedBuyerId}/`;
-
-            // Load chat messages from Firebase
-            db.ref(chatPath).off(); // Remove old listeners
-            db.ref(chatPath).on("child_added", function(snapshot) {
-                let msg = snapshot.val();
-                console.log("Received message:", msg);
-                let className = msg.sender === "Agent" ? "sent" : "received";
-                $("#chat-box").append(`<div class="message ${className}">${msg.message}</div>`);
-                $(".chat-box").scrollTop($(".chat-box")[0].scrollHeight);
-            });
+            appId: "1:953545808773:web:d2ca948fe32004f822c2ec"
         };
 
-        // ✅ Function to send message
-        window.sendMessage = function() {
-            if (!selectedBuyerId) {
-                alert("Please select a buyer to chat with!");
-                return;
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        let activeChats = {
+            admin: new Map(),
+            buyer: new Map()
+        };
+        let selectedUser = {
+            admin: null,
+            buyer: null
+        };
+        let searchState = {
+            admin: {
+                query: '',
+                offset: 0,
+                loading: false,
+                finished: false
+            },
+            buyer: {
+                query: '',
+                offset: 0,
+                loading: false,
+                finished: false
+            }
+        };
+
+        const unreadCounts = {
+            admin: new Map(),
+            buyer: new Map()
+        };
+        const dataEl = document.getElementById('firebase-user-data');
+        const admins = JSON.parse(dataEl.getAttribute('data-admins'));
+        const buyers = JSON.parse(dataEl.getAttribute('data-buyers'));
+
+        function setupUnreadCountListener(role, user) {
+            const userId = user.id;
+            const path = `messages/${userId}_${currentUserId}`;
+
+            if (unreadCounts[role].has(userId) && unreadCounts[role].get(userId).off) {
+                unreadCounts[role].get(userId).off();
             }
 
-            let message = $("#message").val().trim();
-            if (message === "") {
-                alert("Message cannot be empty!");
-                return;
-            }
-            let chatPath = `messages/${agentId}_${selectedBuyerId}/`;
-            $.ajax({
-                url: "{{ route('agent.send.message') }}",
-                type: "POST",
-                data: {
-                    sender: agentId,
-                    receiver: selectedBuyerId,
-                    message: message,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    $("#message").val("");
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error sending message:", xhr.responseText);
-                }
-            });
+            const ref = db.ref(path);
 
-            // Save message in Firebase
-            db.ref(chatPath).push({
-                sender: "Agent",
-                message: message,
-                timestamp: Date.now()
-            });
-        };
-    });
-</script> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<script>
-    $(document).ready(function() {
-        // ✅ Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBOFU1nHTH3K92l8WCwUiI8Pz3Ul709OhE",
-            authDomain: "exeb-443511.firebaseapp.com",
-            databaseURL: "https://exeb-443511-default-rtdb.firebaseio.com",
-            projectId: "exeb-443511",
-            storageBucket: "exeb-443511.firebasestorage.app",
-            messagingSenderId: "953545808773",
-            appId: "1:953545808773:web:d2ca948fe32004f822c2ec",
-            measurementId: "G-16W56RL5G9"
-        };
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.database(app);
-        const messagesRef = db.ref('messages');
-        var currentUserId = "{{ auth()->user()->id }}";
-        var unreadMessages = {}; // Store unread messages by conversation
-        var buyerUnreadCount = {}; // Store unread count per buyer
-
-        // Use 'on' to listen for real-time updates
-        messagesRef.on('value', (snapshot) => {
-            if (snapshot.exists()) {
-                const messages = snapshot.val();
-                let foundMessages = false;
-
-                // Reset unread messages and counts on every update
-                unreadMessages = {};
-                buyerUnreadCount = {};
-
-                // Iterate through all conversations
-                Object.keys(messages).forEach(conversationKey => {
-                    const conversation = messages[conversationKey];
-
-                    // Iterate through all messages in this conversation
-                    Object.keys(conversation).forEach(key => {
-                        const message = conversation[key];
-
-                        // Check if the receiver is the current user and message is unread
-                        if (message.receiver === currentUserId && !message.read) {
-                            foundMessages = true;
-
-                            // Add to unreadMessages
-                            if (!unreadMessages[conversationKey]) {
-                                unreadMessages[conversationKey] = [];
-                            }
-                            unreadMessages[conversationKey].push(message);
-
-                            // Update unread count for the sender (buyer)
-                            const senderId = message.sender;
-                            if (!buyerUnreadCount[senderId]) {
-                                buyerUnreadCount[senderId] = 0;
-                            }
-                            buyerUnreadCount[senderId]++;
-                        }
-                    });
+            function updateUnreadCount(snapshot) {
+                let count = 0;
+                snapshot.forEach(child => {
+                    const msg = child.val();
+                    if (msg.receiver == currentUserId && msg.read === false) {
+                        count++;
+                    }
                 });
 
-                if (!foundMessages) {
-                    console.log("No unread messages found for receiver.");
-                }
-            } else {
-                console.log("No messages in the database.");
-            }
-
-            console.log("Unread Messages:", unreadMessages); // Log unread messages
-            console.log("Unread message count per buyer:", buyerUnreadCount); // Log unread message counts
-
-            updateUnreadCountUI(); // Update the UI with unread message counts
-        });
-
-        // Function to update the unread message count badges on the UI
-        function updateUnreadCountUI() {
-            // Loop through buyerUnreadCount and update the corresponding badge
-            for (let buyerId in buyerUnreadCount) {
-                const unreadCount = buyerUnreadCount[buyerId];
-                const badgeElement = document.querySelector(`#badge-${buyerId}`);
-
-                if (unreadCount > 0 && badgeElement) {
-                    badgeElement.textContent = unreadCount;
-                    badgeElement.style.display = 'inline-block'; // Show badge if there are unread messages
-                } else if (badgeElement) {
-                    badgeElement.style.display = 'none'; // Hide badge if there are no unread messages
+                const userItem = $(`.user-item[data-user-id="${userId}"][data-role="${role}"]`);
+                const badge = userItem.find('.user-unread-count');
+                if (count > 0) {
+                    badge.text(count).show();
+                } else {
+                    badge.hide();
                 }
             }
+
+            // Listen on entire path, no query filter
+            ref.on('value', updateUnreadCount);
+
+            unreadCounts[role].set(userId, {
+                off: () => ref.off('value', updateUnreadCount)
+            });
         }
 
 
+        function renderUserList(role) {
+            const container = $(`#user-list-${role} .user-entries`);
+            container.empty();
 
-        let selectedBuyerId = null;
-        let agentId = $('#agent_id').val();
-        let chatPath = "";
-        let editMessageId = null;
-
-        // ✅ Select Buyer for Chat
-        window.selectBuyer = function(buyerId, buyerName) {
-            // Mark messages as read for the selected buyer
-            $('.send_message').show();
-            markMessagesAsRead(buyerId);
-
-            // Update the badge UI (hide and reset count to 0)
-            const badgeElement = document.querySelector(`#badge-${buyerId}`);
-            if (badgeElement) {
-                badgeElement.style.display = 'none'; // Hide the badge
-                buyerUnreadCount[buyerId] = 0; // Reset unread count to 0
+            if (activeChats[role].size === 0) {
+                container.append('<div style="padding: 10px; color: #666;">No active chats</div>');
             }
 
-            // (Optional) You can display a message or load the chat for that buyer
-            console.log(`Selected Buyer: ${buyerName} (ID: ${buyerId})`);
-            selectedBuyerId = buyerId;
-            let capitalizedBuyerName = buyerName.charAt(0).toUpperCase() + buyerName.slice(1);
-            $("#chat-header").text(`Chat with ${capitalizedBuyerName}`);
-            $("#chat-section").removeClass("hidden");
-            $("#chat-box").html(""); // Clear previous messages
-            chatPath = `messages/${agentId}_${selectedBuyerId}/`;
+            activeChats[role].forEach(user => {
+                const html = `
+            <div class="user-item" data-user-id="${user.id}" data-name="${user.name}" data-role="${role}">
+                <img src="/assets/images/user.png" alt="Profile" />
+                <div>
+                    <strong>${user.name}</strong><br>
+                    <small>${user.email}</small>
+                    <span class="user-unread-count badge" style="display: none;">0</span>
+                </div>
+            </div>
+        `;
+                container.append(html);
+                setupUnreadCountListener(role, user);
+            });
+            console.log(`Rendered user list for role: ${role}, count: ${activeChats[role].size}`);
+        }
 
-            // ✅ Remove old Firebase listeners
-            db.ref(chatPath).off();
 
-            // ✅ Listen for New, Updated & Deleted Messages in Real-Time
-            db.ref(chatPath).on("value", function(snapshot) {
-                $("#chat-box").html(""); // Clear old messages
-                snapshot.forEach(function(childSnapshot) {
-                    let msg = childSnapshot.val();
-                    let msgId = childSnapshot.key;
-                    let className = msg.sendby === "Agent" ? "sent" : "received";
-                    let timestamp = new Date(msg.timestamp).toLocaleString();
+        function fetchActiveChats(role, users) {
+            activeChats[role].clear();
 
-                    // ✅ Show edit & delete buttons only for agent's own messages
-                    let actions = msg.sendby === "Agent" ? `
-                        <span class="message-actions">
-                            <button onclick="editMessage('${msgId}', '${msg.message}')">
-                                <i class="fa fa-edit" style="color: #ffffff;"></i>
-                            </button>
-                            <button onclick="deleteMessage('${msgId}')">
-                                <i class="fa fa-trash-alt" style="color: #ffffff;"></i>
-                            </button>
-                        </span>
-                    ` : '';
+            const checks = users.map(user => {
+                const uid = user.id;
+                console.log(uid);
+                const paths = [`messages/${uid}_${currentUserId}`, `messages/${currentUserId}_${uid}`];
 
-                    let messageElement = `
-                        <div class="message ${className}" data-id="${msgId}">
-                            <span class="message-text">${msg.message}</span>
-                            <div class="timestamp">${timestamp}</div>
-                            ${actions}
-                        </div>
-                    `;
-
-                    $("#chat-box").append(messageElement);
+                // Check both paths for any messages
+                return Promise.all(paths.map(path =>
+                    db.ref(path).once('value').then(snap => snap.exists())
+                )).then(results => {
+                    if (results.some(exists => exists)) {
+                        activeChats[role].set(uid, user);
+                        console.log(`User ${user.name} has messages, added to activeChats[${role}]`);
+                    } else {
+                        console.log(`User ${user.name} has no messages`);
+                    }
+                }).catch(err => {
+                    console.error('Firebase error checking messages:', err);
                 });
-
-                $(".chat-box").scrollTop($(".chat-box")[0].scrollHeight);
-            });
-        };
-
-        // ✅ Send or Update Message
-        window.sendMessage = function() {
-            if (!selectedBuyerId) {
-                alert("Please select a buyer to chat with!");
-                return;
-            }
-
-            let message = $("#message").val().trim();
-            if (message === "") {
-                alert("Message cannot be empty!");
-                return;
-            }
-
-            if (editMessageId) {
-                // ✅ Update existing message in Firebase
-                db.ref(`${chatPath}${editMessageId}`).update({
-                    message: message
-                }).then(() => {
-                    $("#message").val("");
-                    editMessageId = null;
-                }).catch(error => console.error("Error updating message:", error));
-                return;
-            }
-
-            // ✅ Send a new message
-            db.ref(chatPath).push({
-                sender: agentId,
-                receiver: selectedBuyerId,
-                sendby: "Agent",
-                message: message,
-                read: false,
-                timestamp: Date.now()
             });
 
-            $("#message").val("");
-        };
-
-        // ✅ Edit Message (Set for Editing)
-        window.editMessage = function(msgId, msgText) {
-            $("#message").val(msgText).focus();
-            editMessageId = msgId;
-        };
-
-        // ✅ Delete Message (Remove from Firebase)
-        /*   window.deleteMessage = function(msgId) {
-              if (confirm("Are you sure you want to delete this message?")) {
-                  db.ref(`${chatPath}${msgId}`).remove();
-              }
-          }; */
-        window.deleteMessage = function(msgId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'You will not be able to recover this message!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#5e0f2f',
-                cancelButtonColor: '#93744b',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    db.ref(`${chatPath}${msgId}`).remove();
-                    Swal.fire(
-                        'Deleted!',
-                        'Your message has been deleted.',
-                        'success'
-                    );
-                }
+            Promise.all(checks).then(() => {
+                console.log(`All users checked for role: ${role}, activeChats size:`, activeChats[role].size);
+                renderUserList(role);
             });
-        };
-        // Function to mark all messages from a buyer as read
-        function markMessagesAsRead(buyerId) {
-            // Iterate through the messages and set 'read' to true for the selected buyer
-            messagesRef.once('value', (snapshot) => {
-                if (snapshot.exists()) {
-                    const messages = snapshot.val();
+        }
 
-                    Object.keys(messages).forEach(conversationKey => {
-                        const conversation = messages[conversationKey];
 
-                        // Iterate through all messages in this conversation
-                        Object.keys(conversation).forEach(key => {
-                            const message = conversation[key];
+        function fetchUserBySearch(role, query, reset = false) {
+            const state = searchState[role];
+            if (reset) {
+                state.offset = 0;
+                state.finished = false;
+                activeChats[role].clear();
+                $(`#user-list-${role} .user-entries`).empty();
+            }
 
-                            // Check if the sender is the buyer and if the message is unread
-                            if (message.sender === buyerId && message.receiver === currentUserId && !message.read) {
-                                // Update the 'read' status of the message in Firebase
-                                const messageRef = messagesRef.child(conversationKey).child(key);
-                                messageRef.update({
-                                    read: true
-                                });
+            // Update query state even if not reset
+            state.query = query;
 
-                                console.log(`Message from Buyer ${buyerId} marked as read.`);
+            if (!query) return; // Don't fetch if query is empty
+            if (state.loading || state.finished) return;
+            state.loading = true;
+            $(`#user-list-${role} .loading`).show();
+
+            $.ajax({
+                url: "{{ route('agent.chat.users', ['role' => '__ROLE__']) }}".replace('__ROLE__', role),
+                data: {
+                    search: query,
+                    offset: state.offset,
+                    perPage: 10
+                },
+                success: function(res) {
+                    const users = res.data || [];
+                    if (users.length === 0) {
+                        state.finished = true;
+                    } else {
+                        users.forEach(user => {
+                            if (!activeChats[role].has(user.id)) {
+                                activeChats[role].set(user.id, user);
                             }
                         });
-                    });
+                        renderUserList(role);
+                        state.offset += users.length;
+                    }
+                },
+                complete: function() {
+                    state.loading = false;
+                    $(`#user-list-${role} .loading`).hide();
                 }
             });
         }
+
+
+        function setupSearchInput(role) {
+            $(`#user-list-${role} .user-search`).on('input', debounce(function() {
+                const val = $(this).val().trim();
+                if (val === '') {
+                    // Fetch active users to show default list
+                    $.ajax({
+                        url: "{{ route('agent.active.users', ['role' => '__ROLE__']) }}".replace('__ROLE__', role),
+                        method: 'GET',
+                        success: function(res) {
+                            const users = res.data || [];
+                            activeChats[role].clear();
+                            users.forEach(user => activeChats[role].set(user.id, user));
+                            renderUserList(role);
+                        }
+                    });
+                } else {
+                    // Perform search - your existing AJAX search logic here
+                    fetchUserBySearch(role, val, true);
+                }
+            }, 400));
+        }
+
+
+        function debounce(fn, delay) {
+            let timer;
+            return function() {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(this, arguments), delay);
+            };
+        }
+
+        function selectUser(userId, role, name) {
+            selectedUser[role] = userId;
+            $(`#chat-header-${role}`).text(`Chat with ${name}`);
+            $(`#message-${role}`).prop('disabled', false);
+            $(`.send-btn[data-role="${role}"]`).prop('disabled', false);
+            loadChatMessages(userId, role);
+        }
+
+        function loadChatMessages(userId, role) {
+            const path1 = `messages/${currentUserId}_${userId}`;
+            const path2 = `messages/${userId}_${currentUserId}`;
+            const chatBox = $(`#chat-box-${role}`);
+            chatBox.empty();
+            const messages = [];
+
+            function renderMessages() {
+                chatBox.empty();
+                messages.sort((a, b) => a.timestamp - b.timestamp);
+                messages.forEach(msg => {
+                    const align = msg.sender === currentUserId ? 'sent' : 'received';
+                    const time = new Date(msg.timestamp).toLocaleTimeString();
+                    let buttons = '';
+                    if (msg.sender === currentUserId) {
+                        buttons = `
+                    <a class="edit-btn" data-key="${msg.key}" data-role="${role}" data-userid="${userId}">Edit</a>
+                    <a class="delete-btn" data-key="${msg.key}" data-role="${role}" data-userid="${userId}">Delete</a>
+                `;
+                    }
+                    chatBox.append(`
+                <div class="message ${align}" data-key="${msg.key}">
+                    <div class="message-content">${escapeHtml(msg.message)}</div>
+                    <small>${time}</small>
+                    <div class="message-actions">${buttons}</div>
+                </div>
+            `);
+                });
+                chatBox.scrollTop(chatBox[0].scrollHeight);
+            }
+
+            function addOrUpdateMessage(val, key) {
+                // Remove any existing message with this key to avoid duplicates
+                const index = messages.findIndex(m => m.key === key);
+                if (index > -1) messages.splice(index, 1);
+                val.key = key;
+                messages.push(val);
+                renderMessages();
+            }
+
+            function removeMessage(key) {
+                const index = messages.findIndex(m => m.key === key);
+                if (index > -1) {
+                    messages.splice(index, 1);
+                    renderMessages();
+                }
+            }
+
+            db.ref(path1).off();
+            db.ref(path2).off();
+
+            // Clear existing messages array
+            messages.length = 0;
+
+            // Listen for child_added in both paths
+            db.ref(path1).on('child_added', snap => {
+                addOrUpdateMessage(snap.val(), snap.key);
+            });
+            db.ref(path2).on('child_added', snap => {
+                addOrUpdateMessage(snap.val(), snap.key);
+            });
+
+            // Listen for child_changed (if you want live update on edits)
+            db.ref(path1).on('child_changed', snap => {
+                addOrUpdateMessage(snap.val(), snap.key);
+            });
+            db.ref(path2).on('child_changed', snap => {
+                addOrUpdateMessage(snap.val(), snap.key);
+            });
+
+            // Listen for child_removed and update messages array + UI
+            db.ref(path1).on('child_removed', snap => {
+                removeMessage(snap.key);
+            });
+            db.ref(path2).on('child_removed', snap => {
+                removeMessage(snap.key);
+            });
+
+            // Mark received messages as read (optional)
+            db.ref(path2).once('value', snap => {
+                snap.forEach(child => {
+                    if (child.val().receiver === currentUserId && !child.val().read) {
+                        db.ref(path2).child(child.key).update({
+                            read: true
+                        });
+                    }
+                });
+            });
+        }
+
+
+
+        $('.send-btn').click(function() {
+            const role = $(this).data('role');
+            const input = $(`#message-${role}`);
+            const message = input.val().trim();
+            const userId = selectedUser[role];
+            if (!userId || !message) return;
+            const path = `messages/${currentUserId}_${userId}`;
+            db.ref(path).push({
+                sender: currentUserId,
+                receiver: userId,
+                message,
+                timestamp: Date.now(),
+                read: false
+            });
+
+            input.val('');
+
+            // Clear search input and reset search state for the role
+            const searchInput = $(`#user-list-${role} .user-search`);
+            searchInput.val('');
+
+            // Reset search state for this role
+            searchState[role] = {
+                query: '',
+                offset: 0,
+                loading: false,
+                finished: false
+            };
+
+            // Fetch active users to show updated list after sending message
+            $.ajax({
+                url: "{{ route('agent.active.users', ['role' => '__ROLE__']) }}".replace('__ROLE__', role),
+                method: 'GET',
+                success: function(res) {
+                    const users = res.data || [];
+                    activeChats[role].clear();
+                    users.forEach(user => activeChats[role].set(user.id, user));
+                    renderUserList(role);
+
+                    // Optionally clear selected user/chat if you want (commented out here)
+                    // selectedUser[role] = null;
+                    // $(`#chat-box-${role}`).empty();
+                },
+                error: function() {
+                    console.error('Failed to fetch active users');
+                }
+            });
+        });
+
+
+
+        $(document).on('click', '.user-item', function() {
+            const userId = $(this).data('user-id');
+            const role = $(this).data('role');
+            const name = $(this).data('name');
+            $(`.user-item[data-role="${role}"]`).removeClass('active');
+            $(this).addClass('active');
+            selectUser(userId, role, name);
+            const path = `messages/${userId}_${currentUserId}`;
+
+            const ref = db.ref(path);
+            ref.orderByChild('read').equalTo(false).once('value')
+                .then(snapshot => {
+                    const updates = {};
+                    snapshot.forEach(child => {
+                        const msg = child.val();
+                        if (msg.receiver == currentUserId && msg.read === false) {
+                            updates[child.key + '/read'] = true; // set read true
+                        }
+                    });
+                    if (Object.keys(updates).length > 0) {
+                        return ref.update(updates);
+                    }
+                    return Promise.resolve();
+                })
+                .then(() => {
+                    console.log(`Marked messages as read for user ${userId}`);
+                    const badge = $(this).find('.user-unread-count');
+                    badge.hide();
+                })
+                .catch(err => {
+                    console.error('Error marking messages as read:', err);
+                });
+        });
+
+        $('.tab-link').on('click', function() {
+            const tab = $(this).data('tab');
+            $('.tab-link').removeClass('active');
+            $(this).addClass('active');
+            $('.tab-content').removeClass('active');
+            $(`#${tab}Tab`).addClass('active');
+            renderUserList(tab);
+        });
+
+        function setupInfiniteScroll(role) {
+            const container = $(`#user-list-${role}`);
+            container.on('scroll', function() {
+                const scrollTop = $(this).scrollTop();
+                const scrollHeight = $(this)[0].scrollHeight;
+                const containerHeight = $(this).height();
+
+                if (scrollTop + containerHeight >= scrollHeight - 50) {
+                    const state = searchState[role];
+                    // Only fetch more if a search query exists (user is searching)
+                    if (state.query && !state.finished && !state.loading) {
+                        fetchUserBySearch(role, state.query);
+                    }
+                }
+            });
+        }
+
+
+        fetchActiveChats('admin', admins);
+        fetchActiveChats('buyer', buyers);
+
+        setupSearchInput('admin');
+        setupSearchInput('buyer');
+        setupInfiniteScroll('admin');
+        setupInfiniteScroll('buyer');
+
+        $('.tab-link[data-tab="admin"]').click();
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            return $('<div>').text(text).html();
+        }
+
+        // Edit message handler
+        $(document).on('click', '.edit-btn', function() {
+            const key = $(this).data('key');
+            const role = $(this).data('role');
+            const userId = $(this).data('userid');
+            const messageDiv = $(this).closest('.message');
+            const contentDiv = messageDiv.find('.message-content');
+
+            // Replace text with input field for editing
+            const currentText = contentDiv.text();
+            contentDiv.html(`<input type="text" class="edit-input" value="${escapeHtml(currentText)}" />`);
+
+            // Change buttons to Save/Cancel
+            const actionsDiv = messageDiv.find('.message-actions');
+            actionsDiv.html(`
+        <a class="save-btn" data-key="${key}" data-role="${role}" data-userid="${userId}">Save</a>
+        <a class="cancel-btn" data-key="${key}" data-role="${role}" data-userid="${userId}">Cancel</a>
+    `);
+        });
+
+        // Cancel edit handler
+        $(document).on('click', '.cancel-btn', function() {
+            const key = $(this).data('key');
+            const role = $(this).data('role');
+            const userId = $(this).data('userid');
+            const messageDiv = $(this).closest('.message');
+            const contentDiv = messageDiv.find('.message-content');
+
+            // Restore original message text from Firebase
+            const path1 = `messages/${currentUserId}_${userId}`;
+            const path2 = `messages/${userId}_${currentUserId}`;
+            // Try both paths to find the message
+            db.ref(path1).child(key).once('value', snap => {
+                if (snap.exists()) {
+                    contentDiv.text(snap.val().message);
+                    resetMessageActions(messageDiv, key, role, userId);
+                } else {
+                    db.ref(path2).child(key).once('value', snap2 => {
+                        if (snap2.exists()) {
+                            contentDiv.text(snap2.val().message);
+                            resetMessageActions(messageDiv, key, role, userId);
+                        }
+                    });
+                }
+            });
+        });
+
+        function resetMessageActions(messageDiv, key, role, userId) {
+            messageDiv.find('.message-actions').html(`
+        <a class="edit-btn" data-key="${key}" data-role="${role}" data-userid="${userId}">Edit</a>
+        <a class="delete-btn" data-key="${key}" data-role="${role}" data-userid="${userId}">Delete</a>
+    `);
+        }
+
+        // Save edited message handler
+        $(document).on('click', '.save-btn', function() {
+            const key = $(this).data('key');
+            const role = $(this).data('role');
+            const userId = $(this).data('userid');
+            const messageDiv = $(this).closest('.message');
+            const input = messageDiv.find('.edit-input');
+            const newText = input.val().trim();
+
+            if (newText === '') {
+                alert('Message cannot be empty!');
+                return;
+            }
+
+            const path1 = `messages/${currentUserId}_${userId}`;
+            const path2 = `messages/${userId}_${currentUserId}`;
+
+            // Try updating in path1 first
+            db.ref(path1).child(key).once('value', snap => {
+                if (snap.exists()) {
+                    db.ref(path1).child(key).update({
+                        message: newText
+                    }).then(() => {
+                        messageDiv.find('.message-content').text(newText);
+                        resetMessageActions(messageDiv, key, role, userId);
+                    });
+                } else {
+                    // Else try path2
+                    db.ref(path2).child(key).once('value', snap2 => {
+                        if (snap2.exists()) {
+                            db.ref(path2).child(key).update({
+                                message: newText
+                            }).then(() => {
+                                messageDiv.find('.message-content').text(newText);
+                                resetMessageActions(messageDiv, key, role, userId);
+                            });
+                        } else {
+                            alert('Message not found!');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Delete message handler
+        $(document).on('click', '.delete-btn', function() {
+            if (!confirm('Are you sure you want to delete this message?')) return;
+
+            const key = $(this).data('key');
+            const role = $(this).data('role');
+            const userId = $(this).data('userid');
+            const messageDiv = $(this).closest('.message');
+
+            const path1 = `messages/${currentUserId}_${userId}`;
+            const path2 = `messages/${userId}_${currentUserId}`;
+
+            db.ref(path1).child(key).once('value', snap => {
+                if (snap.exists()) {
+                    db.ref(path1).child(key).remove().then(() => {
+                        messageDiv.remove();
+                    });
+                } else {
+                    db.ref(path2).child(key).once('value', snap2 => {
+                        if (snap2.exists()) {
+                            db.ref(path2).child(key).remove().then(() => {
+                                messageDiv.remove();
+                            });
+                        } else {
+                            alert('Message not found!');
+                        }
+                    });
+                }
+            });
+        });
+
+
     });
 </script>
 
-<div id="chatContainer"></div>
+
+
 @endsection

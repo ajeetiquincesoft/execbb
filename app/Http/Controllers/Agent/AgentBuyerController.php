@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Buyer;
 use App\Models\Agent;
 use App\Models\Activity;
+use App\Models\SignNda;
+
 use Illuminate\Support\Facades\Auth;
 
 class AgentBuyerController extends Controller
@@ -43,12 +45,14 @@ class AgentBuyerController extends Controller
     {
 
         $buyer = Buyer::where('BuyerID', $id)->first();
+        $hasSignedNda = SignNda::where('user_id', $buyer->user_id)->exists();
+
         $activities = Activity::latest()->paginate(10);
         // Get the previous buyer ID
         $previous = Buyer::where('BuyerID', '<', $id)->orderBy('BuyerID', 'desc')->first();
         // Get the next buyer ID
         $next = Buyer::where('BuyerID', '>', $id)->orderBy('BuyerID', 'asc')->first();
-        return view('agent-dashboard.buyer.show', compact('buyer', 'previous', 'next','activities'));
+        return view('agent-dashboard.buyer.show', compact('buyer', 'previous', 'next', 'activities', 'hasSignedNda'));
     }
     public function destroy(Request $request, $id)
     {

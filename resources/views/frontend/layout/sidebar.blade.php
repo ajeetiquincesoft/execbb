@@ -17,6 +17,7 @@
         </li>
         <li>
             <a href="{{route('buyer.all.message')}}" class="{{ Route::currentRouteName() == 'buyer.all.message' ? 'active' : '' }}"><i class="fa fa-comments"></i> Messages</a>
+            <span class="custom-badge" id="unread-message-count" style="display: none;">0</span>
         </li>
         <li>
             <a href="{{route('buyer.profile')}}" class="{{ Route::currentRouteName() == 'buyer.profile' ? 'active' : '' }}"><i class="fa fa-user"></i> Profile</a>
@@ -30,6 +31,11 @@
         <li>
             <a href="{{route('buyer.all.offer')}}" class="{{ Route::currentRouteName() == 'buyer.all.offer' ? 'active' : '' }}"><i class="fa fa-times-circle-o"></i> Offers</a>
         </li>
+        @if(!empty($hasSignedNda))
+        <li>
+            <a href="{{route('download.buyer.nda.form')}}" class="{{ Route::currentRouteName() == 'download.buyer.nda.form' ? 'active' : '' }}"><i class="fa fa-download"></i> Download NDA Form</a>
+        </li>
+        @endif
         <!-- Collapsible Settings -->
         <!--  <li class="nav-item">
             <a href="javascript:void(0);" class="nav-link collapsed showing-menu" data-toggle="collapse" data-target="#showings-collapse" aria-expanded="false">Showings <span class="caret ml-auto">&#9660;</span>
@@ -149,11 +155,11 @@ $userId = auth()->user()->id;
                         }
                     });
                 } else {
-                    console.log("No notifications found for this user.");
+                    //console.log("No notifications found for this user.");
                 }
 
                 // Log and update the notification count
-                console.log('Unread count:', unreadCount); // This will log the correct unread count
+                //console.log('Unread count:', unreadCount); // This will log the correct unread count
                 notificationCountBadge.textContent = unreadCount;
             })
             .catch((error) => {

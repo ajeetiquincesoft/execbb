@@ -11,15 +11,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProbMatchController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $search_query = $request->input('query');
         $probMatchs = DB::table('prob_matchs')
-                        ->join('listings', 'prob_matchs.ListingId', '=', 'listings.ListingId')
-                        ->join('buyers', 'prob_matchs.BuyerId', '=', 'buyers.BuyerId');
+            ->join('listings', 'prob_matchs.ListingId', '=', 'listings.ListingId')
+            ->join('buyers', 'prob_matchs.BuyerId', '=', 'buyers.BuyerId');
 
         if ($search_query) {
             $probMatchs = $probMatchs->where(function ($query) use ($search_query) {
-                $query->where('listings.SellerCorpName', 'like', '%' . $search_query . '%')
+                $query->where('listings.CorpName', 'like', '%' . $search_query . '%')
+                    ->orWhere('listings.DBA', 'like', '%' . $search_query . '%')
                     ->orWhere('buyers.FName', 'like', '%' . $search_query . '%')
                     ->orWhere('prob_matchs.BusInt', 'like', '%' . $search_query . '%')
                     ->orWhere('prob_matchs.Location', 'like', '%' . $search_query . '%')
@@ -34,17 +36,20 @@ class ProbMatchController extends Controller
 
         $probMatchs = $probMatchs->select('prob_matchs.*')
             ->orderBy('prob_matchs.id', 'asc')
-            ->paginate(5);
-        $listing_name = Listing::pluck('SellerCorpName', 'ListingID');
+            ->paginate(20);
+        $listing_name = Listing::selectRaw("ListingID, COALESCE(NULLIF(TRIM(CorpName), ''), DBA) AS name")
+            ->pluck('name', 'ListingID');
         $buyer_name = Buyer::pluck('FName', 'BuyerID');
-        return view('admin.probmatch.index',compact('listing_name','buyer_name','probMatchs'));
+        return view('admin.probmatch.index', compact('listing_name', 'buyer_name', 'probMatchs'));
     }
-    public function create(){
+    public function create()
+    {
         $buyers = Buyer::orderBy('created_at', 'desc')->get();
         $listings = Listing::orderBy('created_at', 'desc')->get();
-        return view('admin.probmatch.create',compact('buyers','listings'));
+        return view('admin.probmatch.create', compact('buyers', 'listings'));
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // Validate the incoming request data
         $validated = $request->validate([
             'buyer' => 'required',
@@ -64,19 +69,19 @@ class ProbMatchController extends Controller
         $probMatch->DateRank = $request->dateRank;
         $probMatch->save();
         return redirect()->route('probmatch')->with('success', 'Prob match create successfully!');
-
     }
-    public function edit($id){
+    public function edit($id)
+    {
         $probMatch = ProbMatch::find($id);
         if (!$probMatch) {
             return redirect()->route('probmatch')->with('error', 'ProbMatch not found!');
         }
         $buyers = Buyer::orderBy('created_at', 'desc')->get();
         $listings = Listing::orderBy('created_at', 'desc')->get();
-        return view('admin.probmatch.edit',compact('buyers','listings','probMatch'));
-
+        return view('admin.probmatch.edit', compact('buyers', 'listings', 'probMatch'));
     }
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         // Validate the incoming request data
         $validated = $request->validate([
             'buyer' => 'required',
@@ -99,16 +104,15 @@ class ProbMatchController extends Controller
         $probMatch->DateRank = $request->dateRank;
         $probMatch->save();
         return redirect()->route('probmatch')->with('success', 'Prob match update successfully!');
-
     }
     public function destroy(Request $request, $id)
     {
-            $probmatch = ProbMatch::where('id', $id)->first();
-            if (!$probmatch) {
-                return redirect()->route('probmatch')->with('error', 'Prob match not found!');
-            }
+        $probmatch = ProbMatch::where('id', $id)->first();
+        if (!$probmatch) {
+            return redirect()->route('probmatch')->with('error', 'Prob match not found!');
+        }
 
-            $probmatch->delete();
-            return redirect()->route('probmatch')->with('success', 'Prob match delete successfully!');
+        $probmatch->delete();
+        return redirect()->route('probmatch')->with('success', 'Prob match delete successfully!');
     }
 }

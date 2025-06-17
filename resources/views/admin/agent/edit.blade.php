@@ -90,7 +90,7 @@
                     <div class="col-md-3">
                         <div class="form-group mb-3">
                             <label for="agentDob">Date of birth</label>
-                            <input type="text" placeholder="" id="dob" class="form-control"
+                            <input type="date" placeholder="" id="dob" class="form-control"
                                 name="dob" value="{{$agent->agent_info->DOB }}">
                             @if ($errors->has('dob'))
                             <span class="text-danger">{{ $errors->first('dob') }}</span>
@@ -143,8 +143,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                        <label for="agentComment">Comment</label>
-                        <textarea class="form-control ckeditor" id="comment" name="comment">{{$agent->agent_info->Comments }}</textarea>
+                            <label for="agentComment">Comment</label>
+                            <textarea class="form-control ckeditor" id="comment" name="comment">{{$agent->agent_info->Comments }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -212,7 +212,7 @@
                     <div class="col-md-3">
                         <div class="form-group mb-3">
                             <label for="agentHiredate">Hire date</label>
-                            <input type="text" placeholder="" id="hire_date" class="form-control"
+                            <input type="date" placeholder="" id="hire_date" class="form-control"
                                 name="hire_date" value="{{$agent->agent_info->HireDate }}">
                             @if ($errors->has('hire_date'))
                             <span class="text-danger">{{ $errors->first('hire_date') }}</span>
@@ -222,7 +222,7 @@
                     <div class="col-md-3">
                         <div class="form-group mb-3">
                             <label for="agentTerminateddate">Terminated</label>
-                            <input type="text" placeholder="" id="terminate_date" class="form-control"
+                            <input type="date" placeholder="" id="terminate_date" class="form-control"
                                 name="terminate_date" value="{{$agent->agent_info->Termination }}">
                             @if ($errors->has('terminate_date'))
                             <span class="text-danger">{{ $errors->first('terminate_date') }}</span>

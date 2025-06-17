@@ -1,16 +1,16 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="container-fluid content bg-light">
-@if (session('success'))
+    @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-@endif
-@if (session('success'))
+    @endif
+    @if (session('success'))
     <div class="alert alert-error">
         {{ session('error') }}
     </div>
-@endif
+    @endif
     <div class="row card">
         <div class="list-header">
 
@@ -22,7 +22,7 @@
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
                         <a href="{{route('create.probmatch')}}">
                             <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                            <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add ProbMatch
+                                <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add ProbMatch
                             </button></a>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 ml-auto" id="login_activity_search">
@@ -31,7 +31,7 @@
                                 <input type="text" id="search" name="query" class="form-control" placeholder="Search Here..." value="{{ request('query') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="input-group-text">
-                                        <i class="fas fa-search"></i> 
+                                        <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
@@ -75,11 +75,11 @@
                             <td>{{ $probMatch->Overall }}</td>
                             <td>{{ $probMatch->DateRank }}</td>
                             <td class="list-btn">
-                            <a href="{{route('edit.probmatch',$probMatch->id)}}">
-                                <button class="btn btn-sm" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button></a>
-                            <form action="{{route('probmatch.destroy',$probMatch->id)}}" method="post" class="probmatch_delete" id="delete-probmatch-{{ $probMatch->id  }}">
+                                <a href="{{route('edit.probmatch',$probMatch->id)}}">
+                                    <button class="btn btn-sm" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button></a>
+                                <form action="{{route('probmatch.destroy',$probMatch->id)}}" method="post" class="probmatch_delete" id="delete-probmatch-{{ $probMatch->id  }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn btn-sm" title="Delete" onclick="probmatchDelete('{{ $probMatch->id}}')">
@@ -91,7 +91,7 @@
                                 </button> -->
                             </td>
                         </tr>
-                        @endforeach 
+                        @endforeach
                     </tbody>
                 </table>
                 <div id="pagination" class="d-flex justify-content-end">

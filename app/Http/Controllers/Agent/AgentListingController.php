@@ -19,15 +19,17 @@ class AgentListingController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
+        $agent = User::with('agent_info')->where('id', $user->id)->first();
+        $refAgentID = $agent->agent_info->AgentID;
         session()->forget(['listingData', 'step']);
         $query = $request->input('query');
-        $listings = Listing::where('RefAgentID', $user->id);
+        $listings = Listing::where('AgentID', $refAgentID);
 
         if ($query) {
             $listings = $listings->where(function ($queryBuilder) use ($query) {
                 $queryBuilder->where('SellerFName', 'LIKE', '%' . $query . '%')
                     ->orWhere('SellerLName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('SellerCorpName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('CorpName', 'LIKE', '%' . $query . '%')
                     ->orWhere('SHomeAdd1', 'LIKE', '%' . $query . '%')
                     ->orWhere('SCity', 'LIKE', '%' . $query . '%')
                     ->orWhere('SHomePh', 'LIKE', '%' . $query . '%')

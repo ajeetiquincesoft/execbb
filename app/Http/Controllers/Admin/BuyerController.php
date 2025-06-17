@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Activity;
+use App\Models\SignNda;
 use Illuminate\Support\Facades\Auth;
 use App\Events\BuyerRegister;
 
@@ -55,11 +56,11 @@ class BuyerController extends Controller
         $step = session('step', 1);
         $this->validateStep($request, $step);
         if ($step == 1) {
-            $existingUser = User::where('email', $request->email)->where('role_name','buyer')->first();
-                // If the email exists in the users table, rollback and show an error
-                if ($existingUser) {
-                    return back()->with('error', 'Email is already registered!')->withInput();
-                }
+            $existingUser = User::where('email', $request->email)->where('role_name', 'buyer')->first();
+            // If the email exists in the users table, rollback and show an error
+            if ($existingUser) {
+                return back()->with('error', 'Email is already registered!')->withInput();
+            }
             $corporateBuyer = $request->has('corporateBuyer') ? 1 : 0;
             $emailOptOut = $request->has('emailOptOut') ? 1 : 0;
             if (session()->has('buyerData.buyer_id')) {
@@ -138,7 +139,7 @@ class BuyerController extends Controller
                 Activity::create([
                     'action' => 'Buyer add',
                     'user_id' => Auth::id(),
-                    'details' => 'created a new buyer with name: ' . $request->firstName .' '.$request->lastName,
+                    'details' => 'created a new buyer with name: ' . $request->firstName . ' ' . $request->lastName,
                 ]);
                 Activity::create([
                     'action' => 'Buyer registered',
@@ -288,9 +289,9 @@ class BuyerController extends Controller
                     Activity::create([
                         'action' => 'Buyer update',
                         'user_id' => Auth::id(),
-                        'details' => 'update buyer with name: ' . $request->firstName .' '.$request->lastName,
+                        'details' => 'update buyer with name: ' . $request->firstName . ' ' . $request->lastName,
                     ]);
-    
+
                     // Mark the log as created in the session to prevent duplicate logs
                     session(['logCreated' => true]);
                 }
@@ -357,12 +358,13 @@ class BuyerController extends Controller
     {
 
         $buyer = Buyer::where('BuyerID', $id)->first();
+        $hasSignedNda = SignNda::where('user_id', $buyer->user_id)->exists();
         $activities = Activity::latest()->paginate(10);
         // Get the previous buyer ID
         $previous = Buyer::where('BuyerID', '<', $id)->orderBy('BuyerID', 'desc')->first();
         // Get the next buyer ID
         $next = Buyer::where('BuyerID', '>', $id)->orderBy('BuyerID', 'asc')->first();
-        return view('admin.buyer.show', compact('buyer', 'previous', 'next','activities'));
+        return view('admin.buyer.show', compact('buyer', 'previous', 'next', 'activities', 'hasSignedNda'));
     }
     public function destroy(Request $request, $id)
     {

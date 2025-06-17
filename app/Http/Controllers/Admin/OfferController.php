@@ -28,12 +28,12 @@ class OfferController extends Controller
         $offers = $offers->with('listing')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        $company_name = DB::table('listings')->pluck('SellerCorpName', 'ListingID');
+        $company_name = DB::table('listings')->pluck('CorpName', 'ListingID');
         return view('admin.offer.index', compact('offers', 'company_name'));
     }
     public function create()
     {
-        session()->forget(['offerData', 'step','activityCreated']);
+        session()->forget(['offerData', 'step', 'activityCreated']);
         return redirect()->route('offer.form');
     }
     public function destroy(Request $request, $id)
@@ -407,14 +407,14 @@ class OfferController extends Controller
                 $offer->offer_step = $step;
                 $offer->save();
                 if (!$activityCreated) {
-                $companyName = Listing::where('ListingID', $request->companyName)->pluck('SellerCorpName')->toArray();
-                Activity::create([
-                    'action' => 'Offer update',
-                    'user_id' => Auth::id(),
-                    'details' => 'update offer for: ' . $companyName[0],
-                ]);
-                session(['activityCreated' => true]);
-            }
+                    $companyName = Listing::where('ListingID', $request->companyName)->pluck('SellerCorpName')->toArray();
+                    Activity::create([
+                        'action' => 'Offer update',
+                        'user_id' => Auth::id(),
+                        'details' => 'update offer for: ' . $companyName[0],
+                    ]);
+                    session(['activityCreated' => true]);
+                }
                 $offerData = $request->session()->get('offerData', []);
                 $mergedData = array_merge($offerData, $request->all());
                 $request->session()->put('offerData', $mergedData);
@@ -638,7 +638,7 @@ class OfferController extends Controller
         $company_name = DB::table('listings')->pluck('SellerCorpName', 'ListingID');
         $buyer_name = Buyer::selectRaw("CONCAT(FName, ' ', LName) AS full_name, BuyerID")
             ->pluck('full_name', 'BuyerID');
-        return view('admin.offer.show', compact('offer', 'previous', 'next', 'company_name', 'buyer_name','activities'));
+        return view('admin.offer.show', compact('offer', 'previous', 'next', 'company_name', 'buyer_name', 'activities'));
     }
     public function prevNext(Request $request, $id)
     {
@@ -652,7 +652,7 @@ class OfferController extends Controller
         $action = $request->action;
         $offer_id = $request->offer_id;
         $userId = Auth::id();
-    
+
         // Define a mapping for actions to update columns
         $statusColumnMapping = [
             'Pending' => ['column' => 'Status', 'value' => 'Pending', 'message' => 'set offer as pending.'],
@@ -660,13 +660,13 @@ class OfferController extends Controller
             'Closed' => ['column' => 'Status', 'value' => 'Closed', 'message' => 'closed offer.'],
             'Dead' => ['column' => 'Status', 'value' => 'Dead', 'message' => 'set offer as dead.'],
         ];
-    
+
         // Check if the action exists in our mapping
         if (isset($statusColumnMapping[$action])) {
             $column = $statusColumnMapping[$action]['column'];
             $value = $statusColumnMapping[$action]['value'];
             $message = $statusColumnMapping[$action]['message'];
-    
+
             // Update the listings in bulk based on the action
             Offer::whereIn('OfferID', $offer_id)->update([$column => $value]);
             // Log activity
@@ -675,7 +675,7 @@ class OfferController extends Controller
                 'user_id' => $userId,
                 'details' => $message . ' Offer IDs: ' . implode(", ", $offer_id),
             ]);
-    
+
             return response()->json(['message' => 'Offer status has been changed successfully!']);
         } elseif ($action === 'Delete') {
             // Handle the delete action
@@ -686,10 +686,10 @@ class OfferController extends Controller
                 'user_id' => $userId,
                 'details' => 'deleted offers. Offer IDs: ' . implode(", ", $offer_id),
             ]);
-    
+
             return response()->json(['message' => 'Offer deleted successfully!']);
         }
-    
+
         return response()->json(['message' => 'Invalid action!'], 400);
     }
 }

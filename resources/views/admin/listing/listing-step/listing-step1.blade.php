@@ -149,6 +149,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <label for="document" class="form-label">Upload Document (PDF, DOCX, etc.)</label>
+                        <input type="file" class="form-control" name="document" id="document" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                        @error('document')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                        @php
+                        $document = session()->get('formData.uploadDoc');
+                        @endphp
+
+                        @if ($document)
+                        <p class="mt-2">
+                            Current File:
+                            <a href="{{ asset('storage/' . $document) }}" target="_blank">View</a>
+                        </p>
+                        @endif
+                    </div>
 
                 </div>
                 <div class="row mb-2">
@@ -276,7 +293,7 @@
                 $element.data("valid-image", isValid);
 
                 // Manually trigger validation again
-                if(isValid){
+                if (isValid) {
                     $("#fileUpload").valid();
                 }
             };

@@ -6,8 +6,7 @@
          <div class="row newsletter">
              <div class="col-lg-4">
                  <div class="our_subscribe">
-                     <h4>Subscribe</h4>
-                     <h4>to our Newsletter</h4>
+                     <h4>Subscribe to our Newsletter</h4>
                  </div>
              </div>
              <div class="col-lg-8">

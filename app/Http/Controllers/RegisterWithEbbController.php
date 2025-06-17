@@ -11,6 +11,10 @@ use App\Models\Agent;
 use App\Models\SignNda;
 use Illuminate\Support\Facades\Hash;
 use App\Events\BuyerRegister;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\File;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class RegisterWithEbbController extends Controller
 {
@@ -71,6 +75,44 @@ class RegisterWithEbbController extends Controller
                     $getSignData->nda_form_sign = 'yes';
                     $getSignData->signature = $request->signature;
                     $getSignData->save();
+                    // Delete old PDF if exists
+                    if ($getSignData->nda_pdf_path && file_exists(public_path($getSignData->nda_pdf_path))) {
+                        unlink(public_path($getSignData->nda_pdf_path));
+                    }
+
+                    // Generate new PDF
+                    $options = new Options();
+                    $options->set('defaultFont', 'Helvetica');
+                    $dompdf = new Dompdf($options);
+
+                    $pdfContent = View::make('pdf.nda_form_pdf', [
+                        'full_name' => $request->full_name,
+                        'business_interest' => $request->nda_business_interest,
+                        'home_address' => $request->home_address,
+                        'home_phone' => $request->nda_home_phone,
+                        'cell_phone' => $request->nda_cell_phone,
+                        'email' => $request->nda_email,
+                        'signature' => $request->signature,
+                        'date' => $request->nda_form_date,
+                    ])->render();
+
+                    $dompdf->loadHtml($pdfContent);
+                    $dompdf->setPaper('A4', 'portrait');
+                    $dompdf->render();
+
+                    $filename = 'nda_' . time() . '.pdf';
+                    $folderPath = public_path('nda_pdfs');
+
+                    if (!File::exists($folderPath)) {
+                        File::makeDirectory($folderPath, 0755, true);
+                    }
+
+                    file_put_contents($folderPath . '/' . $filename, $dompdf->output());
+
+                    // Save new PDF path
+                    $getSignData->nda_pdf_path = 'nda_pdfs/' . $filename;
+                    $getSignData->save();
+
                     $buyerData = $request->session()->get('buyerData', []);
                     $mergedData = array_merge($buyerData, $request->all());
                     $request->session()->put('buyerData', $mergedData);
@@ -101,31 +143,64 @@ class RegisterWithEbbController extends Controller
                         $nda->nda_form_sign = 'yes';
                         $nda->signature = $request->signature;
                         $nda->save();
+                        // Generate PDF
+                        $options = new Options();
+                        $options->set('defaultFont', 'Helvetica');
+                        $dompdf = new Dompdf($options);
+
+                        $pdfContent = View::make('pdf.nda_form_pdf', [
+                            'full_name' => $request->full_name,
+                            'business_interest' => $request->nda_business_interest,
+                            'home_address' => $request->home_address,
+                            'home_phone' => $request->nda_home_phone,
+                            'cell_phone' => $request->nda_cell_phone,
+                            'email' => $request->nda_email,
+                            'signature' => $request->signature,
+                            'date' => $request->nda_form_date,
+                        ])->render();
+
+                        $dompdf->loadHtml($pdfContent);
+                        $dompdf->setPaper('A4', 'portrait');
+                        $dompdf->render();
+
+                        $filename = 'nda_' . time() . '.pdf';
+                        $folderPath = public_path('nda_pdfs');
+
+                        if (!File::exists($folderPath)) {
+                            File::makeDirectory($folderPath, 0755, true);
+                        }
+
+                        file_put_contents($folderPath . '/' . $filename, $dompdf->output());
+
+                        // Save path
+                        $nda->nda_pdf_path = 'nda_pdfs/' . $filename;
+                        $nda->save();
+
                         $nda_id = $nda->id;
                         $buyerData = $request->session()->get('buyerData', []);
                         $mergedData = array_merge($buyerData, $request->all());
                         $request->session()->put('buyerData', $mergedData);
                         // Store the NDA form value in session
                         $ndaFormSign = 'yes';
-                        $getFullname = explode(' ', $request->full_name);
+                        $getFullname = explode(' ', trim($request->full_name));
                         $request->session()->put('buyerData.nda_id',  $nda_id);
                         $request->session()->put('buyerData.nda_form_sign',  $ndaFormSign);
                         $request->session()->put('buyerData.home_phone',  $request->nda_home_phone);
                         $request->session()->put('buyerData.address',  $request->home_address);
                         $request->session()->put('buyerData.email',  $request->nda_email);
                         $request->session()->put('buyerData.first_name',  $getFullname[0]);
-                        $request->session()->put('buyerData.last_name',  $getFullname[1]);
+                        $request->session()->put('buyerData.last_name',  $getFullname[1] ?? '');
                     } else {
                         $buyerData = $request->session()->get('buyerData', []);
                         $ndaFormSign = 'yes';
-                        $getFullname = explode(' ', $signNdaFormUser->full_name);
+                        $getFullname = explode(' ', trim($signNdaFormUser->full_name));
                         $request->session()->put('buyerData.nda_id',  $signNdaFormUser->id);
                         $request->session()->put('buyerData.nda_form_sign',  $ndaFormSign);
                         $request->session()->put('buyerData.home_phone',  $signNdaFormUser->home_phone);
                         $request->session()->put('buyerData.address',  $signNdaFormUser->home_address);
                         $request->session()->put('buyerData.email',  $signNdaFormUser->email);
                         $request->session()->put('buyerData.first_name',  $getFullname[0]);
-                        $request->session()->put('buyerData.last_name',  $getFullname[1]);
+                        $request->session()->put('buyerData.last_name',  $getFullname[1] ?? '');
                     }
                 }
             } elseif ($step == 2) {

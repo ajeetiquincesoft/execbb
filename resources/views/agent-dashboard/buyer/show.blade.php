@@ -51,6 +51,9 @@
                 </tbody>
               </table>
             </div>
+            @if(!empty($hasSignedNda))
+            <a href="{{route('buyer.nda.form.download', $buyer->user_id)}}" class=""><i class="fa fa-download"></i> Download NDA Form</a>
+            @endif
           </div>
         </div>
       </div>

@@ -24,6 +24,9 @@ use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\HotsheetController;
 use App\Http\Controllers\Admin\SendListingController;
 use App\Http\Controllers\Admin\DownloadActivityController;
+use App\Http\Controllers\Admin\ImportCsvController;
+use App\Http\Controllers\Admin\MessageController;
+
 
 //Controller for agent
 use App\Http\Controllers\Agent\AgentAuthController;
@@ -67,6 +70,8 @@ use App\Http\Controllers\ListingLikeController;
 use App\Http\Controllers\MortgageCalculatorController;
 use App\Http\Controllers\GlossaryController;
 use App\Http\Controllers\factSheetController;
+use App\Http\Controllers\DownloadNDAFormController;
+
 
 
 
@@ -316,6 +321,8 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::put('upload/agent/avatar/{id}', [AgentController::class, 'updateImage'])->name('upload.agent.avatar');
   Route::get('view/agent/{id}', [AgentController::class, 'show'])->name('show.agent');
   Route::delete('/agents/{id}', [AgentController::class, 'destroy'])->name('agents.destroy');
+  Route::post('/agents/deactivate', [AgentController::class, 'deactivate'])->name('agent.deactivate');
+  Route::get('/agents/search', [AgentController::class, 'search'])->name('assign.agent.search');
   //End Route for agent
 
   //Route for user reset password
@@ -362,8 +369,8 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   //End route for listing
   //route for import/export
   Route::get('get/options/{id}', [ListingController::class, 'getOptions'])->name('get.options');
-  Route::get('data/import', [ListingController::class, 'getImportFile'])->name('data.import.view');
-  Route::post('data/import', [ListingController::class, 'importCsv'])->name('data.import');
+  Route::get('data/import', [ImportCsvController::class, 'getImportFile'])->name('data.import.view');
+  Route::post('data/import', [ImportCsvController::class, 'agentImportCsv'])->name('data.import');
   //end route for import/export
   //start route for leads
   Route::get('/lead/all', [LeadController::class, 'index'])->name('all.lead');
@@ -429,6 +436,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::delete('showing/destroy/{id}', [ShowingController::class, 'destroy'])->name('showing.destroy');
   //end route for showing
   //Route for send email to buyers
+  Route::get('email/buyer/ajax', [EmailBuyerController::class, 'ajax'])->name('buyers.email.ajax');
   Route::get('email/buyer', [EmailBuyerController::class, 'index'])->name('email.buyer');
   Route::post('/email/buyer/send', [EmailBuyerController::class, 'sendEmail'])->name('email.buyer.send');
   //End route for send email to buyers
@@ -442,12 +450,20 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::get('hotsheets', [HotsheetController::class, 'index'])->name('hotsheets');
   //End route for admin Hotsheets
   //Route for admin send listing to buyer
+  Route::get('/ajax/buyers', [SendListingController::class, 'ajax'])->name('buyers.ajax');
   Route::get('share-listing', [SendListingController::class, 'index'])->name('share.listing');
   Route::post('share-listing-with-buyer', [SendListingController::class, 'shareListing'])->name('share.listing.with.buyer');
   //End route for admin send listing to buyer
   //Route for download activity by admin
   Route::get('download-activities', [DownloadActivityController::class, 'index'])->name('download.activities');
   //End route for download activity by admin
+  //route for admin message
+  Route::get('send-message', [MessageController::class, 'index'])->name('send.message');
+  Route::get('chat/users/{role}', [MessageController::class, 'getUsers'])->name('admin.chat.users');
+  Route::get('/active-users/{role}', [MessageController::class, 'getActiveUsers'])->name('admin.active.users');
+
+
+  //end route for message
 
 });
 Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.'], function () {
@@ -484,6 +500,7 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   //Route for send email to buyers
   Route::get('email/buyer', [AgentEmailBuyerController::class, 'index'])->name('email.buyer');
   Route::post('/email/buyer/send', [AgentEmailBuyerController::class, 'sendEmail'])->name('email.buyer.send');
+  Route::get('email/buyer/ajax/agent', [AgentEmailBuyerController::class, 'ajax'])->name('email.ajax');
   //End route for send email to buyers
   //Route for admin reports
   Route::get('reports', [AgentReportController::class, 'index'])->name('reports');
@@ -497,6 +514,8 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('/all-message-info', [AgentMessageController::class, 'index'])->name('all.message.info');
   Route::post('/send-message', [AgentMessageController::class, 'sendMessage'])->name('send.message');
   Route::get('/get-messages', [AgentMessageController::class, 'getMessages'])->name('get.message');
+  Route::get('users/chat/{role}', [AgentMessageController::class, 'ajaxAgent'])->name('chat.users');
+  Route::get('/active-users/{role}', [AgentMessageController::class, 'getActiveUsers'])->name('active.users');
   Route::get('/download-hotsheet', [AgentHotsheetController::class, 'index'])->name('download.hotsheet');
   Route::get('/buyer-listing-visit', [AgentListingViewByBuyerController::class, 'index'])->name('buyer.listing.visit');
   Route::get('/buyer-referrals-list', [AgentreferralsController::class, 'index'])->name('buyer.referrals.list');
@@ -512,6 +531,8 @@ Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.
   Route::get('/all-message', [BuyerMessageController::class, 'index'])->name('all.message');
   Route::post('/send-message', [BuyerMessageController::class, 'sendMessage'])->name('send.message');
   Route::get('/get-messages', [BuyerMessageController::class, 'getMessages'])->name('get.message');
+  Route::get('users/chat/{role}', [BuyerMessageController::class, 'ajaxBuyer'])->name('chat.users');
+  Route::get('/active-users/{role}', [BuyerMessageController::class, 'getActiveUsers'])->name('active.users');
   Route::post('/favourites/add/{listingId}', [FavoriteController::class, 'addFavorite'])->name('favorites.add');
   Route::post('/favourites/remove/{listingId}', [FavoriteController::class, 'removeFavorite'])->name('favorites.remove');
   Route::get('/favourites', [FavoriteController::class, 'showFavorites'])->name('favorite.listings');
@@ -533,7 +554,8 @@ Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.
   Route::get('view-offer/{id}', [BuyerOfferController::class, 'show'])->name('show.offer');
   Route::get('share-factsheet-notification', [ShareFactSheetNotificationController::class, 'index'])->name('share.factsheet.notification');
 });
-
+Route::get('download-buyer-nda-form', [DownloadNDAFormController::class, 'downloadBuyerNda'])->name('download.buyer.nda.form');
+Route::get('buyer-nda-form-download/{id}', [DownloadNDAFormController::class, 'downloadBuyerNdaForm'])->name('buyer.nda.form.download');
 Route::get('login', [AdminAuthController::class, 'index'])->name('login');
 Route::get('registration', [AdminAuthController::class, 'registration'])->name('register-user');
 Route::post('custom-login', [AdminAuthController::class, 'customLogin'])->name('login.custom');

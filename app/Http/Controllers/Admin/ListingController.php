@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,78 +49,6 @@ class ListingController extends Controller
 
         return response()->json($options);
     }
-    public function getImportFile()
-    {
-        return view('admin.import-file');
-    }
-    public function importCsv(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|mimes:csv,txt|max:2048',
-        ]);
-
-        $file = $request->file('file');
-        $handle = fopen($file, 'r');
-        $header = fgetcsv($handle); // Read header row
-        $counter = 0;
-        while (($row = fgetcsv($handle)) !== false  && $counter < 20) {
-            // Skip empty rows
-            /*   if (isset($row[2]) && $row[2] == '0') {
-                continue; // Skip this row
-            }
-            if (isset($row[2]) && $row[2] == '30') {
-                continue; // Skip this row
-            } */
-
-            // Check if Code is empty; if so, set it to null
-            /*   if (isset($row[4]) && $row[4] !== '') {
-                $row[4] = $row[4];
-            } else {
-                $row[4] = null; // Set to null if the value is empty
-            }
-            if (isset($row[3]) && $row[3] !== '') {
-                $row[3] = $row[3];
-            } else {
-                $row[3] = null; // Set to null if the value is empty
-            } */
-            // Generate a dummy email address
-            $dummyEmail = $this->generateDummyEmail();
-
-            // Generate a dummy phone number
-            $dummyPhone = $this->generateDummyPhone();
-            // Insert data into the database
-            DB::insert('INSERT INTO buyers (BDate, AgentID, LName, FName, Address1, HomePhone, Email, Interest, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-                $row[1],
-                $row[2],
-                $row[3],
-                $row[4],
-                $row[8],
-                $dummyPhone,
-                $dummyEmail,
-                2,
-                now(),
-                now(),
-            ]);
-            $counter++;
-        }
-
-        fclose($handle);
-
-        return back()->with('success', 'CSV data imported successfully!');
-    }
-    // Helper function to generate a dummy email
-    private function generateDummyEmail()
-    {
-        // Use a random string to generate a unique email
-        return Str::random(10) . '@example.com';  // Example: randomstring@example.com
-    }
-
-    // Helper function to generate a dummy phone number
-    private function generateDummyPhone()
-    {
-        // Generate a random phone number in a specific format
-        return '+1-' . rand(100, 999) . '-' . rand(100, 999) . '-' . rand(1000, 9999);  // Example: +1-123-456-7890
-    }
     public function form(Request $request)
     {
         $request->session()->forget('formData');
@@ -157,7 +86,7 @@ class ListingController extends Controller
         if ($query) {
             $listings = Listing::where('SellerFName', 'LIKE', '%' . $query . '%')
                 ->orWhere('SellerLName', 'LIKE', '%' . $query . '%')
-                ->orWhere('SellerCorpName', 'LIKE', '%' . $query . '%')
+                ->orWhere('CorpName', 'LIKE', '%' . $query . '%')
                 ->orWhere('SHomeAdd1', 'LIKE', '%' . $query . '%')
                 ->orWhere('SCity', 'LIKE', '%' . $query . '%')
                 ->orWhere('SHomePh', 'LIKE', '%' . $query . '%')
@@ -166,7 +95,7 @@ class ListingController extends Controller
                 ->orWhere('Phone', 'LIKE', '%' . $query . '%')
                 ->orWhere('Email', 'LIKE', '%' . $query . '%');
         }
-        $listings = $listings->orderBy('created_at', 'desc')
+        $listings = $listings->orderBy('ListingID', 'desc')
             ->paginate(10);
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
         return view('admin.listing.index', compact('listings'));
@@ -188,7 +117,7 @@ class ListingController extends Controller
             Activity::create([
                 'action' => 'Listing delete',
                 'user_id' => Auth::id(),
-                'details' => 'deleted a listing. Listing details: ID: ' . $listing->ListingID . ', Business Name: ' . $listing->SellerCorpName,
+                'details' => 'deleted a listing. Listing details: ID: ' . $listing->ListingID . ', Business Name: ' . $listing->CorpName,
             ]);
             $data = [
                 'title' => 'Listing delete',
@@ -198,6 +127,9 @@ class ListingController extends Controller
                 'is_read' => false,
             ];
             $this->reference->push($data);
+            if ($listing->document_path && Storage::disk('public')->exists($listing->document_path)) {
+                Storage::disk('public')->delete($listing->document_path);
+            }
             $listing->delete();
 
             return redirect()->route('all.listing')
@@ -286,6 +218,7 @@ class ListingController extends Controller
             'last_name' => 'required',
             'user_email' => 'required|email',
             'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'document' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:5120',
         ]);
         $completeStep = session('complete_step', []);
         $filename = '';
@@ -313,11 +246,23 @@ class ListingController extends Controller
                 $imageVal = Listing::where('ListingID', $listing_id)->first();
                 $imagepath = $imageVal->imagepath;
             }
+            if ($request->hasFile('document')) {
+                // Delete old document if exists
+                if ($model->document_path && Storage::disk('public')->exists($model->document_path)) {
+                    Storage::disk('public')->delete($model->document_path);
+                }
+
+                // Store new file
+                $docPath = $request->file('document')->store('listing_documents', 'public');
+            } else {
+                $docVal = Listing::where('ListingID', $listing_id)->first();
+                $docPath = $docVal->document_path;
+            }
             $listing = Listing::where('ListingID', $listing_id)->update([
                 'BusCategory' => $request->bus_category,
                 'BusType' => $category_name,
                 'Franchise' => $franchisecheckboxValue,
-                'SellerCorpName' => $request->cropName,
+                'CorpName' => $request->cropName,
                 'DBA' => $request->dba,
                 'Product' => $request->productMix,
                 'Address1' => $request->address,
@@ -340,12 +285,14 @@ class ListingController extends Controller
                 'Pager' =>  $request->user_pager,
                 'Review' => $reviewcheckboxValue,
                 'imagepath' => $imagepath,
-                'SubCat' => $request->bus_type
+                'SubCat' => $request->bus_type,
+                'document_path' => $docPath
             ]);
             $formData = $request->session()->get('formData', []);
             $mergedData = array_merge($formData, $request->all());
             $request->session()->put('formData', $mergedData);
             $request->session()->put('formData.listing_img', $imagepath);
+            $request->session()->put('formData.uploadDoc', $docPath);
             $request->session()->put('formData.listing_id',  $listing_id);
             $request->session()->put('formData.reviewCheckbox',  $reviewcheckboxValue);
             $request->session()->put('formData.franchCheckbox',  $franchisecheckboxValue);
@@ -358,7 +305,7 @@ class ListingController extends Controller
             $listing->BusCategory = $request->bus_category;
             $listing->BusType = $category_name;
             $listing->Franchise = $franchisecheckboxValue;
-            $listing->SellerCorpName = $request->cropName;
+            $listing->CorpName = $request->cropName;
             $listing->DBA = $request->dba;
             $listing->Product = $request->productMix;
             $listing->Address1 = $request->address;
@@ -392,12 +339,18 @@ class ListingController extends Controller
 
                 $listing->imagepath = $filename;
             }
+            if ($request->hasFile('document')) {
+                $docname = $request->file('document')->store('listing_documents', 'public');
+                $listing->document_path = $docname;
+            }
             $listing->save();
             $formData = $request->session()->get('formData', []);
-            $mergedData = array_merge($formData, $request->all());
+            /* $mergedData = array_merge($formData, $request->all()); */
+            $mergedData = array_merge($formData, $request->except(['document', 'listing_img']));
             $request->session()->put('formData', $mergedData);
             $insertedId = $listing->ListingID;
             $request->session()->put('formData.listing_img', $filename);
+            $request->session()->put('formData.uploadDoc', $docname);
             $request->session()->put('formData.listing_id',  $insertedId);
             $request->session()->put('formData.reviewCheckbox',  $reviewcheckboxValue);
             $request->session()->put('formData.franchCheckbox',  $franchisecheckboxValue);
@@ -409,7 +362,7 @@ class ListingController extends Controller
             Activity::create([
                 'action' => 'Listing add',
                 'user_id' => Auth::id(),
-                'details' => 'create listing for all users, listing is ' . $listing->SellerCorpName,
+                'details' => 'create listing for all users, listing is ' . $listing->CorpName,
             ]);
             return redirect()->route('create.listing.step2')->with('success', 'Listing created successfully!');
         }
@@ -665,10 +618,9 @@ class ListingController extends Controller
         }
         //dd($listingData);
 
-
         $step = 2;
         $editCompletedSteps = session()->get('edit_complete_step', []);
-        // dd($editCompletedSteps);
+        //dd($editCompletedSteps);
         // Check if the previous step is completed
         if (!in_array($step - 1, $editCompletedSteps) && $step > 1) {
             return redirect()->route('edit.listing.step' . $step - 1, ['id' => $id]);
@@ -677,6 +629,7 @@ class ListingController extends Controller
         $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
         // Get the next listing ID
         $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
+
         return view('admin.listing.edit-listing-step.edit-listing-step2', compact('listingData', 'previous', 'next'));
     }
     public function editStep3($id)
@@ -765,9 +718,11 @@ class ListingController extends Controller
             'last_name' => 'required',
             'user_email' => 'required|email',
             'listing_img' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'document' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:5120',
         ]);
         $model = Listing::findOrFail($id);
         $filename = '';
+        $docPath = '';
         $categoryData = DB::table('categories')->where('CategoryID', $request->bus_category)->first();
         $category_name = $categoryData->BusinessCategory;
         $reviewcheckboxValue = $request->has('review') ? 1 : 0;
@@ -789,11 +744,29 @@ class ListingController extends Controller
             $imageVal = Listing::where('ListingID', $id)->first();
             $imagepath = $imageVal->imagepath;
         }
+        if ($request->hasFile('document')) {
+            // Delete old document if exists
+            if ($model->document_path && Storage::disk('public')->exists($model->document_path)) {
+                Storage::disk('public')->delete($model->document_path);
+            }
+            // Store new file
+            $docPath = $request->file('document')->store('listing_documents', 'public');
+        } else {
+            $docVal = Listing::where('ListingID', $id)->first();
+            $docPath = $docVal->document_path;
+        }
+        $currentStep = 1;
+        $listingStep =  Listing::where('ListingID', $id)->first();
+        if ($listingStep->Steps  >  $currentStep) {
+            $updateStep = $listingStep->Steps;
+        } else {
+            $updateStep = $currentStep;
+        }
         $listing = Listing::where('ListingID', $id)->update([
             'BusCategory' => $request->bus_category,
             'BusType' => $category_name,
             'Franchise' => $franchisecheckboxValue,
-            'SellerCorpName' => $request->cropName,
+            'CorpName' => $request->cropName,
             'DBA' => $request->dba,
             'Product' => $request->productMix,
             'Address1' => $request->address,
@@ -816,14 +789,22 @@ class ListingController extends Controller
             'Pager' =>  $request->user_pager,
             'Review' => $reviewcheckboxValue,
             'imagepath' => $imagepath,
-            'SubCat' => $request->bus_type
+            'SubCat' => $request->bus_type,
+            'document_path' => $docPath,
+            'Steps' => 1,
         ]);
         Activity::create([
             'action' => 'Listing update',
             'user_id' => Auth::id(),
             'details' => 'update listing, listing is ' .  $request->cropName,
         ]);
-        return redirect()->route('edit.listing.step2', ['id' => $id])->with('success', 'Listing updated successfully!');
+        if ($listing) {
+            for ($i = 1; $i <= $updateStep; $i++) {
+                $editCompleteStep[] = $i;
+            }
+            $request->session()->put('edit_complete_step', $editCompleteStep);
+            return redirect()->route('edit.listing.step2', ['id' => $id])->with('success', 'Listing updated successfully!');
+        }
     }
     public function updateStep2(Request $request, $id)
     {
@@ -885,14 +866,7 @@ class ListingController extends Controller
     {
         // dd($request->agents);
         $request->validate([
-            'managementAgentName' => 'required',
-            'managementAgentPhone' => 'required',
-            'referringAgentName' => 'required',
-            'referringAgentPhone' => 'required',
             'listingDate' => 'required',
-            'coBroker' => 'required',
-            'reasonForSale' => 'required',
-            'agents' => 'required',
         ]);
         $untilSolid = $request->has('untilSolid') ? 1 : 0;
         $realEstate = $request->has('realEstate') ? 1 : 0;
@@ -1054,14 +1028,14 @@ class ListingController extends Controller
             Activity::create([
                 'action' => 'Listing image update',
                 'user_id' => $userId,
-                'details' => 'update listing image Listing name: ' . $listingData->SellerCorpName,
+                'details' => 'update listing image Listing name: ' . $listingData->CorpName,
             ]);
             return redirect()->back()->with('success_message', 'Listing image update successfully');
         } else {
             return redirect()->back()->with('success_message', 'There are some error! can not be update.');
         }
     }
-   /*  public function bulkAction(Request $request)
+    /*  public function bulkAction(Request $request)
     {
         $action = $request->action;
         $listing_id = $request->listing_id;
@@ -1236,7 +1210,7 @@ class ListingController extends Controller
         $listing_id = $request->listing_id;
         $currentDate = Carbon::now();
         $userId = Auth::id();
-    
+
         // Define a mapping for actions to update columns
         $statusColumnMapping = [
             'active' => ['column' => 'Active', 'value' => 1, 'message' => 'set listings as active.'],
@@ -1244,22 +1218,22 @@ class ListingController extends Controller
             'close' => ['column' => 'Status', 'value' => 'close', 'message' => 'closed listing.'],
             'valid' => ['column' => 'Status', 'value' => 'valid', 'message' => 'set listings as valid.'],
         ];
-    
+
         // Check if the action exists in our mapping
         if (isset($statusColumnMapping[$action])) {
             $column = $statusColumnMapping[$action]['column'];
             $value = $statusColumnMapping[$action]['value'];
             $message = $statusColumnMapping[$action]['message'];
-    
+
             // Update the listings in bulk based on the action
             Listing::whereIn('ListingID', $listing_id)->update([$column => $value]);
-    
+
             // Get the listings for sending notifications
             $listings = Listing::whereIn('ListingID', $listing_id)
                 ->whereNotNull('RefAgentID')
                 ->where('RefAgentID', '!=', '')
                 ->get(['ListingID', 'RefAgentID']);
-    
+
             // Send notifications to the RefAgentID of the listings
             foreach ($listings as $listing) {
                 $data = [
@@ -1271,25 +1245,25 @@ class ListingController extends Controller
                 ];
                 $this->reference->push($data);
             }
-    
+
             // Log activity
             Activity::create([
                 'action' => 'Listing status update',
                 'user_id' => $userId,
                 'details' => $message . ' Listing IDs: ' . implode(", ", $listing_id),
             ]);
-    
+
             return response()->json(['message' => 'Listing status has been changed successfully!']);
         } elseif ($action === 'delete') {
             // Handle the delete action
             Listing::whereIn('ListingID', $listing_id)->delete();
-    
+
             // Get the listings for sending notifications
             $listings = Listing::whereIn('ListingID', $listing_id)
                 ->whereNotNull('RefAgentID')
                 ->where('RefAgentID', '!=', '')
                 ->get(['ListingID', 'RefAgentID']);
-    
+
             // Send notifications to the RefAgentID of the listings
             foreach ($listings as $listing) {
                 $data = [
@@ -1301,18 +1275,17 @@ class ListingController extends Controller
                 ];
                 $this->reference->push($data);
             }
-    
+
             // Log activity
             Activity::create([
                 'action' => 'Listing delete',
                 'user_id' => $userId,
                 'details' => 'deleted listings. Listing IDs: ' . implode(", ", $listing_id),
             ]);
-    
+
             return response()->json(['message' => 'Listing deleted successfully!']);
         }
-    
+
         return response()->json(['message' => 'Invalid action!'], 400);
     }
-    
 }

@@ -8,7 +8,7 @@
   </div>
   <div class="scrollable-div">
     <ul class="nav custom-fontsize2 flex-column" style="margin-bottom: 30px;">
-    <div class="accordion-item">
+      <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
           <button class="accordion-button accordion-button-main" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMainMenu" aria-expanded="true" aria-controls="collapseMainMenu">
             Main Menu
@@ -56,6 +56,10 @@
               <li class="nav-item {{ request()->routeIs('all.showing') || request()->routeIs('create.showing') || request()->routeIs('edit.showing') || request()->routeIs('show.showing') ? 'activenavitem' : '' }}">
                 <img src="{{ url('assets/images/Showings.png') }}">
                 <a class="nav-link" data-name="Showings" data-url="#" href="{{route('all.showing')}}">Showings</a>
+              </li>
+              <li class="nav-item {{ request()->routeIs('send.message') ? 'activenavitem' : '' }}">
+                <img src="{{ url('assets/images/Buyers.png') }}">
+                <a class="nav-link" data-name="Messages" data-url="#" href="{{route('send.message')}}">Messages</a>
               </li>
             </ul>
           </div>

@@ -78,7 +78,7 @@
             <span class="badge bg-danger" id="notification-count">0</span> <!-- Badge for unread notifications -->
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationMenuButton" id="notification-container">
-           
+
           </ul>
         </div>
         <div class="dropdown">
@@ -105,7 +105,7 @@
               </a>
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="{{route('contact.us')}}">
                 <i class="fas fa-question-circle me-2 icon-font"></i>
                 Help
               </a>
@@ -163,7 +163,7 @@ $userId = auth()->user()->id;
   const database = firebase.database(app);
 
   // Pass the user ID from Laravel to JS
-  const userId = '{{ $userId }}';  // This makes the userId available in JS
+  const userId = '{{ $userId }}'; // This makes the userId available in JS
 
   // The notification count badge
   const notificationCountBadge = document.getElementById('notification-count');
@@ -191,12 +191,12 @@ $userId = auth()->user()->id;
         ${notification.body}
       </a>
     `;
-    
+
     // Append to the dropdown menu
-    notificationContainer.prepend(notificationElement);  // Prepend so new notifications appear at the top
+    notificationContainer.prepend(notificationElement); // Prepend so new notifications appear at the top
 
     // Update the notification count
-    notificationCountBadge.textContent = notificationCount + 1;  // Increase the unread count by 1
+    notificationCountBadge.textContent = notificationCount + 1; // Increase the unread count by 1
 
     // Optionally, mark the notification as read (e.g., update 'is_read' in Firebase)
     //markNotificationAsRead(notification);

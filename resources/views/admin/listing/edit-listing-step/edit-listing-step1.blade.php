@@ -42,7 +42,7 @@
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
                         <label for="cropName" class="form-label">Crop Name <span class="text-danger">*</span></label>
-                        <input type="text" id="cropName" class="form-control" name="cropName" value="{{$listingData->SellerCorpName}}">
+                        <input type="text" id="cropName" class="form-control" name="cropName" value="{{$listingData->CorpName}}">
                         @error('cropName')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -81,7 +81,7 @@
                         <select id="State" class="form-select" name="state">
                             <option value="" selected="">Select state</option>
                             @foreach($states as $key=>$value)
-                            <option value="{{$value->State}}" {{$listingData->State == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            <option value="{{$value->State}}" {{ strtolower($listingData->State) == strtolower($value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
                             @endforeach
                         </select>
                         @error('state')
@@ -141,6 +141,20 @@
                         </div>
                     </div>
                     @endif
+                    <div class="col-md-6">
+                        <label for="document" class="form-label">Upload Document (PDF, DOCX, etc.)</label>
+                        <input type="file" class="form-control" name="document" id="document" accept=".pdf,.doc,.docx,.xls,.xlsx">
+                        @error('document')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+
+                        @if(isset($listingData->document_path))
+                        <p class="mt-2">
+                            Current File:
+                            <a href="{{ asset('storage/' . $listingData->document_path) }}" target="_blank">View</a>
+                        </p>
+                        @endif
+                    </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 mb-3">
@@ -175,7 +189,7 @@
                         <select id="State2" class="form-select" name="user_state">
                             <option value="" selected="">Select state</option>
                             @foreach($states as $key=>$value)
-                            <option value="{{$value->State}}" {{ $listingData->SState == $value->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            <option value="{{$value->State}}" {{ strtolower($listingData->SState) == strtolower($value->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
                             @endforeach
                         </select>
                         @error('user_state')
@@ -312,8 +326,8 @@
                 },
                 zip_code: {
                     required: true,
-                    minlength: 5, // Minimum length for US ZIP code
-                    maxlength: 10 // Maximum length for 9-digit ZIP code
+                    minlength: 4,
+                    maxlength: 10
                 },
                 phone: {
                     required: true,

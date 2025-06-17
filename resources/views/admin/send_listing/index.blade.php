@@ -20,10 +20,10 @@
                 <div class="row mb-2">
                     <div class="col-12 col-md-6 mb-3 rep_email">
                         <label for="Recipient Email">Buyer Email <span class="text-danger">*</span></label>
-                        <select id="recipientEmail" name="recipientEmail[]" class="form-select" multiple>
-                            @foreach($buyers as $key=>$buyer)
+                        <select id="recipientEmailShareListing" name="recipientEmail[]" class="form-select" multiple>
+                            <!-- @foreach($buyers as $key=>$buyer)
                             <option value="{{$buyer->Email}}">{{$buyer->Email}}</option>
-                            @endforeach
+                            @endforeach -->
                         </select>
                         @error('recipientEmail')
                         <div class="text-danger">{{ $message }}</div>
@@ -33,7 +33,9 @@
                         <label for="Subject">Listing <span class="text-danger">*</span></label>
                         <select id="listingName" name="listingName[]" class="form-select" multiple>
                             @foreach($listings as $key=>$listing)
-                            <option value="{{$listing->ListingID}}">{{$listing->SellerCorpName}}</option>
+                            @if(!empty($listing->CorpName))
+                            <option value="{{$listing->ListingID}}">{{$listing->CorpName}}</option>
+                            @endif
                             @endforeach
                         </select>
                         @error('listingName')
@@ -64,9 +66,11 @@
         min-height: 300px !important;
         /* Set the min-height to whatever you need */
     }
+
     .rep_email .select2-container {
-    width: 100% !important; /* Ensures the Select2 container takes up full width */
-}
+        width: 100% !important;
+        /* Ensures the Select2 container takes up full width */
+    }
 </style>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
@@ -116,8 +120,7 @@
                 // Place the error messages directly under the respective fields
                 if (element.attr("name") == "recipientEmail[]") {
                     error.appendTo(element.closest(".rep_email")); // Put the error after the field
-                }
-                else if (element.attr("name") == "listingName[]") {
+                } else if (element.attr("name") == "listingName[]") {
                     error.appendTo(element.closest(".lis_name")); // Put the error after the field
                 } else {
                     error.insertAfter(element); // Default placement for other fields
@@ -127,14 +130,41 @@
                 form.submit();
             }
         });
-        $('#recipientEmail').on('change', function() {
+        $('#recipientEmailShareListing').on('change', function() {
             // Validate the form when the selection changes
-            $('#recipientEmail').valid();
+            $('#recipientEmailShareListing').valid();
         });
         $('#listingName').on('change', function() {
             // Validate the form when the selection changes
             $('#listingName').valid();
         });
+        //script for ajax search and loading buyers
+        $('#recipientEmailShareListing').select2({
+            placeholder: 'Search Buyer Email',
+            minimumInputLength: 1,
+            ajax: {
+                url: '{{ route("buyers.ajax") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // Search term
+                        page: params.page || 1
+                    };
+                },
+                processResults: function(data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: data.pagination.more
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+        //end script for ajax search and loading buyers
     });
 </script>
 @endsection

@@ -42,49 +42,49 @@ class SendListingController extends Controller
         return view('admin.send_listing.index', compact('buyers', 'listings'));
     }
     public function shareListing(Request $request)
-{
-    // Validate the incoming data
-    $request->validate([
-        'recipientEmail' => 'required|array',  // Ensures at least one email is selected
-        'recipientEmail.*' => 'email',
-        'listingName' => 'required|array',  // Listing IDs should be an array
-    ]);
+    {
+        // Validate the incoming data
+        $request->validate([
+            'recipientEmail' => 'required|array',  // Ensures at least one email is selected
+            'recipientEmail.*' => 'email',
+            'listingName' => 'required|array',  // Listing IDs should be an array
+        ]);
 
-    // Ensure content from CKEditor is clean and not altered
-    $content = html_entity_decode($request->email_content);  // Decode HTML entities
+        // Ensure content from CKEditor is clean and not altered
+        $content = html_entity_decode($request->email_content);  // Decode HTML entities
 
-    // Prepare the base URL for the listing
-    $baseUrl = url('view/business/listing/'); 
-    $baseUrlFactsheet = url('factsheet/'); // Assuming your listings are accessible via a URL like /listing/{id}
+        // Prepare the base URL for the listing
+        $baseUrl = url('view/business/listing/');
+        $baseUrlFactsheet = url('factsheet/'); // Assuming your listings are accessible via a URL like /listing/{id}
 
-    // Prepare the links for the selected listings
-    $listingLinks = [];
-    $factsheetLinks = [];
-    foreach ($request->listingName as $listingId) {
-        // Create a link for each listing
-        $listingLinks[] = '<a href="' . $baseUrl . '/' . $listingId . '">View Listing ' . $listingId . '</a>';
-        $factsheetLinks[] = '<a href="' . $baseUrlFactsheet . '/' . base64_encode($listingId) . '">View Listing factsheet ' . base64_encode($listingId) . '</a>';
-    }
+        // Prepare the links for the selected listings
+        $listingLinks = [];
+        $factsheetLinks = [];
+        foreach ($request->listingName as $listingId) {
+            // Create a link for each listing
+            $listingLinks[] = '<a href="' . $baseUrl . '/' . $listingId . '">View Listing ' . $listingId . '</a>';
+            $factsheetLinks[] = '<a href="' . $baseUrlFactsheet . '/' . base64_encode($listingId) . '">View Listing factsheet ' . base64_encode($listingId) . '</a>';
+        }
 
-    // Combine the links into a string
-    $listingLinksString = implode('<br>', $listingLinks);  // Join links with a line break
-    $factSheetLinksString = implode('<br>', $factsheetLinks);
-    // Subject of the email
-    $subject = 'Exclusive Listings Just for You – View Selected Properties';
+        // Combine the links into a string
+        $listingLinksString = implode('<br>', $listingLinks);  // Join links with a line break
+        $factSheetLinksString = implode('<br>', $factsheetLinks);
+        // Subject of the email
+        $subject = 'Exclusive Listings Just for You – View Selected Properties';
 
-    // Loop through each recipient email and send email
-    foreach ($request->recipientEmail as $email) {
-        $buyerID = User::where('email',$email)->where('role_name','buyer')->first();
-        $data = [
-            'title' => 'Share Exclusive Listings',
-            'body' => 'Admin share Exclusive Listings Just for You. listing is '.$listingLinksString.' and factsheet of listing is '.$factSheetLinksString.'',
-            'timestamp' => Carbon::now()->toIso8601String(),
-            'sender_id' => Auth::id(),
-            'receiver_id' => $buyerID->id,
-            'is_read' => false,
-        ];
-        $this->reference->push($data);
-        $htmlContent = '<html>
+        // Loop through each recipient email and send email
+        foreach ($request->recipientEmail as $email) {
+            $buyerID = User::where('email', $email)->where('role_name', 'buyer')->first();
+            $data = [
+                'title' => 'Share Exclusive Listings',
+                'body' => 'Admin share Exclusive Listings Just for You. listing is ' . $listingLinksString . ' and factsheet of listing is ' . $factSheetLinksString . '',
+                'timestamp' => Carbon::now()->toIso8601String(),
+                'sender_id' => Auth::id(),
+                'receiver_id' => $buyerID->id,
+                'is_read' => false,
+            ];
+            $this->reference->push($data);
+            $htmlContent = '<html>
         <body style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
             <table style="width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
                 <tr>
@@ -123,16 +123,46 @@ class SendListingController extends Controller
         </body>
     </html>';
 
-        // Send email with HTML content
-        Mail::send([], [], function ($message) use ($email, $subject, $htmlContent) {
-            $message->to($email)
-                ->subject($subject)
-                ->setBody($htmlContent, 'text/html'); // Set the body as HTML
-        });
+            // Send email with HTML content
+            Mail::send([], [], function ($message) use ($email, $subject, $htmlContent) {
+                $message->to($email)
+                    ->subject($subject)
+                    ->setBody($htmlContent, 'text/html'); // Set the body as HTML
+            });
+        }
+
+        // Return a response (optional)
+        return redirect()->back()->with('success', 'Email sent successfully!');
     }
+    public function ajax(Request $request)
+    {
+        $search = $request->input('q');
+        $page = $request->input('page', 1);
+        $perPage = 10;
 
-    // Return a response (optional)
-    return redirect()->back()->with('success', 'Email sent successfully!');
-}
+        $query = Buyer::query();
 
+        if ($search) {
+            $query->where('Email', 'like', '%' . $search . '%');
+        }
+
+        $buyers = $query->orderBy('Email')
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage + 1) // Fetch one extra to check for more
+            ->get();
+
+        $hasMore = $buyers->count() > $perPage;
+
+        $results = $buyers->take($perPage)->map(function ($buyer) {
+            return [
+                'id' => $buyer->Email,
+                'text' => $buyer->Email
+            ];
+        });
+
+        return response()->json([
+            'items' => $results,
+            'pagination' => ['more' => $hasMore]
+        ]);
+    }
 }

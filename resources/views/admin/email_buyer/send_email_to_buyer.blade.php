@@ -20,10 +20,10 @@
                 <div class="row mb-2">
                     <div class="col-12 col-md-6 mb-3 rep_email">
                         <label for="Recipient Email">Recipient Email <span class="text-danger">*</span></label>
-                        <select id="recipientEmail" name="recipientEmail[]" class="form-select" multiple>
-                            @foreach($buyers as $key=>$buyer)
-                            <option value="{{$buyer->Email}}">{{$buyer->Email}}</option>
-                            @endforeach
+                        <select id="recipientEmailBuyer" name="recipientEmail[]" class="form-select" multiple>
+                            <!-- @foreach($buyers as $key=>$buyer)
+                            <option value="{{$buyer->Email}}">{{$buyer->FName}} | {{$buyer->HomePhone}} | {{$buyer->Email}}</option>
+                            @endforeach -->
                         </select>
                         @error('recipientEmail')
                         <div class="text-danger">{{ $message }}</div>
@@ -63,9 +63,11 @@
         min-height: 300px !important;
         /* Set the min-height to whatever you need */
     }
+
     .rep_email .select2-container {
-    width: 100% !important; /* Ensures the Select2 container takes up full width */
-}
+        width: 100% !important;
+        /* Ensures the Select2 container takes up full width */
+    }
 </style>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
@@ -132,10 +134,37 @@
                 form.submit();
             }
         });
-        $('#recipientEmail').on('change', function() {
+        $('#recipientEmailBuyer').on('change', function() {
             // Validate the form when the selection changes
-            $('#emailBuyer').valid();
+            $('#recipientEmailBuyer').valid();
         });
+        //script for email to buyers
+        $('#recipientEmailBuyer').select2({
+            placeholder: 'Search by Name, Phone, or Email',
+            minimumInputLength: 1,
+            ajax: {
+                url: '{{ route("buyers.email.ajax") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        page: params.page || 1
+                    };
+                },
+                processResults: function(data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: data.pagination.more
+                        }
+                    };
+                },
+                cache: true
+            }
+        });
+        //end script for emails to buyers
     });
 </script>
 @endsection

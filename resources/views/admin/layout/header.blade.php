@@ -188,7 +188,7 @@
               </a>
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="{{route('contact.us')}}">
                 <i class="fas fa-question-circle me-2 icon-font"></i>
                 Help
               </a>

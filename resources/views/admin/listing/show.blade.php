@@ -154,6 +154,12 @@
                 </tbody>
               </table>
             </div>
+            @if(!empty($listing->document_path))
+            <p class="mt-2">
+              Listing Document File:
+              <a href="{{ asset('storage/' . $listing->document_path) }}" target="_blank">View Document</a>
+            </p>
+            @endif
           </div>
         </div>
       </div>
@@ -177,7 +183,7 @@
                 {{ $activity->created_at->diffForHumans() }}
                 @endif</small></div>
             <div class="activity-content ">
-            {{ ucfirst($user->name) }} {{ $activity->details }}
+              {{ ucfirst($user->name) }} {{ $activity->details }}
             </div>
           </div>
           @endforeach
@@ -191,84 +197,84 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Add custom method for validating image extensions
-        $.validator.addMethod("imageExtension", function(value, element) {
-            // Check if the file input value matches the allowed extensions (jpg, jpeg, png, svg)
-            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.svg)$/i;
-            return this.optional(element) || allowedExtensions.test(value);
-        }, "Only .jpg, .jpeg, .png, and .svg files are allowed.");
-        // Custom image dimension validation
-        // Flag to check if validation should pass
-        let isValidImage = true;
+  $(document).ready(function() {
+    // Add custom method for validating image extensions
+    $.validator.addMethod("imageExtension", function(value, element) {
+      // Check if the file input value matches the allowed extensions (jpg, jpeg, png, svg)
+      var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.svg)$/i;
+      return this.optional(element) || allowedExtensions.test(value);
+    }, "Only .jpg, .jpeg, .png, and .svg files are allowed.");
+    // Custom image dimension validation
+    // Flag to check if validation should pass
+    let isValidImage = true;
 
-        // Custom validation method for image dimensions
-        $.validator.addMethod("imageDimensions", function(value, element) {
-            var imageFile = element.files[0];
+    // Custom validation method for image dimensions
+    $.validator.addMethod("imageDimensions", function(value, element) {
+      var imageFile = element.files[0];
 
-            if (!imageFile) {
-                return true; // No file selected, skip validation
-            }
+      if (!imageFile) {
+        return true; // No file selected, skip validation
+      }
 
-            var img = new Image();
-            var $element = $(element);
-            $('.avatar_img_upload').hide();
-            img.onload = function() {
-                var width = img.width;
-                var height = img.height;
-                var isValid = width >= 800 && height >= 500;
-                // Store validation result in a data attribute
-                $element.data("valid-image", isValid);
-                
-                // Manually trigger validation again
-                if(isValid){
-                    $("#avatar").valid();
-                    $('.avatar_img_upload').show();
-                }
-            };
+      var img = new Image();
+      var $element = $(element);
+      $('.avatar_img_upload').hide();
+      img.onload = function() {
+        var width = img.width;
+        var height = img.height;
+        var isValid = width >= 800 && height >= 500;
+        // Store validation result in a data attribute
+        $element.data("valid-image", isValid);
 
-            img.src = URL.createObjectURL(imageFile);
+        // Manually trigger validation again
+        if (isValid) {
+          $("#avatar").valid();
+          $('.avatar_img_upload').show();
+        }
+      };
 
-            // Return stored validation result or assume false if not yet loaded
-            return $element.data("valid-image") === true;
-        }, "Image must be at least 800px by 500px.");
+      img.src = URL.createObjectURL(imageFile);
 
-        $.validator.setDefaults({
-            ignore: []
-        });
-        $('#listing_show_form').validate({
-            rules: {
-              avatar: {
-                    imageExtension: true,
-                    imageDimensions: true
-                }
-            },
-            messages: {
-              avatar: {
-                    imageExtension: 'Only .jpg, .jpeg, .png, and .svg files are allowed.',
-                    imageDimensions: 'Image must be at least 800px by 500px.'
-                }
-            },
-            errorPlacement: function(error, element) {
-                // Custom placement for errors
-                console.log(element.attr('name'));
-                if (element.attr('name') == 'avatar') {
-                    // Place the error outside the label in the #listingImgError div
-                    error.appendTo('#listingImgError');
-                } else {
-                    // Default placement for other fields
-                    error.insertAfter(element);
-                }
-            },
-            submitHandler: function(form) {
-                form.submit();
-            }
-        });
-        $('#listing_show_form input').on('keyup change', function() {
-            $(this).valid(); // Trigger validation for the input field
-        });
+      // Return stored validation result or assume false if not yet loaded
+      return $element.data("valid-image") === true;
+    }, "Image must be at least 800px by 500px.");
 
+    $.validator.setDefaults({
+      ignore: []
     });
+    $('#listing_show_form').validate({
+      rules: {
+        avatar: {
+          imageExtension: true,
+          imageDimensions: true
+        }
+      },
+      messages: {
+        avatar: {
+          imageExtension: 'Only .jpg, .jpeg, .png, and .svg files are allowed.',
+          imageDimensions: 'Image must be at least 800px by 500px.'
+        }
+      },
+      errorPlacement: function(error, element) {
+        // Custom placement for errors
+        console.log(element.attr('name'));
+        if (element.attr('name') == 'avatar') {
+          // Place the error outside the label in the #listingImgError div
+          error.appendTo('#listingImgError');
+        } else {
+          // Default placement for other fields
+          error.insertAfter(element);
+        }
+      },
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
+    $('#listing_show_form input').on('keyup change', function() {
+      $(this).valid(); // Trigger validation for the input field
+    });
+
+  });
 </script>
 <script>
   function previewImage(event) {

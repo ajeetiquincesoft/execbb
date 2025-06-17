@@ -21,7 +21,7 @@
                         <select class="form-control" id="companyName" name="companyName">
                             <option value="">Select company name</option>
                             @foreach($listings as $listing)
-                            <option value="{{$listing->ListingID}}" {{($listing->ListingID  ==  $offer->ListingID) ? 'selected' : '' }}>{{$listing->SellerCorpName}}</option>
+                            <option value="{{$listing->ListingID}}" {{($listing->ListingID  ==  $offer->ListingID) ? 'selected' : '' }}>{{ trim($listing->CorpName) !== '' ? $listing->CorpName : $listing->DBA }}</option>
                             @endforeach
                         </select>
                         @error('companyName')

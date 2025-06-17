@@ -86,7 +86,7 @@
                         <select id="State" class="form-select" name="state">
                             <option value="" selected="">Select state</option>
                             @foreach($states as $key=>$value)
-                            <option value="{{$value->State}}" {{  $value->State == $buyerData->State ? 'selected' : '' }}>{{$value->StateName}}</option>
+                            <option value="{{$value->State}}" {{  strtolower($value->State) == strtolower($buyerData->State) ? 'selected' : '' }}>{{$value->StateName}}</option>
                             @endforeach
                         </select>
                         @error('state')
@@ -126,7 +126,7 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="form-label" for="callWhen">Call When</label>
-                        <input type="datetime-local" class="form-control" id="callWhen" name="callWhen" value="{{$buyerData->callWhen}}">
+                        <input type="text" class="form-control" id="callWhen" name="callWhen" value="{{$buyerData->callWhen}}">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -431,7 +431,7 @@
                 },
                 zip: {
                     required: true,
-                    minlength: 5, // Minimum length for US ZIP code
+                    minlength: 4, // Minimum length for US ZIP code
                     maxlength: 10 // Maximum length for 9-digit ZIP code
                 },
                 country: {
