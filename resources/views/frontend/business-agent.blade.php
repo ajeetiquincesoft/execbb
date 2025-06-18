@@ -53,7 +53,10 @@
             @endphp
             <div class="col">
                 <div class="agent-info">
-                    @if(!empty($agent->image))
+                    @php
+                        $imagePath = public_path('assets/uploads/images/' . $agent->image);
+                    @endphp
+                    @if(!empty($agent->image) && file_exists($imagePath))
                     <img src="{{asset('assets/uploads/images/'. $agent->image)}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
                     @else
                     <img src="{{asset('assets/images/avatar.png')}}" alt="{{$agent->FName}} {{$agent->LName}}" class="agent-image">
