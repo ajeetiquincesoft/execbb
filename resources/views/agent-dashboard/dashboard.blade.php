@@ -108,6 +108,12 @@
 
       </div>
     </div>
+    <style>
+      #myChart {
+        height: 290px !important;
+       
+    }
+      </style>
     <script>
       // Line Chart
 const ctx1 = document.getElementById('myChart').getContext('2d');
