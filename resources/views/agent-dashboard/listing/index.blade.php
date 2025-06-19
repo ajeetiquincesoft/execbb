@@ -86,7 +86,7 @@
                             </td>
                             <td>{{$listing->ListingID}}</td>
                             <td>{{$listing->SellerFName}} {{$listing->SellerLName}}</td>
-                            <td>{{$listing->SellerCorpName}}</td>
+                            <td>{{$listing->CorpName ?? $listing->DBA}}</td>
                             <td>{{$listing->SHomeAdd1 ? $listing->SHomeAdd1 : $listing->Address1}}</td>
                             <td>{{$listing->SCity ? $listing->SCity : $listing->City}}</td>
                             <td>{{$listing->SHomePh ? $listing->SHomePh : $listing->Phone}}</td>

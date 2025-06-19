@@ -21,9 +21,11 @@ class AgentAuthController extends Controller
         if(Auth::check()){
             $user = auth()->user();
             $agent = Agent::where('AgentUserRegisterId', $user->id)->first();
-            $listingsCount = Listing::where('RefAgentID', $user->id)->count();
-            $activeListingsCount = Listing::where('RefAgentID', $user->id)->where('Active',1)->count();
-            $inactiveListingsCount = Listing::where('RefAgentID', $user->id)->where('Active',0)->count();
+            $agent_data = User::with('agent_info')->where('id', $user->id)->first();
+            $refAgentID = $agent_data->agent_info->AgentID;
+            $listingsCount = Listing::where('AgentID', $refAgentID)->count();
+            $activeListingsCount = Listing::where('AgentID', $refAgentID)->where('Active',1)->count();
+            $inactiveListingsCount = Listing::where('AgentID', $refAgentID)->where('Active',0)->count();
             $activeListingsPercentage = $listingsCount > 0 ? ($activeListingsCount / $listingsCount) * 100 : 0;
             $inactiveListingsPercentage = $listingsCount > 0 ? ($inactiveListingsCount / $listingsCount) * 100 : 0;
             $buyersCount = Buyer::where('AgentID', $agent->AgentID)->whereNotNull('user_id')->count();
