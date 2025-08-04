@@ -9,6 +9,7 @@ use App\PDFReports\AgentActivityReport;
 use App\PDFReports\AgentInfoReport;
 use App\PDFReports\ActiveBuyerByAgent;
 use App\PDFReports\BusinessesForSaleReport;
+use App\PDFReports\BusinessesForSoldReport;
 use App\PDFReports\ContactsInfoSheet;
 use Carbon\Carbon;
 use App\Models\Agent;
@@ -65,6 +66,12 @@ class ReportsController extends Controller
 
             case '41':
                 $report = new BusinessesForSaleReport();
+                $pdfOutput = $report->generate($request);
+                $filename = 'BusinessForSaleReports_' . now()->format('Ymd_His') . '.pdf';
+                break;
+
+            case '35':
+                $report = new BusinessesForSoldReport();
                 $pdfOutput = $report->generate($request);
                 $filename = 'BusinessForSaleReports_' . now()->format('Ymd_His') . '.pdf';
                 break;

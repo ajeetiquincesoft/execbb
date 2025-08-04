@@ -84,11 +84,13 @@
         <div class="dropdown">
           <button class="btn dropdown-toggle contact-available profile" type="button" id="dropdownMenuButton"
             data-bs-toggle="dropdown" aria-expanded="false">
-            @if(auth()->user()->agent_info->image)
-            <img src="{{ asset('assets/uploads/images/' . auth()->user()->agent_info->image) }}" alt="User Profile" class="rounded-circle" width="35" height="35">
-            @else
-            <img src="{{ url('assets/images/user.png') }}" alt="User Profile" class="rounded-circle" width="35" height="35">
-            @endif
+            @php
+            $imagePath = public_path('assets/uploads/images/' . auth()->user()->agent_info->image);
+            $imageExists = auth()->user()->agent_info->image && file_exists($imagePath);
+            @endphp
+
+            <img src="{{ $imageExists ? asset('assets/uploads/images/' . auth()->user()->agent_info->image) : asset('assets/images/user.png') }}" alt="User Profile"
+              class="rounded-circle" width="35" height="35" />
 
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
