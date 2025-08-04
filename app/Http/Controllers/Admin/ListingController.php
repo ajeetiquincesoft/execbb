@@ -222,6 +222,7 @@ class ListingController extends Controller
         ]);
         $completeStep = session('complete_step', []);
         $filename = '';
+        $docname = '';
         $categoryData = DB::table('categories')->where('CategoryID', $request->bus_category)->first();
         $category_name = $categoryData->BusinessCategory;
         $reviewcheckboxValue = $request->has('review') ? 1 : 0;
