@@ -19,6 +19,7 @@ class ContactController extends Controller
                 ->where('contact_types.Description', 'like', '%' . $query . '%')
                 ->orWhere('contacts.ContactID', 'like', '%' . $query . '%')
                 ->orWhere('contacts.FName', 'like', '%' . $query . '%')
+                ->orWhere('contacts.LName', 'like', '%' . $query . '%')
                 ->orWhere('contacts.CompanyName', 'like', '%' . $query . '%')
                 ->orWhere('contacts.Phone', 'like', '%' . $query . '%')
                 ->orWhere('contacts.Email', 'like', '%' . $query . '%')  
@@ -35,6 +36,7 @@ class ContactController extends Controller
     public function processForm(Request $request){
         $request->validate([
             'first_name' => 'required',
+            'last_name' => 'required',
             'company' => 'required',
             'addlContact' => 'required',
             'address' => 'required',
@@ -47,6 +49,7 @@ class ContactController extends Controller
         ]);
         $contact = new contact;
         $contact->FName = $request->first_name;
+        $contact->LName = $request->last_name;
         $contact->CompanyName  = $request->company;
         $contact->AddRep = $request->addlContact;
         $contact->Address1 = $request->address;
@@ -86,6 +89,7 @@ class ContactController extends Controller
     public function editProcessForm(Request $request,$id){
         $request->validate([
             'first_name' => 'required',
+            'last_name' => 'required',
             'company' => 'required',
             'addlContact' => 'required',
             'address' => 'required',
@@ -98,6 +102,7 @@ class ContactController extends Controller
         ]);
         $contact = Contact::where('ContactID',$id)->first();
         $contact->FName = $request->first_name;
+        $contact->LName = $request->last_name;
         $contact->CompanyName  = $request->company;
         $contact->AddRep = $request->addlContact;
         $contact->Address1 = $request->address;

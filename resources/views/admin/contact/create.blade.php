@@ -21,9 +21,16 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="form-label" for="name">Name <span class="text-danger">*</span></label>
+                        <label class="form-label" for="name">First Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="name" name="first_name" value="{{old('first_name')}}">
                         @error('first_name')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label" for="name">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{old('last_name')}}">
+                        @error('last_name')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

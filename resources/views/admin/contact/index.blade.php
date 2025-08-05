@@ -54,7 +54,7 @@
                         @forelse($contacts as $index =>$contact)
                         <tr>
                             <td>{{ $index + 1 + ($contacts->currentPage() - 1) * $contacts->perPage() }}</td>
-                            <td>{{ $contact->FName}}</td>
+                            <td>{{ $contact->FName}} {{ $contact->LName}}</td>
                             <td>{{ $contact->CompanyName}}</td>
                             <td>{{ $contact->Phone}}</td>
                             <td>{{ $contact->Email}}</td>
