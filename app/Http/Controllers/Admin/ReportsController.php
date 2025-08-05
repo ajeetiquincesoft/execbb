@@ -73,7 +73,7 @@ class ReportsController extends Controller
             case '35':
                 $report = new BusinessesForSoldReport();
                 $pdfOutput = $report->generate($request);
-                $filename = 'BusinessForSaleReports_' . now()->format('Ymd_His') . '.pdf';
+                $filename = 'BusinessForSoldReports_' . now()->format('Ymd_His') . '.pdf';
                 break;
 
             case '26':
