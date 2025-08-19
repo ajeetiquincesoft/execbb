@@ -366,6 +366,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::post('update/listing/step4/{id}', [ListingController::class, 'updateStep4'])->name('update.listing.step4');
   Route::post('update/listing/step5/{id}', [ListingController::class, 'updateStep5'])->name('update.listing.step5');
   Route::post('/listing/bulkAction', [ListingController::class, 'bulkAction'])->name('listing.bulkAction');
+  Route::get('/listings/{id}/factsheet', [ListingController::class, 'factsheet'])->name('listings.factsheet');
   //End route for listing
   //route for import/export
   Route::get('get/options/{id}', [ListingController::class, 'getOptions'])->name('get.options');
@@ -449,6 +450,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::post('/export/reports', [ReportsController::class, 'export'])->name('export.reports');
   Route::get('get/sub/reports', [ReportsController::class, 'getSubReports'])->name('get.subreports');
   Route::get('get/business/sub/categories', [ReportsController::class, 'getBusinessSubCategories'])->name('get.business.sub.categories');
+  Route::get('/dropdown-data', [ReportsController::class, 'getBuyerData'])->name('dropdown.data');
   //End route for admin reports
 
   //Route for admin Hotsheets

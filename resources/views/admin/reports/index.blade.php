@@ -32,8 +32,134 @@
                         @enderror
                     </div>
                 </div>
+                <!-- Data filter for buyers -->
+                <div class="buyer_filter">
+                    <div class="row mb-2">
+                        <div class="col-md-6 mb-3" data-filter="buyer" style="display: none;">
+                            <label>Buyers:</label>
+                            <input type="text" id="buyerSearch" class="form-control mb-2" placeholder="Search buyers...">
+                            <select class="form-select" name="buyer_id" id="dropdown" size=10 onscroll="handleScroll(this)">
+                                <option value="all">All</option>
+                                @foreach ($initialItems as $item)
+                                    <option value="{{ $item->BuyerID }}">{{ $item->FName }} {{ $item->LName }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3" data-filter="category" style="display: none;">
+                            <label>Category:</label>
+                            <select class="form-select" name="category" id="business_cat">
+                                <option value="">Select Category</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->CategoryID }}">{{ $category->BusinessCategory }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3" data-filter="sub category" style="display: none;">
+                            <label>Sub Categories:</label>
+                            <select class="form-select" name="subcategory" id="business_sub_cat">
+                                <option value="">Select Sub Category</option>
+                                @foreach ($subcategories as $subcategory)
+                                    <option value="{{ $subcategory->SubCatID }}">{{ $subcategory->SubCategory }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3"  data-filter="agent" style="display: none;">
+                            <label>Agent:</label>
+                            <select class="form-select" name="agent">
+                                <option value="">Select Agent</option>
+                                @foreach($agents as $agent)
+                                <option value="{{ $agent->AgentID }}">{{ $agent->FName }} {{ $agent->LName }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3"  data-filter="listing dba" style="display: none;">
+                            <label>DBA:</label>
+                            <select class="form-select" name="listing_dba">
+                                <option value="">Select DBA</option>
+                                @foreach($listingDBA as $listingData)
+                                <option value="{{ $listingData->DBA }}">{{ $listingData->DBA }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3"  data-filter="dba listing" style="display: none;">
+                            <label>DBA:</label>
+                            <select class="form-select" name="dba_listing">
+                                <option value="">Select DBA</option>
+                                @foreach($listingDBA as $listingData)
+                                <option value="{{ $listingData->ListingID }}">{{ $listingData->DBA }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                         <div class="col-md-6 mb-3" data-filter="status" style="display: none;">
+                            <label>Status:</label>
+                            <select class="form-select" name="status">
+                                <option value="">Select Status</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                                <option value="valid">Valid</option>
+                                <option value="">Solo-Exclusive</option>
+                                <option value="expired">Expired</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3" data-filter="buyerstatus" style="display: none;">
+                            <label>Status:</label>
+                            <select class="form-select" name="buyer_status">
+                                <option value="">Select Status</option>
+                                <option value="1">Hot</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Cool</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3" data-filter="checkboxstatus" style="display: none;">
+                        <label>
+                            <input type="hidden" name="franchise" value="0">
+                            <input type="checkbox" name="franchise" value="1"> Franchise
+                        </label><br>
+
+                        <label>
+                            <input type="hidden" name="real_estate_inc" value="0">
+                            <input type="checkbox" name="real_estate_inc" value="1"> Real Estate Inc
+                        </label><br>
+
+                        <label>
+                            <input type="hidden" name="best_buy" value="0">
+                            <input type="checkbox" name="best_buy" value="1"> Best Buy
+                        </label>
+                    </div>
+                        <div class="col-md-6 mb-3" data-filter="location" style="display: none;">
+                            <label>Location:</label>
+                            <select class="form-select" name="location">
+                                <option value="">Select Location</option>
+                                @foreach ($counties as $country)
+                                    <option value="{{ $country->CountyID }}">{{ $country->County }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3" id="contact-dropdown"  data-filter="contact" style="display: none;">
+                            <label for="contact">Contact</label>
+                            <select id="contact" name="contact" class="form-select">
+                                <option value="">Select Contact</option>
+                                @foreach($contacts as $contact)
+                                <option value="{{ $contact->ContactID}}">{{ $contact->FName}} {{ $contact->LName}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <!-- Contact Type Dropdown (Blank) -->
+                        <div class="col-md-6 mb-3" id="contact-type-dropdown"  data-filter="contact type" style="display: none;">
+                            <label for="contact_type">Type</label>
+                            <select id="contact_type" name="contact_type" class="form-select">
+                                <option value="">Select Contact Type</option>
+                                @foreach($contactTypes as $contactType)
+                                <option value="{{ $contactType->Type}}">{{ $contactType->Description}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Data filter for buyers end  -->
+
                 <!-- Date Range Option Radios -->
-                <div class="row mb-2" id="date-option-section" style="display: none;">
+                <div class="row mb-2" id="date-option-section" data-filter="date range" style="display: none;">
                     <div class="col-md-12 text-center">
                         <label class="mb-2 d-block">Date Range</label>
                         <div class="d-flex justify-content-center gap-4">
@@ -65,65 +191,6 @@
                         </div>
                     </div>
                 </div>
-                <!--  Listing-Specific Dropdowns + Checkboxes -->
-                <div id="listing-extra-filters" style="display: none;">
-                    <div class="row mb-2">
-                        <div class="col-md-6 mb-3">
-                            <label>Category:</label>
-                            <select class="form-select" name="category" id="business_cat">
-                                <option value="">select category</option>
-                                @foreach($categories as $category)
-                                <option value="{{ $category->CategoryID }}">{{ $category->BusinessCategory }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label>Sub Category:</label>
-                            <select class="form-select" name="subcategory" id="business_sub_cat">
-                                <option value="">select sub category</option>
-                                @foreach($subcategories as $subcategory)
-                                <option value="{{ $subcategory->SubCatID}}">{{ $subcategory->SubCategory }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-6 mb-3">
-                            <label>Agent:</label>
-                            <select class="form-select" name="agent">
-                                <option value="">select agent</option>
-                                @foreach($agents as $agent)
-                                <option value="{{ $agent->AgentID }}">{{ $agent->FName }} {{ $agent->LName }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label>Status:</label>
-                            <select class="form-select" name="status">
-                                <option value="">select status</option>
-                                <option value="valid">Valid</option>
-                                <option value="invalid">Invalid</option>
-                                <option value="expired">Expired</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label>
-                            <input type="hidden" name="franchise" value="0">
-                            <input type="checkbox" name="franchise" value="1"> Franchise
-                        </label><br>
-
-                        <label>
-                            <input type="hidden" name="real_estate_inc" value="0">
-                            <input type="checkbox" name="real_estate_inc" value="1"> Real Estate Inc
-                        </label><br>
-
-                        <label>
-                            <input type="hidden" name="best_buy" value="0">
-                            <input type="checkbox" name="best_buy" value="1"> Best Buy
-                        </label>
-                    </div>
-                </div>
                 <!-- Submit -->
                 <div class="text-center">
                     <button class="btn btn-primary" type="submit">Download</button>
@@ -132,18 +199,95 @@
         </form>
     </div>
 </div>
+ <style>
+        #dropdown {
+            height: 150px !important;
+            overflow-y: auto !important;
+        }
+    </style>
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script>
+    const reportFilterConfig = {
+            5: ['date range'],
+            6: ['agent', 'date range'], 
+            8: ['agent', 'date range'],
+            9: ['buyer','location','agent','buyerstatus','date range'],
+            10: ['buyer', 'date range'],
+            11: ['buyer', 'date range'],
+            12: ['agent', 'date range'],
+            14: ['buyer'],
+            25: ['contact','contact type'],
+            26: ['contact','contact type'],
+            35: ['category', 'sub category', 'agent', 'status','checkboxstatus','date range'], 
+            36: ['listing dba','category','sub category','status'],
+            41: ['category', 'sub category', 'agent', 'status','checkboxstatus','date range'],
+            46: ['dba listing'],    
+        };
+        let currentPage = 2; // Initial 10 are already loaded
+        let loading = false;
+        let allLoaded = false;
+        let searchQuery = '';
+
+        const dropdown = document.getElementById('dropdown');
+        const searchInput = document.getElementById('buyerSearch');
+        function handleScroll(dropdown) {
+            if (loading || allLoaded) return;
+
+            // Check if user scrolled to bottom
+            if (dropdown.scrollTop + dropdown.clientHeight >= dropdown.scrollHeight - 5) {
+                loadMoreOptions();
+            }
+        }
+
+        function loadMoreOptions(reset = false) {
+            if (reset) {
+                currentPage = 1;
+                allLoaded = false;
+                dropdown.innerHTML = '<option value="all">All</option>'; // reset options
+            }
+
+            loading = true;
+
+            fetch(`{{ route('dropdown.data') }}?page=${currentPage}&search=${encodeURIComponent(searchQuery)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        if (currentPage === 1) {
+                            dropdown.innerHTML = '<option disabled>No buyers found</option>';
+                        }
+                        allLoaded = true;
+                    } else {
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.BuyerID;
+                            option.textContent = item.FName + ' ' + item.LName;
+                            dropdown.appendChild(option);
+                        });
+                        currentPage++;
+                    }
+                    loading = false;
+                })
+                .catch(err => {
+                    console.error('Error loading more data:', err);
+                    loading = false;
+                });
+        }
+        searchInput.addEventListener('input', function () {
+        searchQuery = this.value;
+        loadMoreOptions(true); // reset + load with search
+    });
+    </script>
 <script>
     function toggleDateRange() {
         const reportSelected = $('#report').val() !== '';
         const reportTypeSelected = $('#report2').val() !== '';
         if (reportSelected && reportTypeSelected) {
-            $('#date-option-section').slideDown();
+            $('#date-option-section').show();
             setDateRange($('input[name="date_option"]:checked').val());
         } else {
-            $('#date-option-section').slideUp();
-            $('#date-range-section').slideUp();
+            $('#date-option-section').hide();
+            $('#date-range-section').hide();
         }
     }
 
@@ -155,33 +299,39 @@
             const pastMonth = new Date();
             pastMonth.setMonth(pastMonth.getMonth() - 1);
             fromDate = pastMonth.toISOString().split('T')[0];
-            $('#date-range-section').slideUp();
+            $('#date-range-section').hide();
         } else if (option === 'past_year') {
             const pastYear = new Date();
             pastYear.setFullYear(pastYear.getFullYear() - 1);
             fromDate = pastYear.toISOString().split('T')[0];
-            $('#date-range-section').slideUp();
+            $('#date-range-section').hide();
         } else if (option === 'custom') {
-            $('#date-range-section').slideDown();
+            $('#date-range-section').show();
             return;
         }
         $('#from_date').val(fromDate);
         $('#to_date').val(toDate);
     }
 
-    function toggleListingExtras() {
-        const reportName = $('#report option:selected').text().trim().toLowerCase();
-        const report2Selected = $('#report2').val() !== '';
-        if (reportName === 'listing' && report2Selected) {
-            $('#listing-extra-filters').slideDown();
-        } else {
-            $('#listing-extra-filters').slideUp();
-        }
-    }
+    function toggleDynamicFilters() {
+    const selectedReport2 = $('#report2').val();
+
+    // Always hide all filters first
+    $('[data-filter]').hide();
+
+    // If nothing selected, just stop
+    if (!selectedReport2) return;
+
+    const allowedFilters = reportFilterConfig[selectedReport2] || [];
+
+    allowedFilters.forEach(filter => {
+        $(`[data-filter="${filter}"]`).show();
+    });
+}
     $(document).ready(function() {
         $('#report, #report2').on('change', function() {
             toggleDateRange();
-            toggleListingExtras();
+            toggleDynamicFilters();
         });
         $('input[name="date_option"]').on('change', function() {
             setDateRange(this.value);
@@ -202,13 +352,13 @@
                             $('#report2').append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
                         toggleDateRange();
-                        toggleListingExtras();
+                        toggleDynamicFilters();
                     }
                 });
             } else {
                 $('#report2').empty().append('<option value="">Select Report Type</option>');
                 toggleDateRange();
-                toggleListingExtras();
+                toggleDynamicFilters();
             }
         });
 
@@ -228,13 +378,11 @@
                             $('#business_sub_cat').append('<option value="' + value.SubCatID + '">' + value.SubCategory + '</option>');
                         });
                         toggleDateRange();
-                        toggleListingExtras();
                     }
                 });
             } else {
                 $('#business_sub_cat').empty().append('<option value="">select sub category</option>');
                 toggleDateRange();
-                toggleListingExtras();
             }
         });
     });

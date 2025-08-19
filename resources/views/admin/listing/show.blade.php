@@ -41,8 +41,12 @@
               <h6>Listing ID: {{$listing->ListingID }}</h6>
             </div>
             <div class="table-responsive">
-              <div>
-                <h6>General Info</h6>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <h6 style="margin: 0;">General Info</h6>
+                  <a href="{{ route('listings.factsheet', $listing->ListingID) }}" 
+                    class="btn btn-sm btn-primary" target="_blank">
+                      Listing Factsheet
+                  </a>
               </div>
               <table class="table table-borderless">
                 <tbody>

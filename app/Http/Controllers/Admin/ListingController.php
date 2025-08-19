@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Listing;
+use App\Models\Agent;
 use App\Models\User;
 use App\Models\Activity;
 use Throwable;
@@ -20,6 +21,8 @@ use Carbon\Carbon;
 use App\Notifications\SendNotification;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Database;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class ListingController extends Controller
 {
@@ -48,6 +51,27 @@ class ListingController extends Controller
         $options = DB::table('sub_categories')->where('CatID', $id)->get();
 
         return response()->json($options);
+    }
+    public function factsheet($id)
+    {
+        $listingData = Listing::findOrFail($id);
+        $annualSaleAmount = $listingData->AnnualSales;
+        $listingAgent = Agent::where('AgentID', $listingData->AgentID)->first();
+             $lname = $listingAgent ? $listingAgent->LName : '';
+             $fname = $listingAgent ? $listingAgent->FName : '';
+        // Prepare HTML for PDF
+        $html = view('admin.listing.factsheet', compact('listingData','annualSaleAmount','fname','lname'))->render();
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Download or inline
+        return $dompdf->stream("listing-factsheet-{$listingData->ListingID}.pdf");
     }
     public function form(Request $request)
     {
@@ -83,6 +107,10 @@ class ListingController extends Controller
     {
         $query = $request->input('query');
         $listings = Listing::query();
+        /* $listings->where(function ($q) {
+        $q->whereNull('ExpDate')
+            ->orWhere('ExpDate', '>=', now());
+        }); */
         if ($query) {
             $listings = Listing::where('SellerFName', 'LIKE', '%' . $query . '%')
                 ->orWhere('SellerLName', 'LIKE', '%' . $query . '%')
