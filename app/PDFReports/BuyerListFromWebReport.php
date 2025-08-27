@@ -7,7 +7,7 @@ use Dompdf\Options;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class BuyerListReport
+class BuyerListFromWebReport
 {
     public function generate(Request $request)
     {
@@ -16,11 +16,25 @@ class BuyerListReport
         $to = $request->to_date;
         $html = '';
          if(isset($request->buyer_id) && ($request->buyer_id != 'all')){
-            $singleBuyer = DB::table('buyers')
-            ->when($request->buyer_id, fn($q) => $q->where('BuyerID', $request->buyer_id))
-            ->when($request->agent, fn($q) => $q->where('AgentID', $request->agent))
-            ->when($request->buyer_status, fn($q) => $q->where('Interest', $request->buyer_status))
-            ->when($request->location, fn($q) => $q->where('County', $request->location))
+           $singleBuyer = DB::table('buyers')
+            ->when($request->buyer_id, function ($q) use ($request) {
+                $q->where('BuyerID', $request->buyer_id);
+            })
+            ->when($request->subcategory, function ($q) use ($request) {
+                $q->where(function ($sub) use ($request) {
+                    $sub->where('BusType1', $request->subcategory)
+                        ->orWhere('BusType2', $request->subcategory)
+                        ->orWhere('BusType3', $request->subcategory)
+                        ->orWhere('BusType4', $request->subcategory);
+                });
+            })
+            ->when($request->buyer_status, function ($q) use ($request) {
+                $q->where('Interest', $request->buyer_status);
+            })
+            ->when($request->location, function ($q) use ($request) {
+                $q->where('County', $request->location);
+            })
+            ->where('Signed', 3)
             ->whereBetween('created_at', [$from, $to])
             ->first();
             if ($singleBuyer) {

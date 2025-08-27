@@ -42,7 +42,7 @@ class ListingFactSheet
         // Apply sorting and get results
         $listingQueryData = $query->orderBy('created_at', 'desc')->take(50)->get();
         $previousDate = Carbon::today()->subDay()->format('Y-m-d');
-         $html = '<html><head><style>
+        $html = '<html><head><style>
                  body { font-family: Arial}
                 table { width: 100%; page-break-inside: avoid;}
                 tr, td, th {
@@ -56,9 +56,9 @@ class ListingFactSheet
         foreach ($listingQueryData as $listingData) {
             $annualSaleAmount = $listingData->AnnualSales ?? 0;
             $annualSaleAmount = (float) $annualSaleAmount;
-             $listingAgent = Agent::where('AgentID', $listingData->AgentID)->first();
-             $lname = $listingAgent ? $listingAgent->LName : '';
-             $fname = $listingAgent ? $listingAgent->FName : '';
+            $listingAgent = Agent::where('AgentID', $listingData->AgentID)->first();
+            $lname = $listingAgent ? $listingAgent->LName : '';
+            $fname = $listingAgent ? $listingAgent->FName : '';
             // Cost of Goods Labels and Values
             $COGs = [
                 ['label' => $listingData->COG1Label ?? 'N/A', 'value' => $listingData->COG1 ?? 0],
@@ -66,16 +66,16 @@ class ListingFactSheet
                 ['label' => $listingData->COG3Label ?? 'N/A', 'value' => $listingData->COG3 ?? 0],
             ];
             $html .= '<table cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; border-bottom: 1px solid black;">';
-        $html .= '<tbody>';
-        $html .= '<tr style="border-bottom: 1px solid black;">
+            $html .= '<tbody>';
+            $html .= '<tr style="border-bottom: 1px solid black;">
                 <td valign="top" style="font-size: 8pt; border-right: 1px solid black; text-align: left;">
                     <p>Executive Business Brokers</p>
                 </td>';
-        $html .= '<td valign="top" style="font-size: 8pt; text-align:right;">
+            $html .= '<td valign="top" style="font-size: 8pt; text-align:right;">
                     Fact sheet&nbsp; <i>as of:&nbsp; ' . $previousDate . '</i>
                 </td>
             </tr>';
-        $html .= ' <tr style="border-bottom: 1px solid black;  text-align: left;">
+            $html .= ' <tr style="border-bottom: 1px solid black;  text-align: left;">
                 <td colspan="2" style="font-size: 8pt; font-weight: bold">
                     Mergers &amp; Acquisitions / Business Valuations / Commercial Financing / Investment Property /Consulting
                 </td>
@@ -142,15 +142,15 @@ class ListingFactSheet
                 </tr>
                 <tr>
                     <td style="font-size: 8pt">Purchase Price:</td>
-                    <td style="font-size: 8pt"><u>$' . number_format( (float) $listingData->PurPrice, 2) . '</u></td>
+                    <td style="font-size: 8pt"><u>$' . number_format((float) $listingData->PurPrice, 2) . '</u></td>
                 </tr font-size: 8pt">
                 <tr>
                     <td style="font-size: 8pt">Down Payment:</td>
-                    <td style="font-size: 8pt"><u>$' . number_format( (float) $listingData->DownPay, 2) . '</u></td>
+                    <td style="font-size: 8pt"><u>$' . number_format((float) $listingData->DownPay, 2) . '</u></td>
                 </tr>
                 <tr>
                     <td style="font-size: 8pt">Balance:</td>
-                    <td style="font-size: 8pt"><u>$' . number_format( (float) ($listingData->Balance ?? 0), 2) . '</u></td>
+                    <td style="font-size: 8pt"><u>$' . number_format((float) ($listingData->Balance ?? 0), 2) . '</u></td>
                 </tr>
                 <tr>
                     <td style="font-size: 8pt">Interest Rate:</td>
@@ -158,7 +158,7 @@ class ListingFactSheet
                 </tr>
                 <tr>
                     <td style="font-size: 8pt">Annual Sales:</td>
-                    <td style="font-size: 8pt"><u>$' . number_format( (float) $listingData->AnnualSales, 2) . '</u></td>
+                    <td style="font-size: 8pt"><u>$' . number_format((float) $listingData->AnnualSales, 2) . '</u></td>
                 </tr>
                 <tr>
                     <td style="font-size: 8pt">Years Established:</td>
@@ -195,7 +195,7 @@ class ListingFactSheet
                         Annual Payroll:
                     </td>
                     <td style=" font-size: 8pt;" valign="middle">
-                        <u>$' . number_format( (float) ($listingData->AnnPayroll ?? 0), 2) . '</u>
+                        <u>$' . number_format((float) ($listingData->AnnPayroll ?? 0), 2) . '</u>
                     </td>
                 </tr>
                 <tr>
@@ -245,7 +245,7 @@ class ListingFactSheet
                         Real Estate Asking Price:
                     </td>
                     <td style=" font-size: 8pt;" valign="middle">
-                        <u>$' . number_format( (float) ($listingData->REAskingPrice ?? 0), 2) . '</u>
+                        <u>$' . number_format((float) ($listingData->REAskingPrice ?? 0), 2) . '</u>
                     </td>
                 </tr>
                 <tr>
@@ -253,7 +253,7 @@ class ListingFactSheet
                         Inventory Included:
                     </td>
                     <td style=" font-size: 8pt;" valign="middle">
-                        <u>$' . number_format( (float) ($listingData->InvInPrice ?? 0), 2) . '</u>
+                        <u>$' . number_format((float) ($listingData->InvInPrice ?? 0), 2) . '</u>
                     </td>
                 </tr>
                 <tr>
@@ -261,7 +261,7 @@ class ListingFactSheet
                         Inventory Not Included:
                     </td>
                     <td style=" font-size: 8pt;" valign="middle">
-                        <u>$' . number_format( (float) ($listingData->InvNot ?? 0), 2) . '</u>
+                        <u>$' . number_format((float) ($listingData->InvNot ?? 0), 2) . '</u>
                     </td>
                 </tr>
                 <tr>
@@ -289,7 +289,7 @@ class ListingFactSheet
                         Listing Agent:
                     </td>
                     <td style=" font-size: 8pt;" valign="middle">
-                        <b><u>'. $fname .' '. $lname .'</u></b>
+                        <b><u>' . $fname . ' ' . $lname . '</u></b>
                     </td>
                 </tr>
 
@@ -304,7 +304,7 @@ class ListingFactSheet
                 <tr>
                     <td style=" font-size: 8pt">Annual Sales:</td>
                     <td style=" font-size: 8pt" align="right">
-                        <u>$' . number_format( (float) $annualSaleAmount, 2) . '</u>
+                        <u>$' . number_format((float) $annualSaleAmount, 2) . '</u>
                     </td>
                     <td style=" font-size: 8pt"></td>
                 </tr>
@@ -328,10 +328,10 @@ class ListingFactSheet
                 <tr>
                     <td style=" font-size: 8pt">' . htmlspecialchars($cog['label']) . ':</td>
                     <td style=" font-size: 8pt" align="right" >
-                        <u>&nbsp;$' . number_format( (float) $value, 2) . '</u>
+                        <u>&nbsp;$' . number_format((float) $value, 2) . '</u>
                     </td>
                     <td style=" font-size: 8pt" align="right">
-                        <u>&nbsp;' . number_format( (float) $percentage, 2) . '%</u>
+                        <u>&nbsp;' . number_format((float) $percentage, 2) . '%</u>
                     </td>
                 </tr>
                 ';
@@ -345,13 +345,13 @@ class ListingFactSheet
             $html .= "
                 <tr>
                     <td style=\" font-size:8pt;\" align=\"left\"><b>Total Cost of Sales:</b></td>
-                    <td style=\" font-size:8pt;\" align=\"right\"><u>$" . number_format( (float) $totalCost, 2) . "</u></td>
-                    <td style=\" font-size:8pt;\" align=\"right\"><u>" . number_format( (float) $percentageTotalCost, 2) . "%</u></td>
+                    <td style=\" font-size:8pt;\" align=\"right\"><u>$" . number_format((float) $totalCost, 2) . "</u></td>
+                    <td style=\" font-size:8pt;\" align=\"right\"><u>" . number_format((float) $percentageTotalCost, 2) . "%</u></td>
                 </tr>
                 <tr>
                      <td style=\" font-size:8pt;\" align=\"left\"><b>Gross Operating Profit:</b></td>
-                    <td style=\" font-size:8pt;\" align=\"right\"><u>$" . number_format( (float) $totalGOP, 2) . "</u></td>
-                    <td style=\" font-size:8pt;\" align=\"right\"><u>" . number_format( (float) $percentageGOP, 2) . "%</u></td>
+                    <td style=\" font-size:8pt;\" align=\"right\"><u>$" . number_format((float) $totalGOP, 2) . "</u></td>
+                    <td style=\" font-size:8pt;\" align=\"right\"><u>" . number_format((float) $percentageGOP, 2) . "%</u></td>
                 </tr>
                 ";
             // Define operating expense categories
@@ -385,8 +385,8 @@ class ListingFactSheet
             // Loop through categories
             foreach ($expenseCategories as $key => $label) {
                 $val = $listingData->$key ?? 0;
-                $pct = ($annualSaleAmount !== null && $annualSaleAmount != 0) 
-                    ? ($val / $annualSaleAmount) * 100 
+                $pct = ($annualSaleAmount !== null && $annualSaleAmount != 0)
+                    ? ($val / $annualSaleAmount) * 100
                     : 0;
 
                 $totalOperatingExpenses += $val;
@@ -395,8 +395,8 @@ class ListingFactSheet
                 <tr>
                     
                     <td style=\" font-size:8pt;\">{$label}:</td>
-                    <td style=\" font-size:8pt;\" align=\"right\"><u>$" . number_format( (float) $val, 2) . "</u></td>
-                    <td style=\" font-size:8pt;\" align=\"right\"><u>" . number_format( (float) $pct, 2) . "%</u></td>
+                    <td style=\" font-size:8pt;\" align=\"right\"><u>$" . number_format((float) $val, 2) . "</u></td>
+                    <td style=\" font-size:8pt;\" align=\"right\"><u>" . number_format((float) $pct, 2) . "%</u></td>
                 </tr>
                 ";
             }
@@ -408,8 +408,8 @@ class ListingFactSheet
                 if (!empty($listingData->$labelKey)) {
 
                     $val = $listingData->$valueKey ?? 0;
-                    $pct = ($annualSaleAmount !== null && $annualSaleAmount != 0) 
-                        ? ($val / $annualSaleAmount) * 100 
+                    $pct = ($annualSaleAmount !== null && $annualSaleAmount != 0)
+                        ? ($val / $annualSaleAmount) * 100
                         : 0;
 
                     $totalOperatingExpenses += $val;
@@ -418,23 +418,23 @@ class ListingFactSheet
                 <tr>
                     
                     <td style=\" font-size:8pt;\">" . htmlspecialchars($listingData->$labelKey) . ":</td>
-                    <td style=\" font-size:8pt;\" align=\"right\"><u>$" . number_format( (float) $val, 2) . "</u></td>
-                    <td style=\" font-size:8pt;\" align=\"right\"><u>" . number_format( (float) $pct, 2) . "%</u></td>
+                    <td style=\" font-size:8pt;\" align=\"right\"><u>$" . number_format((float) $val, 2) . "</u></td>
+                    <td style=\" font-size:8pt;\" align=\"right\"><u>" . number_format((float) $pct, 2) . "%</u></td>
                 </tr>
                 ";
                 }
             }
 
             // Total operating expenses
-            $totalOpPct = ($annualSaleAmount > 0) 
-                ? ($totalOperatingExpenses / $annualSaleAmount) * 100 
+            $totalOpPct = ($annualSaleAmount > 0)
+                ? ($totalOperatingExpenses / $annualSaleAmount) * 100
                 : 0;
             $html .= "
                 <tr>
                     
                     <td style=\" font-size:8pt;\"><b>Total Operating Expenses:</b></td>
-                    <td align=\"right\" style=\" font-size:8pt;\"><u>$" . number_format( (float) $totalOperatingExpenses, 2) . "</u></td>
-                    <td align=\"right\" style=\" font-size:8pt;\"><u>" . number_format( (float) $totalOpPct, 2) . "%</u></td>
+                    <td align=\"right\" style=\" font-size:8pt;\"><u>$" . number_format((float) $totalOperatingExpenses, 2) . "</u></td>
+                    <td align=\"right\" style=\" font-size:8pt;\"><u>" . number_format((float) $totalOpPct, 2) . "%</u></td>
                 </tr>
                 ";
 
@@ -455,37 +455,37 @@ class ListingFactSheet
             $html .= '
                     <tr>
                         <td style=" font-size: 8pt;">Annual Sales</td>
-                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format( (float) $annualSaleAmount, 2) . '</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format((float) $annualSaleAmount, 2) . '</u></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td style=" font-size: 8pt;">Cost of Sales</td>
-                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format( (float) $totalCost, 2) . '</u></td>
-                        <td style=" font-size: 8pt;" align="right"><u>' . number_format( (float) $percentTotalCost, 2) . '%</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format((float) $totalCost, 2) . '</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>' . number_format((float) $percentTotalCost, 2) . '%</u></td>
                     </tr>
 
                     <tr>
                         <td style=" font-size: 8pt;">Operating Expenses</td>
-                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format( (float) $totalOperatingExpenses, 2) . '</u></td>
-                        <td style=" font-size: 8pt;" align="right"><u>' . number_format( (float) $totalOpPct, 2) . '%</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format((float) $totalOperatingExpenses, 2) . '</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>' . number_format((float) $totalOpPct, 2) . '%</u></td>
                     </tr>
 
                     <tr>
                         <td style=" font-size: 8pt;">Operating Profit</td>
-                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format( (float) $totalOperatingProfit, 2) . '</u></td>
-                        <td style=" font-size: 8pt;" align="right"><u>' . number_format( (float) $percentOperatingProfit, 2) . '%</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format((float) $totalOperatingProfit, 2) . '</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>' . number_format((float) $percentOperatingProfit, 2) . '%</u></td>
                     </tr>
 
                     <tr>
                         <td style=" font-size: 8pt;">Other Income</td>
-                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format( (float) $otherIncome, 2) . '</u></td>
-                        <td style=" font-size: 8pt;" align="right"><u>' . number_format( (float) $percentOtherIncome, 2) . '%</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>$' . number_format((float) $otherIncome, 2) . '</u></td>
+                        <td style=" font-size: 8pt;" align="right"><u>' . number_format((float) $percentOtherIncome, 2) . '%</u></td>
                     </tr>
 
                     <tr style="margin-bottom : 10px;">
                         <td style=" font-size: 8pt;"><b>Total Adj. Cash Flow</b></td>
-                        <td style=" font-size: 8pt;" align="right"><u><b>$' . number_format( (float) $adjCashFlow, 2) . '</b></u></td>
-                        <td style=" font-size: 8pt;" align="right"><u><b>' . number_format( (float) $percentAdjCashFlow, 2) . '%</b></u></td>
+                        <td style=" font-size: 8pt;" align="right"><u><b>$' . number_format((float) $adjCashFlow, 2) . '</b></u></td>
+                        <td style=" font-size: 8pt;" align="right"><u><b>' . number_format((float) $percentAdjCashFlow, 2) . '%</b></u></td>
                     </tr>
                     ';
 
@@ -541,10 +541,10 @@ class ListingFactSheet
             $html .= '</tbody></table>';
         }
 
-         $html .= '</body></html>';
+        $html .= '</body></html>';
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
-      
+
 
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
