@@ -29,7 +29,7 @@ class AgentActivityReport
             ->groupBy('AgentID')
             ->pluck('total', 'AgentID');
         $offerCounts = DB::table('offers')
-            ->whereBetween('DateEntered', [$from, $to])
+            ->whereBetween('DateOfOffer', [$from, $to])
             ->select('listingAgent', DB::raw('COUNT(*) as total'))
             ->groupBy('listingAgent')
             ->pluck('total', 'listingAgent');

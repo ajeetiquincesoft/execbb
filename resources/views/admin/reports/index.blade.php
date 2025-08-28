@@ -312,6 +312,7 @@
             36: ['listing dba', 'category', 'sub category', 'status'],
             41: ['category', 'sub category', 'agent', 'status', 'checkboxstatus', 'date range'],
             46: ['dba listing'],
+            51: ['category', 'sub category', 'agent', 'status', 'checkboxstatus', 'date range'],
             53: ['dba listing', 'buyer', 'offer_status', 'agent', 'date range'],
             54: ['dba listing', 'buyer', 'offer_status', 'agent', 'date range'],
             55: ['referral_status'],

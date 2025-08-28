@@ -35,6 +35,8 @@ use App\PDFReports\EscrowInfoReport;
 use App\PDFReports\ClosingListReport;
 use App\PDFReports\AgentMailingLabelsReport;
 use App\PDFReports\WelcomeLetterListListingReport;
+use App\PDFReports\InternalListingActiveByAgent;
+
 
 
 use Carbon\Carbon;
@@ -54,16 +56,11 @@ class ReportsController extends Controller
         $counties = DB::table('counties')->get();
         $categories = DB::table('categories')->get();
         $subcategories = DB::table('sub_categories')->get();
-        $statuses = DB::table('listings')
-            ->whereNotNull('Status')
-            ->distinct()
-            ->orderBy('Status')
-            ->pluck('Status');
         $contacts = DB::table('contacts')->get();
         $contactTypes = DB::table('contact_types')->get();
         $leadBusinessNames = DB::table('leads')->get();
         $referralsNames = DB::table('referrals')->get();
-        return view('admin.reports.index', compact('reports', 'agents', 'categories', 'subcategories', 'statuses', 'initialItems', 'counties', 'listingDBA', 'contacts', 'contactTypes', 'leadBusinessNames', 'referralsNames'));
+        return view('admin.reports.index', compact('reports', 'agents', 'categories', 'subcategories', 'initialItems', 'counties', 'listingDBA', 'contacts', 'contactTypes', 'leadBusinessNames', 'referralsNames'));
     }
     public function export(Request $request)
     {
@@ -231,6 +228,13 @@ class ReportsController extends Controller
                 $pdfOutput = $report->generate($request);
                 $filename = 'ListingExpLatter_' . now()->format('Ymd_His') . '.pdf';
                 break;
+
+            case '51':
+                $report = new InternalListingActiveByAgent();
+                $pdfOutput = $report->generate($request);
+                $filename = 'InternalListingActiveByAgent_' . now()->format('Ymd_His') . '.pdf';
+                break;
+
 
             case '52':
                 $report = new WelcomeLetterListListingReport();

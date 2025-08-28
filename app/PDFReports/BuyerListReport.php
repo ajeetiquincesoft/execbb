@@ -21,7 +21,7 @@ class BuyerListReport
         ->when($request->agent, fn($q) => $q->where('AgentID', $request->agent))
         ->when($request->buyer_status, fn($q) => $q->where('Interest', $request->buyer_status))
         ->when($request->location, fn($q) => $q->where('County', $request->location))
-        ->whereBetween('created_at', [$from, $to])
+        ->whereBetween('DateEntered', [$from, $to])
         ->first();
       if ($singleBuyer) {
         $BusType1 = DB::table('sub_categories')

@@ -29,9 +29,8 @@ class OfferListReport
             ->when($request->offer_status, function ($q) use ($request) {
                 $q->where('offers.Status', $request->offer_status);
             })
-            ->whereBetween('offers.DateEntered', [$from, $to])
+            ->whereBetween('offers.DateOfOffer', [$from, $to])
             ->select('offers.*', 'listings.DBA')
-            ->limit(100)
             ->get();
         if ($offers) {
             $html .= '<style>
