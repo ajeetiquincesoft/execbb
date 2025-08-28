@@ -1,7 +1,10 @@
 <?php
+
 namespace App\PDFReports;
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
+
 class AgentSignatureReports
 {
     /**

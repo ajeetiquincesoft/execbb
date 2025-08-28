@@ -13,15 +13,14 @@ class EscrowListReport
     {
         // Base query
         $query = DB::table('offers');
-
         // Filters
-        if ($request->buyer_id && $request->buyer_id !='all') {
+        if ($request->buyer_id && $request->buyer_id != 'all') {
             $query->where('BuyerID', $request->buyer_id);
         }
 
         // Run query
         $escrows = $query->limit(100)->get();
-        $html ='<style>
+        $html = '<style>
         body {
                 font-family: Arial, sans-serif;
                 font-size: 10pt;
@@ -48,7 +47,7 @@ class EscrowListReport
             font-weight: bold;
         }
             </style>';
-        
+
 
         // Header
         $html .= '
@@ -61,7 +60,7 @@ class EscrowListReport
         // If results
         if ($escrows->count() > 0) {
             // If filters applied (single layout)
-            if ($request->buyer_id && $request->buyer_id !='all') {
+            if ($request->buyer_id && $request->buyer_id != 'all') {
                 $escrow = $escrows->first();
                 $buyerInfo = DB::table('buyers')->where('BuyerID', $escrow->BuyerID)->first();
                 $html .= '<table border="0" cellpadding="4" cellspacing="0" style="width: 100%; font-size: 12px; margin-bottom: 30px;">';
@@ -84,7 +83,7 @@ class EscrowListReport
                 $html .= '<td><strong>Return Check #:</strong> ' . htmlspecialchars($escrow->CheckEBBReturnNumber ?? '') . '</td>';
                 $html .= '<td><strong>Returned To #:</strong> ' . htmlspecialchars($escrow->CheckReturnedTo ?? '') . '</td>';
                 $html .= '</tr>';
-                 $html .= '<tr>';
+                $html .= '<tr>';
                 $html .= '<td><strong>Deposited:</strong> ' . (!empty($escrow->DateDeposited) ? date("d/m/Y", strtotime($escrow->DateDeposited)) : "") . '</td>';
                 $html .= '<td><strong>Returned:</strong> ' . (!empty($escrow->CheckReturned) ? date("d/m/Y", strtotime($escrow->CheckReturned)) : "") . '</td>';
                 $html .= '<td><strong>Relationship:</strong> ' . htmlspecialchars($escrow->ReturneeRelationship ?? '') . '</td>';
@@ -92,10 +91,9 @@ class EscrowListReport
                 $html .= '<tr><td><strong>Bank Draw:</strong> ' . htmlspecialchars($escrow->BankDraw ?? '') . '</td></tr>';
                 $html .= '<tr><td><strong>Check Amount:</strong> $' . htmlspecialchars($escrow->CheckAmt ?? '') . '</td></tr>';
                 $html .= '</table>';
-
             } else {
                 // Styles
-        $html .= '
+                $html .= '
         <style>
             
             table {

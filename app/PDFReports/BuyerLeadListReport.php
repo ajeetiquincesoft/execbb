@@ -12,9 +12,9 @@ class BuyerLeadListReport
     public function generate(Request $request)
     {
         $agentInfo = DB::table('agents')->where('AgentID', $request->agent)->first();
-         $fname = '';
-          $lname = '';
-        if($agentInfo){
+        $fname = '';
+        $lname = '';
+        if ($agentInfo) {
             $fname = $agentInfo->FName;
             $lname = $agentInfo->LName;
         }
@@ -25,7 +25,7 @@ class BuyerLeadListReport
             })
             ->limit(200)
             ->get();
-    $html .='<style>
+        $html .= '<style>
         body {
             font-family: Arial, sans-serif;
             font-size: 10px;
@@ -92,7 +92,7 @@ class BuyerLeadListReport
 
     <!-- Agent -->
     <div class="section">
-        <p><strong>Agent:</strong> '.$fname.', '.$lname.'</p>
+        <p><strong>Agent:</strong> ' . $fname . ', ' . $lname . '</p>
     </div>
     <!-- Data Table -->
     <table>
@@ -112,9 +112,8 @@ class BuyerLeadListReport
             </tr>
         </thead>
         <tbody>';
-        foreach($leads as $lead)
-        {
-            $html .='<tr>
+        foreach ($leads as $lead) {
+            $html .= '<tr>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -128,9 +127,9 @@ class BuyerLeadListReport
                         <td></td>
                     </tr>';
         }
-        $html .='</tbody>
+        $html .= '</tbody>
     </table>';
-     $options = new Options();
+        $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);

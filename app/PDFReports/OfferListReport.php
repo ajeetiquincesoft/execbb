@@ -15,8 +15,8 @@ class OfferListReport
         $from = $request->from_date;
         $to = $request->to_date;
         $html = '';
-           $offers = DB::table('offers')
-           ->leftJoin('listings', 'offers.ListingID', '=', 'listings.ListingID')
+        $offers = DB::table('offers')
+            ->leftJoin('listings', 'offers.ListingID', '=', 'listings.ListingID')
             ->when($request->buyer_id, function ($q) use ($request) {
                 $q->where('offers.BuyerID', $request->buyer_id);
             })
@@ -26,14 +26,14 @@ class OfferListReport
             ->when($request->dba_listing, function ($q) use ($request) {
                 $q->where('listings.DBA', $request->dba_listing);
             })
-             ->when($request->offer_status, function ($q) use ($request) {
+            ->when($request->offer_status, function ($q) use ($request) {
                 $q->where('offers.Status', $request->offer_status);
             })
-            ->whereBetween('offers.created_at', [$from, $to])
-             ->select('offers.*', 'listings.DBA')
+            ->whereBetween('offers.DateEntered', [$from, $to])
+            ->select('offers.*', 'listings.DBA')
             ->limit(100)
             ->get();
-            if ($offers) {
+        if ($offers) {
             $html .= '<style>
                 *{
                     font-family: Arial, sans-serif;
@@ -156,7 +156,7 @@ class OfferListReport
                     font-size: 14px !important; 
                     }
             </style>';
-                $html .= '<div class="header">
+            $html .= '<div class="header">
                     <div class="header-left">
                         <h2>Executive Business Brokers</h2>
                         <p><strong>Offers List</strong></p>
@@ -166,29 +166,28 @@ class OfferListReport
                     </div>
                     <div class="clearfix"></div>
                 </div>';
-            foreach($offers as $offer)
-            {
-                $listAgent = DB::table('agents')->where('AgentID',$offer->ListingAgent)->first();
-                $BuyerInfo = DB::table('buyers')->where('BuyerID',$offer->BuyerID)->first();
-                $DBAInfo = DB::table('listings')->where('ListingID',$offer->ListingID)->first();
-                $html .='<div class="offer_container">
+            foreach ($offers as $offer) {
+                $listAgent = DB::table('agents')->where('AgentID', $offer->ListingAgent)->first();
+                $BuyerInfo = DB::table('buyers')->where('BuyerID', $offer->BuyerID)->first();
+                $DBAInfo = DB::table('listings')->where('ListingID', $offer->ListingID)->first();
+                $html .= '<div class="offer_container">
                 <div class="offer_info">
-                    <div class="offer_id">'.$offer->OfferID.'</div>
-                    <div class="offer_dba"><a href="#">'.($DBAInfo->DBA ?? '').'</a></div>
+                    <div class="offer_id">' . $offer->OfferID . '</div>
+                    <div class="offer_dba"><a href="#">' . ($DBAInfo->DBA ?? '') . '</a></div>
                 </div>
                 <div class="outer">
                     <div>
-                    <span class="label">List Agent</span> '. $offer->ListingAgent .'<br>
+                    <span class="label">List Agent</span> ' . $offer->ListingAgent . '<br>
                         <span class="label">Seller</span> <br>
                         <span class="label">Home</span> <br>
                         <span class="label">Bus</span><br>
                     </div>
 
                     <div>
-                    <span class="label">Buy Agent</span> '. ($BuyerInfo->AgentID ?? '') .'<br>
-                    <span class="label">Buyer</span> '. ($BuyerInfo->LName ?? '') .' '. ($BuyerInfo->FName ?? '').'<br>
-                    <span class="label">Home</span> '. ($BuyerInfo->HomePhone ?? '') .'<br>
-                    <span class="label">Bus</span>'. ($BuyerInfo->BusPhone ?? '') .'<br>
+                    <span class="label">Buy Agent</span> ' . ($BuyerInfo->AgentID ?? '') . '<br>
+                    <span class="label">Buyer</span> ' . ($BuyerInfo->LName ?? '') . ' ' . ($BuyerInfo->FName ?? '') . '<br>
+                    <span class="label">Home</span> ' . ($BuyerInfo->HomePhone ?? '') . '<br>
+                    <span class="label">Bus</span>' . ($BuyerInfo->BusPhone ?? '') . '<br>
                     </div>
 
                     <div>
@@ -200,22 +199,22 @@ class OfferListReport
                         </div>
                         <div class="offer_inner offer_inner_content">
                         <div><br>
-                        <span class="label">Price</span> $'.$offer->OfferPrice.'<br>
-                        <span class="label">Down Pay</span> $'.$offer->OffDownPay.'
+                        <span class="label">Price</span> $' . $offer->OfferPrice . '<br>
+                        <span class="label">Down Pay</span> $' . $offer->OffDownPay . '
                         </div>
                         <div><br>
-                        <span class="label">Price</span> $'.$offer->COfferPrice.'<br>
-                        <span class="label">Down Pay</span> $'.$offer->COffDownPay.'
+                        <span class="label">Price</span> $' . $offer->COfferPrice . '<br>
+                        <span class="label">Down Pay</span> $' . $offer->COffDownPay . '
                         </div>
                         <div>
-                        <span class="label">RE Inc</span> '.$offer->RealEstateInc.'<br>
-                        <span class="label">Price</span> $'.$offer->REPrice.'<br>
-                        <span class="label">Down Pay</span> $'.$offer->REDownPay.'
+                        <span class="label">RE Inc</span> ' . $offer->RealEstateInc . '<br>
+                        <span class="label">Price</span> $' . $offer->REPrice . '<br>
+                        <span class="label">Down Pay</span> $' . $offer->REDownPay . '
                         </div>
                         <div>
-                        <span class="label">Op To Buy</span> '.$offer->OpToBuy.'<br>
-                        <span class="label">Price</span> $'.$offer->OpPrice.'<br>
-                        <span class="label">Down Pay</span> $'.$offer->OpDownPay.'
+                        <span class="label">Op To Buy</span> ' . $offer->OpToBuy . '<br>
+                        <span class="label">Price</span> $' . $offer->OpPrice . '<br>
+                        <span class="label">Down Pay</span> $' . $offer->OpDownPay . '
                         </div>
                         </div>
                     </div>
@@ -223,22 +222,21 @@ class OfferListReport
 
                 <!-- Second row -->
                 <div class="row2">
-                <div><strong>Status</strong> '.$offer->Status.'</div>
-                <div><strong>Comm</strong> $'.$offer->Commission.'</div>
-                <div><strong>Offer Date</strong>'.(!empty($offer->DateOfOffer) && strtotime($offer->DateOfOffer) ? date('d/m/Y', strtotime($offer->DateOfOffer)) : '').'</div>
-                <div><strong>Exp Date</strong> '.(!empty($offer->ExpDate) && strtotime($offer->ExpDate) ? date('d/m/Y', strtotime($offer->ExpDate)) : '').'</div>
-                <div><strong>Acc Date</strong> '.(!empty($offer->AccDate) && strtotime($offer->AccDate) ? date('d/m/Y', strtotime($offer->AccDate)) : '').'</div>
-                <div><strong>Close Date</strong> '. (!empty($offer->CloseDate) && strtotime($offer->CloseDate) ? date('d/m/Y', strtotime($offer->CloseDate)) : '') .'</div>
+                <div><strong>Status</strong> ' . $offer->Status . '</div>
+                <div><strong>Comm</strong> $' . $offer->Commission . '</div>
+                <div><strong>Offer Date</strong>' . (!empty($offer->DateOfOffer) && strtotime($offer->DateOfOffer) ? date('d/m/Y', strtotime($offer->DateOfOffer)) : '') . '</div>
+                <div><strong>Exp Date</strong> ' . (!empty($offer->ExpDate) && strtotime($offer->ExpDate) ? date('d/m/Y', strtotime($offer->ExpDate)) : '') . '</div>
+                <div><strong>Acc Date</strong> ' . (!empty($offer->AccDate) && strtotime($offer->AccDate) ? date('d/m/Y', strtotime($offer->AccDate)) : '') . '</div>
+                <div><strong>Close Date</strong> ' . (!empty($offer->CloseDate) && strtotime($offer->CloseDate) ? date('d/m/Y', strtotime($offer->CloseDate)) : '') . '</div>
                 </div></div>';
             }
-            
-        }else{
+        } else {
             $html .= '
                 <div style="text-align:center; margin-top:50px; font-size:14pt;">
                     <strong>No results found for the given filters.</strong>
                 </div>';
-}
-        
+        }
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);

@@ -12,11 +12,11 @@ class BuyerInterestLetter
     public function generate(Request $request)
     {
         // Example dynamic variables
-        $date = date('n/j/Y'); 
-        if(isset($request->buyer_id)){
-            $getBuyer = DB::table('buyers')->where('BuyerID',$request->buyer_id)->first();
+        $date = date('n/j/Y');
+        if (isset($request->buyer_id)) {
+            $getBuyer = DB::table('buyers')->where('BuyerID', $request->buyer_id)->first();
         }
-        $name = $getBuyer->FName .' '.$getBuyer->LName;
+        $name = $getBuyer->FName . ' ' . $getBuyer->LName;
         $address1 = $getBuyer->Address1;
         $address2 = $getBuyer->Address2;
 
@@ -55,7 +55,7 @@ class BuyerInterestLetter
         <div class="address">
             ' . $name . '<br>
             ' . $address1 . '<br>
-            ' . $getBuyer->City . ' '.$getBuyer->State.' '.$getBuyer->Zip.'<br>
+            ' . $getBuyer->City . ' ' . $getBuyer->State . ' ' . $getBuyer->Zip . '<br>
             ' . $address2 . '
         </div>
 

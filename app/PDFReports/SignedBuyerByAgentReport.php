@@ -14,9 +14,9 @@ class SignedBuyerByAgentReport
         $from = $request->from_date;
         $to = $request->to_date;
         $agentInfo = DB::table('agents')->where('AgentID', $request->agent)->first();
-         $fname = '';
-          $lname = '';
-        if($agentInfo){
+        $fname = '';
+        $lname = '';
+        if ($agentInfo) {
             $fname = $agentInfo->FName;
             $lname = $agentInfo->LName;
         }
@@ -26,10 +26,10 @@ class SignedBuyerByAgentReport
                 $q->where('AgentID', $request->agent);
             })
             ->where('Signed', 1)
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->limit(200)
             ->get();
-    $html .='<style>
+        $html .= '<style>
         body {
             font-family: Arial, sans-serif;
             font-size: 10px;
@@ -96,7 +96,7 @@ class SignedBuyerByAgentReport
 
     <!-- Agent -->
     <div class="section">
-        <p><strong>Agent:</strong> '.$fname.', '.$lname.'</p>
+        <p><strong>Agent:</strong> ' . $fname . ', ' . $lname . '</p>
     </div>
     <!-- Data Table -->
     <table>
@@ -129,50 +129,49 @@ class SignedBuyerByAgentReport
             </tr>
         </thead>
         <tbody>';
-        foreach($Buyers as $buyer)
-        {
+        foreach ($Buyers as $buyer) {
             $BusType1 = DB::table('sub_categories')
-            ->where('SubCatID', $buyer->BusType1)
-            ->first();  
+                ->where('SubCatID', $buyer->BusType1)
+                ->first();
             $BusType2 = DB::table('sub_categories')
-            ->where('SubCatID', $buyer->BusType2)
-            ->first();
+                ->where('SubCatID', $buyer->BusType2)
+                ->first();
             $BusType3 = DB::table('sub_categories')
-            ->where('SubCatID', $buyer->BusType3)
-            ->first();
+                ->where('SubCatID', $buyer->BusType3)
+                ->first();
             $BusType4 = DB::table('sub_categories')
-            ->where('SubCatID', $buyer->BusType4)
-            ->first();
-            $html .='<tr>
-                        <td>'.$buyer->BuyerID.'</td>
-                        <td>'.$buyer->FName.' '.$buyer->LName.'</td>
-                        <td>'.$buyer->City.'</td>
-                        <td>'.$buyer->State.'</td>
-                        <td>'. (!empty($buyer->BDate) && strtotime($buyer->BDate) ? date('d/m/Y', strtotime($buyer->BDate)) : '') . '</td>
-                        <td>'.$buyer->HomePhone.'</td>
-                        <td>'.$buyer->BusPhone.'</td>
-                        <td>'.$buyer->CallWhen.'</td>
-                        <td>'.$buyer->Signed.'</td>
-                        <td>'.$buyer->Interest.'</td>
-                        <td>'.$buyer->BusLocation.'</td>
-                        <td>'.($BusType1->SubCategory ?? '').'</td>
-                        <td>'.($BusType2->SubCategory ?? '').'</td>
-                        <td>'.($BusType3->SubCategory ?? '').'</td>
-                        <td>'.($BusType4->SubCategory ?? '').'</td>
-                        <td>'.$buyer->BusCounty1.'</td>
-                        <td>'.$buyer->BusCounty2.'</td>
-                        <td>'.$buyer->BusCounty3.'</td>
-                        <td>'.$buyer->BusCounty4.'</td>
-                        <td>'.$buyer->PPMax.'</td>
-                        <td>'.$buyer->DownPmtMax.'</td>
-                        <td>'.$buyer->VolMax.'</td>
-                        <td>'.$buyer->NetProfMax.'</td>
-                        <td>'.$buyer->Comments.'</td>
+                ->where('SubCatID', $buyer->BusType4)
+                ->first();
+            $html .= '<tr>
+                        <td>' . $buyer->BuyerID . '</td>
+                        <td>' . $buyer->FName . ' ' . $buyer->LName . '</td>
+                        <td>' . $buyer->City . '</td>
+                        <td>' . $buyer->State . '</td>
+                        <td>' . (!empty($buyer->BDate) && strtotime($buyer->BDate) ? date('d/m/Y', strtotime($buyer->BDate)) : '') . '</td>
+                        <td>' . $buyer->HomePhone . '</td>
+                        <td>' . $buyer->BusPhone . '</td>
+                        <td>' . $buyer->CallWhen . '</td>
+                        <td>' . $buyer->Signed . '</td>
+                        <td>' . $buyer->Interest . '</td>
+                        <td>' . $buyer->BusLocation . '</td>
+                        <td>' . ($BusType1->SubCategory ?? '') . '</td>
+                        <td>' . ($BusType2->SubCategory ?? '') . '</td>
+                        <td>' . ($BusType3->SubCategory ?? '') . '</td>
+                        <td>' . ($BusType4->SubCategory ?? '') . '</td>
+                        <td>' . $buyer->BusCounty1 . '</td>
+                        <td>' . $buyer->BusCounty2 . '</td>
+                        <td>' . $buyer->BusCounty3 . '</td>
+                        <td>' . $buyer->BusCounty4 . '</td>
+                        <td>' . $buyer->PPMax . '</td>
+                        <td>' . $buyer->DownPmtMax . '</td>
+                        <td>' . $buyer->VolMax . '</td>
+                        <td>' . $buyer->NetProfMax . '</td>
+                        <td>' . $buyer->Comments . '</td>
                     </tr>';
         }
-        $html .='</tbody>
+        $html .= '</tbody>
     </table>';
-     $options = new Options();
+        $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);

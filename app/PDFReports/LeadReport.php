@@ -15,7 +15,7 @@ class LeadReport
         $from = $request->from_date;
         $to = $request->to_date;
         $html = '';
-           $leads = DB::table('leads')
+        $leads = DB::table('leads')
             ->when($request->lead_business_name, function ($q) use ($request) {
                 $q->where('LeadID', $request->lead_business_name);
             })
@@ -25,16 +25,16 @@ class LeadReport
             ->when($request->seller_first_name, function ($q) use ($request) {
                 $q->where('SellerFName', $request->seller_first_name);
             })
-             ->when($request->seller_last_name, function ($q) use ($request) {
+            ->when($request->seller_last_name, function ($q) use ($request) {
                 $q->where('SellerLName', $request->seller_last_name);
             })
-              ->when($request->lead_city, function ($q) use ($request) {
+            ->when($request->lead_city, function ($q) use ($request) {
                 $q->where('City', $request->lead_city);
             })
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('LDate', [$from, $to])
             ->limit(10)
             ->get();
-            if ($leads) {
+        if ($leads) {
             $leadCount = $leads->count();
             $html .= '<style>
                 body {
@@ -84,139 +84,138 @@ class LeadReport
                     text-decoration: underline;
                 }
             </style>';
-            if($leadCount == 1){
+            if ($leadCount == 1) {
                 $lead = $leads->first();
                 $html .= '<!-- Header -->
             <div class="header">Executive Business Brokers</div>
             <div class="report-title">Lead Information</div>
             <div class="right">As of: ' . now()->format('n/j/Y') . '</div>';
-            $category = DB::table('categories')->where('CategoryID', $lead->Category)->first();
+                $category = DB::table('categories')->where('CategoryID', $lead->Category)->first();
                 if ($category) {
-                $categoryName = $category->BusinessCategory;
+                    $categoryName = $category->BusinessCategory;
                 } else {
                     $categoryName = $lead->Category;
                 }
                 $SubCategoryData = DB::table('sub_categories')->where('SubCatID', $lead->SubCategory)->first();
                 if ($SubCategoryData) {
-                $subCategoryName = $SubCategoryData->SubCategory; // adjust column name
+                    $subCategoryName = $SubCategoryData->SubCategory; // adjust column name
                 } else {
                     $subCategoryName = $lead->SubCategory; // fallback to raw value
                 }
-                $html .='<div class="lead-block">
+                $html .= '<div class="lead-block">
                     <table>
-                        <tr><td>Lead Date</td><td>'. (!empty($lead->LDate) && strtotime($lead->LDate) ? date('d/m/Y', strtotime($lead->LDate)) : '') . '</td></tr>
-                        <tr><td>Lead ID</td><td>'. $lead->LeadID . '</td></tr>
-                        <tr><td>Agent ID</td><td>'. $lead->AgentID . '</td></tr>
-                        <tr><td>Appoint Date</td><td>'. (!empty($lead->AppointmentDate) && strtotime($lead->AppointmentDate) ? date('d/m/Y', strtotime($lead->AppointmentDate)) : '') . '</td></tr>
+                        <tr><td>Lead Date</td><td>' . (!empty($lead->LDate) && strtotime($lead->LDate) ? date('d/m/Y', strtotime($lead->LDate)) : '') . '</td></tr>
+                        <tr><td>Lead ID</td><td>' . $lead->LeadID . '</td></tr>
+                        <tr><td>Agent ID</td><td>' . $lead->AgentID . '</td></tr>
+                        <tr><td>Appoint Date</td><td>' . (!empty($lead->AppointmentDate) && strtotime($lead->AppointmentDate) ? date('d/m/Y', strtotime($lead->AppointmentDate)) : '') . '</td></tr>
                         
-                        <tr><td>Seller Name</td><td>'.$lead->SellerFName.' '.$lead->SellerLName.'</td></tr>
-                        <tr><td>Bus Name</td><td>'.$lead->BusName.'</td></tr>
-                        <tr><td>Address</td><td>'.$lead->Address.' '.$lead->City.', '.$lead->State.'</td></tr>
-                        <tr><td>City</td><td>'.$lead->City.'</td></tr>
-                        <tr><td>County</td><td>'.$lead->County.'</td></tr>
-                        <tr><td>Bus Phone</td><td>'.$lead->Phone.'</td></tr>
-                        <tr><td>Home Phone</td><td>'.$lead->HomePhone.'</td></tr>
-                        <tr><td>Cell Phone</td><td>'.$lead->CellPhone.'</td></tr>
-                        <tr><td>FSBO No</td><td>'.$lead->FSBO.'</td></tr>
+                        <tr><td>Seller Name</td><td>' . $lead->SellerFName . ' ' . $lead->SellerLName . '</td></tr>
+                        <tr><td>Bus Name</td><td>' . $lead->BusName . '</td></tr>
+                        <tr><td>Address</td><td>' . $lead->Address . ' ' . $lead->City . ', ' . $lead->State . '</td></tr>
+                        <tr><td>City</td><td>' . $lead->City . '</td></tr>
+                        <tr><td>County</td><td>' . $lead->County . '</td></tr>
+                        <tr><td>Bus Phone</td><td>' . $lead->Phone . '</td></tr>
+                        <tr><td>Home Phone</td><td>' . $lead->HomePhone . '</td></tr>
+                        <tr><td>Cell Phone</td><td>' . $lead->CellPhone . '</td></tr>
+                        <tr><td>FSBO No</td><td>' . $lead->FSBO . '</td></tr>
                         
-                        <tr><td>Listed</td><td>'.$lead->Listed.'</td></tr>
-                        <tr><td>Sub-Category</td><td>'.$subCategoryName.'</td></tr>
-                        <tr><td>Ann Sales</td><td>$'.$lead->AnnSales.'</td></tr>
-                        <tr><td>Size of Facility</td><td>'.$lead->SizeOfFacility.'</td></tr>
-                        <tr><td>Present Owner</td><td>'.$lead->PresentOwner.'</td></tr>
+                        <tr><td>Listed</td><td>' . $lead->Listed . '</td></tr>
+                        <tr><td>Sub-Category</td><td>' . $subCategoryName . '</td></tr>
+                        <tr><td>Ann Sales</td><td>$' . $lead->AnnSales . '</td></tr>
+                        <tr><td>Size of Facility</td><td>' . $lead->SizeOfFacility . '</td></tr>
+                        <tr><td>Present Owner</td><td>' . $lead->PresentOwner . '</td></tr>
                         
-                        <tr><td>Asking Price</td><td>$'.$lead->Price.'</td></tr>
-                        <tr><td>R/E Inc</td><td>'.$lead->RealEstateInc.'</td></tr>
-                        <tr><td>If Yes, R/E Price</td><td>$'.$lead->REAsking.'</td></tr>
+                        <tr><td>Asking Price</td><td>$' . $lead->Price . '</td></tr>
+                        <tr><td>R/E Inc</td><td>' . $lead->RealEstateInc . '</td></tr>
+                        <tr><td>If Yes, R/E Price</td><td>$' . $lead->REAsking . '</td></tr>
                     
-                        <tr><td>Source</td><td>'.$lead->Source.'</td></tr>
-                        <tr><td>Ad Copy</td><td>'.$lead->AdCopy.'</td></tr>
-                        <tr><td>Ad Date</td><td>'. (!empty($lead->AdDate) && strtotime($lead->AdDate) ? date('d/m/Y', strtotime($lead->AdDate)) : '') . '</td></tr>
+                        <tr><td>Source</td><td>' . $lead->Source . '</td></tr>
+                        <tr><td>Ad Copy</td><td>' . $lead->AdCopy . '</td></tr>
+                        <tr><td>Ad Date</td><td>' . (!empty($lead->AdDate) && strtotime($lead->AdDate) ? date('d/m/Y', strtotime($lead->AdDate)) : '') . '</td></tr>
                     
-                        <tr><td>Comment</td><td>'.$lead->Comments.'</td></tr>
+                        <tr><td>Comment</td><td>' . $lead->Comments . '</td></tr>
                     </table>
                 </div>';
-            }else{
-            $html .= '<!-- Header -->
+            } else {
+                $html .= '<!-- Header -->
             <div class="header">Executive Business Brokers</div>
             <div class="report-title">leads List</div>
             <div class="right">As of: ' . now()->format('n/j/Y') . '</div>
-            <div class="subtitle">From: '.$from.' To: '.$to.'</div>';
-            foreach($leads as $lead)
-            {
-                $category = DB::table('categories')->where('CategoryID', $lead->Category)->first();
-                if ($category) {
-                $categoryName = $category->BusinessCategory;
-                } else {
-                    $categoryName = $lead->Category;
-                }
-                $SubCategoryData = DB::table('sub_categories')->where('SubCatID', $lead->SubCategory)->first();
-                if ($SubCategoryData) {
-                $subCategoryName = $SubCategoryData->SubCategory; // adjust column name
-                } else {
-                    $subCategoryName = $lead->SubCategory; // fallback to raw value
-                }
-                $html .='<div class="lead-block">
+            <div class="subtitle">From: ' . $from . ' To: ' . $to . '</div>';
+                foreach ($leads as $lead) {
+                    $category = DB::table('categories')->where('CategoryID', $lead->Category)->first();
+                    if ($category) {
+                        $categoryName = $category->BusinessCategory;
+                    } else {
+                        $categoryName = $lead->Category;
+                    }
+                    $SubCategoryData = DB::table('sub_categories')->where('SubCatID', $lead->SubCategory)->first();
+                    if ($SubCategoryData) {
+                        $subCategoryName = $SubCategoryData->SubCategory; // adjust column name
+                    } else {
+                        $subCategoryName = $lead->SubCategory; // fallback to raw value
+                    }
+                    $html .= '<div class="lead-block">
                     <div>
-                        <span class="lead-id">'.$lead->LeadID.'</span> &nbsp; '.$lead->AgentID.' <br>
-                        <span class="lead-link"><a href="#">'.$lead->BusName.'</a></span>
+                        <span class="lead-id">' . $lead->LeadID . '</span> &nbsp; ' . $lead->AgentID . ' <br>
+                        <span class="lead-link"><a href="#">' . $lead->BusName . '</a></span>
                     </div>
                     <div class="lead-address">
-                        '.$lead->Address.'<br>
-                        '.$lead->City.', '.$lead->State.'
+                        ' . $lead->Address . '<br>
+                        ' . $lead->City . ', ' . $lead->State . '
                     </div>
                     <table>
                         <tr>
-                            <td>Lead Date</td><td>'. (!empty($lead->LDate) && strtotime($lead->LDate) ? date('d/m/Y', strtotime($lead->LDate)) : '') . '</td>
-                            <td>Seller Name</td><td>'.$lead->SellerFName.' '.$lead->SellerLName.'</td>
+                            <td>Lead Date</td><td>' . (!empty($lead->LDate) && strtotime($lead->LDate) ? date('d/m/Y', strtotime($lead->LDate)) : '') . '</td>
+                            <td>Seller Name</td><td>' . $lead->SellerFName . ' ' . $lead->SellerLName . '</td>
                         </tr>
                         <tr>
-                            <td>Category</td><td>'.$categoryName.'</td>
-                            <td>Source</td><td>'.$lead->Source.'</td>
+                            <td>Category</td><td>' . $categoryName . '</td>
+                            <td>Source</td><td>' . $lead->Source . '</td>
                         </tr>
                         <tr>
-                            <td>Sub-Category</td><td>'.$subCategoryName.'</td>
-                            <td>Ad Date</td><td>'. (!empty($lead->AdDate) && strtotime($lead->AdDate) ? date('d/m/Y', strtotime($lead->AdDate)) : '') . '</td>
+                            <td>Sub-Category</td><td>' . $subCategoryName . '</td>
+                            <td>Ad Date</td><td>' . (!empty($lead->AdDate) && strtotime($lead->AdDate) ? date('d/m/Y', strtotime($lead->AdDate)) : '') . '</td>
                         </tr>
                         <tr>
-                            <td>FSBO No</td><td>'.$lead->FSBO.'</td>
-                            <td>Pres Owner</td><td>'.$lead->PresentOwner.'</td>
+                            <td>FSBO No</td><td>' . $lead->FSBO . '</td>
+                            <td>Pres Owner</td><td>' . $lead->PresentOwner . '</td>
                         </tr>
                         <tr>
-                            <td>Years in Bus</td><td>'.$lead->YearsInBus.'</td>
-                            <td>Size of Facility</td><td>'.$lead->SizeOfFacility.'</td>
+                            <td>Years in Bus</td><td>' . $lead->YearsInBus . '</td>
+                            <td>Size of Facility</td><td>' . $lead->SizeOfFacility . '</td>
                         </tr>
                         <tr>
-                            <td>RE Inc No</td><td>'.$lead->RealEstateInc.'</td>
-                            <td>RE Asking $</td><td>'.$lead->REAsking.'</td>
+                            <td>RE Inc No</td><td>' . $lead->RealEstateInc . '</td>
+                            <td>RE Asking $</td><td>' . $lead->REAsking . '</td>
                         </tr>
                         <tr>
-                            <td>Price</td><td>$'.$lead->Price.'</td>
-                            <td>Ad Copy</td><td>'.$lead->AdCopy.'</td>
+                            <td>Price</td><td>$' . $lead->Price . '</td>
+                            <td>Ad Copy</td><td>' . $lead->AdCopy . '</td>
                         </tr>
                         <tr>
-                            <td>Ann Sales</td><td>$'.$lead->AnnSales.'</td>
-                            <td>Listed</td><td>'.$lead->Listed.'</td>
+                            <td>Ann Sales</td><td>$' . $lead->AnnSales . '</td>
+                            <td>Listed</td><td>' . $lead->Listed . '</td>
                         </tr>
                         <tr>
-                            <td>Bus Phone</td><td>'.$lead->Phone.'</td>
-                            <td>Home Phone</td><td>'.$lead->HomePhone.'</td>
+                            <td>Bus Phone</td><td>' . $lead->Phone . '</td>
+                            <td>Home Phone</td><td>' . $lead->HomePhone . '</td>
                         </tr>
                         <tr>
-                            <td>Cell Phone</td><td>'.$lead->CellPhone.'</td>
-                            <td>Comment</td><td>'.$lead->Comments.'</td>
+                            <td>Cell Phone</td><td>' . $lead->CellPhone . '</td>
+                            <td>Comment</td><td>' . $lead->Comments . '</td>
                         </tr>
                     </table>
                 </div>';
+                }
             }
-        }
-        }else{
+        } else {
             $html .= '
                 <div style="text-align:center; margin-top:50px; font-size:14pt;">
                     <strong>No results found for the given filters.</strong>
                 </div>';
-}
-        
+        }
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $dompdf = new Dompdf($options);

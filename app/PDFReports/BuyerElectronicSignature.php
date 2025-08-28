@@ -15,7 +15,7 @@ class BuyerElectronicSignature
         $buyer = DB::table('buyers')
             ->where('BuyerID', $request->buyer_id)
             ->first();
-    $html .='<style>
+        $html .= '<style>
         body {
             font-family: Arial, sans-serif;
             font-size: 11px;
@@ -114,15 +114,15 @@ class BuyerElectronicSignature
             to the information in the above Buyer Registration and Confidentiality Non-Disclosure 
             and Showing Agreement:
         </p>';
-        if($buyer){
-        $html .='<p><strong>Your Full Name:</strong> '. $buyer->FName .' '.$buyer->LName.'</p>
-        <p><strong>Signed electronically on:</strong> '. (!empty($buyer->BDate) && strtotime($buyer->BDate) ? date('d/m/Y', strtotime($buyer->BDate)) : '') . '</p>';
-        }else{
-             $html .='<p>NO ELECTRONIC SIGNATURE FOR THIS BUYER </p>';
+        if ($buyer) {
+            $html .= '<p><strong>Your Full Name:</strong> ' . $buyer->FName . ' ' . $buyer->LName . '</p>
+        <p><strong>Signed electronically on:</strong> ' . (!empty($buyer->BDate) && strtotime($buyer->BDate) ? date('d/m/Y', strtotime($buyer->BDate)) : '') . '</p>';
+        } else {
+            $html .= '<p>NO ELECTRONIC SIGNATURE FOR THIS BUYER </p>';
         }
-        $html .='<p>The above named individual agreed to the above terms on the date indicated via electronic signature.</p>
+        $html .= '<p>The above named individual agreed to the above terms on the date indicated via electronic signature.</p>
     </div>';
-     $options = new Options();
+        $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);

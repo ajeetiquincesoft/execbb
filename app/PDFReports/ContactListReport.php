@@ -1,5 +1,7 @@
 <?php
+
 namespace App\PDFReports;
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Carbon\Carbon;
@@ -11,12 +13,12 @@ class ContactListReport
     public function generate(Request $request)
     {
 
-      /*   $html .= '<p>' . ($contactType ? 'Type: <strong>' . htmlspecialchars($contactType) . '</strong>' : 'All Contact Types') . '</p>';
+        /*   $html .= '<p>' . ($contactType ? 'Type: <strong>' . htmlspecialchars($contactType) . '</strong>' : 'All Contact Types') . '</p>';
         $html .= '<p style="text-align: right;"><em>As of: ' . Carbon::now()->format('n/j/Y') . '</em></p>'; */
         // Table
         $query = DB::table('contacts');
 
-        if((!isset($request->contact) && !isset($request->contact_type)) || (isset($request->contact_type) && !isset($request->contact))){
+        if ((!isset($request->contact) && !isset($request->contact_type)) || (isset($request->contact_type) && !isset($request->contact))) {
             $html = '<html><head><style>
             body { font-family: Arial, sans-serif; font-size: 12px; margin: 20px; }
             h1 { font-size: 20px; margin-bottom: 0; }
@@ -49,15 +51,15 @@ class ContactListReport
                 margin-top: 20px;
             }
         </style></head><body>';
-        // Header
-        $html .= '<h1>Executive Business Brokers</h1>';
-        $html .= '<p>Contacts List</p>';
+            // Header
+            $html .= '<h1>Executive Business Brokers</h1>';
+            $html .= '<p>Contacts List</p>';
             if (!empty($request->contact_type)) {
-            $query->where('Type', $request->contact_type);
+                $query->where('Type', $request->contact_type);
             }
-        $allContacts = $query->take(500)->get();
-        $html .= '<table>';
-        $html .= '<thead>
+            $allContacts = $query->take(500)->get();
+            $html .= '<table>';
+            $html .= '<thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
@@ -73,73 +75,72 @@ class ContactListReport
                 <th>Add. Rep</th>
             </tr>
         </thead><tbody>';
-        if ($allContacts->isEmpty()) {
-            $html .= '<tr><td colspan="12" style="text-align:center; color:red;">No contacts found for this selection.</td></tr>';
-        } else {
-            foreach ($allContacts as $contact) {
-                $fullName = trim(($contact->FName ?? '') . ' ' . ($contact->LName ?? ''));
-                $address = trim(($contact->Address1 ?? '') . ' ' . ($contact->Address2 ?? ''));
-                $html .= '<tr>';
-                $html .= '<td>' . htmlspecialchars($contact->ContactID ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($fullName) . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->TypeDescription ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($address) . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->City ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->State ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->Zip ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->Phone ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->Fax ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->Pager ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->Email ?? '') . '</td>';
-                $html .= '<td>' . htmlspecialchars($contact->AddRep ?? '') . '</td>';
-                $html .= '</tr>';
+            if ($allContacts->isEmpty()) {
+                $html .= '<tr><td colspan="12" style="text-align:center; color:red;">No contacts found for this selection.</td></tr>';
+            } else {
+                foreach ($allContacts as $contact) {
+                    $fullName = trim(($contact->FName ?? '') . ' ' . ($contact->LName ?? ''));
+                    $address = trim(($contact->Address1 ?? '') . ' ' . ($contact->Address2 ?? ''));
+                    $html .= '<tr>';
+                    $html .= '<td>' . htmlspecialchars($contact->ContactID ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($fullName) . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->TypeDescription ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($address) . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->City ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->State ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->Zip ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->Phone ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->Fax ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->Pager ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->Email ?? '') . '</td>';
+                    $html .= '<td>' . htmlspecialchars($contact->AddRep ?? '') . '</td>';
+                    $html .= '</tr>';
+                }
             }
-        }
-        $html .= '</tbody></table>';
-        $html .= '<div class="footer-note">Generated by Contact Report</div>';
-        $html .= '</body></html>';
-        return $this->renderPDF($html);
-    }else{
+            $html .= '</tbody></table>';
+            $html .= '<div class="footer-note">Generated by Contact Report</div>';
+            $html .= '</body></html>';
+            return $this->renderPDF($html);
+        } else {
 
-        $singleContact = $query->first();
-        $fullName = trim(($singleContact->FName ?? '') . ' ' . ($singleContact->LName ?? ''));
-        $address = trim(($singleContact->Address1 ?? '') . ' ' . ($singleContact->Address2 ?? ''));
-        $html = '<html><head><style>
+            $singleContact = $query->first();
+            $fullName = trim(($singleContact->FName ?? '') . ' ' . ($singleContact->LName ?? ''));
+            $address = trim(($singleContact->Address1 ?? '') . ' ' . ($singleContact->Address2 ?? ''));
+            $html = '<html><head><style>
             body { font-family: Arial, sans-serif; font-size: 12px; margin: 20px; }
             h1 { font-size: 20px; margin-bottom: 0; }
             p { margin: 5px 0; }
         </style></head><body>';
-        $html .= '<h1>Executive Business Brokers</h1>';
-        $html .= '<p>Contact Info Sheet</p>';
-        $html .= '<p style="text-align: right;"><em>As of: ' . Carbon::now()->format('n/j/Y') . '</em></p>';
-        $html .= '<hr>';
-        $html .= '<table border="0" cellpadding="4" cellspacing="0" style="width: 100%; font-size: 10px; margin-bottom: 30px;">';
-        $html .= '<tr>';
-        $html .= '<td style="width: 50%;"><strong>Contact ID:</strong> ' . htmlspecialchars($singleContact->ContactID ?? '') . '</td>';
-        $html .= '<td style="width: 50%;"><strong>Type:</strong> ' . htmlspecialchars($singleContact->Type ?? '') . '</td>';
-        $html .= '</tr>';
-        $html .= '<tr>';
-        $fullName = trim(($singleContact->FName ?? '') . ' ' . ($singleContact->LName ?? ''));
-        $html .= '<td><strong>Name:</strong> ' . htmlspecialchars($fullName) . '</td>';
-        $html .= '<td><strong>Additional Rep:</strong> ' . htmlspecialchars($singleContact->AddRep ?? '') . '</td>';
-        $html .= '</tr>';
-        $html .= '<tr><td colspan="2"><strong>Address:</strong> ' . htmlspecialchars($singleContact->Address1 ?? '') . '</td></tr>';
-        $html .= '<tr><td colspan="2">' . htmlspecialchars($singleContact->Address2 ?? '') . '</td></tr>';
-        $html .= '<tr>';
-        $html .= '<td><strong>Phone:</strong> ' . htmlspecialchars($singleContact->Phone ?? '') . '</td>';
-        $html .= '<td><strong>Fax:</strong> ' . htmlspecialchars($singleContact->Fax ?? '') . '</td>';
-        $html .= '</tr>';
-        $html .= '<tr>';
-        $html .= '<td><strong>Pager:</strong> ' . htmlspecialchars($singleContact->Pager ?? '') . '</td>';
-        $html .= '<td><strong>Email:</strong> ' . htmlspecialchars($singleContact->Email ?? '') . '</td>';
-        $html .= '</tr>';
-        $html .= '<tr><td colspan="2"><strong>Comments:</strong> ' . nl2br(htmlspecialchars($singleContact->Comments ?? '')) . '</td></tr>';
-        $html .= '</table><hr style="margin: 20px 0;">';
+            $html .= '<h1>Executive Business Brokers</h1>';
+            $html .= '<p>Contact Info Sheet</p>';
+            $html .= '<p style="text-align: right;"><em>As of: ' . Carbon::now()->format('n/j/Y') . '</em></p>';
+            $html .= '<hr>';
+            $html .= '<table border="0" cellpadding="4" cellspacing="0" style="width: 100%; font-size: 10px; margin-bottom: 30px;">';
+            $html .= '<tr>';
+            $html .= '<td style="width: 50%;"><strong>Contact ID:</strong> ' . htmlspecialchars($singleContact->ContactID ?? '') . '</td>';
+            $html .= '<td style="width: 50%;"><strong>Type:</strong> ' . htmlspecialchars($singleContact->Type ?? '') . '</td>';
+            $html .= '</tr>';
+            $html .= '<tr>';
+            $fullName = trim(($singleContact->FName ?? '') . ' ' . ($singleContact->LName ?? ''));
+            $html .= '<td><strong>Name:</strong> ' . htmlspecialchars($fullName) . '</td>';
+            $html .= '<td><strong>Additional Rep:</strong> ' . htmlspecialchars($singleContact->AddRep ?? '') . '</td>';
+            $html .= '</tr>';
+            $html .= '<tr><td colspan="2"><strong>Address:</strong> ' . htmlspecialchars($singleContact->Address1 ?? '') . '</td></tr>';
+            $html .= '<tr><td colspan="2">' . htmlspecialchars($singleContact->Address2 ?? '') . '</td></tr>';
+            $html .= '<tr>';
+            $html .= '<td><strong>Phone:</strong> ' . htmlspecialchars($singleContact->Phone ?? '') . '</td>';
+            $html .= '<td><strong>Fax:</strong> ' . htmlspecialchars($singleContact->Fax ?? '') . '</td>';
+            $html .= '</tr>';
+            $html .= '<tr>';
+            $html .= '<td><strong>Pager:</strong> ' . htmlspecialchars($singleContact->Pager ?? '') . '</td>';
+            $html .= '<td><strong>Email:</strong> ' . htmlspecialchars($singleContact->Email ?? '') . '</td>';
+            $html .= '</tr>';
+            $html .= '<tr><td colspan="2"><strong>Comments:</strong> ' . nl2br(htmlspecialchars($singleContact->Comments ?? '')) . '</td></tr>';
+            $html .= '</table><hr style="margin: 20px 0;">';
 
-        $html .= '</body></html>';
-        return $this->renderPDF($html);
-
-    }
+            $html .= '</body></html>';
+            return $this->renderPDF($html);
+        }
     }
     private function renderPDF($html)
     {

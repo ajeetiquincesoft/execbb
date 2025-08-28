@@ -22,8 +22,7 @@ class BusinessesForSaleReport
             ->when($request->subcategory, fn($q) => $q->where('SubCat', $request->subcategory))
             ->when($request->agent, fn($q) => $q->where('AgentID', $request->agent))
             ->when($request->status, fn($q) => $q->where('Status', $request->status))
-            ->whereBetween('created_at', [$from, $to])
-            ->limit(50)
+            ->whereBetween('DateEntered', [$from, $to])
             ->get();
         $html = '
         <div style="text-align:center; font-family:sans-serif;">
