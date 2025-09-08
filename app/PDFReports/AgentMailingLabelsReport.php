@@ -13,7 +13,7 @@ class AgentMailingLabelsReport
     {
         //dd($request);
         $html = '';
-        $Agents = DB::table('Agents')->get();
+        $Agents = DB::table('agents')->get();
         if ($Agents) {
             $html .= '<style>
                     body {

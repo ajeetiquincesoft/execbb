@@ -19,7 +19,7 @@ class BuyerLeadListReport
             $lname = $agentInfo->LName;
         }
         $html = '';
-        $leads = DB::table('Leads')
+        $leads = DB::table('leads')
             ->when($request->agent, function ($q) use ($request) {
                 $q->where('AgentID', $request->agent);
             })
