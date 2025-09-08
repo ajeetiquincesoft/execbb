@@ -85,7 +85,7 @@ class BuyerLeadListReport
             <p><strong>Buyer List</strong></p>
         </div>
         <div class="header-right">
-            <p><strong>As Of:</strong> 8/19/2025</p>
+            <p><strong>As Of:</strong>' . now()->format('n/j/Y') . '</p>
         </div>
         <div class="clearfix"></div>
     </div>
