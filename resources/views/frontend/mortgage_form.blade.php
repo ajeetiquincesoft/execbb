@@ -14,6 +14,7 @@
             padding: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-top: 30px;
+            border-radius: 8px;
         }
 
         .main-heading {
@@ -48,12 +49,12 @@
             border-color: #7F2149;
             color: #fff;
         }
+
         .btn-primary {
             background-color: #7F2149;
             border-color: #7F2149;
             color: #fff;
         }
-   
     </style>
 </head>
 
@@ -74,25 +75,28 @@
                         @csrf
                         <div class="mb-3">
                             <label for="loan_amount" class="form-label">Loan Amount ($)</label>
-                            <input type="number" class="form-control" id="loan_amount" name="loan_amount" value="{{ old('loan_amount') }}" required>
+                            <input type="number" class="form-control" id="loan_amount" name="loan_amount"
+                                value="{{ old('loan_amount') }}" required>
                             @error('loan_amount')
-                            <div class="text-danger">{{ $message }}</div>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="interest_rate" class="form-label">Annual Interest Rate (%)</label>
-                            <input type="number" step="0.01" class="form-control" id="interest_rate" name="interest_rate" value="{{ old('interest_rate') }}" required>
+                            <input type="number" step="0.01" class="form-control" id="interest_rate"
+                                name="interest_rate" value="{{ old('interest_rate') }}" required>
                             @error('interest_rate')
-                            <div class="text-danger">{{ $message }}</div>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="loan_term" class="form-label">Loan Term (Months)</label>
-                            <input type="number" class="form-control" id="loan_term" name="loan_term" value="{{ old('loan_term') }}" required>
+                            <input type="number" class="form-control" id="loan_term" name="loan_term"
+                                value="{{ old('loan_term') }}" required>
                             @error('loan_term')
-                            <div class="text-danger">{{ $message }}</div>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -101,23 +105,26 @@
                     </form>
 
                     @if (isset($monthlyPayment))
-                    <div class="mt-4 mortgage_result">
-                        <h3>Mortgage Calculation Results:</h3>
-                        <div class="mb-3">
-                            <label for="monthly_payment" class="form-label">Monthly Payment ($)</label>
-                            <input type="text" class="form-control" id="monthly_payment" name="monthly_payment" value="{{ $monthlyPayment }}" readonly>
-                        </div>
+                        <div class="mt-4 mortgage_result">
+                            <h3>Mortgage Calculation Results:</h3>
+                            <div class="mb-3">
+                                <label for="monthly_payment" class="form-label">Monthly Payment ($)</label>
+                                <input type="text" class="form-control" id="monthly_payment" name="monthly_payment"
+                                    value="{{ $monthlyPayment }}" readonly>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="total_interest" class="form-label">Total Interest ($)</label>
-                            <input type="text" class="form-control" id="total_interest" name="total_interest" value="{{ $totalInterest }}" readonly>
-                        </div>
+                            <div class="mb-3">
+                                <label for="total_interest" class="form-label">Total Interest ($)</label>
+                                <input type="text" class="form-control" id="total_interest" name="total_interest"
+                                    value="{{ $totalInterest }}" readonly>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="total_amount" class="form-label">Total Amount Paid ($)</label>
-                            <input type="text" class="form-control" id="total_amount" name="total_amount" value="{{ $totalAmount }}" readonly>
+                            <div class="mb-3">
+                                <label for="total_amount" class="form-label">Total Amount Paid ($)</label>
+                                <input type="text" class="form-control" id="total_amount" name="total_amount"
+                                    value="{{ $totalAmount }}" readonly>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -128,9 +135,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Reset Button
-            $('#resetForm').on('click', function () {
+            $('#resetForm').on('click', function() {
                 window.location.href = "{{ route('calculate.mortgage.form') }}"; // Reload the form
             });
         });

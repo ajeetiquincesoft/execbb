@@ -1,31 +1,31 @@
 @extends('frontend.layout.master')
 
 @section('content')
-<!-- Breadcrumb Section -->
-<div class="breadcrumb-container py-3">
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Sell a Business</a></li>
-                <li class="breadcrumb-item"><a href="{{route('open-list.with.ebb')}}">Open List With EBB</a></li>
-                <li class="breadcrumb-item active"><a href="#">Sign Up</a></li>
-            </ol>
-        </nav>
+    <!-- Breadcrumb Section -->
+    <div class="breadcrumb-container py-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Sell a Business</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('open-list.with.ebb') }}">Open List With EBB</a></li>
+                    <li class="breadcrumb-item active"><a href="#">Sign Up</a></li>
+                </ol>
+            </nav>
+        </div>
     </div>
-</div>
-<!-- Main Container -->
-<div class="container my-5 container-padding">
-    <div class="row">
-        <!-- Contact Information Form -->
-        <div class="col-md-8 border-right-contact">
-            <h1 class="Contact-text">Contact Information</h1>
-            <div class="text-muted">
-                <p class="text-muted">
-                    Sign up now to list your business exclusively with Executive Business Brokers <br>
-                    or <a href="#" class="link-styled">print out our agreement</a>.
-                </p>
-            </div>
+    <!-- Main Container -->
+    <div class="container my-5 container-padding">
+        <div class="row">
+            <!-- Contact Information Form -->
+            <div class="col-md-8 border-right-contact">
+                <h1 class="Contact-text">Contact Information</h1>
+                <div class="text-muted">
+                    <p class="text-muted">
+                        Sign up now to list your business exclusively with Executive Business Brokers <br>
+                        or <a href="#" class="link-styled">print out our agreement</a>.
+                    </p>
+                </div>
                 <form>
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3">
@@ -87,130 +87,123 @@
                     </div>
                     <button type="submit" class="btn btn-custom px-5 py-2">Submit</button>
                 </form>
-        </div>
-        <div class="col-md-4">
-        <div class="contact-right-part">
-        <h5 class="mb-3 fw-bold">Tips For Selling Your Business</h5>
-            <hr>
-            <ul class="list-unstyled tips-list">
-                <li>
-                    <i class="bi bi-check-circle-fill text-purple"></i> Organize your books and finances to prepare to sell
+            </div>
+            <div class="col-md-4">
+                <div class="contact-right-part">
+                    <h5 class="mb-3 fw-bold">Tips For Selling Your Business</h5>
                     <hr>
-                </li>
-                <li>
-                    <i class="bi bi-check-circle-fill text-purple"></i> Determine the Value of the Business
-                    <hr>
-                </li>
-                <li>
-                    <i class="bi bi-check-circle-fill text-purple"></i> Continue to Manage the Business While Selling It
-                    <hr>
-                </li>
-                <li>
-                    <i class="bi bi-check-circle-fill text-purple"></i> Negotiate Effectively by Calling in an Expert
-                </li>
-            </ul>
-        </div>
-            
+                    <ul class="list-unstyled tips-list">
+                        <li>
+                            <i class="bi bi-check-circle-fill text-purple"></i> Organize your books and finances to prepare
+                            to sell
+                            <hr>
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle-fill text-purple"></i> Determine the Value of the Business
+                            <hr>
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle-fill text-purple"></i> Continue to Manage the Business While
+                            Selling It
+                            <hr>
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle-fill text-purple"></i> Negotiate Effectively by Calling in an
+                            Expert
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
-<style>
-    .breadcrumb-container {
-        background-color: #F8F8F8;
-    }
+    <style>
+        a {
+            text-decoration: none;
+        }
 
-    .breadcrumb-item a {
-        text-decoration: none;
-        color: #333333;
-    }
+        .link-danger {
+            color: #AA1260;
+        }
 
-    .breadcrumb-item.active {
-        color: #333333;
-    }
+        /* Form Styling */
+        .form-control,
+        .form-select {
+            border-radius: 0;
+            border: 1px solid #ccc;
+            padding: 10px 10px;
+            font-size: 0.9rem;
+            color: #555;
+        }
 
-    a {
-        text-decoration: none;
-    }
+        .btn-custom {
+            background-color: #7F2149;
+            color: #fff;
+            margin-left: 170px;
+            border: 1px;
+            margin-top: 24px;
+            border-radius: 1px;
+            padding: 12px 60px !important;
+        }
 
-    .link-danger {
-        color: #AA1260;
-    }
+        .btn-custom:hover {
+            background-color: #8A104E;
+            color: #fff;
+        }
 
-    /* Form Styling */
-    .form-control,
-    .form-select {
-        border-radius: 0;
-        border: 1px solid #ccc;
-        padding: 10px 10px;
-        font-size: 0.9rem;
-        color: #555;
-    }
+        /* Tips Section */
+        .tips-list {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #555;
+        }
 
-    .btn-custom {
-        background-color: #7F2149;
-        color: #fff;
-        margin-left: 170px;
-        border: 1px;
-        margin-top: 24px;
-        border-radius: 1px;
-        padding: 12px 60px !important;
-    }
+        .tips-list li {
+            margin-bottom: 15px;
+            position: relative;
+        }
 
-    .btn-custom:hover {
-        background-color: #8A104E;
-        color: #fff;
-    }
+        .Contact-text {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
 
-    /* Tips Section */
-    .tips-list {
-        font-size: 0.95rem;
-        line-height: 1.8;
-        color: #555;
-    }
+        .text-muted {
+            font-size: 13px;
+        }
 
-    .tips-list li {
-        margin-bottom: 15px;
-        position: relative;
-    }
-    .Contact-text {
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
+        .link-styled {
+            color: #7F2149;
+            /* Change link color to green */
+            text-decoration: underline;
+            /* Add underline to the link */
+        }
 
-    .text-muted {
-        font-size: 13px;
-    }
+        .form-text {
+            width: 560px;
+        }
 
-    .link-styled {
-        color: #7F2149;
-        /* Change link color to green */
-        text-decoration: underline;
-        /* Add underline to the link */
-    }
+        .text-purple {
+            color: #7F2149;
+            /* Replace with your desired purple color */
+        }
 
-    .form-text {
-        width: 560px;
-    }
+        hr {
+            border: none;
+            border-top: 1px solid #B3B3B3;
+            /* Purple color */
+            margin-bottom: 20px;
+            /* Adjust spacing */
+        }
 
-    .text-purple {
-        color: #7F2149;
-        /* Replace with your desired purple color */
-    }
+        .col-md-8.border-right-contact {
+            border-right: 1px solid #D9D9D9;
+            padding-right: 50px;
+        }
 
-    hr {
-        border: none;
-        border-top: 1px solid #B3B3B3;
-        /* Purple color */
-        margin-bottom: 20px;
-        /* Adjust spacing */
-    }
-    .col-md-8.border-right-contact {
-        border-right: 1px solid #D9D9D9;
-        padding-right: 50px;
-    }
-    .contact-right-part {
-        padding-left: 50px;
-        padding-top: 20px;
-    }
-</style>
+        .contact-right-part {
+            padding-left: 50px;
+            padding-top: 20px;
+        }
+    </style>
 @endsection

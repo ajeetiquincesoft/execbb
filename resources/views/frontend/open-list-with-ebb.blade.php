@@ -1,204 +1,224 @@
 @extends('frontend.layout.master')
 @section('content')
-<!-- Breadcrumb Section -->
-<div class="breadcrumb-container open-list">
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Sell a Business</a></li>
-                <li class="breadcrumb-item active" aria-current="page">List With EBB</li>
-            </ol>
-        </nav>
-    </div>
-</div>
-<!-- Main Container -->
-<div class="container py-7">
-    <div class="box-container">
-        <!-- Title -->
-        <div class="text-center mb-5">
-            <h1 class="main-title">List with EBB</h1>
-            <p class="main-subtitle">
-                Executive Business Brokers understands sellers have different needs, which is why we offer three programs <br>
-                to help you sell your business.
-            </p>
-        </div>
-        <!-- Cards Section -->
-        <div class="row g-4">
-            <!-- Card 1 -->
-            <div class="col-12">
-                <div class="card p-4 shadow-sm">
-                    <div class="row align-items-center">
-                        <div class="col-md-4 EBB-border">
-                            <h3 class="card-title-color">Sole & Exclusive Right to Sell</h3>
-                            <p class="card-text">Executive Business Brokers (EBB) retains sole and exclusive rights to sell your business.</p>
-                            <div class="btn-color">
-                                <a href="{{route('register.ebb.buyer')}}" class="btn reg">Register</a>
-                                <a href="javascript:void(0);" class="btn reg sole_exclusive">View Agreement</a>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-EBB">
-                                <p class="card-description">
-                                    <strong>Advantage -</strong> Listing exclusively with EBB will give you greater exposure by UNLEASHING the full marketing powers of EBB and uniting our entire organization’s efforts to sell your business. As a professional organization, EBB will represent your best interest and market your business to a substantially larger audience of pre-qualified buyers, while never loosing sight of the importance of CONFIDENTIALITY. These increased marketing efforts often result in faster closings and increase the odds of generating a premium for your business.<br><br>
-                                    <strong>Disadvantage -</strong> You relinquish rights to sell your own business for the terms set forth in the contract.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="col-12">
-                <div class="card p-4 shadow-sm">
-                    <div class="row align-items-center">
-                        <div class="col-md-4 EBB-border">
-                            <h3 class="card-title-color">Agency Exclusive Agreement</h3>
-                            <p class="card-text">EBB is the exclusive brokerage agency, but the seller retains the flexibility of trying to sell the business on his/her own while gaining valuable exposure to our buyers. EBB’s fee is paid only if you decide to accept an offer from one of our buyers. If you find your own buyer there is no commission due to EBB.</p>
-                            <div class="btn-color">
-                                <a href="{{route('register.ebb.buyer')}}" class="btn reg">Register</a>
-                                <a href="javascript:void(0);" class="btn reg agency_exclusive">View Agreement</a>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-EBB">
-                                <p class="card-description">
-                                    <strong>Advantage:</strong> By engaging us you have a professional organization representing your interest and marketing your business.<br><br>
-                                    <strong>Disadvantage:</strong> The seller takes on the responsibility of marketing their business, dealing with non-qualified prospects, negotiating price terms and conditions, dealing with the landlords, attorneys, and accountants which are always time consuming processes. Many times these distractions affect your ability to run your business effectively. Very often businesses that are sold by owners take much longer to sell & frequently sell for less than the market value.<br> </br> With an open listing there may be several agencies and brokers working on the sale of your business however, many times the facts and details of your business become distorted & inconsistent. More importantly the confidentiality of the sale is diminished. In addition, many experienced brokers feel that they are competing with the seller and that their time could be better spent on exclusive listings.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="col-12">
-                <div class="card p-4 shadow-sm">
-                    <div class="row align-items-center">
-                        <div class="col-md-4 EBB-border">
-                            <h3 class="card-title-color">Open Listing Agreement</h3>
-                            <p class="card-text">The seller can hire as many Brokers as he/she wishes and also reserve the right to sell the business on his/her own. The commission is paid only to the Broker that initiated the sale.</p>
-                            <div class="btn-color">
-                                <a href="{{route('register.ebb.buyer')}}" class="btn reg">Register</a>
-                                <a href="javascript:void(0);" class="btn reg open_listing">View Agreement</a>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-EBB">
-                                <p class="card-description">
-                                    <strong>Advantage:</strong> No commissions are paid to EBB unless we find you a buyer. The seller can use multiple brokers.<br><br>
-                                    <strong>Disadvantage:</strong> The seller is responsible for marketing their business, dealing with non-qualified prospects and negotiating the price - a time consuming process. Many times this results in lower sale price or a longer sales period.<br></br> your information about your business can become inconsistent, distorted and given out freely when you use multiple brokers since there is no one point person looking out for your best interests. In addition, many brokers feel they are competing with the seller and that their time would be better spent on exclusive listings.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Breadcrumb Section -->
+    <div class="breadcrumb-container open-list">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Sell a Business</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">List With EBB</li>
+                </ol>
+            </nav>
         </div>
     </div>
-</div>
-<style>
-    .breadcrumb-container {
-        background-color: #F8F8F8;
-    }
+    <!-- Main Container -->
+    <div class="container py-7">
+        <div class="box-container">
+            <!-- Title -->
+            <div class="text-center mb-5">
+                <h1 class="main-title">List with EBB</h1>
+                <p class="main-subtitle">
+                    Executive Business Brokers understands sellers have different needs, which is why we offer three
+                    programs <br>
+                    to help you sell your business.
+                </p>
+            </div>
+            <!-- Cards Section -->
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-12">
+                    <div class="card p-4 shadow-sm">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 EBB-border">
+                                <h3 class="card-title-color">Sole & Exclusive Right to Sell</h3>
+                                <p class="card-text">Executive Business Brokers (EBB) retains sole and exclusive rights to
+                                    sell your business.</p>
+                                <div class="btn-color">
+                                    <a href="{{ route('register.ebb.buyer') }}" class="btn reg">Register</a>
+                                    <a href="javascript:void(0);" class="btn reg sole_exclusive">View Agreement</a>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-EBB">
+                                    <p class="card-description">
+                                        <strong>Advantage -</strong> Listing exclusively with EBB will give you greater
+                                        exposure by UNLEASHING the full marketing powers of EBB and uniting our entire
+                                        organization’s efforts to sell your business. As a professional organization, EBB
+                                        will represent your best interest and market your business to a substantially larger
+                                        audience of pre-qualified buyers, while never loosing sight of the importance of
+                                        CONFIDENTIALITY. These increased marketing efforts often result in faster closings
+                                        and increase the odds of generating a premium for your business.<br><br>
+                                        <strong>Disadvantage -</strong> You relinquish rights to sell your own business for
+                                        the terms set forth in the contract.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-12">
+                    <div class="card p-4 shadow-sm">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 EBB-border">
+                                <h3 class="card-title-color">Agency Exclusive Agreement</h3>
+                                <p class="card-text">EBB is the exclusive brokerage agency, but the seller retains the
+                                    flexibility of trying to sell the business on his/her own while gaining valuable
+                                    exposure to our buyers. EBB’s fee is paid only if you decide to accept an offer from one
+                                    of our buyers. If you find your own buyer there is no commission due to EBB.</p>
+                                <div class="btn-color">
+                                    <a href="{{ route('register.ebb.buyer') }}" class="btn reg">Register</a>
+                                    <a href="javascript:void(0);" class="btn reg agency_exclusive">View Agreement</a>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-EBB">
+                                    <p class="card-description">
+                                        <strong>Advantage:</strong> By engaging us you have a professional organization
+                                        representing your interest and marketing your business.<br><br>
+                                        <strong>Disadvantage:</strong> The seller takes on the responsibility of marketing
+                                        their business, dealing with non-qualified prospects, negotiating price terms and
+                                        conditions, dealing with the landlords, attorneys, and accountants which are always
+                                        time consuming processes. Many times these distractions affect your ability to run
+                                        your business effectively. Very often businesses that are sold by owners take much
+                                        longer to sell & frequently sell for less than the market value.<br> </br> With an
+                                        open listing there may be several agencies and brokers working on the sale of your
+                                        business however, many times the facts and details of your business become distorted
+                                        & inconsistent. More importantly the confidentiality of the sale is diminished. In
+                                        addition, many experienced brokers feel that they are competing with the seller and
+                                        that their time could be better spent on exclusive listings.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-12">
+                    <div class="card p-4 shadow-sm">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 EBB-border">
+                                <h3 class="card-title-color">Open Listing Agreement</h3>
+                                <p class="card-text">The seller can hire as many Brokers as he/she wishes and also reserve
+                                    the right to sell the business on his/her own. The commission is paid only to the Broker
+                                    that initiated the sale.</p>
+                                <div class="btn-color">
+                                    <a href="{{ route('register.ebb.buyer') }}" class="btn reg">Register</a>
+                                    <a href="javascript:void(0);" class="btn reg open_listing">View Agreement</a>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-EBB">
+                                    <p class="card-description">
+                                        <strong>Advantage:</strong> No commissions are paid to EBB unless we find you a
+                                        buyer. The seller can use multiple brokers.<br><br>
+                                        <strong>Disadvantage:</strong> The seller is responsible for marketing their
+                                        business, dealing with non-qualified prospects and negotiating the price - a time
+                                        consuming process. Many times this results in lower sale price or a longer sales
+                                        period.<br></br> your information about your business can become inconsistent,
+                                        distorted and given out freely when you use multiple brokers since there is no one
+                                        point person looking out for your best interests. In addition, many brokers feel
+                                        they are competing with the seller and that their time would be better spent on
+                                        exclusive listings.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .breadcrumb {
+            background: transparent;
+        }
 
-    .breadcrumb-item a {
-        text-decoration: none;
-        color: #333333;
-    }
+        .box-container {
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 65px;
+            margin: 0px auto;
+            border-radius: 8px;
+        }
 
-    .breadcrumb-item.active {
-        color: #333333;
-    }
+        .main-title {
+            font-size: x-large;
+            font-weight: 600;
+            color: #000000;
+        }
 
-    .breadcrumb {
-        background: transparent;
-    }
+        .main-subtitle {
+            color: #5D5D5D;
+        }
 
-    .box-container {
-        background-color: #fff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 65px;
-        margin: 0px auto;
-        max-width: 1100px;
-    }
+        .card {
+            border-radius: 8px;
+        }
 
-    .main-title {
-        font-size: x-large;
-        font-weight: 600;
-        color: #000000;
-    }
+        .main-subtitle::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #B3B3B3;
+            margin: 28px auto -32px;
+        }
 
-    .main-subtitle {
-        color: #5D5D5D;
-    }
+        .card-title-color {
+            color: #806132;
+            font-size: 30px
+        }
 
-    .card {
-        border-radius: 8px;
-    }
+        .card-text {
+            font-size: 14px;
+        }
 
-    .main-subtitle::after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 1px;
-        background-color: #B3B3B3;
-        margin: 28px auto -32px;
-    }
+        .btn.reg {
+            background-color: #7F2149;
+            color: white;
+            border-radius: 1px;
+        }
 
-    .card-title-color {
-        color: #806132;
-        font-size: 30px
-    }
+        .b,
+        strong {
+            color: #806132;
+            font-weight: 400;
+        }
 
-    .card-text {
-        font-size: 14px;
-    }
+        .card-description {
+            font-size: 14px;
+        }
 
-    .btn.reg {
-        background-color: #7F2149;
-        color: white;
-        border-radius: 1px;
-    }
+        .EBB-border {
+            border-right: 1px solid #333333;
+        }
 
-    .b,
-    strong {
-        color: #806132;
-        font-weight: 400;
-    }
+        .card-EBB {
+            margin: 0 20px;
+        }
 
-    .card-description {
-        font-size: 14px;
-    }
+        .open-list {
+            padding-top: 20px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.sole_exclusive').on('click', function() {
+                var pdfPath = '/pdfs/Sole_and_Exclusive_Right_to_Sell_2005.pdf';
+                window.open(pdfPath, '_blank');
+            });
+            $('.agency_exclusive').on('click', function() {
+                var pdfPath = '/pdfs/Agency_Exclusive_Listing_Agreement_website_2005.pdf';
+                window.open(pdfPath, '_blank');
+            });
+            $('.open_listing').on('click', function() {
+                var pdfPath = '/pdfs/Open_Listing_Agreement_2005.pdf';
+                window.open(pdfPath, '_blank');
+            });
 
-    .EBB-border {
-        border-right: 1px solid #333333;
-    }
-
-    .card-EBB {
-        margin: 0 20px;
-    }
-
-    .open-list {
-        padding-top: 20px;
-    }
-</style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-     $(document).ready(function() {
-        $('.sole_exclusive').on('click', function() {
-            var pdfPath = '/pdfs/Sole_and_Exclusive_Right_to_Sell_2005.pdf';
-            window.open(pdfPath, '_blank'); 
         });
-        $('.agency_exclusive').on('click', function() {
-            var pdfPath = '/pdfs/Agency_Exclusive_Listing_Agreement_website_2005.pdf';
-            window.open(pdfPath, '_blank'); 
-        });
-        $('.open_listing').on('click', function() {
-            var pdfPath = '/pdfs/Open_Listing_Agreement_2005.pdf';
-            window.open(pdfPath, '_blank'); 
-        });
-        
-    });
     </script>
 @endsection

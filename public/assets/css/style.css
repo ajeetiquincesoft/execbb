@@ -1632,3 +1632,29 @@ form#registerEbb .form-control-lg,
 form#registerEbb .form-select-lg {
     font-size: 16px;
 }
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: #626262;
+}
+
+.breadcrumb-item.active {
+    color: #626262;
+}
+.content-box {
+    background-color: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.main-heading {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Urbanist;
+    margin-bottom: 20px;
+    color: #000;
+    border-bottom: 1px solid #b3b3b3;
+    padding-bottom: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
