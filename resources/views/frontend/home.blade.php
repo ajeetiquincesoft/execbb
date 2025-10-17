@@ -134,7 +134,7 @@
                                     alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                         @else
                             <a href="{{ route('view.business.listing', $listing->ListingID) }}"><img
-                                    src="{{ asset('assets/images/shutterstock.png') }}" class="card-img-top"
+                                    src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top"
                                     alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                         @endif
                         <div class="card-body text-center">
