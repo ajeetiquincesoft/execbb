@@ -529,11 +529,6 @@ h2.section-title-agents {
 }
 
 /* WHY EBB CSS */
-.why-ebb-section {
-    height: auto;
-    display: flex;
-}
-
 .image-container {
     position: relative;
     padding: 0;
@@ -558,23 +553,12 @@ h2.section-title-agents {
 }
 
 .text-container {
-    background-color: #fff;
     padding: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.text-container .content {
-    max-width: 500px;
-    text-align: left;
 }
 
 .text-container .title {
     font-size: 2.5rem;
-    /* font-weight: bold; */
     color: #7b5d2a;
-    /* Gold-like color for the title */
     margin-bottom: 1rem;
 }
 
@@ -595,7 +579,6 @@ h2.section-title-agents {
     display: inline-block;
     padding: 0.75rem 2rem;
     background-color: #7f2149;
-    /* Match button color */
     color: #fff;
     text-decoration: none;
     font-size: 1rem;
@@ -605,7 +588,6 @@ h2.section-title-agents {
 
 .text-container .learn-more-btn:hover {
     background-color: #5e441f;
-    /* Darker shade on hover */
 }
 
 /* Mobile responsiveness */
@@ -1138,10 +1120,6 @@ a.btn.btn.view_all_services {
     .main-container-service .subtext {
         margin-left: 10px;
         margin-right: 10px;
-    }
-    .ebb_padding_remove {
-        padding-left: 5px !important;
-        padding-right: 5px !important;
     }
     section.phases-section {
         margin-top: 0px;

@@ -54,7 +54,7 @@
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 45px;
-            margin: -13px auto;
+            margin: 0px auto;
             border-radius: 8px;
         }
 

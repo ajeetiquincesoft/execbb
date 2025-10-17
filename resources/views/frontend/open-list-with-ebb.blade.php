@@ -1,7 +1,7 @@
 @extends('frontend.layout.master')
 @section('content')
     <!-- Breadcrumb Section -->
-    <div class="breadcrumb-container open-list">
+    <div class="breadcrumb-container py-3">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
