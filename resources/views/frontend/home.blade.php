@@ -134,7 +134,7 @@
                                     alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                         @else
                             <a href="{{ route('view.business.listing', $listing->ListingID) }}"><img
-                                    src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top"
+                                    src="{{ asset('assets/images/shutterstock.png') }}" class="card-img-top"
                                     alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                         @endif
                         <div class="card-body text-center">
@@ -441,11 +441,9 @@
     <style>
         .ser-section {
             position: relative;
-            background: url('{{ asset('assets/images/our-services-section.png') }}') no-repeat center center;
+            background: url('{{ asset('assets/images/our-services-section.png') }}');
             background-size: cover;
-            background-attachment: fixed;
-            color: #fff;
-            overflow: hidden;
+            background-position: center;
         }
 
         .ebb-offer-text {
@@ -455,11 +453,9 @@
 
         .why-ebb-section {
             position: relative;
-            background: url('{{ asset('assets/images/gray-abstract.png') }}') no-repeat center center;
+            background: url('{{ asset('assets/images/gray-abstract.png') }}');
             background-size: cover;
-            background-attachment: fixed;
-            color: #fff;
-            overflow: hidden;
+            background-position: center;
         }
 
         /* Style the carousel controls (prev & next buttons) */
