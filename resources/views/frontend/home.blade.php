@@ -265,47 +265,52 @@
     </div>
 
     <!-- OUR SERVICES -->
-
-    <div class="container services-section">
-        <h2>Our Services</h2>
-        <div class="our_service_title">
-            <div class="align-items-center d-md-flex justify-content-between mb-4 w-100">
-                <a>EBB Offers Buyers/Sellers 1 Stop Shopping</a>
-                <a href="{{ route('services') }}" class="btn btn view_all_services" target="_blank">View All
-                    Services</a>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <img src="{{ asset('assets/images/services_1.png') }}">
-                        <div class="service-content text-center">
-                            <h5 class="service-title">Consulting</h5>
-                            <p class="service-description">Executive Business Brokers (EBB) offers consulting services for
-                                any aspect of buying/selling a business.We work with buyers and sellers to.</p>
-                        </div>
-                    </div>
+    <div class="ser-section">
+        <div class="container services-section">
+            <h2>Our Services</h2>
+            <div class="our_service_title">
+                <div class="align-items-center d-md-flex justify-content-between mb-4 w-100">
+                    <a class="ebb-offer-text">EBB Offers Buyers/Sellers 1 Stop Shopping</a>
+                    <a href="{{ route('services') }}" class="btn btn view_all_services" target="_blank">View All
+                        Services</a>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <img src="{{ asset('assets/images/services_2.png') }}">
-                        <div class="service-content text-center">
-                            <h5 class="service-title">Business Valuations</h5>
-                            <p class="service-description">Valuing a business is not an exact science. There is no right
-                                way to determine price, as there are many methods of doing so. Many factors play into value.
-                            </p>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <img src="{{ asset('assets/images/services_1.png') }}">
+                            <div class="service-content text-center">
+                                <h5 class="service-title">Consulting</h5>
+                                <p class="service-description">Executive Business Brokers (EBB) offers consulting services
+                                    for
+                                    any aspect of buying/selling a business.We work with buyers and sellers to.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <img src="{{ asset('assets/images/services_3.png') }}">
-                        <div class="service-content text-center">
-                            <h5 class="service-title">Mergers & Acquisitions</h5>
-                            <p class="service-description">In most cases it is more profitable for a business to grow by
-                                acquisition. It is also faster, more economical, less risky, and easier to finance.</p>
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <img src="{{ asset('assets/images/services_2.png') }}">
+                            <div class="service-content text-center">
+                                <h5 class="service-title">Business Valuations</h5>
+                                <p class="service-description">Valuing a business is not an exact science. There is no
+                                    right
+                                    way to determine price, as there are many methods of doing so. Many factors play into
+                                    value.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <img src="{{ asset('assets/images/services_3.png') }}">
+                            <div class="service-content text-center">
+                                <h5 class="service-title">Mergers & Acquisitions</h5>
+                                <p class="service-description">In most cases it is more profitable for a business to grow
+                                    by
+                                    acquisition. It is also faster, more economical, less risky, and easier to finance.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -434,6 +439,20 @@
         });
     </script>
     <style>
+        .ser-section {
+            position: relative;
+            background: url('{{ asset('assets/images/our-services-section.png') }}') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .ebb-offer-text {
+            color: #000;
+            text-decoration: none;
+        }
+
         .why-ebb-section {
             position: relative;
             background: url('{{ asset('assets/images/gray-abstract.png') }}') no-repeat center center;
