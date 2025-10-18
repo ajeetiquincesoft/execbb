@@ -554,7 +554,8 @@ h2.section-title-agents {
 }
 
 .text-container {
-    padding: 3rem;
+    padding: 8rem;
+    display: flex;
 }
 
 .text-container .title {

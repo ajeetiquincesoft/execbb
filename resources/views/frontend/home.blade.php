@@ -456,6 +456,7 @@
             background: url('{{ asset('assets/images/gray-abstract.png') }}');
             background-size: cover;
             background-position: center;
+            min-height: 600px;
         }
 
         /* Style the carousel controls (prev & next buttons) */
@@ -621,7 +622,7 @@
             }
 
             .services-section {
-                padding: 0px 15px;
+                padding: 15px;
             }
 
             .text-container {
