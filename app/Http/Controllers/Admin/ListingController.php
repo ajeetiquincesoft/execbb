@@ -57,10 +57,10 @@ class ListingController extends Controller
         $listingData = Listing::findOrFail($id);
         $annualSaleAmount = $listingData->AnnualSales;
         $listingAgent = Agent::where('AgentID', $listingData->AgentID)->first();
-             $lname = $listingAgent ? $listingAgent->LName : '';
-             $fname = $listingAgent ? $listingAgent->FName : '';
+        $lname = $listingAgent ? $listingAgent->LName : '';
+        $fname = $listingAgent ? $listingAgent->FName : '';
         // Prepare HTML for PDF
-        $html = view('admin.listing.factsheet', compact('listingData','annualSaleAmount','fname','lname'))->render();
+        $html = view('admin.listing.factsheet', compact('listingData', 'annualSaleAmount', 'fname', 'lname'))->render();
 
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
@@ -107,10 +107,10 @@ class ListingController extends Controller
     {
         $query = $request->input('query');
         $listings = Listing::query();
-        /* $listings->where(function ($q) {
-        $q->whereNull('ExpDate')
-            ->orWhere('ExpDate', '>=', now());
-        }); */
+        $listings->where(function ($q) {
+            $q->whereNull('ExpDate')
+                ->orWhere('ExpDate', '>=', now());
+        });
         if ($query) {
             $listings = Listing::where('SellerFName', 'LIKE', '%' . $query . '%')
                 ->orWhere('SellerLName', 'LIKE', '%' . $query . '%')
