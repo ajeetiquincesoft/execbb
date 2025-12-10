@@ -131,19 +131,19 @@
             <div class="col-lg-4">
                 <div class="sticky-top1">
                     <!--   <div class="card mb-4">
-                                        <div class="card-header">About Author</div>
-                                        <div class="card-body">
-                                            <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
-                                            <h5 class="card-title">{{ ucfirst($userName) }}</h5>
-                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
-                                                ac lacus nec purus lacinia tempor.</p>
-                                        </div>
-                                    </div> -->
+                                                <div class="card-header">About Author</div>
+                                                <div class="card-body-sidebar">
+                                                    <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
+                                                    <h5 class="card-title">{{ ucfirst($userName) }}</h5>
+                                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
+                                                        ac lacus nec purus lacinia tempor.</p>
+                                                </div>
+                                            </div> -->
                     <div class="card mb-4">
                         <div class="card-header">
                             General Info
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-sidebar">
                             <table class="table table-bordered table-striped">
                                 <tbody class="listing_sidebar">
                                     <tr>
@@ -181,7 +181,7 @@
                         <div class="card-header">
                             Business Info
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-sidebar">
                             <table class="table table-bordered table-striped">
                                 <tbody class="listing_sidebar">
                                     <tr>
@@ -219,7 +219,7 @@
                         <div class="card-header">
                             Pricing Info
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-sidebar">
                             <table class="table table-bordered table-striped">
                                 <tbody class="listing_sidebar">
                                     <tr>
@@ -262,7 +262,7 @@
                         <div class="card-header">
                             Financial Info
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-sidebar">
                             <table class="table table-bordered table-striped">
                                 <tbody class="listing_sidebar">
                                     <tr>
