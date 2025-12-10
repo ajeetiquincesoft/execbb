@@ -11,6 +11,7 @@ use App\Models\Listing;
 use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class OfferController extends Controller
 {
@@ -134,6 +135,7 @@ class OfferController extends Controller
                 $offer->CommissionPct = $request->commissionPercent;
                 $offer->BalanceDue = $request->balanceDue;
                 $offer->offer_step = $step;
+                $offer->DateEntered = Carbon::now()->format('Y-m-d');
                 $offer->save();
                 $companyName = Listing::where('ListingID', $request->companyName)->pluck('SellerCorpName')->toArray();
                 Activity::create([
@@ -370,7 +372,7 @@ class OfferController extends Controller
         // Get the next offer ID
         $next = Offer::where('OfferID', '>', $id)->orderBy('OfferID', 'asc')->first();
 
-        return view('admin.offer.edit', compact('step', 'offerData', 'agents', 'states', 'listings', 'offer', 'offer_types', 'previous', 'next','selectedBuyer'));
+        return view('admin.offer.edit', compact('step', 'offerData', 'agents', 'states', 'listings', 'offer', 'offer_types', 'previous', 'next', 'selectedBuyer'));
     }
     public function editProcessForm(Request $request, $id)
     {
@@ -708,11 +710,10 @@ class OfferController extends Controller
         }
 
         $buyers = $query->orderBy('created_at', 'desc')
-                        ->offset($offset)
-                        ->limit($limit)
-                        ->get();
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
 
         return response()->json($buyers);
     }
-
 }

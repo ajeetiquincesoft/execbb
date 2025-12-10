@@ -101,7 +101,7 @@ class EscrowInfoReport
         }
 
         // Generate PDF
-        $options = new Options();
+        /*  $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
 
@@ -110,6 +110,7 @@ class EscrowInfoReport
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        return $dompdf->output();
+        return $dompdf->output(); */
+        return $html;
     }
 }

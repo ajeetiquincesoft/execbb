@@ -22,6 +22,7 @@ class BusinessesForSoldReport
             ->when($request->subcategory, fn($q) => $q->where('SubCat', $request->subcategory))
             ->when($request->agent, fn($q) => $q->where('AgentID', $request->agent))
             ->when($request->status, fn($q) => $q->where('Status', $request->status))
+            ->where('SoldEBB', 1)
             ->whereBetween('DateEntered', [$from, $to])
             ->get();
         $html = '
@@ -69,12 +70,13 @@ class BusinessesForSoldReport
             $html .= '</tr>';
         }
         $html .= '</tbody></table>';
-        $options = new Options();
+        /*  $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        return $dompdf->output();
+        return $dompdf->output(); */
+        return $html;
     }
 }

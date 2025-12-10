@@ -70,9 +70,9 @@ class BusinessListingController extends Controller
             if ($user->role_name == 'buyer' && !empty($listing->RefAgentID)) {
                 // Check if a record with the same listing_id and buyer_id exists
                 $existingVisit = AgentListingViewByBuyer::where('listing_id', $id)
-                                                         ->where('buyer_id', $user->id)
-                                                         ->first();
-        
+                    ->where('buyer_id', $user->id)
+                    ->first();
+
                 if (!$existingVisit) {  // If no existing record found
                     $buyerVisit = new AgentListingViewByBuyer();
                     $buyerVisit->listing_id = $id;
@@ -88,20 +88,20 @@ class BusinessListingController extends Controller
         if ($buyer) {
             $buyer_id = $buyer->BuyerID;
         }
-        
+
         if ($listing) {
             $user = User::where('id', $listing->CreatedBy)->first();
             $subCatName = DB::table('sub_categories')->where('SubCatID', $listing->SubCat)->value('SubCategory');
-            $userName = $user->name;
+            $userName = $user->name ?? 'Admin';
             $comments = $listing->comments;
             /* $listings = Listing::where('ListingID', '!=', $id)->orderBy('created_at', 'desc')->limit(4)->get(); */
             $listings = Listing::where('ListingID', '!=', $id)
-            ->whereDoesntHave('offers', function ($query) {
-                $query->whereIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
-            })
-            ->orderBy('created_at', 'desc')
-            ->limit(4)
-            ->get();
+                ->whereDoesntHave('offers', function ($query) {
+                    $query->whereIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
+                })
+                ->orderBy('created_at', 'desc')
+                ->limit(4)
+                ->get();
             $likeVal = 1;
             $activeClass = '';
             $likeStatus = Like::where('ListingID', $id)->where('BuyerID', $buyer_id)->first();

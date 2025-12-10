@@ -44,7 +44,8 @@
                         <tbody>
                             <tr>
                                 <td width="108" style="font-family: Arial; font-size: 10pt" height="16">
-                                    <b>ID#:</b></td>
+                                    <b>ID#:</b>
+                                </td>
                                 <td width="206" colspan="3" style="font-family: Arial; font-size: 10pt"
                                     height="16">&nbsp;{{ $listingData->ListingID }}</td>
                                 <td width="38" style="font-family: Arial; font-size: 10pt" height="16"></td>
@@ -76,21 +77,25 @@
                             </tr>
                             <tr>
                                 <td width="108" style="font-family: Arial; font-size: 10pt" height="3">
-                                    <b>City:</b></td>
+                                    <b>City:</b>
+                                </td>
                                 <td width="103" style="font-family: Arial; font-size: 10pt" height="3">
                                     &nbsp;{{ $listingData->City }}</td>
                                 <td width="71" style="font-family: Arial; font-size: 10pt" height="3">
-                                    <b>State:</b></td>
+                                    <b>State:</b>
+                                </td>
                                 <td width="66" style="font-family: Arial; font-size: 10pt" height="3">
                                     &nbsp;{{ strtoupper($listingData->State) }}</td>
                             </tr>
                             <tr>
                                 <td width="108" style="font-family: Arial; font-size: 10pt" height="1">
-                                    <b>Zip:</b></td>
+                                    <b>Zip:</b>
+                                </td>
                                 <td width="103" style="font-family: Arial; font-size: 10pt" height="1">
                                     &nbsp;{{ $listingData->Zip }}</td>
                                 <td width="71" style="font-family: Arial; font-size: 10pt" height="1">
-                                    <b>County:</b></td>
+                                    <b>County:</b>
+                                </td>
                                 <td width="66" style="font-family: Arial; font-size: 10pt" height="1">
                                     &nbsp;{{ $listingData->County }}</td>
                             </tr>
@@ -137,7 +142,8 @@
                                     Purchase Price: </td>
                                 <td width="246" style="font-family: Arial; font-size: 10pt" valign="middle"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $listingData->PurPrice, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->PurPrice, 2) }}</u>
+                                </td>
                             </tr>
                             <tr>
                                 <td width="196" style="font-family: Arial; font-size: 10pt" valign="middle"
@@ -153,7 +159,8 @@
                                     Balance: </td>
                                 <td width="246" style="font-family: Arial; font-size: 10pt" valign="middle"
                                     height="12">
-                                    <u>{{ '$' . number_format((float) $listingData->Balance, 2) ?? 0 }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->Balance, 2) ?? 0 }}</u>
+                                </td>
                             </tr>
                             <tr>
                                 <td width="196" style="font-family: Arial; font-size: 10pt" valign="middle"
@@ -168,7 +175,8 @@
                                     Annual Sales: </td>
                                 <td width="246" style="font-family: Arial; font-size: 10pt" valign="middle"
                                     height="17">
-                                    <u>{{ '$' . number_format((float) $listingData->AnnualSales, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->AnnualSales, 2) }}</u>
+                                </td>
                             </tr>
                             <tr>
                                 <td width="196" style="font-family: Arial; font-size: 10pt" valign="middle"
@@ -195,13 +203,14 @@
                                         id="AutoNumber2">
                                         <tbody>
                                             <tr>
-                                                <td width="120" style="font-family: Arial; font-size: 10pt"
+                                                <td width="122" style="font-family: Arial; font-size: 10pt"
                                                     valign="bottom"><u>{{ $listingData->BldgSize }}</u></td>
-                                                <td width="44" style="font-family: Arial; font-size: 10pt;"
+                                                <td width="61" style="font-family: Arial; font-size: 10pt;"
                                                     valign="bottom">
                                                     Seats</td>
-                                                <td width="81" style="font-family: Arial; font-size: 10pt"
-                                                    valign="bottom"><u>{{ $listingData->Seats ?? 0 }}</u></td>
+                                                <td width="62" style="font-family: Arial; font-size: 10pt"
+                                                    valign="bottom" align="center">
+                                                    <u>{{ $listingData->Seats ?? 0 }}</u></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -223,13 +232,15 @@
                                                     FT</td>
                                                 <td width="61" style="font-family: Arial; font-size: 10pt"
                                                     valign="bottom" align="center" height="11">
-                                                    <u>{{ $listingData->FTEmp ?? 0 }}</u></td>
+                                                    <u>{{ $listingData->FTEmp ?? 0 }}</u>
+                                                </td>
                                                 <td width="61" style="font-family: Arial; font-size: 10pt"
                                                     valign="bottom" height="11">
                                                     PT</td>
                                                 <td width="62" style="font-family: Arial; font-size: 10pt"
                                                     valign="bottom" align="center" height="11">
-                                                    <u>{{ $listingData->PTEmp ?? 0 }}</u></td>
+                                                    <u>{{ $listingData->PTEmp ?? 0 }}</u>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -248,7 +259,8 @@
                                     Business Hours: </td>
                                 <td width="246" style="font-family: Arial; font-size: 10pt" valign="middle"
                                     height="15">
-                                    <u>{{ $listingData->BizHours ?? 'Mon.- Fri. 8:00 a.m. - 5:00 p.m.' }}</u></td>
+                                    <u>{{ $listingData->BizHours ?? 'Mon.- Fri. 8:00 a.m. - 5:00 p.m.' }}</u>
+                                </td>
                             </tr>
                             <tr>
                                 <td width="196" style="font-family: Arial; font-size: 10pt" valign="middle"
@@ -287,13 +299,15 @@
                                                     Included?</td>
                                                 <td width="37" style="font-family: Arial; font-size: 10pt"
                                                     valign="bottom" align="center" height="4">
-                                                    <u>{{ $listingData->RealEstate ? 'Yes' : 'No' }}</u></td>
+                                                    <u>{{ $listingData->RealEstate ? 'Yes' : 'No' }}</u>
+                                                </td>
                                                 <td width="107" style="font-family: Arial; font-size: 10pt"
                                                     valign="bottom" height="4">
                                                     Option to Buy?</td>
                                                 <td width="40" style="font-family: Arial; font-size: 10pt"
                                                     valign="bottom" align="center" height="4">
-                                                    <u>{{ $listingData->ToBuy ? 'Yes' : 'No' }}</u></td>
+                                                    <u>{{ $listingData->ToBuy ? 'Yes' : 'No' }}</u>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -361,7 +375,8 @@
                                 </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="18">
-                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->AnnualSales, 2) }}</u></td>
+                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->AnnualSales, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="18"></td>
                             </tr>
@@ -388,7 +403,8 @@
                                 @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $listingData->COG1, 2) ?? 0 }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->COG1, 2) ?? 0 }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>{{ number_format((float) $percentageCOG1, 2) }}%</u></td>
                             </tr>
@@ -404,7 +420,8 @@
                                 @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->COG2, 2) ?? 0 }}</u></td>
+                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->COG2, 2) ?? 0 }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>&nbsp;{{ number_format((float) $percentageCOG2, 2) }}%</u></td>
                             </tr>
@@ -422,7 +439,8 @@
                                 @endphp
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->COG3, 2) ?? 0 }}</u></td>
+                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->COG3, 2) ?? 0 }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>&nbsp;{{ number_format((float) $percentageCOG3, 2) }}%</u></td>
                             </tr>
@@ -459,7 +477,8 @@
                                     height="16"><u>&nbsp;{{ '$' . number_format((float) $totalGOP, 2) }}</u></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ number_format((float) $percentageGrossOperatingProfit, 2) }}%</u></td>
+                                    <u>&nbsp;{{ number_format((float) $percentageGrossOperatingProfit, 2) }}%</u>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="font-family: Arial; font-size: 10pt" width="164" align="right"
@@ -483,7 +502,8 @@
                                     height="16">Annual Rent:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->AnnRent, 2) }}</u></td>
+                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->AnnRent, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>&nbsp;{{ number_format((float) $percentageAnnRent, 2) }}%</u>
                                 </td>
@@ -505,7 +525,8 @@
                                 </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ number_format((float) $percentageCommonAreaMaint, 2) }}%</u></td>
+                                    <u>&nbsp;{{ number_format((float) $percentageCommonAreaMaint, 2) }}%</u>
+                                </td>
                             </tr>
                             <tr>
                                 @php
@@ -524,7 +545,8 @@
                                 </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ number_format((float) $percentageRealEstateTax, 2) }}%</u></td>
+                                    <u>&nbsp;{{ number_format((float) $percentageRealEstateTax, 2) }}%</u>
+                                </td>
                             </tr>
                             <tr>
                                 @php
@@ -539,10 +561,12 @@
                                     Payroll:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->AnnPayroll, 2) }}</u></td>
+                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->AnnPayroll, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ number_format((float) $percentageAnnPayroll, 2) }}%</u></td>
+                                    <u>&nbsp;{{ number_format((float) $percentageAnnPayroll, 2) }}%</u>
+                                </td>
                             </tr>
                             <tr>
                                 @php
@@ -557,10 +581,12 @@
                                     Tax:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->PayrollTax, 2) }}</u></td>
+                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->PayrollTax, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ number_format((float) $percentagePayrollTax, 2) }}%</u></td>
+                                    <u>&nbsp;{{ number_format((float) $percentagePayrollTax, 2) }}%</u>
+                                </td>
                             </tr>
                             <tr>
                                 @php
@@ -574,7 +600,8 @@
                                     Fee:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->LicFee, 2) }}</u></td>
+                                    <u>&nbsp;{{ '$' . number_format((float) $listingData->LicFee, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>&nbsp;{{ number_format((float) $percentageLicFee, 2) }}%</u>
                                 </td>
@@ -591,7 +618,8 @@
                                     height="16">Advertising:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $listingData->Advertising, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->Advertising, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>{{ number_format((float) $percentageAdvertising, 2) }}%</u>
                                 </td>
@@ -608,7 +636,8 @@
                                     height="16">Telephone:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $listingData->Telephone, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->Telephone, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>{{ number_format((float) $percentageTelephone, 2) }}%</u></td>
                             </tr>
@@ -624,7 +653,8 @@
                                     height="16">Utilities, Gas / Electric:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $listingData->Utilities, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->Utilities, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>{{ number_format((float) $percentageUtilities, 2) }}%</u></td>
                             </tr>
@@ -640,7 +670,8 @@
                                     height="16">Insurance:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $listingData->Insurance, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->Insurance, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>{{ number_format((float) $percentageInsurance, 2) }}%</u></td>
                             </tr>
@@ -672,7 +703,8 @@
                                     height="16">Maintenance:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $listingData->Maintenance, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->Maintenance, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>{{ number_format((float) $percentageMaintenance, 2) }}%</u>
                                 </td>
@@ -719,7 +751,8 @@
                                         height="16">{{ $listingData->Opt1Label }}:</td>
                                     <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                         height="16">
-                                        <u>{{ '$' . number_format((float) $listingData->Opt1, 2) }}</u></td>
+                                        <u>{{ '$' . number_format((float) $listingData->Opt1, 2) }}</u>
+                                    </td>
                                     <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                         height="16"><u>{{ number_format((float) $percentageOpt1, 2) }}%</u></td>
                                 </tr>
@@ -736,7 +769,8 @@
                                         height="16">{{ $listingData->Opt2Label }}:</td>
                                     <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                         height="16">
-                                        <u>{{ '$' . number_format((float) $listingData->Opt2, 2) }}</u></td>
+                                        <u>{{ '$' . number_format((float) $listingData->Opt2, 2) }}</u>
+                                    </td>
                                     <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                         height="16"><u>{{ number_format((float) $percentageOpt2, 2) }}%</u></td>
                                 </tr>
@@ -771,7 +805,8 @@
                                         Total Operating Exp.:</b></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $totalOperatingExpenses, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $totalOperatingExpenses, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>{{ number_format((float) $totalOperatingPercentage, 2) }}%</u>
                                 </td>
@@ -793,7 +828,8 @@
                                     Sales</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $listingData->AnnualSales, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $listingData->AnnualSales, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"></td>
                             </tr>
@@ -814,7 +850,8 @@
                                     Operating Expenses:</td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16">
-                                    <u>{{ '$' . number_format((float) $totalOperatingExpenses, 2) }}</u></td>
+                                    <u>{{ '$' . number_format((float) $totalOperatingExpenses, 2) }}</u>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16"><u>{{ number_format((float) $totalOperatingPercentage, 2) }}%</u>
                                 </td>
@@ -835,7 +872,8 @@
                                 </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"
                                     height="16">
-                                    <u>{{ number_format((float) $totalOperatingProfitPercentage, 2) }}%</u></td>
+                                    <u>{{ number_format((float) $totalOperatingProfitPercentage, 2) }}%</u>
+                                </td>
                             </tr>
                             <tr>
                                 @php
@@ -863,7 +901,8 @@
                                 <td style="font-family: Arial; font-size: 10pt" width="137" height="16">
                                     <b>Total
                                         Adj.
-                                        Cash Flow:</b></td>
+                                        Cash Flow:</b>
+                                </td>
                                 <td style="font-family: Arial; font-size: 10pt" width="94" align="right"
                                     height="16"><u>{{ '$' . number_format((float) $adjCashFlow, 2) }}</u></td>
                                 <td style="font-family: Arial; font-size: 10pt" width="70" align="right"

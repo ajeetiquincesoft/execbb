@@ -16,7 +16,7 @@
         </div>
     </div>
     <!-- Main Post Section -->
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
             <!-- Main Post Content -->
             <div class="col-lg-8">
@@ -131,14 +131,14 @@
             <div class="col-lg-4">
                 <div class="sticky-top1">
                     <!--   <div class="card mb-4">
-                            <div class="card-header">About Author</div>
-                            <div class="card-body">
-                                <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
-                                <h5 class="card-title">{{ ucfirst($userName) }}</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
-                                    ac lacus nec purus lacinia tempor.</p>
-                            </div>
-                        </div> -->
+                                        <div class="card-header">About Author</div>
+                                        <div class="card-body">
+                                            <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
+                                            <h5 class="card-title">{{ ucfirst($userName) }}</h5>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
+                                                ac lacus nec purus lacinia tempor.</p>
+                                        </div>
+                                    </div> -->
                     <div class="card mb-4">
                         <div class="card-header">
                             General Info
@@ -299,7 +299,7 @@
                         <ul class="list-group list-group-flush recent_listing">
                             @foreach ($listings as $businessListing)
                                 <li class="list-group-item"><a
-                                        href="{{ route('view.business.listing', $businessListing->ListingID) }}">{{ $businessListing->SellerCorpName }}</a>
+                                        href="{{ route('view.business.listing', $businessListing->ListingID) }}">{{ $businessListing->SellerCorpName ?? $businessListing->DBA }}</a>
                                 </li>
                             @endforeach
                         </ul>
@@ -334,7 +334,7 @@
         }
 
         .sticky-top1 {
-            padding-top: 112px;
+            padding-top: 64px;
         }
 
         ul.list-group.list-group-flush.recent_listing li a {

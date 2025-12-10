@@ -77,13 +77,14 @@ class AgentSignatureReports
         </body>
         </html>
         ';
-        $options = new Options();
+        /* $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        $dompdf->stream('AgentSignature.pdf', ['Attachment' => true]);
+        $dompdf->stream('AgentSignature.pdf', ['Attachment' => true]); */
+        return $html;
     }
 }

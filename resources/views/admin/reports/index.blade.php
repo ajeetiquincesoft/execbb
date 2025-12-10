@@ -3,13 +3,14 @@
     <div class="container-fluid content bg-light">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <div class="row card p-4">
-            <form id="reports" action="{{ route('export.reports') }}" method="POST">
+            <form id="reports" action="{{ route('export.reports') }}" method="GET" target="_blank">
                 @csrf
                 <div>
                     <h1>Reports</h1>
                     <hr>
                     <!-- Report Dropdowns -->
-                    <div class="row mb-2">
+                    <div class="row
+                mb-2">
                         <div class="col-md-6 mb-3">
                             <label for="report">Reports</label>
                             <select id="report" name="report" class="form-select">
@@ -286,7 +287,7 @@
     <script>
         const reportFilterConfig = {
             5: ['date range'],
-            6: ['agent', 'date range'],
+            6: ['agent'],
             8: ['agent', 'date range'],
             9: ['buyer', 'location', 'agent', 'buyerstatus', 'date range'],
             10: ['buyer', 'date range'],

@@ -49,13 +49,14 @@ class ContactsInfoSheet
             $html .= '</table><hr style="margin: 20px 0;">';
         }
         $html .= '</div>';
-        $options = new Options();
+        /* $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        return $dompdf->output();
+        return $dompdf->output(); */
+        return $html;
     }
 }

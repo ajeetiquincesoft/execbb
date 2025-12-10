@@ -160,7 +160,7 @@ class WelcomeLetterListListingReport
         }
 
         // Generate PDF
-        $options = new Options();
+        /* $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
 
@@ -169,6 +169,7 @@ class WelcomeLetterListListingReport
         $dompdf->setPaper('legal', 'landscape');
         $dompdf->render();
 
-        return $dompdf->output();
+        return $dompdf->output(); */
+        return $html;
     }
 }

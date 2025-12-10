@@ -144,7 +144,7 @@ class ContactListReport
     }
     private function renderPDF($html)
     {
-        $options = new Options();
+        /* $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
         $options->set('isRemoteEnabled', true);
@@ -152,6 +152,7 @@ class ContactListReport
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        return $dompdf->output();
+        return $dompdf->output(); */
+        return $html;
     }
 }

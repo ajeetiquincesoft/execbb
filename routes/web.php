@@ -447,7 +447,8 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
 
   //Route for admin reports
   Route::get('reports', [ReportsController::class, 'index'])->name('reports');
-  Route::post('/export/reports', [ReportsController::class, 'export'])->name('export.reports');
+  Route::get('/export/reports', [ReportsController::class, 'export'])->name('export.reports');
+  Route::get('/reports/download', [ReportsController::class, 'download'])->name('reports.download');
   Route::get('get/sub/reports', [ReportsController::class, 'getSubReports'])->name('get.subreports');
   Route::get('get/business/sub/categories', [ReportsController::class, 'getBusinessSubCategories'])->name('get.business.sub.categories');
   Route::get('/dropdown-data', [ReportsController::class, 'getBuyerData'])->name('dropdown.data');

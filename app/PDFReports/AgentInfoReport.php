@@ -23,32 +23,32 @@ class AgentInfoReport
         // Buyers
         $stats['buyers'] = DB::table('buyers')
             ->where('AgentID', $agentId)
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
 
         // Listings
         $stats['listings'] = DB::table('listings')
             ->where('AgentID', $agentId)
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
 
         // Listings by status
         $stats['listings_sole'] = DB::table('listings')
             ->where('AgentID', $agentId)
             ->where('ListType', 1)
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
 
         $stats['listings_excl'] = DB::table('listings')
             ->where('AgentID', $agentId)
             ->where('ListType', 2)
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
 
         $stats['listings_valid'] = DB::table('listings')
             ->where('AgentID', $agentId)
             ->where('Status', 'Valid')
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
 
         // Offers
@@ -57,7 +57,7 @@ class AgentInfoReport
                 $query->where('ListingAgent', $agentId)
                     ->orWhere('SellingAgent', $agentId);
             })
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
         // Open Offers
         $stats['offers_open'] = DB::table('offers')
@@ -66,7 +66,7 @@ class AgentInfoReport
                     ->orWhere('SellingAgent', $agentId);
             })
             ->where('Status', 'Open')
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
 
         // Pending Offers
@@ -76,12 +76,12 @@ class AgentInfoReport
                     ->orWhere('SellingAgent', $agentId);
             })
             ->where('Status', 'Pending')
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
         // Showings
         $stats['showings'] = DB::table('showings')
             ->where('AgentID', $agentId)
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
 
 
@@ -89,32 +89,32 @@ class AgentInfoReport
         // Buyers (Monthly)
         $monthlyStats['buyers'] = DB::table('buyers')
             ->where('AgentID', $agentId)
-            ->whereBetween('created_at', [$monthFrom, $monthTo])
+            ->whereBetween('DateEntered', [$monthFrom, $monthTo])
             ->count();
 
         // Listings (Monthly)
         $monthlyStats['listings'] = DB::table('listings')
             ->where('AgentID', $agentId)
-            ->whereBetween('created_at', [$monthFrom, $monthTo])
+            ->whereBetween('DateEntered', [$monthFrom, $monthTo])
             ->count();
 
         // Listings by status (Monthly)
         $monthlyStats['listings_sole'] = DB::table('listings')
             ->where('AgentID', $agentId)
             ->where('ListType', 1)
-            ->whereBetween('created_at', [$monthFrom, $monthTo])
+            ->whereBetween('DateEntered', [$monthFrom, $monthTo])
             ->count();
 
         $monthlyStats['listings_excl'] = DB::table('listings')
             ->where('AgentID', $agentId)
             ->where('ListType', 2)
-            ->whereBetween('created_at', [$monthFrom, $monthTo])
+            ->whereBetween('DateEntered', [$monthFrom, $monthTo])
             ->count();
 
         $monthlyStats['listings_valid'] = DB::table('listings')
             ->where('AgentID', $agentId)
             ->where('Status', 'Valid')
-            ->whereBetween('created_at', [$monthFrom, $monthTo])
+            ->whereBetween('DateEntered', [$monthFrom, $monthTo])
             ->count();
 
         // Offers (Monthly)
@@ -123,7 +123,7 @@ class AgentInfoReport
                 $query->where('ListingAgent', $agentId)
                     ->orWhere('SellingAgent', $agentId);
             })
-            ->whereBetween('created_at', [$monthFrom, $monthTo])
+            ->whereBetween('DateEntered', [$monthFrom, $monthTo])
             ->count();
         // Open Offers
         $monthlyStats['offers_open'] = DB::table('offers')
@@ -132,7 +132,7 @@ class AgentInfoReport
                     ->orWhere('SellingAgent', $agentId);
             })
             ->where('Status', 'Open')
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
 
         // Pending Offers
@@ -142,12 +142,12 @@ class AgentInfoReport
                     ->orWhere('SellingAgent', $agentId);
             })
             ->where('Status', 'Pending')
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('DateEntered', [$from, $to])
             ->count();
         // Showings (Monthly)
         $monthlyStats['showings'] = DB::table('showings')
             ->where('AgentID', $agentId)
-            ->whereBetween('created_at', [$monthFrom, $monthTo])
+            ->whereBetween('DateEntered', [$monthFrom, $monthTo])
             ->count();
         //get offer data based on listing agents
         $listingAgents = DB::table('offers')
@@ -281,7 +281,7 @@ class AgentInfoReport
             $html .= '<tr><td>' . $dba . '</td><td>' . $sellingAgent->seller_name . '</td><td>' . $sellingAgent->buyer_name . '</td><td>' . $sellingAgent->ListingAgent . '</td><td>' . $sellingAgent->Status . '</td></tr>';
         }
         $html .= '</tbody></table>';
-        $options = new Options();
+        /* $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
         $dompdf = new Dompdf($options);
@@ -289,6 +289,7 @@ class AgentInfoReport
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        return $dompdf->output();
+        return $dompdf->output(); */
+        return $html;
     }
 }

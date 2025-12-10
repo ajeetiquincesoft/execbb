@@ -12,6 +12,7 @@ use App\Models\Activity;
 use App\Models\SignNda;
 use Illuminate\Support\Facades\Auth;
 use App\Events\BuyerRegister;
+use Carbon\Carbon;
 
 class BuyerController extends Controller
 {
@@ -133,6 +134,7 @@ class BuyerController extends Controller
                 $buyer->BusPhone = $request->businessPhone;
                 $buyer->Pager = $request->pager;
                 $buyer->user_id = $check->id;
+                $buyer->DateEntered = Carbon::now()->format('Y-m-d');
 
 
                 $buyer->save();

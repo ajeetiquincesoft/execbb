@@ -76,7 +76,8 @@ class AgentController extends Controller
             $check = $this->agentRegistration($data);
             //dd($check->id);
             $spouse = $request->has('spouse') ? 1 : 0;
-            $display_on_web = $request->has('yearsEstablished') ? 1 : 0;
+            $display_on_web = $request->has('display_on_web') ? 1 : 0;
+            $active_agent = $request->has('active_agent') ? 1 : 0;
             $agent = new Agent;
             $agent->AgentID = strtoupper($request->agent_id);
             $agent->LName = $request->last_name;
@@ -99,6 +100,7 @@ class AgentController extends Controller
             $agent->HireDate = $request->hire_date;
             $agent->Termination = $request->terminate_date;
             $agent->Display = $display_on_web;
+            $agent->Active = $active_agent;
             $agent->AgentUserRegisterId =  $check->id;
             if ($request->hasFile('agent_image')) {
                 $image = $request->file('agent_image');
@@ -206,6 +208,7 @@ class AgentController extends Controller
             'HireDate' => $request->hire_date,
             'Termination' => $request->terminate_date,
             'Display' => $request->display_on_web,
+            'Active' => $request->active_agent,
             'image' => $filename,
 
         ]);

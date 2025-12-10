@@ -359,6 +359,7 @@ class ListingController extends Controller
             $listing->SubCat = $request->bus_type;
             $listing->Status = 'review';
             $listing->CreatedBy = Auth::id();
+            $listing->DateEntered = Carbon::now()->format('Y-m-d');
             $listing->Steps = 1;
             if ($request->hasFile('listing_img')) {
                 $image = $request->file('listing_img');

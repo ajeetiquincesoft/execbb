@@ -39,7 +39,7 @@ h2 {
 
 .card-body {
     background-color: #fff;
-    padding: 40px;
+    /* padding: 40px; */
     border-radius: 8px;
 }
 
@@ -222,7 +222,7 @@ h2 {
     border: none;
     padding: 10px;
     width: 70%;
-    border-radius: 0px;
+    border-radius: 20px 0px 0px 20px;
 }
 
 .newsletter button {
@@ -902,6 +902,7 @@ a.btn.btn.view_all_services {
 
 .subscribe-form button {
     width: 25%;
+    border-radius: 0px 20px 20px 0px;
     /* Adjust width of the submit button */
 }
 
@@ -1637,4 +1638,14 @@ form#registerEbb .form-select-lg {
     padding-bottom: 30px;
     margin-left: 10px;
     margin-right: 10px;
+}
+.dropdown-item:active {
+    background-color: #806132 !important;
+}
+.bus_lis_search input.form-control {
+    border-radius: 20px 0px 0px 20px;
+}
+
+.bus_lis_search button.btn {
+    border-radius: 0px 20px 20px 0px;
 }

@@ -122,12 +122,13 @@ class BuyerElectronicSignature
         }
         $html .= '<p>The above named individual agreed to the above terms on the date indicated via electronic signature.</p>
     </div>';
-        $options = new Options();
+        /* $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        return $dompdf->output();
+        return $dompdf->output(); */
+         return $html;
     }
 }

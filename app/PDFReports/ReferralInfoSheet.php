@@ -43,13 +43,14 @@ class ReferralInfoSheet
             $html .= '<p style="font-size: 12px; color: red;">No referral found in the selected type.</p>';
         }
         $html .= '</div>';
-        $options = new Options();
+        /* $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        return $dompdf->output();
+        return $dompdf->output(); */
+        return $html;
     }
 }

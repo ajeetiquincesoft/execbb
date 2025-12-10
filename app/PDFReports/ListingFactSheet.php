@@ -542,7 +542,7 @@ class ListingFactSheet
         }
 
         $html .= '</body></html>';
-        $options = new Options();
+        /*  $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
 
 
@@ -550,6 +550,7 @@ class ListingFactSheet
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        return $dompdf->output();
+        return $dompdf->output(); */
+        return $html;
     }
 }

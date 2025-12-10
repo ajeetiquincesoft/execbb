@@ -10,17 +10,18 @@
                  </div>
              </div>
              <div class="col-lg-8">
-                 @if ($errors->any())
-                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                     @foreach ($errors->all() as $error)
-                     <strong>Error!</strong>{{ $error }}
-                     @endforeach
-                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                 </div>
+                 @if ($errors->newsletter->any())
+                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                         @foreach ($errors->newsletter->all() as $error)
+                             <strong>Error!</strong>{{ $error }}
+                         @endforeach
+                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                     </div>
                  @endif
-                 <form action="{{route('newsletter.subscribe')}}" method="post" class="subscribe-form">
+                 <form action="{{ route('newsletter.subscribe') }}" method="post" class="subscribe-form">
                      @csrf
-                     <input type="email" name="email" id="email" class="form-control" placeholder="Your Email Address">
+                     <input type="email" name="email" id="email" class="form-control"
+                         placeholder="Your Email Address">
                      <button type="submit">Subscribe Now</button>
                      <div class="newserror"></div>
                  </form>
@@ -47,9 +48,9 @@
                  <h4>Sellers</h4>
                  <ul class="list-unstyled">
                      <!-- <li><a href="#">Selling a Business</a></li> -->
-                     <li><a href="{{route('seller.register.with.ebb')}}">Register with EBB</a></li>
-                     <li><a href="{{route('seller.tools')}}">Tools</a></li>
-                     <li><a href="{{route('seller.resource')}}">Resources</a></li>
+                     <li><a href="{{ route('seller.register.with.ebb') }}">Register with EBB</a></li>
+                     <li><a href="{{ route('seller.tools') }}">Tools</a></li>
+                     <li><a href="{{ route('seller.resource') }}">Resources</a></li>
                  </ul>
              </div>
 
@@ -57,10 +58,10 @@
              <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4 mb-md-4">
                  <h4>Buyers</h4>
                  <ul class="list-unstyled">
-                     <li><a href="{{route('register.ebb.buyer')}}">Register with EBB</a></li>
-                     <li><a href="{{route('preferred.buyers.program')}}">Proffered Buyers Program</a></li>
-                     <li><a href="{{route('buyer.tools')}}">Tools</a></li>
-                     <li><a href="{{route('buyer.resource')}}">Resources</a></li>
+                     <li><a href="{{ route('register.ebb.buyer') }}">Register with EBB</a></li>
+                     <li><a href="{{ route('preferred.buyers.program') }}">Proffered Buyers Program</a></li>
+                     <li><a href="{{ route('buyer.tools') }}">Tools</a></li>
+                     <li><a href="{{ route('buyer.resource') }}">Resources</a></li>
                  </ul>
              </div>
 
@@ -68,16 +69,16 @@
              <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4 mb-md-4">
                  <h4>About EBB</h4>
                  <ul class="list-unstyled">
-                     <li><a href="{{route('company')}}">Company</a></li>
-                     <li><a href="{{route('management')}}">Management</a></li>
-                     <li><a href="{{route('why.ebb')}}">Why EBB</a></li>
-                     <li><a href="{{route('success.stories')}}">Success Stories</a></li>
-                     <li><a href="{{route('all.brokers')}}">Broker Profiles</a></li>
-                     <li><a href="{{route('join.ebb')}}">Join EBB</a></li>
-                     <li><a href="{{route('strategic.alliances')}}">Strategic Alliance</a></li>
-                     <li><a href="{{route('faqs')}}">FAQs</a></li>
-                     <li><a href="{{route('terms.of.use')}}">Teams of Use</a></li>
-                     <li><a href="{{route('privacy.policy')}}">Privacy Policy</a></li>
+                     <li><a href="{{ route('company') }}">Company</a></li>
+                     <li><a href="{{ route('management') }}">Management</a></li>
+                     <li><a href="{{ route('why.ebb') }}">Why EBB</a></li>
+                     <li><a href="{{ route('success.stories') }}">Success Stories</a></li>
+                     <li><a href="{{ route('all.brokers') }}">Broker Profiles</a></li>
+                     <li><a href="{{ route('join.ebb') }}">Join EBB</a></li>
+                     <li><a href="{{ route('strategic.alliances') }}">Strategic Alliance</a></li>
+                     <li><a href="{{ route('faqs') }}">FAQs</a></li>
+                     <li><a href="{{ route('terms.of.use') }}">Teams of Use</a></li>
+                     <li><a href="{{ route('privacy.policy') }}">Privacy Policy</a></li>
                  </ul>
              </div>
 
@@ -86,7 +87,7 @@
                  <h4>Quick Links</h4>
                  <ul class="list-unstyled">
                      <!-- <li><a href="#">Resources</a></li> -->
-                     <li><a href="{{route('faqs')}}">FAQs</a></li>
+                     <li><a href="{{ route('faqs') }}">FAQs</a></li>
                      <!--  <li><a href="#">Blog/News</a></li> -->
                  </ul>
              </div>
@@ -94,7 +95,8 @@
          <hr class="footer-line">
          <div class="row g-4 align-items-center">
              <div class="col-md-12 text-center mb-md-0">
-                 <span class="text-white copyrights">Copyrights {{ date('Y') }} Executive Business Brokers. All Rights Reserved.</span>
+                 <span class="text-white copyrights">Copyrights {{ date('Y') }} Executive Business Brokers. All
+                     Rights Reserved.</span>
              </div>
          </div>
 
@@ -147,7 +149,8 @@
                                      title: 'Subscribed!',
                                      text: response.message,
                                  });
-                                 $('#email').val(''); // Clear the email input field after success
+                                 $('#email').val(
+                                 ''); // Clear the email input field after success
                              } else {
                                  Swal.fire({
                                      icon: 'error',
@@ -163,7 +166,8 @@
 
                                  // Loop through errors and display them
                                  $.each(xhr.responseJSON.errors, function(key, value) {
-                                     errorMessages += value[0] + '<br>'; // Concatenate error messages
+                                     errorMessages += value[0] +
+                                     '<br>'; // Concatenate error messages
                                  });
 
                                  Swal.fire({
