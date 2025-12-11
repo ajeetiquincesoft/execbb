@@ -15,13 +15,13 @@
     <div class="container my-7">
         <div class="content-box">
             <!-- <div class="row agent_search mb-5">
-                            <div class="col-md-12">
-                                <form action="{{ route('business.listing.search') }}" method="get" class="">
-                                    <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
-                                    <button type="submit">Search Listing</button>
-                                </form>
-                            </div>
-                        </div> -->
+                                                                                <div class="col-md-12">
+                                                                                    <form action="{{ route('business.listing.search') }}" method="get" class="">
+                                                                                        <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
+                                                                                        <button type="submit">Search Listing</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div> -->
             <form action="{{ route('business.listing.search') }}" method="get" class="">
                 <div class="row lis_search mb-5">
                     <div class="col-12 col-sm-6 col-md-3">
@@ -67,14 +67,20 @@
                     <div class="col-12 col-sm-6 col-md-4 mb-5">
                         <div class="card-container">
                             <div class="card shadow-sm">
-                                @if (!empty($listing->imagepath))
-                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}"><img
-                                            src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}"
-                                            class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
+                                @php
+                                    $imagePath = public_path('assets/uploads/images/' . $listing->imagepath);
+                                @endphp
+
+                                @if (!empty($listing->imagepath) && file_exists($imagePath))
+                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}">
+                                        <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}"
+                                            class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+                                    </a>
                                 @else
-                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}"><img
-                                            src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top"
-                                            alt="{{ $listing->City }}, {{ $listing->State }}"></a>
+                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}">
+                                        <img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top"
+                                            alt="{{ $listing->City }}, {{ $listing->State }}">
+                                    </a>
                                 @endif
                                 <div class="card-body text-center">
                                     <a href="{{ route('view.business.listing', $listing->ListingID) }}">
