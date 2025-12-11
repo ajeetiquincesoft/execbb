@@ -12,8 +12,14 @@
             <form class="listing_search" method="get" action="{{ route('search.index') }}">
                 <div class="bus_lis_search">
                     <div class="listing_search d-md-flex align-items-center">
-                        <input type="text" class="form-control form-control-lg" placeholder="Industry" name="industry"
-                            value="{{ request('industry') }}">
+                        {{--  <input type="text" class="form-control form-control-lg" placeholder="Industry" name="industry"
+                            value="{{ request('industry') }}"> --}}
+                        <select class="form-select form-select-lg" name="industry">
+                            <option selected value="" disabled>Industry</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->CategoryID }}">{{ $category->BusinessCategory }}</option>
+                            @endforeach
+                        </select>
                         <select class="form-select form-select-lg" name="state">
                             <option selected value="" disabled>State</option>
                             @foreach ($states as $state)
@@ -142,6 +148,7 @@
                                 class="home_business_listing">
                                 <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
                             </a>
+                            <p class="card-text mb-0">Business Type: {{ $listing->BusType }}</p>
                             <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
                             <p class="card-text">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
                         </div>
