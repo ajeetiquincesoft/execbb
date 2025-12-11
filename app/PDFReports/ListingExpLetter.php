@@ -77,8 +77,6 @@ class ListingExpLetter
         $html .= "<p>Please be further advised that the enclosed purchasers names may also include nicknames and/or variations of a buyer's legal name as it may appear on a Purchase Contract. Therefore, should your business sell within the (12) months as outlined above, <strong>it is your responsibility to contact this office by certified mail with the names of all parties involved in the purchase</strong>, otherwise Executive Business Brokers reserves the right to exert a claim for commission.</p>
 
             <p>Thank you for allowing Executive Business Brokers an opportunity to be of service to you. We would like to continue marketing your business for sale. Please call me when you have a chance.</p>
-
-            <p>Very Truly Yours,</p>
         </div>
 
         <p>Very Truly Yours,</p>";
