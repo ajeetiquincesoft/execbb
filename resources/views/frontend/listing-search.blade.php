@@ -15,13 +15,13 @@
     <div class="container my-7">
         <div class="content-box">
             <!-- <div class="row agent_search mb-5">
-                                                                                <div class="col-md-12">
-                                                                                    <form action="{{ route('business.listing.search') }}" method="get" class="">
-                                                                                        <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
-                                                                                        <button type="submit">Search Listing</button>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div> -->
+                                                                                    <div class="col-md-12">
+                                                                                        <form action="{{ route('business.listing.search') }}" method="get" class="">
+                                                                                            <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
+                                                                                            <button type="submit">Search Listing</button>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div> -->
             <form action="{{ route('business.listing.search') }}" method="get" class="">
                 <div class="row lis_search mb-5">
                     <div class="col-12 col-sm-6 col-md-3">
@@ -87,6 +87,7 @@
                                         <h5 class="card-title card-title-slider">{{ $listing->City }},
                                             {{ $listing->State }}</h5>
                                     </a>
+                                    <p class="card-text mb-0">Business Type: {{ $listing->BusType }}</p>
                                     <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}
                                     </p>
                                     <p class="card-text">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>

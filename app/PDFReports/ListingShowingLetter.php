@@ -48,9 +48,6 @@ class ListingShowingLetter
                     text-align: justify;
                     margin-bottom: 40px;
                 }
-                .signature {
-                    margin-top: 60px;
-                }
             </style>
         </head>
         <body>
@@ -75,7 +72,7 @@ class ListingShowingLetter
         <p>Enclosed, please find a list of prospective purchasers who have been introduced to your business thus far either in person, fax, mail electronically or otherwise.  It is my pleasure to continue to assist you in the sale of your business.  Upon expiration of our listing agreement I will send you  a final total accounting of all showings of your business by me and my associates.  I will keep you informed of our progress.  Should you have any questions or comments, please feel free to call.</p>
         <p>Very Truly Yours,</p>
         </div>';
-        $html .= '<p><img src="signature.png" alt="Larry Bodner Signature" style="height:60px;"><br>';
+        $html .= '<p><img src="' . asset('assets/images/signature2.jpg') . '" alt="Larry Bodner Signature" style="height:60px;"><br>';
         $html .= '<div class="signature">
             Executive Business Brokers,<br>
             Commercial Associate,<br>

@@ -20,7 +20,9 @@ class ListingExpLetter
                 ->whereBetween('ExpDate', [$request->from_date, $request->to_date])
                 ->first();
             if (!$getListing) {
-                $html = "No records found for selected listing and date range.";
+                $html = '<div style="text-align:center; margin-top:50px; font-size:14pt;">
+                    <strong>No records found for selected listing and date range.</strong>
+                </div>';
                 return $html;
             }
         }
@@ -57,9 +59,6 @@ class ListingExpLetter
                     text-align: justify;
                     margin-bottom: 40px;
                 }
-                .signature {
-                    margin-top: 60px;
-                }
             </style>
         </head>
         <body>
@@ -89,7 +88,7 @@ class ListingExpLetter
         </div>
 
         <p>Very Truly Yours,</p>";
-        $html .= '<p><img src="signature.png" alt="Larry Bodner Signature" style="height:60px;"><br>';
+        $html .= '<p><img src="' . asset('assets/images/signature.jpg') . '" alt="Larry Bodner Signature" style="height:60px;"><br>';
         $html .= '<div class="signature">
             Executive Business Brokers,<br>
             Commercial Associate,<br>
