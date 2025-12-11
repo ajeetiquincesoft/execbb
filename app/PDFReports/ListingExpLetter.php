@@ -17,13 +17,22 @@ class ListingExpLetter
         if (isset($request->dba_listing)) {
             $getListing = DB::table('listings')
                 ->where('ListingID', $request->dba_listing)
+                ->whereBetween('ExpDate', [$request->from_date, $request->to_date])
                 ->first();
+            if (!$getListing) {
+                $html = "No records found for selected listing and date range.";
+                return $html;
+            }
         }
         $name = $getListing->SellerFName . ' ' . $getListing->SellerLName;
         $address1 = $getListing->Address1;
         $address2 = $getListing->Address2;
         $listDate = Carbon::parse($getListing->ListDate)->format('m/d/Y');
-        $expDate  = Carbon::parse($getListing->ExpDate)->format('m/d/Y');
+        $expDate = '';
+        if (!empty($getListing->ExpDate)) {
+            $expDate  = Carbon::parse($getListing->ExpDate)->format('m/d/Y');
+        }
+
 
         $html = '
         <!DOCTYPE html>
