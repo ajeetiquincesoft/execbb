@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class ListingExpLetter
+class ListingShowingLetter
 {
     public function generate(Request $request)
     {
@@ -67,21 +67,14 @@ class ListingExpLetter
         <p><strong>Re:</strong> Listing Agreement Between ' . $name . ' -- ' . $getListing->ListingID . ' -- ' . $getListing->DBA . '<br>
         and Executive Business Brokers</p>
 
-        <p>List Date: ' . $listDate . ' &nbsp;&nbsp;&nbsp;&nbsp; Exp. Date: ' . $expDate . '</p>
+        <p>List Date: ' . $listDate . '</p>
 
-        <p>Dear ' . $name . ',</p>
+        <p>Dear ' . $name . ',</p>';
 
-        <div class="content">
-            <p>Enclosed, please find a list of prospective purchasers who have been introduced to your business either in person, by fax, by mail, electronically or otherwise. As per our Listing Agreement, please be advised that should any of these enclosed prospective buyers purchase your business directly or indirectly either as a sole proprietor, corporation, partnership, investor, stockholder, lender or otherwise have a financial interest therein, within (12) months of the expiration of our Listing Agreement, Executive Business Brokers will be due its full commission.</p>';
-
-        $html .= "<p>Please be further advised that the enclosed purchasers names may also include nicknames and/or variations of a buyer's legal name as it may appear on a Purchase Contract. Therefore, should your business sell within the (12) months as outlined above, <strong>it is your responsibility to contact this office by certified mail with the names of all parties involved in the purchase</strong>, otherwise Executive Business Brokers reserves the right to exert a claim for commission.</p>
-
-            <p>Thank you for allowing Executive Business Brokers an opportunity to be of service to you. We would like to continue marketing your business for sale. Please call me when you have a chance.</p>
-
-            <p>Very Truly Yours,</p>
-        </div>
-
-        <p>Very Truly Yours,</p>";
+        $html .= '<div class="content">
+        <p>Enclosed, please find a list of prospective purchasers who have been introduced to your business thus far either in person, fax, mail electronically or otherwise.  It is my pleasure to continue to assist you in the sale of your business.  Upon expiration of our listing agreement I will send you  a final total accounting of all showings of your business by me and my associates.  I will keep you informed of our progress.  Should you have any questions or comments, please feel free to call.</p>
+        <p>Very Truly Yours,</p>
+        </div>';
         $html .= '<p><img src="signature.png" alt="Larry Bodner Signature" style="height:60px;"><br>';
         $html .= '<div class="signature">
             Executive Business Brokers,<br>

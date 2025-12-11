@@ -17,6 +17,7 @@ use App\PDFReports\AgentSignatureReports;
 use App\PDFReports\ContactListReport;
 use App\PDFReports\BuyerInterestLetter;
 use App\PDFReports\ListingExpLetter;
+use App\PDFReports\ListingShowingLetter;
 use App\PDFReports\BuyerInfoReports;
 use App\PDFReports\BuyerProbMatchReport;
 use App\PDFReports\BuyerListFromWebReport;
@@ -232,6 +233,12 @@ class ReportsController extends Controller
                 $report = new BusinessesForSaleReport();
                 $html = $report->generate($request);
                 $filename = 'BusinessForSaleReports_' . now()->format('Ymd_His') . '.pdf';
+                break;
+
+            case '45':
+                $report = new ListingShowingLetter();
+                $html = $report->generate($request);
+                $filename = 'ListingShowingLatter_' . now()->format('Ymd_His') . '.pdf';
                 break;
 
             case '46':
@@ -491,6 +498,12 @@ class ReportsController extends Controller
                 $report = new BusinessesForSaleReport();
                 $html = $report->generate($request);
                 $filename = 'BusinessForSaleReports_' . now()->format('Ymd_His') . '.pdf';
+                break;
+
+            case '45':
+                $report = new ListingShowingLetter();
+                $html = $report->generate($request);
+                $filename = 'ListingShowingLatter_' . now()->format('Ymd_His') . '.pdf';
                 break;
 
             case '46':
