@@ -28,6 +28,7 @@ use App\PDFReports\LeadReport;
 use App\PDFReports\LeadInfoReport;
 use App\PDFReports\LeadMailingLabelsReport;
 use App\PDFReports\OfferListReport;
+use App\PDFReports\BuyerShowingsReports;
 use App\PDFReports\ReferralListReport;
 use App\PDFReports\ReferralInfoSheet;
 use App\PDFReports\ReferralMailingLabelsReport;
@@ -136,6 +137,12 @@ class ReportsController extends Controller
                 $report = new ActiveBuyerByAgent();
                 $html = $report->generate($buyerInfo, $agentInfo);
                 $filename = 'ActiveBuyerByAgent_' . now()->format('Ymd_His') . '.pdf';
+                break;
+
+            case '13':
+                $report = new BuyerShowingsReports();
+                $html = $report->generate($request);
+                $filename = 'BuyerShowingReport_' . now()->format('Ymd_His') . '.pdf';
                 break;
 
             case '14':
@@ -401,6 +408,12 @@ class ReportsController extends Controller
                 $report = new ActiveBuyerByAgent();
                 $html = $report->generate($buyerInfo, $agentInfo);
                 $filename = 'ActiveBuyerByAgent_' . now()->format('Ymd_His') . '.pdf';
+                break;
+
+            case '13':
+                $report = new BuyerShowingsReports();
+                $html = $report->generate($request);
+                $filename = 'BuyerShowingReport_' . now()->format('Ymd_His') . '.pdf';
                 break;
 
             case '14':

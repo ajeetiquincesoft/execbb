@@ -293,6 +293,7 @@
             10: ['buyer', 'date range'],
             11: ['buyer', 'date range'],
             12: ['agent', 'date range'],
+            13: ['buyer', 'agent', 'date range'],
             14: ['buyer'],
             16: ['buyer', 'sub category', 'location', 'buyerstatus', 'date range'],
             17: ['agent', 'date range'],
