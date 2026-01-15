@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -43,6 +44,7 @@ use App\Http\Controllers\Agent\AgentMessageController;
 use App\Http\Controllers\Agent\AgentHotsheetController;
 use App\Http\Controllers\Agent\AgentListingViewByBuyerController;
 use App\Http\Controllers\Agent\AgentreferralsController;
+use App\Http\Controllers\Agent\SendListingFactsheetController;
 
 
 //Controller for buyer
@@ -90,6 +92,7 @@ use App\Http\Controllers\DownloadNDAFormController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('get/business/category/{id}', [HomeController::class, 'getBusinessCategory'])->name('get.business.category');
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 Route::get('/business/listing/search', [SearchController::class, 'searchBusinessListing'])->name('business.listing.search');
 Route::get('/all/brokers', [BrokersController::class, 'index'])->name('all.brokers');
@@ -263,6 +266,14 @@ Route::get('/training', function () {
 Route::get('/message', function () {
   return view('frontend.message');
 })->name('message');
+Route::get('/see-more-categories', function () {
+  $subCategories = DB::table('sub_categories')
+    ->whereNotNull('CatID')
+    ->orderBy('SubCategory', 'asc')
+    ->paginate(50);
+  return view('frontend.see_more_categories', compact('subCategories'));
+})->name('see-more-categories');
+
 Route::get('/glossary', [GlossaryController::class, 'index'])->name('glossary');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
 Route::get('/register/with/ebb', [RegisterWithEbbController::class, 'registerWithEbb'])->name('register.with.ebb');
@@ -504,6 +515,7 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('/listing/next/prev/{id}', [AgentListingController::class, 'prevNext'])->name('edit.prev.next');
   Route::delete('/listing/destroy/{id}', [AgentListingController::class, 'destroy'])->name('listing.destroy');
   Route::post('/agent/listing/bulkAction', [AgentListingController::class, 'bulkAction'])->name('listing.bulkAction');
+  Route::get('/download/listings/{id}/factsheet', [AgentListingController::class, 'factsheet'])->name('download.listing.factsheet');
 
   //Route for send email to buyers
   Route::get('email/buyer', [AgentEmailBuyerController::class, 'index'])->name('email.buyer');
@@ -527,6 +539,12 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('/download-hotsheet', [AgentHotsheetController::class, 'index'])->name('download.hotsheet');
   Route::get('/buyer-listing-visit', [AgentListingViewByBuyerController::class, 'index'])->name('buyer.listing.visit');
   Route::get('/buyer-referrals-list', [AgentreferralsController::class, 'index'])->name('buyer.referrals.list');
+
+  //Route for agent send listing factsheet to buyer
+  Route::get('/ajax/get/buyers', [SendListingFactsheetController::class, 'ajax'])->name('get.buyers.ajax');
+  Route::get('share-listing-factsheet', [SendListingFactsheetController::class, 'index'])->name('share.listing.factsheet');
+  Route::post('share-listing-factsheet-with-buyer', [SendListingFactsheetController::class, 'shareListingFactsheet'])->name('share.listing.factsheet.with.buyer');
+  //End route for agent send listing factshet to buyer
 });
 
 Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.'], function () {

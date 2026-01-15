@@ -38,6 +38,8 @@ use App\PDFReports\ClosingListReport;
 use App\PDFReports\AgentMailingLabelsReport;
 use App\PDFReports\WelcomeLetterListListingReport;
 use App\PDFReports\InternalListingActiveByAgent;
+use App\PDFReports\ListingShowingsReports;
+
 
 
 
@@ -234,6 +236,12 @@ class ReportsController extends Controller
                 $report = new ListingFactSheet();
                 $html = $report->generate($request);
                 $filename = 'ListingFactSheetReport_' . now()->format('Ymd_His') . '.pdf';
+                break;
+
+            case '37':
+                $report = new ListingShowingsReports();
+                $html = $report->generate($request);
+                $filename = 'ListingShowingReport_' . now()->format('Ymd_His') . '.pdf';
                 break;
 
             case '41':
@@ -505,6 +513,12 @@ class ReportsController extends Controller
                 $report = new ListingFactSheet();
                 $html = $report->generate($request);
                 $filename = 'ListingFactSheetReport_' . now()->format('Ymd_His') . '.pdf';
+                break;
+
+            case '37':
+                $report = new ListingShowingsReports();
+                $html = $report->generate($request);
+                $filename = 'ListingShowingReport_' . now()->format('Ymd_His') . '.pdf';
                 break;
 
             case '41':

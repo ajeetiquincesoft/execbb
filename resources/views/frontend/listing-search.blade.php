@@ -15,16 +15,16 @@
     <div class="container my-7">
         <div class="content-box">
             <!-- <div class="row agent_search mb-5">
-                                                                                    <div class="col-md-12">
-                                                                                        <form action="{{ route('business.listing.search') }}" method="get" class="">
-                                                                                            <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
-                                                                                            <button type="submit">Search Listing</button>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                </div> -->
+                                                                                                                                    <div class="col-md-12">
+                                                                                                                                        <form action="{{ route('business.listing.search') }}" method="get" class="">
+                                                                                                                                            <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
+                                                                                                                                            <button type="submit">Search Listing</button>
+                                                                                                                                        </form>
+                                                                                                                                    </div>
+                                                                                                                                </div> -->
             <form action="{{ route('business.listing.search') }}" method="get" class="">
                 <div class="row lis_search mb-5">
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-2">
                         <div class="form-group">
                             <select class="form-control" id="industry" name="industry">
                                 <option value="">Industry</option>
@@ -36,9 +36,20 @@
                             </select>
                         </div>
                     </div>
-
+                    <div class="col-12 col-sm-6 col-md-2">
+                        <div class="form-group">
+                            <select class="form-control" id="businessType" name="businessType">
+                                <option value="">Business Category</option>
+                                @foreach ($businessTypes as $businessType)
+                                    <option value="{{ $businessType->SubCatID }}"
+                                        {{ request('businessType') == $businessType->SubCatID ? 'selected' : '' }}>
+                                        {{ $businessType->SubCategory }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <!-- Second Column -->
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-6 col-md-2">
                         <div class="form-group">
                             <select class="form-control" id="state" name="state">
                                 <option value="">State</option>
@@ -52,8 +63,8 @@
                     </div>
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Find Listing" name="query"
-                                value="{{ request('query') }}">
+                            <input type="text" class="form-control" placeholder="Find Listing By City Name"
+                                name="query" value="{{ request('query') }}">
                         </div>
 
                     </div>
@@ -104,6 +115,35 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#industry').change(function() {
+                var id = $(this).val();
+                if (id) {
+                    $.ajax({
+                        url: "{{ route('get.business.category', ['id' => '__ID__']) }}".replace(
+                            '__ID__',
+                            id),
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#businessType').empty();
+                            $('#businessType').append(
+                                '<option value="">Business Category</option>');
+                            $.each(data, function(key, value) {
+                                $('#businessType').append('<option value="' + value
+                                    .SubCatID + '">' + value.SubCategory +
+                                    '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#second-dropdown').empty().append('<option value="">Select an option</option>');
+                }
+            });
+        });
+    </script>
     <style>
         .lis_search button {
             background-color: #7F2149;

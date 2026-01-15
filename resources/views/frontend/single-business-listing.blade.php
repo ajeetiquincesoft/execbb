@@ -131,15 +131,15 @@
             <div class="col-lg-4">
                 <div class="sticky-top1">
                     <!--   <div class="card mb-4">
-                                                <div class="card-header">About Author</div>
-                                                <div class="card-body-sidebar">
-                                                    <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
-                                                    <h5 class="card-title">{{ ucfirst($userName) }}</h5>
-                                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
-                                                        ac lacus nec purus lacinia tempor.</p>
-                                                </div>
-                                            </div> -->
-                    <div class="card mb-4">
+                                                                        <div class="card-header">About Author</div>
+                                                                        <div class="card-body-sidebar">
+                                                                            <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
+                                                                            <h5 class="card-title">{{ ucfirst($userName) }}</h5>
+                                                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
+                                                                                ac lacus nec purus lacinia tempor.</p>
+                                                                        </div>
+                                                                    </div> -->
+                    {{--    <div class="card mb-4">
                         <div class="card-header">
                             General Info
                         </div>
@@ -174,7 +174,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Business Info -->
                     <div class="card mb-4">
@@ -256,44 +256,45 @@
                             </table>
                         </div>
                     </div>
-
-                    <!-- Financial Info -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            Financial Info
+                    @auth
+                        <!-- Financial Info -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Financial Info
+                            </div>
+                            <div class="card-body-sidebar">
+                                <table class="table table-bordered table-striped">
+                                    <tbody class="listing_sidebar">
+                                        <tr>
+                                            <td><img src="{{ url('assets/images/annual_sale.png') }}" alt=""
+                                                    class="icon"> Annual Sales</td>
+                                            <td class="text-end">{{ $listing->AnnualSales }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="{{ url('assets/images/gross_profit.png') }}" alt=""
+                                                    class="icon"> Gross Profit</td>
+                                            <td class="text-end">{{ $listing->GrossProfit }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="{{ url('assets/images/total_expenses.png') }}" alt=""
+                                                    class="icon"> Total Expenses</td>
+                                            <td class="text-end">{{ $listing->TotalExpenses }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="{{ url('assets/images/operating_profit.png') }}" alt=""
+                                                    class="icon"> Operating Profit</td>
+                                            <td class="text-end">{{ $listing->AnnualNetProfit }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="{{ url('assets/images/annual_net_profit.png') }}" alt=""
+                                                    class="icon">Annual Net Profit</td>
+                                            <td class="text-end">{{ $listing->AnnualNetProfit }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="card-body-sidebar">
-                            <table class="table table-bordered table-striped">
-                                <tbody class="listing_sidebar">
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/annual_sale.png') }}" alt=""
-                                                class="icon"> Annual Sales</td>
-                                        <td class="text-end">{{ $listing->AnnualSales }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/gross_profit.png') }}" alt=""
-                                                class="icon"> Gross Profit</td>
-                                        <td class="text-end">{{ $listing->GrossProfit }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/total_expenses.png') }}" alt=""
-                                                class="icon"> Total Expenses</td>
-                                        <td class="text-end">{{ $listing->TotalExpenses }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/operating_profit.png') }}" alt=""
-                                                class="icon"> Operating Profit</td>
-                                        <td class="text-end">{{ $listing->AnnualNetProfit }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/annual_net_profit.png') }}" alt=""
-                                                class="icon">Annual Net Profit</td>
-                                        <td class="text-end">{{ $listing->AnnualNetProfit }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    @endauth
                     <div class="card mb-4">
                         <div class="card-header">Recent Business listing</div>
                         <ul class="list-group list-group-flush recent_listing">

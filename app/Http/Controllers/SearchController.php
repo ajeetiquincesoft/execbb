@@ -14,11 +14,17 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $listing_type = $request->input('industry');
+        $businessType = $request->input('businessType');
         $state = $request->input('state');
         $listings = Listing::query();
         if ($listing_type) {
             $listings = $listings->where(function ($queryBuilder) use ($listing_type) {
                 $queryBuilder->where('BusCategory', $listing_type);
+            });
+        }
+        if ($businessType) {
+            $listings = $listings->where(function ($queryBuilder) use ($businessType) {
+                $queryBuilder->where('SubCat', $businessType);
             });
         }
         // Apply industry filter if set
@@ -34,12 +40,17 @@ class SearchController extends Controller
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
         $states = DB::table('states')->get();
         $categoryData = DB::table('categories')->get();
-        return view('frontend.listing-search', compact('listings', 'states', 'categoryData'));
+        $businessTypes = DB::table('sub_categories')
+            ->whereNotNull('CatID')
+            ->orderBy('SubCategory', 'asc')
+            ->get();
+        return view('frontend.listing-search', compact('listings', 'states', 'categoryData', 'businessTypes'));
     }
     public function searchBusinessListing(Request $request)
     {
         $query = $request->input('query');
         $industry = $request->input('industry');
+        $businessType = $request->input('businessType');
         $state = $request->input('state');
         if ($request->has('lis_search') && Auth::check()) {
             $saveSearch = new SavedSearch();
@@ -66,6 +77,10 @@ class SearchController extends Controller
             $listings = $listings->where('BusCategory', $industry);
         }
 
+        if ($businessType) {
+            $listings = $listings->where('SubCat', $businessType);
+        }
+
         // Apply state filter if set
         if ($state) {
             $listings = $listings->where('State', $state);
@@ -79,6 +94,10 @@ class SearchController extends Controller
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
         $states = DB::table('states')->get();
         $categoryData = DB::table('categories')->get();
-        return view('frontend.listing-search', compact('listings', 'states', 'categoryData'));
+        $businessTypes = DB::table('sub_categories')
+            ->whereNotNull('CatID')
+            ->orderBy('SubCategory', 'asc')
+            ->get();
+        return view('frontend.listing-search', compact('listings', 'states', 'categoryData', 'businessTypes'));
     }
 }

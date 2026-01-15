@@ -12,8 +12,8 @@
                         </li>
                     @endforeach
                     <!--  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                            <li class="breadcrumb-item"><a href="#">Buy a Business</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Buyers</li> -->
+                                                <li class="breadcrumb-item"><a href="#">Buy a Business</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">Buyers</li> -->
                 </ol>
             </nav>
         </div>
@@ -52,9 +52,9 @@
                                     href="{{ route('register.with.ebb') }}" class="text-gold"> Registering with EBB</a></li>
                             <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Looking through our <a
                                     href="{{ route('business.listings') }}" class="text-gold">business listings</a></li>
-                            <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Joining the <a
+                            {{-- <li class="mb-2"><i class="bi bi-check-circle-fill icon-purple"></i> Joining the <a
                                     href="{{ route('preferred.buyers.program') }}" class="text-gold">EBB Preferred Buyer
-                                    Program</a> For Serious Buyers Only!</li>
+                                    Program</a> For Serious Buyers Only!</li> --}}
                             <li><i class="bi bi-check-circle-fill icon-purple"></i> Ask EBB’s <a
                                     href="{{ route('mergers.and.acquisitions') }}" class="text-gold">M&A Experts</a> for
                                 help</li>

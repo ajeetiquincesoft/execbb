@@ -54,14 +54,14 @@
                 <!-- Side Panel -->
                 <div class="col-md-4" style="background-color: #F8F8F8;;">
                     <div class="Ebb-section-about">
-                        <div class="boxes-button-section">
+                        {{--   <div class="boxes-button-section">
                             <div class="EBB-team-title">
                                 <h5>Accelerate Your Search</h5>
                                 <p>Become an <a href="{{ route('preferred.buyers.program') }}" class="sellorgive">EBB
                                         Preferred Buyer</a> and benefit from our full services.</p>
                             </div>
 
-                        </div>
+                        </div> --}}
                         <div class="boxes-button-section">
                             <div class="EBB-team-title">
                                 <h5>Factors to Consider</h5>

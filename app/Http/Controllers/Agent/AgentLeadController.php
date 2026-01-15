@@ -13,7 +13,7 @@ class AgentLeadController extends Controller
 {
     public function index(Request $request)
     {
-        $query = $request->input('query');
+        /* $query = $request->input('query');
         $loginAgentID = auth()->user()->id;
         $AgentData = Agent::where('AgentUserRegisterId', $loginAgentID)->first();
         $leads = DB::table('leads')->where('AgentID', $AgentData->AgentID);
@@ -25,7 +25,7 @@ class AgentLeadController extends Controller
                 ->leftJoin('categories', 'leads.Category', '=', 'categories.CategoryID')
                 ->leftJoin('lead_status', 'leads.Status', '=', 'lead_status.LeadStatusID')
                 ->select('leads.*', 'categories.BusinessCategory as category_name', 'lead_status.Status as status')
-                ->where('leads.AgentID', $AgentData->AgentID) // Ensure only leads assigned to the agent are fetched
+                ->where('leads.AgentID', $AgentData->AgentID)
                 ->where(function ($q) use ($query) {
                     $q->where('leads.SellerFName', 'LIKE', '%' . $query . '%')
                         ->orWhere('leads.SellerLName', 'LIKE', '%' . $query . '%')
@@ -38,8 +38,37 @@ class AgentLeadController extends Controller
                 });
         }
         $leads = $leads->orderBy('created_at', 'desc')
+            ->paginate(10); */
+        $query = $request->input('query');
+
+        $leads = DB::table('leads')
+            ->leftJoin('categories', 'leads.Category', '=', 'categories.CategoryID')
+            ->leftJoin('lead_status', 'leads.Status', '=', 'lead_status.LeadStatusID')
+            ->leftJoin('users as agents', 'leads.AgentID', '=', 'agents.id') // optional
+            ->select(
+                'leads.*',
+                'categories.BusinessCategory as category_name',
+                'lead_status.Status as status'
+            );
+        if (!empty($query)) {
+            $leads->where(function ($q) use ($query) {
+                $q->where('leads.SellerFName', 'LIKE', "%{$query}%")
+                    ->orWhere('leads.SellerLName', 'LIKE', "%{$query}%")
+                    ->orWhere('leads.BusName', 'LIKE', "%{$query}%")
+                    ->orWhere('leads.Address', 'LIKE', "%{$query}%")
+                    ->orWhere('leads.Phone', 'LIKE', "%{$query}%")
+                    ->orWhere('leads.AppointmentDate', 'LIKE', "%{$query}%")
+                    ->orWhere('categories.BusinessCategory', 'LIKE', "%{$query}%")
+                    ->orWhere('lead_status.Status', 'LIKE', "%{$query}%");
+            });
+        }
+        $leads = $leads
+            ->orderBy('leads.created_at', 'desc')
             ->paginate(10);
-        return view('agent-dashboard.lead.index', compact('leads', 'categories', 'lead_status','agents'));
+        $categories  = DB::table('categories')->pluck('BusinessCategory', 'CategoryID');
+        $lead_status = DB::table('lead_status')->pluck('Status', 'LeadStatusID');
+        $agents      = User::with('agent_info')->where('role_name', 'agent')->get();
+        return view('agent-dashboard.lead.index', compact('leads', 'categories', 'lead_status', 'agents'));
     }
     public function show($id)
     {
@@ -52,6 +81,6 @@ class AgentLeadController extends Controller
         $previous = DB::table('leads')->where('LeadID', '<', $id)->where('AgentID', $AgentData->AgentID)->orderBy('LeadID', 'desc')->first();
         // Get the next lead ID
         $next = DB::table('leads')->where('LeadID', '>', $id)->where('AgentID', $AgentData->AgentID)->orderBy('LeadID', 'asc')->first();
-        return view('agent-dashboard.lead.show', compact('lead', 'previous', 'next','activities'));
+        return view('agent-dashboard.lead.show', compact('lead', 'previous', 'next', 'activities'));
     }
 }

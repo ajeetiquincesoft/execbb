@@ -59,7 +59,7 @@
                  <h4>Buyers</h4>
                  <ul class="list-unstyled">
                      <li><a href="{{ route('register.ebb.buyer') }}">Register with EBB</a></li>
-                     <li><a href="{{ route('preferred.buyers.program') }}">Proffered Buyers Program</a></li>
+                     {{-- <li><a href="{{ route('preferred.buyers.program') }}">Proffered Buyers Program</a></li> --}}
                      <li><a href="{{ route('buyer.tools') }}">Tools</a></li>
                      <li><a href="{{ route('buyer.resource') }}">Resources</a></li>
                  </ul>
@@ -150,7 +150,7 @@
                                      text: response.message,
                                  });
                                  $('#email').val(
-                                 ''); // Clear the email input field after success
+                                     ''); // Clear the email input field after success
                              } else {
                                  Swal.fire({
                                      icon: 'error',
@@ -167,7 +167,7 @@
                                  // Loop through errors and display them
                                  $.each(xhr.responseJSON.errors, function(key, value) {
                                      errorMessages += value[0] +
-                                     '<br>'; // Concatenate error messages
+                                         '<br>'; // Concatenate error messages
                                  });
 
                                  Swal.fire({

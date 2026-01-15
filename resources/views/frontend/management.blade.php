@@ -58,7 +58,7 @@
                             </div>
 
                         </div>
-                        <div class="boxes-button-section">
+                        {{-- <div class="boxes-button-section">
                             <div class="EBB-team-title">
                                 <h5>Accelerate Your Search</h5>
                                 <p>Become an <a href="{{ route('preferred.buyers.program') }}"
@@ -66,7 +66,7 @@
                                     and benefit from our full services.</p>
                             </div>
 
-                        </div>
+                        </div> --}}
                         <div class="boxes-button-section">
                             <div class="EBB-team-title">
                                 <h5>

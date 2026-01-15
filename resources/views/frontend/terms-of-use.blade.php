@@ -88,8 +88,8 @@
                         apply to you. In such states, EBB’s liability is limited to the greatest extent permitted by law.
                     </p>
 
-                    <p class="faq_answer">3. Indemnification. You agree to indemnify,<a href="https://www.perfake.me/"
-                            class="sellorgive">Best Replica Watches</a> defend and hold harmless EBB, its officers,
+                    <p class="faq_answer">3. Indemnification. You agree to indemnify, defend and hold harmless EBB, its
+                        officers,
                         directors, employees, agents, licensors, suppliers and any third party information providers to the
                         Service from and against all losses, expenses, damages and costs, including reasonable attorneys'
                         fees, resulting from any violation of this Agreement by you.</p>

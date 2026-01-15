@@ -549,15 +549,15 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#busType').empty(); // Clear existing options
-                        $('#busType').append('<option value="">Select an option</option>'); // Add default option
+                        $('#busType').empty();
+                        $('#busType').append('<option value="">Select an option</option>'); 
                         $.each(data, function(key, value) {
                             $('#busType').append('<option value="' + value.SubCatID + '">' + value.SubCategory + '</option>');
                         });
                     }
                 });
             } else {
-                $('#second-dropdown').empty().append('<option value="">Select an option</option>'); // Reset second dropdown
+                $('#second-dropdown').empty().append('<option value="">Select an option</option>');
             }
         });
     });

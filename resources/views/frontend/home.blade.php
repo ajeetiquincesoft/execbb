@@ -14,10 +14,16 @@
                     <div class="listing_search d-md-flex align-items-center">
                         {{--  <input type="text" class="form-control form-control-lg" placeholder="Industry" name="industry"
                             value="{{ request('industry') }}"> --}}
-                        <select class="form-select form-select-lg" name="industry">
+                        <select class="form-select form-select-lg" name="industry" id="industry">
                             <option selected value="" disabled>Industry</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->CategoryID }}">{{ $category->BusinessCategory }}</option>
+                            @endforeach
+                        </select>
+                        <select class="form-select form-select-lg" name="businessType" id="busType">
+                            <option selected value="" disabled>Business Category</option>
+                            @foreach ($businessTypes as $businessType)
+                                <option value="{{ $businessType->SubCatID }}">{{ $businessType->SubCategory }}</option>
                             @endforeach
                         </select>
                         <select class="form-select form-select-lg" name="state">
@@ -64,51 +70,18 @@
             <div class="d-md-flex justify-content-between align-items-center mb-4 top_business">
                 <h2>Top Business Categories</h2>
                 <div class="see_more">
-                    <a href="#" class="btn btn">See More Categories</a>
+                    <a href="{{ route('see-more-categories') }}" class="btn btn">See More Categories</a>
                 </div>
             </div>
-            <div class="row g-3 bus_cat row-cols-3 row-cols-md-3 row-cols-lg-6">
-                <!-- Column 1 -->
-                <div class="col">
-                    <a href="#" class="text-decoration-none text-primary">Bagel</a>
-                    <a href="#" class="text-decoration-none text-primary">Retail</a>
-                    <a href="#" class="text-decoration-none text-primary">Pizzeria</a>
-                </div>
-
-                <!-- Column 2 -->
-                <div class="col">
-                    <a href="#" class="text-decoration-none text-primary">Car Wash</a>
-                    <a href="#" class="text-decoration-none text-primary">Childcare</a>
-                    <a href="#" class="text-decoration-none text-primary">Franchises</a>
-                </div>
-
-                <!-- Column 3 -->
-                <div class="col">
-                    <a href="#" class="text-decoration-none text-primary">Automotive</a>
-                    <a href="#" class="text-decoration-none text-primary">Laundromat</a>
-                    <a href="#" class="text-decoration-none text-primary">Asset Sales</a>
-                </div>
-
-                <!-- Column 4 -->
-                <div class="col">
-                    <a href="#" class="text-decoration-none text-primary">Gas Stations</a>
-                    <a href="#" class="text-decoration-none text-primary">Dry Cleaner</a>
-                    <a href="#" class="text-decoration-none text-primary">Liquor Store</a>
-                </div>
-
-                <!-- Column 5 -->
-                <div class="col">
-                    <a href="#" class="text-decoration-none text-primary">Restaurant/ Bar</a>
-                    <a href="#" class="text-decoration-none text-primary">Service Business</a>
-                    <a href="#" class="text-decoration-none text-primary">SBA qualified Deals</a>
-                </div>
-
-                <!-- Column 6 -->
-                <div class="col">
-                    <a href="#" class="text-decoration-none text-primary">Commercial Real Estate</a>
-                    <a href="#" class="text-decoration-none text-primary">Mergers & Acquisitions</a>
-                    <a href="#" class="text-decoration-none text-primary">Convenience Store/Deli</a>
-                </div>
+            <div class="row g-3 bus_cat row-cols-2 row-cols-md-3 row-cols-lg-5">
+                @foreach ($subCategories as $subCategory)
+                    <div class="col">
+                        <a href="{{ route('search.index', ['businessType' => $subCategory->SubCatID]) }}"
+                            class="bus-cat-link" target="_blank">
+                            {{ $subCategory->SubCategory }}
+                        </a>
+                    </div>
+                @endforeach
             </div>
 
         </div>
@@ -190,8 +163,7 @@
                                         alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent-image"></a>
                             @endif
                             <div class="leading_agent">
-                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}"
-                                    target="_blank">
+                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}" target="_blank">
                                     <h5 class="mb-1">{{ ucfirst($agent->FName) }} {{ ucfirst($agent->LName) }}</h5>
                                 </a>
                                 <p class="mb-0">{{ $limitedComment }}</p>
@@ -232,8 +204,7 @@
                             <p class="list-item-title">EBB Offers Several Listing Programs</p>
                             <p class="list-item-description"><a href="{{ route('open-list.with.ebb') }}"
                                     target="_blank">List with EBB</a> and benefit from our database, reputation, and
-                                marketing efforts that draw in qualified buyers. <a href="https://50graphics.com/"
-                                    target="_blank">Replica Watches</a></p>
+                                marketing efforts that draw in qualified buyers.</p>
                         </div>
                     </div>
                 </div>
@@ -244,7 +215,7 @@
                 <div class="custom-section" style="background: url('{{ $buyersImagePath }}') no-repeat center center;">
                     <h2 class="section-title">Buyers</h2>
                     <div class="divider"></div>
-                    <div class="list-item">
+                    {{-- <div class="list-item">
                         <span class="list-item-icon">
                             <i class="bi bi-check-circle-fill"></i>
                         </span>
@@ -254,7 +225,7 @@
                                     target="_blank">EBB Preferred Buyer</a> and benefit from our full services; access
                                 detailed information on 100s of businesses online 24/7.</p>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="list-item">
                         <span class="list-item-icon">
                             <i class="bi bi-check-circle-fill"></i>
@@ -442,6 +413,34 @@
                         }
                     }
                 ]
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#industry').change(function() {
+                var id = $(this).val();
+                if (id) {
+                    $.ajax({
+                        url: "{{ route('get.business.category', ['id' => '__ID__']) }}".replace(
+                            '__ID__',
+                            id),
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#busType').empty();
+                            $('#busType').append(
+                                '<option value="">Business Category</option>');
+                            $.each(data, function(key, value) {
+                                $('#busType').append('<option value="' + value
+                                    .SubCatID + '">' + value.SubCategory +
+                                    '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#second-dropdown').empty().append('<option value="">Select an option</option>');
+                }
             });
         });
     </script>

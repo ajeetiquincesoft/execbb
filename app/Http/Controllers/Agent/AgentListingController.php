@@ -13,6 +13,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Activity;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class AgentListingController extends Controller
 {
@@ -22,11 +24,18 @@ class AgentListingController extends Controller
         $agent = User::with('agent_info')->where('id', $user->id)->first();
         $refAgentID = $agent->agent_info->AgentID;
         session()->forget(['listingData', 'step']);
+        /* $query = $request->input('query');
+        $listings = Listing::where('AgentID', $refAgentID); */
         $query = $request->input('query');
-        $listings = Listing::where('AgentID', $refAgentID);
+        $listings = Listing::query();
+        $listings->where(function ($q) {
+            $q->whereNull('ExpDate')
+                ->orWhere('ExpDate', '>=', now());
+        });
+
 
         if ($query) {
-            $listings = $listings->where(function ($queryBuilder) use ($query) {
+            $listings = Listing::where(function ($queryBuilder) use ($query) {
                 $queryBuilder->where('SellerFName', 'LIKE', '%' . $query . '%')
                     ->orWhere('SellerLName', 'LIKE', '%' . $query . '%')
                     ->orWhere('CorpName', 'LIKE', '%' . $query . '%')
@@ -40,19 +49,25 @@ class AgentListingController extends Controller
                     ->orWhere('Status', 'LIKE', '%' . $query . '%');
             });
         }
-        $listings = $listings->orderBy('created_at', 'desc')->paginate(10);
+        $listings = $listings->orderBy('ListingID', 'desc')->paginate(10);
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
         return view('agent-dashboard.listing.index', compact('listings'));
     }
     public function show($id)
     {
-        $user = auth()->user();
+        /* $user = auth()->user();
         $activities = Activity::latest()->paginate(10);
         $listing = Listing::where('ListingID', $id)->where('RefAgentID', $user->id)->first();
         // Get the previous listing ID
         $previous = Listing::where('ListingID', '<', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'desc')->first();
         // Get the next listing ID
-        $next = Listing::where('ListingID', '>', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'asc')->first();
+        $next = Listing::where('ListingID', '>', $id)->where('RefAgentID', auth()->user()->id)->orderBy('ListingID', 'asc')->first(); */
+        $listing = Listing::where('ListingID', $id)->first();
+        $activities = Activity::latest()->paginate(10);
+        // Get the previous listing ID
+        $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
+        // Get the next listing ID
+        $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
         return view('agent-dashboard.listing.show', compact('listing', 'previous', 'next', 'activities'));
     }
     public function getOptions($id)
@@ -754,5 +769,27 @@ class AgentListingController extends Controller
             Listing::whereIn('ListingID', $listing_id)->delete();
             return response()->json(array('message' => 'Listing delete successfully!'));
         }
+    }
+
+    public function factsheet($id)
+    {
+        $listingData = Listing::findOrFail($id);
+        $annualSaleAmount = $listingData->AnnualSales;
+        $listingAgent = Agent::where('AgentID', $listingData->AgentID)->first();
+        $lname = $listingAgent ? $listingAgent->LName : '';
+        $fname = $listingAgent ? $listingAgent->FName : '';
+        // Prepare HTML for PDF
+        $html = view('agent-dashboard.listing.factsheet', compact('listingData', 'annualSaleAmount', 'fname', 'lname'))->render();
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Download or inline
+        return $dompdf->stream("listing-factsheet-{$listingData->ListingID}.pdf");
     }
 }

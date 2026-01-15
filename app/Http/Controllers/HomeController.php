@@ -14,6 +14,14 @@ class HomeController extends Controller
     {
         $states = DB::table('states')->get();
         $categories = DB::table('categories')->get();
+        $subCategories = DB::table('sub_categories')
+            ->whereNotNull('CatID')
+            ->limit(15)
+            ->get();
+        $businessTypes = DB::table('sub_categories')
+            ->whereNotNull('CatID')
+            ->orderBy('SubCategory', 'asc')
+            ->get();
         /* $listings = Listing::where('Active', 1)->where('Status', 'valid')->latest()
                    ->take(5)
                    ->get(); */
@@ -28,6 +36,13 @@ class HomeController extends Controller
 
         //dd($listings);
         $agents = Agent::latest()->take(3)->get();
-        return view('frontend.home', compact('listings', 'states', 'agents', 'categories'));
+        return view('frontend.home', compact('listings', 'states', 'agents', 'categories', 'subCategories', 'businessTypes'));
+    }
+    public function getBusinessCategory($id)
+    {
+        // Fetch options based on the selected ID (e.g., from a database)
+        $options = DB::table('sub_categories')->where('CatID', $id)->orderBy('SubCategory', 'asc')->get();
+
+        return response()->json($options);
     }
 }

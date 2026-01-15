@@ -24,7 +24,7 @@ class GlossaryController extends Controller
             'agent' => 'A person (natural), corporation, society, association or partnership.',
             'amortization' => 'Act of liquidating an indebtedness by equal and periodic payments.',
             'base year' => 'The Company\'s current fiscal year. Since complete financial statements are not available for the current year, sales and income are projected based on the expectations of management. A double base year is used when the Company is within a few months of the end of its fiscal year, or has completed its fiscal year but does not yet have financial statements for that year.',
-            'book value' => 'The value at which an asset is carried on a company\'s balance sheet. See Recase Book Value. <a href="https://www.perfake.me/">Best Replica Watches</a>',
+            'book value' => 'The value at which an asset is carried on a company\'s balance sheet. See Recase Book Value.',
             'bill of sale' => 'A written instrument which is the evidence of transfer of one person\'s right in personal property to another.',
             'capital expenditures' => 'Investments of cash for improvements to remain competitive in a business.',
             'capitalized items' => 'Have an economic life of one year or more and the cost is moved to the balance sheet, and then these costs can be written down by depreciation or amortization over time.',
@@ -34,7 +34,8 @@ class GlossaryController extends Controller
             'closing statement' => 'A written accounting of funds to seller and buyer at passing of papers.',
             'clp (certified lender program)' => 'This process is for the more sophisticated and experienced lenders who have graduated beyond GP status. Typically, the lender now submits a complete package to the SBA and as a CLP Lender they are guaranteed a 3-day turnaround from the SBA.',
             'collateral' => 'A security, such as a mortgage, given to protect debt.',
-            'co-mingling' => 'The mixing of funds held for the benefit of others with the brokers personal or business funds. <a href="https://www.perfake.me/franck-muller.html">Franck Muller Replica Watches</a>',
+            'co-mingling' => 'The mixing of funds held for the benefit of others with the brokers personal or business funds.
+            ',
             'commission' => 'Money or other valuable consideration given to broker by principal for services rendered. Typically, the amount is by agreement.',
             'conditional sales contract' => 'A contract in which owner retains title until buyer has met all terms and conditions; a familiar device in land sales; also called land contract or installment contract. Buyer acquires equitable title until final payment; after delivery of deed, buyer has legal title.',
             'confidentiality agreement' => 'A pact that forbids buyers, sellers, and their agents in a given business deal from disclosing information about the transaction to others.',

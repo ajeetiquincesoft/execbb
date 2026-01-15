@@ -312,6 +312,7 @@
             33: ['sub category'],
             35: ['category', 'sub category', 'agent', 'status', 'checkboxstatus', 'date range'],
             36: ['listing dba', 'category', 'sub category', 'status'],
+            37: ['listing dba', 'agent', 'category', 'sub category', 'date range'],
             41: ['category', 'sub category', 'agent', 'status', 'checkboxstatus', 'date range'],
             45: ['dba listing'],
             46: ['dba listing', 'date range'],
