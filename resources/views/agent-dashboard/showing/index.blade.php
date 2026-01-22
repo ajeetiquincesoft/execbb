@@ -21,7 +21,7 @@
                                 </button></a>
                         </div>
                         <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
-                            <form method="GET" action="{{ route('all.showing') }}">
+                            <form method="GET" action="{{ route('agent.all.showing.agent') }}">
                                 <div class="input-group" style="max-width: 300px;">
                                     <input type="text" id="search" name="query" class="form-control"
                                         placeholder="Search Here..." value="{{ request('query') }}">
@@ -83,8 +83,8 @@
                                         </form> --}}
 
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                    <i class="fas fa-download"></i>
-                                                </button> -->
+                                                        <i class="fas fa-download"></i>
+                                                    </button> -->
                                     </td>
                                 </tr>
                             @empty
