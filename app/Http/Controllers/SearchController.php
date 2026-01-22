@@ -38,7 +38,14 @@ class SearchController extends Controller
         //dd(count($listings));
         // dd($listings);
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
-        $states = DB::table('states')->get();
+        $states = DB::table('states')->orderByRaw("
+        CASE 
+            WHEN State = 'nj' THEN 1
+            WHEN State = 'ny' THEN 2
+            WHEN State = 'ct' THEN 3
+            ELSE 4
+        END
+    ")->get();
         $categoryData = DB::table('categories')->get();
         $businessTypes = DB::table('sub_categories')
             ->whereNotNull('CatID')

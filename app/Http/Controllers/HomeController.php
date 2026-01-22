@@ -12,7 +12,14 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $states = DB::table('states')->get();
+        $states = DB::table('states')->orderByRaw("
+        CASE 
+            WHEN State = 'nj' THEN 1
+            WHEN State = 'ny' THEN 2
+            WHEN State = 'ct' THEN 3
+            ELSE 4
+        END
+    ")->get();
         $categories = DB::table('categories')->get();
         $subCategories = DB::table('sub_categories')
             ->whereNotNull('CatID')

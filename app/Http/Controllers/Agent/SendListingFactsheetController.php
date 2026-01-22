@@ -52,6 +52,7 @@ class SendListingFactsheetController extends Controller
 
         // Ensure content from CKEditor is clean and not altered
         $content = html_entity_decode($request->email_content);  // Decode HTML entities
+        $notes = trim(strip_tags(html_entity_decode($request->email_content)));
 
         // Prepare the base URL for the listing
         $baseUrl = url('view/business/listing/');
@@ -77,16 +78,19 @@ class SendListingFactsheetController extends Controller
         foreach ($request->recipientEmail as $email) {
             $buyerID = User::where('email', $email)->where('role_name', 'buyer')->first();
             foreach ($request->listingName as $listingId) {
-                DB::table('agent_listing_view_by_buyers')->insert([
-                    'listing_id' => $listingId,
-                    'buyer_id'   => $buyerID->id,
-                    'agent_id'   => $user->id,
-                    'viewed_at'  => Carbon::now(),
+                $AgentId = Listing::where('ListingID', $listingId)->value('AgentID');
+                DB::table('showings')->insert([
+                    'ListingID' => $listingId,
+                    'BuyerID'   => $buyerID->id,
+                    'AgentID'   => $AgentId,
+                    'Notes' => $notes,
+                    'Date'   => Carbon::now(),
+                    'DateEntered'   => Carbon::now(),
+                    'EnteredBy'   => $user->id,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ]);
             }
-
             $data = [
                 'title' => 'Share Exclusive Listings',
                 'body' => 'Admin share Exclusive Listings Just for You. listing is ' . $listingLinksString . ' and factsheet of listing is ' . $factSheetLinksString . '',

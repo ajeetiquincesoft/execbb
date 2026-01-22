@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Database;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class SendListingController extends Controller
@@ -52,6 +53,7 @@ class SendListingController extends Controller
 
         // Ensure content from CKEditor is clean and not altered
         $content = html_entity_decode($request->email_content);  // Decode HTML entities
+        $notes = trim(strip_tags(html_entity_decode($request->email_content)));
 
         // Prepare the base URL for the listing
         $baseUrl = url('view/business/listing/');
@@ -60,6 +62,7 @@ class SendListingController extends Controller
         // Prepare the links for the selected listings
         $listingLinks = [];
         $factsheetLinks = [];
+        $user = auth()->user();
         foreach ($request->listingName as $listingId) {
             // Create a link for each listing
             $listingLinks[] = '<a href="' . $baseUrl . '/' . $listingId . '">View Listing ' . $listingId . '</a>';
@@ -75,6 +78,20 @@ class SendListingController extends Controller
         // Loop through each recipient email and send email
         foreach ($request->recipientEmail as $email) {
             $buyerID = User::where('email', $email)->where('role_name', 'buyer')->first();
+            foreach ($request->listingName as $listingId) {
+                $AgentId = Listing::where('ListingID', $listingId)->value('AgentID');
+                DB::table('showings')->insert([
+                    'ListingID' => $listingId,
+                    'BuyerID'   => $buyerID->id,
+                    'AgentID'   => $AgentId,
+                    'Notes' => $notes,
+                    'Date'   => Carbon::now(),
+                    'DateEntered'   => Carbon::now(),
+                    'EnteredBy'   => $user->id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+            }
             $data = [
                 'title' => 'Share Exclusive Listings',
                 'body' => 'Admin share Exclusive Listings Just for You. listing is ' . $listingLinksString . ' and factsheet of listing is ' . $factSheetLinksString . '',

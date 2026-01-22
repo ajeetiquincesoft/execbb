@@ -75,7 +75,7 @@
                 </article>
 
                 <!-- Comments Section -->
-                <section class="mt-5">
+                {{-- <section class="mt-5">
                     <h4>Comments</h4>
                     <div id="comments-container">
                         @foreach ($buyerComments as $comment)
@@ -124,21 +124,21 @@
                     @endif
 
 
-                </section>
+                </section> --}}
             </div>
 
             <!-- Sidebar -->
             <div class="col-lg-4">
                 <div class="sticky-top1">
                     <!--   <div class="card mb-4">
-                                                                        <div class="card-header">About Author</div>
-                                                                        <div class="card-body-sidebar">
-                                                                            <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
-                                                                            <h5 class="card-title">{{ ucfirst($userName) }}</h5>
-                                                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
-                                                                                ac lacus nec purus lacinia tempor.</p>
-                                                                        </div>
-                                                                    </div> -->
+                                                                            <div class="card-header">About Author</div>
+                                                                            <div class="card-body-sidebar">
+                                                                                <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
+                                                                                <h5 class="card-title">{{ ucfirst($userName) }}</h5>
+                                                                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
+                                                                                    ac lacus nec purus lacinia tempor.</p>
+                                                                            </div>
+                                                                        </div> -->
                     {{--    <div class="card mb-4">
                         <div class="card-header">
                             General Info

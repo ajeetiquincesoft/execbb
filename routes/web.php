@@ -45,6 +45,7 @@ use App\Http\Controllers\Agent\AgentHotsheetController;
 use App\Http\Controllers\Agent\AgentListingViewByBuyerController;
 use App\Http\Controllers\Agent\AgentreferralsController;
 use App\Http\Controllers\Agent\SendListingFactsheetController;
+use App\Http\Controllers\Agent\AgentShowingController;
 
 
 //Controller for buyer
@@ -545,6 +546,11 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('share-listing-factsheet', [SendListingFactsheetController::class, 'index'])->name('share.listing.factsheet');
   Route::post('share-listing-factsheet-with-buyer', [SendListingFactsheetController::class, 'shareListingFactsheet'])->name('share.listing.factsheet.with.buyer');
   //End route for agent send listing factshet to buyer
+
+  /* routes for agent showings */
+  Route::get('all/agent/showing', [AgentShowingController::class, 'index'])->name('all.showing.agent');
+  Route::get('view/agent/showing/{id}', [AgentShowingController::class, 'show'])->name('show.agent.showing');
+  /* end routes for showings */
 });
 
 Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.'], function () {
