@@ -52,7 +52,11 @@
                 </div>
                 <div class="d-flex justify-content-center" style="overflow:auto;">
                     <div>
-                        <button class="btn-primary" type="submit" id="prevBtn">Submit</button>
+                        {{-- <button class="btn-primary" type="submit" id="prevBtn">Submit</button> --}}
+                        <button class="btn btn-primary" type="submit" id="prevBtn">
+                            <span class="btn-text">Submit</span>
+                            <span class="btn-loading d-none">Submitting...</span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -62,6 +66,11 @@
         <p>&nbsp;</p>
     </div>
     <style>
+        #prevBtn[disabled] {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
         .ck-editor__editable {
             min-height: 300px !important;
             /* Set the min-height to whatever you need */
@@ -85,12 +94,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            let isSubmitting = false;
             $.validator.addMethod('requiredMultiSelect', function(value, element) {
-                // Check if any option is selected
                 return this.optional(element) || $(element).val().length > 0;
             }, 'Please select at least one recipient');
             $.validator.addMethod('requiredMultiSelectListing', function(value, element) {
-                // Check if any option is selected
                 return this.optional(element) || $(element).val().length > 0;
             }, 'Please select at least one listing');
             $('#shareListingBuyer').validate({
@@ -127,9 +135,32 @@
                     }
                 },
                 submitHandler: function(form) {
+                    if (isSubmitting) {
+                        return false;
+                    }
+
+                    isSubmitting = true;
+
+                    // Disable button + show loader
+                    const btn = $('#prevBtn');
+                    btn.prop('disabled', true);
+                    btn.find('.btn-text').addClass('d-none');
+                    btn.find('.btn-loading').removeClass('d-none');
+
                     form.submit();
+                },
+                invalidHandler: function() {
+                    enableSubmitButton(); // Re-enable if validation fails
                 }
             });
+            // Re-enable button helper
+            function enableSubmitButton() {
+                isSubmitting = false;
+                const btn = $('#prevBtn');
+                btn.prop('disabled', false);
+                btn.find('.btn-text').removeClass('d-none');
+                btn.find('.btn-loading').addClass('d-none');
+            }
             $('#recipientEmailShareListing').on('change', function() {
                 // Validate the form when the selection changes
                 $('#recipientEmailShareListing').valid();
