@@ -13,6 +13,7 @@ npm-debug.log
 yarn-error.log
 composer.json
 composer.lock
+server.php
 /.idea
 /.vscode
 /public/assets/uploads/images/

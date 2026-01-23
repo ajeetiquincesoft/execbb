@@ -11,30 +11,24 @@
 
                 <div class="container-fluid py-3 border-bottom">
                     <div class="row align-items-center">
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                             <h4 class="mb-0">Showings</h4>
                         </div>
-                        <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
-                            <a href="{{ route('create.showing') }}">
-                                <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                                    <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add showing
-                                </button></a>
-                        </div>
-                        <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
-                            <form method="GET" action="{{ route('agent.all.showing.agent') }}">
-                                <div class="input-group" style="max-width: 300px;">
+
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 showing-agent text-end" id="list-search">
+                            <form method="GET" action="{{ route('agent.all.showing.agent') }}" class="d-inline-block">
+                                <div class="input-group" style="max-width: 300px; margin-left: auto;">
                                     <input type="text" id="search" name="query" class="form-control"
                                         placeholder="Search Here..." value="{{ request('query') }}">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="input-group-text">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
+                                    <button type="submit" class="input-group-text">
+                                        <i class="fas fa-search"></i>
+                                    </button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
+
+
                 </div>
             </div>
             <div class="list-data">
@@ -83,8 +77,8 @@
                                         </form> --}}
 
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                        <i class="fas fa-download"></i>
-                                                    </button> -->
+                                                                                                <i class="fas fa-download"></i>
+                                                                                            </button> -->
                                     </td>
                                 </tr>
                             @empty
