@@ -24,7 +24,9 @@ h2 {
 .card {
     border-radius: 10px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 /* .card:hover {
@@ -97,7 +99,9 @@ h2 {
     color: #2e152b;
     /* Bootstrap primary color */
     font-weight: bold;
-    transition: color 0.3s ease, background-color 0.3s ease;
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease;
 }
 
 .custom-link:hover {
@@ -646,7 +650,9 @@ section.phases-section {
     /* Subtle shadow */
     text-align: left;
     /* Align text */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
     width: 100%;
     max-width: 282px;
     height: 167px;
@@ -1658,7 +1664,11 @@ form#registerEbb .form-select-lg {
 .bus_lis_search input.form-control {
     border-radius: 20px 0px 0px 20px;
 }
-
+@media (max-width: 768px) {
+    .bus_lis_search button.btn {
+        border-radius: 10px !important;
+    }
+}
 .bus_lis_search button.btn {
     border-radius: 0px 20px 20px 0px;
 }
