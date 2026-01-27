@@ -1001,11 +1001,13 @@ a.btn.btn.view_all_services {
 
     .subscribe-form button {
         width: 50%;
+        border-radius: 20px;
     }
 
     .newsletter input[type="email"] {
         width: 100%;
         margin-bottom: 10px;
+        border-radius: 20px;
     }
 
     .footer p,
