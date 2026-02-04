@@ -13,10 +13,8 @@ class SendTestEmail extends Command
     public function handle()
     {
         Mail::raw('This is cron test email', function ($message) {
-            $message->to('santosh3257@gmail.com')
+            $message->to('santosh@yopmail.com')
                 ->subject('Cron Working - ' . now());
         });
-
-        \Log::info('Cron executed at ' . now());
     }
 }
