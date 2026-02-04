@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command(UpdateStatus::class)->dailyAt('00:00');
         $schedule->command(MatchBuyersAndListingsStoredProcedure::class)->dailyAt('00:05');
+        $schedule->command('email:test')->everyMinute();
     }
 
     /**
