@@ -18,7 +18,13 @@ class BuyerProfileController extends Controller
         $categoryData = DB::table('categories')->get();
         $states = DB::table('states')->get();
         $counties = DB::table('counties')->get();
-        $agents = User::with('agent_info')->where('role_name', 'agent')->get();
+        $agents = User::with('agent_info')
+            ->where('role_name', 'agent')
+            ->whereHas('agent_info', function ($q) {
+                $q->where('Active', 1);
+                $q->orderBy('FName', 'asc');
+            })
+            ->get();
         $sub_categories = DB::table('sub_categories')->get();
         return view('frontend.buyer.buyer_profile', compact('categoryData', 'states', 'counties', 'agents', 'sub_categories', 'buyerData'));
     }
