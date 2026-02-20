@@ -42,9 +42,9 @@ class UpdateStatus extends Command
     {
         $currentDate = Carbon::now();
         $records = Listing::where('ExpDate', '<', $currentDate)
-                            ->whereNotNull('ExpDate')
-                            ->where('Status', '!=', 'expired')
-                            ->get();
+            ->whereNotNull('ExpDate')
+            ->where('Status', '!=', 'expired')
+            ->get();
 
         foreach ($records as $record) {
             $record->Status = 'expired';
@@ -54,12 +54,12 @@ class UpdateStatus extends Command
 
         $this->info('All expired records have been updated.');
         try {
-            /* Mail::raw('The cron job has successfully run and updated expired listings.', function ($message) {
+            Mail::raw('The cron job has successfully run and updated expired listings.', function ($message) {
                 $message->to('santosh3257@gmail.com')
-                        ->subject('Test Cron Job Notification');
+                    ->subject('Test Cron Job Notification');
             });
 
-            $this->info('Test email sent successfully.'); */
+            $this->info('Test email sent successfully.');
         } catch (\Exception $e) {
             $this->error('Failed to send test email: ' . $e->getMessage());
         }
