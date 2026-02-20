@@ -358,7 +358,6 @@ class RegisterWithEbbController extends Controller
                 if ($request->has('next')) {
                     $buyer_id = session()->get('buyerData.buyer_id');
                     $buyer = Buyer::where('BuyerID', $buyer_id)->first();
-
                     if (!$buyer) {
                         return back()->with('error', 'Buyer not found!');
                     }
@@ -386,12 +385,12 @@ class RegisterWithEbbController extends Controller
 
                     // Save the updated buyer record
                     $buyer->save();
-
+                    // Commit the transaction if all operations are successful
+                    DB::commit();
                     // Handle session and other operations
                     session()->forget(['buyerData', 'step']);
 
-                    // Commit the transaction if all operations are successful
-                    /*  DB::commit(); */
+
 
                     return redirect()->route('login')->with('success', 'Your account has been successfully created. Please check your email for instructions to log in!');
                 }

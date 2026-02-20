@@ -428,7 +428,8 @@
                                             @enderror
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
-                                            <select id="busType1" class="form-select form-select-lg" name="bus_type1">
+                                            <select id="busType1" class="form-select form-select-lg" name="bus_type1"
+                                                disabled>
                                                 <option value="" selected>Select Bus.Type</option>
                                                 @foreach ($sub_categories as $key => $bus_type)
                                                     <option value="{{ $bus_type->SubCatID }}">
@@ -455,7 +456,8 @@
                                             @enderror
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
-                                            <select id="busType2" class="form-select form-select-lg" name="bus_type2">
+                                            <select id="busType2" class="form-select form-select-lg" name="bus_type2"
+                                                disabled>
                                                 <option value="" selected>Select Bus.Type</option>
                                                 @foreach ($sub_categories as $key => $bus_type)
                                                     <option value="{{ $bus_type->SubCatID }}">
@@ -483,7 +485,8 @@
                                             @enderror
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
-                                            <select id="busType3" class="form-select form-select-lg" name="bus_type3">
+                                            <select id="busType3" class="form-select form-select-lg" name="bus_type3"
+                                                disabled>
                                                 <option value="" selected>Select Bus.Type</option>
                                                 @foreach ($sub_categories as $key => $bus_type)
                                                     <option value="{{ $bus_type->SubCatID }}">
@@ -510,7 +513,8 @@
                                             @enderror
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
-                                            <select id="busType4" class="form-select form-select-lg" name="bus_type4">
+                                            <select id="busType4" class="form-select form-select-lg" name="bus_type4"
+                                                disabled>
                                                 <option value="" selected>Select Bus.Type</option>
                                                 @foreach ($sub_categories as $key => $bus_type)
                                                     <option value="{{ $bus_type->SubCatID }}">
@@ -899,6 +903,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#busType1').empty(); // Clear existing options
+                            document.getElementById('busType1').disabled = false;
                             $('#busType1').append(
                                 '<option value="">Select an option</option>'
                             ); // Add default option
@@ -923,6 +928,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#busType2').empty(); // Clear existing options
+                            document.getElementById('busType2').disabled = false;
                             $('#busType2').append(
                                 '<option value="">Select an option</option>'
                             ); // Add default option
@@ -947,6 +953,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#busType3').empty(); // Clear existing options
+                            document.getElementById('busType3').disabled = false;
                             $('#busType3').append(
                                 '<option value="">Select an option</option>'
                             ); // Add default option
@@ -971,6 +978,7 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#busType4').empty(); // Clear existing options
+                            document.getElementById('busType4').disabled = false;
                             $('#busType4').append(
                                 '<option value="">Select an option</option>'
                             ); // Add default option
