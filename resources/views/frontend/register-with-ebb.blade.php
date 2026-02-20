@@ -648,13 +648,7 @@
                             </div>
                         </form>
                     </div>
-                    @if (Session::has('success'))
-                        <div class="alert alert-success alert-dismissible fade show" id="alert-success" role="alert">
-                            <strong>{{ Session::get('success') }}</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    @endif
+
                 </div>
                 <div class="col-lg-5 mt-0 register_ebb">
                     <!-- <p class="mb-4 notice">Notice: To register, you must use Internet Explorer. Please set this site to compatibility mode.</p> -->

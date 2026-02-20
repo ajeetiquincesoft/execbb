@@ -4,37 +4,60 @@
     </div>
     <ul class="sidebar-menu">
         <li>
-            <a href="{{route('buyer.dashboard')}}" class="{{ Route::currentRouteName() == 'buyer.dashboard' ? 'active' : '' }}"><i class="fa fa-home"></i> Dashboard</a>
+            <a href="{{ route('buyer.dashboard') }}"
+                class="{{ Route::currentRouteName() == 'buyer.dashboard' ? 'active' : '' }}"><i class="fa fa-home"></i>
+                Dashboard</a>
         </li>
         <!--  <li>
             <a href="#"><i class="fa fa-shopping-cart"></i> My Orders</a>
         </li> -->
         <li>
-            <a href="{{route('buyer.save.search')}}" class="{{ Route::currentRouteName() == 'buyer.save.search' ? 'active' : '' }}"><i class="fa fa-search"></i> Save Searches</a>
+            <a href="{{ route('buyer.save.search') }}"
+                class="{{ Route::currentRouteName() == 'buyer.save.search' ? 'active' : '' }}"><i
+                    class="fa fa-search"></i> Save Searches</a>
         </li>
         <li>
-            <a href="{{route('buyer.favorite.listings')}}" class="{{ Route::currentRouteName() == 'buyer.favorite.listings' ? 'active' : '' }}"><i class="fa fa-heart"></i> Favourites</a>
+            <a href="{{ route('buyer.favorite.listings') }}"
+                class="{{ Route::currentRouteName() == 'buyer.favorite.listings' ? 'active' : '' }}"><i
+                    class="fa fa-heart"></i> Favourites</a>
         </li>
         <li>
-            <a href="{{route('buyer.all.message')}}" class="{{ Route::currentRouteName() == 'buyer.all.message' ? 'active' : '' }}"><i class="fa fa-comments"></i> Messages</a>
+            <a href="{{ route('business.listings') }}"
+                class="{{ Route::currentRouteName() == 'business.listings' ? 'active' : '' }}" target="_blank"><i
+                    class="fa fa-search"></i> Listing Search</a>
+        </li>
+        <li>
+            <a href="{{ route('buyer.all.message') }}"
+                class="{{ Route::currentRouteName() == 'buyer.all.message' ? 'active' : '' }}"><i
+                    class="fa fa-comments"></i> Messages</a>
             <span class="custom-badge" id="unread-message-count" style="display: none;">0</span>
         </li>
         <li>
-            <a href="{{route('buyer.profile')}}" class="{{ Route::currentRouteName() == 'buyer.profile' ? 'active' : '' }}"><i class="fa fa-user"></i> Profile</a>
+            <a href="{{ route('buyer.profile') }}"
+                class="{{ Route::currentRouteName() == 'buyer.profile' ? 'active' : '' }}"><i class="fa fa-user"></i>
+                Profile</a>
         </li>
         <li>
-            <a href="{{route('buyer.change.password')}}" class="{{ Route::currentRouteName() == 'buyer.change.password' ? 'active' : '' }}"><i class="fa fa-key"></i> Change Password</a>
+            <a href="{{ route('buyer.change.password') }}"
+                class="{{ Route::currentRouteName() == 'buyer.change.password' ? 'active' : '' }}"><i
+                    class="fa fa-key"></i> Change Password</a>
         </li>
         <li>
-            <a href="{{route('buyer.all.showing')}}" class="{{ Route::currentRouteName() == 'buyer.all.showing' ? 'active' : '' }}"><i class="fa fa-eye"></i> Showings</a>
+            <a href="{{ route('buyer.all.showing') }}"
+                class="{{ Route::currentRouteName() == 'buyer.all.showing' ? 'active' : '' }}"><i
+                    class="fa fa-eye"></i> Showings</a>
         </li>
         <li>
-            <a href="{{route('buyer.all.offer')}}" class="{{ Route::currentRouteName() == 'buyer.all.offer' ? 'active' : '' }}"><i class="fa fa-times-circle-o"></i> Offers</a>
+            <a href="{{ route('buyer.all.offer') }}"
+                class="{{ Route::currentRouteName() == 'buyer.all.offer' ? 'active' : '' }}"><i
+                    class="fa fa-times-circle-o"></i> Offers</a>
         </li>
-        @if(!empty($hasSignedNda))
-        <li>
-            <a href="{{route('download.buyer.nda.form')}}" class="{{ Route::currentRouteName() == 'download.buyer.nda.form' ? 'active' : '' }}"><i class="fa fa-download"></i> Download NDA Form</a>
-        </li>
+        @if (!empty($hasSignedNda))
+            <li>
+                <a href="{{ route('download.buyer.nda.form') }}"
+                    class="{{ Route::currentRouteName() == 'download.buyer.nda.form' ? 'active' : '' }}"><i
+                        class="fa fa-download"></i> Download NDA Form</a>
+            </li>
         @endif
         <!-- Collapsible Settings -->
         <!--  <li class="nav-item">
@@ -42,7 +65,7 @@
             </a>
             <div id="showings-collapse" class="collapse">
                 <ul class="list-unstyled buyer-dash">
-                    <li><a href="{{route('buyer.all.showing')}}"> - All Showing</a></li>
+                    <li><a href="{{ route('buyer.all.showing') }}"> - All Showing</a></li>
                 </ul>
             </div>
         </li> -->
@@ -55,7 +78,8 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('signout') }}" class="{{ Route::currentRouteName() == 'signout' ? 'active' : '' }}"><i class="fa fa-sign-out"></i> Logout</a>
+            <a href="{{ route('signout') }}" class="{{ Route::currentRouteName() == 'signout' ? 'active' : '' }}"><i
+                    class="fa fa-sign-out"></i> Logout</a>
         </li>
     </ul>
 </div>
@@ -107,7 +131,7 @@
     }); */
 </script>
 @php
-$userId = auth()->user()->id;
+    $userId = auth()->user()->id;
 @endphp
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

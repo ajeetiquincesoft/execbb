@@ -58,7 +58,15 @@ class BusinessListingController extends Controller
         $listings = $listings->where('Active', 1)->where('Status', 'valid')->orderBy('created_at', 'desc')->paginate(6);
 
         /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
-        $states = DB::table('states')->get();
+        /* $states = DB::table('states')->get(); */
+        $states = DB::table('states')->orderByRaw("
+        CASE 
+            WHEN State = 'nj' THEN 1
+            WHEN State = 'ny' THEN 2
+            WHEN State = 'ct' THEN 3
+            ELSE 4
+        END
+    ")->get();
         $categoryData = DB::table('categories')->get();
         return view('frontend.business-listing', compact('listings', 'states', 'categoryData'));
     }

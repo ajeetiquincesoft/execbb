@@ -6,6 +6,13 @@
                 <div class="row g-0">
                     <div class="col-md-12 d-flex align-items-center content-center">
                         <div class="card-body text-black" style="width: 100%;">
+                            @if (Session::has('success'))
+                                <div class="alert alert-success alert-dismissible fade show" id="alert-success" role="alert">
+                                    <strong>{{ Session::get('success') }}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
                             <div class="d-flex justify-content-center pb-1">
                                 <h5 class="fw-normal mb-2 text-center m-0 client_login">Client Log In</h5>
                             </div>

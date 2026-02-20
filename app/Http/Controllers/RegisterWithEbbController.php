@@ -39,7 +39,14 @@ class RegisterWithEbbController extends Controller
         $categoryData = DB::table('categories')->get();
         $states = DB::table('states')->get();
         $counties = DB::table('counties')->get();
-        $agents = User::with('agent_info')->where('role_name', 'agent')->get();
+        /* $agents = User::with('agent_info')->where('role_name', 'agent')->get(); */
+        $agents = User::with('agent_info')
+            ->where('role_name', 'agent')
+            ->whereHas('agent_info', function ($q) {
+                $q->where('Active', 1);
+                $q->orderBy('FName', 'asc');
+            })
+            ->get();
         $sub_categories = DB::table('sub_categories')->get();
         $uniqueAgID = '';
         if ($request->query('agent_id')) {
@@ -53,7 +60,7 @@ class RegisterWithEbbController extends Controller
     public function storeRegisterWithEbb(Request $request)
     {
         // Start the transaction
-        DB::beginTransaction();
+        /*  DB::beginTransaction(); */
 
         try {
             $step = session('step', 1);
@@ -81,6 +88,36 @@ class RegisterWithEbbController extends Controller
                     }
 
                     // Generate new PDF
+                    $signaturePathForPdf = null;
+                    if (!empty($request->signature)) {
+                        $signature = $request->signature;
+                        if (preg_match('/^data:image\/(\w+);base64,/', $signature, $type)) {
+
+                            $signature = substr($signature, strpos($signature, ',') + 1);
+                            $type = strtolower($type[1]);
+
+                            $signature = base64_decode($signature);
+
+                            if ($signature === false) {
+                                return back()->with('error', 'Signature decode failed');
+                            }
+                        } else {
+                            return back()->with('error', 'Invalid signature format');
+                        }
+
+                        $signFolder = public_path('nda_signatures');
+
+                        if (!File::exists($signFolder)) {
+                            File::makeDirectory($signFolder, 0755, true);
+                        }
+
+                        $signName = 'sign_' . time() . '.png';
+                        file_put_contents($signFolder . '/' . $signName, $signature);
+
+                        $getSignData->nda_pdf_path = 'nda_signatures/' . $signName;
+                        $getSignData->save();
+                        $signaturePathForPdf = public_path('nda_signatures/' . $signName);
+                    }
                     $options = new Options();
                     $options->set('defaultFont', 'Helvetica');
                     $dompdf = new Dompdf($options);
@@ -92,7 +129,7 @@ class RegisterWithEbbController extends Controller
                         'home_phone' => $request->nda_home_phone,
                         'cell_phone' => $request->nda_cell_phone,
                         'email' => $request->nda_email,
-                        'signature' => $request->signature,
+                        'signature' => $signaturePathForPdf,
                         'date' => $request->nda_form_date,
                     ])->render();
 
@@ -127,10 +164,10 @@ class RegisterWithEbbController extends Controller
                     $request->session()->put('buyerData.last_name',  $getFullname[1]);
                 } else {
                     $existingUser = User::where('email', $request->nda_email)->where('role_name', 'buyer')->first();
-                    $signNdaFormUser = SignNda::where('email', $request->nda_email)->first();
                     if ($existingUser) {
                         return back()->with('error', 'Email is already registered!')->withInput();
                     }
+                    $signNdaFormUser = SignNda::where('email', $request->nda_email)->first();
                     if (!$signNdaFormUser) {
                         $nda = new SignNda;
                         $nda->full_name = $request->full_name;
@@ -144,8 +181,42 @@ class RegisterWithEbbController extends Controller
                         $nda->signature = $request->signature;
                         $nda->save();
                         // Generate PDF
+                        $signaturePathForPdf = null;
+
+                        if (!empty($request->signature)) {
+
+                            $signature = $request->signature;
+
+                            if (preg_match('/^data:image\/(\w+);base64,/', $signature, $type)) {
+
+                                $signature = substr($signature, strpos($signature, ',') + 1);
+                                $type = strtolower($type[1]);
+
+                                $signature = base64_decode($signature);
+
+                                if ($signature === false) {
+                                    return back()->with('error', 'Signature decode failed');
+                                }
+                            } else {
+                                return back()->with('error', 'Invalid signature format');
+                            }
+
+                            $signFolder = public_path('nda_signatures');
+
+                            if (!File::exists($signFolder)) {
+                                File::makeDirectory($signFolder, 0755, true);
+                            }
+                            $signName = 'sign_' . time() . '.png';
+                            file_put_contents($signFolder . '/' . $signName, $signature);
+                            $nda->nda_pdf_path = 'nda_signatures/' . $signName;
+                            $nda->save();
+                            $signaturePathForPdf = public_path('nda_signatures/' . $signName);
+                        }
                         $options = new Options();
                         $options->set('defaultFont', 'Helvetica');
+                        $options->set('isRemoteEnabled', true);
+                        $options->set('isHtml5ParserEnabled', true);
+                        $options->set('isPhpEnabled', true);
                         $dompdf = new Dompdf($options);
 
                         $pdfContent = View::make('pdf.nda_form_pdf', [
@@ -155,7 +226,7 @@ class RegisterWithEbbController extends Controller
                             'home_phone' => $request->nda_home_phone,
                             'cell_phone' => $request->nda_cell_phone,
                             'email' => $request->nda_email,
-                            'signature' => $request->signature,
+                            'signature' =>  $signaturePathForPdf,
                             'date' => $request->nda_form_date,
                         ])->render();
 
@@ -239,7 +310,7 @@ class RegisterWithEbbController extends Controller
                     if ($request->has('next')) {
                         // Create a new buyer
                         $data = $request->all();
-                        /* event(new BuyerRegister($data)); */
+                        event(new BuyerRegister($data));
                         $check = $this->buyerRegistration($data);
                         $buyer = new Buyer;
                         $buyer->FName = $request->first_name;
@@ -312,9 +383,9 @@ class RegisterWithEbbController extends Controller
                     session()->forget(['buyerData', 'step']);
 
                     // Commit the transaction if all operations are successful
-                    DB::commit();
+                    /*  DB::commit(); */
 
-                    return redirect()->route('register.with.ebb')->with('success', 'Your buyer created successfully!');
+                    return redirect()->route('login')->with('success', 'Your buyer created successfully!');
                 }
             }
 
@@ -333,7 +404,7 @@ class RegisterWithEbbController extends Controller
 
             return redirect()->route('register.with.ebb', $request->query());
         } catch (\Exception $e) {
-            DB::rollBack();
+            /* DB::rollBack(); */
             return back()->with('error', 'An error occurred while processing your request. Please try again.');
         }
     }
