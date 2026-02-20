@@ -155,13 +155,15 @@ class RegisterWithEbbController extends Controller
                     $request->session()->put('buyerData', $mergedData);
                     // Store the NDA form value in session
                     $ndaFormSign = 'yes';
-                    $getFullname = explode(' ', $request->full_name);
+                    $getFullname = preg_split('/\s+/', trim($request->full_name));
+                    $firstName = array_shift($getFullname);
+                    $lastName  = implode(' ', $getFullname);
                     $request->session()->put('buyerData.nda_form_sign',  $ndaFormSign);
                     $request->session()->put('buyerData.home_phone',  $request->nda_home_phone);
                     $request->session()->put('buyerData.address',  $request->home_address);
                     $request->session()->put('buyerData.email',  $request->nda_email);
-                    $request->session()->put('buyerData.first_name',  $getFullname[0]);
-                    $request->session()->put('buyerData.last_name',  $getFullname[1]);
+                    $request->session()->put('buyerData.first_name',  $firstName);
+                    $request->session()->put('buyerData.last_name',  $lastName ?? '');
                 } else {
                     $existingUser = User::where('email', $request->nda_email)->where('role_name', 'buyer')->first();
                     if ($existingUser) {
@@ -253,25 +255,31 @@ class RegisterWithEbbController extends Controller
                         $request->session()->put('buyerData', $mergedData);
                         // Store the NDA form value in session
                         $ndaFormSign = 'yes';
-                        $getFullname = explode(' ', trim($request->full_name));
+
+                        $getFullname = preg_split('/\s+/', trim($request->full_name));
+
+                        $firstName = array_shift($getFullname);
+                        $lastName  = implode(' ', $getFullname);
                         $request->session()->put('buyerData.nda_id',  $nda_id);
                         $request->session()->put('buyerData.nda_form_sign',  $ndaFormSign);
                         $request->session()->put('buyerData.home_phone',  $request->nda_home_phone);
                         $request->session()->put('buyerData.address',  $request->home_address);
                         $request->session()->put('buyerData.email',  $request->nda_email);
-                        $request->session()->put('buyerData.first_name',  $getFullname[0]);
-                        $request->session()->put('buyerData.last_name',  $getFullname[1] ?? '');
+                        $request->session()->put('buyerData.first_name',  $firstName);
+                        $request->session()->put('buyerData.last_name',  $lastName ?? '');
                     } else {
                         $buyerData = $request->session()->get('buyerData', []);
                         $ndaFormSign = 'yes';
-                        $getFullname = explode(' ', trim($signNdaFormUser->full_name));
+                        $getFullname = preg_split('/\s+/', trim($signNdaFormUser->full_name));
+                        $firstName = array_shift($getFullname);
+                        $lastName  = implode(' ', $getFullname);
                         $request->session()->put('buyerData.nda_id',  $signNdaFormUser->id);
                         $request->session()->put('buyerData.nda_form_sign',  $ndaFormSign);
                         $request->session()->put('buyerData.home_phone',  $signNdaFormUser->home_phone);
                         $request->session()->put('buyerData.address',  $signNdaFormUser->home_address);
                         $request->session()->put('buyerData.email',  $signNdaFormUser->email);
-                        $request->session()->put('buyerData.first_name',  $getFullname[0]);
-                        $request->session()->put('buyerData.last_name',  $getFullname[1] ?? '');
+                        $request->session()->put('buyerData.first_name',  $firstName);
+                        $request->session()->put('buyerData.last_name',  $lastName ?? '');
                     }
                 }
             } elseif ($step == 2) {
@@ -385,7 +393,7 @@ class RegisterWithEbbController extends Controller
                     // Commit the transaction if all operations are successful
                     /*  DB::commit(); */
 
-                    return redirect()->route('login')->with('success', 'Your buyer created successfully!');
+                    return redirect()->route('login')->with('success', 'Your account has been successfully created. Please check your email for instructions to log in!');
                 }
             }
 
