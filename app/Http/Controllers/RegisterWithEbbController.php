@@ -60,7 +60,7 @@ class RegisterWithEbbController extends Controller
     public function storeRegisterWithEbb(Request $request)
     {
         // Start the transaction
-        /*  DB::beginTransaction(); */
+        DB::beginTransaction();
 
         try {
             $step = session('step', 1);
@@ -404,7 +404,7 @@ class RegisterWithEbbController extends Controller
 
             return redirect()->route('register.with.ebb', $request->query());
         } catch (\Exception $e) {
-            /* DB::rollBack(); */
+            DB::rollBack();
             return back()->with('error', 'An error occurred while processing your request. Please try again.');
         }
     }
