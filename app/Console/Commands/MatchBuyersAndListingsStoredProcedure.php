@@ -28,7 +28,7 @@ class MatchBuyersAndListingsStoredProcedure extends Command
             DB::statement('CALL MatchBuyersAndListings()');  // Replace with your stored procedure name
             Mail::raw('The cron job has successfully run and updated expired listings.', function ($message) {
                 $message->to('santosh3257@gmail.com')
-                        ->subject('Test Cron Job Notification');
+                    ->subject('Test Cron Job Notification');
             });
             // Success message
             $this->info('Stored procedure executed successfully!');
