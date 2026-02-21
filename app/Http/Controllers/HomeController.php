@@ -42,7 +42,7 @@ class HomeController extends Controller
             ->get();
 
         //dd($listings);
-        $agents = Agent::latest()->take(3)->get();
+        $agents = Agent::where('Active', 1)->latest()->take(3)->get();
         return view('frontend.home', compact('listings', 'states', 'agents', 'categories', 'subCategories', 'businessTypes'));
     }
     public function getBusinessCategory($id)
