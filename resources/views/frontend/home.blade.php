@@ -150,10 +150,11 @@
                         if (count($words) > 15) {
                             $limitedComment .= '...';
                         }
+                        $agentImagePath = public_path('assets/uploads/images/' . $agent->image);
                     @endphp
                     <div class="col">
                         <div class="agent-card d-lg-flex">
-                            @if (!empty($agent->image))
+                            @if (!empty($agent->image) && file_exists($agentImagePath))
                                 <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}"
                                     target="_blank"><img src="{{ asset('assets/uploads/images/' . $agent->image) }}"
                                         alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent-image"></a>
