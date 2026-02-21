@@ -44,7 +44,7 @@ class RegisterWithEbbController extends Controller
             ->where('role_name', 'agent')
             ->whereHas('agent_info', function ($q) {
                 $q->where('Active', 1);
-                $q->orderBy('FName', 'asc');
+                $q->orderBy('LName', 'asc');
             })
             ->get();
         $sub_categories = DB::table('sub_categories')->get();
