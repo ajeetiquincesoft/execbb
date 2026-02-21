@@ -41,11 +41,11 @@ class RegisterWithEbbController extends Controller
         $counties = DB::table('counties')->get();
         /* $agents = User::with('agent_info')->where('role_name', 'agent')->get(); */
         $agents = User::with('agent_info')
-            ->where('role_name', 'agent')
-            ->whereHas('agent_info', function ($q) {
-                $q->where('Active', 1);
-                $q->orderBy('LName', 'asc');
-            })
+            ->join('agent_infos', 'agent_infos.user_id', '=', 'users.id')
+            ->where('users.role_name', 'agent')
+            ->where('agent_infos.Active', 1)
+            ->orderBy('agent_infos.FName', 'asc')
+            ->select('users.*')
             ->get();
         $sub_categories = DB::table('sub_categories')->get();
         $uniqueAgID = '';
