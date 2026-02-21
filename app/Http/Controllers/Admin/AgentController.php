@@ -168,7 +168,7 @@ class AgentController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'address' => 'required',
-            'home_phone' => 'required'
+            /* 'home_phone' => 'required' */
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();

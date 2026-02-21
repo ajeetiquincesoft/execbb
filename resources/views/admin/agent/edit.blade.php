@@ -134,15 +134,15 @@
                             </div>
                         </div>
                         <!-- <div class="col-md-3">
-                            <div class="form-group mb-3">
-                                <label for="agentComment">Comment</label>
-                                <input type="text" placeholder="" id="comment" class="form-control"
-                                    name="comment" value="{{ $agent->agent_info->Comments }}">
-                                @if ($errors->has('comment'))
+                                    <div class="form-group mb-3">
+                                        <label for="agentComment">Comment</label>
+                                        <input type="text" placeholder="" id="comment" class="form-control"
+                                            name="comment" value="{{ $agent->agent_info->Comments }}">
+                                        @if ($errors->has('comment'))
     <span class="text-danger">{{ $errors->first('comment') }}</span>
     @endif
-                            </div>
-                        </div> -->
+                                    </div>
+                                </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -329,19 +329,19 @@
                     agent_id: {
                         required: true
                     },
-                    home_phone: {
-                        required: true,
-                        regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
-                    },
+                    /*  home_phone: {
+                         required: true,
+                         regex: /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/
+                     }, */
                     city: {
                         regex: /^[a-zA-Z\s]+$/
                     }
                 },
                 messages: {
-                    home_phone: {
+                    /* home_phone: {
                         required: 'Phone number is required.',
                         regex: 'Must be a valid phone number.'
-                    },
+                    }, */
                     city: {
                         regex: 'City can only contain letters and spaces.'
                     }
