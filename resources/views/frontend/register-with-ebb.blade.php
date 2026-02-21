@@ -218,14 +218,14 @@
                                                     {{ $uniqueAgID ? 'disabled' : '' }}>
                                                     <option value="" selected>Select Agent</option>
                                                     @foreach ($agents as $key => $agent)
-                                                        <option value="{{ $agent->agent_info->AgentID }}"
-                                                            {{ old('agent') == $agent->agent_info->AgentID ||
-                                                            session('buyerData.agent') == $agent->agent_info->AgentID ||
-                                                            $uniqueAgID == $agent->agent_info->AgentID
+                                                        <option value="{{ $agent->AgentID }}"
+                                                            {{ old('agent') == $agent->AgentID ||
+                                                            session('buyerData.agent') == $agent->AgentID ||
+                                                            $uniqueAgID == $agent->AgentID
                                                                 ? 'selected'
                                                                 : '' }}>
-                                                            {{ $agent->agent_info->FName }}
-                                                            {{ $agent->agent_info->LName }}
+                                                            {{ $agent->FName }}
+                                                            {{ $agent->LName }}
                                                         </option>
                                                     @endforeach
                                                 </select>
