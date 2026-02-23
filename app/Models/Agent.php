@@ -35,6 +35,7 @@ class Agent extends Model
         'HireDate',
         'License',
         'Termination',
+        'Active',
         'Comments',
         'Extension',
         'Display',
