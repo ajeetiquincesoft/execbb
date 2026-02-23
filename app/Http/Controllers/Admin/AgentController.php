@@ -164,15 +164,15 @@ class AgentController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        /* $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
             'address' => 'required',
-            /* 'home_phone' => 'required' */
+            'home_phone' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
-        }
+        } */
         if ($request->hasFile('agent_image')) {
             $model = Agent::where('AgentUserRegisterId', $id)->first();
             $oldImagePath = public_path('assets/uploads/images/' . $model->image);
