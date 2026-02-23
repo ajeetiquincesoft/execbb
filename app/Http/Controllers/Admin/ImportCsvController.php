@@ -484,6 +484,7 @@ class ImportCsvController extends Controller
             'HireDate',
             'License',
             'Termination',
+            'Active',
             'Comments',
             'Extension',
             'Display',

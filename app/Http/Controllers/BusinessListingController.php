@@ -52,7 +52,7 @@ class BusinessListingController extends Controller
             $listings = $listings->where('State', $state);
         }
         $listings = $listings->whereDoesntHave('offers', function ($query) {
-            $query->whereIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
+            $query->whereIn('Status', ['Accepted', 'Dead', 'Closed']);
         });
         // Order by creation date and paginate the results
         $listings = $listings->where('Active', 1)->where('Status', 'valid')->orderBy('created_at', 'desc')->paginate(6);
@@ -105,7 +105,7 @@ class BusinessListingController extends Controller
             /* $listings = Listing::where('ListingID', '!=', $id)->orderBy('created_at', 'desc')->limit(4)->get(); */
             $listings = Listing::where('ListingID', '!=', $id)
                 ->whereDoesntHave('offers', function ($query) {
-                    $query->whereIn('offers.Status', ['Accepted', 'Dead', 'Closed']);
+                    $query->whereIn('Status', ['Accepted', 'Dead', 'Closed']);
                 })
                 ->orderBy('created_at', 'desc')
                 ->limit(4)
