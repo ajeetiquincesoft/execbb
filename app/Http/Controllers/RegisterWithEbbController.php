@@ -29,7 +29,7 @@ class RegisterWithEbbController extends Controller
     {
         $queryParams = $request->query();
         session()->forget(['buyerData', 'step']);
-        session()->save();
+        die('testing');
         return view('frontend.register-with-ebb');
         /*  return redirect()->route('register.with.ebb', $queryParams); */
     }
