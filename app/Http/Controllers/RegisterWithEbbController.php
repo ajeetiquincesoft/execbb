@@ -29,32 +29,7 @@ class RegisterWithEbbController extends Controller
     {
         $queryParams = $request->query();
         session()->forget(['buyerData', 'step']);
-        $step = session('step', 1);
-        $buyerData = session('buyerData', []);
-        $categoryData = DB::table('categories')->get();
-        $states = DB::table('states')->get();
-        $counties = DB::table('counties')->get();
-        /* $agents = User::with('agent_info')->where('role_name', 'agent')->get(); */
-        $agents = User::select(
-            'users.*',
-            'agents.FName',
-            'agents.LName',
-            'agents.AgentID'
-        )
-            ->join('agents', 'agents.AgentUserRegisterId', '=', 'users.id')
-            ->where('users.role_name', 'agent')
-            ->where('agents.Active', 1)
-            ->orderBy('agents.FName', 'asc')
-            ->get();
-        $sub_categories = DB::table('sub_categories')->get();
-        $uniqueAgID = '';
-        if ($request->query('agent_id')) {
-            $agId = $request->query('agent_id');
-            $getUniqueID = Agent::where('AgentUserRegisterId', $agId)->first();
-            $uniqueAgID = $getUniqueID->AgentID;
-        }
-        return view('frontend.register-with-ebb', compact('step', 'buyerData', 'categoryData', 'states', 'counties', 'agents', 'sub_categories', 'uniqueAgID'));
-        /*  return redirect()->route('register.with.ebb', $queryParams); */
+        return redirect()->route('register.with.ebb', $queryParams);
     }
     public function registerWithEbb(Request $request)
     {
