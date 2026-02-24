@@ -18,8 +18,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command(UpdateStatus::class)->dailyAt('14:55');
-        $schedule->command(MatchBuyersAndListingsStoredProcedure::class)->dailyAt('14:55');
+        $schedule->command(UpdateStatus::class)->dailyAt('15:14')->timezone('Asia/Kolkata')->withoutOverlapping();
+        $schedule->command(MatchBuyersAndListingsStoredProcedure::class)->dailyAt('15:14')->timezone('Asia/Kolkata')->withoutOverlapping();
         /* $schedule->command('email:test')->everyMinute(); */
     }
 
