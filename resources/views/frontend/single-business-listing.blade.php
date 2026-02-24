@@ -131,14 +131,14 @@
             <div class="col-lg-4">
                 <div class="sticky-top1">
                     <!--   <div class="card mb-4">
-                                                                            <div class="card-header">About Author</div>
-                                                                            <div class="card-body-sidebar">
-                                                                                <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
-                                                                                <h5 class="card-title">{{ ucfirst($userName) }}</h5>
-                                                                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
-                                                                                    ac lacus nec purus lacinia tempor.</p>
-                                                                            </div>
-                                                                        </div> -->
+                                                                                <div class="card-header">About Author</div>
+                                                                                <div class="card-body-sidebar">
+                                                                                    <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
+                                                                                    <h5 class="card-title">{{ ucfirst($userName) }}</h5>
+                                                                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
+                                                                                        ac lacus nec purus lacinia tempor.</p>
+                                                                                </div>
+                                                                            </div> -->
                     {{--    <div class="card mb-4">
                         <div class="card-header">
                             General Info
@@ -225,12 +225,12 @@
                                     <tr>
                                         <td><img src="{{ url('assets/images/listing_date.png') }}" alt=""
                                                 class="icon"> Listing Date</td>
-                                        <td class="text-end">{{ $listing->ListDate }}</td>
+                                        <td class="text-end">{{ $listing->ListDate->format('Y-m-d') }}</td>
                                     </tr>
                                     <tr>
                                         <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""
                                                 class="icon"> Exp Date</td>
-                                        <td class="text-end">{{ $listing->ExpDate }}</td>
+                                        <td class="text-end">{{ $listing->ExpDate->format('Y-m-d') }}</td>
                                     </tr>
                                     <tr>
                                         <td><img src="{{ url('assets/images/listing_type.png') }}" alt=""

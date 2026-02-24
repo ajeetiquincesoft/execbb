@@ -10,12 +10,17 @@ class Listing extends Model
     use HasFactory;
     protected $primaryKey = 'ListingID';
     protected $table = 'listings';
+    protected $casts = [
+        'ListDate' => 'datetime',
+        'ExpDate' => 'datetime',
+
+    ];
     public function offers()
     {
         return $this->hasMany(Offer::class, 'ListingID');
     }
     public function comments()
     {
-        return $this->hasMany(BuyerComment::class,'ListingID');
+        return $this->hasMany(BuyerComment::class, 'ListingID');
     }
 }
