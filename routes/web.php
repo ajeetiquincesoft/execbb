@@ -92,6 +92,13 @@ use App\Http\Controllers\DownloadNDAFormController;
 |
 */
 
+Route::get('/time-check', function () {
+  return [
+    'server_time' => date('Y-m-d H:i:s'),
+    'laravel_now' => now(),
+    'laravel_timezone' => config('app.timezone'),
+  ];
+});
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('get/business/category/{id}', [HomeController::class, 'getBusinessCategory'])->name('get.business.category');
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
