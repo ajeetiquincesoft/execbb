@@ -10,11 +10,6 @@ class Listing extends Model
     use HasFactory;
     protected $primaryKey = 'ListingID';
     protected $table = 'listings';
-    protected $casts = [
-        'ListDate' => 'datetime',
-        'ExpDate' => 'datetime',
-
-    ];
     public function offers()
     {
         return $this->hasMany(Offer::class, 'ListingID');
