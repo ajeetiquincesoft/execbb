@@ -1024,9 +1024,6 @@ class ListingController extends Controller
     }
     public function updateStep5(Request $request, $id)
     {
-        $request->validate([
-            'leadId' => 'required',
-        ]);
         $listing = Listing::where('ListingID', $id)->update([
             'Highlights' => $request->highlights,
             'Directions' => $request->directions,
