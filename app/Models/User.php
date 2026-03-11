@@ -50,4 +50,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Agent::class, 'AgentUserRegisterId');
     }
+    public function buyer()
+    {
+        return $this->hasOne(Buyer::class, 'user_id', 'id');
+    }
 }

@@ -133,9 +133,9 @@ Route::get('/services', function () {
 Route::get('/list-with-ebb', function () {
   return view('frontend.list-with-ebb');
 })->name('list.with.ebb');
-Route::get('/open-list-with-ebb', function () {
+/* Route::get('/open-list-with-ebb', function () {
   return view('frontend.open-list-with-ebb');
-})->name('open-list.with.ebb');
+})->name('open-list.with.ebb'); */
 Route::get('/faqs', function () {
   return view('frontend.faqs');
 })->name('faqs');
@@ -379,6 +379,8 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::post('update/listing/step4/{id}', [ListingController::class, 'updateStep4'])->name('update.listing.step4');
   Route::post('update/listing/step5/{id}', [ListingController::class, 'updateStep5'])->name('update.listing.step5');
   Route::post('/listing/bulkAction', [ListingController::class, 'bulkAction'])->name('listing.bulkAction');
+  Route::get('/listings/{id}/factsheet-preview-by-admin', [ListingController::class, 'factsheetPreview'])
+    ->name('listing.admin.factsheet.preview');
   Route::get('/listings/{id}/factsheet', [ListingController::class, 'factsheet'])->name('listings.factsheet');
   //End route for listing
   //route for import/export
@@ -517,6 +519,8 @@ Route::group(['middleware' => 'agentcheck', 'prefix' => 'agent', 'as' => 'agent.
   Route::get('/listing/next/prev/{id}', [AgentListingController::class, 'prevNext'])->name('edit.prev.next');
   Route::delete('/listing/destroy/{id}', [AgentListingController::class, 'destroy'])->name('listing.destroy');
   Route::post('/agent/listing/bulkAction', [AgentListingController::class, 'bulkAction'])->name('listing.bulkAction');
+  Route::get('/listings/{id}/factsheet-preview', [AgentListingController::class, 'factsheetPreview'])
+    ->name('listing.factsheet.preview');
   Route::get('/download/listings/{id}/factsheet', [AgentListingController::class, 'factsheet'])->name('download.listing.factsheet');
 
   //Route for send email to buyers

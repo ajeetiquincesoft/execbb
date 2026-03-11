@@ -73,6 +73,24 @@ class ListingController extends Controller
         // Download or inline
         return $dompdf->stream("listing-factsheet-{$listingData->ListingID}.pdf");
     }
+    public function factsheetPreview($id)
+    {
+        $listingData = Listing::findOrFail($id);
+
+        $annualSaleAmount = $listingData->AnnualSales;
+
+        $listingAgent = Agent::where('AgentID', $listingData->AgentID)->first();
+
+        $lname = $listingAgent ? $listingAgent->LName : '';
+        $fname = $listingAgent ? $listingAgent->FName : '';
+
+        return view('admin.listing.factsheet-preview', compact(
+            'listingData',
+            'annualSaleAmount',
+            'fname',
+            'lname'
+        ));
+    }
     public function form(Request $request)
     {
         $request->session()->forget('formData');
@@ -573,9 +591,7 @@ class ListingController extends Controller
     }
     public function storeStep5(Request $request)
     {
-        $request->validate([
-            'leadId' => 'required',
-        ]);
+
         $listing = Listing::where('ListingID', $request->id)->update([
             'Highlights' => $request->highlights,
             'Comments' => $request->comments,

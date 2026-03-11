@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Showing;
 use App\Models\Agent;
 use App\Models\Buyer;
+use App\Models\User;
 use App\Models\Listing;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,13 @@ class BuyerShowingController extends Controller
     {
         /*  $showings = Showing::orderBy('ShowingID','desc')->paginate(5); */
         $userId = Auth::id();
+        $user = User::with('buyer')
+            ->where('id', $userId)
+            ->where('role_name', 'buyer')
+            ->first();
         $search_query = $request->input('query');
-        $showings = DB::table('showings')->where('EnteredBy',$userId);
-        $dbaName = Listing::pluck('SellerCorpName', 'ListingID');
+        $showings = DB::table('showings')->where('BuyerID', $user->buyer->BuyerID);
+        $dbaName = Listing::pluck('DBA', 'ListingID');
         $buyerName = Buyer::pluck('FName', 'BuyerID');
         if ($search_query) {
             $showings = DB::table('showings')
@@ -33,7 +38,7 @@ class BuyerShowingController extends Controller
                         ->orWhere('showings.Date', 'LIKE', '%' . $search_query . '%')
                         ->orWhere('showings.OfferMade', 'LIKE', '%' . $search_query . '%')
                         ->orWhere('showings.FollowUp', 'LIKE', '%' . $search_query . '%')
-                        ->orWhere('listings.SellerCorpName', 'LIKE', '%' . $search_query . '%')
+                        ->orWhere('listings.DBA', 'LIKE', '%' . $search_query . '%')
                         ->orWhere('buyers.FName', 'LIKE', '%' . $search_query . '%');
                 })
                 ->where('showings.EnteredBy', $userId);
@@ -101,7 +106,8 @@ class BuyerShowingController extends Controller
         $next = Showing::where('ShowingID', '>', $id)->orderBy('ShowingID', 'asc')->first();
         return view('frontend.buyer.showing.edit', compact('showing', 'agents', 'buyers', 'listings', 'previous', 'next'));
     }
-    public function updateShowing(Request $request,$id){
+    public function updateShowing(Request $request, $id)
+    {
         $request->validate([
             'follow_up' => 'required',
             'agent_id' => 'required',
@@ -109,7 +115,7 @@ class BuyerShowingController extends Controller
             'listing' => 'required',
             'showingDate' => 'required',
         ]);
-        $showing = Showing::where('ShowingID',$id)->first();
+        $showing = Showing::where('ShowingID', $id)->first();
         $showing->AgentID = $request->agent_id;
         $showing->Date  = $request->showingDate;
         $showing->BuyerID = $request->buyer_id;
@@ -123,11 +129,10 @@ class BuyerShowingController extends Controller
             'details' => 'update showing',
         ]);
         return redirect()->route('buyer.all.showing')->with('success', 'Your showing update successfully!');
-
     }
     public function show($id)
     {
-        $showing = Showing::where('ShowingID',$id)->first();
+        $showing = Showing::where('ShowingID', $id)->first();
         if (!$showing) {
             return back()->with('error', 'Showing not found!');
         }
@@ -136,10 +141,9 @@ class BuyerShowingController extends Controller
         $previous = Showing::where('ShowingID', '<', $id)->orderBy('ShowingID', 'desc')->first();
         // Get the next showing ID
         $next = Showing::where('ShowingID', '>', $id)->orderBy('ShowingID', 'asc')->first();
-        $dbaName = Listing::pluck('SellerCorpName', 'ListingID');
+        $dbaName = Listing::pluck('DBA', 'ListingID');
         $buyerName = Buyer::pluck('FName', 'BuyerID');
-       return view('frontend.buyer.showing.show', compact('showing', 'previous', 'next','dbaName','buyerName','activities'));
-
+        return view('frontend.buyer.showing.show', compact('showing', 'previous', 'next', 'dbaName', 'buyerName', 'activities'));
     }
     public function destroy(Request $request, $id)
     {

@@ -37,7 +37,7 @@ class AgentShowingController extends Controller
                         ->orWhere('showings.Date', 'LIKE', '%' . $search_query . '%')
                         ->orWhere('showings.OfferMade', 'LIKE', '%' . $search_query . '%')
                         ->orWhere('showings.FollowUp', 'LIKE', '%' . $search_query . '%')
-                        ->orWhere('listings.SellerCorpName', 'LIKE', '%' . $search_query . '%')
+                        ->orWhere('listings.DBA', 'LIKE', '%' . $search_query . '%')
                         ->orWhere('buyers.FName', 'LIKE', '%' . $search_query . '%');
                 });
         }

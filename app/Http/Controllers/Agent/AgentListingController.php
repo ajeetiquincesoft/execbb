@@ -792,4 +792,23 @@ class AgentListingController extends Controller
         // Download or inline
         return $dompdf->stream("listing-factsheet-{$listingData->ListingID}.pdf");
     }
+
+    public function factsheetPreview($id)
+    {
+        $listingData = Listing::findOrFail($id);
+
+        $annualSaleAmount = $listingData->AnnualSales;
+
+        $listingAgent = Agent::where('AgentID', $listingData->AgentID)->first();
+
+        $lname = $listingAgent ? $listingAgent->LName : '';
+        $fname = $listingAgent ? $listingAgent->FName : '';
+
+        return view('agent-dashboard.listing.factsheet-preview', compact(
+            'listingData',
+            'annualSaleAmount',
+            'fname',
+            'lname'
+        ));
+    }
 }

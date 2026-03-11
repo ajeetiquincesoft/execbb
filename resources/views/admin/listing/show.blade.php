@@ -53,7 +53,7 @@
                                 <div
                                     style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                                     <h6 style="margin: 0;">General Info</h6>
-                                    <a href="{{ route('listings.factsheet', $listing->ListingID) }}"
+                                    <a href="{{ route('listing.admin.factsheet.preview', $listing->ListingID) }}"
                                         class="btn btn-sm btn-primary" target="_blank">
                                         Listing Factsheet
                                     </a>

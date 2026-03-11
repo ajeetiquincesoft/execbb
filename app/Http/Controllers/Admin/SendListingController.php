@@ -65,8 +65,8 @@ class SendListingController extends Controller
         $user = auth()->user();
         foreach ($request->listingName as $listingId) {
             // Create a link for each listing
-            $listingLinks[] = '<a href="' . $baseUrl . '/' . $listingId . '">View Listing ' . $listingId . '</a>';
-            $factsheetLinks[] = '<a href="' . $baseUrlFactsheet . '/' . base64_encode($listingId) . '">View Listing factsheet ' . base64_encode($listingId) . '</a>';
+            $listingLinks[] = '<a href="' . $baseUrl . '/' . $listingId . '" target="_blank">View Listing ' . $listingId . '</a>';
+            $factsheetLinks[] = '<a href="' . $baseUrlFactsheet . '/' . base64_encode($listingId) . '" target="_blank">View Listing factsheet ' . base64_encode($listingId) . '</a>';
         }
 
         // Combine the links into a string
@@ -77,12 +77,15 @@ class SendListingController extends Controller
 
         // Loop through each recipient email and send email
         foreach ($request->recipientEmail as $email) {
-            $buyerID = User::where('email', $email)->where('role_name', 'buyer')->first();
+            $buyerDetails = User::with('buyer')
+                ->where('email', $email)
+                ->where('role_name', 'buyer')
+                ->first();
             foreach ($request->listingName as $listingId) {
                 $AgentId = Listing::where('ListingID', $listingId)->value('AgentID');
                 DB::table('showings')->insert([
                     'ListingID' => $listingId,
-                    'BuyerID'   => $buyerID->id,
+                    'BuyerID'   => $buyerDetails->buyer->BuyerID,
                     'AgentID'   => $AgentId,
                     'Notes' => $notes,
                     'Date'   => Carbon::now(),
@@ -97,7 +100,7 @@ class SendListingController extends Controller
                 'body' => 'Admin share Exclusive Listings Just for You. listing is ' . $listingLinksString . ' and factsheet of listing is ' . $factSheetLinksString . '',
                 'timestamp' => Carbon::now()->toIso8601String(),
                 'sender_id' => Auth::id(),
-                'receiver_id' => $buyerID->id,
+                'receiver_id' => $buyerDetails->id,
                 'is_read' => false,
             ];
             $this->reference->push($data);

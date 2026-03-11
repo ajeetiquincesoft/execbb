@@ -11,7 +11,7 @@ class AgentActivityReport
 {
     public function generate($from, $to)
     {
-        $agents = DB::table('agents')->whereBetween('created_at', [$from, $to])->get();
+        $agents = DB::table('agents')->where('Active', 1)->whereBetween('created_at', [$from, $to])->get();
         $buyerCounts = DB::table('buyers')
             ->whereBetween('DateEntered', [$from, $to])
             ->select('AgentID', DB::raw('COUNT(*) as total'))

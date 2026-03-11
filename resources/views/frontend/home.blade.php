@@ -203,9 +203,9 @@
                         </span>
                         <div>
                             <p class="list-item-title">EBB Offers Several Listing Programs</p>
-                            <p class="list-item-description"><a href="{{ route('open-list.with.ebb') }}"
+                            {{--  <p class="list-item-description"><a href="{{ route('open-list.with.ebb') }}"
                                     target="_blank">List with EBB</a> and benefit from our database, reputation, and
-                                marketing efforts that draw in qualified buyers.</p>
+                                marketing efforts that draw in qualified buyers.</p> --}}
                         </div>
                     </div>
                 </div>
