@@ -950,7 +950,7 @@
             </a>
 
             <a href="javascript:window.close();" class="btn-cancel">
-                Cancel
+                Close
             </a>
 
         </div>
