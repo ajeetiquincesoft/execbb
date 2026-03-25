@@ -150,7 +150,7 @@ class RegisterWithEbbController extends Controller
                         $image = substr($request->signature, strpos($request->signature, ',') + 1);
                         $image = base64_decode($image);
 
-                        $signFolder = public_path('temp_signatures');
+                        $signFolder = public_path('nda_signatures');
 
                         if (!File::exists($signFolder)) {
                             File::makeDirectory($signFolder, 0755, true);
@@ -159,7 +159,7 @@ class RegisterWithEbbController extends Controller
                         $signName = 'sign_' . time() . '.png';
                         file_put_contents($signFolder . '/' . $signName, $image);
 
-                        $signaturePath = 'temp_signatures/' . $signName;
+                        $signaturePath = 'nda_signatures/' . $signName;
                     }
                 }
 
