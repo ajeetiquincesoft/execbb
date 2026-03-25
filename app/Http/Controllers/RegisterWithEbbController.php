@@ -305,12 +305,12 @@ class RegisterWithEbbController extends Controller
                     $dompdf->render();
 
                     $filename = 'nda_' . time() . '.pdf';
-                    return response()->streamDownload(
+                    /*   return response()->streamDownload(
                         function () use ($dompdf) {
                             echo $dompdf->output();
                         },
                         $filename
-                    );
+                    ); */
                     $path = public_path('nda_pdfs/' . $filename);
 
                     file_put_contents($path, $dompdf->output());
