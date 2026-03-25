@@ -206,8 +206,8 @@ class RegisterWithEbbController extends Controller
                         return back()->with('error', 'Session expired');
                     }
 
-                    /* event(new BuyerRegister($data)); */
-                    /*  $check = $this->buyerRegistration($data);*/
+                    event(new BuyerRegister($data));
+                    $check = $this->buyerRegistration($data);
                     $data = array_merge($data, [
                         'TypeBus' => $request->business_interest,
                         'Interest' => $request->Interest ?? 0,
@@ -233,10 +233,10 @@ class RegisterWithEbbController extends Controller
                         'NetProfMin' => $request->netIncomeMinimum,
                         'NetProfMax' => $request->netIncomeMaximum,
                         'Comments' => $request->comments,
-                        /* 'user_id' => $check->id, */
+                        'user_id' => $check->id,
                     ]);
                     session(['buyerData' => $data]);
-                    /*
+
                     // Create Buyer
                     $buyer = new Buyer;
                     $buyer->FName = $data['first_name'] ?? null;
@@ -283,7 +283,7 @@ class RegisterWithEbbController extends Controller
                     $nda->email = $data['nda_email'] ?? null;
                     $nda->signature = $data['signature'] ?? null;
                     $nda->user_id = $data['user_id'];
-                    $nda->save(); */
+                    $nda->save();
 
                     // Generate PDF
                     $options = new Options();
@@ -315,8 +315,8 @@ class RegisterWithEbbController extends Controller
 
                     file_put_contents($path, $dompdf->output());
 
-                    /*  $nda->nda_pdf_path = 'nda_pdfs/' . $filename;
-                    $nda->save(); */
+                    $nda->nda_pdf_path = 'nda_pdfs/' . $filename;
+                    $nda->save();
 
                     DB::commit();
 
