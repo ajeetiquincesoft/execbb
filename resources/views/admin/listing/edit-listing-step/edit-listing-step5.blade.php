@@ -1,133 +1,136 @@
 @extends('admin.layout.master')
 @section('content')
-        <div class="container-fluid content bg-light">
-            <div class="row card p-4">
-                <form id="addnewliststep5" action="{{ route('update.listing.step5',$listingData->ListingID) }}" method="post">
+    <div class="container-fluid content bg-light">
+        <div class="row card p-4">
+            <form id="addnewliststep5" action="{{ route('update.listing.step5', $listingData->ListingID) }}" method="post">
                 @csrf
-                <input type="hidden" name="id" value="{{ session('formData.listing_id') ? session('formData.listing_id') : '' }}">
-                    <!-- One "tab" for each step in the form: -->
-                   
-                    <div class="tab" style="display: block;">
-                        <h4>Comments</h4>
-                        <hr>
-                        <div class="comment-area w-100">
-                            <div class="row mb-3">
-                                <!-- Highlights -->
-                                <div class="col lis_highlights">
-                                    <label for="highlights" class="form-label">Highlights</label>
-                                    <textarea class="form-control" id="highlights" name="highlights" rows="4">{{$listingData->Highlights}}</textarea>
-                                    @error('highlights')
+                <input type="hidden" name="id"
+                    value="{{ session('formData.listing_id') ? session('formData.listing_id') : '' }}">
+                <!-- One "tab" for each step in the form: -->
+
+                <div class="tab" style="display: block;">
+                    <h4>Comments</h4>
+                    <hr>
+                    <div class="comment-area w-100">
+                        <div class="row mb-3">
+                            <!-- Highlights -->
+                            <div class="col lis_highlights">
+                                <label for="highlights" class="form-label">Highlights</label>
+                                <textarea class="form-control" id="highlights" name="highlights" rows="4">{{ $listingData->Highlights }}</textarea>
+                                @error('highlights')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
-                                </div>
                             </div>
-                            <div class="row mb-3">
+                        </div>
+                        {{--   <div class="row mb-3">
                                 <!-- Directions -->
                                 <div class="col">
                                     <label for="directions" class="form-label">Directions</label>
                                     <textarea class="form-control" id="directions" name="directions" rows="4">{{$listingData->Directions}}</textarea>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="row mb-3">
-                                <!-- Comments -->
-                                <div class="col lis_comment">
-                                    <label for="comments" class="form-label">Comments</label>
-                                    <textarea class="form-control" id="comments" name="comments" rows="4">{{$listingData->Comments}}</textarea>
-                                    @error('comments')
+                        <div class="row mb-3">
+                            <!-- Comments -->
+                            <div class="col lis_comment">
+                                <label for="comments" class="form-label">Comments</label>
+                                <textarea class="form-control" id="comments" name="comments" rows="4">{{ $listingData->Comments }}</textarea>
+                                @error('comments')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
-                                </div>
                             </div>
-                            <div class="row mb-3">
-                                <!-- Lead ID -->
-                                <div class="col">
-                                    <label for="leadId" class="form-label">Lead ID</label>
-                                    <select id="leadId" name="leadId" class="form-select">
-                                        <option value="" selected="">Select lead</option>
-                                        @foreach($leads as $key=>$lead)
-                                    <option value="{{$lead->LeadID}}" {{ $listingData->LeadID ==$lead->LeadID ? 'selected' : '' }}>{{$lead->BusName}} {{$lead->LeadID}}</option>
+                        </div>
+                        <div class="row mb-3">
+                            <!-- Lead ID -->
+                            <div class="col">
+                                <label for="leadId" class="form-label">Lead ID</label>
+                                <select id="leadId" name="leadId" class="form-select">
+                                    <option value="" selected="">Select lead</option>
+                                    @foreach ($leads as $key => $lead)
+                                        <option value="{{ $lead->LeadID }}"
+                                            {{ $listingData->LeadID == $lead->LeadID ? 'selected' : '' }}>
+                                            {{ $lead->BusName }} {{ $lead->LeadID }}</option>
                                     @endforeach
-                                    </select>
-                                    @error('leadId')
+                                </select>
+                                @error('leadId')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center" style="overflow:auto;">
-                        <div>
-                        <a href="{{route('edit.listing.step4',$listingData->ListingID)}}"><button class="btn-primary" type="button" id="prevBtn">Previous</button></a>
-                            <button class="btn-primary" type="submit" id="nextBtn">Update</button>
-                        </div>
+                </div>
+                <div class="d-flex justify-content-center" style="overflow:auto;">
+                    <div>
+                        <a href="{{ route('edit.listing.step4', $listingData->ListingID) }}"><button class="btn-primary"
+                                type="button" id="prevBtn">Previous</button></a>
+                        <button class="btn-primary" type="submit" id="nextBtn">Update</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-        <div p-8="">
-            <p>&nbsp;</p>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-        <script>
+    </div>
+    <div p-8="">
+        <p>&nbsp;</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+    <script>
         ClassicEditor
             .create(document.querySelector('#comments'))
             .then(editor => {
-            editor.model.document.on('change:data', function() {
-                const emailContent = editor.getData();
-                $('#comments').val(emailContent);
-                $('#addnewliststep5').valid();
+                editor.model.document.on('change:data', function() {
+                    const emailContent = editor.getData();
+                    $('#comments').val(emailContent);
+                    $('#addnewliststep5').valid();
+                });
+            })
+            .catch(error => {
+                console.error(error);
             });
-        })
-        .catch(error => {
-            console.error(error);
-        });
         ClassicEditor
             .create(document.querySelector('#highlights'))
             .then(editor => {
-            editor.model.document.on('change:data', function() {
-                const emailContent = editor.getData();
-                $('#highlights').val(emailContent);
-                $('#addnewliststep5').valid();
+                editor.model.document.on('change:data', function() {
+                    const emailContent = editor.getData();
+                    $('#highlights').val(emailContent);
+                    $('#addnewliststep5').valid();
+                });
+            })
+            .catch(error => {
+                console.error(error);
             });
-        })
-        .catch(error => {
-            console.error(error);
-        });
         ClassicEditor
             .create(document.querySelector('#directions'))
             .catch(error => {
                 console.error(error);
             });
     </script>
-        <script>
-           $(document).ready(function () {
-                $('#addnewliststep5').validate({
-                    rules: { 
-                    },
-                    ignore: ":disabled",
-                    messages: {
-                
-                    },
-                    errorPlacement: function(error, element) {
-                      if (element.attr("name") == "comments") {
-                            error.appendTo(element.closest(".lis_comment")); // Put the error after the field
-                        } else if (element.attr("name") == "highlights") {
-                            error.appendTo(element.closest(".lis_highlights")); // Put the error after the field
-                        }
-                        else {
-                            error.insertAfter(element);
-                        }
-                    },
-                    submitHandler: function (form) { 
-                        form.submit();
-                    }
-                });
-});
+    <script>
+        $(document).ready(function() {
+            $('#addnewliststep5').validate({
+                rules: {},
+                ignore: ":disabled",
+                messages: {
 
-            </script>
-        <style>
+                },
+                errorPlacement: function(error, element) {
+                    if (element.attr("name") == "comments") {
+                        error.appendTo(element.closest(
+                        ".lis_comment")); // Put the error after the field
+                    } else if (element.attr("name") == "highlights") {
+                        error.appendTo(element.closest(
+                        ".lis_highlights")); // Put the error after the field
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+    <style>
         .form-check-input[type=checkbox] {
             position: absolute !important;
             top: 40% !important;
@@ -162,6 +165,7 @@
             border-radius: 5px;
             box-shadow: unset;
         }
+
         input:not([type=checkbox]) {
             padding: 0.7rem !important;
             border-radius: 0px !important;
@@ -256,5 +260,5 @@
             font-family: 'Inter';
             letter-spacing: 0.50px;
         }
-        </style>
+    </style>
 @endsection

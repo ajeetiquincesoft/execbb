@@ -86,7 +86,7 @@
                                             <span class="custom-control-label">&nbsp;</span>
                                         </label>
                                     </td>
-                                    <td>{{ $index + 1 + ($buyers->currentPage() - 1) * $buyers->perPage() }}</td>
+                                    <td>{{ $buyer->BuyerID }}</td>
                                     <td>{{ $buyer->FName }} {{ $buyer->LName }}</td>
                                     <td>{{ $buyer->Address1 }}</td>
                                     <td>{{ $buyer->HomePhone ?: ($buyer->BusPhone ?: 'N/A') }}</td>
@@ -117,8 +117,8 @@
                                             </button>
                                         </form>
                                         <!--  <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button> -->
+                                                <i class="fas fa-download"></i>
+                                            </button> -->
                                     </td>
                                 </tr>
                             @empty
@@ -203,11 +203,11 @@
                                         if (xhr.status === 419) {
                                             alert(
                                                 'CSRF token mismatch. Please reload the page and try again.'
-                                                );
+                                            );
                                         } else {
                                             alert(
                                                 'An error occurred while processing your request.'
-                                                );
+                                            );
                                         }
                                     }
                                 });
@@ -240,7 +240,7 @@
                                 if (xhr.status === 419) {
                                     alert(
                                         'CSRF token mismatch. Please reload the page and try again.'
-                                        );
+                                    );
                                 } else {
                                     alert('An error occurred while processing your request.');
                                 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Listing;
 use App\Models\Agent;
+use App\Models\Buyer;
 use App\Models\User;
 use App\Models\Activity;
 use Throwable;
@@ -23,6 +24,7 @@ use Kreait\Firebase\Factory;
 use Kreait\Firebase\Database;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Support\Facades\Mail;
 
 class ListingController extends Controller
 {
@@ -139,6 +141,7 @@ class ListingController extends Controller
                 ->orWhere('Address1', 'LIKE', '%' . $query . '%')
                 ->orWhere('City', 'LIKE', '%' . $query . '%')
                 ->orWhere('Phone', 'LIKE', '%' . $query . '%')
+                ->orWhere('ListingID', 'LIKE', '%' . $query . '%')
                 ->orWhere('Email', 'LIKE', '%' . $query . '%');
         }
         $listings = $listings->orderBy('ListingID', 'desc')
@@ -1330,5 +1333,85 @@ class ListingController extends Controller
         }
 
         return response()->json(['message' => 'Invalid action!'], 400);
+    }
+    public function share(Request $request)
+    {
+        // Get single buyer
+        $buyer = Buyer::where('BuyerID', $request->buyer_id)->first();
+
+        if (!$buyer) {
+            return response()->json(['success' => false, 'message' => 'Buyer not found']);
+        }
+
+        $email = $buyer->Email;
+
+        // Get single listing
+        $listing = Listing::where('ListingID', $request->listing_id)->first();
+
+        if (!$listing) {
+            return response()->json(['success' => false, 'message' => 'Listing not found']);
+        }
+
+        $listingId = $listing->ListingID;
+
+        $subject = 'Exclusive Listings Just for You – View Selected Properties';
+
+        // URLs
+        $baseUrl = url('view/business/listing');
+        $baseUrlFactsheet = url('factsheet');
+
+        // Email HTML
+        $htmlContent = '
+    <html>
+    <body style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+        <table style="width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
+            <tr>
+                <td style="text-align: center; background-color: #7F2149; color: white; padding: 10px;">
+                    <h2 style="margin: 0;">Property Listings Just for You</h2>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 20px;">
+                    <p>Dear ' . htmlspecialchars($buyer->FirstName ?? 'Buyer') . ',</p>
+
+                    <p>We are excited to share with you a selection of property listings that may be of interest to you.</p>
+
+                    <p><strong>Property Listing:</strong></p>
+                    <ul>
+                        <li>
+                            <a href="' . $baseUrl . '/' . $listingId . '" target="_blank">
+                                View Listing #' . $listingId . '
+                            </a>
+                        </li>
+                    </ul>
+
+                    <p><strong>FactSheet of Listing:</strong></p>
+                    <ul>
+                        <li>
+                            <a href="' . $baseUrlFactsheet . '/' . base64_encode($listingId) . '" target="_blank">
+                                View Factsheet
+                            </a>
+                        </li>
+                    </ul>
+
+                    <p>If you have any questions or would like assistance, feel free to reach out.</p>
+
+                    <p>Best regards,</p>
+                    <p><strong>Executive Business Broker</strong></p>
+                    <p><strong>Phone: 908.851.9066</strong></p>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>';
+
+        // Send mail
+        Mail::send([], [], function ($message) use ($email, $subject, $htmlContent) {
+            $message->to($email)
+                ->subject($subject)
+                ->setBody($htmlContent, 'text/html');
+        });
+
+        return response()->json(['success' => true]);
     }
 }

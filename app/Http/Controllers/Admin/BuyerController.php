@@ -457,4 +457,15 @@ class BuyerController extends Controller
             'password' => Hash::make($password)
         ]);
     }
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        return Buyer::where('LName', 'like', "%$search%")
+            ->orWhere('FName', 'like', "%$search%")
+            ->orWhere('Email', 'like', "%$search%")
+            ->orWhere('BuyerID', $search)
+            ->limit(20)
+            ->get(['BuyerID', 'LName', 'FName', 'Email']);
+    }
 }

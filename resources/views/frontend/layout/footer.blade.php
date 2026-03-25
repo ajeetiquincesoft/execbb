@@ -88,6 +88,7 @@
                  <ul class="list-unstyled">
                      <!-- <li><a href="#">Resources</a></li> -->
                      <li><a href="{{ route('faqs') }}">FAQs</a></li>
+                     <li><a href="{{ route('about.us') }}">About Us</a></li>
                      <!--  <li><a href="#">Blog/News</a></li> -->
                  </ul>
              </div>

@@ -11,32 +11,35 @@ use Illuminate\Support\Facades\Auth;
 
 class ReferralController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         //$referrals = Referral::orderBy('created_at','desc')->paginate(5);
         $query = $request->input('query');
-            $referrals = Referral::query();
-            if ($query) {
-                
-                    $referrals = Referral::where('RefID', 'LIKE', '%' . $query . '%')
-                                    ->orWhere('RefCompany', 'LIKE', '%' . $query . '%')
-                                    ->orWhere('AgentName', 'LIKE', '%' . $query . '%')
-                                    ->orWhere('Address1', 'LIKE', '%' . $query . '%')
-                                    ->orWhere('City', 'LIKE', '%' . $query . '%')
-                                    ->orWhere('State', 'LIKE', '%' . $query . '%')
-                                    ->orWhere('Zip', 'LIKE', '%' . $query . '%')
-                                    ->orWhere('Phone', 'LIKE', '%' . $query . '%');
-            }
-            
-            $referrals = $referrals->orderBy('created_at', 'desc')->paginate(10);
-         return view('admin.referral.index', compact('referrals'));
+        $referrals = Referral::query();
+        if ($query) {
+
+            $referrals = Referral::where('RefID', 'LIKE', '%' . $query . '%')
+                ->orWhere('RefCompany', 'LIKE', '%' . $query . '%')
+                ->orWhere('AgentName', 'LIKE', '%' . $query . '%')
+                ->orWhere('Address1', 'LIKE', '%' . $query . '%')
+                ->orWhere('City', 'LIKE', '%' . $query . '%')
+                ->orWhere('State', 'LIKE', '%' . $query . '%')
+                ->orWhere('Zip', 'LIKE', '%' . $query . '%')
+                ->orWhere('Phone', 'LIKE', '%' . $query . '%');
+        }
+
+        $referrals = $referrals->orderBy('RefID', 'desc')->paginate(10);
+        return view('admin.referral.index', compact('referrals'));
     }
-    public function create(){
+    public function create()
+    {
         $states = DB::table('states')->get();
         $referral_types = DB::table('referral_types')->get();
         $referral_sources = DB::table('referral_sources')->get();
-       return view('admin.referral.create',compact('states','referral_types','referral_sources'));  
+        return view('admin.referral.create', compact('states', 'referral_types', 'referral_sources'));
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'follow_up' => 'required',
             'agent_name' => 'required',
@@ -77,10 +80,10 @@ class ReferralController extends Controller
             'details' => 'created a new referral with name: ' . $request->follow_up,
         ]);
         return redirect()->route('all.referral')->with('success', 'Your referral create successful!');
-
     }
-    public function editReferral(Request $request,$id){
-        $referral = Referral::where('RefID',$id)->first();
+    public function editReferral(Request $request, $id)
+    {
+        $referral = Referral::where('RefID', $id)->first();
         if (!$referral) {
             return redirect()->route('all.referral')
                 ->with('err_message', 'Referral not found.');
@@ -88,14 +91,14 @@ class ReferralController extends Controller
         $states = DB::table('states')->get();
         $referral_types = DB::table('referral_types')->get();
         $referral_sources = DB::table('referral_sources')->get();
-         // Get the previous Referral ID
-         $previous = Referral::where('RefID', '<', $id)->orderBy('RefID', 'desc')->first();
-         // Get the next referral ID
-         $next = Referral::where('RefID', '>', $id)->orderBy('RefID', 'asc')->first();
-       return view('admin.referral.edit',compact('states','referral','referral_types','referral_sources','previous','next'));
-
+        // Get the previous Referral ID
+        $previous = Referral::where('RefID', '<', $id)->orderBy('RefID', 'desc')->first();
+        // Get the next referral ID
+        $next = Referral::where('RefID', '>', $id)->orderBy('RefID', 'asc')->first();
+        return view('admin.referral.edit', compact('states', 'referral', 'referral_types', 'referral_sources', 'previous', 'next'));
     }
-    public function updateReferral(Request $request,$id){
+    public function updateReferral(Request $request, $id)
+    {
         $request->validate([
             'follow_up' => 'required',
             'agent_name' => 'required',
@@ -105,7 +108,7 @@ class ReferralController extends Controller
             'zip' => 'required',
             'phone' => 'required',
         ]);
-        $referral = Referral::where('RefID',$id)->first();
+        $referral = Referral::where('RefID', $id)->first();
         $referral->RefCompany = $request->follow_up;
         $referral->BrokOfRec  = $request->broke_of_rac;
         $referral->AgentName = $request->agent_name;
@@ -133,14 +136,13 @@ class ReferralController extends Controller
         Activity::create([
             'action' => 'Referral update',
             'user_id' => Auth::id(),
-            'details' => 'update referral with name: ' .$request->follow_up,
+            'details' => 'update referral with name: ' . $request->follow_up,
         ]);
         return redirect()->route('all.referral')->with('success', 'Your referral update successful!');
-
     }
     public function show($id)
     {
-        $referral = Referral::where('RefID',$id)->first();
+        $referral = Referral::where('RefID', $id)->first();
         if (!$referral) {
             return back()->with('error', 'Contact not found!');
         }
@@ -149,30 +151,28 @@ class ReferralController extends Controller
         $previous = Referral::where('RefID', '<', $id)->orderBy('RefID', 'desc')->first();
         // Get the next referral ID
         $next = Referral::where('RefID', '>', $id)->orderBy('RefID', 'asc')->first();
-        
-       return view('admin.referral.show', compact('referral', 'previous', 'next','activities'));
 
+        return view('admin.referral.show', compact('referral', 'previous', 'next', 'activities'));
     }
     public function destroy(Request $request, $id)
     {
-       
-            // Find the contact ID
-            $referral = Referral::where('RefID',$id)->first();
-            // Check if the contact exists
-            if (!$referral) {
-                return redirect()->route('all.referral')
-                    ->with('err_message', 'Referral not found.');
-            }
-            Activity::create([
-                'action' => 'Referral delete',
-                'user_id' => Auth::id(),
-                'details' => 'deleted a referral of name: ' . $referral->RefCompany,
-            ]);
-            // Delete the contact
-            Referral::where('RefID', $id)->delete();
 
+        // Find the contact ID
+        $referral = Referral::where('RefID', $id)->first();
+        // Check if the contact exists
+        if (!$referral) {
             return redirect()->route('all.referral')
-                ->with('success', 'Referral deleted successfully.');
-      
+                ->with('err_message', 'Referral not found.');
+        }
+        Activity::create([
+            'action' => 'Referral delete',
+            'user_id' => Auth::id(),
+            'details' => 'deleted a referral of name: ' . $referral->RefCompany,
+        ]);
+        // Delete the contact
+        Referral::where('RefID', $id)->delete();
+
+        return redirect()->route('all.referral')
+            ->with('success', 'Referral deleted successfully.');
     }
 }

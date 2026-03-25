@@ -15,9 +15,70 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\File;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class RegisterWithEbbController extends Controller
 {
+    public function downloadPdf()
+    {
+        // ✅ DomPDF options
+        $options = new Options();
+        $options->set('isRemoteEnabled', true); // allow images
+        $options->set('isHtml5ParserEnabled', true);
+
+        $dompdf = new Dompdf($options);
+
+        // ✅ Image path
+        $imagePath = public_path('nda_signatures/sign_1771588268.png');
+
+        // Check file exists
+        if (!file_exists($imagePath)) {
+            abort(404, 'Image not found');
+        }
+
+        // ✅ Convert image to base64 (MOST IMPORTANT)
+        $imageBase64 = base64_encode(file_get_contents($imagePath));
+        $imageSrc = 'data:image/png;base64,' . $imageBase64;
+
+        // ✅ HTML content
+        $html = '
+        <html>
+        <head>
+            <style>
+                body { font-family: DejaVu Sans, sans-serif; }
+                .img { width:200px; height:auto; }
+            </style>
+        </head>
+        <body>
+
+            <h2>PDF with Image</h2>
+
+            <p><strong>Name:</strong> Santosh Chaudhary</p>
+
+            <p><strong>Signature:</strong></p>
+
+            <img src="' . $imageSrc . '" class="img">
+
+        </body>
+        </html>
+    ';
+
+        // Load HTML
+        $dompdf->loadHtml($html);
+
+        // Paper size
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render PDF
+        $dompdf->render();
+
+        // Download
+        return response()->streamDownload(
+            fn() => print($dompdf->output()),
+            "sample.pdf"
+        );
+    }
     public function getBusType($id)
     {
         // Fetch options based on the selected ID (e.g., from a database)
@@ -36,6 +97,7 @@ class RegisterWithEbbController extends Controller
         //session()->forget(['buyerData', 'step']);
         $step = session('step', 1);
         $buyerData = session('buyerData', []);
+        /*  dd($buyerData); */
         $categoryData = DB::table('categories')->get();
         $states = DB::table('states')->get();
         $counties = DB::table('counties')->get();
@@ -65,336 +127,202 @@ class RegisterWithEbbController extends Controller
     {
         // Start the transaction
         DB::beginTransaction();
-
         try {
             $step = session('step', 1);
             //$this->validateStep($request, $step);
             if ($step == 1) {
-                if (session()->has('buyerData.email')) {
-                    $ndaSignEmail = session()->get('buyerData.email');
-                    $getSignData = SignNda::where('email', $ndaSignEmail)->first();
-                    if (!$getSignData) {
-                        return back()->with('error', 'NDA sign data not found!');
-                    }
-                    $getSignData->full_name = $request->full_name;
-                    $getSignData->business_interest = $request->nda_business_interest;
-                    $getSignData->home_address = $request->home_address;
-                    $getSignData->home_phone = $request->nda_home_phone;
-                    $getSignData->cell_phone = $request->nda_cell_phone;
-                    $getSignData->email = $request->nda_email;
-                    $getSignData->date = $request->nda_form_date;
-                    $getSignData->nda_form_sign = 'yes';
-                    $getSignData->signature = $request->signature;
-                    $getSignData->save();
-                    // Delete old PDF if exists
-                    if ($getSignData->nda_pdf_path && file_exists(public_path($getSignData->nda_pdf_path))) {
-                        unlink(public_path($getSignData->nda_pdf_path));
-                    }
+                // Check if already registered
+                $existingUser = User::where('email', $request->nda_email)
+                    ->where('role_name', 'buyer')
+                    ->first();
 
-                    // Generate new PDF
-                    $signaturePathForPdf = null;
-                    if (!empty($request->signature)) {
-                        $signature = $request->signature;
-                        if (preg_match('/^data:image\/(\w+);base64,/', $signature, $type)) {
+                if ($existingUser) {
+                    return back()->with('error', 'Email already registered!');
+                }
+                $buyerData = session('buyerData', []);
+                // Handle signature (base64 → store temporarily)
+                $signaturePath = null;
 
-                            $signature = substr($signature, strpos($signature, ',') + 1);
-                            $type = strtolower($type[1]);
+                if (!empty($request->signature)) {
 
-                            $signature = base64_decode($signature);
+                    if (preg_match('/^data:image\/(\w+);base64,/', $request->signature)) {
 
-                            if ($signature === false) {
-                                return back()->with('error', 'Signature decode failed');
-                            }
-                        } else {
-                            return back()->with('error', 'Invalid signature format');
-                        }
+                        $image = substr($request->signature, strpos($request->signature, ',') + 1);
+                        $image = base64_decode($image);
 
-                        $signFolder = public_path('nda_signatures');
+                        $signFolder = public_path('temp_signatures');
 
                         if (!File::exists($signFolder)) {
                             File::makeDirectory($signFolder, 0755, true);
                         }
 
                         $signName = 'sign_' . time() . '.png';
-                        file_put_contents($signFolder . '/' . $signName, $signature);
+                        file_put_contents($signFolder . '/' . $signName, $image);
 
-                        $getSignData->nda_pdf_path = 'nda_signatures/' . $signName;
-                        $getSignData->save();
-                        $signaturePathForPdf = public_path('nda_signatures/' . $signName);
+                        $signaturePath = 'temp_signatures/' . $signName;
                     }
+                }
+
+                // Store ALL data in session
+                $getFullname = preg_split('/\s+/', trim($request->full_name));
+                $firstName = array_shift($getFullname);
+                $lastName  = implode(' ', $getFullname);
+                $buyerData = array_merge($buyerData, [
+                    'full_name' => $request->full_name,
+                    'nda_business_interest' => $request->nda_business_interest,
+                    'home_address' => $request->home_address,
+                    'nda_cell_phone' => $request->nda_cell_phone,
+                    'nda_email' => $request->nda_email,
+                    'signature' => $request->signature ?? '',
+                    'nda_form_sign' => 'yes',
+                    'first_name' => $firstName,
+                    'last_name' => $lastName ?? ''
+                ]);
+
+                // Save back to session
+                session(['buyerData' => $buyerData]);
+            } elseif ($step == 2) {
+                $buyerData = session('buyerData', []);
+
+                $buyerData = array_merge($buyerData, [
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'agent' => $request->agent,
+                    'BDate' => $request->BDate,
+                    'address' => $request->address,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'zip' => $request->zip,
+                    'county' => $request->county,
+                    'business_phone' => $request->business_phone,
+                    'callWhen' => $request->callWhen,
+                ]);
+
+                session(['buyerData' => $buyerData]);
+            } elseif ($step == 3) {
+                if ($request->has('next')) {
+                    $data = session('buyerData');
+                    if (!$data) {
+                        return back()->with('error', 'Session expired');
+                    }
+
+                    /* event(new BuyerRegister($data)); */
+                    /*  $check = $this->buyerRegistration($data);*/
+                    $data = array_merge($data, [
+                        'TypeBus' => $request->business_interest,
+                        'Interest' => $request->Interest ?? 0,
+                        'BusCategory1' => $request->bus_category1,
+                        'BusCategory2' => $request->bus_category2,
+                        'BusCategory3' => $request->bus_category3,
+                        'BusCategory4' => $request->bus_category4,
+                        'BusType1' => $request->bus_type1,
+                        'BusType2' => $request->bus_type2,
+                        'BusType3' => $request->bus_type3,
+                        'BusType4' => $request->bus_type4,
+                        'BusCounty1' => $request->desiredCounty1,
+                        'BusCounty2' => $request->desiredCounty2,
+                        'BusCounty3' => $request->desiredCounty3,
+                        'BusCounty4' => $request->desiredCounty4,
+                        'BusLocation' => $request->desiredLocation,
+                        'NetWorth' => $request->netWorth,
+                        'CashAvailable' => $request->cashAvailable,
+                        'PPMin' => $request->priceRangeMinimum,
+                        'PPMax' => $request->priceRangeMaximum,
+                        'VolMin' => $request->salesVolumeMinimum,
+                        'VolMax' => $request->salesVolumeMaximum,
+                        'NetProfMin' => $request->netIncomeMinimum,
+                        'NetProfMax' => $request->netIncomeMaximum,
+                        'Comments' => $request->comments,
+                        /* 'user_id' => $check->id, */
+                    ]);
+                    session(['buyerData' => $data]);
+                    /*
+                    // Create Buyer
+                    $buyer = new Buyer;
+                    $buyer->FName = $data['first_name'] ?? null;
+                    $buyer->LName = $data['last_name'] ?? null;
+                    $buyer->AgentID = $data['agent'] ?? null;
+                    $buyer->Address1 = $data['address'] ?? null;
+                    $buyer->City = $data['city'] ?? null;
+                    $buyer->State = $data['state'] ?? null;
+                    $buyer->Zip = $data['zip'] ?? null;
+                    $buyer->County = $data['county'] ?? null;
+                    $buyer->HomePhone = $data['home_phone'] ?? null;
+                    $buyer->BusPhone = $data['business_phone'] ?? null;
+                    $buyer->Email = $data['nda_email'] ?? null;
+                    $buyer->TypeBus = $data['TypeBus'] ?? null;
+                    $buyer->Interest = $data['Interest'] ?? 0;
+                    $buyer->BusType1 = $data['BusType1'] ?? null;
+                    $buyer->BusType2 = $data['BusType2'] ?? null;
+                    $buyer->BusType3 = $data['BusType3'] ?? null;
+                    $buyer->BusType4 = $data['BusType4'] ?? null;
+                    $buyer->BusCounty1 = $data['BusCounty1'] ?? null;
+                    $buyer->BusCounty2 = $data['BusCounty2'] ?? null;
+                    $buyer->BusCounty3 = $data['BusCounty3'] ?? null;
+                    $buyer->BusCounty4 = $data['BusCounty4'] ?? null;
+                    $buyer->BusLocation = $data['BusLocation'] ?? null;
+                    $buyer->NetWorth = $data['NetWorth'] ?? null;
+                    $buyer->CashAvailable = $data['CashAvailable'] ?? null;
+                    $buyer->PPMin = $data['PPMin'] ?? null;
+                    $buyer->PPMax = $data['PPMax'] ?? null;
+                    $buyer->VolMin = $data['VolMin'] ?? null;
+                    $buyer->VolMax = $data['VolMax'] ?? null;
+                    $buyer->NetProfMin = $data['NetProfMin'] ?? null;
+                    $buyer->NetProfMax = $data['NetProfMax'] ?? null;
+                    $buyer->Comments = $data['Comments'] ?? null;
+                    $buyer->user_id = $data['user_id'];
+                    $buyer->save();
+
+                    // Create NDA Record
+                    $nda = new SignNda;
+                    $nda->full_name = $data['full_name'] ?? null;
+                    $nda->business_interest = $data['nda_business_interest'] ?? null;
+                    $nda->home_address = $data['home_address'] ?? null;
+                    $nda->home_phone = $data['home_phone'] ?? null;
+                    $nda->cell_phone = $data['nda_cell_phone'] ?? null;
+                    $nda->email = $data['nda_email'] ?? null;
+                    $nda->signature = $data['signature'] ?? null;
+                    $nda->user_id = $data['user_id'];
+                    $nda->save(); */
+
+                    // Generate PDF
                     $options = new Options();
                     $options->set('defaultFont', 'Helvetica');
+
                     $dompdf = new Dompdf($options);
 
                     $pdfContent = View::make('pdf.nda_form_pdf', [
-                        'full_name' => $request->full_name,
-                        'business_interest' => $request->nda_business_interest,
-                        'home_address' => $request->home_address,
-                        'home_phone' => $request->nda_home_phone,
-                        'cell_phone' => $request->nda_cell_phone,
-                        'email' => $request->nda_email,
-                        'signature' => $signaturePathForPdf,
-                        'date' => $request->nda_form_date,
+                        'full_name' => $data['full_name'] ?? null,
+                        'business_interest' => $data['nda_business_interest'] ?? null,
+                        'home_address' => $data['home_address'] ?? null,
+                        'cell_phone' => $data['nda_cell_phone'] ?? null,
+                        'email' => $data['nda_email'] ?? null,
+                        'signature' => $data['signature'] ?? null,
+                        'date' => now()->format('m-d-Y'),
                     ])->render();
 
                     $dompdf->loadHtml($pdfContent);
-                    $dompdf->setPaper('A4', 'portrait');
                     $dompdf->render();
 
                     $filename = 'nda_' . time() . '.pdf';
-                    $folderPath = public_path('nda_pdfs');
+                    return response()->streamDownload(
+                        function () use ($dompdf) {
+                            echo $dompdf->output();
+                        },
+                        $filename
+                    );
+                    $path = public_path('nda_pdfs/' . $filename);
 
-                    if (!File::exists($folderPath)) {
-                        File::makeDirectory($folderPath, 0755, true);
-                    }
+                    file_put_contents($path, $dompdf->output());
 
-                    file_put_contents($folderPath . '/' . $filename, $dompdf->output());
+                    /*  $nda->nda_pdf_path = 'nda_pdfs/' . $filename;
+                    $nda->save(); */
 
-                    // Save new PDF path
-                    $getSignData->nda_pdf_path = 'nda_pdfs/' . $filename;
-                    $getSignData->save();
-
-                    $buyerData = $request->session()->get('buyerData', []);
-                    $mergedData = array_merge($buyerData, $request->all());
-                    $request->session()->put('buyerData', $mergedData);
-                    // Store the NDA form value in session
-                    $ndaFormSign = 'yes';
-                    $getFullname = preg_split('/\s+/', trim($request->full_name));
-                    $firstName = array_shift($getFullname);
-                    $lastName  = implode(' ', $getFullname);
-                    $request->session()->put('buyerData.nda_form_sign',  $ndaFormSign);
-                    $request->session()->put('buyerData.home_phone',  $request->nda_home_phone);
-                    $request->session()->put('buyerData.address',  $request->home_address);
-                    $request->session()->put('buyerData.email',  $request->nda_email);
-                    $request->session()->put('buyerData.first_name',  $firstName);
-                    $request->session()->put('buyerData.last_name',  $lastName ?? '');
-                } else {
-                    $existingUser = User::where('email', $request->nda_email)->where('role_name', 'buyer')->first();
-                    if ($existingUser) {
-                        return back()->with('error', 'Email is already registered!')->withInput();
-                    }
-                    $signNdaFormUser = SignNda::where('email', $request->nda_email)->first();
-                    if (!$signNdaFormUser) {
-                        $nda = new SignNda;
-                        $nda->full_name = $request->full_name;
-                        $nda->business_interest = $request->nda_business_interest;
-                        $nda->home_address = $request->home_address;
-                        $nda->home_phone = $request->nda_home_phone;
-                        $nda->cell_phone = $request->nda_cell_phone;
-                        $nda->email = $request->nda_email;
-                        $nda->date = $request->nda_form_date;
-                        $nda->nda_form_sign = 'yes';
-                        $nda->signature = $request->signature;
-                        $nda->save();
-                        // Generate PDF
-                        $signaturePathForPdf = null;
-
-                        if (!empty($request->signature)) {
-
-                            $signature = $request->signature;
-
-                            if (preg_match('/^data:image\/(\w+);base64,/', $signature, $type)) {
-
-                                $signature = substr($signature, strpos($signature, ',') + 1);
-                                $type = strtolower($type[1]);
-
-                                $signature = base64_decode($signature);
-
-                                if ($signature === false) {
-                                    return back()->with('error', 'Signature decode failed');
-                                }
-                            } else {
-                                return back()->with('error', 'Invalid signature format');
-                            }
-
-                            $signFolder = public_path('nda_signatures');
-
-                            if (!File::exists($signFolder)) {
-                                File::makeDirectory($signFolder, 0755, true);
-                            }
-                            $signName = 'sign_' . time() . '.png';
-                            file_put_contents($signFolder . '/' . $signName, $signature);
-                            $nda->nda_pdf_path = 'nda_signatures/' . $signName;
-                            $nda->save();
-                            $signaturePathForPdf = public_path('nda_signatures/' . $signName);
-                        }
-                        $options = new Options();
-                        $options->set('defaultFont', 'Helvetica');
-                        $options->set('isRemoteEnabled', true);
-                        $options->set('isHtml5ParserEnabled', true);
-                        $options->set('isPhpEnabled', true);
-                        $dompdf = new Dompdf($options);
-
-                        $pdfContent = View::make('pdf.nda_form_pdf', [
-                            'full_name' => $request->full_name,
-                            'business_interest' => $request->nda_business_interest,
-                            'home_address' => $request->home_address,
-                            'home_phone' => $request->nda_home_phone,
-                            'cell_phone' => $request->nda_cell_phone,
-                            'email' => $request->nda_email,
-                            'signature' =>  $signaturePathForPdf,
-                            'date' => $request->nda_form_date,
-                        ])->render();
-
-                        $dompdf->loadHtml($pdfContent);
-                        $dompdf->setPaper('A4', 'portrait');
-                        $dompdf->render();
-
-                        $filename = 'nda_' . time() . '.pdf';
-                        $folderPath = public_path('nda_pdfs');
-
-                        if (!File::exists($folderPath)) {
-                            File::makeDirectory($folderPath, 0755, true);
-                        }
-
-                        file_put_contents($folderPath . '/' . $filename, $dompdf->output());
-
-                        // Save path
-                        $nda->nda_pdf_path = 'nda_pdfs/' . $filename;
-                        $nda->save();
-
-                        $nda_id = $nda->id;
-                        $buyerData = $request->session()->get('buyerData', []);
-                        $mergedData = array_merge($buyerData, $request->all());
-                        $request->session()->put('buyerData', $mergedData);
-                        // Store the NDA form value in session
-                        $ndaFormSign = 'yes';
-
-                        $getFullname = preg_split('/\s+/', trim($request->full_name));
-
-                        $firstName = array_shift($getFullname);
-                        $lastName  = implode(' ', $getFullname);
-                        $request->session()->put('buyerData.nda_id',  $nda_id);
-                        $request->session()->put('buyerData.nda_form_sign',  $ndaFormSign);
-                        $request->session()->put('buyerData.home_phone',  $request->nda_home_phone);
-                        $request->session()->put('buyerData.address',  $request->home_address);
-                        $request->session()->put('buyerData.email',  $request->nda_email);
-                        $request->session()->put('buyerData.first_name',  $firstName);
-                        $request->session()->put('buyerData.last_name',  $lastName ?? '');
-                    } else {
-                        $buyerData = $request->session()->get('buyerData', []);
-                        $ndaFormSign = 'yes';
-                        $getFullname = preg_split('/\s+/', trim($signNdaFormUser->full_name));
-                        $firstName = array_shift($getFullname);
-                        $lastName  = implode(' ', $getFullname);
-                        $request->session()->put('buyerData.nda_id',  $signNdaFormUser->id);
-                        $request->session()->put('buyerData.nda_form_sign',  $ndaFormSign);
-                        $request->session()->put('buyerData.home_phone',  $signNdaFormUser->home_phone);
-                        $request->session()->put('buyerData.address',  $signNdaFormUser->home_address);
-                        $request->session()->put('buyerData.email',  $signNdaFormUser->email);
-                        $request->session()->put('buyerData.first_name',  $firstName);
-                        $request->session()->put('buyerData.last_name',  $lastName ?? '');
-                    }
-                }
-            } elseif ($step == 2) {
-                if (session()->has('buyerData.buyer_id')) {
-                    $buyer_id = session()->get('buyerData.buyer_id');
-                    $buyer = Buyer::where('BuyerID', $buyer_id)->first();
-
-                    if (!$buyer) {
-                        return back()->with('error', 'Buyer not found!');
-                    }
-
-                    // Update existing buyer
-                    $buyer->FName = $request->first_name;
-                    $buyer->LName = $request->last_name;
-                    $buyer->AgentID = $request->agent;
-                    $buyer->BDate = $request->BDate;
-                    $buyer->Address1 = $request->address;
-                    $buyer->City = $request->city;
-                    $buyer->State = $request->state;
-                    $buyer->Zip = $request->zip;
-                    $buyer->County = $request->county;
-                    $buyer->HomePhone = $request->home_phone;
-                    $buyer->BusPhone = $request->business_phone;
-                    $buyer->Email = $request->email;
-                    $buyer->callWhen = $request->callWhen;
-
-                    // Save the buyer to the database
-                    $buyer->save();
-
-                    // Merge session data with new request data
-                    $buyerData = $request->session()->get('buyerData', []);
-                    $mergedData = array_merge($buyerData, $request->all());
-                    $request->session()->put('buyerData', $mergedData);
-                    $request->session()->put('buyerData.buyer_id',  $buyer_id);
-                } else {
-                    if ($request->has('next')) {
-                        // Create a new buyer
-                        $data = $request->all();
-                        event(new BuyerRegister($data));
-                        $check = $this->buyerRegistration($data);
-                        $buyer = new Buyer;
-                        $buyer->FName = $request->first_name;
-                        $buyer->LName = $request->last_name;
-                        $buyer->AgentID = $request->agent;
-                        $buyer->BDate = $request->BDate;
-                        $buyer->Address1 = $request->address;
-                        $buyer->City = $request->city;
-                        $buyer->State = $request->state;
-                        $buyer->Zip = $request->zip;
-                        $buyer->County = $request->county;
-                        $buyer->HomePhone = $request->home_phone;
-                        $buyer->BusPhone = $request->business_phone;
-                        $buyer->Email = $request->email;
-                        $buyer->callWhen = $request->callWhen;
-                        $buyer->user_id  =  $check->id;
-
-                        // Save the new buyer to the database
-                        $buyer->save();
-                        $ndaID = session()->get('buyerData.nda_id');
-                        $getNdaData = SignNda::where('id', $ndaID)->first();
-                        if ($getNdaData) {
-                            $getNdaData->user_id = $check->id;
-                            $getNdaData->save();
-                        }
-                        // Merge session data with new request data
-                        $buyerData = $request->session()->get('buyerData', []);
-                        $mergedData = array_merge($buyerData, $request->all());
-                        $request->session()->put('buyerData', $mergedData);
-
-                        // Store the inserted buyer ID in session
-                        $insertedId = $buyer->BuyerID;
-                        $request->session()->put('buyerData.buyer_id',  $insertedId);
-                    }
-                }
-            } elseif ($step == 3) {
-                if ($request->has('next')) {
-                    $buyer_id = session()->get('buyerData.buyer_id');
-                    $buyer = Buyer::where('BuyerID', $buyer_id)->first();
-                    if (!$buyer) {
-                        return back()->with('error', 'Buyer not found!');
-                    }
-                    // Update the buyer data in step 2
-                    $buyer->TypeBus = $request->business_interest;
-                    $buyer->Interest = $request->Interest ?? 0;
-                    $buyer->BusType1 = $request->bus_type1;
-                    $buyer->BusType2 = $request->bus_type2;
-                    $buyer->BusType3 = $request->bus_type3;
-                    $buyer->BusType4 = $request->bus_type4;
-                    $buyer->BusCounty1 = $request->desiredCounty1;
-                    $buyer->BusCounty2 = $request->desiredCounty2;
-                    $buyer->BusCounty3 = $request->desiredCounty3;
-                    $buyer->BusCounty4 = $request->desiredCounty4;
-                    $buyer->BusLocation = $request->desiredLocation;
-                    $buyer->NetWorth = $request->netWorth;
-                    $buyer->CashAvailable = $request->cashAvailable;
-                    $buyer->PPMin = $request->priceRangeMinimum;
-                    $buyer->PPMax = $request->priceRangeMaximum;
-                    $buyer->VolMin = $request->salesVolumeMinimum;
-                    $buyer->VolMax = $request->salesVolumeMaximum;
-                    $buyer->NetProfMin = $request->netIncomeMinimum;
-                    $buyer->NetProfMax = $request->netIncomeMaximum;
-                    $buyer->Comments = $request->comments;
-
-                    // Save the updated buyer record
-                    $buyer->save();
-                    // Commit the transaction if all operations are successful
                     DB::commit();
-                    // Handle session and other operations
+
+
+                    // Clear session
                     session()->forget(['buyerData', 'step']);
-
-
 
                     return redirect()->route('login')->with('success', 'Your account has been successfully created. Please check your email for instructions to log in!');
                 }
@@ -422,13 +350,18 @@ class RegisterWithEbbController extends Controller
 
     public function buyerRegistration(array $data)
     {
-        $password = $data['first_name'] . '@123';
-        return User::create([
-            'name' => $data['first_name'],
-            'email' => $data['email'],
-            'role_name' => 'buyer',
-            'password' => Hash::make($password)
-        ]);
+        try {
+            $password = $data['first_name'] . '@123';
+
+            return User::create([
+                'name' => $data['first_name'],
+                'email' => $data['nda_email'],
+                'role_name' => 'buyer',
+                'password' => Hash::make($password)
+            ]);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
     // Validate data for each step
     private function validateStep(Request $request, $step)

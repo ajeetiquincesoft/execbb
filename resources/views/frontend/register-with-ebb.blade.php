@@ -25,7 +25,7 @@
                         <form method="POST" action="{{ route('store.register.with.ebb', request()->query()) }}"
                             id="registerEbb">
                             @csrf
-                            <input type="hidden" name="step" value="{{ session('step', 1) }}">
+                            <input type="hidden" name="step" id="currentStep" value="{{ session('step', 1) }}">
                             @if (session('step', 1) == 1)
                                 <div class="form-multi-tab">
                                     <div class="agreement-container">
@@ -142,13 +142,7 @@
                                         </div>
                                     </div>
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-6">
-                                            <div class="mb-3">
-                                                <input type="text" id="nda_home_phone" name="nda_home_phone"
-                                                    class="form-control form-control-lg" placeholder="Home Phone"
-                                                    value="{{ session('buyerData.nda_home_phone') ?? old('nda_home_phone') }}" />
-                                            </div>
-                                        </div>
+
                                         <div class="col-12 col-md-6">
                                             <div class="mb-3">
                                                 <input type="text" id="nda_cell_phone" name="nda_cell_phone"
@@ -156,8 +150,6 @@
                                                     value="{{ session('buyerData.nda_cell_phone') ?? old('nda_cell_phone') }}" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row g-3">
                                         <div class="col-12 col-md-6">
                                             <div class="mb-3">
                                                 <input type="email" id="nda_email" name="nda_email"
@@ -165,15 +157,6 @@
                                                     value="{{ session('buyerData.nda_email') ?? old('nda_email') }}" />
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="mb-3">
-                                                <input type="date" id="nda_form_date" name="nda_form_date"
-                                                    class="form-control form-control-lg" placeholder="Date"
-                                                    value="{{ session('buyerData.nda_form_date') ?? old('nda_form_date') }}"
-                                                    max="{{ \Carbon\Carbon::now()->toDateString() }}" />
-                                            </div>
-                                        </div>
-
                                     </div>
                                     <p>Signature</p>
                                     <div class="row g-3">
@@ -238,18 +221,18 @@
                                                 <input type="hidden" name="agent" value="{{ $uniqueAgID }}">
                                             @endif
                                         </div>
-                                        <div class="col-12 col-md-6">
+                                        {{-- <div class="col-12 col-md-6">
                                             <div class="mb-3">
                                                 <input type="date" id="BDate" name="BDate"
                                                     class="form-control form-control-lg" placeholder="BDate"
                                                     value="{{ session('buyerData.BDate') ?? old('BDate') }}" />
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="mb-3">
                                         <input type="text" id="mailling_address" name="address"
                                             class="form-control form-control-lg" placeholder="Mailing Address"
-                                            value="{{ session('buyerData.address') ?? old('address') }}" />
+                                            value="{{ session('buyerData.home_address') ?? old('home_address') }}" />
                                     </div>
                                     <div class="row g-3">
                                         <div class="col-12 col-md-6">
@@ -296,7 +279,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row g-3">
+                                    {{--   <div class="row g-3">
                                         <div class="col-12 col-md-6">
                                             <div class="mb-3">
                                                 <input type="text" id="home_phone" name="home_phone"
@@ -311,13 +294,13 @@
                                                     value="{{ session('buyerData.business_phone') ?? old('business_phone') }}" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row g-3">
                                         <div class="col-12 col-md-12">
                                             <div class="mb-3">
                                                 <input type="email" id="email" name="email"
                                                     class="form-control form-control-lg" placeholder="Email Address"
-                                                    value="{{ session('buyerData.email') ?? old('email') }}" />
+                                                    value="{{ session('buyerData.nda_email') ?? old('nda_email') }}" />
                                             </div>
                                         </div>
                                     </div>
@@ -356,21 +339,24 @@
                                                 <div class="d-flex justify-content-between">
                                                     <div class="custom-radio">
                                                         <input type="radio" id="business_interest1"
-                                                            name="business_interest" value="existing business">
+                                                            name="business_interest" value="existing business"
+                                                            {{ old('business_interest', session('buyerData.TypeBus')) == 'existing business' ? 'checked' : '' }}>
                                                         <label class="form-label" for="business_interest1">Existing
                                                             Business:</label>
                                                     </div>
                                                     <div class="custom-radio">
 
                                                         <input type="radio" id="business_interest2"
-                                                            name="business_interest" value="a startup business">
+                                                            name="business_interest" value="a startup business"
+                                                            {{ old('business_interest', session('buyerData.TypeBus')) == 'a startup business' ? 'checked' : '' }}>
                                                         <label class="form-label"
                                                             for="business_interest2">Start-up:</label>
                                                     </div>
                                                     <div class="custom-radio">
 
                                                         <input type="radio" id="business_interest3"
-                                                            name="business_interest" value="a franchise">
+                                                            name="business_interest" value="a franchise"
+                                                            {{ old('business_interest', session('buyerData.TypeBus')) == 'a franchise' ? 'checked' : '' }}>
                                                         <label class="form-label"
                                                             for="business_interest3">Franchise:</label>
                                                     </div>
@@ -393,20 +379,23 @@
                                                 <div class="d-flex justify-content-between">
                                                     <div class="custom-radio">
                                                         <input type="radio" id="readyToBuy1" name="Interest"
-                                                            value="1">
+                                                            value="1"
+                                                            {{ old('Interest', session('buyerData.Interest')) == 1 ? 'checked' : '' }}>
                                                         <label class="form-label" for="readyToBuy1">Now:</label>
                                                     </div>
                                                     <div class="custom-radio">
 
                                                         <input type="radio" id="readyToBuy2" name="Interest"
-                                                            value="2">
+                                                            value="2"
+                                                            {{ old('Interest', session('buyerData.Interest')) == 2 ? 'checked' : '' }}>
                                                         <label class="form-label" for="readyToBuy2">Within 6
                                                             months:</label>
                                                     </div>
                                                     <div class="custom-radio">
 
                                                         <input type="radio" id="readyToBuy3" name="Interest"
-                                                            value="3">
+                                                            value="3"
+                                                            {{ old('Interest', session('buyerData.Interest')) == 3 ? 'checked' : '' }}>
                                                         <label class="form-label" for="readyToBuy3">Within a year:</label>
                                                     </div>
                                                 </div>
@@ -419,7 +408,9 @@
                                                 name="bus_category1">
                                                 <option value="" selected="">Select Bus. Category</option>
                                                 @foreach ($categoryData as $key => $data)
-                                                    <option value="{{ $data->CategoryID }}">{{ $data->BusinessCategory }}
+                                                    <option value="{{ $data->CategoryID }}"
+                                                        {{ old('bus_category1', session('buyerData.BusCategory1')) == $data->CategoryID ? 'selected' : '' }}>
+                                                        {{ $data->BusinessCategory }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -432,7 +423,8 @@
                                                 disabled>
                                                 <option value="" selected>Select Bus.Type</option>
                                                 @foreach ($sub_categories as $key => $bus_type)
-                                                    <option value="{{ $bus_type->SubCatID }}">
+                                                    <option value="{{ $bus_type->SubCatID }}"
+                                                        {{ old('bus_type1', session('buyerData.BusType1')) == $bus_type->SubCatID ? 'selected' : '' }}>
                                                         {{ $bus_type->SubCategory }}</option>
                                                 @endforeach
                                             </select>
@@ -447,7 +439,9 @@
                                                 name="bus_category2">
                                                 <option value="" selected="">Select Bus. Category</option>
                                                 @foreach ($categoryData as $key => $data)
-                                                    <option value="{{ $data->CategoryID }}">{{ $data->BusinessCategory }}
+                                                    <option value="{{ $data->CategoryID }}"
+                                                        {{ old('bus_category2', session('buyerData.BusCategory2')) == $data->CategoryID ? 'selected' : '' }}>
+                                                        {{ $data->BusinessCategory }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -460,7 +454,8 @@
                                                 disabled>
                                                 <option value="" selected>Select Bus.Type</option>
                                                 @foreach ($sub_categories as $key => $bus_type)
-                                                    <option value="{{ $bus_type->SubCatID }}">
+                                                    <option value="{{ $bus_type->SubCatID }}"
+                                                        {{ old('bus_type2', session('buyerData.BusType2')) == $bus_type->SubCatID ? 'selected' : '' }}>
                                                         {{ $bus_type->SubCategory }}</option>
                                                 @endforeach
                                             </select>
@@ -476,7 +471,9 @@
                                                 name="bus_category3">
                                                 <option value="" selected="">Select Bus. Category</option>
                                                 @foreach ($categoryData as $key => $data)
-                                                    <option value="{{ $data->CategoryID }}">{{ $data->BusinessCategory }}
+                                                    <option value="{{ $data->CategoryID }}"
+                                                        {{ old('bus_category3', session('buyerData.BusCategory3')) == $data->CategoryID ? 'selected' : '' }}>
+                                                        {{ $data->BusinessCategory }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -489,7 +486,8 @@
                                                 disabled>
                                                 <option value="" selected>Select Bus.Type</option>
                                                 @foreach ($sub_categories as $key => $bus_type)
-                                                    <option value="{{ $bus_type->SubCatID }}">
+                                                    <option value="{{ $bus_type->SubCatID }}"
+                                                        {{ old('bus_type3', session('buyerData.BusType3')) == $bus_type->SubCatID ? 'selected' : '' }}>
                                                         {{ $bus_type->SubCategory }}</option>
                                                 @endforeach
                                             </select>
@@ -504,7 +502,9 @@
                                                 name="bus_category4">
                                                 <option value="" selected="">Select Bus. Category</option>
                                                 @foreach ($categoryData as $key => $data)
-                                                    <option value="{{ $data->CategoryID }}">{{ $data->BusinessCategory }}
+                                                    <option value="{{ $data->CategoryID }}"
+                                                        {{ old('bus_category4', session('buyerData.BusCategory4')) == $data->CategoryID ? 'selected' : '' }}>
+                                                        {{ $data->BusinessCategory }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -517,7 +517,8 @@
                                                 disabled>
                                                 <option value="" selected>Select Bus.Type</option>
                                                 @foreach ($sub_categories as $key => $bus_type)
-                                                    <option value="{{ $bus_type->SubCatID }}">
+                                                    <option value="{{ $bus_type->SubCatID }}"
+                                                        {{ old('bus_type4', session('buyerData.BusType4')) == $bus_type->SubCatID ? 'selected' : '' }}>
                                                         {{ $bus_type->SubCategory }}</option>
                                                 @endforeach
                                             </select>
@@ -530,7 +531,8 @@
                                         <div class="col-12 col-md-12 mb-3">
                                             <input type="text" class="form-control form-control-lg"
                                                 id="desiredLocation" name="desiredLocation"
-                                                placeholder="Preferred City/Town" value="" />
+                                                placeholder="Preferred City/Town"
+                                                value="{{ session('buyerData.BusLocation') ?? old('desiredLocation') }}" />
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -539,7 +541,9 @@
                                                 name="desiredCounty1">
                                                 <option value="">Select County 1</option>
                                                 @foreach ($counties as $key => $country)
-                                                    <option value="{{ $country->County }}">{{ $country->County }}
+                                                    <option value="{{ $country->County }}"
+                                                        {{ old('desiredCounty1', session('buyerData.BusCounty1')) == $country->County ? 'selected' : '' }}>
+                                                        {{ $country->County }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -549,7 +553,9 @@
                                                 name="desiredCounty2">
                                                 <option value="">Select County 2</option>
                                                 @foreach ($counties as $key => $country)
-                                                    <option value="{{ $country->County }}">{{ $country->County }}
+                                                    <option value="{{ $country->County }}"
+                                                        {{ old('desiredCounty2', session('buyerData.BusCounty2')) == $country->County ? 'selected' : '' }}>
+                                                        {{ $country->County }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -561,7 +567,9 @@
                                                 name="desiredCounty3">
                                                 <option value="">Select County 3</option>
                                                 @foreach ($counties as $key => $country)
-                                                    <option value="{{ $country->County }}">{{ $country->County }}
+                                                    <option value="{{ $country->County }}"
+                                                        {{ old('desiredCounty3', session('buyerData.BusCounty3')) == $country->County ? 'selected' : '' }}>
+                                                        {{ $country->County }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -571,7 +579,9 @@
                                                 name="desiredCounty4">
                                                 <option value="">Select County 4</option>
                                                 @foreach ($counties as $key => $country)
-                                                    <option value="{{ $country->County }}">{{ $country->County }}
+                                                    <option value="{{ $country->County }}"
+                                                        {{ old('desiredCounty4', session('buyerData.BusCounty4')) == $country->County ? 'selected' : '' }}>
+                                                        {{ $country->County }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -581,11 +591,14 @@
                                         <h6 class="form-sec mb-3">Financial Information</h6>
                                         <div class="col-12 col-md-6 mb-3">
                                             <input type="number" class="form-control form-control-lg" id="netWorth"
-                                                name="netWorth" value="" placeholder="Net Worth">
+                                                name="netWorth"
+                                                value="{{ session('buyerData.NetWorth') ?? old('netWorth') }}"
+                                                placeholder="Net Worth">
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <input type="number" class="form-control form-control-lg" id="cashAvailable"
-                                                name="cashAvailable" value=""
+                                                name="cashAvailable"
+                                                value="{{ session('buyerData.CashAvailable') ?? old('cashAvailable') }}"
                                                 placeholder="Cash Available for Down Payment">
                                         </div>
                                     </div>
@@ -593,12 +606,14 @@
                                         <h6 class="form-sec mb-3">Investment Price Range</h6>
                                         <div class="col-12 col-md-6 mb-3">
                                             <input type="number" class="form-control form-control-lg"
-                                                id="priceRangeMinimum" name="priceRangeMinimum" value=""
+                                                id="priceRangeMinimum" name="priceRangeMinimum"
+                                                value="{{ session('buyerData.PPMin') ?? old('priceRangeMinimum') }}"
                                                 placeholder="Minimum">
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <input type="number" class="form-control form-control-lg"
-                                                id="priceRangeMaximum" name="priceRangeMaximum" value=""
+                                                id="priceRangeMaximum" name="priceRangeMaximum"
+                                                value="{{ session('buyerData.PPMax') ?? old('priceRangeMaximum') }}"
                                                 placeholder="Maximum">
                                         </div>
                                     </div>
@@ -606,12 +621,14 @@
                                         <h6 class="form-sec mb-3">Sales Volume</h6>
                                         <div class="col-12 col-md-6 mb-3">
                                             <input type="number" class="form-control form-control-lg"
-                                                id="salesVolumeMinimum" name="salesVolumeMinimum" value=""
+                                                id="salesVolumeMinimum" name="salesVolumeMinimum"
+                                                value="{{ session('buyerData.VolMin') ?? old('salesVolumeMinimum') }}"
                                                 placeholder="Minimum">
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <input type="number" class="form-control form-control-lg"
-                                                id="salesVolumeMaximum" name="salesVolumeMaximum" value=""
+                                                id="salesVolumeMaximum" name="salesVolumeMaximum"
+                                                value="{{ session('buyerData.VolMax') ?? old('salesVolumeMaximum') }}"
                                                 placeholder="Maximum">
                                         </div>
                                     </div>
@@ -619,19 +636,21 @@
                                         <h6 class="form-sec mb-3">Amount of Net Income Required</h6>
                                         <div class="col-12 col-md-6 mb-3">
                                             <input type="number" class="form-control form-control-lg"
-                                                id="netIncomeMinimum" name="netIncomeMinimum" value=""
+                                                id="netIncomeMinimum" name="netIncomeMinimum"
+                                                value="{{ session('buyerData.NetProfMin') ?? old('netIncomeMinimum') }}"
                                                 placeholder="Minimum">
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <input type="number" class="form-control form-control-lg"
-                                                id="netIncomeMaximum" name="netIncomeMaximum" value=""
+                                                id="netIncomeMaximum" name="netIncomeMaximum"
+                                                value="{{ session('buyerData.NetProfMax') ?? old('netIncomeMaximum') }}"
                                                 placeholder="Maximum">
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-12 col-md-12 mb-3">
                                             <label class="form-label" for="comments">Comments</label>
-                                            <textarea class="form-control form-control-lg" id="comments" name="comments" rows="5"></textarea>
+                                            <textarea class="form-control form-control-lg" id="comments" name="comments" rows="5">{{ session('buyerData.Comments') ?? old('comments') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -647,8 +666,10 @@
                                 <!-- Next button or Submit -->
                                 <button type="submit" name="next" class="btn bg-5a102a text-white btn-block"
                                     id="nextBtn" style="height: 50px; width: 35%;">
-                                    {{ session('step', 1) < 3 ? 'Next' : 'Submit' }}
+                                    <span class="btn-text">{{ session('step', 1) < 3 ? 'Next' : 'Submit' }}</span>
+                                    <span class="btn-loading d-none">Submitting...</span>
                                 </button>
+
                             </div>
                         </form>
                     </div>
@@ -750,10 +771,6 @@
                     home_address: {
                         required: true
                     },
-                    nda_home_phone: {
-                        required: true,
-                        regex: /^\d{10}$/
-                    },
                     nda_cell_phone: {
                         required: true,
                         regex: /^\d{10}$/
@@ -762,23 +779,11 @@
                         required: true,
                         email: true
                     },
-                    nda_form_date: {
-                        required: true
-                    },
                     email: {
                         required: true,
                         email: true
                     },
                     first_name: {
-                        required: true
-                    },
-                    last_name: {
-                        required: true
-                    },
-                    agent: {
-                        required: true
-                    },
-                    BDate: {
                         required: true
                     },
                     address: {
@@ -797,13 +802,6 @@
                     },
                     county: {
                         required: true
-                    },
-                    home_phone: {
-                        required: true,
-                        regex: /^\d{10}$/
-                    },
-                    business_phone: {
-                        regex: /^\d{10}$/
                     },
                     bus_category1: {
                         required: true
@@ -859,7 +857,7 @@
                     }
                 },
                 submitHandler: function(form) {
-                    form.submit(); // Proceed with form submission if valid
+                    form.submit();
                 }
             });
             $('#nextBtn').on('click', function(event) {
@@ -1026,6 +1024,31 @@
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
             };
 
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            var canvas = document.getElementById("signature-pad");
+            var ctx = canvas.getContext("2d");
+
+            var savedSignature = document.getElementById("signature").value;
+
+            if (savedSignature) {
+                var img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+
+                // If it's base64
+                if (savedSignature.startsWith('data:image')) {
+                    img.src = savedSignature;
+                } else {
+                    // If it's file path
+                    img.src = "/" + savedSignature;
+                }
+            }
         });
     </script>
 

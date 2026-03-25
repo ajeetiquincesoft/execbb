@@ -106,7 +106,7 @@
                                         <tr>
                                             <td><img src="{{ url('assets/images/base_month_rent.png') }}"
                                                     alt=""><span class="ml-2 fw-600">Base Month Rent</span></td>
-                                            <td class="text-end">{{ $listing->BaseMonthRent }}</td>
+                                            <td class="text-end">${{ number_format($listing->BaseMonthRent) }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/house_of_operation.png') }}"
@@ -123,32 +123,34 @@
                                         <tr>
                                             <td><img src="{{ url('assets/images/listing_date.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Listing Date</span></td>
-                                            <td class="text-end">{{ $listing->ListDate }}</td>
+                                            <td class="text-end">
+                                                {{ \Carbon\Carbon::parse($listing->ListDate)->format('m/d/Y') }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Exp Date</span></td>
-                                            <td class="text-end">{{ $listing->ExpDate }}</td>
+                                            <td class="text-end">
+                                                {{ \Carbon\Carbon::parse($listing->ExpDate)->format('m/d/Y') }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/listing_type.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Listing Type</span></td>
-                                            <td class="text-end">{{ $listing->ListType }}</td>
+                                            <td class="text-end">{{ getListingTypeName($listing->ListType) }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/price.png') }}" alt=""><span
                                                     class="ml-2 fw-600">List Price</span></td>
-                                            <td class="text-end">{{ $listing->ListPrice }}</td>
+                                            <td class="text-end">${{ number_format($listing->ListPrice) }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/price.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Pur. Price</span></td>
-                                            <td class="text-end">{{ $listing->PurPrice }}</td>
+                                            <td class="text-end">${{ number_format($listing->PurPrice) }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/price.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Down Pay</span></td>
-                                            <td class="text-end">{{ $listing->DownPay }}</td>
+                                            <td class="text-end">${{ number_format($listing->DownPay) }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -160,27 +162,27 @@
                                         <tr>
                                             <td><img src="{{ url('assets/images/annual_sale.png') }}"
                                                     alt=""><span class="ml-2 fw-600">Annual Sales</span></td>
-                                            <td class="text-end">{{ $listing->AnnualSales }}</td>
+                                            <td class="text-end">${{ number_format($listing->AnnualSales) }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/gross_profit.png') }}"
                                                     alt=""><span class="ml-2 fw-600">Gross Profit</span></td>
-                                            <td class="text-end">{{ $listing->GrossProfit }}</td>
+                                            <td class="text-end">${{ number_format($listing->GrossProfit) }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/total_expenses.png') }}"
                                                     alt=""><span class="ml-2 fw-600">Total Expenses</span></td>
-                                            <td class="text-end">{{ $listing->TotalExpenses }}</td>
+                                            <td class="text-end">${{ number_format($listing->TotalExpenses) }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/operating_profit.png') }}"
                                                     alt=""><span class="ml-2 fw-600">Operating Profit</span></td>
-                                            <td class="text-end">{{ $listing->AnnualNetProfit }}</td>
+                                            <td class="text-end">${{ number_format($listing->AnnualNetProfit) }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/annual_net_profit.png') }}"
                                                     alt=""><span class="ml-2 fw-600">Annual Net Profit</span></td>
-                                            <td class="text-end">{{ $listing->AnnualNetProfit }}</td>
+                                            <td class="text-end">${{ number_format($listing->AnnualNetProfit) }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

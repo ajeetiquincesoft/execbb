@@ -82,7 +82,7 @@
                                             <span class="custom-control-label">&nbsp;</span>
                                         </label>
                                     </td>
-                                    <td>{{ $key + 1 + ($listings->currentPage() - 1) * $listings->perPage() }}</td>
+                                    <td>{{ $listing->ListingID }}</td>
                                     <td>{{ $listing->CorpName ? $listing->CorpName : $listing->DBA }}</td>
                                     <td>{{ $listing->SellerFName }} {{ $listing->SellerLName }}</td>
                                     <td>{{ $listing->SHomeAdd1 ? $listing->SHomeAdd1 : $listing->Address1 }}</td>
@@ -116,8 +116,8 @@
                                             </button>
                                         </form>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                        <i class="fas fa-download"></i>
-                                    </button> -->
+                                            <i class="fas fa-download"></i>
+                                        </button> -->
                                     </td>
                                 </tr>
                             @empty
@@ -201,10 +201,12 @@
                                         // Handle error
                                         if (xhr.status === 419) {
                                             alert(
-                                                'CSRF token mismatch. Please reload the page and try again.');
+                                                'CSRF token mismatch. Please reload the page and try again.'
+                                                );
                                         } else {
                                             alert(
-                                                'An error occurred while processing your request.');
+                                                'An error occurred while processing your request.'
+                                                );
                                         }
                                     }
                                 });
@@ -236,7 +238,8 @@
                                 // Handle error
                                 if (xhr.status === 419) {
                                     alert(
-                                        'CSRF token mismatch. Please reload the page and try again.');
+                                        'CSRF token mismatch. Please reload the page and try again.'
+                                        );
                                 } else {
                                     alert('An error occurred while processing your request.');
                                 }

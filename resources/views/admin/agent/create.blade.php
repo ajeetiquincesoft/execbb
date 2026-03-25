@@ -137,20 +137,20 @@
                             </div>
                         </div>
                         <!-- <div class="col-md-3">
-                                <div class="form-group mb-3">
-                                    <label for="agentComment">Comment</label>
-                                    <input type="text" placeholder="" id="comment" class="form-control"
-                                        name="comment" value="{{ old('comment') }}">
-                                    @if ($errors->has('comment'))
+                                            <div class="form-group mb-3">
+                                                <label for="agentComment">Comment</label>
+                                                <input type="text" placeholder="" id="comment" class="form-control"
+                                                    name="comment" value="{{ old('comment') }}">
+                                                @if ($errors->has('comment'))
     <span class="text-danger">{{ $errors->first('comment') }}</span>
     @endif
-                                </div>
-                            </div> -->
+                                            </div>
+                                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="agentComment">Comment</label>
+                                <label for="agentComment">Broker Profile</label>
                                 <textarea class="form-control ckeditor" id="comment" name="comment">{{ old('comment') }}</textarea>
                             </div>
                         </div>
@@ -266,7 +266,7 @@
                                             alt="">Upload</span>
                                 </label>
                                 <div class="avatar-upload-agent">
-                                    <div id="imagePreview" class="avatar-circle"></div>
+                                    <div id="imagePreview"></div>
                                 </div>
                             </div>
                         </div>
@@ -475,7 +475,8 @@
                     // Check if the file is an image
                     if (fileType.startsWith('image/')) {
                         const imagePreviewDiv = document.getElementById('imagePreview');
-                        imagePreviewDiv.innerHTML = '<img src="' + e.target.result + '" alt="Image Preview">';
+                        imagePreviewDiv.innerHTML = '<img src="' + e.target.result +
+                            '" alt="Image Preview"  class="avatar-circle">';
                         imagePreviewDiv.style.display = 'block';
                     } else {
                         // If not an image, just show the file type

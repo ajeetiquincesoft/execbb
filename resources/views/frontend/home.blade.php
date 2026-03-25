@@ -122,8 +122,14 @@
                                 <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
                             </a>
                             <p class="card-text mb-0">Business Type: {{ $listing->BusType }}</p>
+                            <p class="card-text mb-0">Business Category: {{ getSubCategoryName($listing->SubCat) }}</p>
+                            <p class="card-text mb-0">County / State: {{ $listing->County . ', ' . $listing->State }}</p>
                             <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
-                            <p class="card-text">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
+                            <p class="card-text mb-0">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
+                            <p class="card-text mb-0">Gross Revenue: ${{ number_format($listing->GrossProfit ?? 0, 2) }}
+                            </p>
+                            <p class="card-text"> Asking Price: ${{ number_format($listing->REAskingPrice ?? 0, 2) }}</p>
+
                         </div>
                     </div>
                 @endforeach
@@ -164,7 +170,8 @@
                                         alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent-image"></a>
                             @endif
                             <div class="leading_agent">
-                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}" target="_blank">
+                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}"
+                                    target="_blank">
                                     <h5 class="mb-1">{{ ucfirst($agent->FName) }} {{ ucfirst($agent->LName) }}</h5>
                                 </a>
                                 <p class="mb-0">{{ $limitedComment }}</p>
@@ -176,7 +183,53 @@
         </div>
     </section>
 
+    <!-- welcome section and about section -->
+    <section class="welcome-section">
+        <div class="container">
+            <div class="row align-items-center g-4">
 
+                <!-- Image -->
+                <div class="col-12 col-lg-6 order-1 order-lg-1">
+                    <div class="welcome-img">
+                        <img src="{{ asset('assets/images/welcome_about_group.png') }}" alt="Business Meeting"
+                            class="img-fluid">
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="col-12 col-lg-6 order-2 order-lg-2">
+                    <div class="welcome-content text-center text-lg-start">
+
+                        <h6 class="text-brown mb-2">Welcome To</h6>
+
+                        <h2 class="mb-3">
+                            EXECUTIVE BUSINESS BROKERS!
+                        </h2>
+
+                        <p class="wel-subtitle mb-3">
+                            Unlocking Opportunities, Maximizing Success.
+                        </p>
+
+                        <p class="wel-desc">
+                            Are you looking to buy or sell a business? Look no further!
+                            <strong><a href="{{ route('about.us') }}" target="_blank">EXECUTIVE BUSINESS
+                                    BROKERS</a></strong> is here to
+                            assist you every step of the way.
+                            With our expert knowledge and extensive network, we are dedicated to helping you
+                            navigate the complex world of business transactions.
+                        </p>
+
+                        <p class="wel-desc">
+                            Whether you are a seasoned entrepreneur or a first-time buyer, we have the
+                            resources and expertise to ensure a smooth and successful deal.
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
     <!-- SELLER & BUYER -->
 
     <div class="container my-5">
@@ -446,6 +499,82 @@
         });
     </script>
     <style>
+        /* css for about section start*/
+        .welcome-section {
+            background-color: #f5f3f2;
+            padding: 60px 0;
+        }
+
+        /* Image */
+        .welcome-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        /* Text styles */
+        .text-brown {
+            color: #835f33;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 42px;
+        }
+
+        .welcome-content h2 {
+            font-size: 34px;
+            line-height: 1.3;
+            font-weight: 500;
+        }
+
+        .wel-subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .wel-desc {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        p.wel-desc a {
+            color: #812652;
+            cursor: pointer;
+        }
+
+        /* Tablet */
+        @media (max-width: 991px) {
+            .welcome-section {
+                padding: 50px 0;
+            }
+
+            .welcome-content h2 {
+                font-size: 28px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 576px) {
+            .welcome-section {
+                padding: 40px 15px;
+            }
+
+            .welcome-content h2 {
+                font-size: 24px;
+            }
+
+            .wel-subtitle {
+                font-size: 14px;
+            }
+
+            .wel-desc {
+                font-size: 14px;
+            }
+        }
+
+        /* css for about section end */
         .ser-section {
             position: relative;
             background: url('{{ asset('assets/images/our-services-section.png') }}');

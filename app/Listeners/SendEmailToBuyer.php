@@ -28,6 +28,6 @@ class SendEmailToBuyer
      */
     public function handle(BuyerRegister $event)
     {
-        Mail::to($event->data['email'])->send(new BuyerWelcome($event->data));
+        Mail::to($event->data['nda_email'])->send(new BuyerWelcome($event->data));
     }
 }

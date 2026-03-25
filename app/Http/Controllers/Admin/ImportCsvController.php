@@ -1292,6 +1292,7 @@ class ImportCsvController extends Controller
                 DB::table('offers')->insert($offerData);
                 $insertCount++;
                 Log::info("Inserted row $rowCount with OfferID: $offerID");
+                /* break; */
             } catch (\Exception $e) {
                 Log::error("Insert failed at row {$rowCount}.", [
                     'data' => $offerData,

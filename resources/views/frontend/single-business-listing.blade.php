@@ -16,40 +16,91 @@
         </div>
     </div>
     <!-- Main Post Section -->
-    <div class="container">
-        <div class="row">
-            <!-- Main Post Content -->
-            <div class="col-lg-8">
-                <article>
-                    <h1 class="mb-4">{{ ucwords($listing->SellerCorpName) }}</h1>
-                    <p class="text-muted">By {{ ucfirst($userName) }} |
-                        {{ \Carbon\Carbon::parse($listing->created_at)->format('F d, Y') }}</p>
-                    <!-- <img src="https://via.placeholder.com/1200x600" class="img-fluid mb-4" alt="Post Image"> -->
-                    @if (!empty($listing->imagepath))
-                        <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" alt=""
-                            class="business_listing_image">
-                    @else
-                        <img src="{{ asset('assets/images/business_image.jpg') }}" alt=""
-                            class="business_listing_image">
-                    @endif
-                    <p>{!! $listing->Comments !!}</p>
-                    @if (auth()->check())
-                        @if (auth()->user()->role_name === 'buyer')
-                            <div class="icon-container" data-listing-id="{{ $listing->ListingID }}"
-                                data-liked="{{ $likeVal ?? 0 }}">
-                                <i class="fa fa-thumbs-o-up icon-text thumbs-up {{ $activeClass }}" aria-hidden="true"></i>
-                                <span class="text {{ $activeClass }}">Like</span>
-                                <p class="total_likes">Total Likes: <span>{{ $likeCount }}</span></p>
+    <div class="container-fluid listing-modern">
+        <div class="container">
+            <div class="row g-4">
 
-                            </div>
+                <!-- LEFT SIDE -->
+                <div class="col-lg-8">
+
+                    <!-- TITLE -->
+                    <div class="listing-header">
+                        <h2>{{ $listing->CorpName ?? $listing->DBA }}</h2>
+                        <p>{{ $listing->City }}, {{ $listing->State }}</p>
+                    </div>
+
+                    <!-- IMAGE + OVERLAY -->
+                    <div class="listing-image-box">
+
+                        @if (!empty($listing->imagepath))
+                            <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}">
+                        @else
+                            <img src="{{ asset('assets/images/business_image.jpg') }}">
                         @endif
+                        @php
+                            $cash_flow = $listing->GrossRevenue - $listing->TotalExpenses;
+                        @endphp
+                        <!-- PRICE BAR -->
+                        <div class="price-overlay">
+                            <div>Asking Price <strong>${{ number_format($listing->REAskingPrice) }}</strong></div>
+                            <div>Cash Flow <strong>${{ number_format($listing->cash_flow) }}</strong></div>
+                        </div>
+
+                        <!-- LISTING ID -->
+                        <div class="listing-id">
+                            Listing ID: {{ $listing->ListingID }}
+                        </div>
+                    </div>
+
+                    <!-- SHARE BUTTONS -->
+                    @if (auth()->check() && (auth()->user()->role_name == 'admin' || auth()->user()->role == 'agent'))
+                        <div class="share-bar">
+                            <button onclick="window.print()" class="btn btn-sm custom-btn-listing">
+                                <i class="fa fa-print"></i> Print
+                            </button>
+
+                            <button class="btn btn-sm custom-btn-listing" data-bs-toggle="modal"
+                                data-bs-target="#shareModal">
+                                <i class="fa fa-share"></i> Share Factsheet
+                            </button>
+                        </div>
+                    @endif
+                    @if (auth()->check() && auth()->user()->role_name === 'buyer')
+                        <div class="like-card" data-listing-id="{{ $listing->ListingID }}">
+
+                            <div class="like-header">
+                                <span>Do you like this listing?</span>
+                            </div>
+
+                            <div class="like-actions">
+                                <button class="like-btn {{ $likeVal == 1 ? 'active' : '' }}" data-type="like">
+                                    <i class="fa fa-thumbs-up"></i>
+                                    <span>Like</span>
+                                </button>
+
+                                <button class="dislike-btn {{ $likeVal == 2 ? 'active' : '' }}" data-type="dislike">
+                                    <i class="fa fa-thumbs-down"></i>
+                                    <span>Dislike</span>
+                                </button>
+                            </div>
+
+                            <div class="like-count">
+                                👍 <span id="likeCount">{{ $likeCount }}</span> Likes
+                            </div>
+
+                        </div>
                     @endif
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="tags single-badge">
                             <span class="badge">{{ $listing->BusType }}</span>
                             <span class="badge">{{ $subCatName }}</span>
                         </div>
-                        @if (Auth::check())
+                        <div class="share-bar">
+                            <a href="{{ route('register.with.ebb') }}" class="btn btn-sm custom-btn-listing">
+                                <i class="fa fa-user-plus"></i> Register for more information
+                            </a>
+                        </div>
+                        @if (Auth::check() && auth()->user()->role_name === 'buyer')
                             <div class="favorite-action">
                                 @if ($isFavorite != 0)
                                     <form action="{{ route('buyer.favorites.remove', $listing->ListingID) }}"
@@ -71,419 +122,784 @@
                             </div>
                         @endif
                     </div>
-                    <hr>
-                </article>
-
-                <!-- Comments Section -->
-                {{-- <section class="mt-5">
-                    <h4>Comments</h4>
-                    <div id="comments-container">
-                        @foreach ($buyerComments as $comment)
-                            <div class="media mb-4 buycomment">
-                                <img src="{{ asset('assets/images/user.png') }}"
-                                    class="img-fluid rounded-circle mb-3 comment_image" alt="User Avatar">
-                                <div class="media-body">
-                                    <h5 class="mt-0">{{ ucfirst($comment->Name) }}</h5>
-                                    <p>{{ $comment->Comment }}</p>
-                                    <small>Posted on
-                                        {{ \Carbon\Carbon::parse($comment->CommentDate)->format('F d, Y') }}</small>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    @if ($buyerCommentsCount > 5)
-                        <div id="loading">Loading more comments...</div>
-                    @endif
-                    <hr>
-                    @if (auth()->check())
-                        @if (auth()->user()->role_name === 'buyer')
-                            <!-- Comment Form -->
-                            <h5>Leave a Comment</h5>
-                            <form class="buyer-comment" name="buyer-comment" method="POST"
-                                action="{{ route('buyer.comment', $listing->ListingID) }}">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="user_name" name="user_name">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="user_email" name="user_email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="comment" class="form-label">Comment</label>
-                                    <textarea class="form-control" id="user_comment" rows="4" name="user_comment"></textarea>
-                                </div>
-                                <button type="submit" class="comment_btn">Comment</button>
-                            </form>
-                        @else
-                            <p>You must be logged in as a buyer to post a comment.</p>
-                        @endif
-                    @else
-                        <p>You must be logged in to post a comment.</p>
-                    @endif
-
-
-                </section> --}}
-            </div>
-
-            <!-- Sidebar -->
-            <div class="col-lg-4">
-                <div class="sticky-top1">
-                    <!--   <div class="card mb-4">
-                                                                                    <div class="card-header">About Author</div>
-                                                                                    <div class="card-body-sidebar">
-                                                                                        <img src="{{ asset('assets/images/user.png') }}" class="img-fluid rounded-circle mb-3" alt="Author Image">
-                                                                                        <h5 class="card-title">{{ ucfirst($userName) }}</h5>
-                                                                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut nisi quam. Morbi
-                                                                                            ac lacus nec purus lacinia tempor.</p>
-                                                                                    </div>
-                                                                                </div> -->
-                    {{--    <div class="card mb-4">
-                        <div class="card-header">
-                            General Info
-                        </div>
-                        <div class="card-body-sidebar">
-                            <table class="table table-bordered table-striped">
-                                <tbody class="listing_sidebar">
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/company.svg') }}" alt=""
-                                                class="icon"> Company</td>
-                                        <td class="text-end">{{ $listing->SellerCorpName }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/phone.png') }}" alt=""
-                                                class="icon"> Phone</td>
-                                        <td class="text-end">{{ $listing->Phone }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/email.png') }}" alt=""
-                                                class="icon"> Email</td>
-                                        <td class="text-end">{{ $listing->Email }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/fax.png') }}" alt="" class="icon">
-                                            Fax</td>
-                                        <td class="text-end">{{ $listing->Fax }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/location.png') }}" alt=""
-                                                class="icon"> Address</td>
-                                        <td class="text-end">{{ $listing->Address1 }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> --}}
-
-                    <!-- Business Info -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            Business Info
-                        </div>
-                        <div class="card-body-sidebar">
-                            <table class="table table-bordered table-striped">
-                                <tbody class="listing_sidebar">
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/building.png') }}" alt=""
-                                                class="icon"> Building Size</td>
-                                        <td class="text-end">{{ $listing->BldgSize }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/parking.png') }}" alt=""
-                                                class="icon"> Parking</td>
-                                        <td class="text-end">{{ $listing->Parking }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/license.png') }}" alt=""
-                                                class="icon"> License Required</td>
-                                        <td class="text-end">{{ $listing->LicenseReq }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/base_month_rent.png') }}" alt=""
-                                                class="icon"> Base Month Rent</td>
-                                        <td class="text-end">{{ $listing->BaseMonthRent }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/house_of_operation.png') }}" alt=""
-                                                class="icon"> House Of Operations</td>
-                                        <td class="text-end">{{ $listing->HoursOfOp }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <!-- OVERVIEW -->
+                    <div class="listing-box">
+                        <h4>Business Overview</h4>
+                        <p>{!! $listing->Comments !!}</p>
                     </div>
 
+                    <!-- DETAILS -->
+                    <div class="listing-box">
+                        <h4> Business Info</h4>
+                        <div class="row">
+                            <div class="col-6">Building Size</div>
+                            <div class="col-6 text-end">{{ $listing->BldgSize }}</div>
+
+                            <div class="col-6">Parking</div>
+                            <div class="col-6 text-end">{{ $listing->Parking ?? 'N/A' }}</div>
+
+                            <div class="col-6">License Required</div>
+                            <div class="col-6 text-end">{{ $listing->LicenseReq ?? 'N/A' }}</div>
+
+                            <div class="col-6">Base Month Rent</div>
+                            <div class="col-6 text-end">${{ number_format($listing->BaseMonthRent) }}</div>
+
+                            <div class="col-6">House Of Operations</div>
+                            <div class="col-6 text-end">{{ $listing->HoursOfOp }}</div>
+                        </div>
+                    </div>
                     <!-- Pricing Info -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            Pricing Info
-                        </div>
-                        <div class="card-body-sidebar">
-                            <table class="table table-bordered table-striped">
-                                <tbody class="listing_sidebar">
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/listing_date.png') }}" alt=""
-                                                class="icon"> Listing Date</td>
-                                        <td class="text-end">{{ $listing->ListDate }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""
-                                                class="icon"> Exp Date</td>
-                                        <td class="text-end">{{ $listing->ExpDate }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/listing_type.png') }}" alt=""
-                                                class="icon"> Listing Type</td>
-                                        <td class="text-end">{{ $listing->ListType }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/price.png') }}" alt=""
-                                                class="icon"> List Price</td>
-                                        <td class="text-end">{{ $listing->ListPrice }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/price.png') }}" alt=""
-                                                class="icon"> Pur. Price</td>
-                                        <td class="text-end">{{ $listing->PurPrice }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="{{ url('assets/images/price.png') }}" alt=""
-                                                class="icon"> Down Pay</td>
-                                        <td class="text-end">{{ $listing->DownPay }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="listing-box">
+                        <h4> Pricing Info</h4>
+                        <div class="row">
+                            <div class="col-6"> Listing Type</div>
+                            <div class="col-6 text-end">{{ getListingTypeName($listing->ListType) }}</div>
+
+                            <div class="col-6"> List Price</div>
+                            <div class="col-6 text-end">${{ number_format($listing->ListPrice) }}</div>
+
+                            <div class="col-6"> Pur. Price</div>
+                            <div class="col-6 text-end">${{ number_format($listing->PurPrice) }}</div>
+
+                            <div class="col-6">Down Pay</div>
+                            <div class="col-6 text-end">${{ number_format($listing->DownPay) }}</div>
+
                         </div>
                     </div>
+                    <!-- FINANCIAL -->
                     @auth
-                        <!-- Financial Info -->
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                Financial Info
-                            </div>
-                            <div class="card-body-sidebar">
-                                <table class="table table-bordered table-striped">
-                                    <tbody class="listing_sidebar">
-                                        <tr>
-                                            <td><img src="{{ url('assets/images/annual_sale.png') }}" alt=""
-                                                    class="icon"> Annual Sales</td>
-                                            <td class="text-end">{{ $listing->AnnualSales }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ url('assets/images/gross_profit.png') }}" alt=""
-                                                    class="icon"> Gross Profit</td>
-                                            <td class="text-end">{{ $listing->GrossProfit }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ url('assets/images/total_expenses.png') }}" alt=""
-                                                    class="icon"> Total Expenses</td>
-                                            <td class="text-end">{{ $listing->TotalExpenses }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ url('assets/images/operating_profit.png') }}" alt=""
-                                                    class="icon"> Operating Profit</td>
-                                            <td class="text-end">{{ $listing->AnnualNetProfit }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ url('assets/images/annual_net_profit.png') }}" alt=""
-                                                    class="icon">Annual Net Profit</td>
-                                            <td class="text-end">{{ $listing->AnnualNetProfit }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="listing-box">
+                            <h4>Financial Info</h4>
+                            <div class="row">
+                                <div class="col-6">Annual Sales</div>
+                                <div class="col-6 text-end">${{ number_format($listing->AnnualSales) }}</div>
+
+                                <div class="col-6">Gross Profit</div>
+                                <div class="col-6 text-end">${{ number_format($listing->GrossProfit) }}</div>
+
+                                <div class="col-6"> Total Expenses</div>
+                                <div class="col-6 text-end">${{ number_format($listing->TotalExpenses) }}</div>
+
+                                <div class="col-6">Operating Profit</div>
+                                <div class="col-6 text-end">${{ number_format($listing->AnnualNetProfit) }}</div>
+
+                                <div class="col-6">Annual Net Profit</div>
+                                <div class="col-6 text-end">${{ number_format($listing->AnnualNetProfit) }}</div>
                             </div>
                         </div>
                     @endauth
-                    <div class="card mb-4">
-                        <div class="card-header">Recent Business listing</div>
-                        <ul class="list-group list-group-flush recent_listing">
-                            @foreach ($listings as $businessListing)
-                                <li class="list-group-item"><a
-                                        href="{{ route('view.business.listing', $businessListing->ListingID) }}">{{ $businessListing->SellerCorpName ?? $businessListing->DBA }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
+
+                    <div class="inquiry-listing">
+
+                        <h3 class="inquiry-title">Listing Inquiry:</h3>
+
+                        <form id="contactForm" method="POST" action="{{ route('send.inquiry') }}">
+                            @csrf
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <input type="text" name="first_name" class="form-control inquiry-input"
+                                        placeholder="First Name">
+                                    <small class="text-danger error" id="error_first_name"></small>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="text" name="last_name" class="form-control inquiry-input"
+                                        placeholder="Last Name">
+                                    <small class="text-danger error" id="error_last_name"></small>
+                                </div>
+
+                                <div class="col-12">
+                                    <input type="email" name="email" class="form-control inquiry-input"
+                                        placeholder="Your Email">
+                                    <small class="text-danger error" id="error_email"></small>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="text" name="phone" class="form-control inquiry-input"
+                                        placeholder="Phone">
+                                    <small class="text-danger error" id="error_phone"></small>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="text" name="zipcode" class="form-control inquiry-input"
+                                        placeholder="Zipcode">
+                                </div>
+
+                                <div class="col-12">
+                                    <input type="text" name="budget" class="form-control inquiry-input"
+                                        placeholder="Dollar Amount You're Ready To Invest?">
+                                </div>
+
+                                <div class="col-12">
+                                    <select name="timeframe" class="form-control inquiry-input">
+                                        <option value="">Purchase Time Frame?</option>
+                                        <option>Immediately</option>
+                                        <option>1-3 Months</option>
+                                        <option>3-6 Months</option>
+                                        <option>6+ Months</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <textarea name="message" rows="4" class="form-control inquiry-input" placeholder="Message"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="mt-4 text-center">
+                                <button type="submit" class="btn inquiry-btn">Send Message</button>
+                            </div>
+
+                        </form>
+                        <div class="show-inquiry-message">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- RIGHT SIDEBAR -->
+                <div class="col-lg-4">
+                    <div class="sticky-sidebar">
+
+                        @foreach ($listings as $item)
+                            @php
+                                $cash_flow = $listing->GrossRevenue - $listing->TotalExpenses;
+                            @endphp
+                            <a href="{{ route('view.business.listing', $item->ListingID) }}" class="card-link">
+                                <div class="sidebar-card">
+                                    @if (!empty($item->imagepath))
+                                        <img src="{{ asset('assets/uploads/images/' . $item->imagepath) }}">
+                                    @else
+                                        <img src="{{ asset('assets/images/business_image.jpg') }}">
+                                    @endif
+
+                                    <div class="sidebar-content">
+                                        <h6>{{ $item->CorpName ?? $item->DBA }}</h6>
+                                        <p>{{ $item->City }}, {{ $item->State }}</p>
+
+                                        <div class="sidebar-price">
+                                            <div>
+                                                <small>Asking Price</small>
+                                                <strong>${{ number_format($item->REAskingPrice) }}</strong>
+                                            </div>
+
+                                            <div>
+                                                <small>Cash Flow</small>
+                                                <strong>${{ number_format($item->cash_flow) }}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="shareModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content custom-modal">
+
+                <!-- Header -->
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Share Listing with Buyer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+
+                    <label class="form-label fw-semibold mb-2">
+                        Select Buyer
+                    </label>
+
+                    <select id="buyerSelect" class="form-control select2"></select>
+
+                    <input type="hidden" id="listing_id" value="{{ $listing->ListingID }}">
+
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer border-0 d-flex justify-content-between">
+
+                    <button class="btn btn-light px-4" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button class="btn btn-primary px-4" id="sendShare">
+                        <span id="btnText">Send</span>
+                        <span id="btnLoader" class="spinner-border spinner-border-sm d-none"></span>
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
     <style>
-        .business_listing_image {
+        .listing-modern {
+
+            padding: 40px 0;
+        }
+
+        /* HEADER */
+        .listing-header h2 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .listing-header p {
+            color: #806132;
+            font-weight: 500;
+        }
+
+        /* IMAGE */
+        .listing-image-box {
+            position: relative;
+            margin: 15px 0px;
+        }
+
+        .listing-image-box img {
             width: 100%;
-            padding-bottom: 20px;
-            height: auto;
-            max-height: 500px;
-            object-fit: cover;
-            display: block;
+            border-radius: 6px;
         }
 
-        img.img-fluid.rounded-circle.mb-3.comment_image {
-            width: 45px;
+        /* OVERLAY */
+        .price-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgb(22 28 35 / 64%);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 20px;
         }
 
-        .comment_btn {
-            background-color: #7F2149;
-            font-size: 16px;
-            line-height: 24px;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 0px;
+        /* LISTING ID */
+        .listing-id {
+            position: absolute;
+            right: 10px;
+            bottom: 80px;
+            background: #806132;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 12px;
         }
 
-        .sticky-top1 {
-            padding-top: 64px;
+        /* SHARE */
+        .share-bar {
+            margin: 10px 0px;
         }
 
-        ul.list-group.list-group-flush.recent_listing li a {
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            color: #7F2149;
-            font-family: 'Urbanist';
-            text-transform: capitalize;
-            text-decoration-line: underline;
-        }
-
-        .listing_sidebar img {
-            width: 15px;
+        .share-bar .btn {
             margin-right: 10px;
-
         }
 
-        .listing_sidebar .text-end {
-            font-size: 15px;
+        .custom-btn-listing {
+            border: 1px solid #7F2149;
+            color: #7F2149;
+            background: transparent;
         }
 
-        .listing_sidebar td {
-            font-size: 15px;
+        .custom-btn-listing:hover {
+            background: #7F2149;
+            color: #fff;
         }
 
-        .card-header {
-            background-color: #806132;
-            color: #ffffff;
-            border-radius: 0 !important;
+        /* BOX */
+        .listing-box {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #806132;
         }
 
-        .card.mb-4 {
-            border-radius: 0;
+        .listing-box h4 {
+            color: #7F2149;
+            font-size: 24px;
+            line-height: 1em;
+            margin: 0px -15px 15px -15px;
+            padding: 10px 15px;
+            background: rgba(127, 33, 73, 0.08);
         }
 
-        .single-badge .badge {
-            background-color: #D9D9D9;
-            padding: 14px;
-            color: #333333;
-            border-radius: 1px;
-            font-size: 15px;
+        /* SIDEBAR */
+
+        /* CARD */
+        .sidebar-card {
+            background: #fff;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* Styling for each icon and text */
-
-        .icon-container {
-            cursor: pointer;
-            margin-bottom: 10px;
+        .sidebar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .icon-text {
-            margin-right: 5px;
+        /* IMAGE */
+        .sidebar-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* CONTENT */
+        .sidebar-content {
+            padding: 15px;
+        }
+
+        .sidebar-content h6 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-content p {
             font-size: 16px;
-        }
-
-        .text {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .icon-text,
-        .text {
-            color: #333333;
-        }
-
-        .active {
-            color: #4169E1;
-
-        }
-
-        .total_likes {
-            float: right;
-            font-size: 16px;
-            font-weight: bold;
-            width: 14%;
-            display: block;
+            color: #666;
+            line-height: 0.8;
             margin: 0;
         }
 
-        .total_likes span {
-            color: #4169E1;
+        /* PRICE */
+        .sidebar-price {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
         }
 
-        .buycomment {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        #loading {
-            display: inline-block;
-            cursor: pointer;
-            padding: 10px 20px;
-            background-color: #7F2149;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 16px;
-        }
-
-        #loading:hover {
-            background-color: #806132;
-        }
-
-        .favorite-action button {
-            padding: 8px 20px;
+        .sidebar-price small {
+            display: block;
             font-size: 14px;
-            border-radius: 5px;
+            font-weight: bold;
         }
 
-        .favorite-action i {
-            margin-right: 8px;
+        .sidebar-price strong {
+            font-size: 14px;
+            color: #7F2149;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card-link:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* RESPONSIVE */
+        @media(max-width:768px) {
+            .sticky-sidebar {
+                position: static;
+            }
+        }
+
+        .inquiry-listing {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* Title */
+        .inquiry-title {
+            color: #7f2149;
+            font-weight: 500;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        /* Inputs */
+        .inquiry-input {
+            background: transparent;
+            border: 1px solid #2a3b55;
+            color: #fff;
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .inquiry-input::placeholder {
+            color: #aaa;
+        }
+
+        .inquiry-input:focus {
+            border-color: #806132;
+            box-shadow: none;
+            background: transparent;
+            color: #fff;
+        }
+
+        /* Select dropdown */
+        select.inquiry-input {
+            appearance: none;
+        }
+
+        /* Button */
+        .inquiry-btn {
+            background: #7f2149;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: 600;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .inquiry-btn:hover {
+            background: #806132;
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media(max-width:768px) {
+            .listing-inquiry-section {
+                padding: 40px 15px;
+            }
+        }
+
+
+        #shareModal .modal-dialog {
+            max-width: 600px;
+        }
+
+        #shareModal .modal-content {
+            height: 250px;
+        }
+
+        @media (min-width: 768px) {
+            #shareModal.full-modal .modal-dialog {
+                max-width: 90%;
+            }
+
+            #shareModal.full-modal .modal-content {
+                height: 80vh;
+            }
+        }
+
+        /* Modal container */
+        .custom-modal {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+        }
+
+        /* Header */
+        .modal-header {
+            border-bottom: none;
+        }
+
+        /* Body spacing */
+        .modal-body {
+            padding: 10px 10px;
+        }
+
+        .modal-body .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 8px !important;
+        }
+
+        /* Footer */
+        .modal-footer {
+            border-top: none;
+        }
+
+        /* Select2 styling */
+        .select2-container .select2-selection--single {
+            height: 45px;
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        /* Button hover */
+        .btn-primary {
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .show-inquiry-message {
+            padding-top: 14px;
+            text-align: center;
+        }
+
+        .single-badge .badge {
+            border: 1px solid #7F2149;
+            color: #7F2149;
+            background: transparent;
         }
 
         .tags .badge {
             margin-right: 8px;
         }
+
+        /* like and dislike css */
+        .like-card {
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin: 15px 0px;
+        }
+
+        .like-header {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .like-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .like-btn,
+        .dislike-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .like-btn:hover {
+            background: #e6f4ea;
+            border-color: #7F2149;
+        }
+
+        .dislike-btn:hover {
+            background: #fdecea;
+            border-color: #dc3545;
+        }
+
+        .like-btn.active {
+            background: #7F2149;
+            color: #fff;
+        }
+
+        .dislike-btn.active {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .like-count {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.icon-container').click(function() {
-                var listing_id = $(this).attr('data-listing-id');
-                var like_val = $(this).attr('data-liked');
-                $(this).find('.icon-text, .text').toggleClass('active');
+        $(function() {
+
+            console.log("jQuery version:", $.fn.jquery);
+
+            if (!$.fn.select2) {
+                console.error('❌ Select2 NOT loaded');
+                return;
+            }
+
+            console.log('✅ Select2 loaded successfully');
+
+            $('#buyerSelect').select2({
+                placeholder: 'Search buyer...',
+                minimumInputLength: 2,
+                width: '100%',
+                dropdownParent: $('#shareModal'),
+                ajax: {
+                    url: "{{ route('buyers.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            search: params.term
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data.map(item => ({
+                                id: item.BuyerID,
+                                text: item.BuyerID + ' ' + item.FName + ' ' + item.LName +
+                                    ' (' + item.Email + ')'
+                            }))
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $('#sendShare').on('click', function() {
+
+                let buyer_id = $('#buyerSelect').val();
+                let listing_id = $('#listing_id').val();
+
+                if (!buyer_id) {
+                    Swal.fire('Error', 'Please select buyer', 'warning');
+                    return;
+                }
+                // Show loader
+                $('#btnText').text('Sending...');
+                $('#btnLoader').removeClass('d-none');
+                $('#sendShare').prop('disabled', true);
                 $.ajax({
-                    url: "{{ route('listing.like') }}", // Make sure to update the route
-                    type: 'POST',
+                    url: "{{ route('listing.share') }}",
+                    type: "POST",
                     data: {
-                        _token: "{{ csrf_token() }}", // CSRF token
-                        liked: like_val,
+                        buyer_id: buyer_id,
                         listing_id: listing_id
                     },
-                    success: function(response) {
-                        if (response.success) {
-                            $('.icon-container').attr('data-liked', response.liked);
-                            $('.total_likes span').text(response.like_count);
-                        } else {
-                            alert('Something went wrong. Please try again.');
-                        }
+                    success: function(res) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Email Sent!',
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            location.reload();
+                        });
                     },
-                    error: function(xhr, status, error) {
-                        alert('Something went wrong. Please try again.');
+                    error: function() {
+                        Swal.fire('Error', 'Error sending email', 'error');
                     }
                 });
+
+            });
+
+            document.querySelector("#contactForm").addEventListener("submit", function(e) {
+
+                let isValid = true;
+
+                // Clear all errors
+                document.querySelectorAll(".error").forEach(el => el.innerText = '');
+
+                // Get values
+                let firstName = document.querySelector('[name="first_name"]');
+                let lastName = document.querySelector('[name="last_name"]');
+                let email = document.querySelector('[name="email"]');
+                let phone = document.querySelector('[name="phone"]');
+
+
+                // First Name
+                if (firstName.value.trim() === '') {
+                    document.getElementById('error_first_name').innerText = 'First name is required';
+                    isValid = false;
+                }
+                // Last Name
+                if (lastName.value.trim() === '') {
+                    document.getElementById('error_last_name').innerText = 'Last name is required';
+                    isValid = false;
+                }
+
+                // Email
+                if (email.value.trim() === '') {
+                    document.getElementById('error_email').innerText = 'Email is required';
+                    isValid = false;
+                } else if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+                    document.getElementById('error_email').innerText = 'Enter valid email';
+                    isValid = false;
+                }
+
+                // Phone
+                if (phone.value.trim() === '') {
+                    document.getElementById('error_phone').innerText = 'Phone is required';
+                    isValid = false;
+                } else if (phone.value.length < 8) {
+                    document.getElementById('error_phone').innerText = 'Enter valid phone';
+                    isValid = false;
+                }
+
+
+                if (!isValid) {
+                    e.preventDefault();
+                }
+
+            });
+
+
+            // ✅ Remove error while typing
+            document.querySelectorAll("input, textarea").forEach(input => {
+                input.addEventListener("input", function() {
+                    let errorId = "error_" + this.name;
+                    let errorElement = document.getElementById(errorId);
+
+                    if (errorElement) {
+                        errorElement.innerText = '';
+                    }
+                });
+            });
+
+        });
+    </script>
+    <script>
+        $(document).on('click', '.like-btn, .dislike-btn', function() {
+
+            let parent = $(this).closest('.like-card');
+            let listingId = parent.data('listing-id');
+
+            // determine value (same as old system)
+            let likedVal = $(this).data('type') === 'like' ? 1 : 2;
+
+            $.ajax({
+                url: "{{ route('listing.like') }}", // SAME as old working
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    liked: likedVal, // IMPORTANT: keep same param
+                    listing_id: listingId
+                },
+                success: function(response) {
+
+                    if (response.success) {
+
+                        // update count
+                        parent.find('#likeCount').text(response.like_count);
+
+                        // remove active state
+                        parent.find('.like-btn, .dislike-btn').removeClass('active');
+
+                        // apply active state
+                        if (response.liked == 1) {
+                            parent.find('.like-btn').addClass('active');
+                        } else if (response.liked == 2) {
+                            parent.find('.dislike-btn').addClass('active');
+                        }
+
+                        // update attribute (important for future clicks)
+                        parent.attr('data-liked', response.liked);
+
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                    }
+                },
+                error: function() {
+                    alert('Something went wrong. Please try again.');
+                }
             });
         });
     </script>
@@ -512,20 +928,20 @@
     </script>
     <script>
         $(document).ready(function() {
-            let page = 2; // Start from page 2 since page 1 is already loaded
+            let page = 2;
             var listing_id = <?php echo $listing->ListingID; ?>;
             let loading = false;
 
-            // Listen for the "Loading more comments" button click
-            $('#loading').on('click', function() {
-                // Check if the AJAX request is already in progress
-                if (!loading) {
-                    loading = true; // Set loading flag to true
-                    $('#loading').text('Loading...'); // Change button text to "Loading..."
 
-                    // Load more comments via AJAX
+            $('#loading').on('click', function() {
+
+                if (!loading) {
+                    loading = true;
+                    $('#loading').text('Loading...');
+
+
                     $.ajax({
-                        url: "{{ route('load.more.comments') }}", // Endpoint for loading more comments
+                        url: "{{ route('load.more.comments') }}",
                         type: 'GET',
                         data: {
                             _token: "{{ csrf_token() }}", // CSRF token
@@ -566,6 +982,4 @@
             });
         });
     </script>
-
-
 @endsection

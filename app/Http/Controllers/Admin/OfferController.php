@@ -22,14 +22,17 @@ class OfferController extends Controller
         $offers = Offer::query();
         if ($query) {
             $offers->whereHas('listing', function ($queryBuilder) use ($query) {
-                $queryBuilder->where('SellerCorpName', 'like', '%' . $query . '%');
+                $queryBuilder->where('CorpName', 'like', '%' . $query . '%');
             })
                 ->orWhere('Status', 'like', '%' . $query . '%');
         }
         $offers = $offers->with('listing')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        $company_name = DB::table('listings')->pluck('CorpName', 'ListingID');
+        $company_name = DB::table('listings')
+            ->select('ListingID', DB::raw('COALESCE(NULLIF(CorpName, ""), DBA) as company_name'))
+            ->pluck('company_name', 'ListingID');
+        /* dd($company_name[27372]); */
         return view('admin.offer.index', compact('offers', 'company_name'));
     }
     public function create()

@@ -13,7 +13,7 @@ use App\Models\Activity;
 
 class LeadController extends Controller
 {
-    public function index(Request $request)
+    /*  public function index(Request $request)
     {
         $query = $request->input('query');
         $leads = DB::table('leads');
@@ -34,9 +34,50 @@ class LeadController extends Controller
                 ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%')
                 ->orWhere('lead_status.Status', 'LIKE', '%' . $query . '%');
         }
-        $leads = $leads->orderBy('created_at', 'desc')
+        $leads = $leads->orderBy('LeadID', 'desc')
             ->paginate(10);
-        return view('admin.lead.index', compact('leads', 'categories', 'lead_status','agents'));
+        return view('admin.lead.index', compact('leads', 'categories', 'lead_status', 'agents'));
+    } */
+    public function index(Request $request)
+    {
+        $query = $request->input('query');
+
+
+        $sort = $request->get('sort', 'LeadID'); // default column
+        $direction = $request->get('direction', 'desc'); // default direction
+
+
+        $leads = DB::table('leads')
+            ->leftJoin('categories', 'leads.Category', '=', 'categories.CategoryID')
+            ->leftJoin('lead_status', 'leads.Status', '=', 'lead_status.LeadStatusID')
+            ->select(
+                'leads.*',
+                'categories.BusinessCategory as category_name',
+                'lead_status.Status as status'
+            );
+
+        if ($query) {
+            $leads->where(function ($q) use ($query) {
+                $q->where('leads.SellerFName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('leads.SellerLName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('leads.BusName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('leads.Address', 'LIKE', '%' . $query . '%')
+                    ->orWhere('leads.Phone', 'LIKE', '%' . $query . '%')
+                    ->orWhere('leads.AppointmentDate', 'LIKE', '%' . $query . '%')
+                    ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%')
+                    ->orWhere('lead_status.Status', 'LIKE', '%' . $query . '%');
+            });
+        }
+
+        $leads = $leads->orderBy($sort, $direction)
+            ->paginate(10)
+            ->appends($request->all());
+
+        $categories = DB::table('categories')->pluck('BusinessCategory', 'CategoryID');
+        $lead_status = DB::table('lead_status')->pluck('Status', 'LeadStatusID');
+        $agents = User::with('agent_info')->where('role_name', 'agent')->get();
+
+        return view('admin.lead.index', compact('leads', 'categories', 'lead_status', 'agents'));
     }
     public function create()
     {
@@ -59,7 +100,6 @@ class LeadController extends Controller
             'lastName' => 'required',
             'businessName' => 'required',
             'busPhone' => 'required',
-            'home_phone' => 'required',
             'cellPhone' => 'required',
             'yearInBus' => 'required',
         ]);
@@ -141,7 +181,6 @@ class LeadController extends Controller
             'lastName' => 'required',
             'businessName' => 'required',
             'busPhone' => 'required',
-            'home_phone' => 'required',
             'cellPhone' => 'required',
             'yearInBus' => 'required',
         ]);
@@ -202,7 +241,7 @@ class LeadController extends Controller
         $previous = DB::table('leads')->where('LeadID', '<', $id)->orderBy('LeadID', 'desc')->first();
         // Get the next lead ID
         $next = DB::table('leads')->where('LeadID', '>', $id)->orderBy('LeadID', 'asc')->first();
-        return view('admin.lead.show', compact('lead', 'previous', 'next','activities'));
+        return view('admin.lead.show', compact('lead', 'previous', 'next', 'activities'));
     }
     public function destroy(Request $request, $id)
     {
@@ -240,18 +279,19 @@ class LeadController extends Controller
             ->update([
                 'Status' => $status_val
             ]);
-            Activity::create([
-                'action' => 'Lead status update',
-                'user_id' => $userId,
-                'details' => 'set leads status as ' .  $status->Status . '. Lead IDs: ' . implode(", ", $lead_id),
-            ]);
+        Activity::create([
+            'action' => 'Lead status update',
+            'user_id' => $userId,
+            'details' => 'set leads status as ' .  $status->Status . '. Lead IDs: ' . implode(", ", $lead_id),
+        ]);
         return response()->json(array('message' => 'Lead status has been change successfully!'));
     }
-    public function leadAssign(Request $request){
+    public function leadAssign(Request $request)
+    {
         $agent_id = $request->agent_id;
         $lead_id = $request->lead_id;
         $userId = Auth::id();
-        $agentInfo = Agent::where('AgentID',$agent_id)->first();
+        $agentInfo = Agent::where('AgentID', $agent_id)->first();
         if (!$agentInfo) {
             return response()->json(['error' => 'Invalid agent ID'], 400);
         }
@@ -261,11 +301,11 @@ class LeadController extends Controller
                 'AgentID' => $agent_id,
                 'Status' => 2
             ]);
-            Activity::create([
-                'action' => 'Assign lead to agent',
-                'user_id' => $userId,
-                'details' => 'assign leads to agent, agent name: ' .  $agentInfo->FName . '. Lead ID: ' . $lead_id,
-            ]);
-            return redirect()->back()->with('success', 'Lead assigned to agent successfully');
+        Activity::create([
+            'action' => 'Assign lead to agent',
+            'user_id' => $userId,
+            'details' => 'assign leads to agent, agent name: ' .  $agentInfo->FName . '. Lead ID: ' . $lead_id,
+        ]);
+        return redirect()->back()->with('success', 'Lead assigned to agent successfully');
     }
 }

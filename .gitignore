@@ -17,3 +17,5 @@ server.php
 /.idea
 /.vscode
 /public/assets/uploads/images/
+/public/nda_pdfs/*
+/public/nda_signatures/*

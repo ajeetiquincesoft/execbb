@@ -108,7 +108,7 @@ class SendListingController extends Controller
         <body style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
             <table style="width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
                 <tr>
-                    <td style="text-align: center; background-color: #4CAF50; color: white; padding: 10px;">
+                    <td style="text-align: center; background-color: #7F2149; color: white; padding: 10px;">
                         <h2 style="margin: 0;">Property Listings Just for You</h2>
                     </td>
                 </tr>
@@ -163,7 +163,12 @@ class SendListingController extends Controller
         $query = Buyer::query();
 
         if ($search) {
-            $query->where('Email', 'like', '%' . $search . '%');
+            $query->where(function ($q) use ($search) {
+                $q->where('Email', 'like', '%' . $search . '%')
+                    ->orWhere('FName', 'like', '%' . $search . '%')
+                    ->orWhere('LName', 'like', '%' . $search . '%')
+                    ->orWhereRaw("CONCAT(FName, ' ', LName) LIKE ?", ['%' . $search . '%']);
+            });
         }
 
         $buyers = $query->orderBy('Email')
@@ -176,7 +181,7 @@ class SendListingController extends Controller
         $results = $buyers->take($perPage)->map(function ($buyer) {
             return [
                 'id' => $buyer->Email,
-                'text' => $buyer->Email
+                'text' => $buyer->FName . ' ' . $buyer->LName . ' (' . $buyer->Email . ')'
             ];
         });
 

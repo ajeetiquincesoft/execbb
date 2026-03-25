@@ -74,6 +74,9 @@ use App\Http\Controllers\MortgageCalculatorController;
 use App\Http\Controllers\GlossaryController;
 use App\Http\Controllers\factSheetController;
 use App\Http\Controllers\DownloadNDAFormController;
+use App\Http\Controllers\InquiryController;
+
+
 
 
 
@@ -268,6 +271,9 @@ Route::get('/training', function () {
 Route::get('/message', function () {
   return view('frontend.message');
 })->name('message');
+Route::get('/about-us', function () {
+  return view('frontend.about_us');
+})->name('about.us');
 Route::get('/see-more-categories', function () {
   $subCategories = DB::table('sub_categories')
     ->whereNotNull('CatID')
@@ -275,6 +281,10 @@ Route::get('/see-more-categories', function () {
     ->paginate(50);
   return view('frontend.see_more_categories', compact('subCategories'));
 })->name('see-more-categories');
+
+Route::get('/buyers/search', [BuyerController::class, 'search'])->name('buyers.search');
+Route::post('/listing/share', [ListingController::class, 'share'])->name('listing.share');
+Route::post('/send-inquiry', [InquiryController::class, 'sendInquiry'])->name('send.inquiry');
 
 Route::get('/glossary', [GlossaryController::class, 'index'])->name('glossary');
 Route::get('register/ebb/buyer', [RegisterWithEbbController::class, 'register'])->name('register.ebb.buyer');
@@ -386,7 +396,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   //route for import/export
   Route::get('get/options/{id}', [ListingController::class, 'getOptions'])->name('get.options');
   Route::get('data/import', [ImportCsvController::class, 'getImportFile'])->name('data.import.view');
-  Route::post('data/import', [ImportCsvController::class, 'agentImportCsv'])->name('data.import');
+  Route::post('data/import', [ImportCsvController::class, 'offerImportCsv'])->name('data.import');
   //end route for import/export
   //start route for leads
   Route::get('/lead/all', [LeadController::class, 'index'])->name('all.lead');

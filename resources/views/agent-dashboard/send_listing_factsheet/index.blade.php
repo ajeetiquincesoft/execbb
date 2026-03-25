@@ -34,7 +34,8 @@
                             <select id="listingName" name="listingName[]" class="form-select" multiple>
                                 @foreach ($listings as $key => $listing)
                                     @if (!empty($listing->CorpName))
-                                        <option value="{{ $listing->ListingID }}">{{ $listing->CorpName }}</option>
+                                        <option value="{{ $listing->ListingID }}">{{ $listing->ListingID }} -
+                                            {{ $listing->CorpName }}</option>
                                     @endif
                                 @endforeach
                             </select>

@@ -20,7 +20,7 @@
             
             <p>Your account details are as follows:</p>
             <ul>
-                <li><strong>Username:</strong> {{ $data['email'] }}</li>
+                <li><strong>Username:</strong> {{ $data['nda_email'] }}</li>
                 <li><strong>Password:</strong> {{ isset($data['firstName']) ? $data['firstName'] : (isset($data['first_name']) ? $data['first_name'] : 'Guest') }}@123</li>
             </ul>
             <p>Here are some quick tips to get you started:</p>
