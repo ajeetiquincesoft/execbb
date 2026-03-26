@@ -835,7 +835,7 @@
                     }
 
                 },
-                ignore: ":hidden",
+                ignore: ":disabled",
                 messages: {
                     home_phone: {
                         required: 'Phone number is required.',
