@@ -131,6 +131,17 @@ class RegisterWithEbbController extends Controller
             $step = session('step', 1);
             //$this->validateStep($request, $step);
             if ($step == 1) {
+                $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                    'secret' => config('services.recaptcha.secret_key'),
+                    'response' => $request->recaptcha_token,
+                    'remoteip' => $request->ip(),
+                ]);
+
+                $result = $response->json();
+
+                if (!($result['success'] ?? false) || ($result['score'] ?? 0) < 0.5) {
+                    return back()->with('error', 'reCAPTCHA failed. Try again.');
+                }
                 // Check if already registered
                 $existingUser = User::where('email', $request->nda_email)
                     ->where('role_name', 'buyer')
@@ -188,13 +199,11 @@ class RegisterWithEbbController extends Controller
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
                     'agent' => $request->agent,
-                    'BDate' => $request->BDate,
                     'address' => $request->address,
                     'city' => $request->city,
                     'state' => $request->state,
                     'zip' => $request->zip,
                     'county' => $request->county,
-                    'business_phone' => $request->business_phone,
                     'callWhen' => $request->callWhen,
                 ]);
 
@@ -247,8 +256,7 @@ class RegisterWithEbbController extends Controller
                     $buyer->State = $data['state'] ?? null;
                     $buyer->Zip = $data['zip'] ?? null;
                     $buyer->County = $data['county'] ?? null;
-                    $buyer->HomePhone = $data['home_phone'] ?? null;
-                    $buyer->BusPhone = $data['business_phone'] ?? null;
+                    $buyer->HomePhone = $data['nda_cell_phone'] ?? null;
                     $buyer->Email = $data['nda_email'] ?? null;
                     $buyer->TypeBus = $data['TypeBus'] ?? null;
                     $buyer->Interest = $data['Interest'] ?? 0;
@@ -328,11 +336,11 @@ class RegisterWithEbbController extends Controller
                 }
             }
 
-            // Update step in session if necessary
-            if ($request->has('previous')) {
+            $action = $request->input('action_type');
+
+            if ($action === 'previous') {
                 $step = $step - 1;
-            }
-            if ($request->has('next')) {
+            } else {
                 $step = $step + 1;
             }
 

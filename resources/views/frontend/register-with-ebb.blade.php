@@ -25,6 +25,8 @@
                         <form method="POST" action="{{ route('store.register.with.ebb', request()->query()) }}"
                             id="registerEbb">
                             @csrf
+                            <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+                            <input type="hidden" name="action_type" id="action_type">
                             <input type="hidden" name="step" id="currentStep" value="{{ session('step', 1) }}">
                             @if (session('step', 1) == 1)
                                 <div class="form-multi-tab">
@@ -659,7 +661,7 @@
                                 style="overflow:auto; flex-direction: row; gap: 10px;">
                                 <!-- Previous button -->
                                 @if (session('step', 1) > 1)
-                                    <button type="submit" name="previous" class="btn bg-5a102a text-white btn-block"
+                                    <button type="button" name="previous" class="btn bg-5a102a text-white btn-block"
                                         id="prevBtn" style="height: 50px; width: 35%;">Previous</button>
                                 @endif
 
@@ -737,6 +739,7 @@
             margin-bottom: 15px;
         }
     </style>
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -832,7 +835,7 @@
                     }
 
                 },
-                ignore: ":disabled",
+                ignore: ":hidden",
                 messages: {
                     home_phone: {
                         required: 'Phone number is required.',
@@ -856,22 +859,83 @@
                         error.insertAfter(element); // Default placement for other fields
                     }
                 },
-                submitHandler: function(form) {
-                    form.submit();
-                }
-            });
-            $('#nextBtn').on('click', function(event) {
-                if (form.valid()) {
-                    form.submit();
-                } else {
-                    event.preventDefault();
-                }
-            });
+                submitHandler: function(form, event) {
 
-            // Handle the Previous button click event
-            $('#prevBtn').on('click', function(event) {
-                form.unbind('submit');
-                form.submit();
+                    let currentStep = $('#currentStep').val();
+                    let clickedBtn = $(document.activeElement).attr('name');
+
+                    console.log("Step:", currentStep);
+                    console.log("Clicked:", clickedBtn);
+
+
+                    if (clickedBtn === 'previous') {
+                        HTMLFormElement.prototype.submit.call(form);
+                        return false;
+                    }
+
+
+                    if (currentStep == 1 && clickedBtn === 'next') {
+
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute("{{ config('services.recaptcha.site_key') }}", {
+                                action: 'step1'
+                            }).then(function(token) {
+
+                                $('#recaptcha_token').val(token);
+                                $('#action_type').val('next'); // track action
+
+                                HTMLFormElement.prototype.submit.call(form);
+                            });
+                        });
+
+                        return false;
+                    }
+                    if (currentStep == 3 && clickedBtn === 'next') {
+
+                        let $btn = $('button[name="next"]');
+
+                        // Prevent double click
+                        if ($btn.hasClass('processing')) {
+                            return false;
+                        }
+
+                        // Add processing state
+                        $btn.addClass('processing');
+                        $btn.prop('disabled', true);
+
+                        // Change button UI
+                        $btn.html(`
+        <span class="spinner-border spinner-border-sm"></span>
+        Processing...
+    `);
+
+                        // Optional: disable all buttons
+                        $('button').prop('disabled', true);
+
+                        // Submit form
+                        HTMLFormElement.prototype.submit.call(form);
+
+                        return false;
+                    }
+
+                    HTMLFormElement.prototype.submit.call(form);
+                }
+            });
+            $('#prevBtn').on('click', function(e) {
+                e.preventDefault();
+
+                if ($('#action_type').length === 0) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        id: 'action_type',
+                        name: 'action_type',
+                        value: 'previous'
+                    }).appendTo(form);
+                } else {
+                    $('#action_type').val('previous');
+                }
+
+                HTMLFormElement.prototype.submit.call(form[0]);
             });
             // Handle the Set button click
             $('#set-btn').on('click', function(event) {
