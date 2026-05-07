@@ -32,13 +32,12 @@
                         @endphp
 
                         @if (!empty($agent->image) && file_exists($imagePath))
-                            @if (!empty($agent->image))
-                                <img src="{{ asset('assets/uploads/images/' . $agent->image) }}"
-                                    alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent_profile_image">
-                            @else
-                                <img src="{{ asset('assets/images/avatar.png') }}"
-                                    alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent_profile_image">
-                            @endif
+                            <img src="{{ asset('assets/uploads/images/' . $agent->image) }}"
+                                alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent_profile_image">
+                        @else
+                            <img src="{{ asset('assets/images/avatar.png') }}" alt="{{ $agent->FName }} {{ $agent->LName }}"
+                                class="agent_profile_image">
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-8">
