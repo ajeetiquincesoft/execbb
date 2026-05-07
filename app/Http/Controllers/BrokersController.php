@@ -20,7 +20,12 @@ class BrokersController extends Controller
             $saveSearch->search_for = 'agent';
             $saveSearch->save();
         }
-        $agents = Agent::where('Active', 1);
+        /*  $agents = Agent::where('Active', 1); */
+        $agents = Agent::where('Active', 1)
+            ->whereHas('user', function ($q) {
+                // If using soft delete in users table
+                $q->whereNull('deleted_at');
+            });
         if ($query) {
             // Split the query by space to separate first name and last name
             $nameParts = explode(' ', $query);
