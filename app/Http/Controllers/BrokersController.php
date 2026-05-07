@@ -22,7 +22,7 @@ class BrokersController extends Controller
         }
         /*  $agents = Agent::where('Active', 1); */
         $agents = Agent::where('Active', 1)
-            ->whereHas('user', function ($q) {
+            ->whereHas('User', function ($q) {
                 // If using soft delete in users table
                 $q->whereNull('deleted_at');
             });
