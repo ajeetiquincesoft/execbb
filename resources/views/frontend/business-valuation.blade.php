@@ -35,7 +35,9 @@
                             the marketplace. Because each business has a different model and set of circumstances, we
                             believe the SDC model rewards business with higher profits.</p>
                         <p>While multiples vary from industry to industry, they generally fall into the 1X – 4X the <a
-                                href="#" style="color: #7F2149; text-decoration: underline;"> Sellers Discretionary
+                                href="{{ route('glossary', ['flag' => 's']) }}"
+                                style="color: #7F2149; text-decoration: underline;"> Sellers
+                                Discretionary
                                 Cash</a> (SDC) plus the depreciated value of the fixtures and equipment and the wholesale
                             value of the saleable inventory.</p>
                         <p><a href="{{ route('contact.us') }}" style="color: #7F2149; text-decoration: underline;">Ask EBB

@@ -22,8 +22,7 @@
                 <h1 class="Contact-text">Contact Information</h1>
                 <div class="text-muted">
                     <p class="text-muted">
-                        Sign up now to list your business exclusively with Executive Business Brokers <br>
-                        or <a href="#" class="link-styled">print out our agreement</a>.
+                        Sign up now to list your business exclusively with Executive Business Brokers.
                     </p>
                 </div>
                 <form>

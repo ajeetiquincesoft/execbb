@@ -27,7 +27,7 @@
                         <h3 class="section-heading">Driving the American Dream, Our Business is Selling Businesses</h3>
                         <p>I have always had a great respect and admiration for the drive, determination and risk in which
                             business owners take on in the pursuit of independence. I first saw this entrepreneurial spirit
-                            in my parents, who have owned and operated a small business for over 35 years.</p>
+                            in my parents, who have owned and operated a small business for over 40+ years.</p>
                         <p>At Executive Business Brokers (EBB) we believe in this spirit. It is what makes our country so
                             great, and we are proud and honored to have helped so many entrepreneurs realize their dream.
                             Since 1985, EBB has been recognized for our commitment to excellence in the representation of

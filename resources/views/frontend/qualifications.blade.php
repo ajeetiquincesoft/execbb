@@ -41,7 +41,7 @@
                             derive a sense of achievement out
                             of helping others solve problems.</p>
                         <p class="join_us_p">If you believe you fit the profile of a business broker, we encourage you to <a
-                                href="#" class="sellorgive">send us your résumé</a> or <a
+                                href="mailto:sales@execbb.com" class="sellorgive">send us your résumé</a> or <a
                                 href="{{ route('contact.us') }}" class="sellorgive">contact us</a>.</p>
                     </div>
                 </div>

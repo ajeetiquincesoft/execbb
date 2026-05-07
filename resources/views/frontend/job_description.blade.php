@@ -30,8 +30,7 @@
                             their own reason for buying or selling a business. A buyer’s motivation may be financial
                             freedom, flexibility or empowerment, while a seller could be retiring, have fallen ill or
                             experienced a breakup in their marriage or their business partnership.</p>
-                        <p class="join_us_p"><a href="https://www.finetimepieces.net/" class="sellorgive">replica
-                                watches</a> It is the role of the business broker to help these individuals experience a
+                        <p class="join_us_p">It is the role of the business broker to help these individuals experience a
                             smooth transfer of ownership. As an intermediary, they identify the businesses for sale in a
                             marketing area and enter into listing agreements with sellers. In addition, business brokers
                             help buyers find the businesses that meet their requirements, then help them make an informed
@@ -41,8 +40,7 @@
                             For this service, a <a href="{{ route('compensation') }}" class="sellorgive">broker’s fee</a> is
                             paid by the seller of the business upon closing on the transaction.</p>
                         <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker,
-                            <a href="https://www.finetimepieces.net/breitling.html" class="sellorgive">Breitling Replica
-                                Watches</a> we encourage you to <a href="#" class="sellorgive">send us your résumé</a>
+                            we encourage you to <a href="mailto:sales@execbb.com" class="sellorgive">send us your résumé</a>
                             or <a href="{{ route('contact.us') }}" class="sellorgive">contact us</a>.
                         </p>
                     </div>

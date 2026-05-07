@@ -48,7 +48,7 @@
                         <div class="container my-5">
                             <div class="row g-4">
                                 <div class="col-12 col-md-4">
-                                    <a href="https://www.amazon.com/exec/obidos/ASIN/1558507027/executivebu0f-20"><img
+                                    <a href="https://www.amazon.com/exec/obidos/ASIN/1598697056/executivebu0f-20"><img
                                             src="{{ asset('assets/images/image_4.jpg') }}" alt="Image 1"
                                             class="buyer_resource_img"></a>
                                 </div>
@@ -79,17 +79,18 @@
                             </div>
                         </div>
                         <h3 class="section-heading">Government Agencies </h3>
-                        <p><a href="https://www.nj.gov/treasury/revenue/dcr/geninfo/corpman.html"
+                        <p><a href="https://www.njportal.com/dor/faxfiling"
                                 style="color: #7F2149; text-decoration: underline;">NJ Business Entity Filings</a></p>
-                        <p><a href="https://www.nj.gov/commerce/" style="color: #7F2149; text-decoration: underline;">NJ
+                        <p><a href="https://nj.gov/state/dos-business-development.shtml"
+                                style="color: #7F2149; text-decoration: underline;">NJ
                                 Department of Commerce</a></p>
                         <p><a href="https://www.nj.gov/treasury/revenue/"
                                 style="color: #7F2149; text-decoration: underline;">NJ Division of Revenue</a></p>
                         <p><a href="https://www.ftc.gov/" style="color: #7F2149; text-decoration: underline;">Federal Trade
                                 Commission</a></p>
-                        <p><a href="http://www.irs.ustreas.gov/" style="color: #7F2149; text-decoration: underline;">IRS</a>
+                        <p><a href="https://www.irs.gov/" style="color: #7F2149; text-decoration: underline;">IRS</a>
                         </p>
-                        <p><a href="http://www.sbaonline.sba.gov/" style="color: #7F2149; text-decoration: underline;">Small
+                        <p><a href="https://www.sba.gov/" style="color: #7F2149; text-decoration: underline;">Small
                                 Business Administration
                             </a></p>
                     </div>

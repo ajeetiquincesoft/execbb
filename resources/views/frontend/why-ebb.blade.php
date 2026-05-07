@@ -34,7 +34,8 @@
                             various professionals involved and help accountants and attorneys address the various issues
                             involved with the sale..</p>
                         <h3 class="section-heading mt-5">EBB Locates the Right Buyers</h3>
-                        <p>Our aggressive <a href="#" class="sellorgive">multi-level marketing</a> effort that
+                        <p>Our aggressive <a href="{{ route('multimarketing') }}" class="sellorgive">multi-level
+                                marketing</a> effort that
                             includes direct mail, advertising, networking and the Internet draws buyers. Through our
                             screening process we qualify them by determining their intent, requirements and financial
                             resources. <span>ALL prospective buyers sign a confidentiality and non-disclosure agreements

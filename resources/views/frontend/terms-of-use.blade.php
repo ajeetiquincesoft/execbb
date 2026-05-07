@@ -30,8 +30,8 @@
                         conditions set forth below.</p>
 
                     <p class="faq_answer">Please read this Agreement carefully before accessing or using the Service. By
-                        accessing or using the Service, <a href="https://www.perfake.me/" class="sellorgive">replica
-                            watches</a> you agree to be bound by the terms and conditions set forth below. If you do not
+                        accessing or using the Service, you agree to be bound by the terms and conditions set forth below.
+                        If you do not
                         wish to be bound by these terms and conditions, you may not access or use the Service. EBB may
                         modify this Agreement at any time, and such modifications shall be effective immediately upon
                         posting of the modified Agreement. You agree to review the Agreement periodically to be aware of

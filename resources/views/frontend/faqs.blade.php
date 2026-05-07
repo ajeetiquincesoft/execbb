@@ -231,8 +231,9 @@
                                         <p class="faq_answer">Due diligence is an important step that involves close
                                             examination of public and proprietary information related to the assets and
                                             liabilities of the business being purchased. It covers background, finance,
-                                            human resources, tax and legal matters. EBB has a <a href="#"
-                                                class="sellorgive">due diligence check list</a>.</p>
+                                            human resources, tax and legal matters. EBB has a <a
+                                                href="{{ asset('pdfs/W2_Items_Due_Diligence_R.pdf') }}" class="sellorgive"
+                                                target="_blank">due diligence check list</a>.</p>
                                     </div>
                                 </div>
                             </div>
@@ -291,8 +292,10 @@
                                             several types of third party lending including commercial lending, asset-based
                                             lenders and seller financing. With seller financing, the seller takes back a
                                             promissory note for part of the value of the company. We recommend you consult
-                                            with an <a href="#" class="sellorgive">SBA</a> specialist or one of our
-                                            <a href="#" class="sellorgive">financing experts</a> to help you decide
+                                            with an <a href="https://www.sba.gov/" class="sellorgive">SBA</a> specialist
+                                            or one of our
+                                            <a href="{{ route('financing') }}" class="sellorgive">financing experts</a> to
+                                            help you decide
                                             the best course of action for you.
                                         </p>
                                     </div>
@@ -444,8 +447,9 @@
                                     data-bs-parent="#accordionExample3">
                                     <div class="accordion-body">
                                         <p class="faq_answer">Valuing a business is not an exact science and is very
-                                            subjective. We use a multiple of the <a href=""
-                                                class="sellorgive">seller’s discretionary cash</a> (SDC) plus the fixed
+                                            subjective. We use a multiple of the <a
+                                                href="{{ route('business.valuation') }}" class="sellorgive">seller’s
+                                                discretionary cash</a> (SDC) plus the fixed
                                             assets to determine a business’ worth in the marketplace.</p>
                                     </div>
                                 </div>

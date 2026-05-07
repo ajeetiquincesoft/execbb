@@ -72,7 +72,7 @@
             </div>
             <div class="List_with_EBB">
                 <!-- Button -->
-                <a href="#" class="btn-custom">List With EBB</a>
+                <a href="{{ route('contact.us') }}" class="btn-custom">List With EBB</a>
             </div>
         </div>
     </div>

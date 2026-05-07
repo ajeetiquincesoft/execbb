@@ -32,7 +32,8 @@
                         <p class="join_us_p">EBB actively looks for better ways to serve the small business community. If
                             you are an attorney, accountant, insurance broker, business association or Chamber of Commerce
                             that would not have a conflict in referring business to us, we encourage you to <a
-                                href="#" class="sellorgive">contact us </a> to set up a strategic alliance.</p>
+                                href="{{ route('contact.us') }}" class="sellorgive">contact us </a> to set up a strategic
+                            alliance.</p>
                     </div>
                 </div>
                 <!-- Side Panel -->

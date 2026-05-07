@@ -189,7 +189,9 @@
                     <span class="contect-add">Phone</span>
                     <ul class="list-unstyled tips-list">
                         <li>
-                            <span class="text"></span> T: 908.851.9040 <br>F: 908.851.9066
+                            <span class="text"></span>
+                            T: <a href="tel:9088519040">908.851.9040</a> <br>
+                            F: <a href="tel:9088519066">908.851.9066</a>
                         </li>
                     </ul>
                 </div>
@@ -298,6 +300,12 @@
 
         /* Tips Section */
         .tips-list {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .tips-list a {
             font-size: 0.95rem;
             line-height: 1.8;
             color: #555;

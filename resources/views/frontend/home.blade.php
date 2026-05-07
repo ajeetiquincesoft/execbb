@@ -46,19 +46,20 @@
         <div class="container prefect_bus">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-3 border-right px-5">
-                    <h5>The Perfect Business Opportunity</h5>
+                    <h5>Invest In A Sure Thing</h5>
+                    <p>"YOURSELF"</p>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 border-right px-5">
-                    <h5>Largest Marketplace of Sellers</h5>
-                    <p>50,000+ Businesses Listed</p>
+                    <h5>Selling Businesses Since 1985</h5>
+                    <p>1,000's BUSINESSES SOLD</p>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 border-right px-5">
-                    <h5>Extensive Buyer Network</h5>
-                    <p>50k+ Successful Sales</p>
+                    <h5>Registered Buyers</h5>
+                    <p>100,000 REGISTERED BUYERS</p>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 px-5">
-                    <h5>Highest Visitor Volume</h5>
-                    <p>12m Monthly Page Views</p>
+                    <h5>Business Marketplace</h5>
+                    <p>100+/-BUSINESSES FOR SALE</p>
                 </div>
             </div>
         </div>
@@ -117,10 +118,10 @@
                                     alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                         @endif
                         <div class="card-body text-center">
-                            <a href="{{ route('view.business.listing', $listing->ListingID) }}"
+                            {{--   <a href="{{ route('view.business.listing', $listing->ListingID) }}"
                                 class="home_business_listing">
                                 <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
-                            </a>
+                            </a> --}}
                             <p class="card-text mb-0">Business Type: {{ $listing->BusType }}</p>
                             <p class="card-text mb-0">Business Category: {{ getSubCategoryName($listing->SubCat) }}</p>
                             <p class="card-text mb-0">County / State: {{ $listing->County . ', ' . $listing->State }}</p>
@@ -170,8 +171,7 @@
                                         alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent-image"></a>
                             @endif
                             <div class="leading_agent">
-                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}"
-                                    target="_blank">
+                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}" target="_blank">
                                     <h5 class="mb-1">{{ ucfirst($agent->FName) }} {{ ucfirst($agent->LName) }}</h5>
                                 </a>
                                 <p class="mb-0">{{ $limitedComment }}</p>
@@ -372,7 +372,7 @@
                         Our consultative approach to buying and selling makes selling a business easier.
                     </p>
                     <div class="why_ebb_btn">
-                        <a href="#" class="btn learn-more-btn">Learn More</a>
+                        <a href="{{ route('about.us') }}" class="btn learn-more-btn">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -398,7 +398,7 @@
                     <div class="custom-card">
                         <div class="number-badge">01</div>
                         <h5 class="card-title">Confidentiality Agreement</h5>
-                        <a href="#" class="example-link">Example &rarr;</a>
+                        <a href="{{ route('contact.us') }}" class="example-link">Contact Us &rarr;</a>
                     </div>
                 </div>
 
@@ -407,7 +407,7 @@
                     <div class="custom-card">
                         <div class="number-badge">02</div>
                         <h5 class="card-title">Preliminary Negotiations/Letter of Intent</h5>
-                        <a href="#" class="example-link">Example &rarr;</a>
+                        <a href="{{ route('contact.us') }}" class="example-link">Contact Us &rarr;</a>
                     </div>
                 </div>
 
@@ -416,7 +416,7 @@
                     <div class="custom-card">
                         <div class="number-badge">03</div>
                         <h5 class="card-title">Due Diligence</h5>
-                        <a href="#" class="example-link">Example &rarr;</a>
+                        <a href="{{ route('contact.us') }}" class="example-link">Contact Us &rarr;</a>
                     </div>
                 </div>
 
@@ -425,7 +425,7 @@
                     <div class="custom-card">
                         <div class="number-badge">04</div>
                         <h5 class="card-title">Negotiation/ Definitive Acquisition Agreement</h5>
-                        <a href="#" class="example-link">Example &rarr;</a>
+                        <a href="{{ route('contact.us') }}" class="example-link">Contact Us &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -677,6 +677,7 @@
 
         .prefect_bus h5 {
             line-height: 30px;
+            font-size: 18px;
         }
 
         .home_business_listing {

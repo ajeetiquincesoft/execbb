@@ -45,8 +45,8 @@
                                 href="{{ route('training') }}" class="sellorgive">comprehensive training program</a> that
                             will support your efforts and teach you proven methods designed to ensure your success.</p>
                         <p class="join_us_p">If you are interested in talking to us about becoming an EBB business broker,
-                            we encourage you to <a href="#" class="sellorgive">send us your résumé</a> or <a
-                                href="{{ route('contact.us') }}" class="sellorgive">contact us</a>.</p>
+                            we encourage you to <a href="mailto:sales@execbb.com" class="sellorgive">send us your résumé</a>
+                            or <a href="{{ route('contact.us') }}" class="sellorgive">contact us</a>.</p>
                     </div>
                 </div>
                 <!-- Side Panel -->
