@@ -27,13 +27,18 @@
                 <div class="col-md-4">
                     <div class="ag_img">
                         <!-- <img src="{{ asset('assets/images/howard_goldberg_01.png') }}" alt="agent_image" class="agent_profile_image" /> -->
-                        @if (!empty($agent->image))
-                            <img src="{{ asset('assets/uploads/images/' . $agent->image) }}"
-                                alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent_profile_image">
-                        @else
-                            <img src="{{ asset('assets/images/avatar.png') }}" alt="{{ $agent->FName }} {{ $agent->LName }}"
-                                class="agent_profile_image">
-                        @endif
+                        @php
+                            $imagePath = public_path('assets/uploads/images/' . $agent->image);
+                        @endphp
+
+                        @if (!empty($agent->image) && file_exists($imagePath))
+                            @if (!empty($agent->image))
+                                <img src="{{ asset('assets/uploads/images/' . $agent->image) }}"
+                                    alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent_profile_image">
+                            @else
+                                <img src="{{ asset('assets/images/avatar.png') }}"
+                                    alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent_profile_image">
+                            @endif
                     </div>
                 </div>
                 <div class="col-md-8">
