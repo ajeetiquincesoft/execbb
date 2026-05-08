@@ -272,11 +272,26 @@ function categoryDelete(customId) {
         confirmButtonText: "Yes, delete it!",
     }).then((result) => {
         if (result.isConfirmed) {
-            // Submit the form for deletion
             document.getElementById("delete-category-" + customId).submit();
         }
     });
 }
+function subCategoryDelete(customId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "This action cannot be undone!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#5e0f2f",
+        cancelButtonColor: "#93744b",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById("delete-sub-category-" + customId).submit();
+        }
+    });
+}
+
 function referralTypeDelete(customId) {
     Swal.fire({
         title: "Are you sure?",
@@ -379,14 +394,14 @@ $(document).ready(function () {
     const toggleCollapse = () => {
         // Get the active navigation item
         const activeItem = document.querySelector(
-            "#collapsetwo .acc-list .nav-item.activenavitem"
+            "#collapsetwo .acc-list .nav-item.activenavitem",
         );
         const activeItemOne = document.querySelector(
-            "#collapseOne .acc-list .nav-item.activenavitem"
+            "#collapseOne .acc-list .nav-item.activenavitem",
         );
         console.log(activeItem, "test");
         const collapseElements = document.querySelectorAll(
-            ".accordion-collapse.collapse"
+            ".accordion-collapse.collapse",
         ); // Select all collapse elements
         collapseElements.forEach((collapseElement) => {
             const collapseId = collapseElement.id;

@@ -110,6 +110,7 @@ class RegisterWithEbbController extends Controller
         )
             ->join('agents', 'agents.AgentUserRegisterId', '=', 'users.id')
             ->where('users.role_name', 'agent')
+            ->whereNull('users.deleted_at')
             ->where('agents.Active', 1)
             ->orderBy('agents.FName', 'asc')
             ->get();

@@ -48,7 +48,14 @@ class BuyerController extends Controller
         $states = DB::table('states')->get();
         $counties = DB::table('counties')->get();
         $sub_categories = DB::table('sub_categories')->get();
-        $agents = User::with('agent_info')->where('role_name', 'agent')->get();
+
+        $agents = User::with('agent_info')
+            ->where('role_name', 'agent')
+            ->whereNull('deleted_at')
+            ->whereHas('agent_info', function ($q) {
+                $q->where('Active', 1);
+            })
+            ->get();
         return view('admin.buyer.create', compact('step', 'buyerData', 'categoryData', 'states', 'sub_categories', 'counties', 'agents'));
     }
     // Process the form data and move to the next step
@@ -238,7 +245,13 @@ class BuyerController extends Controller
         $states = DB::table('states')->get();
         $counties = DB::table('counties')->get();
         $sub_categories = DB::table('sub_categories')->get();
-        $agents = User::with('agent_info')->where('role_name', 'agent')->get();
+        $agents = User::with('agent_info')
+            ->where('role_name', 'agent')
+            ->whereNull('deleted_at')
+            ->whereHas('agent_info', function ($q) {
+                $q->where('Active', 1);
+            })
+            ->get();
 
         return view('admin.buyer.edit', compact('step', 'buyerDatas', 'buyerData', 'categoryData', 'states', 'sub_categories', 'counties', 'agents'));
     }

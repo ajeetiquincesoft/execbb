@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ReferralController;
 use App\Http\Controllers\Admin\ShowingController;
 use App\Http\Controllers\Admin\LoginActivityController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ReferralTypeController;
 use App\Http\Controllers\Admin\ContactTypeController;
 use App\Http\Controllers\Admin\ProbMatchController;
@@ -335,6 +336,15 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::put('update/categories/{id}', [CategoriesController::class, 'updateCategory'])->name('update.categories');
   Route::delete('/categories/{id}', [CategoriesController::class, 'destroy'])->name('category.destroy');
   //Route for category end
+
+  //Route for sub category start
+  Route::get('sub-categories', [SubCategoryController::class, 'index'])->name('sub-categories');
+  Route::get('create/sub/categories', [SubCategoryController::class, 'create'])->name('create.sub.category');
+  Route::post('store/sub/categories', [SubCategoryController::class, 'store'])->name('store.sub.category');
+  Route::get('edit/sub/categories/{id}', [SubCategoryController::class, 'editCategory'])->name('edit.sub.categories');
+  Route::put('update/sub/categories/{id}', [SubCategoryController::class, 'updateCategory'])->name('update.sub.category');
+  Route::delete('/sub-categories/{id}', [SubCategoryController::class, 'destroy'])->name('sub.category.destroy');
+  //Route for sub category end
   //Route for agents start
   Route::get('/agent/list', [AgentController::class, 'index'])->name('list.agent');
   Route::get('create/agent', [AgentController::class, 'create'])->name('create.agent');
