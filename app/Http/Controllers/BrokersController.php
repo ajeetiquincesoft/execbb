@@ -51,7 +51,9 @@ class BrokersController extends Controller
     public function brokerProfile($id)
     {
         $agent = Agent::where('AgentUserRegisterId', $id)->first();
-        $agents = Agent::where('AgentUserRegisterId', '!=', $id)->where('Active', 1)->orderBy('created_at', 'desc')->limit(3)->get();
+        $agents = Agent::where('AgentUserRegisterId', '!=', $id)->where('Active', 1)->whereHas('User', function ($q) {
+            $q->whereNull('deleted_at');
+        })->orderBy('created_at', 'desc')->limit(3)->get();
         return view('frontend.business-agent-profile', compact('agent', 'agents'));
     }
 }
