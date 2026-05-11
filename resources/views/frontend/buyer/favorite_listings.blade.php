@@ -26,7 +26,7 @@
                                     method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-heart-broken"></i> Remove from Favorites
+                                        <i class="fas fa-heart-broken"></i> Remove from Favourites
                                     </button>
                                 </form>
 

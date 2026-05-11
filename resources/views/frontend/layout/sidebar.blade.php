@@ -11,10 +11,11 @@
         <!--  <li>
             <a href="#"><i class="fa fa-shopping-cart"></i> My Orders</a>
         </li> -->
+
         <li>
-            <a href="{{ route('buyer.save.search') }}"
-                class="{{ Route::currentRouteName() == 'buyer.save.search' ? 'active' : '' }}"><i
-                    class="fa fa-search"></i> Save Searches</a>
+            <a href="{{ route('business.listings') }}"
+                class="{{ Route::currentRouteName() == 'business.listings' ? 'active' : '' }}" target="_blank"><i
+                    class="fa fa-search"></i> Listing Search</a>
         </li>
         <li>
             <a href="{{ route('buyer.favorite.listings') }}"
@@ -22,9 +23,9 @@
                     class="fa fa-heart"></i> Favourites</a>
         </li>
         <li>
-            <a href="{{ route('business.listings') }}"
-                class="{{ Route::currentRouteName() == 'business.listings' ? 'active' : '' }}" target="_blank"><i
-                    class="fa fa-search"></i> Listing Search</a>
+            <a href="{{ route('buyer.save.search') }}"
+                class="{{ Route::currentRouteName() == 'buyer.save.search' ? 'active' : '' }}"><i
+                    class="fa fa-search"></i> Save</a>
         </li>
         <li>
             <a href="{{ route('buyer.all.message') }}"
