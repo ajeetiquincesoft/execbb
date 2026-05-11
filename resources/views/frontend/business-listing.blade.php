@@ -86,10 +86,10 @@
                                             class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
                                 @endif
                                 <div class="card-body text-center">
-                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}" target="_blank">
+                                    {{--  <a href="{{ route('view.business.listing', $listing->ListingID) }}" target="_blank">
                                         <h5 class="card-title card-title-slider">{{ $listing->City }},
                                             {{ $listing->State }}</h5>
-                                    </a>
+                                    </a> --}}
                                     <p class="card-text mb-0">Business Type: {{ $listing->BusType }}</p>
                                     <p class="card-text mb-0">Business Category: {{ getSubCategoryName($listing->SubCat) }}
                                     </p>
