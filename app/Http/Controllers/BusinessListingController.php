@@ -36,10 +36,22 @@ class BusinessListingController extends Controller
         $listings = Listing::query();
 
         // Apply search query filter
-        if ($query) {
+        /*   if ($query) {
             $listings = $listings->where(function ($queryBuilder) use ($query) {
                 $queryBuilder->where('City', 'LIKE', '%' . $query . '%');
             });
+        } */
+        if ($query) {
+
+            $listings = $listings->leftJoin('categories', 'listings.BusCategory', '=', 'categories.CategoryID')
+
+                ->where(function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('listings.City', 'LIKE', '%' . $query . '%')
+                        ->orWhere('listings.BusType', 'LIKE', '%' . $query . '%')
+                        ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%');
+                })
+
+                ->select('listings.*');
         }
 
         // Apply industry filter if set

@@ -18,4 +18,8 @@ class Listing extends Model
     {
         return $this->hasMany(BuyerComment::class, 'ListingID');
     }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'BusinessCategory');
+    }
 }
