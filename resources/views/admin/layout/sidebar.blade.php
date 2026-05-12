@@ -84,6 +84,12 @@
                                 <a class="nav-link" data-name="Messages" data-url="#"
                                     href="{{ route('send.message') }}">Messages</a>
                             </li>
+
+                            <li class="nav-item {{ request()->routeIs('share.listing') ? 'activenavitem' : '' }}">
+                                <img src="{{ url('assets/images/Listing.png') }}">
+                                <a class="nav-link" data-name="sendListing" data-url="#"
+                                    href="{{ route('share.listing') }}">Share Listing</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -102,9 +108,7 @@
                                     class="nav-link-dropdown" href="{{ route('reports') }}">Reports</a></li>
                             <li class="nav-item {{ request()->routeIs('email.buyer') ? 'activenavitem' : '' }}"><a
                                     class="nav-link-dropdown" href="{{ route('email.buyer') }}">Email Buyer</a></li>
-                            <li class="nav-item {{ request()->routeIs('share.listing') ? 'activenavitem' : '' }}"><a
-                                    class="nav-link-dropdown" href="{{ route('share.listing') }}">Share Listing</a>
-                            </li>
+
                             <li
                                 class="nav-item {{ request()->routeIs('download.activities') ? 'activenavitem' : '' }}">
                                 <a class="nav-link-dropdown" href="{{ route('download.activities') }}">Download
