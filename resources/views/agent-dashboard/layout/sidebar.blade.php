@@ -61,6 +61,12 @@
                                 <img src="{{ url('assets/images/Showings.png') }}"> <a class="nav-link"
                                     href="{{ route('agent.all.showing.agent') }}">Showings</a>
                             </li>
+                            <li
+                                class="nav-item {{ request()->routeIs('agent.share.listing.factsheet') ? 'activenavitem' : '' }}">
+                                <img src="{{ url('assets/images/Listing.png') }}">
+                                <a class="nav-link" href="{{ route('agent.share.listing.factsheet') }}">Share
+                                    Factsheet</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -79,11 +85,6 @@
                                     class="nav-link-dropdown" href="{{ route('agent.reports') }}">Reports</a></li>
                             <li class="nav-item {{ request()->routeIs('agent.email.buyer') ? 'activenavitem' : '' }}">
                                 <a class="nav-link-dropdown" href="{{ route('agent.email.buyer') }}">Email Buyer</a>
-                            </li>
-                            <li
-                                class="nav-item {{ request()->routeIs('agent.share.listing.factsheet') ? 'activenavitem' : '' }}">
-                                <a class="nav-link-dropdown" href="{{ route('agent.share.listing.factsheet') }}">Share
-                                    Factsheet</a>
                             </li>
                             <li class="nav-item"><a class="nav-link-dropdown"
                                     href="{{ route('agent.download.hotsheet') }}">Download Hotsheet</a></li>
