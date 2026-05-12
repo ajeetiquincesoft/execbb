@@ -53,7 +53,7 @@ class UpdateStatus extends Command
         }
 
         $this->info('All expired records have been updated.');
-        try {
+        /*     try {
             Mail::raw('The cron job has successfully run and updated expired listings.', function ($message) {
                 $message->to('santosh3257@gmail.com')
                     ->subject('Test Cron Job Notification');
@@ -62,6 +62,6 @@ class UpdateStatus extends Command
             $this->info('Test email sent successfully.');
         } catch (\Exception $e) {
             $this->error('Failed to send test email: ' . $e->getMessage());
-        }
+        } */
     }
 }
