@@ -1353,6 +1353,7 @@ class ListingController extends Controller
         }
 
         $listingId = $listing->ListingID;
+        $listingName = $listing->DBA ?? $listing->CorpName;
 
         $subject = 'Exclusive Listings Just for You – View Selected Properties';
 
@@ -1380,7 +1381,7 @@ class ListingController extends Controller
                     <ul>
                         <li>
                             <a href="' . $baseUrl . '/' . $listingId . '" target="_blank">
-                                View Listing #' . $listingId . '
+                                View Listing #' . $listingName . '
                             </a>
                         </li>
                     </ul>

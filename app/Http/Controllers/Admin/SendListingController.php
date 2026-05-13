@@ -64,8 +64,22 @@ class SendListingController extends Controller
         $factsheetLinks = [];
         $user = auth()->user();
         foreach ($request->listingName as $listingId) {
+            // Get listing details
+            $listing = Listing::where('ListingID', $listingId)
+                ->select('DBA', 'CorpName')
+                ->first();
+
+            // Use DBA if exists, otherwise CorpName
+            $listingTitle = !empty($listing->DBA)
+                ? $listing->DBA
+                : $listing->CorpName;
+
+            // Fallback if both are empty
+            if (empty($listingTitle)) {
+                $listingTitle = $listingId;
+            }
             // Create a link for each listing
-            $listingLinks[] = '<a href="' . $baseUrl . '/' . $listingId . '" target="_blank">View Listing ' . $listingId . '</a>';
+            $listingLinks[] = '<a href="' . $baseUrl . '/' . $listingId . '" target="_blank">View Listing ' . $listingTitle . '</a>';
             $factsheetLinks[] = '<a href="' . $baseUrlFactsheet . '/' . base64_encode($listingId) . '" target="_blank">View Listing factsheet ' . base64_encode($listingId) . '</a>';
         }
 
