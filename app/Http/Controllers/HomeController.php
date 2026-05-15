@@ -12,8 +12,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        echo 'test';
-        die();
         $states = DB::table('states')->orderByRaw("
         CASE 
             WHEN State = 'nj' THEN 1
