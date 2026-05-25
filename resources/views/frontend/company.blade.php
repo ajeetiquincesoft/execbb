@@ -87,8 +87,8 @@
                                 </h5>
                             </div>
                         </div>
-                        <img src="{{ asset('assets/images/about-us_logo.png') }}" alt="IBBA Logo"
-                            class="img-fluid ibba-logo">
+                        {{-- <img src="{{ asset('assets/images/about-us_logo.png') }}" alt="IBBA Logo"
+                            class="img-fluid ibba-logo"> --}}
                     </div>
                 </div>
             </div>

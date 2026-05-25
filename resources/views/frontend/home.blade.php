@@ -652,7 +652,9 @@
 
         .prefect_bus p {
             color: #D9D9D9;
-            font-size: 12px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: bold;
         }
 
         .bg-dark-color {
@@ -676,8 +678,9 @@
         }
 
         .prefect_bus h5 {
-            line-height: 30px;
+            line-height: 50px;
             font-size: 18px;
+            text-align: center;
         }
 
         .home_business_listing {
