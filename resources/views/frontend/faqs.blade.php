@@ -45,7 +45,7 @@
                                             lot of time, effort and money in the long run. At Executive Business Brokers, we
                                             typically represent hundreds of small to mid-size businesses in retail,
                                             wholesale, distribution, manufacturing & service related industries with prices
-                                            ranging from $100K to $5M+.</p>
+                                            ranging from $250,000 to $20,000,000+.</p>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                     <div class="accordion-body">
                                         <p class="faq_answer">There are many definitions of the small to mid-size
                                             businesses. For our purposes, we define it as companies with values between
-                                            $100K and $5M.</p>
+                                            $250,000 to $20,000,000+.</p>
                                     </div>
                                 </div>
                             </div>

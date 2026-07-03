@@ -21,9 +21,30 @@ class HomeController extends Controller
         END
     ")->get();
         $categories = DB::table('categories')->get();
-        $subCategories = DB::table('sub_categories')
+        /* $subCategories = DB::table('sub_categories')
             ->whereNotNull('CatID')
             ->limit(15)
+            ->get(); */
+        $subCategories = DB::table('sub_categories')
+            ->whereNotNull('CatID')
+            ->whereNotIn('SubCategory', [
+                'Auto Repairs/Car Wash',
+                'Liquor Store',
+                'Bagel',
+                'Restaurant',
+                'Fast Food'
+            ])
+            ->limit(15)
+            ->get();
+        $hotSubCategories = DB::table('sub_categories')
+            ->whereIn('SubCategory', [
+                'Auto Repairs/Car Wash',
+                'Liquor Store',
+                'Bagel',
+                'Restaurant',
+                'Fast Food'
+            ])
+            ->orderBy('SubCategory')
             ->get();
         $businessTypes = DB::table('sub_categories')
             ->whereNotNull('CatID')
@@ -43,7 +64,7 @@ class HomeController extends Controller
 
         //dd($listings);
         $agents = Agent::where('Active', 1)->latest()->take(3)->get();
-        return view('frontend.home', compact('listings', 'states', 'agents', 'categories', 'subCategories', 'businessTypes'));
+        return view('frontend.home', compact('listings', 'states', 'agents', 'categories', 'subCategories', 'businessTypes', 'hotSubCategories'));
     }
     public function getBusinessCategory($id)
     {

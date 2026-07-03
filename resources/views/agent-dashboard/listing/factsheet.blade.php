@@ -26,12 +26,13 @@
                     <p>Executive Business Brokers</p>
                 </td>
                 @php
-                    $previousDate = \Carbon\Carbon::today()->subDay();
+                    $currentDate = \Carbon\Carbon::today();
                 @endphp
+
                 <td valign="top" style="font-size: 18pt">
                     <p style="text-align: right; font-size: 10pt;">
                         Fact sheet&nbsp;
-                        <i>as of:&nbsp;{{ $previousDate->format('m-d-Y') }}</i>
+                        <i>as of:&nbsp;{{ $currentDate->format('m-d-Y') }}</i>
                     </p>
                 </td>
             </tr>
@@ -213,7 +214,7 @@
                                 <td style="font-size: 8pt" valign="middle">
                                     Business Hours: </td>
                                 <td style="font-size: 8pt" valign="middle">
-                                    <u>{{ $listingData->BizHours ?? 'Mon.- Fri. 8:00 a.m. - 5:00 p.m.' }}</u>
+                                    <u>{{ $listingData->HoursOfOp ?? 'Mon.- Fri. 8:00 a.m. - 5:00 p.m.' }}</u>
                                 </td>
                             </tr>
                             <tr>

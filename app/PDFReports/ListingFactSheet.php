@@ -41,7 +41,7 @@ class ListingFactSheet
 
         // Apply sorting and get results
         $listingQueryData = $query->orderBy('created_at', 'desc')->take(50)->get();
-        $previousDate = Carbon::today()->subDay()->format('Y-m-d');
+        $previousDate = Carbon::today()->format('Y-m-d');
         $html = '<html><head><style>
                  body { font-family: Arial}
                 table { width: 100%; page-break-inside: avoid;}
@@ -203,7 +203,7 @@ class ListingFactSheet
                         Business Hours:
                     </td>
                     <td style=" font-size: 8pt;" valign="middle">
-                        <u>' . htmlspecialchars($listingData->BizHours ?? 'Mon.- Fri. 8:00 a.m. - 5:00 p.m.') . '</u>
+                        <u>' . htmlspecialchars($listingData->HoursOfOp ?? 'Mon.- Fri. 8:00 a.m. - 5:00 p.m.') . '</u>
                     </td>
                 </tr>
                 <tr>

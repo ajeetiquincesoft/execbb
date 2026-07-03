@@ -50,7 +50,10 @@ class ListingController extends Controller
     public function getOptions($id)
     {
         // Fetch options based on the selected ID (e.g., from a database)
-        $options = DB::table('sub_categories')->where('CatID', $id)->get();
+        $options = DB::table('sub_categories')
+            ->where('CatID', $id)
+            ->orderBy('SubCategory', 'asc')
+            ->get();
 
         return response()->json($options);
     }
@@ -202,7 +205,9 @@ class ListingController extends Controller
         $categoryData = DB::table('categories')->get();
         $states = DB::table('states')->get();
         $counties = DB::table('counties')->get();
-        $sub_categories = DB::table('sub_categories')->get();
+        $sub_categories = DB::table('sub_categories')
+            ->orderBy('SubCategory')
+            ->get();
         return view('admin.listing.listing-step.listing-step1', compact('categoryData', 'states', 'sub_categories', 'counties'));
     }
     public function createStep2()
@@ -219,6 +224,18 @@ class ListingController extends Controller
     public function createStep3()
     {
         $agents = User::with('agent_info')->where('role_name', 'agent')->get();
+        /*   $agents = User::select(
+            'users.*',
+            'agents.FName',
+            'agents.LName',
+            'agents.AgentID'
+        )
+            ->join('agents', 'agents.AgentUserRegisterId', '=', 'users.id')
+            ->where('users.role_name', 'agent')
+            ->whereNull('users.deleted_at')
+            ->where('agents.Active', 1)
+            ->orderBy('agents.FName', 'asc')
+            ->get(); */
         $listingTypes = DB::table('listing_types')->get();
         $step = 3;
         $completedSteps = session()->get('complete_step', []);
@@ -423,7 +440,8 @@ class ListingController extends Controller
 
         $request->validate([
             'buildingSize' => 'required',
-            'basementSize' => 'required',
+            'basement' => 'nullable|boolean',
+            'basementSize' => 'required_if:basement,1|nullable|string|max:255',
             'parking' => 'required',
             'licenseRequired' => 'required',
             'baseMonthlyRent' => 'required',
@@ -484,7 +502,6 @@ class ListingController extends Controller
             'referringAgentPhone' => 'required',
             'listingDate' => 'required',
             'coBroker' => 'required',
-            'reasonForSale' => 'required',
             'agents' => 'required',
         ]);
         $untilSolid = $request->has('untilSolid') ? 1 : 0;
@@ -651,7 +668,9 @@ class ListingController extends Controller
         $categoryData = DB::table('categories')->get();
         $states = DB::table('states')->get();
         $counties = DB::table('counties')->get();
-        $sub_categories = DB::table('sub_categories')->get();
+        $sub_categories = DB::table('sub_categories')
+            ->orderBy('SubCategory')
+            ->get();
         // Get the previous listing ID
         $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
         // Get the next listing ID
@@ -690,6 +709,18 @@ class ListingController extends Controller
             return redirect()->route('all.listing')->with('error', 'User not found.');
         }
         $agents = User::with('agent_info')->where('role_name', 'agent')->get();
+        /*   $agents = User::select(
+            'users.*',
+            'agents.FName',
+            'agents.LName',
+            'agents.AgentID'
+        )
+            ->join('agents', 'agents.AgentUserRegisterId', '=', 'users.id')
+            ->where('users.role_name', 'agent')
+            ->whereNull('users.deleted_at')
+            ->where('agents.Active', 1)
+            ->orderBy('agents.FName', 'asc')
+            ->get(); */
         $agentSelect = json_decode($listingData->AgentID, true);
         if (!$agentSelect) {
             $selectedAgents = array();
@@ -860,7 +891,8 @@ class ListingController extends Controller
 
         $request->validate([
             'buildingSize' => 'required',
-            'basementSize' => 'required',
+            'basement' => 'nullable|boolean',
+            'basementSize' => 'required_if:basement,1|nullable|string|max:255',
             'parking' => 'required',
             'licenseRequired' => 'required',
             'baseMonthlyRent' => 'required',
@@ -915,7 +947,13 @@ class ListingController extends Controller
     {
         // dd($request->agents);
         $request->validate([
+            'managementAgentName' => 'required',
+            'managementAgentPhone' => 'required',
+            'referringAgentName' => 'required',
+            'referringAgentPhone' => 'required',
             'listingDate' => 'required',
+            'coBroker' => 'required',
+            'agents' => 'required',
         ]);
         $untilSolid = $request->has('untilSolid') ? 1 : 0;
         $realEstate = $request->has('realEstate') ? 1 : 0;

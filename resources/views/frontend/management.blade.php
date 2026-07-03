@@ -30,7 +30,7 @@
                         <h3 class="section-heading mt-5">Years of Experience</h3>
                         <p>Since 1985, Larry has successfully guided sellers and buyers through transfers of ownership and
                             business valuations. He has represented manufacturing, distribution, retail and private sector
-                            clients in sales ranging from $100K to $5M.</p>
+                            clients in sales ranging from $250,000 to $20,000,000+.</p>
                         <h3 class="section-heading mt-5">Unique Perspective</h3>
                         <p>As an experienced owner and operator of a chain of retail stores, Larry understands what makes a
                             business valuable, how to present a business to prospective buyers, how to negotiate terms and

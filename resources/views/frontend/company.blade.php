@@ -18,7 +18,8 @@
             <div class="row">
                 <div class="about_EBB">
                     <h5 class="main-heading">Company</h5>
-                    <h6 class="sub-heading">Executive Business Brokers - A Large, Active Business Brokerage Firm</h6>
+                    <h6 class="sub-heading">We are in the business of Selling Businesses and specialize in Assets Sales of
+                        businesses and commercial real estate, ranging in price from $250,000 to $20,000,000 +</h6>
                 </div>
             </div>
             <div class="row px-3 px-md-5 ab_ebb">
@@ -30,7 +31,7 @@
                             business opportunities from retail to wholesale, manufacturing to service.</p>
                         <h3 class="section-heading">We are in the Business of Selling Businesses</h3>
                         <p>The businesses we sell are companies with annual sales under $10M. The prices of these
-                            companies range from $100K to $5M, requiring liquid investments of $50K to $2M.</p>
+                            companies range from $250,000 to $20,000,000+, requiring liquid investments of $50K to $2M.</p>
                         <h3 class="section-heading">We Bring Buyers and Sellers Together</h3>
                         <p>EBB brings together individuals with various levels of experience and provides them with
                             <a href="{{ route('buyer.tools') }}" class="sellorgive">buying tools</a> and <a

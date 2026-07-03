@@ -74,7 +74,16 @@
                     <a href="{{ route('see-more-categories') }}" class="btn btn">See More Categories</a>
                 </div>
             </div>
+
             <div class="row g-3 bus_cat row-cols-2 row-cols-md-3 row-cols-lg-5">
+                @foreach ($hotSubCategories as $subHotCategory)
+                    <div class="col">
+                        <a href="{{ route('search.index', ['businessType' => $subHotCategory->SubCatID]) }}"
+                            class="bus-cat-link" target="_blank">
+                            {{ $subHotCategory->SubCategory }}
+                        </a>
+                    </div>
+                @endforeach
                 @foreach ($subCategories as $subCategory)
                     <div class="col">
                         <a href="{{ route('search.index', ['businessType' => $subCategory->SubCatID]) }}"
@@ -171,7 +180,8 @@
                                         alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent-image"></a>
                             @endif
                             <div class="leading_agent">
-                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}" target="_blank">
+                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}"
+                                    target="_blank">
                                     <h5 class="mb-1">{{ ucfirst($agent->FName) }} {{ ucfirst($agent->LName) }}</h5>
                                 </a>
                                 <p class="mb-0">{{ $limitedComment }}</p>

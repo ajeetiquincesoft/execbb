@@ -37,7 +37,8 @@
                         </p>
                         <p class="join_us_p">EBB concentrates on the small to mid-sized segment of the market. These
                             companies are retail, wholesale & distribution, manufacturing, services and franchises. Their
-                            annual sales volumes are under $10M and their sale price ranges from $100K to $5M+.</p>
+                            annual sales volumes are under $10M and their sale price ranges from $250,000 to $20,000,000+.
+                        </p>
                         <p class="join_us_p">This is a straight commission opportunity. EBB Business Brokers are independent
                             contractors (1099), who set their own hours, work on their own territories and within the
                             industries they are most comfortable.
