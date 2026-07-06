@@ -37,7 +37,7 @@
                             <div class="d-flex">
                                 <div class="col p-0 mb-3">
                                     <label for="referringAgentName">Name <span class="text-danger">*</span></label>
-                                    <select id="managementAgentName" class="form-select select2" name="referringAgentName">
+                                    <select id="referringAgentName" class="form-select select2" name="referringAgentName">
                                         <option value="" selected="">Select referring agent</option>
                                         @foreach ($agents as $key => $agent)
                                             <option value="{{ $agent->agent_info->AgentUserRegisterId }}"
