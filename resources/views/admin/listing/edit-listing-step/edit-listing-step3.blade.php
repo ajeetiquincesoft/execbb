@@ -38,7 +38,7 @@
                                 <div class="col p-0 mb-3">
                                     <label for="referringAgentName">Name <span class="text-danger">*</span></label>
                                     <select id="managementAgentName" class="form-select select2" name="referringAgentName">
-                                        <option value="0" selected="">Select referring agent</option>
+                                        <option value="" selected="">Select referring agent</option>
                                         @foreach ($agents as $key => $agent)
                                             <option value="{{ $agent->agent_info->AgentUserRegisterId }}"
                                                 {{ $listingData->RefAgentID == $agent->agent_info->AgentUserRegisterId ? 'selected' : '' }}>
