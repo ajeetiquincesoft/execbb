@@ -42,7 +42,7 @@
                                 class="nav-item {{ request()->routeIs('all.offer') || request()->routeIs('offer.form') || request()->routeIs('edit.offer.form') || request()->routeIs('show.offer') ? 'activenavitem' : '' }}">
                                 <img src="{{ url('assets/images/Off-Esc-Close.png') }}">
                                 <a class="nav-link" data-name="Off/ Esc/ Close" data-url="#"
-                                    href="{{ route('all.offer') }}">Off/ Esc/ Close</a>
+                                    href="{{ route('all.offer') }}">Offers</a>
                             </li>
                             <li class="nav-item {{ request()->routeIs('hotsheets') ? 'activenavitem' : '' }}">
                                 <img src="{{ url('assets/images/Off-Esc-Close.png') }}">

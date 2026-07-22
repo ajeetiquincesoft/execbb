@@ -42,7 +42,7 @@ class EmailBuyerController extends Controller
         // Return a response (optional)
         return redirect()->back()->with('success', 'Email sent successfully!');
     }
-    public function ajax(Request $request)
+    /*  public function ajax(Request $request)
     {
         $search = $request->input('q');
         $page = $request->input('page', 1);
@@ -75,6 +75,60 @@ class EmailBuyerController extends Controller
         return response()->json([
             'items' => $results,
             'pagination' => ['more' => $hasMore]
+        ]);
+    } */
+    public function ajax(Request $request)
+    {
+        $search = trim($request->input('q'));
+        $page = $request->input('page', 1);
+        $perPage = 10;
+
+        $query = Buyer::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('Email', 'like', "%{$search}%")
+                    ->orWhere('FName', 'like', "%{$search}%")
+                    ->orWhere('HomePhone', 'like', "%{$search}%");
+            });
+
+            // Prioritize buyers whose first name starts with the search term
+            $query->orderByRaw("
+            CASE
+                WHEN FName LIKE ? THEN 0
+                WHEN FName LIKE ? THEN 1
+                WHEN Email LIKE ? THEN 2
+                WHEN HomePhone LIKE ? THEN 3
+                ELSE 4
+            END
+        ", [
+                "{$search}%",
+                "%{$search}%",
+                "{$search}%",
+                "{$search}%"
+            ]);
+        }
+
+        $buyers = $query
+            ->orderBy('FName', 'ASC')
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage + 1)
+            ->get();
+
+        $hasMore = $buyers->count() > $perPage;
+
+        $results = $buyers->take($perPage)->map(function ($buyer) {
+            return [
+                'id' => $buyer->Email,
+                'text' => "{$buyer->FName} | {$buyer->HomePhone} | {$buyer->Email}"
+            ];
+        });
+
+        return response()->json([
+            'items' => $results,
+            'pagination' => [
+                'more' => $hasMore
+            ]
         ]);
     }
 }

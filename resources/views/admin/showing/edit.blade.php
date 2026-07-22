@@ -26,6 +26,7 @@
                                 <option value="" selected="">Select Buyers</option>
                                 @if (isset($selectedBuyer))
                                     <option value="{{ $selectedBuyer->BuyerID }}" selected>{{ $selectedBuyer->FName }}
+                                        {{ $selectedBuyer->LName }}
                                     </option>
                                 @endif
                             </select>
@@ -62,7 +63,7 @@
                                 {{ $showing->OfferMade == 1 ? 'checked' : '' }}>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="expDate">Follow Up <span class="text-danger">*</span></label>
+                            <label for="expDate">Follow Up</label>
                             <input type="text" class="form-control" id="follow_up" name="follow_up"
                                 value="{{ $showing->FollowUp }}">
                             @error('follow_up')
@@ -92,9 +93,6 @@
                         required: true
                     },
                     listing: {
-                        required: true
-                    },
-                    follow_up: {
                         required: true
                     },
                     agent_id: {
@@ -130,7 +128,7 @@
                             results: $.map(data, function(item) {
                                 return {
                                     id: item.BuyerID,
-                                    text: item.FName
+                                    text: item.FName + ' ' + item.LName
                                 };
                             }),
                             pagination: {

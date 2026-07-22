@@ -82,7 +82,6 @@ class BuyerController extends Controller
                 $buyer->LName = $request->lastName;
                 $buyer->Corp = $request->corporateName;
                 $buyer->AgentID = $request->agentID;
-                $buyer->BDate = $request->BDate;
                 $buyer->Address1 = $request->address;
                 $buyer->City = $request->city;
                 $buyer->State = $request->state;
@@ -120,7 +119,6 @@ class BuyerController extends Controller
                 $buyer->LName = $request->lastName;
                 $buyer->Corp = $request->corporateName;
                 $buyer->AgentID = $request->agentID;
-                $buyer->BDate = $request->BDate;
                 $buyer->Address1 = $request->address;
                 $buyer->City = $request->city;
                 $buyer->State = $request->state;
@@ -276,7 +274,6 @@ class BuyerController extends Controller
                 $buyer->LName = $request->lastName;
                 $buyer->Corp = $request->corporateName;
                 $buyer->AgentID = $request->agentID;
-                $buyer->BDate = $request->BDate;
                 $buyer->Address1 = $request->address;
                 $buyer->City = $request->city;
                 $buyer->State = $request->state;
@@ -413,7 +410,6 @@ class BuyerController extends Controller
                         'firstName' => 'required',
                         'lastName' => 'required',
                         'agentID' => 'required',
-                        'BDate' => 'required',
                         'address' => 'required',
                         'city' => 'required',
                         'state' => 'required',

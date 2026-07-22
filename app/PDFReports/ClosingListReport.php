@@ -14,7 +14,9 @@ class ClosingListReport
         $from = $request->from_date;
         $to = $request->to_date;
         // Base query
-        $query = DB::table('offers');
+        $query = DB::table('offers')
+            ->leftJoin('listings', 'offers.ListingID', '=', 'listings.ListingID')
+            ->select('offers.*', 'listings.DBA as BusinessName');
 
         // Filters
         if ($request->buyer_id && $request->buyer_id != 'all') {
@@ -114,6 +116,7 @@ class ClosingListReport
                             <tr>
                                 <td>
                                     <div><b>Name:</b> ' . e($buyerInfo->LName ?? '') . ' ' . e($buyerInfo->FName ?? '') . '</div>
+                                    <div><b>Business Name:</b> ' . e($closing->BusinessName ?? 'N/A') . '</div>
                                     <div><b>Attorney:</b> ' . e($closing->BuyerAttorney) . '</div>
                                     <div><b>Address:</b> ' . e($buyerInfo->Address1 ?? '') . '</div>
                                     <div><b>City:</b> ' . e($buyerInfo->City ?? '') . ', ' . e($buyerInfo->State ?? '') . ' ' . e($buyerInfo->Zip ?? '') . '</div>

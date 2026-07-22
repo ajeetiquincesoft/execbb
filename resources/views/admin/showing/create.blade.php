@@ -26,6 +26,7 @@
                                 @foreach ($buyers as $buyer)
                                     <option value="{{ $buyer->BuyerID }}"
                                         {{ old('buyer_id') == $buyer->BuyerID ? 'selected' : '' }}>{{ $buyer->FName }}
+                                        {{ $buyer->LName }}
                                     </option>
                                 @endforeach
                             </select>
@@ -62,7 +63,7 @@
                                 {{ in_array('review', old('offer_made', [])) ? 'checked' : '' }}>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="expDate">Follow Up <span class="text-danger">*</span></label>
+                            <label for="expDate">Follow Up</label>
                             <input type="text" class="form-control" id="follow_up" name="follow_up[]"
                                 value="{{ old('follow_up.0') }}">
                             @error('follow_up.0')
@@ -219,9 +220,6 @@
                     'listing[]': {
                         required: true
                     },
-                    'follow_up[]': {
-                        required: true
-                    },
                     agent_id: {
                         required: true
                     },
@@ -236,9 +234,6 @@
                     },
                     'listing[]': {
                         required: 'dba field is required.'
-                    },
-                    'follow_up[]': {
-                        required: 'follow up field is required.'
                     },
 
                 },
@@ -265,7 +260,7 @@
                             results: $.map(data, function(item) {
                                 return {
                                     id: item.BuyerID,
-                                    text: item.FName
+                                    text: item.FName + ' ' + item.LName
                                 }
                             }),
                             pagination: {

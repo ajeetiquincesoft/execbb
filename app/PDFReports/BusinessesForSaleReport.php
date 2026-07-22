@@ -49,6 +49,7 @@ class BusinessesForSaleReport
                     <th>Ann. Net</th>
                     <th>Inv. In Price</th>
                     <th>Inv. Net</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>';
@@ -66,6 +67,7 @@ class BusinessesForSaleReport
             $html .= '<td>$' . number_format($listing->AnnualNetProfit, 0) . '</td>';
             $html .= '<td>$' . number_format($listing->InvInPrice, 0) . '</td>';
             $html .= '<td>$' . number_format($listing->InvNot, 0) . '</td>';
+            $html .= '<td>' . htmlspecialchars($listing->Status) . '</td>';
             $html .= '</tr>';
         }
         $html .= '</tbody></table>';

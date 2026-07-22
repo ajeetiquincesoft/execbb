@@ -21,7 +21,13 @@ class ShowingController extends Controller
         $search_query = $request->input('query');
         $showings = DB::table('showings');
         $dbaName = Listing::pluck('DBA', 'ListingID');
-        $buyerName = Buyer::pluck('FName', 'BuyerID');
+        $buyerName = Buyer::select('BuyerID', 'FName', 'LName')
+            ->get()
+            ->mapWithKeys(function ($buyer) {
+                return [
+                    $buyer->BuyerID => trim($buyer->FName . ' ' . $buyer->LName)
+                ];
+            });
         if ($search_query) {
             $showings = DB::table('showings')
                 ->leftJoin('listings', 'showings.ListingID', '=', 'listings.ListingID')
@@ -56,13 +62,9 @@ class ShowingController extends Controller
         $request->validate([
             'showingDate.0' => 'required',
             'listing.0' => 'required',
-            'follow_up.0' => 'required|string|max:255',
         ], [
             'showingDate.0.required' => 'Date field is required.',
             'listing.0.required' => 'DBA field is required.',
-            'follow_up.0.required' => 'follow-up field is required.',
-            'follow_up.0.string' => 'follow-up field must be a string.',
-            'follow_up.0.max' => 'follow-up field must not exceed 255 characters.',
         ]);
         foreach ($request->showingDate as $key => $showingDate) {
             if (!empty($showingDate)) {
@@ -104,7 +106,6 @@ class ShowingController extends Controller
     public function updateShowing(Request $request, $id)
     {
         $request->validate([
-            'follow_up' => 'required',
             'agent_id' => 'required',
             'buyer_id' => 'required',
             'listing' => 'required',
@@ -137,7 +138,13 @@ class ShowingController extends Controller
         // Get the next showing ID
         $next = Showing::where('ShowingID', '>', $id)->orderBy('ShowingID', 'asc')->first();
         $dbaName = Listing::pluck('DBA', 'ListingID');
-        $buyerName = Buyer::pluck('FName', 'BuyerID');
+        $buyerName = Buyer::select('BuyerID', 'FName', 'LName')
+            ->get()
+            ->mapWithKeys(function ($buyer) {
+                return [
+                    $buyer->BuyerID => trim($buyer->FName . ' ' . $buyer->LName)
+                ];
+            });
         return view('admin.showing.show', compact('showing', 'previous', 'next', 'dbaName', 'buyerName', 'activities'));
     }
     public function destroy(Request $request, $id)

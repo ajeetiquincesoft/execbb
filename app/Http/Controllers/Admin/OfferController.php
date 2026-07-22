@@ -602,7 +602,7 @@ class OfferController extends Controller
         return redirect()->route('edit.offer.form', ['id' => $offer->OfferID]);
     }
     // Validate data for each step
-    private function validateStep(Request $request, $step)
+    /*  private function validateStep(Request $request, $step)
     {
         $rules = [];
 
@@ -624,6 +624,53 @@ class OfferController extends Controller
                     'commissionPercent' => 'required',
                     'balanceDue' => 'required',
                 ];
+                break;
+        }
+
+        $request->validate($rules);
+    } */
+    private function validateStep(Request $request, $step)
+    {
+        $rules = [];
+
+        switch ($step) {
+            case 1:
+
+                $rules = [
+                    'companyName'        => 'required',
+                    'status'             => 'required|in:Pending,Accepted,Closed,Dead',
+                    'buyer'              => 'required',
+                    'listingAgent'       => 'required',
+                    'sellingAgent'       => 'required',
+
+                    // Always required
+                    'dateOfOffer'        => 'required|date',
+
+                    // Optional
+                    'expDate'            => 'nullable|date',
+
+                    // Always required
+                    'purchasePrice'      => 'required|numeric',
+                    'downPayment'        => 'required|numeric',
+                    'commAmount'         => 'required|numeric',
+                    'commissionPercent' => 'required|numeric',
+                    'balanceDue'         => 'required|numeric',
+                ];
+
+                // Acceptance Date is required only for Accepted or Closed offers
+                if (in_array($request->status, ['Accepted', 'Closed'])) {
+                    $rules['accDate'] = 'required|date';
+                } else {
+                    $rules['accDate'] = 'nullable|date';
+                }
+
+                // Close Date is required only for Closed offers
+                if ($request->status === 'Closed') {
+                    $rules['closeDate'] = 'required|date';
+                } else {
+                    $rules['closeDate'] = 'nullable|date';
+                }
+
                 break;
         }
 
