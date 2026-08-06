@@ -25,7 +25,7 @@
 
                     <!-- TITLE -->
                     <div class="listing-header">
-                        <h2>{{ $listing->CorpName ?? $listing->DBA }}</h2>
+                        <h2>{{ $listing->DBA ?? $listing->CorpName }}</h2>
                         <p>{{ $listing->City }}, {{ $listing->State }}</p>
                     </div>
 
@@ -282,7 +282,7 @@
                                     @endif
 
                                     <div class="sidebar-content">
-                                        <h6>{{ $item->CorpName ?? $item->DBA }}</h6>
+                                        <h6>{{ $item->DBA ?? $item->CorpName }}</h6>
                                         <p>{{ $item->City }}, {{ $item->State }}</p>
 
                                         <div class="sidebar-price">
