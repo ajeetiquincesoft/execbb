@@ -25,7 +25,7 @@
 
                     <!-- TITLE -->
                     <div class="listing-header">
-                        <h2>{{ $listing->DBA ?? $listing->CorpName }}</h2>
+                        <h2>{{ $listing->BusType }}</h2>
                         <p>{{ $listing->County }}</p>
                     </div>
 
@@ -282,7 +282,7 @@
                                     @endif
 
                                     <div class="sidebar-content">
-                                        <h6>{{ $item->DBA ?? $item->CorpName }}</h6>
+                                        <h6>{{ $item->BusType }}</h6>
                                         <p>{{ $item->County }}</p>
 
                                         <div class="sidebar-price">
