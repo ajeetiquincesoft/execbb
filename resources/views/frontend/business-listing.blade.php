@@ -93,8 +93,8 @@
                                     <p class="card-text mb-0">Business Type: {{ $listing->BusType }}</p>
                                     <p class="card-text mb-0">Business Category: {{ getSubCategoryName($listing->SubCat) }}
                                     </p>
-                                    <p class="card-text mb-0">County / State:
-                                        {{ $listing->County . ', ' . $listing->State }}</p>
+                                    <p class="card-text mb-0">County:
+                                        {{ $listing->County }}</p>
                                     <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}
                                     </p>
                                     <p class="card-text mb-0">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
