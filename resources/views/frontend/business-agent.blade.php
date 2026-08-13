@@ -20,8 +20,9 @@
                 <h1 class="fw-bold">Agent Profile</h1>
             </div>
             <hr class="pursuit_hr">
-            <form action="{{ route('all.brokers') }}" method="get" class="">
-                {{-- <div class="row agent_search mb-5">
+            <div class="find_agents">
+                <form action="{{ route('all.brokers') }}" method="get" class="">
+                    {{-- <div class="row agent_search mb-5">
                     <div class="col-12 col-sm-8 col-md-10">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Find Agent" name="query"
@@ -32,21 +33,25 @@
                         <button type="submit" name="brk_search">Search</button>
                     </div>
                 </div> --}}
-                <div class="input-group mb-3 shadow-sm rounded-pill overflow-hidden">
-                    <input type="text" class="form-control border-0 py-3 px-4" aria-label="Search term"
-                        placeholder="Find Agent ...." name="query" value="{{ request('query') }}" required="">
-                    <button class="btn btn-primary px-4 search-btn" type="submit" name="brk_search">
-                        <i class="bi bi-search animated-icon"></i>
-                    </button>
+                    <div class="input-group mb-3 shadow-sm rounded-pill overflow-hidden">
+                        <input type="text" class="form-control border-0 py-3 px-4" aria-label="Search term"
+                            placeholder="Find Agent ...." name="query" value="{{ request('query') }}" required="">
+                        <button class="btn btn-primary px-4 search-btn" type="submit" name="brk_search">
+                            <i class="bi bi-search animated-icon"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="text-center mb-5">
+                    <h1 class="fw-bold ebb_offer">EBB's Strength is Our Brokers</h1>
+                    <p class="text-muted ser_content">Our team of professionals was recruited for their knowledge and
+                        qualified
+                        service orientation. The passion of our people is critical to our success. Together we share a
+                        common
+                        set of values that are rooted in integrity, professionalism and excellence.</p>
                 </div>
-            </form>
-
-            <div class="text-center mb-5">
-                <h1 class="fw-bold ebb_offer">EBB's Strength is Our Brokers</h1>
-                <p class="text-muted ser_content">Our team of professionals was recruited for their knowledge and qualified
-                    service orientation. The passion of our people is critical to our success. Together we share a common
-                    set of values that are rooted in integrity, professionalism and excellence.</p>
             </div>
+
+
 
             <!-- Content Section -->
 
@@ -270,6 +275,10 @@
             display: inline-block;
             height: 45px;
             border: 1px solid #B3B3B3;
+        }
+
+        .find_agents {
+            padding: 0 10px;
         }
 
         @media screen and (min-width: 575px) and (max-width: 768px) {
