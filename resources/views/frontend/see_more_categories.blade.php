@@ -1,7 +1,7 @@
 @extends('frontend.layout.master')
 
 @section('content')
-    <div class="container my-7 py-5 container-fluid category-page">
+    <div class="container my-7 container-fluid category-page">
 
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -29,7 +29,7 @@
     <style>
         /* Page background */
         .category-page {
-            padding: 40px 0px 60px;
+            padding: 40px 10px 60px;
             min-height: 100vh;
         }
 
