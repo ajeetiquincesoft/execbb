@@ -1149,7 +1149,10 @@ a.btn.btn.view_all_services {
         margin-top: 0px;
     }
     .agent-info {
-        height: 125px !important;
+        height: 165px !important;
+    }
+    .agent_btn {
+        font-size: 14px;
     }
     .Content-text.question h3,
     .Content-text.question p {
