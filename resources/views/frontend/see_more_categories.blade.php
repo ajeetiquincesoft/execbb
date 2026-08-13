@@ -10,7 +10,7 @@
         </div>
 
         <!-- Category Grid -->
-        <div class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg-5">
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
             @foreach ($subCategories as $category)
                 <div class="col">
                     <a href="{{ route('search.index', ['businessType' => $category->SubCatID]) }}" class="category-card"
