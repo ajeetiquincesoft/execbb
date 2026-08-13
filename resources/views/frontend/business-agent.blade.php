@@ -13,9 +13,8 @@
         </div>
     </div>
     <!-- Main Section -->
-    <section class="main-section our_services">
-        <div class="container py-5 container-padding"
-            style="background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <div class="container my-7">
+        <div class="content-box">
             <!-- Heading and Description -->
             <div class="text-center mb-5">
                 <h1 class="fw-bold">Agent Profile</h1>
@@ -96,9 +95,9 @@
             </div>
 
 
-
         </div>
-    </section>
+    </div>
+
     <style>
         .card-container {
             align-items: start;
