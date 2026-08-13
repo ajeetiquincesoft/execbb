@@ -888,6 +888,14 @@
                 padding-top: 15px;
             }
 
+            .custom-card {
+                padding: 2rem 2rem 2rem 15px;
+            }
+
+            .custom-card .card-title {
+                font-size: 15px;
+                margin-top: 15px;
+            }
         }
 
         /* Desktops (laptops and large screens) */
@@ -899,11 +907,30 @@
             .agent-card a img.agent-image {
                 float: left;
             }
+
+            .custom-card {
+                padding: 2rem 2rem 2rem 15px;
+            }
+
+            .custom-card .card-title {
+                font-size: 15px;
+                margin-top: 15px;
+            }
+
         }
 
         /* Large desktops */
         @media screen and (min-width: 1601px) {
+
             /* styles for large desktops */
+            .custom-card {
+                padding: 2rem 2rem 2rem 15px;
+            }
+
+            .custom-card .card-title {
+                font-size: 18px;
+                margin-top: 15px;
+            }
         }
 
         .no_lis {

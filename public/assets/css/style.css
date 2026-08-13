@@ -135,11 +135,11 @@ h2 {
 }
 
 .logo {
-    height: 50px;
+    /*  height: 50px; */
 }
 
 .navbar-nav {
-    margin-left: 0 !important;
+    /*  margin-left: 0 !important; */
     /* Ensures the navbar aligns to the left */
     margin-right: 40;
     /* Optional: Removes any right alignment */
