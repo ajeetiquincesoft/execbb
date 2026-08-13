@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="row g-3 bus_cat row-cols-2 row-cols-md-3 row-cols-lg-5">
+            <div class="row g-3 bus_cat row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
                 @foreach ($hotSubCategories as $subHotCategory)
                     <div class="col">
                         <a href="{{ route('search.index', ['businessType' => $subHotCategory->SubCatID]) }}"
