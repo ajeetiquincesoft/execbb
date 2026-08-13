@@ -147,13 +147,6 @@
             }
 
         }
-
-        /* Mobile adjustments */
-        @media (max-width: 576px) {
-            .card-container {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            }
-        }
     </style>
     <style>
         .text-gold {
