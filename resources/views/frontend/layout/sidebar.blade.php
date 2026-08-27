@@ -48,11 +48,11 @@
                 class="{{ Route::currentRouteName() == 'buyer.all.showing' ? 'active' : '' }}"><i
                     class="fa fa-eye"></i> Showings</a>
         </li>
-        <li>
+        {{--  <li>
             <a href="{{ route('buyer.all.offer') }}"
                 class="{{ Route::currentRouteName() == 'buyer.all.offer' ? 'active' : '' }}"><i
                     class="fa fa-times-circle-o"></i> Offers</a>
-        </li>
+        </li> --}}
         @if (!empty($hasSignedNda))
             <li>
                 <a href="{{ route('download.buyer.nda.form') }}"

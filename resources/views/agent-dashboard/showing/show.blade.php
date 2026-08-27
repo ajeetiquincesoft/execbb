@@ -58,7 +58,7 @@
                                         <tr>
                                             <td><img src="{{ url('assets/images/location.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Offer Made</span></td>
-                                            <td class="text-end">{{ $showing->OfferMade }}</td>
+                                            <td class="text-end">{{ $showing->OfferMade == 1 ? 'Yes' : 'No' }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/phone.png') }}" alt=""><span

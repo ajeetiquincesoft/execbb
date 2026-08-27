@@ -136,9 +136,14 @@
                             <p class="card-text mb-0">County: {{ $listing->County }}</p>
                             <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
                             <p class="card-text mb-0">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
-                            <p class="card-text mb-0">Gross Revenue: ${{ number_format($listing->GrossProfit ?? 0, 2) }}
+                            @php
+                                $totalCost = ($listing->COG1 ?? 0) + ($listing->COG2 ?? 0) + ($listing->COG3 ?? 0);
+
+                                $totalGOP = ($listing->AnnualSales ?? 0) - ($totalCost ?? 0);
+                            @endphp
+                            <p class="card-text mb-0">Gross Revenue: ${{ number_format($totalGOP ?? 0, 2) }}
                             </p>
-                            <p class="card-text"> Asking Price: ${{ number_format($listing->REAskingPrice ?? 0, 2) }}</p>
+                            <p class="card-text"> Asking Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
 
                         </div>
                     </div>

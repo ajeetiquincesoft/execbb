@@ -41,9 +41,37 @@
                             $cash_flow = $listing->GrossRevenue - $listing->TotalExpenses;
                         @endphp
                         <!-- PRICE BAR -->
+                        @php
+                            $totalCost = ($listing->COG1 ?? 0) + ($listing->COG2 ?? 0) + ($listing->COG3 ?? 0);
+
+                            $totalOperatingExpenses =
+                                ($listing->AnnRent ?? 0) +
+                                ($listing->CommonAreaMaint ?? 0) +
+                                ($listing->RealEstateTax ?? 0) +
+                                ($listing->AnnPayroll ?? 0) +
+                                ($listing->PayrollTax ?? 0) +
+                                ($listing->LicFee ?? 0) +
+                                ($listing->Advertising ?? 0) +
+                                ($listing->Telephone ?? 0) +
+                                ($listing->Utilities ?? 0) +
+                                ($listing->Insurance ?? 0) +
+                                ($listing->AcctLeg ?? 0) +
+                                ($listing->Maintenance ?? 0) +
+                                ($listing->Trash ?? 0) +
+                                ($listing->Other ?? 0) +
+                                ($listing->Opt1 ?? 0) +
+                                ($listing->Opt2 ?? 0);
+
+                            $totalOperatingProfit =
+                                ($listing->AnnualSales ?? 0) - ($totalCost + $totalOperatingExpenses);
+
+                            $cashFlow = ($item->OtherInc ?? 0) + $totalOperatingProfit;
+                        @endphp
                         <div class="price-overlay">
-                            <div>Asking Price <strong>${{ number_format($listing->REAskingPrice) }}</strong></div>
-                            <div>Cash Flow <strong>${{ number_format($listing->cash_flow) }}</strong></div>
+                            <div>Asking Price <strong>${{ number_format($listing->ListPrice) }}</strong></div>
+                            <div>Cash Flow
+                                <strong>${{ number_format($cashFlow) }}</strong>
+                            </div>
                         </div>
 
                         <!-- LISTING ID -->
@@ -125,7 +153,7 @@
                     <!-- OVERVIEW -->
                     <div class="listing-box">
                         <h4>Business Overview</h4>
-                        <p>{!! $listing->Comments !!}</p>
+                        <p>{!! !empty($listing->Comments) ? $listing->Comments : $listing->Highlights !!}</p>
                     </div>
 
                     <!-- DETAILS -->
@@ -284,16 +312,41 @@
                                     <div class="sidebar-content">
                                         <h6>{{ $item->BusType }}</h6>
                                         <p>{{ $item->County }}</p>
+                                        @php
+                                            $totalCost = ($item->COG1 ?? 0) + ($item->COG2 ?? 0) + ($item->COG3 ?? 0);
 
+                                            $totalOperatingExpenses =
+                                                ($item->AnnRent ?? 0) +
+                                                ($item->CommonAreaMaint ?? 0) +
+                                                ($item->RealEstateTax ?? 0) +
+                                                ($item->AnnPayroll ?? 0) +
+                                                ($item->PayrollTax ?? 0) +
+                                                ($item->LicFee ?? 0) +
+                                                ($item->Advertising ?? 0) +
+                                                ($item->Telephone ?? 0) +
+                                                ($item->Utilities ?? 0) +
+                                                ($item->Insurance ?? 0) +
+                                                ($item->AcctLeg ?? 0) +
+                                                ($item->Maintenance ?? 0) +
+                                                ($item->Trash ?? 0) +
+                                                ($item->Other ?? 0) +
+                                                ($item->Opt1 ?? 0) +
+                                                ($item->Opt2 ?? 0);
+
+                                            $totalOperatingProfit =
+                                                ($item->AnnualSales ?? 0) - ($totalCost + $totalOperatingExpenses);
+
+                                            $cashFlow = ($item->OtherInc ?? 0) + $totalOperatingProfit;
+                                        @endphp
                                         <div class="sidebar-price">
                                             <div>
                                                 <small>Asking Price</small>
-                                                <strong>${{ number_format($item->REAskingPrice) }}</strong>
+                                                <strong>${{ number_format($item->ListPrice) }}</strong>
                                             </div>
 
                                             <div>
                                                 <small>Cash Flow</small>
-                                                <strong>${{ number_format($item->cash_flow) }}</strong>
+                                                <strong>${{ number_format($cashFlow) }}</strong>
                                             </div>
                                         </div>
                                     </div>

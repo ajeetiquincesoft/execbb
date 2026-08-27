@@ -61,7 +61,7 @@
                                     <td>{{ $buyerName[$showing->BuyerID] ?? 'N/A' }}</td>
                                     <td>{{ $showing->Date }}</td>
                                     <td>{{ $dbaName[$showing->ListingID] ?? 'N/A' }}</td>
-                                    <td>{{ $showing->OfferMade }}</td>
+                                    <td>{{ $showing->OfferMade == 1 ? 'Yes' : 'No' }}</td>
                                     <td>{{ $showing->FollowUp }}</td>
                                     <td class="list-btn">
                                         <a href="{{ route('show.showing', $showing->ShowingID) }}">
@@ -83,8 +83,8 @@
                                         </form>
 
                                         <!-- <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button> -->
+                                                    <i class="fas fa-download"></i>
+                                                </button> -->
                                     </td>
                                 </tr>
                             @empty
