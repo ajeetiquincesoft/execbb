@@ -601,14 +601,14 @@ Route::group(['middleware' => 'buyercheck', 'prefix' => 'buyer', 'as' => 'buyer.
   Route::get('edit-showing/{id}', [BuyerShowingController::class, 'editShowing'])->name('edit.showing');
   Route::put('update-showing/{id}', [BuyerShowingController::class, 'updateShowing'])->name('update.showing');
   Route::get('view-showing/{id}', [BuyerShowingController::class, 'show'])->name('show.showing');
-  Route::get('/all-offer', [BuyerOfferController::class, 'index'])->name('all.offer');
+  /*  Route::get('/all-offer', [BuyerOfferController::class, 'index'])->name('all.offer');
   Route::get('create-offer', [BuyerOfferController::class, 'create'])->name('create.offer');
   Route::get('/offer', [BuyerOfferController::class, 'showForm'])->name('offer.form');
   Route::post('/offer', [BuyerOfferController::class, 'processForm'])->name('offer.form.process');
   Route::delete('/offer-destroy/{id}', [BuyerOfferController::class, 'destroy'])->name('offer.destroy');
   Route::get('/offer/{id}', [BuyerOfferController::class, 'editForm'])->name('edit.offer.form');
   Route::post('/offer/{id}', [BuyerOfferController::class, 'editProcessForm'])->name('edit.offer.form.process');
-  Route::get('view-offer/{id}', [BuyerOfferController::class, 'show'])->name('show.offer');
+  Route::get('view-offer/{id}', [BuyerOfferController::class, 'show'])->name('show.offer'); */
   Route::get('share-factsheet-notification', [ShareFactSheetNotificationController::class, 'index'])->name('share.factsheet.notification');
 });
 Route::get('download-buyer-nda-form', [DownloadNDAFormController::class, 'downloadBuyerNda'])->name('download.buyer.nda.form');
