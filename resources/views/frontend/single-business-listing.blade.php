@@ -153,7 +153,7 @@
                     <!-- OVERVIEW -->
                     <div class="listing-box">
                         <h4>Business Overview</h4>
-                        <p>{!! !empty($listing->Comments) ? $listing->Comments : $listing->Highlights !!}</p>
+                        <p>{!! !empty($listing->Highlights) ? $listing->Highlights : '' !!}</p>
                     </div>
 
                     <!-- DETAILS -->
