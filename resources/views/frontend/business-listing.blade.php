@@ -79,11 +79,11 @@
                                     <a href="{{ route('view.business.listing', $listing->ListingID) }}"
                                         target="_blank"><img
                                             src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}"
-                                            class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
+                                            class="card-img-top" alt="{{ $listing->County }}, {{ $listing->State }}"></a>
                                 @else
                                     <a href="{{ route('view.business.listing', $listing->ListingID) }}"
                                         target="_blank"><img src="{{ asset('assets/images/business_image.jpg') }}"
-                                            class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"></a>
+                                            class="card-img-top" alt="{{ $listing->County }}, {{ $listing->State }}"></a>
                                 @endif
                                 <div class="card-body text-center">
                                     {{--  <a href="{{ route('view.business.listing', $listing->ListingID) }}" target="_blank">

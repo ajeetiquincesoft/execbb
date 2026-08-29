@@ -84,14 +84,14 @@
                         </a>
                     </div>
                 @endforeach
-                @foreach ($subCategories as $subCategory)
+                {{--  @foreach ($subCategories as $subCategory)
                     <div class="col">
                         <a href="{{ route('search.index', ['businessType' => $subCategory->SubCatID]) }}"
                             class="bus-cat-link" target="_blank">
                             {{ $subCategory->SubCategory }}
                         </a>
                     </div>
-                @endforeach
+                @endforeach --}}
             </div>
 
         </div>
@@ -120,11 +120,11 @@
                         @if (!empty($listing->imagepath))
                             <a href="{{ route('view.business.listing', $listing->ListingID) }}"><img
                                     src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top"
-                                    alt="{{ $listing->City }}, {{ $listing->State }}"></a>
+                                    alt="{{ $listing->County }}, {{ $listing->State }}"></a>
                         @else
                             <a href="{{ route('view.business.listing', $listing->ListingID) }}"><img
                                     src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top"
-                                    alt="{{ $listing->City }}, {{ $listing->State }}"></a>
+                                    alt="{{ $listing->County }}, {{ $listing->State }}"></a>
                         @endif
                         <div class="card-body text-center">
                             {{--   <a href="{{ route('view.business.listing', $listing->ListingID) }}"
@@ -185,8 +185,7 @@
                                         alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent-image"></a>
                             @endif
                             <div class="leading_agent">
-                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}"
-                                    target="_blank">
+                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}" target="_blank">
                                     <h5 class="mb-1">{{ ucfirst($agent->FName) }} {{ ucfirst($agent->LName) }}</h5>
                                 </a>
                                 <p class="mb-0">{{ $limitedComment }}</p>

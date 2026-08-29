@@ -36,7 +36,7 @@ class HomeController extends Controller
             ])
             ->limit(15)
             ->get();
-        $hotSubCategories = DB::table('sub_categories')
+        /* $hotSubCategories = DB::table('sub_categories')
             ->whereIn('SubCategory', [
                 'Auto Repairs/Car Wash',
                 'Liquor Store',
@@ -45,6 +45,48 @@ class HomeController extends Controller
                 'Fast Food'
             ])
             ->orderBy('SubCategory')
+            ->get(); */
+        // Business categories displayed in Top Business Categories
+        $topBusinessCategories = [
+            'Manufacturing/Distribution',
+            'Cannabis',
+            'Laundromats',
+            'SBA Financeable',
+            'Liquor Licenses C & D',
+            'Mergers & Acquisitions',
+            'Service Businesses',
+            'Day Care',
+            'Franchises',
+            'Dry Cleaners',
+            'Health Care',
+            'Pizza',
+            'Commercial Real Estate',
+            'Business & Real Estate',
+            'Gas Stations'
+        ];
+
+        $hotSubCategories = DB::table('sub_categories')
+            ->whereIn('SubCategory', $topBusinessCategories)
+            ->orderByRaw("
+            CASE 
+                WHEN SubCategory = 'Manufacturing/Distribution' THEN 1
+                WHEN SubCategory = 'Cannabis' THEN 2
+                WHEN SubCategory = 'Laundromats' THEN 3
+                WHEN SubCategory = 'SBA Financeable' THEN 4
+                WHEN SubCategory = 'Liquor Licenses C & D' THEN 5
+                WHEN SubCategory = 'Mergers & Acquisitions' THEN 6
+                WHEN SubCategory = 'Service Businesses' THEN 7
+                WHEN SubCategory = 'Day Care' THEN 8
+                WHEN SubCategory = 'Franchises' THEN 9
+                WHEN SubCategory = 'Dry Cleaners' THEN 10
+                WHEN SubCategory = 'Health Care' THEN 11
+                WHEN SubCategory = 'Pizza' THEN 12
+                WHEN SubCategory = 'Commercial Real Estate' THEN 13
+                WHEN SubCategory = 'Business & Real Estate' THEN 14
+                WHEN SubCategory = 'Gas Stations' THEN 15
+                ELSE 16
+            END
+        ")
             ->get();
         $businessTypes = DB::table('sub_categories')
             ->whereNotNull('CatID')

@@ -15,13 +15,13 @@
     <div class="container my-7">
         <div class="content-box">
             <!-- <div class="row agent_search mb-5">
-                                                                                                                                                                                                        <div class="col-md-12">
-                                                                                                                                                                                                            <form action="{{ route('business.listing.search') }}" method="get" class="">
-                                                                                                                                                                                                                <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
-                                                                                                                                                                                                                <button type="submit">Search Listing</button>
-                                                                                                                                                                                                            </form>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                            <div class="col-md-12">
+                                                                                                                                                                                                                <form action="{{ route('business.listing.search') }}" method="get" class="">
+                                                                                                                                                                                                                    <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
+                                                                                                                                                                                                                    <button type="submit">Search Listing</button>
+                                                                                                                                                                                                                </form>
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                        </div> -->
             <form action="{{ route('business.listing.search') }}" method="get" class="">
                 <div class="row lis_search mb-5">
                     <div class="col-12 col-sm-6 col-md-2">
@@ -85,12 +85,12 @@
                                 @if (!empty($listing->imagepath) && file_exists($imagePath))
                                     <a href="{{ route('view.business.listing', $listing->ListingID) }}">
                                         <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}"
-                                            class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}">
+                                            class="card-img-top" alt="{{ $listing->County }}, {{ $listing->State }}">
                                     </a>
                                 @else
                                     <a href="{{ route('view.business.listing', $listing->ListingID) }}">
                                         <img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top"
-                                            alt="{{ $listing->City }}, {{ $listing->State }}">
+                                            alt="{{ $listing->County }}, {{ $listing->State }}">
                                     </a>
                                 @endif
                                 <div class="card-body text-center">
