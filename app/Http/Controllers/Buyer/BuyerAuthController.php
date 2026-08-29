@@ -19,9 +19,8 @@ class BuyerAuthController extends Controller
             $buyerId = Auth::id();
             $favourites = Favorite::where('buyer_id', $buyerId)->count();
             $saveSearch = SavedSearch::where('user_id', $buyerId)->count();
-            $hasSignedNda = SignNda::where('user_id', $buyerId)->exists();
 
-            return view('frontend.buyer.buyer_dashboard', compact('favourites', 'saveSearch', 'hasSignedNda'));
+            return view('frontend.buyer.buyer_dashboard', compact('favourites', 'saveSearch'));
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');
