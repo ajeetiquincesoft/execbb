@@ -53,7 +53,7 @@ class HomeController extends Controller
             'Laundromats',
             'SBA Financeable',
             'Liquor Licenses C & D',
-            'Mergers & Acquisitions',
+            'Merger & Acquisitions',
             'Service Businesses',
             'Day Care',
             'Franchises',
@@ -74,7 +74,7 @@ class HomeController extends Controller
                 WHEN SubCategory = 'Laundromats' THEN 3
                 WHEN SubCategory = 'SBA Financeable' THEN 4
                 WHEN SubCategory = 'Liquor Licenses C & D' THEN 5
-                WHEN SubCategory = 'Mergers & Acquisitions' THEN 6
+                WHEN SubCategory = 'Merger & Acquisitions' THEN 6
                 WHEN SubCategory = 'Service Businesses' THEN 7
                 WHEN SubCategory = 'Day Care' THEN 8
                 WHEN SubCategory = 'Franchises' THEN 9
