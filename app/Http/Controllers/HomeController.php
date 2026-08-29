@@ -48,7 +48,7 @@ class HomeController extends Controller
             ->get(); */
         // Business categories displayed in Top Business Categories
         $topBusinessCategories = [
-            'Manufacturing/Distribution',
+            'Manufacturing / Distribution',
             'Cannabis',
             'Laundromats',
             'SBA Financeable',
@@ -69,7 +69,7 @@ class HomeController extends Controller
             ->whereIn('SubCategory', $topBusinessCategories)
             ->orderByRaw("
             CASE 
-                WHEN SubCategory = 'Manufacturing/Distribution' THEN 1
+                WHEN SubCategory = 'Manufacturing / Distribution' THEN 1
                 WHEN SubCategory = 'Cannabis' THEN 2
                 WHEN SubCategory = 'Laundromats' THEN 3
                 WHEN SubCategory = 'SBA Financeable' THEN 4
