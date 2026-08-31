@@ -26,15 +26,7 @@ class HomeController extends Controller
             ->limit(15)
             ->get(); */
         $subCategories = DB::table('sub_categories')
-            ->whereNotNull('CatID')
-            ->whereNotIn('SubCategory', [
-                'Auto Repairs/Car Wash',
-                'Liquor Store',
-                'Bagel',
-                'Restaurant',
-                'Fast Food'
-            ])
-            ->limit(15)
+            ->orderBy('SubCategory', 'asc')
             ->get();
         /* $hotSubCategories = DB::table('sub_categories')
             ->whereIn('SubCategory', [
