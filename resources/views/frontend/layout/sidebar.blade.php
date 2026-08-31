@@ -55,9 +55,10 @@
         </li> --}}
         @if (!empty($hasSignedNda))
             <li>
-                <a href="{{ route('download.buyer.nda.form') }}"
-                    class="{{ Route::currentRouteName() == 'download.buyer.nda.form' ? 'active' : '' }}"><i
-                        class="fa fa-download"></i> Download NDA Form</a>
+                <a href="{{ route('buyer.nda.form.download', ['id' => Auth::id()]) }}"
+                    class="{{ Route::currentRouteName() == 'buyer.nda.form.download' ? 'active' : '' }}">
+                    <i class="fa fa-download"></i> Download NDA Form
+                </a>
             </li>
         @endif
         <!-- Collapsible Settings -->
