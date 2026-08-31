@@ -48,7 +48,7 @@ class SearchController extends Controller
     ")->get();
         $categoryData = DB::table('categories')->get();
         $businessTypes = DB::table('sub_categories')
-            ->whereNotNull('CatID')
+            /* ->whereNotNull('CatID') */
             ->orderBy('SubCategory', 'asc')
             ->get();
         return view('frontend.listing-search', compact('listings', 'states', 'categoryData', 'businessTypes'));
