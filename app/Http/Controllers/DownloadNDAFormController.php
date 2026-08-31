@@ -12,7 +12,10 @@ class DownloadNDAFormController extends Controller
     public function downloadBuyerNda()
     {
         $userId = Auth::id();
-        $signNda = SignNda::where('user_id', $userId)->first();
+        /* $signNda = SignNda::where('user_id', $userId)->first(); */
+        $signNda = SignNda::where('user_id', $userId)
+            ->latest('id')
+            ->first();
         if (!$signNda || !$signNda->nda_pdf_path || !file_exists(public_path($signNda->nda_pdf_path))) {
             return back()->with('error', 'NDA PDF not found.');
         }
