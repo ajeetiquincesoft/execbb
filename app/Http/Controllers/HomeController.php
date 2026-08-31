@@ -26,7 +26,15 @@ class HomeController extends Controller
             ->limit(15)
             ->get(); */
         $subCategories = DB::table('sub_categories')
-            ->orderBy('SubCategory', 'asc')
+            ->whereNotNull('CatID')
+            ->whereNotIn('SubCategory', [
+                'Auto Repairs/Car Wash',
+                'Liquor Store',
+                'Bagel',
+                'Restaurant',
+                'Fast Food'
+            ])
+            ->limit(15)
             ->get();
         /* $hotSubCategories = DB::table('sub_categories')
             ->whereIn('SubCategory', [
@@ -81,7 +89,7 @@ class HomeController extends Controller
         ")
             ->get();
         $businessTypes = DB::table('sub_categories')
-            ->whereNotNull('CatID')
+            /* ->whereNotNull('CatID') */
             ->orderBy('SubCategory', 'asc')
             ->get();
         /* $listings = Listing::where('Active', 1)->where('Status', 'valid')->latest()
