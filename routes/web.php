@@ -277,7 +277,7 @@ Route::get('/about-us', function () {
 })->name('about.us');
 Route::get('/see-more-categories', function () {
   $subCategories = DB::table('sub_categories')
-    ->whereNotNull('CatID')
+    /* ->whereNotNull('CatID') */
     ->orderBy('SubCategory', 'asc')
     ->paginate(50);
   return view('frontend.see_more_categories', compact('subCategories'));
