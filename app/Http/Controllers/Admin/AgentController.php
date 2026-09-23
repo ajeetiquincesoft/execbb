@@ -26,7 +26,7 @@ use App\Models\Listing;
 
 class AgentController extends Controller
 {
-    public function index(Request $request)
+    public function indexOld(Request $request)
     {
         try {
             /*  $agents = User::with('agent_info')->where('role_name','agent')->orderBy('created_at', 'desc')->paginate(2); */
@@ -45,6 +45,147 @@ class AgentController extends Controller
             return view('admin.agent.index', compact('agents'));
         } catch (\Exception $e) {
             return redirect()->back()->with('err_message', $e->getMessage());
+        }
+    }
+    public function index(Request $request)
+    {
+        try {
+
+            $query = $request->input('query');
+
+            $agents = Agent::query();
+
+            if ($query) {
+
+                $agents->where(function ($q) use ($query) {
+
+                    $q->where('AgentID', 'LIKE', '%' . $query . '%')
+                        ->orWhere('FName', 'LIKE', '%' . $query . '%')
+                        ->orWhere('LName', 'LIKE', '%' . $query . '%')
+                        ->orWhere('Address1', 'LIKE', '%' . $query . '%')
+                        ->orWhere('Telephone', 'LIKE', '%' . $query . '%')
+                        ->orWhere('Email', 'LIKE', '%' . $query . '%');
+                });
+            }
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Sorting
+        |--------------------------------------------------------------------------
+        |
+        | Only these columns are sortable:
+        |
+        | AgentTableID
+        | AgentID
+        | FName
+        |
+        */
+
+            $sort = $request->input('sort', 'created_at');
+
+            $direction = $request->input('direction', 'desc');
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Allowed sorting columns
+        |--------------------------------------------------------------------------
+        */
+
+            $allowedSorts = [
+                'AgentTableID',
+                'AgentID',
+                'FName',
+                'created_at',
+            ];
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Validate sorting column
+        |--------------------------------------------------------------------------
+        */
+
+            if (!in_array($sort, $allowedSorts)) {
+
+                $sort = 'created_at';
+            }
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Validate sorting direction
+        |--------------------------------------------------------------------------
+        */
+
+            if (!in_array($direction, ['asc', 'desc'])) {
+
+                $direction = 'desc';
+            }
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Apply sorting
+        |--------------------------------------------------------------------------
+        */
+
+            $agents = $agents
+                ->orderBy($sort, $direction)
+                ->paginate(10);
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Keep search + sorting in pagination
+        |--------------------------------------------------------------------------
+        */
+
+            $agents->appends([
+                'query' => $query,
+                'sort' => $sort,
+                'direction' => $direction,
+            ]);
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | AJAX response
+        |--------------------------------------------------------------------------
+        */
+
+            if ($request->ajax()) {
+
+                return response()->json([
+
+                    'data' => $agents->items(),
+
+                    'pagination' => [
+
+                        'current_page' => $agents->currentPage(),
+
+                        'last_page' => $agents->lastPage(),
+
+                        'per_page' => $agents->perPage(),
+
+                        'total' => $agents->total(),
+
+                    ],
+
+                ]);
+            }
+
+
+            return view(
+                'admin.agent.index',
+                compact('agents')
+            );
+        } catch (\Exception $e) {
+
+            return redirect()
+                ->back()
+                ->with('err_message', $e->getMessage());
         }
     }
     public function create()
@@ -78,6 +219,24 @@ class AgentController extends Controller
             $spouse = $request->has('spouse') ? 1 : 0;
             $display_on_web = $request->has('display_on_web') ? 1 : 0;
             $active_agent = $request->has('active_agent') ? 1 : 0;
+            $homepageOrder = $request->input('homepage_order');
+
+            if ($homepageOrder !== null && $homepageOrder !== '') {
+
+                $homepageOrder = (int) $homepageOrder;
+                $existingHomepageAgent = Agent::where(
+                    'homepage_order',
+                    $homepageOrder
+                )->first();
+
+                if ($existingHomepageAgent) {
+                    $existingHomepageAgent->homepage_order = null;
+                    $existingHomepageAgent->save();
+                }
+            } else {
+
+                $homepageOrder = null;
+            }
             $agent = new Agent;
             $agent->AgentID = strtoupper($request->agent_id);
             $agent->LName = $request->last_name;
@@ -100,6 +259,7 @@ class AgentController extends Controller
             $agent->HireDate = $request->hire_date;
             $agent->Termination = $request->terminate_date;
             $agent->Display = $display_on_web;
+            $agent->homepage_order = $homepageOrder;
             $agent->Active = $active_agent;
             $agent->AgentUserRegisterId =  $check->id;
             if ($request->hasFile('agent_image')) {
@@ -173,6 +333,11 @@ class AgentController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         } */
+        $currentAgent = Agent::where('AgentUserRegisterId', $id)->first();
+
+        if (!$currentAgent) {
+            return redirect()->back()->with('error', 'Agent not found.');
+        }
         if ($request->hasFile('agent_image')) {
             $model = Agent::where('AgentUserRegisterId', $id)->first();
             $oldImagePath = public_path('assets/uploads/images/' . $model->image);
@@ -187,6 +352,40 @@ class AgentController extends Controller
         } else {
             $data = Agent::where('AgentUserRegisterId', $id)->first();
             $filename = $data->image;
+        }
+        $newHomepageOrder = $request->input('homepage_order');
+
+        if ($newHomepageOrder !== null && $newHomepageOrder !== '') {
+
+            $newHomepageOrder = (int) $newHomepageOrder;
+
+            // Only allow 1, 2 or 3
+            if (!in_array($newHomepageOrder, [1, 2, 3])) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Homepage order must be 1, 2 or 3.');
+            }
+
+            $oldHomepageOrder = $currentAgent->homepage_order;
+
+            $existingAgent = Agent::where('homepage_order', $newHomepageOrder)
+                ->where('AgentUserRegisterId', '!=', $id)
+                ->first();
+
+            if ($existingAgent) {
+                if ($oldHomepageOrder !== null && $oldHomepageOrder != '') {
+
+                    $existingAgent->homepage_order = $oldHomepageOrder;
+                    $existingAgent->save();
+                } else {
+
+                    $existingAgent->homepage_order = null;
+                    $existingAgent->save();
+                }
+            }
+        } else {
+
+            $newHomepageOrder = null;
         }
         $agent = Agent::where('AgentUserRegisterId', $id)->update([
             'LName' => $request->last_name,
@@ -208,6 +407,7 @@ class AgentController extends Controller
             'HireDate' => $request->hire_date,
             'Termination' => $request->terminate_date,
             'Display' => $request->display_on_web,
+            'homepage_order' => $newHomepageOrder,
             'Active' => $request->active_agent,
             'image' => $filename,
 

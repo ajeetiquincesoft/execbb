@@ -137,15 +137,15 @@
                             </div>
                         </div>
                         <!-- <div class="col-md-3">
-                                            <div class="form-group mb-3">
-                                                <label for="agentComment">Comment</label>
-                                                <input type="text" placeholder="" id="comment" class="form-control"
-                                                    name="comment" value="{{ old('comment') }}">
-                                                @if ($errors->has('comment'))
+                                                    <div class="form-group mb-3">
+                                                        <label for="agentComment">Comment</label>
+                                                        <input type="text" placeholder="" id="comment" class="form-control"
+                                                            name="comment" value="{{ old('comment') }}">
+                                                        @if ($errors->has('comment'))
     <span class="text-danger">{{ $errors->first('comment') }}</span>
     @endif
-                                            </div>
-                                        </div> -->
+                                                    </div>
+                                                </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -255,6 +255,27 @@
                                 name="active_agent" {{ old('active_agent') ? 'checked' : '' }}
                                 onclick="changeActiveAgentValue()">
                         </div>
+                        <div class="col-md-3" style="height: 70px;">
+
+                            <div class="form-group">
+                                <label for="agentState"> Homepage order</label>
+                                <select name="homepage_order" id="homepage_order" class="form-select">
+                                    <option value="">-- Select Order --</option>
+
+                                    <option value="1" {{ old('homepage_order') == 1 ? 'selected' : '' }}>
+                                        1
+                                    </option>
+
+                                    <option value="2" {{ old('homepage_order') == 2 ? 'selected' : '' }}>
+                                        2
+                                    </option>
+
+                                    <option value="3" {{ old('homepage_order') == 3 ? 'selected' : '' }}>
+                                        3
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <div class="col">
                                 <u><span id="fileLink">View Image</span> </u>
@@ -301,6 +322,23 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const checkbox = document.getElementById('display_on_web');
+            const order = document.getElementById('homepage_order');
+
+            function toggleOrder() {
+                order.disabled = !checkbox.checked;
+
+                if (!checkbox.checked) {
+                    order.value = '';
+                }
+            }
+
+            checkbox.addEventListener('change', toggleOrder);
+
+            toggleOrder();
+        });
         $(document).ready(function() {
             $('#agent-form').validate({
                 rules: {

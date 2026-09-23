@@ -105,7 +105,32 @@ class HomeController extends Controller
             ->get();
 
         //dd($listings);
-        $agents = Agent::where('Active', 1)->latest()->take(3)->get();
+        /* $agents = Agent::where('Active', 1)->latest()->take(3)->get(); */
+
+        $agents = Agent::whereNotNull('homepage_order')
+            ->whereIn('homepage_order', [1, 2, 3])
+            ->orderBy('homepage_order', 'asc')
+            ->limit(3)
+            ->get();
+
+        if ($agents->count() < 3) {
+
+            $remaining = 3 - $agents->count();
+
+            // IDs already selected by homepage_order
+            $orderedAgentIds = $agents->pluck('id')->toArray();
+
+            // Fill remaining positions with active agents
+            $fallbackAgents = Agent::where('Active', 1)
+                ->when(!empty($orderedAgentIds), function ($query) use ($orderedAgentIds) {
+                    $query->whereNotIn('id', $orderedAgentIds);
+                })
+                ->latest()
+                ->take($remaining)
+                ->get();
+
+            $agents = $agents->concat($fallbackAgents);
+        }
         return view('frontend.home', compact('listings', 'states', 'agents', 'categories', 'subCategories', 'businessTypes', 'hotSubCategories'));
     }
     public function getBusinessCategory($id)

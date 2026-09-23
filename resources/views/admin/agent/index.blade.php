@@ -37,14 +37,52 @@
                 </div>
             </div>
             <div class="list-data">
+                @php
+                    $currentSort = request('sort');
+                    $currentDirection = request('direction');
+                @endphp
 
+                @php
+                    function sortIcon($column, $currentSort, $currentDirection)
+                    {
+                        if ($currentSort === $column) {
+                            return $currentDirection === 'asc'
+                                ? '<i class="fa-solid fa-arrow-up-short-wide"></i>'
+                                : '<i class="fa-solid fa-arrow-down-wide-short"></i>';
+                        }
+                        return '<i class="fa-solid fa-sort"></i>';
+                    }
+
+                    function sortDirection($column, $currentSort, $currentDirection)
+                    {
+                        return $currentSort === $column && $currentDirection === 'asc' ? 'desc' : 'asc';
+                    }
+                @endphp
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Agent ID</th>
-                                <th scope="col">Name</th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'AgentTableID',
+                                            'direction' => sortDirection('AgentTableID', $currentSort, $currentDirection),
+                                        ]) }}">
+                                        # {!! sortIcon('AgentTableID', $currentSort, $currentDirection) !!}
+                                    </a></th>
+                                <th scope="col" class="sortable"> <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'AgentID',
+                                            'direction' => sortDirection('AgentID', $currentSort, $currentDirection),
+                                        ]) }}">
+                                        Agent ID {!! sortIcon('AgentID', $currentSort, $currentDirection) !!}
+                                    </a></th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'FName',
+                                            'direction' => sortDirection('FName', $currentSort, $currentDirection),
+                                        ]) }}">
+                                        Name {!! sortIcon('FName', $currentSort, $currentDirection) !!}
+                                    </a></th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Email</th>
@@ -89,8 +127,8 @@
                                             <i class="fas fa-user-slash text-warning"></i>
                                         </button>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                        <i class="fas fa-download"></i>
-                                    </button> -->
+                                                                                        <i class="fas fa-download"></i>
+                                                                                    </button> -->
                                     </td>
                                 </tr>
                             @empty
@@ -142,6 +180,17 @@
             </div>
         </div>
     </div>
+    <style>
+        .sortable a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .sortable a:hover {
+            color: inherit;
+            text-decoration: none;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -239,10 +288,10 @@
 
 
             // Trigger search on input
-            $(document).on('keyup', '#search', function() {
-                const query = $(this).val();
-                fetch_data(1, query); // Always start from the first page
-            });
+            /*    $(document).on('keyup', '#search', function() {
+                   const query = $(this).val();
+                   fetch_data(1, query); // Always start from the first page
+               }); */
 
             // Handle pagination click
             $(document).on('click', '.pagination-link', function(event) {
