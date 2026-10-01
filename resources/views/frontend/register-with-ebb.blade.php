@@ -756,8 +756,8 @@
     </div>
     <style>
         /* =========================================================
-                       EBB REGISTRATION - BASE LAYOUT
-                       ========================================================= */
+                           EBB REGISTRATION - BASE LAYOUT
+                           ========================================================= */
 
         .content-box-ebb {
             background: #ffffff;
@@ -789,8 +789,8 @@
         }
 
         /* =========================================================
-                       PAGE HEADING
-                       ========================================================= */
+                           PAGE HEADING
+                           ========================================================= */
 
         .client_login {
             color: #252b33;
@@ -815,8 +815,8 @@
         }
 
         /* =========================================================
-                       STEP PROGRESS
-                       ========================================================= */
+                           STEP PROGRESS
+                           ========================================================= */
 
         .ebb-step-progress {
             display: flex;
@@ -889,8 +889,8 @@
         }
 
         /* =========================================================
-                       AGREEMENT
-                       ========================================================= */
+                           AGREEMENT
+                           ========================================================= */
 
         .agreement-container {
             padding: 22px 24px;
@@ -921,8 +921,8 @@
         }
 
         /* =========================================================
-                       FORM FIELDS
-                       ========================================================= */
+                           FORM FIELDS
+                           ========================================================= */
 
         #registerEbb .form-control,
         #registerEbb .form-select,
@@ -992,7 +992,7 @@
             cursor: not-allowed;
         }
 
-        .form-sec {
+        #registerEbb .form-sec {
             position: relative;
             margin: 12px 0 18px;
             padding-bottom: 9px;
@@ -1002,7 +1002,7 @@
             border-bottom: 1px solid #e8ebef;
         }
 
-        .form-sec::after {
+        #registerEbb .form-sec::after {
             content: "";
             position: absolute;
             left: 0;
@@ -1029,8 +1029,8 @@
         }
 
         /* =========================================================
-                       RADIO / QUESTION SECTIONS
-                       ========================================================= */
+                           RADIO / QUESTION SECTIONS
+                           ========================================================= */
 
         .interest_business,
         .interest {
@@ -1053,8 +1053,8 @@
         }
 
         /* =========================================================
-                       SIGNATURE
-                       ========================================================= */
+                           SIGNATURE
+                           ========================================================= */
 
         #signature-pad {
             display: block;
@@ -1184,8 +1184,8 @@
         }
 
         /* =========================================================
-                       NAVIGATION
-                       ========================================================= */
+                           NAVIGATION
+                           ========================================================= */
 
         #registerEbb .form-navigation {
             display: flex;
@@ -1246,8 +1246,8 @@
         }
 
         /* =========================================================
-                       VALIDATION / ERROR
-                       ========================================================= */
+                           VALIDATION / ERROR
+                           ========================================================= */
 
         #registerEbb label.error {
             display: block;
@@ -1350,9 +1350,9 @@
         }
 
         /* =========================================================
-                       RESPONSIVE FORM LAYOUT
-                       Signature canvas intentionally remains fixed at 525 x 200.
-                       ========================================================= */
+                           RESPONSIVE FORM LAYOUT
+                           Signature canvas intentionally remains fixed at 525 x 200.
+                           ========================================================= */
 
         @media (max-width: 991.98px) {
             .column-divider {
@@ -1773,9 +1773,9 @@
                     // Change button UI
                     $btn.html(
                         `
-                                                                                                                                                                                                                                            <span class="spinner-border spinner-border-sm"></span>
-                                                                                                                                                                                                                                            Processing...
-                                                                                                                                                                                                                                        `
+                                                                                                                                                                                                                                                <span class="spinner-border spinner-border-sm"></span>
+                                                                                                                                                                                                                                                Processing...
+                                                                                                                                                                                                                                            `
                         );
 
                         // Optional: disable all buttons
