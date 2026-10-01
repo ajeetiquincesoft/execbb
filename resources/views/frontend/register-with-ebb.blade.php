@@ -1,7 +1,7 @@
 @extends('frontend.layout.master')
 
 @section('content')
-    <!-- Register with ebb Start -->
+
     <div class="container py-7">
         <div class="content-box-ebb">
             <div class="row g-5">
@@ -15,9 +15,21 @@
                     </div>
                 </div>
                 @if (Session::has('error'))
-                    <div class="alert alert-danger alert-block" id="alert-danger">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>{{ Session::get('error') }}</strong>
+                    <div class="ebb-error-alert" id="alert-danger">
+                        <div class="ebb-error-icon">
+                            <i class="fa fa-exclamation"></i>
+                        </div>
+
+                        <div class="ebb-error-content">
+                            <div class="ebb-error-title">Registration Notice</div>
+                            <div class="ebb-error-message">
+                                {{ Session::get('error') }}
+                            </div>
+                        </div>
+
+                        <button type="button" class="ebb-error-close" id="ebb-error-close" aria-label="Close">
+                            <i class="fa fa-times"></i>
+                        </button>
                     </div>
                 @endif
                 <div class="col-lg-7 mt-0 column-divider">
@@ -28,6 +40,41 @@
                             <input type="hidden" name="recaptcha_token" id="recaptcha_token">
                             <input type="hidden" name="action_type" id="action_type">
                             <input type="hidden" name="step" id="currentStep" value="{{ session('step', 1) }}">
+
+                            <div class="ebb-step-progress" aria-label="Registration progress">
+                                @php
+                                    $currentStep = (int) session('step', 1);
+                                @endphp
+
+                                <div class="ebb-step-item {{ $currentStep >= 1 ? 'active' : '' }}">
+                                    <span class="ebb-step-number">1</span>
+                                    <span class="ebb-step-label">
+                                        <strong>Agreement</strong>
+                                        <small>Personal information</small>
+                                    </span>
+                                </div>
+
+                                <span class="ebb-step-line" aria-hidden="true"></span>
+
+                                <div class="ebb-step-item {{ $currentStep >= 2 ? 'active' : '' }}">
+                                    <span class="ebb-step-number">2</span>
+                                    <span class="ebb-step-label">
+                                        <strong>Contact</strong>
+                                        <small>Contact details</small>
+                                    </span>
+                                </div>
+
+                                <span class="ebb-step-line" aria-hidden="true"></span>
+
+                                <div class="ebb-step-item {{ $currentStep >= 3 ? 'active' : '' }}">
+                                    <span class="ebb-step-number">3</span>
+                                    <span class="ebb-step-label">
+                                        <strong>Profile</strong>
+                                        <small>Buyer preferences</small>
+                                    </span>
+                                </div>
+                            </div>
+
                             @if (session('step', 1) == 1)
                                 <div class="form-multi-tab">
                                     <div class="agreement-container">
@@ -160,20 +207,62 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p>Signature</p>
-                                    <div class="row g-3">
-                                        <div class="col-12 col-md-12">
-                                            <div class="mb-3 below">
-                                                <canvas id="signature-pad" class="signature-pad"
-                                                    style="border:1px solid #B3B3B3;" width="525"
-                                                    height="200"></canvas>
-                                                <input type="hidden" name="signature" id="signature"
-                                                    value="{{ session('buyerData.signature') ?? old('signature') }}">
-                                                <div id="clear-btn" class="sign_btn" title="Clear the signature">x</div>
-                                                <div id="set-btn" class="sign_btn" title="Set the signature">✓</div>
-                                            </div>
-                                        </div>
 
+                                    <div class="signature-section-title">
+                                        <strong>Electronic Signature</strong>
+                                        <span>Please select one of the options below.</span>
+                                    </div>
+
+                                    <div class="signature-options">
+                                        <label>
+                                            <input type="radio" name="signature_type_option" value="draw"
+                                                {{ old('signature_type', session('buyerData.signature_type', 'draw')) == 'draw' ? 'checked' : '' }}>
+                                            Draw Signature
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="signature_type_option" value="type"
+                                                {{ old('signature_type', session('buyerData.signature_type')) == 'type' ? 'checked' : '' }}>
+                                            Type Signature
+                                        </label>
+                                    </div>
+
+                                    <input type="hidden" name="signature_type" id="signature_type"
+                                        value="{{ old('signature_type', session('buyerData.signature_type', 'draw')) }}">
+
+                                    <input type="hidden" name="signature" id="signature"
+                                        value="{{ session('buyerData.signature') ?? old('signature') }}">
+
+                                    <div id="draw-signature-section">
+                                        <div class="mb-3 below">
+                                            <canvas id="signature-pad" class="signature-pad"
+                                                style="border:1px solid #B3B3B3;" width="525" height="200"></canvas>
+
+
+                                            <div class="signature-actions">
+
+                                                <button type="button" id="clear-btn"
+                                                    class="signature-btn signature-btn-clear">
+                                                    <i class="fas fa-eraser"></i>
+                                                    Clear
+                                                </button>
+
+                                                <button type="button" id="set-btn"
+                                                    class="signature-btn signature-btn-set">
+                                                    <i class="fas fa-check"></i>
+                                                    Use Signature
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="typed-signature-section" style="display:none;">
+                                        <input type="text" name="typed_signature" id="typed_signature"
+                                            class="form-control form-control-lg"
+                                            placeholder="Type your full name as your signature"
+                                            value="{{ old('typed_signature', session('buyerData.typed_signature')) }}">
                                     </div>
                                 </div>
                             @endif
@@ -217,19 +306,12 @@
                                                 @error('agent')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
-                                                </select>
                                             </div>
                                             @if (request()->query('agent_id'))
                                                 <input type="hidden" name="agent" value="{{ $uniqueAgID }}">
                                             @endif
                                         </div>
-                                        {{-- <div class="col-12 col-md-6">
-                                            <div class="mb-3">
-                                                <input type="date" id="BDate" name="BDate"
-                                                    class="form-control form-control-lg" placeholder="BDate"
-                                                    value="{{ session('buyerData.BDate') ?? old('BDate') }}" />
-                                            </div>
-                                        </div> --}}
+
                                     </div>
                                     <div class="mb-3">
                                         <input type="text" id="mailling_address" name="address"
@@ -264,7 +346,7 @@
                                         <div class="col-12 col-md-6">
                                             <div class="mb-3">
                                                 <select class="form-select form-select-lg" id="county" name="county">
-                                                    <option value="" selected="">Select country</option>
+                                                    <option value="" selected="">Select county</option>
                                                     @foreach ($counties as $key => $country)
                                                         <option value="{{ $country->County }}"
                                                             {{ old('county') == $country->County || session('buyerData.county') == $country->County ? 'selected' : '' }}>
@@ -281,22 +363,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{--   <div class="row g-3">
-                                        <div class="col-12 col-md-6">
-                                            <div class="mb-3">
-                                                <input type="text" id="home_phone" name="home_phone"
-                                                    class="form-control form-control-lg" placeholder="Home Phone"
-                                                    value="{{ session('buyerData.home_phone') ?? old('home_phone') }}" />
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="mb-3">
-                                                <input type="text" id="business_phone" name="business_phone"
-                                                    class="form-control form-control-lg" placeholder="Business Phone"
-                                                    value="{{ session('buyerData.business_phone') ?? old('business_phone') }}" />
-                                            </div>
-                                        </div>
-                                    </div> --}}
+
                                     <div class="row g-3">
                                         <div class="col-12 col-md-12">
                                             <div class="mb-3">
@@ -659,13 +726,13 @@
                             @endif
                             <div class="pt-1 mt-1 d-flex justify-content-center align-items-center"
                                 style="overflow:auto; flex-direction: row; gap: 10px;">
-                                <!-- Previous button -->
+
                                 @if (session('step', 1) > 1)
                                     <button type="button" name="previous" class="btn bg-5a102a text-white btn-block"
                                         id="prevBtn" style="height: 50px; width: 35%;">Previous</button>
                                 @endif
 
-                                <!-- Next button or Submit -->
+
                                 <button type="submit" name="next" class="btn bg-5a102a text-white btn-block"
                                     id="nextBtn" style="height: 50px; width: 35%;">
                                     <span class="btn-text">{{ session('step', 1) < 3 ? 'Next' : 'Submit' }}</span>
@@ -678,236 +745,1038 @@
 
                 </div>
                 <div class="col-lg-5 mt-0 register_ebb">
-                    <!-- <p class="mb-4 notice">Notice: To register, you must use Internet Explorer. Please set this site to compatibility mode.</p> -->
+
                     <p class="mb-4 notice">EBB's listings are available free to everyone who uses our site. To view the
                         detailed information, which is confidential in nature, we will ask you to sign a confidentiality
                         agreement when you register.</p>
-                    <!--  <p class="mb-4">For buyers who are aggressively looking to find a business, we recommend that you sign up for our <a href="{{ route('preferred.buyers.program') }}" class="buyer_program">Preferred Buyer Program.</a></p> -->
+
                 </div>
             </div>
         </div>
     </div>
-    <!-- Register with ebb End -->
     <style>
-        #signature-pad {
-            pointer-events: auto;
-        }
+        /* =========================================================
+                       EBB REGISTRATION - BASE LAYOUT
+                       ========================================================= */
 
         .content-box-ebb {
-            background-color: #FFFFFF;
+            background: #ffffff;
             padding: 30px;
             margin-top: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            border: 1px solid #e8ebef;
+            border-radius: 12px;
+            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.08);
         }
 
-        .form-control:focus::placeholder,
-        .form-control:not(:placeholder-shown)::placeholder {
+        .RegisterWithEbb {
+            width: 100%;
+        }
+
+        .column-divider {
+            border-right: 1px solid #e5e7eb;
+            padding-right: 35px;
+        }
+
+        .register_ebb {
+            padding-left: 35px;
+        }
+
+        .register_ebb .notice {
+            color: #5d6570;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* =========================================================
+                       PAGE HEADING
+                       ========================================================= */
+
+        .client_login {
+            color: #252b33;
+            font-size: 24px;
+            font-weight: 600 !important;
+        }
+
+        .an_account {
+            color: #6b7280 !important;
+            font-size: 13px;
+        }
+
+        .buyer_program {
+            color: #8f1d4d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .buyer_program:hover {
+            color: #74163e;
+            text-decoration: underline;
+        }
+
+        /* =========================================================
+                       STEP PROGRESS
+                       ========================================================= */
+
+        .ebb-step-progress {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 0 0 28px;
+            padding: 16px 18px;
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+        }
+
+        .ebb-step-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            flex: 0 0 auto;
+            opacity: 0.45;
+        }
+
+        .ebb-step-item.active {
+            opacity: 1;
+        }
+
+        .ebb-step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            border-radius: 50%;
+            background: #f1f3f5;
+            border: 1px solid #d7dce2;
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .ebb-step-item.active .ebb-step-number {
+            background: #8f1d4d;
+            border-color: #8f1d4d;
+            color: #ffffff;
+        }
+
+        .ebb-step-label {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+
+        .ebb-step-label strong {
+            color: #252b33;
             font-size: 12px;
-            transform: translateY(-10px);
-            color: #007bff;
+            font-weight: 600;
+        }
+
+        .ebb-step-label small {
+            margin-top: 2px;
+            color: #8a919c;
+            font-size: 10px;
+        }
+
+        .ebb-step-line {
+            height: 1px;
+            flex: 1 1 auto;
+            min-width: 25px;
+            margin: 0 14px;
+            background: #dfe3e8;
+        }
+
+        /* =========================================================
+                       AGREEMENT
+                       ========================================================= */
+
+        .agreement-container {
+            padding: 22px 24px;
+            margin-bottom: 24px;
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid #8f1d4d;
+            border-radius: 9px;
+        }
+
+        .agreement-container h5 {
+            color: #252b33;
+            font-size: 17px;
+            line-height: 1.4;
         }
 
         p.nda_para {
+            margin-bottom: 13px;
+            color: #555d68;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .agreement-container .fw-bold {
+            color: #5a102a;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+                       FORM FIELDS
+                       ========================================================= */
+
+        #registerEbb .form-control,
+        #registerEbb .form-select,
+        #registerEbb textarea {
+            min-height: 50px;
+            border: 1px solid #222222;
+            border-radius: 7px;
+            background-color: #ffffff;
+            color: #222222;
+            box-shadow: none;
+            transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+        }
+
+        #registerEbb .form-control::placeholder {
+            color: #777777 !important;
+            opacity: 1;
+        }
+
+        #registerEbb .form-control:focus,
+        #registerEbb .form-select:focus,
+        #registerEbb textarea:focus {
+            background-color: #ffffff !important;
+            border-color: #8b1e4d !important;
+            color: #222222 !important;
+            box-shadow: 0 0 0 3px rgba(139, 30, 77, 0.10) !important;
+            outline: none !important;
+        }
+
+        #registerEbb .form-control:hover,
+        #registerEbb .form-select:hover,
+        #registerEbb textarea:hover {
+            border-color: #999999 !important;
+        }
+
+        #registerEbb input[type="text"],
+        #registerEbb input[type="email"],
+        #registerEbb input[type="tel"],
+        #registerEbb input[type="number"] {
+            background-color: #ffffff !important;
+            color: #222222 !important;
+        }
+
+        #registerEbb select,
+        #registerEbb .form-select {
+            color: #333333 !important;
+            cursor: pointer;
+        }
+
+        #registerEbb select option,
+        #registerEbb .form-select option {
+            color: #333333;
+            background: #ffffff;
+        }
+
+        #registerEbb select option[value=""],
+        #registerEbb .form-select option[value=""] {
+            color: #8a919c;
+        }
+
+        #registerEbb input:disabled,
+        #registerEbb select:disabled,
+        #registerEbb textarea:disabled {
+            background-color: #eeeeee !important;
+            color: #777777 !important;
+            border-color: #cccccc !important;
+            opacity: 0.7 !important;
+            cursor: not-allowed;
+        }
+
+        .form-sec {
+            position: relative;
+            margin: 12px 0 18px;
+            padding-bottom: 9px;
+            color: #252b33;
+            font-size: 15px;
+            font-weight: 600;
+            border-bottom: 1px solid #e8ebef;
+        }
+
+        .form-sec::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 55px;
+            height: 2px;
+            background: #8f1d4d;
+        }
+
+        .valid_email {
+            margin-bottom: 5px;
+            color: #5f6874;
+            font-size: 12px;
+        }
+
+        .sellorgive {
+            color: #8f1d4d;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .sellorgive:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================================================
+                       RADIO / QUESTION SECTIONS
+                       ========================================================= */
+
+        .interest_business,
+        .interest {
+            padding: 18px;
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+        }
+
+        .interest_business .form-label,
+        .interest .form-label {
+            color: #3f4650;
+            font-size: 13px;
+        }
+
+        .custom-radio {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* =========================================================
+                       SIGNATURE
+                       ========================================================= */
+
+        #signature-pad {
+            display: block;
+            width: 525px !important;
+            height: 200px !important;
+            background: #ffffff;
+            border: 1px solid #cfd5dc !important;
+            border-radius: 6px;
+            cursor: crosshair;
+            pointer-events: auto;
+        }
+
+        .signature-section-title {
+            margin: 8px 0 12px;
+        }
+
+        .signature-section-title strong {
+            display: block;
+            color: #252b33;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .signature-section-title span {
+            display: block;
+            margin-top: 3px;
+            color: #8a919c;
+            font-size: 12px;
+        }
+
+        .signature-options {
+            display: flex;
+            gap: 12px;
+            margin: 10px 0 16px;
+        }
+
+        .signature-options label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 150px;
+            padding: 11px 15px;
+            border: 1px solid #dfe3e8;
+            border-radius: 7px;
+            background: #ffffff;
+            color: #4b5563;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .signature-options label:hover {
+            border-color: #9ca3af;
+            background: #fafafa;
+        }
+
+        .signature-options input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            accent-color: #8f1d4d;
+            cursor: pointer;
+        }
+
+        #draw-signature-section,
+        #typed-signature-section {
+            padding: 16px;
+            background: #fafafa;
+            border: 1px solid #e1e5ea;
+            border-radius: 9px;
+        }
+
+        #draw-signature-section .below {
+            width: 100%;
+            margin: 0;
+        }
+
+        .signature-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 12px 17px 0;
+        }
+
+        .signature-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 82px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .signature-btn i {
+            margin-right: 5px;
+        }
+
+        .signature-btn-clear {
+            background: #ffffff;
+            color: #4b5563;
+        }
+
+        .signature-btn-clear:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .signature-btn-set {
+            background: #1f2937;
+            border-color: #1f2937;
+            color: #ffffff;
+        }
+
+        .signature-btn-set:hover {
+            background: #111827;
+            border-color: #111827;
+        }
+
+        #typed_signature {
+            background: #ffffff;
+        }
+
+        /* =========================================================
+                       NAVIGATION
+                       ========================================================= */
+
+        #registerEbb .form-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+            overflow: auto;
+        }
+
+        #registerEbb #prevBtn,
+        #registerEbb #nextBtn {
+            height: 50px !important;
+            width: 35% !important;
+            border-radius: 5px !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none !important;
+            transition: all .2s ease;
+        }
+
+        #registerEbb #prevBtn {
+            background: #ffffff !important;
+            color: #5a102a !important;
+            border: 1px solid #d8dce2 !important;
+        }
+
+        #registerEbb #prevBtn:hover {
+            background: #f8f8f8 !important;
+            border-color: #5a102a !important;
+            transform: translateY(-1px);
+        }
+
+        #registerEbb #nextBtn {
+            background: #8f1d4d !important;
+            color: #ffffff !important;
+            border: 1px solid #8f1d4d !important;
+        }
+
+        #registerEbb #nextBtn:hover {
+            background: #74163e !important;
+            border-color: #74163e !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(143, 29, 77, .15) !important;
+        }
+
+        #registerEbb #nextBtn:active,
+        #registerEbb #prevBtn:active {
+            transform: translateY(0);
+        }
+
+        #registerEbb #nextBtn:focus,
+        #registerEbb #prevBtn:focus {
+            outline: none !important;
+        }
+
+        /* =========================================================
+                       VALIDATION / ERROR
+                       ========================================================= */
+
+        #registerEbb label.error {
+            display: block;
+            margin-top: 5px;
+            color: #dc3545;
+            font-size: 12px;
+        }
+
+        #registerEbb .form-control.error,
+        #registerEbb .form-select.error {
+            border-color: #dc3545 !important;
+        }
+
+        .ebb-error-alert {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 0 0 18px;
+            padding: 13px 16px;
+            box-sizing: border-box;
+            border: 1px solid #f3b4b4;
+            border-radius: 9px;
+            background: #fff7f7;
+            color: #7f1d1d;
+            box-shadow: 0 3px 12px rgba(127, 29, 29, .06);
+            position: relative;
+            animation: ebbErrorIn .25s ease-out;
+        }
+
+        .ebb-error-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            margin-right: 12px;
+            border-radius: 50%;
+            background: #fee2e2;
+            color: #dc2626;
             font-size: 14px;
         }
 
-        div#clear-btn {
-            border: none;
-            outline: none;
-            position: absolute;
-            right: 20px;
-            top: 16px;
-            background: transparent;
-            padding: 0;
-            cursor: pointer;
+        .ebb-error-content {
+            min-width: 0;
+            padding-right: 30px;
         }
 
-        div#set-btn {
-            border: none;
-            outline: none;
-            position: absolute;
-            right: 16px;
-            top: 40px;
-            background: transparent;
-            padding: 0;
-            cursor: pointer;
+        .ebb-error-title {
+            margin-bottom: 2px;
+            color: #991b1b;
+            font-size: 12px;
+            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: .2px;
         }
 
-        .below {
-            position: relative;
-            margin-bottom: 15px;
+        .ebb-error-message {
+            color: #7f1d1d;
+            font-size: 13px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .ebb-error-close {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border: 0;
+            border-radius: 6px;
+            background: transparent;
+            color: #991b1b;
+            font-size: 13px;
+            cursor: pointer;
+            transform: translateY(-50%);
+            transition: all .2s ease;
+        }
+
+        .ebb-error-close:hover {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        @keyframes ebbErrorIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================================
+                       RESPONSIVE FORM LAYOUT
+                       Signature canvas intentionally remains fixed at 525 x 200.
+                       ========================================================= */
+
+        @media (max-width: 991.98px) {
+            .column-divider {
+                border-right: 0;
+                padding-right: 15px;
+            }
+
+            .register_ebb {
+                padding-left: 15px;
+            }
+
+            .ebb-step-label small {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .content-box-ebb {
+                padding: 18px;
+            }
+
+            .ebb-step-progress {
+                padding: 12px;
+            }
+
+            .ebb-step-label strong {
+                font-size: 10px;
+            }
+
+            .ebb-step-line {
+                min-width: 12px;
+                margin: 0 7px;
+            }
+
+            .ebb-step-number {
+                width: 30px;
+                height: 30px;
+                flex-basis: 30px;
+                font-size: 11px;
+            }
+
+            .signature-options {
+                flex-direction: column;
+            }
+
+            .signature-options label {
+                width: 100%;
+            }
+
+            /* Keep signature pad fixed as requested. */
+            #signature-pad {
+                width: 525px !important;
+                height: 200px !important;
+            }
+
+            #registerEbb .form-navigation {
+                gap: 8px;
+            }
+
+            #registerEbb #prevBtn,
+            #registerEbb #nextBtn {
+                width: 35% !important;
+                min-width: 120px;
+            }
+
+            .ebb-error-alert {
+                align-items: flex-start;
+                padding: 12px 14px;
+            }
+
+            .ebb-error-icon {
+                width: 30px;
+                height: 30px;
+                flex-basis: 30px;
+                margin-right: 10px;
+            }
+
+            .ebb-error-title {
+                font-size: 11px;
+            }
+
+            .ebb-error-message {
+                font-size: 12px;
+            }
+
+            .ebb-error-close {
+                right: 8px;
+            }
         }
     </style>
+
     <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButton = document.getElementById('ebb-error-close');
+            const errorAlert = document.getElementById('alert-danger');
+
+            if (closeButton && errorAlert) {
+                closeButton.addEventListener('click', function() {
+                    errorAlert.style.opacity = '0';
+                    errorAlert.style.transform = 'translateY(-5px)';
+
+                    setTimeout(function() {
+                        errorAlert.remove();
+                    }, 200);
+                });
+            }
+        });
+        $(document).on('change', 'input[name="signature_type_option"]', function() {
+            const type = $(this).val();
+
+            $('#signature_type').val(type);
+
+            // Switching signature type always starts with a fresh signature.
+            $('#signature').val('');
+            $('#typed_signature').val('');
+
+            // Reuse the existing Clear button so the current SignaturePad
+            // implementation remains unchanged.
+            $('#clear-btn').trigger('click');
+
+            if (type === 'type') {
+                $('#draw-signature-section').hide();
+                $('#typed-signature-section').show();
+            } else {
+                $('#draw-signature-section').show();
+                $('#typed-signature-section').hide();
+            }
+        });
+
+        $(document).on('input', '#typed_signature', function() {
+            if ($('#signature_type').val() === 'type') {
+                $('#signature').val($(this).val().trim());
+            }
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
             $.validator.addMethod("regex", function(value, element, regexpr) {
                 return this.optional(element) || regexpr.test(value); // Allows optional fields to be empty
             }, "Invalid phone number format.");
-            $.validator.addMethod("canvasNotEmpty", function(value, element) {
-                var canvas = document.getElementById('signature-pad');
-                var context = canvas.getContext('2d');
-                var canvasData = context.getImageData(0, 0, canvas.width, canvas.height);
-                var isCanvasEmpty = true;
 
-                // Check if there is any non-transparent pixel on the canvas
-                for (var i = 0; i < canvasData.data.length; i += 4) {
-                    if (canvasData.data[i + 3] !== 0) { // alpha channel not zero (pixel not transparent)
-                        isCanvasEmpty = false;
-                        break;
-                    }
+            $.validator.addMethod("validEmail", function(value, element) {
+                if (this.optional(element)) {
+                    return true;
                 }
 
-                return !isCanvasEmpty; // Returns true if canvas is not empty
-            }, "Please provide your signature.");
-            var form = $('#registerEbb');
-            form.validate({
-                rules: {
-                    full_name: {
-                        required: true
-                    },
-                    nda_business_interest: {
-                        required: true
-                    },
-                    home_address: {
-                        required: true
-                    },
-                    nda_cell_phone: {
-                        required: true,
-                        regex: /^\d{10}$/
-                    },
-                    nda_email: {
-                        required: true,
-                        email: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    first_name: {
-                        required: true
-                    },
-                    address: {
-                        required: true
-                    },
-                    city: {
-                        required: true
-                    },
-                    state: {
-                        required: true
-                    },
-                    zip: {
-                        required: true,
-                        minlength: 5, // Minimum length for US ZIP code
-                        maxlength: 10 // Maximum length for 9-digit ZIP code
-                    },
-                    county: {
-                        required: true
-                    },
-                    bus_category1: {
-                        required: true
-                    },
-                    bus_type1: {
-                        required: true
-                    },
-                    desiredLocation: {
-                        required: true
-                    },
-                    desiredCounty1: {
-                        required: true
-                    },
-                    cashAvailable: {
-                        required: true
-                    },
-                    priceRangeMinimum: {
-                        required: true
-                    },
-                    priceRangeMaximum: {
-                        required: true
-                    },
-                    netIncomeMinimum: {
-                        required: true
-                    },
-                    signature: {
-                        canvasNotEmpty: true
-                    }
+                value = $.trim(value);
 
+                if (value.length > 254) {
+                    return false;
+                }
+
+                if (/\s/.test(value)) {
+                    return false;
+                }
+
+                if (value.indexOf('..') !== -1) {
+                    return false;
+                }
+
+                var emailRegex =
+                    /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/;
+
+            if (!emailRegex.test(value)) {
+                return false;
+            }
+
+            var parts = value.split('@');
+
+            if (parts.length !== 2) {
+                return false;
+            }
+
+            var localPart = parts[0];
+            var domain = parts[1];
+
+            if (localPart.length > 64) {
+                return false;
+            }
+
+            if (domain.length > 253) {
+                return false;
+            }
+
+            if (domain.indexOf('.') === -1) {
+                return false;
+            }
+
+            if (domain.startsWith('.') || domain.endsWith('.')) {
+                return false;
+            }
+
+            if (localPart.startsWith('.') || localPart.endsWith('.')) {
+                return false;
+            }
+
+            return true;
+        }, "Please enter a valid email address.");
+
+        /*  $.validator.addMethod("canvasNotEmpty", function(value, element) {
+             var canvas = document.getElementById('signature-pad');
+             var context = canvas.getContext('2d');
+             var canvasData = context.getImageData(0, 0, canvas.width, canvas.height);
+             var isCanvasEmpty = true;
+
+             // Check if there is any non-transparent pixel on the canvas
+             for (var i = 0; i < canvasData.data.length; i += 4) {
+                 if (canvasData.data[i + 3] !== 0) { // alpha channel not zero (pixel not transparent)
+                     isCanvasEmpty = false;
+                     break;
+                 }
+             }
+
+             return !isCanvasEmpty; // Returns true if canvas is not empty
+         }, "Please provide your signature."); */
+
+        $.validator.addMethod("canvasNotEmpty", function(value, element) {
+
+            if ($('#signature_type').val() === 'type') {
+                return $('#typed_signature').val().trim().length > 0;
+            }
+
+            var canvas = document.getElementById('signature-pad');
+
+            if (!canvas) {
+                return false;
+            }
+
+            var context = canvas.getContext('2d');
+
+            var canvasData = context.getImageData(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            for (var i = 0; i < canvasData.data.length; i += 4) {
+
+                if (canvasData.data[i + 3] !== 0) {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }, "Please provide your signature.");
+        var form = $('#registerEbb');
+        form.validate({
+            rules: {
+                full_name: {
+                    required: true
                 },
-                ignore: ":disabled",
-                messages: {
-                    home_phone: {
-                        required: 'Phone number is required.',
-                        regex: 'Must be a valid phone number.'
-                    },
-                    business_phone: {
-                        regex: 'Must be a valid phone number.'
-                    },
-                    signature: {
-                        required: 'Please provide your signature.'
-                    }
+                nda_business_interest: {
+                    required: true
                 },
-                errorPlacement: function(error, element) {
-                    // Place the error messages directly under the respective fields
-                    if (element.attr("name") == "business_interest") {
-                        error.appendTo(element.closest(
-                            ".interest_business")); // Put the error after the field
-                    } else if (element.attr("name") == "Interest") {
-                        error.appendTo(element.closest(".interest")); // Put the error after the field
-                    } else {
-                        error.insertAfter(element); // Default placement for other fields
-                    }
+                home_address: {
+                    required: true
                 },
-                submitHandler: function(form, event) {
+                nda_cell_phone: {
+                    required: true,
+                    regex: /^\d{10}$/
+                },
+                nda_email: {
+                    required: true,
+                    validEmail: true
+                },
+                email: {
+                    required: true,
+                    validEmail: true
+                },
+                first_name: {
+                    required: true
+                },
+                address: {
+                    required: true
+                },
+                city: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                zip: {
+                    required: true,
+                    minlength: 5, // Minimum length for US ZIP code
+                    maxlength: 10 // Maximum length for 9-digit ZIP code
+                },
+                county: {
+                    required: true
+                },
+                bus_category1: {
+                    required: true
+                },
+                bus_type1: {
+                    required: true
+                },
+                desiredLocation: {
+                    required: true
+                },
+                desiredCounty1: {
+                    required: true
+                },
+                cashAvailable: {
+                    required: true
+                },
+                priceRangeMinimum: {
+                    required: true
+                },
+                priceRangeMaximum: {
+                    required: true
+                },
+                netIncomeMinimum: {
+                    required: true
+                },
+                signature_type: {
+                    required: true
+                },
 
-                    let currentStep = $('#currentStep').val();
-                    let clickedBtn = $(document.activeElement).attr('name');
+                typed_signature: {
+                    required: function() {
+                        return $('#signature_type').val() === 'type';
+                    },
+                    minlength: 2
+                },
+                signature: {
+                    canvasNotEmpty: true
+                }
 
-                    console.log("Step:", currentStep);
-                    console.log("Clicked:", clickedBtn);
+            },
+            ignore: ":disabled",
+            messages: {
+                home_phone: {
+                    required: 'Phone number is required.',
+                    regex: 'Must be a valid phone number.'
+                },
+                business_phone: {
+                    regex: 'Must be a valid phone number.'
+                },
+                nda_email: {
+                    required: 'Please enter your email address.',
+                    validEmail: 'Please enter a valid email address.'
+                },
+
+                email: {
+                    required: 'Please enter your email address.',
+                    validEmail: 'Please enter a valid email address.'
+                },
+
+                typed_signature: {
+                    required: '',
+                    minlength: 'Please enter at least 2 characters.'
+                },
+                signature: {
+                    required: 'Please provide your signature.'
+                }
+            },
+            errorPlacement: function(error, element) {
+                // Place the error messages directly under the respective fields
+                if (element.attr("name") == "business_interest") {
+                    error.appendTo(element.closest(
+                        ".interest_business")); // Put the error after the field
+                } else if (element.attr("name") == "Interest") {
+                    error.appendTo(element.closest(".interest")); // Put the error after the field
+                } else {
+                    error.insertAfter(element); // Default placement for other fields
+                }
+            },
+            submitHandler: function(form, event) {
+
+                let currentStep = $('#currentStep').val();
+                let clickedBtn = $(document.activeElement).attr('name');
+
+                console.log("Step:", currentStep);
+                console.log("Clicked:", clickedBtn);
 
 
-                    if (clickedBtn === 'previous') {
-                        HTMLFormElement.prototype.submit.call(form);
-                        return false;
-                    }
+                if (clickedBtn === 'previous') {
+                    HTMLFormElement.prototype.submit.call(form);
+                    return false;
+                }
 
 
-                    if (currentStep == 1 && clickedBtn === 'next') {
+                if (currentStep == 1 && clickedBtn === 'next') {
 
-                        grecaptcha.ready(function() {
-                            grecaptcha.execute("{{ config('services.recaptcha.site_key') }}", {
+                    grecaptcha.ready(function() {
+                        grecaptcha.execute(
+                            "{{ config('services.recaptcha.site_key') }}", {
                                 action: 'step1'
                             }).then(function(token) {
 
-                                $('#recaptcha_token').val(token);
-                                $('#action_type').val('next'); // track action
+                            $('#recaptcha_token').val(token);
+                            $('#action_type').val('next'); // track action
 
-                                HTMLFormElement.prototype.submit.call(form);
-                            });
+                            HTMLFormElement.prototype.submit.call(form);
                         });
+                    });
 
+                    return false;
+                }
+                if (currentStep == 3 && clickedBtn === 'next') {
+
+                    let $btn = $('button[name="next"]');
+
+                    // Prevent double click
+                    if ($btn.hasClass('processing')) {
                         return false;
                     }
-                    if (currentStep == 3 && clickedBtn === 'next') {
 
-                        let $btn = $('button[name="next"]');
+                    // Add processing state
+                    $btn.addClass('processing');
+                    $btn.prop('disabled', true);
 
-                        // Prevent double click
-                        if ($btn.hasClass('processing')) {
-                            return false;
-                        }
-
-                        // Add processing state
-                        $btn.addClass('processing');
-                        $btn.prop('disabled', true);
-
-                        // Change button UI
-                        $btn.html(`
-        <span class="spinner-border spinner-border-sm"></span>
-        Processing...
-    `);
+                    // Change button UI
+                    $btn.html(
+                        `
+                                                                                                                                                                                                                                            <span class="spinner-border spinner-border-sm"></span>
+                                                                                                                                                                                                                                            Processing...
+                                                                                                                                                                                                                                        `
+                        );
 
                         // Optional: disable all buttons
                         $('button').prop('disabled', true);
@@ -947,9 +1816,14 @@
                     event.preventDefault();
                 }
             });
-            const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
-            document.getElementById('nda_form_date').value = today;
-            document.getElementById('nda_form_date').max = today;
+            const today = new Date().toISOString().split('T')[0];
+
+            const dateField = document.getElementById('nda_form_date');
+
+            if (dateField) {
+                dateField.value = today;
+                dateField.max = today;
+            }
         });
     </script>
 
@@ -1057,62 +1931,116 @@
             });
         });
     </script>
+
     <script type="module">
         import SignaturePad from 'https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.min.js';
-        // Ensure that the DOM is fully loaded before executing the script
+
         document.addEventListener("DOMContentLoaded", function() {
-            // Get the canvas element and initialize the SignaturePad
+
             const canvas = document.getElementById("signature-pad");
-            const signaturePad = new SignaturePad(canvas);
             const signatureData = document.getElementById("signature");
 
-            // Clear the signature when the clear button is clicked
-            document.getElementById("clear-btn").addEventListener("click", function() {
-                signaturePad.clear();
-                signatureData.value = '';
-            });
-            document.getElementById("set-btn").addEventListener("click", function(event) {
-                event.preventDefault();
-                if (!signaturePad.isEmpty()) {
-                    const signatureData = signaturePad.toDataURL();
-                    document.getElementById("signature").value = signatureData;
-                }
-            });
-            const img = new Image();
-            const imgUrl = $('#signature').val();
-            img.src = imgUrl;
-            // Once the image has loaded, draw it on the canvas
-            img.onload = function() {
-                const canvas = document.getElementById('signature-pad');
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            };
+            if (!canvas || !signatureData) {
+                return;
+            }
 
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+            const signaturePad = new SignaturePad(canvas);
 
-            var canvas = document.getElementById("signature-pad");
-            var ctx = canvas.getContext("2d");
+            const clearButton = document.getElementById("clear-btn");
+            const setButton = document.getElementById("set-btn");
+            if (clearButton) {
 
-            var savedSignature = document.getElementById("signature").value;
+                clearButton.addEventListener("click", function() {
 
-            if (savedSignature) {
-                var img = new Image();
+                    signaturePad.clear();
+
+                    signatureData.value = '';
+
+                });
+            }
+            if (setButton) {
+
+                setButton.addEventListener("click", function(event) {
+
+                    event.preventDefault();
+
+                    if (!signaturePad.isEmpty()) {
+
+                        const signatureValue = signaturePad.toDataURL();
+
+                        document.getElementById("signature").value = signatureValue;
+
+                        document.getElementById("signature_type").value = 'draw';
+
+                    }
+
+                });
+            }
+            const savedSignature = signatureData.value;
+
+            if (
+                savedSignature &&
+                savedSignature.startsWith('data:image')
+            ) {
+
+                const img = new Image();
+
                 img.onload = function() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    const ctx = canvas.getContext('2d');
+
+                    ctx.clearRect(
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
+
+                    ctx.drawImage(
+                        img,
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
                 };
 
-                // If it's base64
-                if (savedSignature.startsWith('data:image')) {
-                    img.src = savedSignature;
-                } else {
-                    // If it's file path
-                    img.src = "/" + savedSignature;
-                }
+                img.src = savedSignature;
             }
+            const currentSignatureType =
+                document.getElementById('signature_type').value;
+
+            if (currentSignatureType === 'type') {
+
+                $('#draw-signature-section').hide();
+                $('#typed-signature-section').show();
+
+            } else {
+
+                $('#draw-signature-section').show();
+                $('#typed-signature-section').hide();
+
+            }
+            $('#registerEbb').on('click', '#nextBtn', function() {
+
+                if ($('#signature_type').val() === 'draw') {
+
+                    if (!signaturePad.isEmpty()) {
+
+                        $('#signature').val(
+                            signaturePad.toDataURL()
+                        );
+                    }
+
+                } else {
+
+                    $('#signature').val(
+                        $('#typed_signature').val().trim()
+                    );
+                }
+
+            });
+
         });
     </script>
 

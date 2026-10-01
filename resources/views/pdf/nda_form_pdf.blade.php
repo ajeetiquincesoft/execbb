@@ -28,6 +28,14 @@
             text-align: justify;
             margin: 5px 0;
         }
+
+        .typed-signature {
+            font-family: "DejaVu Sans", sans-serif;
+            font-size: 28px;
+            font-style: italic;
+            margin-top: 10px;
+            padding-bottom: 5px;
+        }
     </style>
 </head>
 
@@ -119,9 +127,17 @@
         <p><span class="label">Signature:</span></p>
 
         @if (!empty($signature))
-            <img class="signature-img" src="{!! $signature !!}">
+
+            @if (($signature_type ?? 'draw') === 'type')
+                <div class="typed-signature">
+                    {{ $signature }}
+                </div>
+            @else
+                <img class="signature-img" src="{{ $signature }}">
+            @endif
         @else
             <p>No signature provided.</p>
+
         @endif
     </div>
 
