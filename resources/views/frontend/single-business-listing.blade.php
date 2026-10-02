@@ -123,7 +123,7 @@
                             <span class="badge">{{ $listing->BusType }}</span>
                             <span class="badge">{{ $subCatName }}</span>
                         </div>
-                        @if (Auth::check())
+                        @if (!Auth::check())
                             <div class="share-bar">
                                 <a href="{{ route('register.with.ebb') }}" class="btn btn-sm custom-btn-listing">
                                     <i class="fa fa-user-plus"></i> Register for more information
