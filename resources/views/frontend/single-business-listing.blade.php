@@ -123,11 +123,13 @@
                             <span class="badge">{{ $listing->BusType }}</span>
                             <span class="badge">{{ $subCatName }}</span>
                         </div>
-                        <div class="share-bar">
-                            <a href="{{ route('register.with.ebb') }}" class="btn btn-sm custom-btn-listing">
-                                <i class="fa fa-user-plus"></i> Register for more information
-                            </a>
-                        </div>
+                        @if (Auth::check())
+                            <div class="share-bar">
+                                <a href="{{ route('register.with.ebb') }}" class="btn btn-sm custom-btn-listing">
+                                    <i class="fa fa-user-plus"></i> Register for more information
+                                </a>
+                            </div>
+                        @endif
                         @if (Auth::check() && auth()->user()->role_name === 'buyer')
                             <div class="favorite-action">
                                 @if ($isFavorite != 0)
