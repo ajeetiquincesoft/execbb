@@ -1,15 +1,38 @@
 @extends('admin.layout.master')
 @section('content')
     <div class="container-fluid content nextPreviousButtons">
-        <div class="next-back-page d-flex justify-content-between">
-            @if ($previous)
-                <a href="{{ route('show.referral', $previous->RefID) }}"><button><i
-                            class="fa fa-chevron-left"></i></button></a>
-            @endif
+        <div class="next-back-page d-flex justify-content-between align-items-center">
 
-            @if ($next)
-                <a href="{{ route('show.referral', $next->RefID) }}"><button><i class="fa fa-chevron-right"></i></button></a>
-            @endif
+            {{-- Previous Record --}}
+            <div>
+                @if ($previous)
+                    <a href="{{ route('show.referral', $previous->RefID) }}" class="record-nav-btn previous-btn">
+                        <span class="nav-icon">
+                            <i class="fa fa-chevron-left"></i>
+                        </span>
+                        <span class="nav-text">
+                            <small>Navigate</small>
+                            <strong>Previous Record</strong>
+                        </span>
+                    </a>
+                @endif
+            </div>
+
+            {{-- Next Record --}}
+            <div>
+                @if ($next)
+                    <a href="{{ route('show.referral', $next->RefID) }}" class="record-nav-btn next-btn">
+                        <span class="nav-text text-end">
+                            <small>Navigate</small>
+                            <strong>Next Record</strong>
+                        </span>
+                        <span class="nav-icon">
+                            <i class="fa fa-chevron-right"></i>
+                        </span>
+                    </a>
+                @endif
+            </div>
+
         </div>
     </div>
     <div class="container-fluid content bg-light">
@@ -139,8 +162,8 @@
                                             <td class="text-end">{{ $referral->ReferredInterest }}</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="{{ url('assets/images/press_owner.png') }}" alt=""><span
-                                                    class="ml-2 fw-600">Ref DBA</span></td>
+                                            <td><img src="{{ url('assets/images/press_owner.png') }}"
+                                                    alt=""><span class="ml-2 fw-600">Ref DBA</span></td>
                                             <td class="text-end">{{ $referral->ReferredDBA }}</td>
                                         </tr>
                                     </tbody>

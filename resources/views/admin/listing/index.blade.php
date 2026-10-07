@@ -63,13 +63,14 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Company</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Agent</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">City</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Act/Ina</th>
                                 <th scope="col">Status</th>
-                                <th scope="col" style="width: 120px;">Action</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody id="listingResults">
@@ -85,6 +86,8 @@
                                     <td>{{ $listing->ListingID }}</td>
                                     <td>{{ $listing->CorpName ? $listing->CorpName : $listing->DBA }}</td>
                                     <td>{{ $listing->SellerFName }} {{ $listing->SellerLName }}</td>
+                                    <td>{{ trim(($listing->AgentFName ?? '') . ' ' . ($listing->AgentLName ?? '')) ?: 'N/A' }}
+                                    </td>
                                     <td>{{ $listing->SHomeAdd1 ? $listing->SHomeAdd1 : $listing->Address1 }}</td>
                                     <td>{{ $listing->SCity ? $listing->SCity : $listing->City }}</td>
                                     <td>{{ $listing->SHomePh ? $listing->SHomePh : $listing->Phone }}</td>
@@ -97,7 +100,7 @@
                                         @endif
                                     </td>
                                     <td>{{ ucfirst($listing->Status) }}</td>
-                                    <td class="list-btn" style="width: 120px;">
+                                    <td class="list-btn">
                                         <a href="{{ route('show.listing', $listing->ListingID) }}"><button
                                                 class="btn btn-sm" title="View">
                                                 <i class="fas fa-eye"></i>
@@ -105,6 +108,14 @@
                                         <a href="{{ route('edit.listing.form', $listing->ListingID) }}"> <button
                                                 class="btn btn-sm" title="Edit">
                                                 <i class="fas fa-edit"></i>
+                                            </button></a>
+                                        <a href="{{ url('/admin/showing/all?listing_id=' . $listing->ListingID) }}"><button
+                                                class="btn btn-sm" title="Showings">
+                                                <i class="fas fa-users"></i>
+                                            </button></a>
+                                        <a href="{{ url('/admin/probmatch?listing_id=' . $listing->ListingID) }}"><button
+                                                class="btn btn-sm" title="Probable Matches">
+                                                <i class="fas fa-bullseye"></i>
                                             </button></a>
                                         <form id="delete-form-{{ $listing->ListingID }}"
                                             action="{{ route('listing.destroy', $listing->ListingID) }}" method="post">
@@ -116,8 +127,9 @@
                                             </button>
                                         </form>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button> -->
+                                                                                                <i class="fas fa-download"></i>
+                                                                                            </button> -->
+
                                     </td>
                                 </tr>
                             @empty
@@ -202,11 +214,11 @@
                                         if (xhr.status === 419) {
                                             alert(
                                                 'CSRF token mismatch. Please reload the page and try again.'
-                                                );
+                                            );
                                         } else {
                                             alert(
                                                 'An error occurred while processing your request.'
-                                                );
+                                            );
                                         }
                                     }
                                 });
@@ -239,7 +251,7 @@
                                 if (xhr.status === 419) {
                                     alert(
                                         'CSRF token mismatch. Please reload the page and try again.'
-                                        );
+                                    );
                                 } else {
                                     alert('An error occurred while processing your request.');
                                 }

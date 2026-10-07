@@ -86,18 +86,48 @@ class AdminAuthController extends Controller
     public function dashboard()
     {
         if (Auth::check()) {
-            $listings = Listing::count();
-            $closeListings = Listing::where('Status', 'close')->count();
-            $assignListings = Listing::whereNotNull('RefAgentID')->count();
+
+            /*Rolling 12 Months*/
+            $startDate = now()->subMonths(12)->startOfDay();
+            $endDate   = now()->endOfDay();
+            /*  $listings = Listing::count(); */
+            $listings = Listing::whereBetween('DateEntered', [$startDate, $endDate])
+                ->whereIn('Status', ['valid', 'expired'])
+                ->count();
+            /*  $closeListings = Listing::where('Status', 'close')->count(); */
+            $closeListings = Offer::where('Status', 'closed')
+                ->whereBetween('DateEntered', [$startDate, $endDate])
+                ->count();
+            $assignListings = Listing::whereNotNull('RefAgentID')->whereBetween('DateEntered', [$startDate, $endDate])->count();
             $activeListingsCount = Listing::where('Active', 1)->count();
             $inactiveListingsCount = Listing::where('Active', 0)->count();
             $activeListingsPercentage = $listings > 0 ? ($activeListingsCount / $listings) * 100 : 0;
             $inactiveListingsPercentage = $listings > 0 ? ($inactiveListingsCount / $listings) * 100 : 0;
-            $agents = Agent::count();
-            $buyers = Buyer::count();
-            $showings = Showing::count();
-            $offers = Offer::count();
-            $leads = DB::table('leads')->count();
+            /*  $agents = Agent::count(); */
+            $agents = User::select('users.*')
+                ->join('agents', 'agents.AgentUserRegisterId', '=', 'users.id')
+                ->where('users.role_name', 'agent')
+                ->whereNull('users.deleted_at')
+                ->where('agents.Active', 1)
+                ->count();
+            /* $buyers = Buyer::count(); */
+            $buyers = User::select('users.*')
+                ->join('buyers', 'buyers.user_id', '=', 'users.id')
+                ->where('users.role_name', 'buyer')
+                ->whereNull('users.deleted_at')
+                ->where('buyers.Active', 1)
+                ->whereBetween('buyers.DateEntered', [$startDate, $endDate])
+                ->count();
+            /* $showings = Showing::count(); */
+            $showings = Showing::whereBetween('Date', [$startDate, $endDate])
+                ->count();
+            /* $offers = Offer::count(); */
+            $offers = Offer::whereIn('Status', ['pending', 'accepted'])
+                ->count();
+            /* $leads = DB::table('leads')->count(); */
+            $leads = DB::table('leads')
+                ->whereBetween('LDate', [$startDate, $endDate])
+                ->count();
             $buyerViewListingCountByMonth = AgentListingViewByBuyer::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
                 ->groupBy('month')
                 ->orderBy('month')

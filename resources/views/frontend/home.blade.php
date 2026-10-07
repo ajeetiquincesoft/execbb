@@ -99,57 +99,396 @@
 
     <!-- Bussiness Listings -->
 
-    <div class="container my-5 business_listing_slider">
-        <div class="d-md-flex justify-content-between align-items-center mb-4">
-            <h2 class="text mb-4">Featured Business Listings</h2>
-            <a href="{{ route('business.listings') }}" class="see_all_listing" target="_blank">See All Listings</a>
-        </div>
-        @if ($listings->isEmpty())
-            <p class="no_lis">No listings available.</p>
-        @else
-            <!-- Previous and Next buttons (as divs) -->
-            <div class="carousel-controls">
-                <div class="carousel-prev"><i class="fas fa-chevron-left"></i></div>
-                <div class="carousel-next"><i class="fas fa-chevron-right"></i></div>
-            </div>
-            <!-- Carousel Items -->
-            <div class="slider card-container">
-                @foreach ($listings as $listing)
-                    <div class="card shadow-sm">
-                        <!-- <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top" alt="{{ $listing->City }}, {{ $listing->State }}"> -->
-                        @if (!empty($listing->imagepath))
-                            <a href="{{ route('view.business.listing', $listing->ListingID) }}"><img
-                                    src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}" class="card-img-top"
-                                    alt="{{ $listing->County }}, {{ $listing->State }}"></a>
-                        @else
-                            <a href="{{ route('view.business.listing', $listing->ListingID) }}"><img
-                                    src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top"
-                                    alt="{{ $listing->County }}, {{ $listing->State }}"></a>
-                        @endif
-                        <div class="card-body text-center">
-                            {{--   <a href="{{ route('view.business.listing', $listing->ListingID) }}"
-                                class="home_business_listing">
-                                <h5 class="card-title card-title-slider">{{ $listing->City }}, {{ $listing->State }}</h5>
-                            </a> --}}
-                            <p class="card-text mb-0">Business Type: {{ $listing->BusType }}</p>
-                            <p class="card-text mb-0">Business Category: {{ getSubCategoryName($listing->SubCat) }}</p>
-                            <p class="card-text mb-0">County: {{ $listing->County }}</p>
-                            <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
-                            <p class="card-text mb-0">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
-                            @php
-                                $totalCost = ($listing->COG1 ?? 0) + ($listing->COG2 ?? 0) + ($listing->COG3 ?? 0);
+    {{-- ============================================================
+    FEATURED BUSINESS LISTINGS
+============================================================ --}}
 
-                                $totalGOP = ($listing->AnnualSales ?? 0) - ($totalCost ?? 0);
-                            @endphp
-                            <p class="card-text mb-0">Gross Revenue: ${{ number_format($totalGOP ?? 0, 2) }}
-                            </p>
-                            <p class="card-text"> Asking Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
+    <div class="container my-5 business_listing_slider premium-listings-section">
+
+        {{-- ========================================================
+        HEADER
+    ========================================================= --}}
+        <div class="d-md-flex justify-content-between align-items-center mb-4">
+
+            <div class="premium-section-heading">
+
+                <span class="premium-section-label">
+                    FEATURED OPPORTUNITIES
+                </span>
+
+                <h2 class="text mb-1">
+                    Featured Business Listings
+                </h2>
+
+            </div>
+
+
+            <a href="{{ route('business.listings') }}" class="see_all_listing premium-see-all" target="_blank">
+
+                See All Listings
+
+                <i class="fas fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+        @if ($listings->isEmpty())
+            {{-- ====================================================
+            EMPTY STATE
+        ===================================================== --}}
+
+            <p class="no_lis">
+                No listings available.
+            </p>
+        @else
+            {{-- ====================================================
+            SLIDER CONTROLS
+            KEEPING YOUR EXISTING STRUCTURE
+        ===================================================== --}}
+
+            <div class="carousel-controls premium-carousel-controls">
+
+                <div class="carousel-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+
+                <div class="carousel-next">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+
+            </div>
+
+
+            {{-- ====================================================
+            SLIDER
+        ===================================================== --}}
+
+            <div class="slider card-container premium-card-container">
+
+                @foreach ($listings as $listing)
+                    @php
+
+                        /*
+                    |--------------------------------------------------------------------------
+                    | Listing Image
+                    |--------------------------------------------------------------------------
+                    */
+
+                        $listingImage = !empty($listing->imagepath)
+                            ? asset('assets/uploads/images/' . $listing->imagepath)
+                            : asset('assets/images/business_image.jpg');
+
+                        /*
+                    |--------------------------------------------------------------------------
+                    | Gross Revenue
+                    |--------------------------------------------------------------------------
+                    */
+
+                        $totalCost = ($listing->COG1 ?? 0) + ($listing->COG2 ?? 0) + ($listing->COG3 ?? 0);
+
+                        $grossRevenue = ($listing->AnnualSales ?? 0) - $totalCost;
+
+                        /*
+                    |--------------------------------------------------------------------------
+                    | Operating Expenses
+                    |--------------------------------------------------------------------------
+                    */
+
+                        $totalOperatingExpenses = ($listing->AnnRent ?? 0) + ($listing->CommonAreaMaint ?? 0);
+
+                        /*
+                    |--------------------------------------------------------------------------
+                    | Operating Profit
+                    |--------------------------------------------------------------------------
+                    */
+
+                        $operatingProfit = ($listing->AnnualSales ?? 0) - ($totalCost + $totalOperatingExpenses);
+
+                        /*
+                    |--------------------------------------------------------------------------
+                    | Adjusted Cash Flow
+                    |--------------------------------------------------------------------------
+                    */
+
+                        $adjustedCashFlow = ($listing->OtherInc ?? 0) + $operatingProfit;
+
+                        /*
+                    |--------------------------------------------------------------------------
+                    | SDE
+                    |
+                    | If your listings table has a dedicated SDE column,
+                    | it will be used.
+                    |
+                    | Otherwise adjusted cash flow is used as fallback.
+                    |--------------------------------------------------------------------------
+                    */
+
+                        $sde = $listing->SDE ?? $adjustedCashFlow;
+                    @endphp
+
+
+                    {{-- =================================================
+                    BUSINESS CARD
+                ================================================== --}}
+
+                    <div class="premium-business-card">
+
+
+                        {{-- =============================================
+                        IMAGE AREA
+                    ============================================== --}}
+
+                        <div class="premium-business-image">
+
+                            <a href="{{ route('view.business.listing', $listing->ListingID) }}">
+
+                                <img src="{{ $listingImage }}" alt="{{ $listing->BusType ?? 'Business Listing' }}"
+                                    loading="lazy">
+
+                            </a>
+
+
+                            {{-- Image dark gradient --}}
+                            <div class="premium-image-overlay"></div>
+
+
+                            {{-- =========================================
+                            IMAGE FINANCIALS
+                        ========================================== --}}
+
+                            <div class="premium-image-financials">
+
+
+                                {{-- Asking Price --}}
+                                <div class="premium-image-price">
+
+                                    <span>
+                                        Asking Price
+                                    </span>
+
+                                    <strong>
+                                        ${{ number_format($listing->ListPrice ?? 0, 0) }}
+                                    </strong>
+
+                                </div>
+
+
+                                {{-- Adjusted Cash Flow --}}
+                                <div class="premium-image-cashflow">
+
+                                    <span>
+                                        Adjusted Cash Flow
+                                    </span>
+
+                                    <strong>
+                                        ${{ number_format($adjustedCashFlow, 0) }}
+                                    </strong>
+
+                                </div>
+
+
+                            </div>
 
                         </div>
+
+
+                        {{-- =============================================
+                        CARD CONTENT
+                    ============================================== --}}
+
+                        <div class="premium-business-content">
+
+
+                            {{-- =========================================
+                            BUSINESS TYPE + CATEGORY
+                        ========================================== --}}
+
+                            <div class="premium-business-meta">
+
+
+                                {{-- Business Type --}}
+                                <div class="premium-business-type">
+
+                                    {{ $listing->BusType ?? 'Business Type' }}
+
+                                </div>
+
+
+                                {{-- Business Category --}}
+                                <div class="premium-business-category">
+
+                                    {{ getSubCategoryName($listing->SubCat) }}
+
+                                </div>
+
+
+                            </div>
+
+
+                            {{-- =========================================
+                            BUSINESS TITLE
+                        ========================================== --}}
+
+                            <h3 class="premium-business-title">
+
+                                <a href="{{ route('view.business.listing', $listing->ListingID) }}">
+
+                                    {{ $listing->BusType ?? 'Business Opportunity' }}
+
+                                </a>
+
+                            </h3>
+
+
+                            {{-- =========================================
+                            LOCATION
+                        ========================================== --}}
+
+                            <div class="premium-business-location">
+
+                                <span class="premium-location-icon">
+
+                                    <i class="fas fa-map-marker-alt"></i>
+
+                                </span>
+
+
+                                <span class="premium-location-text">
+
+                                    {{ $listing->County ?? 'N/A' }}
+
+                                    @if (!empty($listing->State))
+                                        , {{ $listing->State }}
+                                    @endif
+
+                                </span>
+
+                            </div>
+
+
+                            {{-- =========================================
+                            FINANCIAL INFORMATION
+                        ========================================== --}}
+
+                            <div class="premium-financial-grid">
+
+
+                                {{-- Down Payment --}}
+                                <div class="premium-financial-item">
+
+                                    <div class="premium-financial-icon">
+
+                                        <i class="fas fa-wallet"></i>
+
+                                    </div>
+
+                                    <div class="premium-financial-data">
+
+                                        <span>
+                                            Down Payment
+                                        </span>
+
+                                        <strong>
+                                            ${{ number_format($listing->DownPay ?? 0, 0) }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- Gross Revenue --}}
+                                <div class="premium-financial-item">
+
+                                    <div class="premium-financial-icon">
+
+                                        <i class="fas fa-chart-line"></i>
+
+                                    </div>
+
+                                    <div class="premium-financial-data">
+
+                                        <span>
+                                            Gross Revenue
+                                        </span>
+
+                                        <strong>
+                                            ${{ number_format($grossRevenue, 0) }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- SDE --}}
+                                <div class="premium-financial-item premium-sde-item">
+
+                                    <div class="premium-financial-icon">
+
+                                        <i class="fas fa-user-tie"></i>
+
+                                    </div>
+
+                                    <div class="premium-financial-data">
+
+                                        <span>
+                                            SDE
+                                        </span>
+
+                                        <strong>
+                                            ${{ number_format($sde, 0) }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            {{-- =========================================
+                            CARD FOOTER
+                        ========================================== --}}
+
+                            <div class="premium-card-footer">
+
+
+                                <div class="premium-opportunity-label">
+
+                                    <i class="fas fa-shield-alt"></i>
+
+                                    <span>
+                                        Business Opportunity
+                                    </span>
+
+                                </div>
+
+
+                                <a href="{{ route('view.business.listing', $listing->ListingID) }}"
+                                    class="premium-view-button">
+
+                                    View Opportunity
+
+                                    <i class="fas fa-arrow-right"></i>
+
+                                </a>
+
+
+                            </div>
+
+
+                        </div>
+
                     </div>
                 @endforeach
+
             </div>
         @endif
+
     </div>
 
     <!-- LEADING AGENTS -->
@@ -185,7 +524,8 @@
                                         alt="{{ $agent->FName }} {{ $agent->LName }}" class="agent-image"></a>
                             @endif
                             <div class="leading_agent">
-                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}" target="_blank">
+                                <a href="{{ route('view.broker.profile', $agent->AgentUserRegisterId) }}"
+                                    target="_blank">
                                     <h5 class="mb-1">{{ ucfirst($agent->FName) }} {{ ucfirst($agent->LName) }}</h5>
                                 </a>
                                 <p class="mb-0">{{ $limitedComment }}</p>
@@ -456,7 +796,7 @@
                 prevArrow: $('.carousel-prev'), // Link the previous button to the slick carousel
                 nextArrow: $('.carousel-next'),
                 dots: true, // Display navigation dots
-                autoplay: true, // Auto slide
+                autoplay: false, // Auto slide
                 autoplaySpeed: 2000, // Time between slides
                 fade: false, // Disable fade transition
                 speed: 500, // Transition speed in ms
@@ -646,13 +986,13 @@
             padding-bottom: 30px;
         }
 
-        .slider .card {
-            margin-right: 10px;
-        }
+        /*  .slider .card {
+                                            margin-right: 10px;
+                                        } */
 
-        .slider .slick-slide:last-child .card {
-            margin-right: 0;
-        }
+        /*  .slider .slick-slide:last-child .card {
+                                            margin-right: 0;
+                                        } */
 
         .slider .card {
             width: 100%;
@@ -941,6 +1281,1013 @@
             text-align: center;
             font-weight: bold;
             color: #333333;
+        }
+    </style>
+    <style>
+        /* ============================================================
+                                                                           PREMIUM FEATURED BUSINESS LISTINGS
+                                                                        ============================================================ */
+
+
+        /* ============================================================
+                                                                           SECTION
+                                                                        ============================================================ */
+
+        .premium-listings-section {
+            position: relative;
+        }
+
+
+        /* ============================================================
+                                                                           SECTION HEADER
+                                                                        ============================================================ */
+
+        .premium-section-heading {
+            position: relative;
+        }
+
+        .premium-section-label {
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #8b1747;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.4px;
+
+            text-transform: uppercase;
+        }
+
+        .premium-section-heading h2 {
+            margin-bottom: 0 !important;
+
+            color: #242424;
+
+            font-size: 27px;
+
+            font-weight: 700;
+        }
+
+        .premium-see-all {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #8b1747 !important;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            text-decoration: none !important;
+
+            transition: all .25s ease;
+        }
+
+        .premium-see-all:hover {
+            color: #6d1037 !important;
+        }
+
+        .premium-see-all i {
+            font-size: 10px;
+
+            transition: transform .2s ease;
+        }
+
+        .premium-see-all:hover i {
+            transform: translateX(3px);
+        }
+
+
+        /* ============================================================
+                                                                           SLIDER CONTAINER
+                                                                        ============================================================ */
+
+        .premium-card-container {
+
+            display: block !important;
+            gap: 0 !important;
+
+            overflow: hidden;
+
+            padding: 3px 2px 8px;
+
+            scroll-behavior: smooth;
+
+        }
+
+
+        /* ============================================================
+                                                                           CARD WIDTH
+                                                                        ============================================================ */
+
+        .premium-business-card {
+
+            position: relative;
+
+
+            min-width: 0;
+
+            background: #ffffff;
+
+            border: 1px solid #e6e6e6;
+
+            border-radius: 11px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, .055);
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease,
+                border-color .3s ease;
+
+        }
+
+
+        /* Hover */
+
+        .premium-business-card:hover {
+
+            transform: translateY(-4px);
+
+            border-color: #d8b4c5;
+
+            box-shadow:
+                0 12px 28px rgba(0, 0, 0, .12);
+
+        }
+
+
+        /* ============================================================
+                                                                           IMAGE
+                                                                        ============================================================ */
+
+        .premium-business-image {
+
+            position: relative;
+
+            height: 150px;
+
+            overflow: hidden;
+
+            background: #eeeeee;
+
+        }
+
+
+        /* Link */
+
+        .premium-business-image>a {
+
+            display: block;
+
+            width: 100%;
+
+            height: 100%;
+
+        }
+
+
+        /* Image */
+
+        .premium-business-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition:
+                transform .55s ease;
+
+        }
+
+
+        /* Zoom */
+
+        .premium-business-card:hover .premium-business-image img {
+
+            transform: scale(1.055);
+
+        }
+
+
+        /* ============================================================
+                                                                           IMAGE OVERLAY
+                                                                        ============================================================ */
+
+        .premium-image-overlay {
+
+            position: absolute;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            height: 85px;
+
+            background:
+                linear-gradient(to top,
+                    rgba(0, 0, 0, .72),
+                    rgba(0, 0, 0, 0));
+
+            pointer-events: none;
+
+        }
+
+
+        /* ============================================================
+                                                                           FEATURED BADGE
+                                                                        ============================================================ */
+
+        .premium-featured-badge {
+
+            position: absolute;
+
+            top: 10px;
+
+            left: 10px;
+
+            z-index: 5;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 6px 9px;
+
+            border-radius: 4px;
+
+            background: #8b1747;
+
+            color: #ffffff;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            line-height: 1;
+
+            letter-spacing: .35px;
+
+            text-transform: uppercase;
+
+            box-shadow:
+                0 2px 6px rgba(0, 0, 0, .18);
+
+        }
+
+
+
+        /* ============================================================
+                                                                           IMAGE FINANCIALS
+                                                                        ============================================================ */
+
+        .premium-image-financials {
+
+            position: absolute;
+
+            left: 12px;
+
+            right: 12px;
+
+            bottom: 10px;
+
+            z-index: 5;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            color: #ffffff;
+
+        }
+
+
+        /* Asking price */
+
+        .premium-image-price {
+
+            min-width: 0;
+
+            text-align: left;
+
+        }
+
+        .premium-image-price span,
+        .premium-image-cashflow span {
+
+            display: block;
+
+            margin-bottom: 3px;
+
+            color: rgba(255, 255, 255, .84);
+
+            font-size: 7px;
+
+            font-weight: 600;
+
+            line-height: 1;
+
+            letter-spacing: .75px;
+
+            text-transform: uppercase;
+
+        }
+
+        .premium-image-price strong {
+
+            display: block;
+
+            color: #ffffff;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            line-height: 1;
+
+            letter-spacing: -.3px;
+
+        }
+
+
+        /* Adjusted Cash Flow */
+
+        .premium-image-cashflow {
+
+            min-width: 0;
+
+            text-align: right;
+
+        }
+
+        .premium-image-cashflow strong {
+
+            display: block;
+
+            color: #ffffff;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            line-height: 1;
+
+        }
+
+
+        /* ============================================================
+                                                                           CARD CONTENT
+                                                                        ============================================================ */
+
+        .premium-business-content {
+
+            padding: 12px 13px 12px;
+
+        }
+
+
+        /* ============================================================
+                                                                           TYPE + CATEGORY
+                                                                        ============================================================ */
+
+        .premium-business-meta {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 8px;
+
+            min-height: 18px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        /* Business Type */
+
+        .premium-business-type {
+
+            max-width: 55%;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+            color: #8b1747;
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            line-height: 1.2;
+
+            letter-spacing: .45px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        /* Category */
+
+        .premium-business-category {
+
+            max-width: 45%;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+            padding: 4px 6px;
+
+            border-radius: 3px;
+
+            background: #f7edf2;
+
+            color: #8b1747;
+
+            font-size: 7px;
+
+            font-weight: 600;
+
+            line-height: 1;
+
+            text-align: right;
+
+        }
+
+
+        /* ============================================================
+                                                                           BUSINESS TITLE
+                                                                        ============================================================ */
+
+        .premium-business-title {
+
+            height: 35px;
+
+            margin: 0 0 4px;
+
+            overflow: hidden;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            line-height: 1.25;
+
+        }
+
+        .premium-business-title a {
+
+            color: #242424;
+
+            text-decoration: none;
+
+            transition: color .2s ease;
+
+        }
+
+        .premium-business-title a:hover {
+
+            color: #8b1747;
+
+        }
+
+
+        /* ============================================================
+                                                                           LOCATION
+                                                                        ============================================================ */
+
+        .premium-business-location {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-bottom: 9px;
+
+            color: #818181;
+
+            font-size: 9px;
+
+            line-height: 1;
+
+        }
+
+
+        /* Location icon */
+
+        .premium-location-icon {
+
+            width: 21px;
+
+            height: 21px;
+
+            min-width: 21px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #f8edf2;
+
+            color: #8b1747;
+
+            font-size: 8px;
+
+        }
+
+
+        /* Location text */
+
+        .premium-location-text {
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* ============================================================
+                                                                           FINANCIAL GRID
+                                                                        ============================================================ */
+
+        .premium-financial-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            overflow: hidden;
+
+            border: 1px solid #ededed;
+
+            border-radius: 7px;
+
+            background: #ffffff;
+
+        }
+
+
+        /* Financial item */
+
+        .premium-financial-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            min-width: 0;
+
+            padding: 7px 7px;
+
+            border-right: 1px solid #ededed;
+
+            border-bottom: 1px solid #ededed;
+
+            background: #ffffff;
+
+        }
+
+
+        /*
+                                                                        Last item in each row
+                                                                        */
+
+        .premium-financial-item:nth-child(2n) {
+
+            border-right: 0;
+
+        }
+
+
+        /*
+                                                                        Bottom row
+                                                                        */
+
+        .premium-financial-item:nth-child(3) {
+
+            border-bottom: 0;
+
+        }
+
+
+        /* If there are only 3 items */
+
+        .premium-financial-item:last-child {
+
+            border-bottom: 0;
+
+        }
+
+
+        /* ============================================================
+                                                                           FINANCIAL ICON
+                                                                        ============================================================ */
+
+        .premium-financial-icon {
+
+            width: 25px;
+
+            height: 25px;
+
+            min-width: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 5px;
+
+            background: #f8edf2;
+
+            color: #8b1747;
+
+            font-size: 9px;
+
+        }
+
+
+        /* ============================================================
+                                                                           FINANCIAL TEXT
+                                                                        ============================================================ */
+
+        .premium-financial-data {
+
+            min-width: 0;
+
+        }
+
+        .premium-financial-data span {
+
+            display: block;
+
+            margin-bottom: 2px;
+
+            overflow: hidden;
+
+            color: #999999;
+
+            font-size: 7px;
+
+            font-weight: 500;
+
+            line-height: 1.1;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+        .premium-financial-data strong {
+
+            display: block;
+
+            overflow: hidden;
+
+            color: #292929;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            line-height: 1.1;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* ============================================================
+                                                                           SDE
+                                                                        ============================================================ */
+
+        .premium-sde-item {
+
+            background: #faf3f6;
+
+        }
+
+        .premium-sde-item .premium-financial-icon {
+
+            background: #8b1747;
+
+            color: #ffffff;
+
+        }
+
+        .premium-sde-item .premium-financial-data strong {
+
+            color: #8b1747;
+
+        }
+
+
+        /* ============================================================
+                                                                           CARD FOOTER
+                                                                        ============================================================ */
+
+        .premium-card-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 8px;
+
+            margin-top: 9px;
+
+            padding-top: 9px;
+
+            border-top: 1px solid #eeeeee;
+
+        }
+
+
+        /* Opportunity label */
+
+        .premium-opportunity-label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 4px;
+
+            min-width: 0;
+
+            color: #999999;
+
+            font-size: 7px;
+
+            line-height: 1;
+
+            white-space: nowrap;
+
+        }
+
+        .premium-opportunity-label i {
+
+            color: #8b1747;
+
+            font-size: 8px;
+
+        }
+
+
+        /* ============================================================
+                                                                           VIEW BUTTON
+                                                                        ============================================================ */
+
+        .premium-view-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            height: 30px;
+
+            padding: 0 11px;
+
+            border-radius: 4px;
+
+            background: #8b1747;
+
+            color: #ffffff !important;
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            line-height: 1;
+
+            text-decoration: none !important;
+
+            white-space: nowrap;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
+
+        }
+
+        .premium-view-button:hover {
+
+            background: #6d1037;
+
+            color: #ffffff !important;
+
+        }
+
+        .premium-view-button i {
+
+            font-size: 7px;
+
+            transition: transform .2s ease;
+
+        }
+
+        .premium-view-button:hover i {
+
+            transform: translateX(3px);
+
+        }
+
+
+        /* ============================================================
+                                                                           EXISTING CAROUSEL ARROWS
+                                                                        ============================================================ */
+
+        .premium-carousel-controls {
+
+            z-index: 20;
+
+        }
+
+
+        /*
+                                                                        Keep your existing positioning if already defined.
+                                                                        These only make the arrows cleaner.
+                                                                        */
+
+        .premium-carousel-controls .carousel-prev,
+        .premium-carousel-controls .carousel-next {
+
+            transition: all .2s ease;
+
+        }
+
+        .premium-carousel-controls .carousel-prev:hover,
+        .premium-carousel-controls .carousel-next:hover {
+
+            color: #8b1747;
+
+            transform: scale(1.08);
+
+        }
+
+
+        /* ============================================================
+                                                                           TABLET - 3 CARDS
+                                                                        ============================================================ */
+
+
+
+
+        /* ============================================================
+                                                                           TABLET - 2 CARDS
+                                                                        ============================================================ */
+
+
+
+
+        /* ============================================================
+                                                                           MOBILE - 1 CARD
+                                                                        ============================================================ */
+
+        @media (max-width: 575px) {
+
+            .premium-card-container {
+
+                gap: 12px !important;
+
+            }
+
+
+
+
+
+            .premium-business-image {
+
+                height: 165px;
+
+            }
+
+
+            .premium-image-price strong {
+
+                font-size: 22px;
+
+            }
+
+
+            .premium-image-cashflow strong {
+
+                font-size: 18px;
+
+            }
+
+
+            .premium-business-content {
+
+                padding: 13px;
+
+            }
+
+        }
+
+        /* =========================================================
+                           SLICK CARD GAP - FINAL
+                           ========================================================= */
+
+        .premium-card-container .slick-slide {
+            margin-right: 12px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Last card should not have extra right space */
+        .premium-card-container .slick-slide:last-child {
+            margin-right: 0 !important;
+        }
+
+        /* Keep card appearance unchanged */
+        .premium-card-container .premium-business-card {
+            box-sizing: border-box !important;
+        }
+
+
+        /* =========================================================
+                           DESKTOP
+                           ========================================================= */
+
+        @media (min-width: 1025px) {
+            .premium-card-container .slick-slide {
+                margin-right: 12px !important;
+            }
+        }
+
+
+        /* =========================================================
+                           TABLET
+                           ========================================================= */
+
+        @media (min-width: 576px) and (max-width: 1024px) {
+            .premium-card-container .slick-slide {
+                margin-right: 10px !important;
+            }
+        }
+
+
+        /* =========================================================
+                           MOBILE
+                           ========================================================= */
+
+        @media (max-width: 575px) {
+            .premium-card-container .slick-slide {
+                margin-right: 10px !important;
+            }
         }
     </style>
 @endsection

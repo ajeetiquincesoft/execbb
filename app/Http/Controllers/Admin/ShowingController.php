@@ -15,9 +15,8 @@ use Carbon\Carbon;
 
 class ShowingController extends Controller
 {
-    public function index(Request $request)
+    /*  public function index(Request $request)
     {
-        /*  $showings = Showing::orderBy('ShowingID','desc')->paginate(5); */
         $search_query = $request->input('query');
         $showings = DB::table('showings');
         $dbaName = Listing::pluck('DBA', 'ListingID');
@@ -47,6 +46,84 @@ class ShowingController extends Controller
         $showings = $showings->orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.showing.index', compact('showings', 'dbaName', 'buyerName'));
+    } */
+    public function index(Request $request)
+    {
+        $search_query = trim($request->input('query', ''));
+        $listingId = $request->input('listing_id');
+
+        // DBA names
+        $dbaName = Listing::pluck('DBA', 'ListingID');
+
+        // Buyer names
+        $buyerName = Buyer::select('BuyerID', 'FName', 'LName')
+            ->get()
+            ->mapWithKeys(function ($buyer) {
+                return [
+                    $buyer->BuyerID => trim(
+                        $buyer->FName . ' ' . $buyer->LName
+                    )
+                ];
+            });
+
+        // Base query
+        $showings = DB::table('showings')
+            ->leftJoin(
+                'listings',
+                'showings.ListingID',
+                '=',
+                'listings.ListingID'
+            )
+            ->leftJoin(
+                'buyers',
+                'showings.BuyerID',
+                '=',
+                'buyers.BuyerID'
+            )
+            ->select('showings.*');
+
+        // Filter by listing
+        if (!empty($listingId)) {
+            $showings->where(
+                'showings.ListingID',
+                $listingId
+            );
+        }
+
+        // Search
+        if (!empty($search_query)) {
+            $showings->where(function ($query) use ($search_query) {
+
+                $search = '%' . $search_query . '%';
+
+                $query->where('showings.ShowingID', 'LIKE', $search)
+                    ->orWhere('showings.AgentID', 'LIKE', $search)
+                    ->orWhere('showings.Date', 'LIKE', $search)
+                    ->orWhere('showings.OfferMade', 'LIKE', $search)
+                    ->orWhere('showings.FollowUp', 'LIKE', $search)
+                    ->orWhere('listings.DBA', 'LIKE', $search)
+                    ->orWhere('buyers.FName', 'LIKE', $search)
+                    ->orWhere('buyers.LName', 'LIKE', $search);
+            });
+        }
+
+        // Pagination
+        $showings = $showings
+            ->orderBy('showings.created_at', 'desc')
+            ->paginate(10);
+
+        // Keep search/filter parameters when changing pages
+        $showings->appends($request->query());
+
+        return view(
+            'admin.showing.index',
+            compact(
+                'showings',
+                'dbaName',
+                'buyerName',
+                'listingId'
+            )
+        );
     }
     public function create()
     {

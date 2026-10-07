@@ -23,17 +23,31 @@ class AgentAuthController extends Controller
             $agent = Agent::where('AgentUserRegisterId', $user->id)->first();
             $agent_data = User::with('agent_info')->where('id', $user->id)->first();
             $refAgentID = $agent_data->agent_info->AgentID;
+            $startDate = now()->subMonths(12)->startOfDay();
+            $endDate   = now()->endOfDay();
             /* $listingsCount = Listing::where('AgentID', $refAgentID)->count(); */
-            $listingsCount = Listing::count();
+            /*  $listingsCount = Listing::count(); */
+            $listingsCount = Listing::where('AgentID', $refAgentID)
+                ->whereBetween('DateEntered', [$startDate, $endDate])
+                ->whereIn('Status', ['valid', 'expired'])
+                ->count();
             /*  $activeListingsCount = Listing::where('AgentID', $refAgentID)->where('Active', 1)->count();
             $inactiveListingsCount = Listing::where('AgentID', $refAgentID)->where('Active', 0)->count(); */
             $activeListingsCount = Listing::where('Active', 1)->count();
             $inactiveListingsCount = Listing::where('Active', 0)->count();
             $activeListingsPercentage = $listingsCount > 0 ? ($activeListingsCount / $listingsCount) * 100 : 0;
             $inactiveListingsPercentage = $listingsCount > 0 ? ($inactiveListingsCount / $listingsCount) * 100 : 0;
-            $buyersCount = Buyer::where('AgentID', $agent->AgentID)->whereNotNull('user_id')->count();
+            /*  $buyersCount = Buyer::where('AgentID', $agent->AgentID)->whereNotNull('user_id')->count(); */
+            $buyersCount = Buyer::where('AgentID', $refAgentID)
+                ->whereNotNull('user_id')
+                ->whereBetween('DateEntered', [$startDate, $endDate])
+                ->count();
             /* $leadsCount = DB::table('leads')->where('AgentID', $agent->AgentID)->count(); */
-            $leadsCount = DB::table('leads')->count();
+            /*  $leadsCount = DB::table('leads')->count(); */
+            $leadsCount = DB::table('leads')
+                ->where('AgentID', $refAgentID)
+                ->whereBetween('LDate', [$startDate, $endDate])
+                ->count();
             $buyerViewListingCount = AgentListingViewByBuyer::with(['listing', 'buyer', 'agent'])->where('agent_id', $user->id)->distinct('buyer_id')->count('buyer_id');
             $buyerViewListingCountByMonth = AgentListingViewByBuyer::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
                 ->where('agent_id', $user->id)

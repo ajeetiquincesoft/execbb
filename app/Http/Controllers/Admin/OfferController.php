@@ -10,6 +10,7 @@ use App\Models\Offer;
 use App\Models\Listing;
 use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -82,7 +83,10 @@ class OfferController extends Controller
         $lastAutoIncrementId = DB::select("SHOW TABLE STATUS LIKE 'offers'");
         // Extract the auto_increment value (next ID)
         $nextOfferId = $lastAutoIncrementId[0]->Auto_increment;
-        return view('admin.offer.create', compact('step', 'offerData', 'buyers', 'agents', 'states', 'listings', 'nextOfferId', 'offer_types'));
+        $attorneys = Contact::where('Type', 1)
+            ->orderBy('FName')
+            ->get();
+        return view('admin.offer.create', compact('step', 'offerData', 'buyers', 'agents', 'states', 'listings', 'nextOfferId', 'offer_types', 'attorneys'));
     }
 
     // Process the form data and move to the next step
@@ -237,6 +241,8 @@ class OfferController extends Controller
             $offer->ReturneeState = $request->escrow_state;
             $offer->ReturneeZip = $request->escrow_zip_code;
             $offer->ReturneePhone = $request->phone;
+            $offer->escrow_attorney = $request->input('escrow_attorney', 0);
+            $offer->escrow_attorney_id = $request->input('escrow_attorney_id');
 
             // Save the updated record
             $offer->offer_step = $step;
@@ -374,8 +380,10 @@ class OfferController extends Controller
         $previous = Offer::where('OfferID', '<', $id)->orderBy('OfferID', 'desc')->first();
         // Get the next offer ID
         $next = Offer::where('OfferID', '>', $id)->orderBy('OfferID', 'asc')->first();
-
-        return view('admin.offer.edit', compact('step', 'offerData', 'agents', 'states', 'listings', 'offer', 'offer_types', 'previous', 'next', 'selectedBuyer'));
+        $attorneys = Contact::where('Type', 1)
+            ->orderBy('FName')
+            ->get();
+        return view('admin.offer.edit', compact('step', 'offerData', 'agents', 'states', 'listings', 'offer', 'offer_types', 'previous', 'next', 'selectedBuyer', 'attorneys'));
     }
     public function editProcessForm(Request $request, $id)
     {
@@ -506,6 +514,8 @@ class OfferController extends Controller
                 $offer->ReturneeState = $request->escrow_state;
                 $offer->ReturneeZip = $request->escrow_zip_code;
                 $offer->ReturneePhone = $request->phone;
+                $offer->escrow_attorney = $request->input('escrow_attorney', 0);
+                $offer->escrow_attorney_id = $request->input('escrow_attorney_id');
 
                 // Save the updated record
                 $offer->offer_step = $step;
@@ -680,7 +690,9 @@ class OfferController extends Controller
     // Save data to the database
     public function show($id)
     {
-        $offer = Offer::where('OfferID', $id)->first();
+        $offer = Offer::with('listing')
+            ->where('OfferID', $id)
+            ->first();
         if (!$offer) {
             return back()->with('error', 'Offer not found!');
         }
@@ -692,7 +704,14 @@ class OfferController extends Controller
         $company_name = DB::table('listings')->pluck('SellerCorpName', 'ListingID');
         $buyer_name = Buyer::selectRaw("CONCAT(FName, ' ', LName) AS full_name, BuyerID")
             ->pluck('full_name', 'BuyerID');
-        return view('admin.offer.show', compact('offer', 'previous', 'next', 'company_name', 'buyer_name', 'activities'));
+        $escrowAttorney = null;
+
+        if (!empty($offer->escrow_attorney_id)) {
+            $escrowAttorney = Contact::where('ContactID', $offer->escrow_attorney_id)
+                ->where('Type', 1)
+                ->first();
+        }
+        return view('admin.offer.show', compact('offer', 'previous', 'next', 'company_name', 'buyer_name', 'activities', 'escrowAttorney'));
     }
     public function prevNext(Request $request, $id)
     {
@@ -765,5 +784,48 @@ class OfferController extends Controller
             ->get();
 
         return response()->json($buyers);
+    }
+    public function print($id)
+    {
+        // Get the individual offer
+        $offer = Offer::where('OfferID', $id)->first();
+
+        if (!$offer) {
+            return redirect()
+                ->route('all.offer')
+                ->with('err_message', 'Offer not found.');
+        }
+        // Company / Listing
+        $listing = Listing::where('ListingID', $offer->ListingID)->first();
+
+        // Buyer
+        $buyer = Buyer::where('BuyerID', $offer->BuyerID)->first();
+
+        // Listing Agent
+        $listingAgent = Agent::where('AgentID', $offer->ListingAgent)->first();
+
+        // Selling Agent
+        $sellingAgent = Agent::where('AgentID', $offer->SellingAgent)->first();
+
+
+        $escrowAttorney = null;
+
+        if (
+            !empty($offer->escrow_attorney) &&
+            !empty($offer->escrow_attorney_id)
+        ) {
+            $escrowAttorney = Contact::where('ContactID', $offer->escrow_attorney_id)
+                ->where('Type', 1)
+                ->first();
+        }
+
+        return view('admin.offer.print', compact(
+            'offer',
+            'listing',
+            'buyer',
+            'listingAgent',
+            'sellingAgent',
+            'escrowAttorney'
+        ));
     }
 }

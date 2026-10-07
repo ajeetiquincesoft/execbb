@@ -128,28 +128,47 @@ class ListingController extends Controller
     }
     public function index(Request $request)
     {
-        $query = $request->input('query');
-        $listings = Listing::query();
-        $listings->where(function ($q) {
-            $q->whereNull('ExpDate')
-                ->orWhere('ExpDate', '>=', now());
-        });
+        $query = trim($request->input('query'));
+
+        $listings = Listing::query()
+            ->leftJoin('agents', 'agents.AgentID', '=', 'listings.AgentID')
+            ->select(
+                'listings.*',
+                'agents.FName as AgentFName',
+                'agents.LName as AgentLName'
+            )
+            ->where(function ($q) {
+                $q->whereNull('listings.ExpDate')
+                    ->orWhere('listings.ExpDate', '>=', now());
+            });
+
         if ($query) {
-            $listings = Listing::where('SellerFName', 'LIKE', '%' . $query . '%')
-                ->orWhere('SellerLName', 'LIKE', '%' . $query . '%')
-                ->orWhere('CorpName', 'LIKE', '%' . $query . '%')
-                ->orWhere('SHomeAdd1', 'LIKE', '%' . $query . '%')
-                ->orWhere('SCity', 'LIKE', '%' . $query . '%')
-                ->orWhere('SHomePh', 'LIKE', '%' . $query . '%')
-                ->orWhere('Address1', 'LIKE', '%' . $query . '%')
-                ->orWhere('City', 'LIKE', '%' . $query . '%')
-                ->orWhere('Phone', 'LIKE', '%' . $query . '%')
-                ->orWhere('ListingID', 'LIKE', '%' . $query . '%')
-                ->orWhere('Email', 'LIKE', '%' . $query . '%');
+            $listings->where(function ($q) use ($query) {
+
+                // Listing fields
+                $q->where('listings.SellerFName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.SellerLName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.CorpName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.SHomeAdd1', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.SCity', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.SHomePh', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.Address1', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.City', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.Phone', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.ListingID', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.Email', 'LIKE', '%' . $query . '%')
+
+                    // Agent fields
+                    ->orWhere('agents.FName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('agents.LName', 'LIKE', '%' . $query . '%');
+            });
         }
-        $listings = $listings->orderBy('ListingID', 'desc')
-            ->paginate(10);
-        /*   $listings =  Listing::orderBy('created_at', 'desc')->paginate(5); */
+
+        $listings = $listings
+            ->orderBy('listings.ListingID', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
         return view('admin.listing.index', compact('listings'));
     }
     public function destroy(Request $request, $id)
@@ -192,13 +211,36 @@ class ListingController extends Controller
     }
     public function show($id)
     {
-        $listing = Listing::where('ListingID', $id)->first();
+        $listing = Listing::leftJoin(
+            'agents',
+            'agents.AgentID',
+            '=',
+            'listings.AgentID'
+        )
+            ->select(
+                'listings.*',
+                'agents.FName as AgentFName',
+                'agents.LName as AgentLName'
+            )
+            ->where('listings.ListingID', $id)
+            ->first();
+
         $activities = Activity::latest()->paginate(10);
+
         // Get the previous listing ID
-        $previous = Listing::where('ListingID', '<', $id)->orderBy('ListingID', 'desc')->first();
+        $previous = Listing::where('ListingID', '<', $id)
+            ->orderBy('ListingID', 'desc')
+            ->first();
+
         // Get the next listing ID
-        $next = Listing::where('ListingID', '>', $id)->orderBy('ListingID', 'asc')->first();
-        return view('admin.listing.show', compact('listing', 'previous', 'next', 'activities'));
+        $next = Listing::where('ListingID', '>', $id)
+            ->orderBy('ListingID', 'asc')
+            ->first();
+
+        return view(
+            'admin.listing.show',
+            compact('listing', 'previous', 'next', 'activities')
+        );
     }
     public function createStep1()
     {

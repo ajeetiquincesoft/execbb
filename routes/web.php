@@ -443,6 +443,8 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::get('view/offer/{id}', [OfferController::class, 'show'])->name('show.offer');
   Route::post('/offer/bulkAction/process', [OfferController::class, 'offerBulkAction'])->name('offer.bulkAction.process');
   Route::get('/ajax/load-buyers', [OfferController::class, 'loadMoreBuyers'])->name('buyers.ajax.load');
+  Route::get('/offer/{id}/print', [OfferController::class, 'print'])
+    ->name('offer.print');
 
   //end route for offers
   //routes for Contacts

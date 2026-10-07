@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProbMatchController extends Controller
 {
-    public function index(Request $request)
+    /* public function index(Request $request)
     {
         $search_query = $request->input('query');
         $probMatchs = DB::table('prob_matchs')
@@ -41,6 +41,73 @@ class ProbMatchController extends Controller
             ->pluck('name', 'ListingID');
         $buyer_name = Buyer::pluck('FName', 'BuyerID');
         return view('admin.probmatch.index', compact('listing_name', 'buyer_name', 'probMatchs'));
+    } */
+    public function index(Request $request)
+    {
+        $search_query = trim($request->input('query', ''));
+        $listingId = $request->input('listing_id');
+
+        $probMatchs = DB::table('prob_matchs')
+            ->join(
+                'listings',
+                'prob_matchs.ListingId',
+                '=',
+                'listings.ListingId'
+            )
+            ->join(
+                'buyers',
+                'prob_matchs.BuyerId',
+                '=',
+                'buyers.BuyerId'
+            );
+        if (!empty($listingId)) {
+            $probMatchs->where(
+                'prob_matchs.ListingId',
+                $listingId
+            );
+        }
+        if (!empty($search_query)) {
+
+            $search = '%' . $search_query . '%';
+
+            $probMatchs->where(function ($query) use ($search) {
+
+                $query->where('listings.CorpName', 'LIKE', $search)
+                    ->orWhere('listings.DBA', 'LIKE', $search)
+                    ->orWhere('buyers.FName', 'LIKE', $search)
+                    ->orWhere('buyers.LName', 'LIKE', $search)
+                    ->orWhere('prob_matchs.BusInt', 'LIKE', $search)
+                    ->orWhere('prob_matchs.Location', 'LIKE', $search)
+                    ->orWhere('prob_matchs.Price', 'LIKE', $search)
+                    ->orWhere('prob_matchs.DownPay', 'LIKE', $search)
+                    ->orWhere('prob_matchs.Vol', 'LIKE', $search)
+                    ->orWhere('prob_matchs.Profit', 'LIKE', $search)
+                    ->orWhere('prob_matchs.Overall', 'LIKE', $search)
+                    ->orWhere('prob_matchs.DateRank', 'LIKE', $search);
+            });
+        }
+        $probMatchs = $probMatchs
+            ->select('prob_matchs.*')
+            ->orderBy('prob_matchs.id', 'asc')
+            ->paginate(20);
+
+        // Keep listing_id and query when changing pages
+        $probMatchs->appends($request->query());
+        $listing_name = Listing::selectRaw(
+            "ListingID, COALESCE(NULLIF(TRIM(CorpName), ''), DBA) AS name"
+        )
+            ->pluck('name', 'ListingID');
+        $buyer_name = Buyer::pluck('FName', 'BuyerID');
+
+        return view(
+            'admin.probmatch.index',
+            compact(
+                'listing_name',
+                'buyer_name',
+                'probMatchs',
+                'listingId'
+            )
+        );
     }
     public function create()
     {

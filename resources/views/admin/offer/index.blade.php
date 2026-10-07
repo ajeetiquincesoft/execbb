@@ -86,6 +86,11 @@
                                             <button class="btn btn-sm" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </button></a>
+
+                                        <a href="{{ route('offer.print', $offer->OfferID) }}" target="_blank"><button
+                                                class="btn btn-sm">
+                                                <i class="fa fa-print"></i></button>
+                                        </a>
                                         <form action="{{ route('offer.destroy', $offer->OfferID) }}" method="post"
                                             class="offer_delete" id="delete-offer-{{ $offer->OfferID }}">
                                             @csrf
@@ -96,8 +101,8 @@
                                             </button>
                                         </form>
                                         <!--  <button class="btn btn-sm" title="Download">
-                                        <i class="fas fa-download"></i>
-                                    </button> -->
+                                                                <i class="fas fa-download"></i>
+                                                            </button> -->
                                     </td>
                                 </tr>
                             @empty
@@ -180,10 +185,12 @@
                                         // Handle error
                                         if (xhr.status === 419) {
                                             alert(
-                                                'CSRF token mismatch. Please reload the page and try again.');
+                                                'CSRF token mismatch. Please reload the page and try again.'
+                                            );
                                         } else {
                                             alert(
-                                                'An error occurred while processing your request.');
+                                                'An error occurred while processing your request.'
+                                            );
                                         }
                                     }
                                 });
@@ -215,7 +222,8 @@
                                 // Handle error
                                 if (xhr.status === 419) {
                                     alert(
-                                        'CSRF token mismatch. Please reload the page and try again.');
+                                        'CSRF token mismatch. Please reload the page and try again.'
+                                    );
                                 } else {
                                     alert('An error occurred while processing your request.');
                                 }

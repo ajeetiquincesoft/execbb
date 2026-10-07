@@ -438,6 +438,73 @@
                     <div class="form-multi-tab">
                         <h3>Escrow</h3>
                         <hr>
+                        <div class="row mb-3">
+
+                            {{-- Escrow Attorney Yes / No --}}
+                            <div class="col-md-4 mb-3">
+                                <label class="d-block mb-2">
+                                    Escrow Attorney?
+                                </label>
+
+                                <div class="d-flex align-items-center gap-3">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="escrow_attorney"
+                                            id="escrowAttorneyNo" value="0"
+                                            {{ old('escrow_attorney', session('offerData.escrow_attorney', 0)) == 0 ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="escrowAttorneyNo">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="escrow_attorney"
+                                            id="escrowAttorneyYes" value="1"
+                                            {{ old('escrow_attorney', session('offerData.escrow_attorney', 0)) == 1 ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="escrowAttorneyYes">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        {{-- Attorney --}}
+                        <div class="row mb-3" id="escrowAttorneySection"
+                            style="{{ old('escrow_attorney', session('offerData.escrow_attorney', 0)) == 1 ? '' : 'display:none;' }}">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label for="escrowAttorney">
+                                    Attorney
+                                </label>
+
+                                <select class="form-control" id="escrowAttorney" name="escrow_attorney_id">
+
+                                    <option value="">Select Attorney</option>
+
+                                    @foreach ($attorneys as $attorney)
+                                        <option value="{{ $attorney->ContactID }}"
+                                            data-address="{{ $attorney->Address1 }}" data-city="{{ $attorney->City }}"
+                                            data-state="{{ $attorney->State }}" data-zip="{{ $attorney->Zip }}"
+                                            data-phone="{{ $attorney->Phone }}"
+                                            {{ old('escrow_attorney_id', session('offerData.escrow_attorney_id')) == $attorney->ContactID ? 'selected' : '' }}>
+                                            {{ $attorney->FName }} {{ $attorney->LName }}
+                                        </option>
+                                    @endforeach
+
+                                </select>
+
+                                @error('escrow_attorney_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+
+                            </div>
+
+                        </div>
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label>Real Estate Transaction</label>

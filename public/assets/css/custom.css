@@ -173,7 +173,12 @@ i.fas.fa-edit {
 i.fas.fa-trash {
     color: #dc3545;
 }
-
+i.fas.fa-users {
+    color: #6f42c1;
+}
+i.fas.fa-bullseye {
+    color: #fd7e14;
+}
 /*end icons css*/
 /*css start for agent*/
 
@@ -304,7 +309,7 @@ i.fas.fa-trash {
 }
 
 /* css for previous and next button*/
-.next-back-page button {
+/* .next-back-page button {
     background-color: #5d1229;
     color: white;
     border: none;
@@ -335,8 +340,110 @@ i.fas.fa-trash {
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+.nextPreviousButtons {
+    padding: 10px 40px;
 }
 
+.next-back-page {
+    width: 100%;
+}
+
+/* Navigation Button */
+.record-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 175px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    color: #5f0a2d;
+    text-decoration: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: all 0.25s ease;
+}
+
+/* Icon box */
+.record-nav-btn .nav-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: #f7f0f3;
+    color: #5f0a2d;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+}
+
+.record-nav-btn .nav-icon i {
+    font-size: 12px;
+}
+
+/* Small label */
+.record-nav-btn .nav-text small {
+    display: block;
+    font-size: 10px;
+    line-height: 12px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+/* Main text */
+.record-nav-btn .nav-text strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* Hover */
+.record-nav-btn:hover {
+    border-color: #5f0a2d;
+    box-shadow: 0 5px 14px rgba(95, 10, 45, 0.12);
+    transform: translateY(-1px);
+}
+
+.record-nav-btn:hover .nav-icon {
+    background: #5f0a2d;
+    color: #fff;
+}
+
+.record-nav-btn:hover .nav-text strong {
+    color: #5f0a2d;
+}
+
+/* Next button alignment */
+.next-btn {
+    justify-content: flex-end;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .record-nav-btn {
+        min-width: auto;
+        padding: 8px 10px;
+    }
+
+    .record-nav-btn .nav-text small {
+        display: none;
+    }
+
+    .record-nav-btn .nav-text strong {
+        font-size: 12px;
+    }
+
+    .record-nav-btn .nav-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
 /* css end for previous and next button*/
 
 /* Remove background color, border, and text color from the accordion button */
