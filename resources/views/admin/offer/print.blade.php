@@ -1624,26 +1624,6 @@
 
     </div>
 
-
-    <script>
-        /*
-         * Automatically open browser print preview.
-         *
-         * Small timeout allows the complete page to render
-         * before the browser opens the print dialog.
-         */
-
-        window.addEventListener('load', function() {
-
-            setTimeout(function() {
-
-                window.print();
-
-            }, 500);
-
-        });
-    </script>
-
 </body>
 
 </html>

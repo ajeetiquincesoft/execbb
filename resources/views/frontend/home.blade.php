@@ -98,16 +98,9 @@
     </div>
 
     <!-- Bussiness Listings -->
-
-    {{-- ============================================================
-    FEATURED BUSINESS LISTINGS
-============================================================ --}}
-
     <div class="container my-5 business_listing_slider premium-listings-section">
 
-        {{-- ========================================================
-        HEADER
-    ========================================================= --}}
+
         <div class="d-md-flex justify-content-between align-items-center mb-4">
 
             <div class="premium-section-heading">
@@ -135,19 +128,10 @@
 
 
         @if ($listings->isEmpty())
-            {{-- ====================================================
-            EMPTY STATE
-        ===================================================== --}}
-
             <p class="no_lis">
                 No listings available.
             </p>
         @else
-            {{-- ====================================================
-            SLIDER CONTROLS
-            KEEPING YOUR EXISTING STRUCTURE
-        ===================================================== --}}
-
             <div class="carousel-controls premium-carousel-controls">
 
                 <div class="carousel-prev">
@@ -160,85 +144,29 @@
 
             </div>
 
-
-            {{-- ====================================================
-            SLIDER
-        ===================================================== --}}
-
             <div class="slider card-container premium-card-container">
 
                 @foreach ($listings as $listing)
                     @php
 
-                        /*
-                    |--------------------------------------------------------------------------
-                    | Listing Image
-                    |--------------------------------------------------------------------------
-                    */
-
                         $listingImage = !empty($listing->imagepath)
                             ? asset('assets/uploads/images/' . $listing->imagepath)
                             : asset('assets/images/business_image.jpg');
-
-                        /*
-                    |--------------------------------------------------------------------------
-                    | Gross Revenue
-                    |--------------------------------------------------------------------------
-                    */
 
                         $totalCost = ($listing->COG1 ?? 0) + ($listing->COG2 ?? 0) + ($listing->COG3 ?? 0);
 
                         $grossRevenue = ($listing->AnnualSales ?? 0) - $totalCost;
 
-                        /*
-                    |--------------------------------------------------------------------------
-                    | Operating Expenses
-                    |--------------------------------------------------------------------------
-                    */
-
                         $totalOperatingExpenses = ($listing->AnnRent ?? 0) + ($listing->CommonAreaMaint ?? 0);
-
-                        /*
-                    |--------------------------------------------------------------------------
-                    | Operating Profit
-                    |--------------------------------------------------------------------------
-                    */
 
                         $operatingProfit = ($listing->AnnualSales ?? 0) - ($totalCost + $totalOperatingExpenses);
 
-                        /*
-                    |--------------------------------------------------------------------------
-                    | Adjusted Cash Flow
-                    |--------------------------------------------------------------------------
-                    */
-
                         $adjustedCashFlow = ($listing->OtherInc ?? 0) + $operatingProfit;
-
-                        /*
-                    |--------------------------------------------------------------------------
-                    | SDE
-                    |
-                    | If your listings table has a dedicated SDE column,
-                    | it will be used.
-                    |
-                    | Otherwise adjusted cash flow is used as fallback.
-                    |--------------------------------------------------------------------------
-                    */
 
                         $sde = $listing->SDE ?? $adjustedCashFlow;
                     @endphp
 
-
-                    {{-- =================================================
-                    BUSINESS CARD
-                ================================================== --}}
-
                     <div class="premium-business-card">
-
-
-                        {{-- =============================================
-                        IMAGE AREA
-                    ============================================== --}}
 
                         <div class="premium-business-image">
 
@@ -252,11 +180,6 @@
 
                             {{-- Image dark gradient --}}
                             <div class="premium-image-overlay"></div>
-
-
-                            {{-- =========================================
-                            IMAGE FINANCIALS
-                        ========================================== --}}
 
                             <div class="premium-image-financials">
 
@@ -293,17 +216,8 @@
 
                         </div>
 
-
-                        {{-- =============================================
-                        CARD CONTENT
-                    ============================================== --}}
-
                         <div class="premium-business-content">
 
-
-                            {{-- =========================================
-                            BUSINESS TYPE + CATEGORY
-                        ========================================== --}}
 
                             <div class="premium-business-meta">
 
@@ -327,10 +241,6 @@
                             </div>
 
 
-                            {{-- =========================================
-                            BUSINESS TITLE
-                        ========================================== --}}
-
                             <h3 class="premium-business-title">
 
                                 <a href="{{ route('view.business.listing', $listing->ListingID) }}">
@@ -340,11 +250,6 @@
                                 </a>
 
                             </h3>
-
-
-                            {{-- =========================================
-                            LOCATION
-                        ========================================== --}}
 
                             <div class="premium-business-location">
 
@@ -366,11 +271,6 @@
                                 </span>
 
                             </div>
-
-
-                            {{-- =========================================
-                            FINANCIAL INFORMATION
-                        ========================================== --}}
 
                             <div class="premium-financial-grid">
 
@@ -987,12 +887,12 @@
         }
 
         /*  .slider .card {
-                                                    margin-right: 10px;
-                                                } */
+                                                                                                                    margin-right: 10px;
+                                                                                                                } */
 
         /*  .slider .slick-slide:last-child .card {
-                                                    margin-right: 0;
-                                                } */
+                                                                                                                    margin-right: 0;
+                                                                                                                } */
 
         .slider .card {
             width: 100%;
@@ -1568,7 +1468,7 @@
 
             color: rgba(255, 255, 255, .84);
 
-            font-size: 7px;
+            font-size: 10px;
 
             font-weight: 600;
 
@@ -1660,7 +1560,7 @@
 
             color: #8b1747;
 
-            font-size: 8px;
+            font-size: 10px;
 
             font-weight: 700;
 
@@ -1693,7 +1593,7 @@
 
             color: #8b1747;
 
-            font-size: 7px;
+            font-size: 10px;
 
             font-weight: 600;
 
@@ -1712,7 +1612,7 @@
 
             overflow: hidden;
 
-            font-size: 14px;
+            font-size: 18px;
 
             font-weight: 700;
 
@@ -1747,9 +1647,9 @@
 
             margin-bottom: 9px;
 
-            color: #818181;
+            color: #444;
 
-            font-size: 9px;
+            font-size: 14px;
 
             line-height: 1;
 
@@ -1760,11 +1660,11 @@
 
         .premium-location-icon {
 
-            width: 21px;
+            width: 30px;
 
-            height: 21px;
+            height: 30px;
 
-            min-width: 21px;
+            min-width: 30px;
 
             display: flex;
 
@@ -1778,7 +1678,7 @@
 
             color: #8b1747;
 
-            font-size: 8px;
+            font-size: 14px;
 
         }
 
@@ -1861,11 +1761,11 @@
 
         .premium-financial-icon {
 
-            width: 25px;
+            width: 30px;
 
-            height: 25px;
+            height: 30px;
 
-            min-width: 25px;
+            min-width: 30px;
 
             display: flex;
 
@@ -1879,7 +1779,7 @@
 
             color: #8b1747;
 
-            font-size: 9px;
+            font-size: 14px;
 
         }
 
@@ -1897,9 +1797,9 @@
 
             overflow: hidden;
 
-            color: #999999;
+            color: #444;
 
-            font-size: 7px;
+            font-size: 10px;
 
             font-weight: 500;
 
@@ -1985,9 +1885,9 @@
 
             min-width: 0;
 
-            color: #999999;
+            color: #444;
 
-            font-size: 7px;
+            font-size: 10px;
 
             line-height: 1;
 
@@ -2024,7 +1924,7 @@
 
             color: #ffffff !important;
 
-            font-size: 8px;
+            font-size: 12px;
 
             font-weight: 600;
 

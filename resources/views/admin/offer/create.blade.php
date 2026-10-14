@@ -588,12 +588,12 @@
                         <div class="row mb-2">
                             <div class="col-md-8 mb-3">
                                 <label for="address">Address</label>
-                                <input type="text" class="form-control" id="address" name="address"
+                                <input type="text" class="form-control" id="escrowAttorneyAddress" name="address"
                                     value="{{ session('offerData.address') ?? old('address') }}">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">City</label>
-                                <input type="text" id="city" class="form-control" placeholder="City"
+                                <input type="text" id="escrowAttorneyCity" class="form-control" placeholder="City"
                                     name="escrow_city"
                                     value="{{ session('offerData.escrow_city') ?? old('escrow_city') }}">
                                 @error('escrow_city')
@@ -604,7 +604,7 @@
                         <div class="row mb-2">
                             <div class="col-md-4 mb-3">
                                 <label for="">State</label>
-                                <select id="State" class="form-select" name="escrow_state">
+                                <select id="escrowAttorneyState" class="form-select" name="escrow_state">
                                     <option value="" selected="">Select state</option>
                                     @foreach ($states as $key => $value)
                                         <option value="{{ $value->State }}"
@@ -618,7 +618,7 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="">Zip</label>
-                                <input type="text" id="Zip" class="form-control" placeholder="Zip"
+                                <input type="text" id="escrowAttorneyZip" class="form-control" placeholder="Zip"
                                     name="escrow_zip_code"
                                     value="{{ session('offerData.escrow_zip_code') ?? old('escrow_zip_code') }}">
                                 @error('escrow_zip_code')
@@ -627,7 +627,7 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone"
+                                <input type="text" class="form-control" id="escrowAttorneyPhone" name="phone"
                                     value="{{ session('offerData.phone') ?? old('phone') }}">
                             </div>
                         </div>

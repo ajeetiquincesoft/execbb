@@ -125,6 +125,32 @@
                             <input type="text" class="form-control" id="businessName" name="businessName">
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="assign agent">Agent Assigned</label>
+                            <select id="assign_agent" class="form-select" name="assign_agent">
+                                <option value="" selected="">Select agent</option>
+                                @foreach ($agents as $key => $agent)
+                                    <option value="{{ $agent->agent_info->AgentID }}"
+                                        {{ old('assign_agent') == $agent->agent_info->AgentID ? 'selected' : '' }}>
+                                        {{ $agent->agent_info->FName }} {{ $agent->agent_info->LName }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="business listing">Business Listing</label>
+                            <select id="business_listing" class="form-select" name="business_listing">
+                                <option value="" selected="">Select listing</option>
+                                @foreach ($listings as $key => $listing)
+                                    <option value="{{ $listing->ListingID }}"
+                                        {{ old('business_listing') == $listing->ListingID ? 'selected' : '' }}>
+                                        {{ $listing->DBA }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <!-- SFBO -->
                     <div class="col-md-4">
                         <div class="form-check d-flex flex-column check-column p-0 m-0">
@@ -314,41 +340,41 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"></script>
-                <script>
-                    // Initialize Google Places Autocomplete
-                    function initAutocomplete() {
-                        const addressInput = document.getElementById("address");
+                                                                    <script>
+                                                                        // Initialize Google Places Autocomplete
+                                                                        function initAutocomplete() {
+                                                                            const addressInput = document.getElementById("address");
 
-                        const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-                            types: ['geocode'], // restrict to addresses (geocode)
-                        });
+                                                                            const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+                                                                                types: ['geocode'], // restrict to addresses (geocode)
+                                                                            });
 
-                        // Add listener to handle the selected address
-                        autocomplete.addListener("place_changed", function() {
-                            const place = autocomplete.getPlace();
-                            if (place.geometry) {
-                                // Loop through the address components to get city, state, and zip
-                                for (const component of place.address_components) {
-                                    const componentType = component.types[0];
-                                    if (componentType === "locality") {
-                                        document.getElementById("city").value = component.long_name;
-                                    }
-                                    if (componentType === "administrative_area_level_1") {
-                                        document.getElementById("state").value = component.short_name;
-                                    }
-                                    if (componentType === "postal_code") {
-                                        document.getElementById("zip").value = component.long_name;
-                                    }
-                                }
-                            }
-                        });
-                    }
+                                                                            // Add listener to handle the selected address
+                                                                            autocomplete.addListener("place_changed", function() {
+                                                                                const place = autocomplete.getPlace();
+                                                                                if (place.geometry) {
+                                                                                    // Loop through the address components to get city, state, and zip
+                                                                                    for (const component of place.address_components) {
+                                                                                        const componentType = component.types[0];
+                                                                                        if (componentType === "locality") {
+                                                                                            document.getElementById("city").value = component.long_name;
+                                                                                        }
+                                                                                        if (componentType === "administrative_area_level_1") {
+                                                                                            document.getElementById("state").value = component.short_name;
+                                                                                        }
+                                                                                        if (componentType === "postal_code") {
+                                                                                            document.getElementById("zip").value = component.long_name;
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        }
 
-                    // Initialize the autocomplete when the page loads
-                    window.onload = function() {
-                        initAutocomplete();
-                    };
-                </script> -->
+                                                                        // Initialize the autocomplete when the page loads
+                                                                        window.onload = function() {
+                                                                            initAutocomplete();
+                                                                        };
+                                                                    </script> -->
 
     <script>
         function resetLeadForm() {

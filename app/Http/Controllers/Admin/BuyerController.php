@@ -16,7 +16,7 @@ use Carbon\Carbon;
 
 class BuyerController extends Controller
 {
-    public function index(Request $request)
+    /*  public function index(Request $request)
     {
         try {
             session()->forget(['buyerData', 'step']);
@@ -38,6 +38,50 @@ class BuyerController extends Controller
             return view('admin.buyer.index', compact('buyers'));
         } catch (\Exception $e) {
             return redirect()->back()->with('err_message', $e->getMessage());
+        }
+    } */
+    public function index(Request $request)
+    {
+        try {
+            session()->forget(['buyerData', 'step']);
+
+            $query = $request->input('query');
+
+            $buyers = Buyer::query()
+                ->leftJoin('agents', 'buyers.AgentID', '=', 'agents.AgentID')
+                ->select(
+                    'buyers.*',
+                    'agents.FName as agent_fname',
+                    'agents.LName as agent_lname'
+                );
+
+            if (!empty($query)) {
+                $buyers->where(function ($q) use ($query) {
+                    $q->where('buyers.BuyerID', 'LIKE', "%{$query}%")
+                        ->orWhere('buyers.FName', 'LIKE', "%{$query}%")
+                        ->orWhere('buyers.LName', 'LIKE', "%{$query}%")
+                        ->orWhere('buyers.Address1', 'LIKE', "%{$query}%")
+                        ->orWhere('buyers.HomePhone', 'LIKE', "%{$query}%")
+                        ->orWhere('buyers.BusPhone', 'LIKE', "%{$query}%")
+                        ->orWhere('buyers.Email', 'LIKE', "%{$query}%")
+                        ->orWhere('agents.FName', 'LIKE', "%{$query}%")
+                        ->orWhere('agents.LName', 'LIKE', "%{$query}%")
+                        ->orWhereRaw(
+                            "CONCAT(COALESCE(agents.FName, ''), ' ', COALESCE(agents.LName, '')) LIKE ?",
+                            ["%{$query}%"]
+                        );
+                });
+            }
+
+            $buyers = $buyers
+                ->orderByDesc('buyers.BuyerID')
+                ->paginate(10)
+                ->withQueryString();
+
+            return view('admin.buyer.index', compact('buyers'));
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('err_message', $e->getMessage());
         }
     }
     public function showForm(Request $request)
@@ -225,7 +269,7 @@ class BuyerController extends Controller
         $previousBuyerId = session('buyerData.prevBuyerId', null);
         // Find the buyer ID
         $buyerData = Buyer::where('BuyerID', $id)->first();
-        //dd($buyerDatas);
+        /* dd($buyerData); */
         if (!$buyerData) {
             return redirect()->back()
                 ->with('err_message', 'Buyer not found.');
@@ -266,6 +310,7 @@ class BuyerController extends Controller
         $logCreated = session()->get('logCreated', false);
         // dd( $buyer);
         if ($step == 1) {
+            /*  dd($request->all()); */
             $corporateBuyer = $request->has('corporateBuyer') ? 1 : 0;
             $emailOptOut = $request->has('emailOptOut') ? 1 : 0;
             if ($request->has('firstName')) {
@@ -376,7 +421,16 @@ class BuyerController extends Controller
         $previous = Buyer::where('BuyerID', '<', $id)->orderBy('BuyerID', 'desc')->first();
         // Get the next buyer ID
         $next = Buyer::where('BuyerID', '>', $id)->orderBy('BuyerID', 'asc')->first();
-        return view('admin.buyer.show', compact('buyer', 'previous', 'next', 'activities', 'ndaExists'));
+        $businessTypes = DB::table('sub_categories')
+            ->pluck('SubCategory', 'SubCatID');
+        $agent = null;
+
+        if (!empty($buyer->AgentID)) {
+            $agent = DB::table('agents')
+                ->where('AgentID', $buyer->AgentID)
+                ->first();
+        }
+        return view('admin.buyer.show', compact('buyer', 'previous', 'next', 'activities', 'ndaExists', 'businessTypes', 'agent'));
     }
     public function destroy(Request $request, $id)
     {

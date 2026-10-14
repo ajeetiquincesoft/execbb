@@ -135,6 +135,32 @@
                                 value="{{ $lead->BusName }}">
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="assign agent">Agent Assigned</label>
+                            <select id="assign_agent" class="form-select" name="assign_agent">
+                                <option value="" selected="">Select agent</option>
+                                @foreach ($agents as $key => $agent)
+                                    <option value="{{ $agent->agent_info->AgentID }}"
+                                        {{ $lead->AgentID == $agent->agent_info->AgentID ? 'selected' : '' }}>
+                                        {{ $agent->agent_info->FName }} {{ $agent->agent_info->LName }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="business listing">Business Listing</label>
+                            <select id="business_listing" class="form-select" name="business_listing">
+                                <option value="" selected="">Select listing</option>
+                                @foreach ($listings as $key => $listing)
+                                    <option value="{{ $listing->ListingID }}"
+                                        {{ $lead->ListingID == $listing->ListingID ? 'selected' : '' }}>
+                                        {{ $listing->DBA }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <!-- SFBO -->
                     <div class="col-md-4">
                         <div class="form-check d-flex flex-column check-column p-0 m-0">

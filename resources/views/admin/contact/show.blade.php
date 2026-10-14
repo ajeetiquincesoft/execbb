@@ -63,6 +63,15 @@
                                             <td class="text-end">{{ $contact->CompanyName }}</td>
                                         </tr>
                                         <tr>
+                                            <td>
+                                                <img src="{{ url('assets/images/company.png') }}" alt=""><span
+                                                    class="ml-2 fw-600">Contact Type</span>
+                                            </td>
+                                            <td class="text-end">
+                                                {{ $contact_type[$contact->Type ?? ''] ?? 'N/A' }}
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><img src="{{ url('assets/images/phone.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Phone</span></td>
                                             <td class="text-end">{{ $contact->Phone }}</td>

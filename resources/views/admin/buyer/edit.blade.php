@@ -167,7 +167,7 @@
                             <div class="col-md-3 mb-3">
                                 <label class="form-label" for="preferredTerms">Proffered Terms </label>
                                 <input type="number" class="form-control" id="preferredTerms" name="preferredTerms"
-                                    value="">
+                                    value="{{ $buyerData->Group }}">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label" for="monthExpDate">Month Exp Date</label>

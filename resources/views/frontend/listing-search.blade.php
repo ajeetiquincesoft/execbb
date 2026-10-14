@@ -1,185 +1,741 @@
 @extends('frontend.layout.master')
+
 @section('content')
-    <!-- Breadcrumb Section -->
+    {{-- Breadcrumb --}}
     <div class="breadcrumb-container py-3">
         <div class="container">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
+                <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active"><a href="#">Search</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Search Listings</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <!-- About us page no-14 HTML-->
-    <div class="container my-7">
-        <div class="content-box">
-            <!-- <div class="row agent_search mb-5">
-                                                                                                                                                                                                            <div class="col-md-12">
-                                                                                                                                                                                                                <form action="{{ route('business.listing.search') }}" method="get" class="">
-                                                                                                                                                                                                                    <input type="text" class="form-control" placeholder="Find Listing" name="query" value="{{ request('query') }}" required="">
-                                                                                                                                                                                                                    <button type="submit">Search Listing</button>
-                                                                                                                                                                                                                </form>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        </div> -->
-            <form action="{{ route('business.listing.search') }}" method="get" class="">
-                <div class="row lis_search mb-5">
-                    <div class="col-12 col-sm-6 col-md-2">
-                        <div class="form-group">
-                            <select class="form-control" id="industry" name="industry">
-                                <option value="">Industry</option>
-                                @foreach ($categoryData as $category)
-                                    <option value="{{ $category->CategoryID }}"
-                                        {{ request('industry') == $category->CategoryID ? 'selected' : '' }}>
-                                        {{ $category->BusinessCategory }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-2">
-                        <div class="form-group">
-                            <select class="form-control" id="businessType" name="businessType">
-                                <option value="">Business Category</option>
-                                @foreach ($businessTypes as $businessType)
-                                    <option value="{{ $businessType->SubCatID }}"
-                                        {{ request('businessType') == $businessType->SubCatID ? 'selected' : '' }}>
-                                        {{ $businessType->SubCategory }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <!-- Second Column -->
-                    <div class="col-12 col-sm-6 col-md-2">
-                        <div class="form-group">
-                            <select class="form-control" id="state" name="state">
-                                <option value="">State</option>
-                                @foreach ($states as $state)
-                                    <option value="{{ $state->State }}"
-                                        {{ request('state') == $state->State ? 'selected' : '' }}>{{ $state->StateName }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Find Listing By City Name"
-                                name="query" value="{{ request('query') }}">
-                        </div>
 
+    <section class="business-listings-section">
+        <div class="container business-listings-container">
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <header class="business-listings-header">
+                <h1>Find a Business</h1>
+                <p>Explore business opportunities using the filters below. Select an industry, business category, state, or
+                    enter a city name to narrow your search.</p>
+            </header>
+
+            <hr class="business-listings-divider">
+
+            {{-- Search filters --}}
+            <form action="{{ route('business.listing.search') }}" method="GET" class="listing-search-form">
+                <div class="row g-3 align-items-end">
+                    <div class="col-12 col-sm-6 col-lg-2">
+                        <label for="industry" class="visually-hidden">Industry</label>
+                        <select class="form-control" id="industry" name="industry">
+                            <option value="">Industry</option>
+                            @foreach ($categoryData as $category)
+                                <option value="{{ $category->CategoryID }}"
+                                    {{ (string) request('industry') === (string) $category->CategoryID ? 'selected' : '' }}>
+                                    {{ $category->BusinessCategory }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-2 d-md-flex align-items-end lsbtn">
-                        <button type="submit" name="lis_search">Search</button>
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <label for="businessType" class="visually-hidden">Business Category</label>
+                        <select class="form-control" id="businessType" name="businessType">
+                            <option value="">Business Category</option>
+                            @foreach ($businessTypes as $businessType)
+                                <option value="{{ $businessType->SubCatID }}"
+                                    {{ (string) request('businessType') === (string) $businessType->SubCatID ? 'selected' : '' }}>
+                                    {{ $businessType->SubCategory }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-2">
+                        <label for="state" class="visually-hidden">State</label>
+                        <select class="form-control" id="state" name="state">
+                            <option value="">State</option>
+                            @foreach ($states as $state)
+                                <option value="{{ $state->State }}"
+                                    {{ (string) request('state') === (string) $state->State ? 'selected' : '' }}>
+                                    {{ $state->StateName }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-sm-8 col-lg-3">
+                        <label for="listing-query" class="visually-hidden">City</label>
+                        <input type="text" class="form-control" id="listing-query" name="query"
+                            placeholder="Find Listing By City Name" value="{{ request('query') }}">
+                    </div>
+
+                    <div class="col-12 col-sm-4 col-lg-2">
+                        <button type="submit" class="listing-search-button" name="lis_search">Search Listings</button>
                     </div>
                 </div>
             </form>
-            <div class="row mt-5 bis_search">
-                @forelse($listings as $listing)
-                    <div class="col-12 col-sm-6 col-md-4 mb-5">
-                        <div class="card-container">
-                            <div class="card shadow-sm">
-                                @php
-                                    $imagePath = public_path('assets/uploads/images/' . $listing->imagepath);
-                                @endphp
 
-                                @if (!empty($listing->imagepath) && file_exists($imagePath))
-                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}">
-                                        <img src="{{ asset('assets/uploads/images/' . $listing->imagepath) }}"
-                                            class="card-img-top" alt="{{ $listing->County }}, {{ $listing->State }}">
-                                    </a>
-                                @else
-                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}">
-                                        <img src="{{ asset('assets/images/business_image.jpg') }}" class="card-img-top"
-                                            alt="{{ $listing->County }}, {{ $listing->State }}">
-                                    </a>
-                                @endif
-                                <div class="card-body text-center">
-                                    {{--    <a href="{{ route('view.business.listing', $listing->ListingID) }}">
-                                        <h5 class="card-title card-title-slider">{{ $listing->City }},
-                                            {{ $listing->State }}</h5>
-                                    </a> --}}
-                                    <p class="card-text mb-0">Business Type: {{ $listing->BusType }}</p>
-                                    <p class="card-text mb-0">Business Category: {{ getSubCategoryName($listing->SubCat) }}
-                                    </p>
-                                    <p class="card-text mb-0">County:
-                                        {{ $listing->County }}</p>
-                                    <p class="card-text mb-0">List Price: ${{ number_format($listing->ListPrice ?? 0, 2) }}
-                                    </p>
-                                    <p class="card-text mb-0">Down Pay: ${{ number_format($listing->DownPay ?? 0, 2) }}</p>
-                                    @php
-                                        $totalCost =
-                                            ($listing->COG1 ?? 0) + ($listing->COG2 ?? 0) + ($listing->COG3 ?? 0);
+            {{-- Listings grid --}}
+            <div class="row premium-listings-grid">
+                @forelse ($listings as $listing)
+                    @php
+                        $listingImage = !empty($listing->imagepath)
+                            ? asset('assets/uploads/images/' . $listing->imagepath)
+                            : asset('assets/images/business_image.jpg');
 
-                                        $totalGOP = ($listing->AnnualSales ?? 0) - ($totalCost ?? 0);
-                                    @endphp
-                                    <p class="card-text mb-0">Gross Revenue:
-                                        ${{ number_format($totalGOP ?? 0, 2) }}
-                                    </p>
-                                    <p class="card-text"> Asking Price:
-                                        ${{ number_format($listing->ListPrice ?? 0, 2) }}</p>
+                        $totalCost = ($listing->COG1 ?? 0) + ($listing->COG2 ?? 0) + ($listing->COG3 ?? 0);
+
+                        $grossRevenue = ($listing->AnnualSales ?? 0) - $totalCost;
+
+                        $totalOperatingExpenses = ($listing->AnnRent ?? 0) + ($listing->CommonAreaMaint ?? 0);
+
+                        $operatingProfit = ($listing->AnnualSales ?? 0) - ($totalCost + $totalOperatingExpenses);
+
+                        $adjustedCashFlow = ($listing->OtherInc ?? 0) + $operatingProfit;
+
+                        $sde = $listing->SDE ?? $adjustedCashFlow;
+                    @endphp
+
+                    <div class="col-12 col-sm-6 col-lg-4 premium-listing-column">
+                        <article class="premium-business-card">
+                            <div class="premium-business-image">
+                                <a href="{{ route('view.business.listing', $listing->ListingID) }}">
+                                    <img src="{{ $listingImage }}" alt="{{ $listing->BusType ?? 'Business Listing' }}"
+                                        loading="lazy">
+                                </a>
+
+                                <div class="premium-image-overlay"></div>
+
+                                <div class="premium-image-financials">
+                                    <div class="premium-image-price">
+                                        <span>Asking Price</span>
+                                        <strong>${{ number_format($listing->ListPrice ?? 0, 0) }}</strong>
+                                    </div>
+
+                                    <div class="premium-image-cashflow">
+                                        <span>Adjusted Cash Flow</span>
+                                        <strong>${{ number_format($adjustedCashFlow, 0) }}</strong>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="premium-business-content">
+                                <div class="premium-business-meta">
+                                    <div class="premium-business-type">
+                                        {{ $listing->BusType ?? 'Business Type' }}
+                                    </div>
+                                    <div class="premium-business-category">
+                                        {{ getSubCategoryName($listing->SubCat) }}
+                                    </div>
+                                </div>
+
+                                <h2 class="premium-business-title">
+                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}">
+                                        {{ $listing->BusType ?? 'Business Opportunity' }}
+                                    </a>
+                                </h2>
+
+                                <div class="premium-business-location">
+                                    <span class="premium-location-icon" aria-hidden="true">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                    <span class="premium-location-text">
+                                        {{ $listing->County ?? 'N/A' }}@if (!empty($listing->State))
+                                            , {{ $listing->State }}
+                                        @endif
+                                    </span>
+                                </div>
+
+                                <div class="premium-financial-grid">
+                                    <div class="premium-financial-item">
+                                        <div class="premium-financial-icon" aria-hidden="true">
+                                            <i class="fas fa-wallet"></i>
+                                        </div>
+                                        <div class="premium-financial-data">
+                                            <span>Down Payment</span>
+                                            <strong>${{ number_format($listing->DownPay ?? 0, 0) }}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="premium-financial-item">
+                                        <div class="premium-financial-icon" aria-hidden="true">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <div class="premium-financial-data">
+                                            <span>Gross Revenue</span>
+                                            <strong>${{ number_format($grossRevenue, 0) }}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="premium-financial-item premium-sde-item">
+                                        <div class="premium-financial-icon" aria-hidden="true">
+                                            <i class="fas fa-user-tie"></i>
+                                        </div>
+                                        <div class="premium-financial-data">
+                                            <span>SDE</span>
+                                            <strong>${{ number_format($sde, 0) }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <footer class="premium-card-footer">
+                                    <div class="premium-opportunity-label">
+                                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                                        <span>Business Opportunity</span>
+                                    </div>
+
+                                    <a href="{{ route('view.business.listing', $listing->ListingID) }}"
+                                        class="premium-view-button">
+                                        View Opportunity
+                                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </footer>
+                            </div>
+                        </article>
                     </div>
-                @empty
-                    <span>No result found!</span>
-                @endforelse
+                    @empty
+                        <div class="col-12">
+                            <p class="text-center py-4 mb-0">No business listings found.</p>
+                        </div>
+                    @endforelse
+                </div>
+
+                {{-- Pagination --}}
+                @if ($listings->hasPages())
+                    <div class="listing-pagination">
+                        {{ $listings->appends(request()->query())->links('vendor.pagination.custom') }}
+                    </div>
+                @endif
+
             </div>
-            <div id="pagination" class="d-flex justify-content-end">
-                {{ $listings->appends(request()->query())->links('vendor.pagination.custom') }}
-            </div>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#industry').change(function() {
-                var id = $(this).val();
-                if (id) {
-                    $.ajax({
-                        url: "{{ route('get.business.category', ['id' => '__ID__']) }}".replace(
-                            '__ID__',
-                            id),
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#businessType').empty();
-                            $('#businessType').append(
-                                '<option value="">Business Category</option>');
-                            $.each(data, function(key, value) {
-                                $('#businessType').append('<option value="' + value
-                                    .SubCatID + '">' + value.SubCategory +
-                                    '</option>');
-                            });
-                        }
-                    });
-                } else {
-                    $('#second-dropdown').empty().append('<option value="">Select an option</option>');
+        </section>
+
+        <style>
+            .business-listings-section {
+                background: #f8f8f8;
+                padding: 32px 0;
+            }
+
+            .business-listings-container {
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+                padding: 32px;
+            }
+
+            .breadcrumb {
+                background: transparent;
+            }
+
+            .business-listings-header {
+                margin: 0 auto 28px;
+                text-align: center;
+            }
+
+            .business-listings-header h1 {
+                color: #242424;
+                font-size: 28px;
+                font-weight: 700;
+                margin: 0 0 16px;
+            }
+
+            .business-listings-header p {
+                color: #7f8589;
+                line-height: 1.7;
+                margin: 0;
+            }
+
+            .business-listings-divider {
+                border: 0;
+                border-top: 1px solid #e8e8e8;
+                margin: 0 0 28px;
+            }
+
+            .listing-search-form {
+                margin-bottom: 28px;
+            }
+
+            .listing-search-form .form-control {
+                width: 100%;
+                height: 45px;
+                border: 1px solid #d2d2d2;
+                border-radius: 4px;
+                box-shadow: none;
+            }
+
+            .listing-search-form .form-control:focus {
+                border-color: #8b1747;
+                box-shadow: 0 0 0 3px rgba(139, 23, 71, .1);
+            }
+
+            .listing-search-button {
+                width: 100%;
+                min-height: 45px;
+                border: 0;
+                border-radius: 4px;
+                background: #8b1747;
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 10px 18px;
+                transition: background .2s ease;
+            }
+
+            .listing-search-button:hover,
+            .listing-search-button:focus {
+                background: #6d1037;
+                color: #fff;
+            }
+
+            .premium-listings-grid {
+                align-items: stretch;
+                row-gap: 24px;
+            }
+
+            .premium-listing-column {
+                display: flex;
+                align-items: stretch;
+            }
+
+            .premium-business-card {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                min-width: 0;
+                overflow: hidden;
+                background: #fff;
+                border: 1px solid #e6e6e6;
+                border-radius: 11px;
+                box-shadow: 0 3px 12px rgba(0, 0, 0, .055);
+                transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            }
+
+            .premium-business-card:hover {
+                transform: translateY(-4px);
+                border-color: #d8b4c5;
+                box-shadow: 0 12px 28px rgba(0, 0, 0, .12);
+            }
+
+            .premium-business-image {
+                position: relative;
+                flex-shrink: 0;
+                height: 190px;
+                overflow: hidden;
+                background: #eee;
+            }
+
+            .premium-business-image>a {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            .premium-business-image img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform .55s ease;
+            }
+
+            .premium-business-card:hover .premium-business-image img {
+                transform: scale(1.055);
+            }
+
+            .premium-image-overlay {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                height: 85px;
+                background: linear-gradient(to top, rgba(0, 0, 0, .76), transparent);
+                pointer-events: none;
+            }
+
+            .premium-image-financials {
+                position: absolute;
+                right: 12px;
+                bottom: 12px;
+                left: 12px;
+                z-index: 1;
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 12px;
+                color: #fff;
+            }
+
+            .premium-image-price,
+            .premium-image-cashflow {
+                min-width: 0;
+            }
+
+            .premium-image-price span,
+            .premium-image-cashflow span {
+                display: block;
+                margin-bottom: 4px;
+                color: rgba(255, 255, 255, .88);
+                font-size: 10px;
+                font-weight: 600;
+                line-height: 1.2;
+                letter-spacing: .5px;
+                text-transform: uppercase;
+            }
+
+            .premium-image-price strong,
+            .premium-image-cashflow strong {
+                display: block;
+                color: #fff;
+                font-weight: 700;
+                line-height: 1.1;
+                white-space: nowrap;
+            }
+
+            .premium-image-price strong {
+                font-size: 21px;
+            }
+
+            .premium-image-cashflow {
+                text-align: right;
+            }
+
+            .premium-image-cashflow strong {
+                font-size: 16px;
+            }
+
+            .premium-business-content {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                min-width: 0;
+                padding: 13px;
+            }
+
+            .premium-business-meta {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                min-height: 20px;
+                margin-bottom: 5px;
+            }
+
+            .premium-business-type {
+                max-width: 55%;
+                overflow: hidden;
+                color: #8b1747;
+                font-size: 10px;
+                font-weight: 700;
+                line-height: 1.2;
+                letter-spacing: .4px;
+                text-overflow: ellipsis;
+                text-transform: uppercase;
+                white-space: nowrap;
+            }
+
+            .premium-business-category {
+                max-width: 45%;
+                overflow: hidden;
+                padding: 4px 6px;
+                border-radius: 3px;
+                background: #f7edf2;
+                color: #8b1747;
+                font-size: 10px;
+                font-weight: 600;
+                line-height: 1.2;
+                text-align: right;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .premium-business-title {
+                display: -webkit-box;
+                min-height: 40px;
+                margin: 0 0 8px;
+                overflow: hidden;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 1.25;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+
+            .premium-business-title a {
+                color: #242424;
+                text-decoration: none;
+                transition: color .2s ease;
+            }
+
+            .premium-business-title a:hover {
+                color: #8b1747;
+            }
+
+            .premium-business-location {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                min-width: 0;
+                margin-bottom: 12px;
+                color: #444;
+                font-size: 13px;
+                line-height: 1.3;
+            }
+
+            .premium-location-icon {
+                display: inline-flex;
+                flex: 0 0 30px;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: #f8edf2;
+                color: #8b1747;
+                font-size: 13px;
+            }
+
+            .premium-location-text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .premium-financial-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                overflow: hidden;
+                border: 1px solid #ededed;
+                border-radius: 7px;
+                background: #fff;
+            }
+
+            .premium-financial-item {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                min-width: 0;
+                padding: 9px 7px;
+                border-right: 1px solid #ededed;
+                border-bottom: 1px solid #ededed;
+            }
+
+            .premium-financial-item:nth-child(2n) {
+                border-right: 0;
+            }
+
+            .premium-financial-item:last-child {
+                border-bottom: 0;
+            }
+
+            .premium-financial-icon {
+                display: flex;
+                flex: 0 0 30px;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                border-radius: 5px;
+                background: #f8edf2;
+                color: #8b1747;
+                font-size: 13px;
+            }
+
+            .premium-financial-data {
+                min-width: 0;
+                overflow: hidden;
+            }
+
+            .premium-financial-data span,
+            .premium-financial-data strong {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .premium-financial-data span {
+                margin-bottom: 3px;
+                color: #555;
+                font-size: 10px;
+                font-weight: 500;
+                line-height: 1.2;
+            }
+
+            .premium-financial-data strong {
+                color: #292929;
+                font-size: 11px;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            .premium-sde-item {
+                background: #faf3f6;
+            }
+
+            .premium-sde-item .premium-financial-icon {
+                background: #8b1747;
+                color: #fff;
+            }
+
+            .premium-sde-item .premium-financial-data strong {
+                color: #8b1747;
+            }
+
+            .premium-card-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                margin-top: auto;
+                padding-top: 12px;
+                border-top: 1px solid #eee;
+            }
+
+            .premium-opportunity-label {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                min-width: 0;
+                color: #444;
+                font-size: 10px;
+                line-height: 1.2;
+            }
+
+            .premium-opportunity-label i {
+                color: #8b1747;
+                font-size: 10px;
+            }
+
+            .premium-view-button {
+                display: inline-flex;
+                flex-shrink: 0;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                min-height: 32px;
+                padding: 0 10px;
+                border-radius: 4px;
+                background: #8b1747;
+                color: #fff !important;
+                font-size: 11px;
+                font-weight: 600;
+                line-height: 1;
+                text-decoration: none !important;
+                white-space: nowrap;
+                transition: background .2s ease, transform .2s ease;
+            }
+
+            .premium-view-button:hover {
+                transform: translateY(-1px);
+                background: #6d1037;
+            }
+
+            .premium-view-button i {
+                font-size: 9px;
+                transition: transform .2s ease;
+            }
+
+            .premium-view-button:hover i {
+                transform: translateX(3px);
+            }
+
+            .listing-pagination {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 30px;
+            }
+
+            @media (max-width: 991.98px) {
+                .business-listings-container {
+                    padding: 24px;
                 }
+
+                .premium-business-image {
+                    height: 175px;
+                }
+
+                .premium-image-price strong {
+                    font-size: 19px;
+                }
+
+                .premium-image-cashflow strong {
+                    font-size: 14px;
+                }
+            }
+
+            @media (max-width: 575.98px) {
+                .business-listings-section {
+                    padding: 16px 0;
+                }
+
+                .business-listings-container {
+                    padding: 18px 14px;
+                }
+
+                .business-listings-header h1 {
+                    font-size: 24px;
+                }
+
+                .premium-business-image {
+                    height: 200px;
+                }
+
+                .premium-business-content {
+                    padding: 13px;
+                }
+            }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const industrySelect = document.getElementById('industry');
+                const businessTypeSelect = document.getElementById('businessType');
+
+                if (!industrySelect || !businessTypeSelect) return;
+
+                industrySelect.addEventListener('change', function() {
+                    const industryId = this.value;
+                    const previousBusinessType = businessTypeSelect.value;
+
+                    businessTypeSelect.innerHTML = '<option value="">Business Category</option>';
+                    if (!industryId) return;
+
+                    const categoryUrl = @json(route('get.business.category', ['id' => '__ID__']));
+                    const url = categoryUrl.replace('__ID__', encodeURIComponent(industryId));
+
+                    fetch(url, {
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(function(response) {
+                            if (!response.ok) throw new Error('Unable to load business categories.');
+                            return response.json();
+                        })
+                        .then(function(categories) {
+                            categories.forEach(function(category) {
+                                const option = document.createElement('option');
+                                option.value = category.SubCatID;
+                                option.textContent = category.SubCategory;
+                                if (String(category.SubCatID) === String(previousBusinessType)) {
+                                    option.selected = true;
+                                }
+                                businessTypeSelect.appendChild(option);
+                            });
+                        })
+                        .catch(function(error) {
+                            console.error(error);
+                        });
+                });
             });
-        });
-    </script>
-    <style>
-        .lis_search button {
-            background-color: #7F2149;
-            font-size: 16px;
-            line-height: 24px;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 0px;
-            width: 100%;
-        }
-
-        .lis_search .form-control {
-            width: 100%;
-            display: inline-block;
-            height: 45px;
-            border: 1px solid #B3B3B3;
-        }
-
-        .bis_search a {
-            text-decoration: none;
-        }
-    </style>
-@endsection
+        </script>
+    @endsection

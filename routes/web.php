@@ -418,6 +418,8 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::delete('/lead/destroy/{id}', [LeadController::class, 'destroy'])->name('lead.destroy');
   Route::post('/lead/bulkAction', [LeadController::class, 'bulkAction'])->name('lead.bulkAction');
   Route::post('/lead/assign', [LeadController::class, 'leadAssign'])->name('lead.assign');
+  Route::get('/lead/{id}/print', [LeadController::class, 'print'])
+    ->name('lead.print');
   //end route for leads
 
   //routes for buyers

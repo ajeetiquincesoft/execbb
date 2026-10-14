@@ -22,4 +22,8 @@ class Listing extends Model
     {
         return $this->belongsTo(Category::class, 'BusinessCategory');
     }
+    public function leads()
+    {
+        return $this->hasMany(Lead::class, 'ListingID', 'ListingID');
+    }
 }

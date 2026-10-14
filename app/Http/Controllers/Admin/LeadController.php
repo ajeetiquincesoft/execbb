@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\Listing;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -42,18 +43,20 @@ class LeadController extends Controller
     {
         $query = $request->input('query');
 
-
-        $sort = $request->get('sort', 'LeadID'); // default column
-        $direction = $request->get('direction', 'desc'); // default direction
-
+        $sort = $request->get('sort', 'LeadID');
+        $direction = $request->get('direction', 'desc');
 
         $leads = DB::table('leads')
             ->leftJoin('categories', 'leads.Category', '=', 'categories.CategoryID')
             ->leftJoin('lead_status', 'leads.Status', '=', 'lead_status.LeadStatusID')
+            ->leftJoin('agents', 'leads.AgentID', '=', 'agents.AgentID')
             ->select(
                 'leads.*',
+                'leads.AgentID as lead_agent_id',
                 'categories.BusinessCategory as category_name',
-                'lead_status.Status as status'
+                'lead_status.Status as status',
+                'agents.FName as agent_fname',
+                'agents.LName as agent_lname'
             );
 
         if ($query) {
@@ -65,19 +68,40 @@ class LeadController extends Controller
                     ->orWhere('leads.Phone', 'LIKE', '%' . $query . '%')
                     ->orWhere('leads.AppointmentDate', 'LIKE', '%' . $query . '%')
                     ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%')
-                    ->orWhere('lead_status.Status', 'LIKE', '%' . $query . '%');
+                    ->orWhere('lead_status.Status', 'LIKE', '%' . $query . '%')
+                    ->orWhere('agents.FName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('agents.LName', 'LIKE', '%' . $query . '%');
             });
         }
 
-        $leads = $leads->orderBy($sort, $direction)
+        $leads = $leads
+            ->orderBy($sort, $direction)
             ->paginate(10)
             ->appends($request->all());
 
-        $categories = DB::table('categories')->pluck('BusinessCategory', 'CategoryID');
-        $lead_status = DB::table('lead_status')->pluck('Status', 'LeadStatusID');
-        $agents = User::with('agent_info')->where('role_name', 'agent')->get();
+        $categories = DB::table('categories')
+            ->pluck('BusinessCategory', 'CategoryID');
 
-        return view('admin.lead.index', compact('leads', 'categories', 'lead_status', 'agents'));
+        $lead_status = DB::table('lead_status')
+            ->pluck('Status', 'LeadStatusID');
+
+        $agents = User::with('agent_info')
+            ->where('role_name', 'agent')
+            ->whereHas('agent_info', function ($query) {
+                $query->where(function ($q) {
+                    $q->whereNotNull('FName')
+                        ->where('FName', '!=', '');
+                });
+            })
+            ->get()
+            ->sortBy(function ($agent) {
+                return $agent->agent_info?->FName ?? '';
+            })
+            ->values();
+        return view(
+            'admin.lead.index',
+            compact('leads', 'categories', 'lead_status', 'agents')
+        );
     }
     public function create()
     {
@@ -86,7 +110,23 @@ class LeadController extends Controller
         $counties = DB::table('counties')->get();
         $status = DB::table('lead_status')->get();
         $sub_categories = DB::table('sub_categories')->get();
-        return view('admin.lead.create', compact('categoryData', 'states', 'counties', 'sub_categories', 'status'));
+        $agents = User::with('agent_info')
+            ->where('role_name', 'agent')
+            ->whereHas('agent_info', function ($query) {
+                $query->where(function ($q) {
+                    $q->whereNotNull('FName')
+                        ->where('FName', '!=', '');
+                });
+            })
+            ->get()
+            ->sortBy(function ($agent) {
+                return $agent->agent_info?->FName ?? '';
+            })
+            ->values();
+        $listings = Listing::whereNull('ExpDate')
+            ->orWhere('ExpDate', '>=', now())
+            ->get();
+        return view('admin.lead.create', compact('categoryData', 'states', 'counties', 'sub_categories', 'status', 'agents', 'listings'));
     }
     public function store(Request $request)
     {
@@ -124,7 +164,8 @@ class LeadController extends Controller
             'AdDate' => $request->adDate,
             'Phone' => $request->busPhone,
             'Comments' => $request->comments,
-            /* 'AgentID' => 'FD', */
+            'AgentID' => $request->assign_agent,
+            'ListingID' => $request->business_listing,
             'LDate' => $request->leadDate,
             'Listed' => $listed,
             'SellerFName' => $request->firstName,
@@ -167,7 +208,23 @@ class LeadController extends Controller
         $previous =  DB::table('leads')->where('LeadID', '<', $id)->orderBy('LeadID', 'desc')->first();
         // Get the next lead ID
         $next =  DB::table('leads')->where('LeadID', '>', $id)->orderBy('LeadID', 'asc')->first();
-        return view('admin.lead.edit', compact('categoryData', 'states', 'counties', 'sub_categories', 'status', 'lead', 'previous', 'next'));
+        $agents = User::with('agent_info')
+            ->where('role_name', 'agent')
+            ->whereHas('agent_info', function ($query) {
+                $query->where(function ($q) {
+                    $q->whereNotNull('FName')
+                        ->where('FName', '!=', '');
+                });
+            })
+            ->get()
+            ->sortBy(function ($agent) {
+                return $agent->agent_info?->FName ?? '';
+            })
+            ->values();
+        $listings = Listing::whereNull('ExpDate')
+            ->orWhere('ExpDate', '>=', now())
+            ->get();
+        return view('admin.lead.edit', compact('categoryData', 'states', 'counties', 'sub_categories', 'status', 'lead', 'previous', 'next', 'agents', 'listings'));
     }
     public function update(Request $request, $id)
     {
@@ -203,7 +260,8 @@ class LeadController extends Controller
             'AdDate' => $request->adDate,
             'Phone' => $request->busPhone,
             'Comments' => $request->comments,
-            /* 'AgentID' => 'FD', */
+            'AgentID' => $request->assign_agent,
+            'ListingID' => $request->business_listing,
             'LDate' => $request->leadDate,
             'Listed' => $listed,
             'SellerFName' => $request->firstName,
@@ -307,5 +365,87 @@ class LeadController extends Controller
             'details' => 'assign leads to agent, agent name: ' .  $agentInfo->FName . '. Lead ID: ' . $lead_id,
         ]);
         return redirect()->back()->with('success', 'Lead assigned to agent successfully');
+    }
+
+
+    /**
+     * Display a print-ready version of a single lead.
+     */
+    public function print($id)
+    {
+        $lead = DB::table('leads')
+            ->leftJoin(
+                'lead_status',
+                'leads.Status',
+                '=',
+                'lead_status.LeadStatusID'
+            )
+            ->leftJoin(
+                'categories',
+                'leads.Category',
+                '=',
+                'categories.CategoryID'
+            )
+            ->leftJoin(
+                'agents',
+                'leads.AgentID',
+                '=',
+                'agents.AgentID'
+            )
+            ->leftJoin(
+                'listings',
+                'leads.ListingID',
+                '=',
+                'listings.ListingID'
+            )
+            ->where('leads.LeadID', $id)
+            ->select(
+                'leads.*',
+
+                // Status and category
+                'lead_status.Status as status_name',
+                'categories.BusinessCategory as category_name',
+
+                // Assigned agent
+                'agents.AgentID as related_agent_id',
+                'agents.FName as agent_fname',
+                'agents.LName as agent_lname',
+
+                // Related business listing
+                'listings.ListingID as related_listing_id',
+                'listings.DBA as listing_dba'
+            )
+            ->first();
+
+        if (!$lead) {
+            abort(404, 'Lead not found.');
+        }
+
+        // Agent display information
+        $lead->agent_display_name = 'Unassigned';
+
+        if ($lead->related_agent_id !== null) {
+            $name = trim(
+                ($lead->agent_fname ?? '') . ' ' .
+                    ($lead->agent_lname ?? '')
+            );
+
+            $lead->agent_display_name = $name !== ''
+                ? $name
+                : 'Agent #' . $lead->AgentID;
+        }
+
+        // Listing display information
+        $lead->listing_display_name = 'Not Assigned';
+
+        if ($lead->related_listing_id !== null) {
+            $dba = trim((string) ($lead->listing_dba ?? ''));
+
+            $lead->listing_display_name = $dba !== ''
+                ? $dba
+                : 'DBA Not Available';
+        }
+
+        return view('admin.lead.print', compact('lead'));
     }
 }

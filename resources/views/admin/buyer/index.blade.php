@@ -69,10 +69,11 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Buyer ID</th>
                                 <th scope="col">Name</th>
+                                <th>Assigned Agent</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Act/Ina</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -88,6 +89,15 @@
                                     </td>
                                     <td>{{ $buyer->BuyerID }}</td>
                                     <td>{{ $buyer->FName }} {{ $buyer->LName }}</td>
+                                    <td>
+                                        @php
+                                            $agentName = trim(
+                                                ($buyer->agent_fname ?? '') . ' ' . ($buyer->agent_lname ?? ''),
+                                            );
+                                        @endphp
+
+                                        {{ $agentName !== '' ? $agentName : 'Unassigned' }}
+                                    </td>
                                     <td>{{ $buyer->Address1 }}</td>
                                     <td>{{ $buyer->HomePhone ?: ($buyer->BusPhone ?: 'N/A') }}</td>
                                     <td>{{ $buyer->Email }}</td>
@@ -107,6 +117,10 @@
                                             <button class="btn btn-sm" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </button></a>
+                                        <a href="{{ url('/admin/probmatch?buyer_id=' . $buyer->BuyerID) }}"><button
+                                                class="btn btn-sm" title="Probable Matches">
+                                                <i class="fas fa-bullseye"></i>
+                                            </button></a>
                                         <form action="{{ route('buyer.destroy', $buyer->BuyerID) }}" method="post"
                                             class="buyer_delete" id="delete-buyer-{{ $buyer->BuyerID }}">
                                             @csrf
@@ -117,8 +131,8 @@
                                             </button>
                                         </form>
                                         <!--  <button class="btn btn-sm" title="Download">
-                                                <i class="fas fa-download"></i>
-                                            </button> -->
+                                                                                                <i class="fas fa-download"></i>
+                                                                                            </button> -->
                                     </td>
                                 </tr>
                             @empty

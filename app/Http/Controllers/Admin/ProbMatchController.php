@@ -46,6 +46,7 @@ class ProbMatchController extends Controller
     {
         $search_query = trim($request->input('query', ''));
         $listingId = $request->input('listing_id');
+        $BuyerId = $request->input('buyer_id');
 
         $probMatchs = DB::table('prob_matchs')
             ->join(
@@ -64,6 +65,12 @@ class ProbMatchController extends Controller
             $probMatchs->where(
                 'prob_matchs.ListingId',
                 $listingId
+            );
+        }
+        if (!empty($BuyerId)) {
+            $probMatchs->where(
+                'prob_matchs.BuyerId',
+                $BuyerId
             );
         }
         if (!empty($search_query)) {

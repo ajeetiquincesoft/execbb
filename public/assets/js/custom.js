@@ -528,7 +528,6 @@ $(document).ready(function () {
     $('.my_menu').html(''); // Clear the displayed breadcrumbs as well
   }
 }); */
-
 $(document).ready(function () {
     function toggleEscrowAttorney() {
         if ($("#escrowAttorneyYes").is(":checked")) {
@@ -538,12 +537,12 @@ $(document).ready(function () {
 
             $("#escrowAttorney").val("");
 
-            // Clear attorney information
-            $("#address").val("");
-            $("#city").val("");
-            $("#State").val("");
-            $("#Zip").val("");
-            $("#phone").val("");
+            // Clear only escrow attorney fields
+            $("#escrowAttorneyAddress").val("");
+            $("#escrowAttorneyCity").val("");
+            $("#escrowAttorneyState").val("").trigger("change");
+            $("#escrowAttorneyZip").val("");
+            $("#escrowAttorneyPhone").val("");
         }
     }
 
@@ -560,17 +559,19 @@ $(document).ready(function () {
             return;
         }
 
-        $("#address").val(selected.data("address") || "");
-        $("#city").val(selected.data("city") || "");
-        let state = (selected.data("state") || "").toLowerCase();
-        $("#State").val(state).trigger("change");
-        $("#Zip").val(selected.data("zip") || "");
-        $("#phone").val(selected.data("phone") || "");
+        $("#escrowAttorneyAddress").val(selected.data("address") || "");
+
+        $("#escrowAttorneyCity").val(selected.data("city") || "");
+
+        let state = selected.data("state") || "";
+
+        $("#escrowAttorneyState").val(state.toLowerCase()).trigger("change");
+
+        $("#escrowAttorneyZip").val(selected.data("zip") || "");
+
+        $("#escrowAttorneyPhone").val(selected.data("phone") || "");
     });
 
     // Initial state
     toggleEscrowAttorney();
-
-    // If an attorney is already selected when editing/returning
-    /*  $("#escrowAttorney").trigger("change"); */
 });
