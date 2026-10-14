@@ -1,7 +1,6 @@
 @extends('frontend.layout.master')
 
 @section('content')
-    {{-- Breadcrumb --}}
     <div class="breadcrumb-container py-3">
         <div class="container">
             <nav aria-label="breadcrumb">
