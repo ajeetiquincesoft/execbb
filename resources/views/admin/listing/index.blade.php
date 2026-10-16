@@ -23,7 +23,7 @@
                             </a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end action_bt">
-                            <select class="form-control" id="change_status">
+                            <select class="form-select" id="change_status">
                                 <option value="">Change Listing Status</option>
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
@@ -49,7 +49,26 @@
                 </div>
             </div>
             <div class="list-data">
+                @php
+                    $currentSort = request('sort');
+                    $currentDirection = request('direction');
 
+                    function sortIcon($column, $currentSort, $currentDirection)
+                    {
+                        if ($currentSort === $column) {
+                            return $currentDirection === 'asc'
+                                ? '<i class="fa-solid fa-arrow-up-short-wide"></i>'
+                                : '<i class="fa-solid fa-arrow-down-wide-short"></i>';
+                        }
+
+                        return '<i class="fa-solid fa-sort"></i>';
+                    }
+
+                    function sortDirection($column, $currentSort, $currentDirection)
+                    {
+                        return $currentSort === $column && $currentDirection === 'asc' ? 'desc' : 'asc';
+                    }
+                @endphp
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
@@ -60,10 +79,46 @@
                                             class="custom-control-input" id="checkAll">
                                         <span class="custom-control-label">&nbsp;</span>
                                     </label></th>
-                                <th scope="col">#</th>
-                                <th scope="col">Company</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Agent</th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'ListingID',
+                                            'direction' => sortDirection('ListingID', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        #
+                                        {!! sortIcon('ListingID', $currentSort, $currentDirection) !!}
+
+                                    </a></th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'DBA',
+                                            'direction' => sortDirection('DBA', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Company
+                                        {!! sortIcon('DBA', $currentSort, $currentDirection) !!}
+
+                                    </a></th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'SellerFName',
+                                            'direction' => sortDirection('SellerFName', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Name
+                                        {!! sortIcon('SellerFName', $currentSort, $currentDirection) !!}
+
+                                    </a></th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'AgentFName',
+                                            'direction' => sortDirection('AgentFName', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Agent
+                                        {!! sortIcon('AgentFName', $currentSort, $currentDirection) !!}
+
+                                    </a></th>
                                 <th scope="col">Address</th>
                                 <th scope="col">City</th>
                                 <th scope="col">Phone</th>
@@ -127,8 +182,8 @@
                                             </button>
                                         </form>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                                                                <i class="fas fa-download"></i>
-                                                                                            </button> -->
+                                                                                                                                                                                <i class="fas fa-download"></i>
+                                                                                                                                                                            </button> -->
 
                                     </td>
                                 </tr>

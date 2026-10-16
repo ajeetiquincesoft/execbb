@@ -21,7 +21,7 @@
                                 </button></a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end action_bt">
-                            <select class="form-control" id="change_offer_status">
+                            <select class="form-select" id="change_offer_status">
                                 <option value="">Change Offer Status</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Accepted">Accepted</option>
@@ -47,7 +47,26 @@
                 </div>
             </div>
             <div class="list-data">
+                @php
+                    $currentSort = request('sort');
+                    $currentDirection = request('direction');
 
+                    function sortIcon($column, $currentSort, $currentDirection)
+                    {
+                        if ($currentSort === $column) {
+                            return $currentDirection === 'asc'
+                                ? '<i class="fa-solid fa-arrow-up-short-wide"></i>'
+                                : '<i class="fa-solid fa-arrow-down-wide-short"></i>';
+                        }
+
+                        return '<i class="fa-solid fa-sort"></i>';
+                    }
+
+                    function sortDirection($column, $currentSort, $currentDirection)
+                    {
+                        return $currentSort === $column && $currentDirection === 'asc' ? 'desc' : 'asc';
+                    }
+                @endphp
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
@@ -58,9 +77,39 @@
                                             id="checkAllOffer">
                                         <span class="custom-control-label">&nbsp;</span>
                                     </label></th>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Status</th>
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'OfferID',
+                                            'direction' => sortDirection('OfferID', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        #
+                                        {!! sortIcon('OfferID', $currentSort, $currentDirection) !!}
+                                    </a>
+                                </th>
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'Company',
+                                            'direction' => sortDirection('Company', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Name
+                                        {!! sortIcon('Company', $currentSort, $currentDirection) !!}
+                                    </a>
+                                </th>
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'Status',
+                                            'direction' => sortDirection('Status', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Status
+                                        {!! sortIcon('Status', $currentSort, $currentDirection) !!}
+                                    </a>
+                                </th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -101,8 +150,8 @@
                                             </button>
                                         </form>
                                         <!--  <button class="btn btn-sm" title="Download">
-                                                                <i class="fas fa-download"></i>
-                                                            </button> -->
+                                                                                                                                                        <i class="fas fa-download"></i>
+                                                                                                                                                    </button> -->
                                     </td>
                                 </tr>
                             @empty

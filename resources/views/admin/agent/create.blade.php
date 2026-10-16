@@ -116,7 +116,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <div class="form-group">
                                 <label for="agentFax">Fax</label>
                                 <input type="text" placeholder="" id="fax" class="form-control" name="fax"
@@ -125,7 +125,7 @@
                                     <span class="text-danger">{{ $errors->first('fax') }}</span>
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <label for="agentEmail">Email <span class="text-danger">*</span></label>
@@ -137,15 +137,15 @@
                             </div>
                         </div>
                         <!-- <div class="col-md-3">
-                                                    <div class="form-group mb-3">
-                                                        <label for="agentComment">Comment</label>
-                                                        <input type="text" placeholder="" id="comment" class="form-control"
-                                                            name="comment" value="{{ old('comment') }}">
-                                                        @if ($errors->has('comment'))
+                                                                <div class="form-group mb-3">
+                                                                    <label for="agentComment">Comment</label>
+                                                                    <input type="text" placeholder="" id="comment" class="form-control"
+                                                                        name="comment" value="{{ old('comment') }}">
+                                                                    @if ($errors->has('comment'))
     <span class="text-danger">{{ $errors->first('comment') }}</span>
     @endif
-                                                    </div>
-                                                </div> -->
+                                                                </div>
+                                                            </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -187,7 +187,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="agentSSnumber">SS Number</label>
+                                <label for="agentSSnumber">SSN / TIN</label>
                                 <input type="text" placeholder="" id="ss_number" class="form-control"
                                     name="ss_number" value="{{ old('ss_number') }}">
                                 @if ($errors->has('ss_number'))
@@ -207,7 +207,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        {{--  <div class="col-md-3">
                             <div class="form-group mb-3">
                                 <label for="agentPager">Pager</label>
                                 <input type="text" placeholder="" id="pager" class="form-control" name="pager"
@@ -216,7 +216,7 @@
                                     <span class="text-danger">{{ $errors->first('pager') }}</span>
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-3">
                             <div class="form-group mb-3">
                                 <label for="agentHiredate">Hire date</label>

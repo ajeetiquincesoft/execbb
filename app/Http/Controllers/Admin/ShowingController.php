@@ -49,24 +49,28 @@ class ShowingController extends Controller
     } */
     public function index(Request $request)
     {
-        $search_query = trim($request->input('query', ''));
+        $searchQuery = trim($request->input('query', ''));
         $listingId = $request->input('listing_id');
 
-        // DBA names
-        $dbaName = Listing::pluck('DBA', 'ListingID');
+        $sort = $request->input('sort', 'ShowingID');
+        $direction = strtolower($request->input('direction', 'desc'));
 
-        // Buyer names
-        $buyerName = Buyer::select('BuyerID', 'FName', 'LName')
-            ->get()
-            ->mapWithKeys(function ($buyer) {
-                return [
-                    $buyer->BuyerID => trim(
-                        $buyer->FName . ' ' . $buyer->LName
-                    )
-                ];
-            });
+        $allowedSortColumns = [
+            'ShowingID' => 'showings.ShowingID',
+            'AgentName' => 'agents.FName',
+            'BuyerName' => 'buyers.FName',
+            'DBA'       => 'listings.DBA',
 
-        // Base query
+        ];
+
+        if (!array_key_exists($sort, $allowedSortColumns)) {
+            $sort = 'ShowingID';
+        }
+
+        if (!in_array($direction, ['asc', 'desc'], true)) {
+            $direction = 'desc';
+        }
+
         $showings = DB::table('showings')
             ->leftJoin(
                 'listings',
@@ -80,49 +84,62 @@ class ShowingController extends Controller
                 '=',
                 'buyers.BuyerID'
             )
-            ->select('showings.*');
-
-        // Filter by listing
-        if (!empty($listingId)) {
-            $showings->where(
-                'showings.ListingID',
-                $listingId
+            ->leftJoin(
+                'agents',
+                'showings.AgentID',
+                '=',
+                'agents.AgentID'
+            )
+            ->select(
+                'showings.*',
+                'buyers.FName as buyer_fname',
+                'buyers.LName as buyer_lname',
+                'listings.DBA as listing_dba',
+                'agents.FName as agent_fname',
+                'agents.LName as agent_lname'
             );
+
+        if (!empty($listingId)) {
+            $showings->where('showings.ListingID', $listingId);
         }
 
-        // Search
-        if (!empty($search_query)) {
-            $showings->where(function ($query) use ($search_query) {
+        if ($searchQuery !== '') {
+            $search = '%' . $searchQuery . '%';
 
-                $search = '%' . $search_query . '%';
-
-                $query->where('showings.ShowingID', 'LIKE', $search)
+            $showings->where(function ($q) use ($search) {
+                $q->where('showings.ShowingID', 'LIKE', $search)
                     ->orWhere('showings.AgentID', 'LIKE', $search)
                     ->orWhere('showings.Date', 'LIKE', $search)
                     ->orWhere('showings.OfferMade', 'LIKE', $search)
                     ->orWhere('showings.FollowUp', 'LIKE', $search)
                     ->orWhere('listings.DBA', 'LIKE', $search)
                     ->orWhere('buyers.FName', 'LIKE', $search)
-                    ->orWhere('buyers.LName', 'LIKE', $search);
+                    ->orWhere('buyers.LName', 'LIKE', $search)
+                    ->orWhere('agents.FName', 'LIKE', $search)
+                    ->orWhere('agents.LName', 'LIKE', $search);
             });
         }
 
-        // Pagination
-        $showings = $showings
-            ->orderBy('showings.created_at', 'desc')
-            ->paginate(10);
+        // Efficient column-based sorting
+        if ($sort === 'BuyerName') {
+            $showings->orderBy('buyers.FName', $direction);
+        } elseif ($sort === 'AgentName') {
+            $showings->orderBy('agents.FName', $direction);
+        } else {
+            $showings->orderBy($allowedSortColumns[$sort], $direction);
+        }
 
-        // Keep search/filter parameters when changing pages
-        $showings->appends($request->query());
+        if ($sort !== 'ShowingID') {
+            $showings->orderBy('showings.ShowingID', 'desc');
+        }
+
+        $showings = $showings
+            ->paginate(10)
+            ->appends($request->except('page'));
 
         return view(
             'admin.showing.index',
-            compact(
-                'showings',
-                'dbaName',
-                'buyerName',
-                'listingId'
-            )
+            compact('showings', 'listingId')
         );
     }
     public function create()

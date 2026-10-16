@@ -226,6 +226,16 @@
                             <input type="checkbox" class="form-check-input" id="soldByEBB" name="soldByEBB"
                                 value="1" {{ $listingData->SoldEBB == 1 ? 'checked' : '' }}>
                         </div>
+
+                        <div class="col-md-3" style="height: 80px;">
+
+                            <label class="form-check-label me-2" for="SBAFinancable">
+                                SBA Financiable
+                            </label>
+                            <input type="checkbox" class="form-check-input" id="SBAFinancable" name="SBAFinancable"
+                                value="1" {{ $listingData->SBAFinancable == 1 ? 'checked' : '' }}>
+
+                        </div>
                     </div>
                 </div>
 

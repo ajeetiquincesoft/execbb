@@ -16,7 +16,7 @@ use Carbon\Carbon;
 
 class OfferController extends Controller
 {
-    public function index(Request $request)
+    /* public function index(Request $request)
     {
         session()->forget(['offerData', 'step']);
         $query = $request->input('query');
@@ -33,9 +33,85 @@ class OfferController extends Controller
         $company_name = DB::table('listings')
             ->select('ListingID', DB::raw('COALESCE(NULLIF(CorpName, ""), DBA) as company_name'))
             ->pluck('company_name', 'ListingID');
-        /* dd($company_name[27372]); */
         return view('admin.offer.index', compact('offers', 'company_name'));
+    } */
+
+    public function index(Request $request)
+    {
+        session()->forget(['offerData', 'step']);
+
+        $query = trim($request->input('query', ''));
+
+        // Default sorting
+        $sort = $request->input('sort', 'OfferID');
+        $direction = strtolower($request->input('direction', 'desc'));
+
+        // Only these three columns are sortable
+        $allowedSortColumns = [
+            'OfferID' => 'offers.OfferID',
+            'Company' => "COALESCE(NULLIF(listings.CorpName, ''), listings.DBA)",
+            'Status'  => 'offers.Status',
+        ];
+
+        // Validate sort column
+        if (!array_key_exists($sort, $allowedSortColumns)) {
+            $sort = 'OfferID';
+        }
+
+        // Validate sort direction
+        if (!in_array($direction, ['asc', 'desc'], true)) {
+            $direction = 'desc';
+        }
+
+        // Build offers query
+        $offers = Offer::query()
+            ->leftJoin(
+                'listings',
+                'offers.ListingID',
+                '=',
+                'listings.ListingID'
+            )
+            ->select('offers.*')
+            ->with('listing');
+
+        // Search by company name or offer status
+        if ($query !== '') {
+            $offers->where(function ($q) use ($query) {
+                $q->where('listings.CorpName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('listings.DBA', 'LIKE', '%' . $query . '%')
+                    ->orWhere('offers.Status', 'LIKE', '%' . $query . '%');
+            });
+        }
+
+        // Apply validated sorting
+        $offers->orderByRaw(
+            $allowedSortColumns[$sort] . ' ' . $direction
+        );
+
+        // Keep ordering stable when values are identical
+        if ($sort !== 'OfferID') {
+            $offers->orderBy('offers.OfferID', 'desc');
+        }
+
+        // Paginate and preserve search/sorting parameters
+        $offers = $offers
+            ->paginate(10)
+            ->appends($request->query());
+
+        // Company names for the table
+        $company_name = DB::table('listings')
+            ->select(
+                'ListingID',
+                DB::raw("COALESCE(NULLIF(CorpName, ''), DBA) as company_name")
+            )
+            ->pluck('company_name', 'ListingID');
+
+        return view(
+            'admin.offer.index',
+            compact('offers', 'company_name')
+        );
     }
+
     public function create()
     {
         session()->forget(['offerData', 'step', 'activityCreated']);

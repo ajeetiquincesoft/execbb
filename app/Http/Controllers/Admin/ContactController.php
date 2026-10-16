@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
-    public function index(Request $request)
+    /*   public function index(Request $request)
     {
         $query = $request->input('query');
         $contacts = DB::table('contacts')
@@ -28,6 +28,100 @@ class ContactController extends Controller
             ->paginate(10);
         $contact_type = DB::table('contact_types')->pluck('Description', 'Type');
         return view('admin.contact.index', compact('contacts', 'contact_type'));
+    } */
+    public function index(Request $request)
+    {
+        $query = trim($request->input('query', ''));
+        $sort = $request->input('sort', 'ContactID');
+        $direction = strtolower($request->input('direction', 'desc'));
+
+        $allowedSortColumns = [
+            'ContactID' => 'contacts.ContactID',
+            'FName'     => 'contacts.FName',
+            'CompanyName'     => 'contacts.CompanyName',
+
+        ];
+
+        if (!array_key_exists($sort, $allowedSortColumns)) {
+            $sort = 'ContactID';
+        }
+
+        if (!in_array($direction, ['asc', 'desc'], true)) {
+            $direction = 'desc';
+        }
+
+        $contacts = DB::table('contacts')
+            ->leftJoin(
+                'contact_types',
+                'contact_types.Type',
+                '=',
+                'contacts.Type'
+            )
+            ->select('contacts.*', 'contact_types.Description');
+
+        if ($query !== '') {
+            $contacts->where(function ($q) use ($query) {
+                $q->where('contact_types.Description', 'like', "%{$query}%")
+                    ->orWhere('contacts.ContactID', 'like', "%{$query}%")
+                    ->orWhere('contacts.FName', 'like', "%{$query}%")
+                    ->orWhere('contacts.LName', 'like', "%{$query}%")
+                    ->orWhere('contacts.CompanyName', 'like', "%{$query}%")
+                    ->orWhere('contacts.Phone', 'like', "%{$query}%")
+                    ->orWhere('contacts.Email', 'like', "%{$query}%");
+            });
+        }
+
+        // Apply sorting
+        if ($sort === 'FName') {
+            $contacts->orderByRaw("
+            CASE
+                WHEN TRIM(CONCAT(
+                    COALESCE(contacts.FName, ''),
+                    ' ',
+                    COALESCE(contacts.LName, '')
+                )) = '' THEN 1
+                ELSE 0
+            END ASC
+        ");
+
+            $contacts->orderByRaw(
+                "LOWER(TRIM(COALESCE(contacts.FName, ''))) {$direction}"
+            );
+
+            $contacts->orderByRaw(
+                "LOWER(TRIM(COALESCE(contacts.LName, ''))) {$direction}"
+            );
+        } elseif ($sort === 'CompanyName') {
+            $contacts->orderByRaw("
+        CASE
+            WHEN TRIM(COALESCE(contacts.CompanyName, '')) = ''
+            THEN 1
+            ELSE 0
+        END ASC
+    ");
+
+            $contacts->orderByRaw(
+                "LOWER(TRIM(COALESCE(contacts.CompanyName, ''))) {$direction}"
+            );
+        } else {
+            $contacts->orderBy($allowedSortColumns[$sort], $direction);
+        }
+
+        if ($sort !== 'ContactID') {
+            $contacts->orderBy('contacts.ContactID', 'desc');
+        }
+
+        $contacts = $contacts
+            ->paginate(10)
+            ->appends($request->except('page'));
+
+        $contact_type = DB::table('contact_types')
+            ->pluck('Description', 'Type');
+
+        return view(
+            'admin.contact.index',
+            compact('contacts', 'contact_type')
+        );
     }
     public function create()
     {

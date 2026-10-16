@@ -47,6 +47,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Bus. Name</th>
+                                <th scope="col">Agent Assigned</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Appt. Date</th>
@@ -61,6 +62,23 @@
                                     <td>{{ $lead->SellerFName }} {{ $lead->SellerLName }}</td>
                                     <td>{{ $categories[$lead->Category] ?? 'N/A' }}</td>
                                     <td>{{ $lead->BusName }}</td>
+                                    <td>
+
+                                        @if (empty($lead->lead_agent_id))
+                                            <span class="text-muted">
+                                                Unassigned
+                                            </span>
+                                        @else
+                                            @php
+                                                $agentName = trim(
+                                                    ($lead->agent_fname ?? '') . ' ' . ($lead->agent_lname ?? ''),
+                                                );
+                                            @endphp
+
+                                            {{ $agentName ?: 'Agent #' . $lead->lead_agent_id }}
+                                        @endif
+
+                                    </td>
                                     <td>{{ $lead->Address }}</td>
                                     <td>{{ $lead->Phone }}</td>
                                     <td>{{ $lead->AppointmentDate }}</td>

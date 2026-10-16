@@ -61,9 +61,16 @@
                                             <td class="text-end">{{ $lead->BusName }}</td>
                                         </tr>
                                         <tr>
+                                            <td><img src="{{ url('assets/images/press_owner.png') }}" alt=""><span
+                                                    class="ml-2 fw-600">Assign agent</span></td>
+                                            <td class="text-end">
+                                                {{ trim(($lead->agent_fname ?? '') . ' ' . ($lead->agent_lname ?? '')) ?: 'Unassigned' }}
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><img src="{{ url('assets/images/fax.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Category</span></td>
-                                            <td class="text-end">{{ $lead->Category }}</td>
+                                            <td class="text-end">{{ $lead->category_name ?? 'N/A' }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/phone.png') }}" alt=""><span

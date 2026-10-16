@@ -38,14 +38,59 @@
                 </div>
             </div>
             <div class="list-data">
+                @php
+                    $currentSort = request('sort');
+                    $currentDirection = request('direction');
+                    function sortIcon($column, $currentSort, $currentDirection)
+                    {
+                        if ($currentSort === $column) {
+                            return $currentDirection === 'asc'
+                                ? '<i class="fa-solid fa-arrow-up-short-wide"></i>'
+                                : '<i class="fa-solid fa-arrow-down-wide-short"></i>';
+                        }
 
+                        return '<i class="fa-solid fa-sort"></i>';
+                    }
+
+                    function sortDirection($column, $currentSort, $currentDirection)
+                    {
+                        return $currentSort === $column && $currentDirection === 'asc' ? 'desc' : 'asc';
+                    }
+                @endphp
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Company Name</th>
-                                <th scope="col">Agent Name</th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'RefID',
+                                            'direction' => sortDirection('RefID', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        #
+                                        {!! sortIcon('RefID', $currentSort, $currentDirection) !!}
+
+                                    </a></th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'RefCompany',
+                                            'direction' => sortDirection('RefCompany', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Company Name
+                                        {!! sortIcon('RefCompany', $currentSort, $currentDirection) !!}
+
+                                    </a></th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'AgentName',
+                                            'direction' => sortDirection('AgentName', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Agent Name
+                                        {!! sortIcon('AgentName', $currentSort, $currentDirection) !!}
+
+                                    </a></th>
                                 <th scope="col">Address</th>
                                 <th scope="col">City</th>
                                 <th scope="col">State</th>
@@ -84,8 +129,8 @@
                                             </button>
                                         </form>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                        <i class="fas fa-download"></i>
-                                    </button> -->
+                                                                            <i class="fas fa-download"></i>
+                                                                        </button> -->
                                     </td>
                                 </tr>
                             @empty

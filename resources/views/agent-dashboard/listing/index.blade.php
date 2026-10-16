@@ -22,22 +22,22 @@
                             <h4 class="mb-0">Listings</h4>
                         </div>
                         <!-- <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end add-list-btn">
-                                <a href="{{ route('agent.create.listing') }}">
-                                    <button class="btn btn-primary" style="background-color: #5e0f2f;">
-                                        <img class="create_img" src="{{ url('assets/images/Listing.png') }}"> Add Listing
-                                    </button>
-                                </a>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end action_bt">
-                                <select class="form-control" id="change_status">
-                                    <option value="">Change Listing Status</option>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                    <option value="valid">Valid</option>
-                                    <option value="delete">Delete</option>
-                                    <option value="close">Close</option>
-                                </select>
-                            </div> -->
+                                    <a href="{{ route('agent.create.listing') }}">
+                                        <button class="btn btn-primary" style="background-color: #5e0f2f;">
+                                            <img class="create_img" src="{{ url('assets/images/Listing.png') }}"> Add Listing
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end action_bt">
+                                    <select class="form-control" id="change_status">
+                                        <option value="">Change Listing Status</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="valid">Valid</option>
+                                        <option value="delete">Delete</option>
+                                        <option value="close">Close</option>
+                                    </select>
+                                </div> -->
                         <div class="col-12 col-md-6 col-lg-4 col-xl-4" id="list-search">
                             <form method="GET" action="{{ route('agent.all.listing') }}">
                                 <div class="input-group" style="max-width: 300px;">
@@ -69,6 +69,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Company</th>
+                                <th scope="col">Agent</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">City</th>
                                 <th scope="col">Phone</th>
@@ -91,6 +92,8 @@
                                     <td>{{ $listing->ListingID }}</td>
                                     <td>{{ $listing->SellerFName }} {{ $listing->SellerLName }}</td>
                                     <td>{{ $listing->CorpName ?? $listing->DBA }}</td>
+                                    <td>{{ trim(($listing->AgentFName ?? '') . ' ' . ($listing->AgentLName ?? '')) ?: 'N/A' }}
+                                    </td>
                                     <td>{{ $listing->SHomeAdd1 ? $listing->SHomeAdd1 : $listing->Address1 }}</td>
                                     <td>{{ $listing->SCity ? $listing->SCity : $listing->City }}</td>
                                     <td>{{ $listing->SHomePh ? $listing->SHomePh : $listing->Phone }}</td>
@@ -109,18 +112,18 @@
                                                 <i class="fas fa-eye"></i>
                                             </button></a>
                                         <!-- <a href="{{ route('agent.edit.listing.form', $listing->ListingID) }}"> <button class="btn btn-sm" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </button></a>
-                                        <form id="delete-form-{{ $listing->ListingID }}" action="{{ route('agent.listing.destroy', $listing->ListingID) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-sm" title="Delete" onclick="listingDelete('{{ $listing->ListingID }}')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form> -->
+                                                    <i class="fas fa-edit"></i>
+                                                </button></a>
+                                            <form id="delete-form-{{ $listing->ListingID }}" action="{{ route('agent.listing.destroy', $listing->ListingID) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm" title="Delete" onclick="listingDelete('{{ $listing->ListingID }}')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form> -->
                                         <!-- <button class="btn btn-sm" title="Download">
-                                            <i class="fas fa-download"></i>
-                                        </button> -->
+                                                <i class="fas fa-download"></i>
+                                            </button> -->
                                     </td>
                                 </tr>
                             @endforeach
@@ -202,11 +205,11 @@
                                         if (xhr.status === 419) {
                                             alert(
                                                 'CSRF token mismatch. Please reload the page and try again.'
-                                                );
+                                            );
                                         } else {
                                             alert(
                                                 'An error occurred while processing your request.'
-                                                );
+                                            );
                                         }
                                     }
                                 });
@@ -239,7 +242,7 @@
                                 if (xhr.status === 419) {
                                     alert(
                                         'CSRF token mismatch. Please reload the page and try again.'
-                                        );
+                                    );
                                 } else {
                                     alert('An error occurred while processing your request.');
                                 }

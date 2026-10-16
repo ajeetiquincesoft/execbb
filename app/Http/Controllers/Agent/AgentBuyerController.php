@@ -8,6 +8,7 @@ use App\Models\Buyer;
 use App\Models\Agent;
 use App\Models\Activity;
 use App\Models\SignNda;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -43,16 +44,23 @@ class AgentBuyerController extends Controller
     }
     public function show($id)
     {
-
+        $agent = Agent::where('AgentUserRegisterId', Auth::id())->first();
         $buyer = Buyer::where('BuyerID', $id)->first();
         $hasBuyerSignedNda = SignNda::where('user_id', $buyer->user_id)->exists();
 
         $activities = Activity::latest()->paginate(10);
         // Get the previous buyer ID
-        $previous = Buyer::where('BuyerID', '<', $id)->orderBy('BuyerID', 'desc')->first();
+        $previous = Buyer::where('BuyerID', '<', $id)->where('AgentID', $agent->AgentID)->whereNotNull('user_id')->orderBy('BuyerID', 'desc')->first();
         // Get the next buyer ID
-        $next = Buyer::where('BuyerID', '>', $id)->orderBy('BuyerID', 'asc')->first();
-        return view('agent-dashboard.buyer.show', compact('buyer', 'previous', 'next', 'activities', 'hasBuyerSignedNda'));
+        $next = Buyer::where('BuyerID', '>', $id)->where('AgentID', $agent->AgentID)->whereNotNull('user_id')->orderBy('BuyerID', 'asc')->first();
+        $businessTypes = DB::table('sub_categories')
+            ->pluck('SubCategory', 'SubCatID');
+        $agent = null;
+
+        if (!empty($buyer->AgentID)) {
+            $agent = Agent::where('AgentID', $buyer->AgentID)->first();
+        }
+        return view('agent-dashboard.buyer.show', compact('buyer', 'previous', 'next', 'activities', 'hasBuyerSignedNda', 'businessTypes', 'agent'));
     }
     public function destroy(Request $request, $id)
     {

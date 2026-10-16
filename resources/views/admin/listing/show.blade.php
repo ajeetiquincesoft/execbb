@@ -85,7 +85,7 @@
                                         <tr>
                                             <td><img src="{{ url('assets/images/company.svg') }}" alt=""><span
                                                     class="ml-2 fw-600">Company</span></td>
-                                            <td class="text-end">{{ $listing->CorpName }}</td>
+                                            <td class="text-end">{{ $listing->DBA }}</td>
                                         </tr>
                                         <tr>
                                             <td><img src="{{ url('assets/images/accountant.png') }}" alt=""><span

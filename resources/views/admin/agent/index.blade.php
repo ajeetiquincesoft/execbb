@@ -97,7 +97,15 @@
                                     <td>{{ $agent->FName }} {{ $agent->LName }}</td>
                                     <td>{{ $agent->Address1 }}</td>
                                     <td>{{ $agent->Telephone }}</td>
-                                    <td>{{ $agent->Email }}</td>
+                                    <td>
+                                        @if (!empty($agent->Email) && filter_var($agent->Email, FILTER_VALIDATE_EMAIL))
+                                            <a href="mailto:{{ $agent->Email }}" style="color: #626262;">
+                                                {{ $agent->Email }}
+                                            </a>
+                                        @else
+                                            <span class="text-muted">N/A</span>
+                                        @endif
+                                    </td>
                                     <td class="list-btn">
                                         <a href="{{ route('show.agent', $agent->AgentUserRegisterId) }}">
                                             <button class="btn btn-sm" title="View">
@@ -127,8 +135,8 @@
                                             <i class="fas fa-user-slash text-warning"></i>
                                         </button>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                                                        <i class="fas fa-download"></i>
-                                                                                    </button> -->
+                                                                                                                                                            <i class="fas fa-download"></i>
+                                                                                                                                                        </button> -->
                                     </td>
                                 </tr>
                             @empty

@@ -59,7 +59,7 @@
                         {{-- Change Status --}}
                         <div class="col-12 col-md-6 col-lg-3 d-flex justify-content-end action_bt">
 
-                            <select class="form-control" id="change_status">
+                            <select class="form-select" id="change_status">
 
                                 <option value="">Change Lead Status</option>
 
@@ -117,11 +117,6 @@
                 @php
                     $currentSort = request('sort');
                     $currentDirection = request('direction');
-                @endphp
-
-
-                {{-- Sort Icon Helper --}}
-                @php
                     function sortIcon($column, $currentSort, $currentDirection)
                     {
                         if ($currentSort === $column) {
@@ -197,19 +192,43 @@
                                 </th>
 
 
-                                <th scope="col">
-                                    Category
+
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'Category',
+                                            'direction' => sortDirection('Category', $currentSort, $currentDirection),
+                                            'page' => 1,
+                                        ]) }}">
+                                        Category
+                                        {!! sortIcon('Category', $currentSort, $currentDirection) !!}
+                                    </a>
                                 </th>
 
-
-                                <th scope="col">
-                                    Bus. Name
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'BusName',
+                                            'direction' => sortDirection('BusName', $currentSort, $currentDirection),
+                                            'page' => 1,
+                                        ]) }}">
+                                        Bus. Name
+                                        {!! sortIcon('BusName', $currentSort, $currentDirection) !!}
+                                    </a>
                                 </th>
 
-
-                                <th scope="col">
-                                    Agent Assigned
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'AgentFName',
+                                            'direction' => sortDirection('AgentFName', $currentSort, $currentDirection),
+                                            'page' => 1,
+                                        ]) }}">
+                                        Agent Assigned
+                                        {!! sortIcon('AgentFName', $currentSort, $currentDirection) !!}
+                                    </a>
                                 </th>
+
 
 
                                 <th scope="col">
@@ -686,30 +705,7 @@
     </div>
 
 
-
-    {{-- =====================================================
-        CSS
-    ====================================================== --}}
     <style>
-        /* =========================================
-                                                       SORTABLE
-                                                    ========================================= */
-
-        .sortable a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .sortable a:hover {
-            color: inherit;
-            text-decoration: none;
-        }
-
-
-        /* =========================================
-                                                       ASSIGN AGENT MODAL
-                                                    ========================================= */
-
         .assign-agent-modal {
 
             border: none;
@@ -723,10 +719,6 @@
 
         }
 
-
-        /* =========================================
-                                                       HEADER
-                                                    ========================================= */
 
         .assign-agent-header {
 
@@ -788,11 +780,6 @@
 
         }
 
-
-        /* =========================================
-                                                       BODY
-                                                    ========================================= */
-
         .assign-agent-body {
 
             padding: 26px;
@@ -800,11 +787,6 @@
             background: #fff;
 
         }
-
-
-        /* =========================================
-                                                       LEAD INFO
-                                                    ========================================= */
 
         .lead-info-box {
 
@@ -874,10 +856,6 @@
         }
 
 
-        /* =========================================
-                                                       AGENT LABEL
-                                                    ========================================= */
-
         .agent-label {
 
             font-size: 14px;
@@ -887,11 +865,6 @@
             color: #343a40;
 
         }
-
-
-        /* =========================================
-                                                       AGENT SELECT
-                                                    ========================================= */
 
         .agent-select-wrapper {
 
@@ -947,11 +920,6 @@
 
         }
 
-
-        /* =========================================
-                                                       HELP TEXT
-                                                    ========================================= */
-
         .form-text {
 
             color: #8a8f98;
@@ -960,10 +928,6 @@
 
         }
 
-
-        /* =========================================
-                                                       SELECTED AGENT
-                                                    ========================================= */
 
         .selected-agent-box {
 
@@ -1044,10 +1008,6 @@
 
         }
 
-
-        /* =========================================
-                                                       BUTTONS
-                                                    ========================================= */
 
         .modal-action-buttons {
 
@@ -1134,11 +1094,6 @@
 
         }
 
-
-        /* =========================================
-                                                       ASSIGN ICON
-                                                    ========================================= */
-
         .assign-agent-trigger {
 
             border: none;
@@ -1158,10 +1113,6 @@
 
         }
 
-
-        /* =========================================
-                                                       MOBILE
-                                                    ========================================= */
 
         @media (max-width: 576px) {
 

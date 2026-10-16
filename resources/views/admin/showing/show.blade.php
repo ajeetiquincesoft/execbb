@@ -58,22 +58,22 @@
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr>
-                                            <td><img src="{{ url('assets/images/company.png') }}" alt=""><span
+                                            <td><img src="{{ url('assets/images/press_owner.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Agent</span></td>
                                             <td class="text-end">{{ $showing->AgentID }}</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="{{ url('assets/images/company.png') }}" alt=""><span
+                                            <td><img src="{{ url('assets/images/press_owner.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Buyer</span></td>
                                             <td class="text-end">{{ $buyerName[$showing->BuyerID] ?? 'N/A' }}</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="{{ url('assets/images/press_owner.png') }}" alt=""><span
+                                            <td><img src="{{ url('assets/images/exp_date.png') }}" alt=""><span
                                                     class="ml-2 fw-600">Date</span></td>
                                             <td class="text-end">{{ $showing->Date }}</td>
                                         </tr>
                                         <tr>
-                                            <td><img src="{{ url('assets/images/location.png') }}" alt=""><span
+                                            <td><img src="{{ url('assets/images/company.svg') }}" alt=""><span
                                                     class="ml-2 fw-600">DBA</span></td>
                                             <td class="text-end">{{ $dbaName[$showing->ListingID] ?? 'N/A' }}</td>
                                         </tr>

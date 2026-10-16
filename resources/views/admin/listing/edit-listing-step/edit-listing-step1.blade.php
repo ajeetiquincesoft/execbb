@@ -132,11 +132,11 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="col-md-4 mb-3">
+                        {{-- <div class="col-md-4 mb-3">
                             <label for="fax" class="form-label">Fax</label>
                             <input type="text" id="fax" class="form-control" name="fax"
                                 value="{{ $listingData->Fax }}">
-                        </div>
+                        </div> --}}
                         <div class="col-md-4" style="height: 70px;">
                             <label for="featuredListing" class="form-check-label">Featured Listing</label>
                             <input type="checkbox" id="featuredListing" class="form-check-input" name="featuredListing"
@@ -253,25 +253,26 @@
                             <input type="text" id="homePhone" class="form-control" name="user_home_phone"
                                 value="{{ $listingData->SHomePh }}">
                         </div>
-                        <div class="col-md-4 mb-3">
+                        {{-- <div class="col-md-4 mb-3">
                             <label for="homeFax" class="form-label">Home Fax</label>
                             <input type="text" id="homeFax" class="form-control" name="user_home_fax"
                                 value="{{ $listingData->SHomeFax }}">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-
-                        <div class="col-md-4 mb-3">
-                            <label for="pager" class="form-label">Pager</label>
-                            <input type="text" id="pager" class="form-control" name="user_pager"
-                                value="{{ $listingData->Pager }}">
-                        </div>
+                        </div> --}}
                         <div class="col-md-4" style="height: 70px;">
                             <label for="review" class="form-check-label">Review</label>
                             <input type="checkbox" id="review" class="form-check-input" name="review"
                                 value="1" {{ $listingData->Review == 1 ? 'checked' : '' }}
                                 onchange="changeReviewValue()">
                         </div>
+                    </div>
+                    <div class="row mb-2">
+
+                        {{-- <div class="col-md-4 mb-3">
+                            <label for="pager" class="form-label">Pager</label>
+                            <input type="text" id="pager" class="form-control" name="user_pager"
+                                value="{{ $listingData->Pager }}">
+                        </div> --}}
+
                     </div>
                 </div>
 
@@ -570,7 +571,8 @@
                         success: function(data) {
                             $('#busType').empty(); // Clear existing options
                             $('#busType').append(
-                            '<option value="">Select an option</option>'); // Add default option
+                                '<option value="">Select an option</option>'
+                            ); // Add default option
                             $.each(data, function(key, value) {
                                 $('#busType').append('<option value="' + value
                                     .SubCatID + '">' + value.SubCategory +
@@ -580,7 +582,7 @@
                     });
                 } else {
                     $('#second-dropdown').empty().append(
-                    '<option value="">Select an option</option>'); // Reset second dropdown
+                        '<option value="">Select an option</option>'); // Reset second dropdown
                 }
             });
         });

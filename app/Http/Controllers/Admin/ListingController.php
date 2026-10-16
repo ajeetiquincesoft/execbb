@@ -126,10 +126,11 @@ class ListingController extends Controller
             
         } */
     }
-    public function index(Request $request)
+    /*   public function index(Request $request)
     {
         $query = trim($request->input('query'));
-
+        $sort = $request->get('sort', 'ListingID');
+        $direction = $request->get('direction', 'desc');
         $listings = Listing::query()
             ->leftJoin('agents', 'agents.AgentID', '=', 'listings.AgentID')
             ->select(
@@ -141,7 +142,24 @@ class ListingController extends Controller
                 $q->whereNull('listings.ExpDate')
                     ->orWhere('listings.ExpDate', '>=', now());
             });
+        $allowedSortColumns = [
+            'ListingID'   => 'listings.ListingID',
+            'DBA'         => "COALESCE(NULLIF(listings.CorpName, ''), listings.DBA)",
+            'SellerFName' => 'listings.SellerFName',
+            'AgentFName'  => 'agents.FName',
+        ];
 
+        if (!array_key_exists($sort, $allowedSortColumns)) {
+            $sort = 'ListingID';
+        }
+
+        if (!in_array($direction, ['asc', 'desc'], true)) {
+            $direction = 'desc';
+        }
+
+        $listings->orderByRaw(
+            $allowedSortColumns[$sort] . ' ' . $direction
+        );
         if ($query) {
             $listings->where(function ($q) use ($query) {
 
@@ -165,12 +183,97 @@ class ListingController extends Controller
         }
 
         $listings = $listings
-            ->orderBy('listings.ListingID', 'desc')
+            ->orderBy($sort, $direction)
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.listing.index', compact('listings'));
+    } */
+
+
+    public function index(Request $request)
+    {
+        $query = trim($request->input('query', ''));
+
+        // Default sorting
+        $sort = $request->input('sort', 'ListingID');
+        $direction = strtolower($request->input('direction', 'desc'));
+
+        // Allow sorting only on these four columns
+        $allowedSortColumns = [
+            'ListingID'   => 'listings.ListingID',
+            'DBA'         => "COALESCE(NULLIF(listings.CorpName, ''), listings.DBA)",
+            'SellerFName' => 'listings.SellerFName',
+            'AgentFName'  => 'agents.FName',
+        ];
+
+        // Validate sort column
+        if (!array_key_exists($sort, $allowedSortColumns)) {
+            $sort = 'ListingID';
+        }
+
+        // Validate sort direction
+        if (!in_array($direction, ['asc', 'desc'], true)) {
+            $direction = 'desc';
+        }
+
+        // Build listings query
+        $listings = Listing::query()
+            ->leftJoin(
+                'agents',
+                'agents.AgentID',
+                '=',
+                'listings.AgentID'
+            )
+            ->select(
+                'listings.*',
+                'agents.FName as AgentFName',
+                'agents.LName as AgentLName'
+            )
+            ->where(function ($q) {
+                $q->whereNull('listings.ExpDate')
+                    ->orWhere('listings.ExpDate', '>=', now());
+            });
+
+        // Search listings and agents
+        if ($query !== '') {
+            $listings->where(function ($q) use ($query) {
+                $q->where('listings.SellerFName', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.SellerLName', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.CorpName', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.DBA', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.SHomeAdd1', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.SCity', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.SHomePh', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.Address1', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.City', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.Phone', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.ListingID', 'LIKE', "%{$query}%")
+                    ->orWhere('listings.Email', 'LIKE', "%{$query}%")
+                    ->orWhere('agents.FName', 'LIKE', "%{$query}%")
+                    ->orWhere('agents.LName', 'LIKE', "%{$query}%");
+            });
+        }
+
+        // Apply validated sorting
+        $listings->orderByRaw(
+            $allowedSortColumns[$sort] . ' ' . $direction
+        );
+
+        // Stable secondary sorting
+        if ($sort !== 'ListingID') {
+            $listings->orderBy('listings.ListingID', 'desc');
+        }
+
+        // Paginate and preserve search/sort parameters
+        $listings = $listings
             ->paginate(10)
             ->withQueryString();
 
         return view('admin.listing.index', compact('listings'));
     }
+
+
     public function destroy(Request $request, $id)
     {
 
@@ -550,6 +653,7 @@ class ListingController extends Controller
         $realEstate = $request->has('realEstate') ? 1 : 0;
         $optionToBuy = $request->has('optionToBuy') ? 1 : 0;
         $soldByEBB = $request->has('soldByEBB') ? 1 : 0;
+        $SBAFinancable = $request->has('SBAFinancable') ? 1 : 0;
         $currentDate = Carbon::now();
         $validStatus = '';
         if ($request->expDate == '' || $request->expDate > $currentDate) {
@@ -581,6 +685,7 @@ class ListingController extends Controller
             'RealEstate' => $realEstate,
             'ToBuy' => $optionToBuy,
             'SoldEBB' => $soldByEBB,
+            'SBAFinancable' => $SBAFinancable,
             'Status' => $validStatus,
             'Steps' => 3
         ]);
@@ -1001,6 +1106,7 @@ class ListingController extends Controller
         $realEstate = $request->has('realEstate') ? 1 : 0;
         $optionToBuy = $request->has('optionToBuy') ? 1 : 0;
         $soldByEBB = $request->has('soldByEBB') ? 1 : 0;
+        $SBAFinancable = $request->has('SBAFinancable') ? 1 : 0;
         $currentStep = 3;
         $listingStep =  Listing::where('ListingID', $id)->first();
         if ($listingStep->Steps  >  $currentStep) {
@@ -1039,6 +1145,7 @@ class ListingController extends Controller
             'RealEstate' => $realEstate,
             'ToBuy' => $optionToBuy,
             'SoldEBB' => $soldByEBB,
+            'SBAFinancable' => $SBAFinancable,
             'Status' => $validStatus,
             'Steps' => $updateStep
         ]);

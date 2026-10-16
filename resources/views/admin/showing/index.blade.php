@@ -38,29 +38,104 @@
                 </div>
             </div>
             <div class="list-data">
+                @php
+                    $currentSort = request('sort');
+                    $currentDirection = request('direction');
+                    function sortIcon($column, $currentSort, $currentDirection)
+                    {
+                        if ($currentSort === $column) {
+                            return $currentDirection === 'asc'
+                                ? '<i class="fa-solid fa-arrow-up-short-wide"></i>'
+                                : '<i class="fa-solid fa-arrow-down-wide-short"></i>';
+                        }
 
+                        return '<i class="fa-solid fa-sort"></i>';
+                    }
+
+                    function sortDirection($column, $currentSort, $currentDirection)
+                    {
+                        return $currentSort === $column && $currentDirection === 'asc' ? 'desc' : 'asc';
+                    }
+                @endphp
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Agent Name</th>
-                                <th scope="col">Buyer Name</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">DBA</th>
-                                <th scope="col">Offer Made</th>
-                                <th scope="col">Follow Up</th>
+
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'ShowingID',
+                                            'direction' => sortDirection('ShowingID', $currentSort, $currentDirection),
+                                            'page' => 1,
+                                        ]) }}">
+                                        # {!! sortIcon('ShowingID', $currentSort, $currentDirection) !!}
+                                    </a>
+                                </th>
+
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'AgentName',
+                                            'direction' => sortDirection('AgentName', $currentSort, $currentDirection),
+                                            'page' => 1,
+                                        ]) }}">
+                                        Agent Name {!! sortIcon('AgentName', $currentSort, $currentDirection) !!}
+                                    </a>
+                                </th>
+
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'BuyerName',
+                                            'direction' => sortDirection('BuyerName', $currentSort, $currentDirection),
+                                            'page' => 1,
+                                        ]) }}">
+                                        Buyer Name {!! sortIcon('BuyerName', $currentSort, $currentDirection) !!}
+                                    </a>
+                                </th>
+
+                                <th scope="col">
+                                    Date
+                                </th>
+
+                                <th scope="col" class="sortable">
+                                    <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'DBA',
+                                            'direction' => sortDirection('DBA', $currentSort, $currentDirection),
+                                            'page' => 1,
+                                        ]) }}">
+                                        DBA {!! sortIcon('DBA', $currentSort, $currentDirection) !!}
+                                    </a>
+                                </th>
+
+                                <th scope="col">
+                                    Offer Made
+                                </th>
+
+                                <th scope="col">
+                                    Follow Up
+                                </th>
+
                                 <th scope="col">Action</th>
+
                             </tr>
                         </thead>
                         <tbody id="agentsResult">
                             @forelse($showings as $index =>$showing)
                                 <tr>
-                                    <td>{{ $index + 1 + ($showings->currentPage() - 1) * $showings->perPage() }}</td>
-                                    <td>{{ $showing->AgentID }}</td>
-                                    <td>{{ $buyerName[$showing->BuyerID] ?? 'N/A' }}</td>
-                                    <td>{{ $showing->Date }}</td>
-                                    <td>{{ $dbaName[$showing->ListingID] ?? 'N/A' }}</td>
+                                    <td>{{ $showing->ShowingID }}</td>
+                                    <td>
+                                        {{ trim(($showing->agent_fname ?? '') . ' ' . ($showing->agent_lname ?? '')) ?: 'N/A' }}
+                                    </td>
+                                    <td>
+                                        {{ trim(($showing->buyer_fname ?? '') . ' ' . ($showing->buyer_lname ?? '')) ?: 'N/A' }}
+                                    </td>
+                                    <td>
+                                        {{ $showing->Date ? \Carbon\Carbon::parse($showing->Date)->format('d-m-Y') : 'N/A' }}
+                                    </td>
+                                    <td>{{ $showing->listing_dba ?? 'N/A' }}</td>
                                     <td>{{ $showing->OfferMade == 1 ? 'Yes' : 'No' }}</td>
                                     <td>{{ $showing->FollowUp }}</td>
                                     <td class="list-btn">
@@ -83,8 +158,8 @@
                                         </form>
 
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                    <i class="fas fa-download"></i>
-                                                </button> -->
+                                                                                                                                                                    <i class="fas fa-download"></i>
+                                                                                                                                                                </button> -->
                                     </td>
                                 </tr>
                             @empty

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Buyer;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Agent;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Activity;
 use App\Models\SignNda;
@@ -40,22 +41,47 @@ class BuyerController extends Controller
             return redirect()->back()->with('err_message', $e->getMessage());
         }
     } */
+
     public function index(Request $request)
     {
         try {
             session()->forget(['buyerData', 'step']);
 
-            $query = $request->input('query');
+            $query = trim($request->input('query', ''));
+
+            $sort = $request->input('sort', 'BuyerID');
+            $direction = strtolower($request->input('direction', 'desc'));
+
+            // Only these three columns can be sorted
+            $allowedSortColumns = [
+                'BuyerID'    => 'buyers.BuyerID',
+                'BuyerName'  => 'buyers.FName',
+                'AgentFName' => 'agents.FName',
+            ];
+
+            if (!array_key_exists($sort, $allowedSortColumns)) {
+                $sort = 'BuyerID';
+            }
+
+            if (!in_array($direction, ['asc', 'desc'], true)) {
+                $direction = 'desc';
+            }
 
             $buyers = Buyer::query()
-                ->leftJoin('agents', 'buyers.AgentID', '=', 'agents.AgentID')
+                ->leftJoin(
+                    'agents',
+                    'buyers.AgentID',
+                    '=',
+                    'agents.AgentID'
+                )
                 ->select(
                     'buyers.*',
                     'agents.FName as agent_fname',
                     'agents.LName as agent_lname'
                 );
 
-            if (!empty($query)) {
+            // Search buyer and agent details
+            if ($query !== '') {
                 $buyers->where(function ($q) use ($query) {
                     $q->where('buyers.BuyerID', 'LIKE', "%{$query}%")
                         ->orWhere('buyers.FName', 'LIKE', "%{$query}%")
@@ -73,10 +99,24 @@ class BuyerController extends Controller
                 });
             }
 
+            // Apply validated sorting
+            $buyers->orderBy($allowedSortColumns[$sort], $direction);
+
+            // Secondary sorting for names
+            if ($sort === 'BuyerName') {
+                $buyers->orderBy('buyers.LName', $direction);
+            } elseif ($sort === 'AgentFName') {
+                $buyers->orderBy('agents.LName', $direction);
+            }
+
+            // Stable ordering for records with matching values
+            if ($sort !== 'BuyerID') {
+                $buyers->orderBy('buyers.BuyerID', 'desc');
+            }
+
             $buyers = $buyers
-                ->orderByDesc('buyers.BuyerID')
                 ->paginate(10)
-                ->withQueryString();
+                ->appends($request->query());
 
             return view('admin.buyer.index', compact('buyers'));
         } catch (\Exception $e) {
@@ -84,6 +124,7 @@ class BuyerController extends Controller
                 ->with('err_message', $e->getMessage());
         }
     }
+
     public function showForm(Request $request)
     {
         $step = session('step', 1);
@@ -426,9 +467,7 @@ class BuyerController extends Controller
         $agent = null;
 
         if (!empty($buyer->AgentID)) {
-            $agent = DB::table('agents')
-                ->where('AgentID', $buyer->AgentID)
-                ->first();
+            $agent = Agent::where('AgentID', $buyer->AgentID)->first();
         }
         return view('admin.buyer.show', compact('buyer', 'previous', 'next', 'activities', 'ndaExists', 'businessTypes', 'agent'));
     }

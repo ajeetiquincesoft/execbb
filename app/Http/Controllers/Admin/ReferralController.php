@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReferralController extends Controller
 {
-    public function index(Request $request)
+    /*  public function index(Request $request)
     {
         //$referrals = Referral::orderBy('created_at','desc')->paginate(5);
         $query = $request->input('query');
@@ -29,6 +29,74 @@ class ReferralController extends Controller
         }
 
         $referrals = $referrals->orderBy('RefID', 'desc')->paginate(10);
+        return view('admin.referral.index', compact('referrals'));
+    } */
+    public function index(Request $request)
+    {
+        $query = trim($request->input('query', ''));
+
+        $sort = $request->input('sort', 'RefID');
+        $direction = strtolower($request->input('direction', 'desc'));
+
+        // Allowed sorting columns
+        $allowedSortColumns = [
+            'RefID'      => 'RefID',
+            'RefCompany' => 'RefCompany',
+            'AgentName'  => 'AgentName',
+        ];
+
+        // Validate sort column
+        if (!array_key_exists($sort, $allowedSortColumns)) {
+            $sort = 'RefID';
+        }
+
+        // Validate sort direction
+        if (!in_array($direction, ['asc', 'desc'], true)) {
+            $direction = 'desc';
+        }
+
+        $referrals = Referral::query();
+
+        // Search referrals
+        if ($query !== '') {
+            $referrals->where(function ($q) use ($query) {
+                $q->where('RefID', 'LIKE', "%{$query}%")
+                    ->orWhere('RefCompany', 'LIKE', "%{$query}%")
+                    ->orWhere('AgentName', 'LIKE', "%{$query}%")
+                    ->orWhere('Address1', 'LIKE', "%{$query}%")
+                    ->orWhere('City', 'LIKE', "%{$query}%")
+                    ->orWhere('State', 'LIKE', "%{$query}%")
+                    ->orWhere('Zip', 'LIKE', "%{$query}%")
+                    ->orWhere('Phone', 'LIKE', "%{$query}%");
+            });
+        }
+
+        // Apply sorting
+        if ($sort === 'RefCompany' || $sort === 'AgentName') {
+            // Alphabetical sorting, case-insensitive; blank values last
+            $column = $allowedSortColumns[$sort];
+
+            $referrals->orderByRaw(
+                "CASE WHEN TRIM(COALESCE({$column}, '')) = ''
+             THEN 1 ELSE 0 END ASC"
+            );
+
+            $referrals->orderByRaw(
+                "LOWER(TRIM(COALESCE({$column}, ''))) {$direction}"
+            );
+        } else {
+            $referrals->orderBy($allowedSortColumns[$sort], $direction);
+        }
+
+        // Stable ordering for matching values
+        if ($sort !== 'RefID') {
+            $referrals->orderBy('RefID', 'desc');
+        }
+
+        $referrals = $referrals
+            ->paginate(10)
+            ->appends($request->except('page'));
+
         return view('admin.referral.index', compact('referrals'));
     }
     public function create()

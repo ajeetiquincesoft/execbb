@@ -39,17 +39,51 @@ class LeadController extends Controller
             ->paginate(10);
         return view('admin.lead.index', compact('leads', 'categories', 'lead_status', 'agents'));
     } */
+
     public function index(Request $request)
     {
-        $query = $request->input('query');
+        $query = trim($request->input('query', ''));
 
-        $sort = $request->get('sort', 'LeadID');
-        $direction = $request->get('direction', 'desc');
+        $sort = $request->input('sort', 'LeadID');
+        $direction = strtolower($request->input('direction', 'desc'));
+
+        // Approved sortable columns
+        $allowedSortColumns = [
+            'LeadID'          => 'leads.LeadID',
+            'SellerFName'     => 'leads.SellerFName',
+            'Category'        => 'categories.BusinessCategory',
+            'BusName'         => 'leads.BusName',
+            'AgentFName'      => 'agents.FName',
+            'AppointmentDate' => 'leads.AppointmentDate',
+        ];
+
+        if (!array_key_exists($sort, $allowedSortColumns)) {
+            $sort = 'LeadID';
+        }
+
+        if (!in_array($direction, ['asc', 'desc'], true)) {
+            $direction = 'desc';
+        }
 
         $leads = DB::table('leads')
-            ->leftJoin('categories', 'leads.Category', '=', 'categories.CategoryID')
-            ->leftJoin('lead_status', 'leads.Status', '=', 'lead_status.LeadStatusID')
-            ->leftJoin('agents', 'leads.AgentID', '=', 'agents.AgentID')
+            ->leftJoin(
+                'categories',
+                'leads.Category',
+                '=',
+                'categories.CategoryID'
+            )
+            ->leftJoin(
+                'lead_status',
+                'leads.Status',
+                '=',
+                'lead_status.LeadStatusID'
+            )
+            ->leftJoin(
+                'agents',
+                'leads.AgentID',
+                '=',
+                'agents.AgentID'
+            )
             ->select(
                 'leads.*',
                 'leads.AgentID as lead_agent_id',
@@ -59,25 +93,60 @@ class LeadController extends Controller
                 'agents.LName as agent_lname'
             );
 
-        if ($query) {
-            $leads->where(function ($q) use ($query) {
-                $q->where('leads.SellerFName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('leads.SellerLName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('leads.BusName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('leads.Address', 'LIKE', '%' . $query . '%')
-                    ->orWhere('leads.Phone', 'LIKE', '%' . $query . '%')
-                    ->orWhere('leads.AppointmentDate', 'LIKE', '%' . $query . '%')
-                    ->orWhere('categories.BusinessCategory', 'LIKE', '%' . $query . '%')
-                    ->orWhere('lead_status.Status', 'LIKE', '%' . $query . '%')
-                    ->orWhere('agents.FName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('agents.LName', 'LIKE', '%' . $query . '%');
+        // Search leads and related agent details
+        if ($query !== '') {
+            $search = '%' . $query . '%';
+
+            $leads->where(function ($q) use ($search) {
+                $q->where('leads.LeadID', 'LIKE', $search)
+                    ->orWhere('leads.SellerFName', 'LIKE', $search)
+                    ->orWhere('leads.SellerLName', 'LIKE', $search)
+                    ->orWhereRaw(
+                        "CONCAT(
+                        COALESCE(leads.SellerFName, ''),
+                        ' ',
+                        COALESCE(leads.SellerLName, '')
+                    ) LIKE ?",
+                        [$search]
+                    )
+                    ->orWhere('leads.BusName', 'LIKE', $search)
+                    ->orWhere('leads.Address', 'LIKE', $search)
+                    ->orWhere('leads.Phone', 'LIKE', $search)
+                    ->orWhere('leads.AppointmentDate', 'LIKE', $search)
+                    ->orWhere('categories.BusinessCategory', 'LIKE', $search)
+                    ->orWhere('lead_status.Status', 'LIKE', $search)
+                    ->orWhere('agents.FName', 'LIKE', $search)
+                    ->orWhere('agents.LName', 'LIKE', $search)
+                    ->orWhereRaw(
+                        "CONCAT(
+                        COALESCE(agents.FName, ''),
+                        ' ',
+                        COALESCE(agents.LName, '')
+                    ) LIKE ?",
+                        [$search]
+                    );
             });
         }
 
+        // Apply sorting
+        if ($sort === 'SellerFName') {
+            $leads->orderBy('leads.SellerFName', $direction)
+                ->orderBy('leads.SellerLName', $direction);
+        } elseif ($sort === 'AgentFName') {
+            $leads->orderBy('agents.FName', $direction)
+                ->orderBy('agents.LName', $direction);
+        } else {
+            $leads->orderBy($allowedSortColumns[$sort], $direction);
+        }
+
+        // Stable secondary ordering
+        if ($sort !== 'LeadID') {
+            $leads->orderBy('leads.LeadID', 'desc');
+        }
+
         $leads = $leads
-            ->orderBy($sort, $direction)
             ->paginate(10)
-            ->appends($request->all());
+            ->appends($request->except('page'));
 
         $categories = DB::table('categories')
             ->pluck('BusinessCategory', 'CategoryID');
@@ -85,24 +154,25 @@ class LeadController extends Controller
         $lead_status = DB::table('lead_status')
             ->pluck('Status', 'LeadStatusID');
 
+        // Admin agent dropdown
         $agents = User::with('agent_info')
             ->where('role_name', 'agent')
-            ->whereHas('agent_info', function ($query) {
-                $query->where(function ($q) {
-                    $q->whereNotNull('FName')
-                        ->where('FName', '!=', '');
-                });
+            ->whereHas('agent_info', function ($q) {
+                $q->whereNotNull('FName')
+                    ->where('FName', '!=', '');
             })
             ->get()
             ->sortBy(function ($agent) {
-                return $agent->agent_info?->FName ?? '';
+                return strtolower($agent->agent_info->FName ?? '');
             })
             ->values();
+
         return view(
             'admin.lead.index',
             compact('leads', 'categories', 'lead_status', 'agents')
         );
     }
+
     public function create()
     {
         $categoryData = DB::table('categories')->get();
@@ -292,14 +362,52 @@ class LeadController extends Controller
     }
     public function show($id)
     {
-        $lead =  DB::table('leads')->where('LeadID', $id)->first();
+        $lead = DB::table('leads')
+            ->leftJoin(
+                'categories',
+                'leads.Category',
+                '=',
+                'categories.CategoryID'
+            )
+            ->leftJoin(
+                'agents',
+                'leads.AgentID',
+                '=',
+                'agents.AgentID'
+            )
+            ->where('leads.LeadID', $id)
+            ->select(
+                'leads.*',
+                'categories.BusinessCategory as category_name',
+                'agents.FName as agent_fname',
+                'agents.LName as agent_lname'
+            )
+            ->first();
+
+        if (!$lead) {
+            return redirect()
+                ->back()
+                ->with('err_message', 'Lead not found.');
+        }
+
         $activities = Activity::latest()->paginate(10);
-        //dd($lead->toSql(), $lead->getBindings());
-        // Get the previous lead ID
-        $previous = DB::table('leads')->where('LeadID', '<', $id)->orderBy('LeadID', 'desc')->first();
-        // Get the next lead ID
-        $next = DB::table('leads')->where('LeadID', '>', $id)->orderBy('LeadID', 'asc')->first();
-        return view('admin.lead.show', compact('lead', 'previous', 'next', 'activities'));
+
+        // Previous lead
+        $previous = DB::table('leads')
+            ->where('LeadID', '<', $id)
+            ->orderBy('LeadID', 'desc')
+            ->first();
+
+        // Next lead
+        $next = DB::table('leads')
+            ->where('LeadID', '>', $id)
+            ->orderBy('LeadID', 'asc')
+            ->first();
+
+        return view(
+            'admin.lead.show',
+            compact('lead', 'previous', 'next', 'activities')
+        );
     }
     public function destroy(Request $request, $id)
     {

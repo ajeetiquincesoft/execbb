@@ -61,15 +61,58 @@
                 </div>
             </div>
             <div class="list-data">
+                @php
+                    $currentSort = request('sort');
+                    $currentDirection = request('direction');
 
+                    function sortIcon($column, $currentSort, $currentDirection)
+                    {
+                        if ($currentSort === $column) {
+                            return $currentDirection === 'asc'
+                                ? '<i class="fa-solid fa-arrow-up-short-wide"></i>'
+                                : '<i class="fa-solid fa-arrow-down-wide-short"></i>';
+                        }
+
+                        return '<i class="fa-solid fa-sort"></i>';
+                    }
+
+                    function sortDirection($column, $currentSort, $currentDirection)
+                    {
+                        return $currentSort === $column && $currentDirection === 'asc' ? 'desc' : 'asc';
+                    }
+                @endphp
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Buyer ID</th>
-                                <th scope="col">Name</th>
-                                <th>Assigned Agent</th>
+                                <th scope="col" class="sortable"> <a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'BuyerID',
+                                            'direction' => sortDirection('BuyerID', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Buyer ID
+                                        {!! sortIcon('BuyerID', $currentSort, $currentDirection) !!}
+                                    </a></th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'BuyerName',
+                                            'direction' => sortDirection('BuyerName', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Name
+                                        {!! sortIcon('BuyerName', $currentSort, $currentDirection) !!}
+                                    </a></th>
+                                <th scope="col" class="sortable"><a
+                                        href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'AgentFName',
+                                            'direction' => sortDirection('AgentFName', $currentSort, $currentDirection),
+                                        ]) }}">
+
+                                        Assigned Agent
+                                        {!! sortIcon('AgentFName', $currentSort, $currentDirection) !!}
+                                    </a></th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Email</th>
@@ -131,8 +174,8 @@
                                             </button>
                                         </form>
                                         <!--  <button class="btn btn-sm" title="Download">
-                                                                                                <i class="fas fa-download"></i>
-                                                                                            </button> -->
+                                                                                                                        <i class="fas fa-download"></i>
+                                                                                                                    </button> -->
                                     </td>
                                 </tr>
                             @empty

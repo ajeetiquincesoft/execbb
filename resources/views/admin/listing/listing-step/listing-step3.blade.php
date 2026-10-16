@@ -237,6 +237,12 @@
                                 value="1"
                                 {{ old('soldByEBB') || session('formData.soldByEBB') == 1 ? 'checked' : '' }}>
                         </div>
+                        <div class="col-md-3" style="height: 80px;">
+                            <label class="form-check-label me-2" for="SBAFinancable">SBA Financiable</label>
+                            <input type="checkbox" class="form-check-input" id="SBAFinancable" name="SBAFinancable"
+                                value="1"
+                                {{ old('SBAFinancable') || session('formData.SBAFinancable') == 1 ? 'checked' : '' }}>
+                        </div>
                     </div>
                 </div>
 
