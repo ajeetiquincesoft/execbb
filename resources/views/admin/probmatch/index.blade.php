@@ -16,20 +16,54 @@
 
                 <div class="container-fluid py-3 border-bottom">
                     <div class="row align-items-center">
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                            <h4 class="mb-0">ProbMatch</h4>
+                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <h4 class="mb-0">
+                                @if (!empty($listingId))
+                                    Prob Matches for Listing #{{ $listingId }}
+                                @elseif (!empty($buyerId))
+                                    Prob Matches for Buyer #{{ $buyerId }}
+                                @else
+                                    ProbMatch
+                                @endif
+                            </h4>
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
+                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 d-flex justify-content-end add-list-btn">
                             <a href="{{ route('create.probmatch') }}">
                                 <button class="btn btn-primary" style="background-color: #5e0f2f;">
                                     <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add ProbMatch
                                 </button></a>
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 ml-auto" id="login_activity_search">
+                        @if (!empty($listingId))
+                            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 d-flex justify-content-start">
+                                <a href="{{ route('listing.probmatches.print', $listingId) }}" target="_blank"
+                                    class="btn btn-primary" style="background-color: #5e0f2f;">
+                                    <i class="fas fa-print"></i>
+                                    Print All Prob Matches
+                                </a>
+                            </div>
+                        @elseif (!empty($buyerId))
+                            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 d-flex justify-content-start">
+                                <a href="{{ route('buyer.probmatches.print', $buyerId) }}" target="_blank"
+                                    class="btn btn-primary" style="background-color: #5e0f2f;">
+                                    <i class="fas fa-print"></i>
+                                    Print Buyer's Prob Matches
+                                </a>
+                            </div>
+                        @endif
+                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 ml-auto" id="login_activity_search">
                             <form method="GET" action="{{ route('probmatch') }}">
+                                @if (!empty($listingId))
+                                    <input type="hidden" name="listing_id" value="{{ $listingId }}">
+                                @endif
+
+                                @if (!empty($buyerId))
+                                    <input type="hidden" name="buyer_id" value="{{ $buyerId }}">
+                                @endif
+
                                 <div class="input-group" style="max-width: 300px;">
                                     <input type="text" id="search" name="query" class="form-control"
                                         placeholder="Search Here..." value="{{ request('query') }}">
+
                                     <div class="input-group-append">
                                         <button type="submit" class="input-group-text">
                                             <i class="fas fa-search"></i>
@@ -90,8 +124,8 @@
                                             </button>
                                         </form>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                        <i class="fas fa-download"></i>
-                                    </button> -->
+                                                                                                                                                                    <i class="fas fa-download"></i>
+                                                                                                                                                                </button> -->
                                     </td>
                                 </tr>
                             @empty

@@ -311,6 +311,8 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::get('edit/probmatch/{id}', [ProbMatchController::class, 'edit'])->name('edit.probmatch');
   Route::put('update/probmatch/{id}', [ProbMatchController::class, 'update'])->name('update.probmatch');
   Route::delete('/probmatch/{id}', [ProbMatchController::class, 'destroy'])->name('probmatch.destroy');
+  Route::get('/listing/{id}/prob-matches/print', [ProbMatchController::class, 'printByListing'])->name('listing.probmatches.print');
+  Route::get('/buyer/{id}/prob-matches/print', [ProbMatchController::class, 'printByBuyer'])->name('buyer.probmatches.print');
   //end Route for prob match
   //Route for contact type start
   Route::get('contact-type', [ContactTypeController::class, 'index'])->name('contact-type');
@@ -477,6 +479,10 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::get('view/showing/{id}', [ShowingController::class, 'show'])->name('show.showing');
   Route::delete('showing/destroy/{id}', [ShowingController::class, 'destroy'])->name('showing.destroy');
   Route::get('/ajax/load-buyers-showings', [OfferController::class, 'loadMoreBuyers'])->name('showings.buyers.ajax.load');
+  Route::get(
+    '/admin/listing/{id}/showings/print',
+    [ShowingController::class, 'printByListing']
+  )->name('listing.showings.print');
   //end route for showing
   //Route for send email to buyers
   Route::get('email/buyer/ajax', [EmailBuyerController::class, 'ajax'])->name('buyers.email.ajax');

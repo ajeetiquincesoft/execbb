@@ -11,20 +11,40 @@
 
                 <div class="container-fluid py-3 border-bottom">
                     <div class="row align-items-center">
-                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                            <h4 class="mb-0">Showings</h4>
+                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <h4 class="mb-0">
+                                @if (!empty($listingId))
+                                    Showings for Listing #{{ $listingId }}
+                                @else
+                                    Showings
+                                @endif
+                            </h4>
                         </div>
-                        <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4 d-flex justify-content-end add-list-btn">
+                        <div class="col-sm-6 col-md-6  col-lg-3 col-xl-3 d-flex justify-content-end add-list-btn">
                             <a href="{{ route('create.showing') }}">
                                 <button class="btn btn-primary" style="background-color: #5e0f2f;">
                                     <img class="create_img" src="{{ url('assets/images/Showings.png') }}"> Add showing
                                 </button></a>
                         </div>
-                        <div class="col-sm-12 col-md-12  col-lg-4 col-xl-4" id="list-search">
+                        @if (!empty($listingId))
+                            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 d-flex justify-content-start">
+                                <a href="{{ route('listing.showings.print', $listingId) }}" target="_blank"
+                                    class="btn btn-primary">
+                                    <i class="fas fa-print"></i>
+                                    Print All Showings
+                                </a>
+                            </div>
+                        @endif
+                        <div class="col-sm-12 col-md-12  col-lg-3 col-xl-3" id="list-search">
                             <form method="GET" action="{{ route('all.showing') }}">
+                                @if (!empty($listingId))
+                                    <input type="hidden" name="listing_id" value="{{ $listingId }}">
+                                @endif
+
                                 <div class="input-group" style="max-width: 300px;">
                                     <input type="text" id="search" name="query" class="form-control"
                                         placeholder="Search Here..." value="{{ request('query') }}">
+
                                     <div class="input-group-append">
                                         <button type="submit" class="input-group-text">
                                             <i class="fas fa-search"></i>
@@ -158,8 +178,8 @@
                                         </form>
 
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                                                                                                                                    <i class="fas fa-download"></i>
-                                                                                                                                                                </button> -->
+                                                                                                                                                                                                                                                                        <i class="fas fa-download"></i>
+                                                                                                                                                                                                                                                                    </button> -->
                                     </td>
                                 </tr>
                             @empty

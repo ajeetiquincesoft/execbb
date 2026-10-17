@@ -98,7 +98,7 @@ class AdminAuthController extends Controller
             $closeListings = Offer::where('Status', 'closed')
                 ->whereBetween('DateEntered', [$startDate, $endDate])
                 ->count();
-            $assignListings = Listing::whereNotNull('RefAgentID')->whereBetween('DateEntered', [$startDate, $endDate])->count();
+            $assignListings = Listing::whereNotNull('AgentID')->whereBetween('DateEntered', [$startDate, $endDate])->count();
             $activeListingsCount = Listing::where('Active', 1)->count();
             $inactiveListingsCount = Listing::where('Active', 0)->count();
             $activeListingsPercentage = $listings > 0 ? ($activeListingsCount / $listings) * 100 : 0;

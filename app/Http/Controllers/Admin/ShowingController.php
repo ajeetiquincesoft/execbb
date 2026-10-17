@@ -282,4 +282,38 @@ class ShowingController extends Controller
 
         return response()->json($buyers);
     }
+    /**
+     * Print all showings for one particular listing.
+     */
+    public function printByListing($id)
+    {
+        $listing = Listing::where('ListingID', $id)->first();
+
+        if (!$listing) {
+            return redirect()->route('all.listing')
+                ->with('error', 'Listing not found.');
+        }
+
+        $showings = DB::table('showings')
+            ->leftJoin('agents', 'showings.AgentID', '=', 'agents.AgentID')
+            ->leftJoin('buyers', 'showings.BuyerID', '=', 'buyers.BuyerID')
+            ->leftJoin('listings', 'showings.ListingID', '=', 'listings.ListingID')
+            ->where('showings.ListingID', $id)
+            ->select(
+                'showings.*',
+                'agents.FName as agent_fname',
+                'agents.LName as agent_lname',
+                'buyers.FName as buyer_fname',
+                'buyers.LName as buyer_lname',
+                'listings.DBA as listing_dba'
+            )
+            ->orderByDesc('showings.Date')
+            ->orderByDesc('showings.ShowingID')
+            ->get(); // get() retrieves ALL matching records, without pagination
+
+        return view('admin.showing.print-listing-showing', compact(
+            'showings',
+            'listing'
+        ));
+    }
 }

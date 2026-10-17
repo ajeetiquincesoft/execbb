@@ -136,7 +136,6 @@
             padding: 8px;
             word-break: break-word;
             overflow-wrap: anywhere;
-            white-space: pre-wrap
         }
 
         .full-width {
@@ -355,7 +354,8 @@
                     <div class="info-item">
                         <div class="info-label">Annual Sales</div>
                         <div class="info-value">
-                            {{ $lead->AnnSales !== null ? '$' . number_format((float) $lead->AnnSales, 2) : '-' }}</div>
+                            {{ $lead->AnnSales !== null ? '$' . number_format((float) $lead->AnnSales, 2) : '-' }}
+                        </div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Years in Business</div>
@@ -378,7 +378,8 @@
                     <div class="info-item">
                         <div class="info-label">Real Estate Asking Price</div>
                         <div class="info-value">
-                            {{ $lead->REAsking !== null ? '$' . number_format((float) $lead->REAsking, 2) : '-' }}</div>
+                            {{ $lead->REAsking !== null ? '$' . number_format((float) $lead->REAsking, 2) : '-' }}
+                        </div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">FSBO</div>
