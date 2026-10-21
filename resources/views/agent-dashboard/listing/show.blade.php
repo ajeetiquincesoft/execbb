@@ -64,7 +64,7 @@
                                     </div>
                                     <button class="avatar_img_upload" type="submit">Upload Image</button>
                                 </form>
-                                <h5>{{ $listing->SellerFName }} {{ $listing->SellerLName }}</h5>
+                                <h5>{{ $listing->DBA }}</h5>
                                 <h6>Listing ID: {{ $listing->ListingID }}</h6>
                             </div>
                             <div class="table-responsive">
