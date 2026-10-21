@@ -182,8 +182,8 @@
                                             </button>
                                         </form>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                                                                                                                                                <i class="fas fa-download"></i>
-                                                                                                                                                                            </button> -->
+                                                                                                                                                                                                        <i class="fas fa-download"></i>
+                                                                                                                                                                                                    </button> -->
 
                                     </td>
                                 </tr>
