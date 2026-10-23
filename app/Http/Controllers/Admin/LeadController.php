@@ -375,12 +375,14 @@ class LeadController extends Controller
                 '=',
                 'agents.AgentID'
             )
+            ->leftJoin('lead_status', 'leads.Status', '=', 'lead_status.LeadStatusID')
             ->where('leads.LeadID', $id)
             ->select(
                 'leads.*',
                 'categories.BusinessCategory as category_name',
                 'agents.FName as agent_fname',
-                'agents.LName as agent_lname'
+                'agents.LName as agent_lname',
+                'lead_status.Status as status_name'
             )
             ->first();
 

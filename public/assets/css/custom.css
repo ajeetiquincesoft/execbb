@@ -632,3 +632,362 @@ tbody > tr > td {
     color: inherit;
     text-decoration: none;
 }
+
+/* =====================================================
+   EXECUTIVE BUSINESS BROKERS - LISTINGS TOOLBAR
+   Works with existing HTML - no HTML changes required
+   ===================================================== */
+
+/* Main toolbar card */
+.list-header {
+    --listing-maroon: #5e0f2f;
+    --listing-maroon-dark: #45091f;
+    --listing-border: #e2e6ed;
+    --listing-text: #202838;
+    --listing-muted: #7c8798;
+
+    /*  position: relative;
+    margin-bottom: 22px;
+    background: #ffffff;
+    border: 1px solid #e8eaf0;
+    border-radius: 12px;
+    box-shadow: 0 5px 22px rgba(31, 41, 55, 0.055);
+    overflow: visible; */
+}
+
+/* Inner spacing */
+.list-header > .container-fluid {
+    padding: 22px 24px !important;
+    border-bottom: none !important;
+}
+
+.list-header .row.align-items-center {
+    row-gap: 14px;
+}
+
+/* Listings heading */
+.list-header h4.mb-0 {
+    position: relative;
+    display: inline-block;
+    padding-left: 14px;
+    color: var(--listing-text);
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+}
+
+.list-header h4.mb-0::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 0;
+    width: 4px;
+    background: var(--listing-maroon);
+    border-radius: 5px;
+}
+
+/* Add Listing button */
+.list-header .add-list-btn > a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none !important;
+}
+
+.list-header .add-list-btn button.btn.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 11px 18px;
+    background: var(--listing-maroon) !important;
+    border: 1px solid var(--listing-maroon) !important;
+    border-radius: 7px;
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(94, 15, 47, 0.15);
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.list-header .add-list-btn button.btn.btn-primary:hover {
+    background: var(--listing-maroon-dark) !important;
+    border-color: var(--listing-maroon-dark) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 15px rgba(94, 15, 47, 0.23);
+    transform: translateY(-1px);
+}
+
+.list-header .add-list-btn button.btn.btn-primary:focus-visible {
+    outline: 3px solid rgba(94, 15, 47, 0.2);
+    outline-offset: 3px;
+}
+
+.list-header img.create_img {
+    display: block;
+    width: 19px;
+    height: 19px;
+    object-fit: contain;
+}
+
+/* Change Listing Status dropdown */
+.list-header .action_bt select#change_status {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 36px 10px 13px;
+    border: 1px solid var(--listing-border);
+    border-radius: 7px;
+    background-color: #fafbfc;
+    color: #354052;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.list-header .action_bt select#change_status:hover {
+    border-color: #c5a0b0;
+    background-color: #ffffff;
+}
+
+.list-header .action_bt select#change_status:focus {
+    border-color: var(--listing-maroon);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(94, 15, 47, 0.09);
+    outline: none;
+}
+
+.list-header .action_bt select#change_offer_status {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 36px 10px 13px;
+    border: 1px solid var(--listing-border);
+    border-radius: 7px;
+    background-color: #fafbfc;
+    color: #354052;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.list-header .action_bt select#change_offer_status:hover {
+    border-color: #c5a0b0;
+    background-color: #ffffff;
+}
+
+.list-header .action_bt select#change_offer_status:focus {
+    border-color: var(--listing-maroon);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(94, 15, 47, 0.09);
+    outline: none;
+}
+
+/* Search form */
+.list-header #list-search form,
+.list-header #login_activity_search form {
+    width: 100%;
+    margin: 0;
+}
+
+.list-header #list-search .input-group,
+.list-header #login_activity_search .input-group {
+    display: flex;
+    width: 100%;
+    max-width: none !important;
+    min-height: 46px;
+    flex-wrap: nowrap;
+}
+
+/* Search input */
+.list-header #list-search input#search,
+.list-header #login_activity_search input#search {
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 11px 14px;
+    border: 1px solid var(--listing-border);
+    border-right: 0;
+    border-radius: 7px 0 0 7px;
+    background: #fafbfc;
+    color: var(--listing-text);
+    font-size: 13.5px;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.list-header #list-search input#search::placeholder,
+.list-header #login_activity_search input#search::placeholder {
+    color: #8b95a5;
+    opacity: 1;
+}
+
+.list-header #list-search input#search:focus,
+.list-header #login_activity_search input#search:focus {
+    position: relative;
+    z-index: 2;
+    border-color: var(--listing-maroon);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(94, 15, 47, 0.08);
+    outline: none;
+}
+
+/* Search button */
+.list-header #list-search .input-group-append,
+.list-header #login_activity_search .input-group-append {
+    display: flex;
+    flex: 0 0 46px;
+}
+
+.list-header #list-search button.input-group-text,
+.list-header #login_activity_search button.input-group-text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    min-height: 46px;
+    padding: 0;
+    border: 1px solid var(--listing-border);
+    border-radius: 0 7px 7px 0;
+    background: #f0f2f6;
+    color: #465166;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.list-header #list-search button.input-group-text i,
+.list-header #login_activity_search button.input-group-text i {
+    font-size: 15px;
+}
+
+.list-header #list-search button.input-group-text:hover,
+.list-header #login_activity_search button.input-group-text:hover {
+    background: var(--listing-maroon);
+    border-color: var(--listing-maroon);
+    color: #ffffff;
+}
+
+.list-header #list-search button.input-group-text:focus-visible,
+.list-header #login_activity_search button.input-group-text:focus-visible {
+    outline: 3px solid rgba(94, 15, 47, 0.2);
+    outline-offset: 2px;
+}
+
+/* Tablet layout */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .list-header > .container-fluid {
+        padding: 20px !important;
+    }
+
+    .list-header h4.mb-0 {
+        font-size: 23px;
+    }
+
+    .list-header .add-list-btn {
+        justify-content: flex-end !important;
+    }
+
+    .list-header .action_bt {
+        justify-content: flex-start !important;
+    }
+}
+
+/* Mobile layout */
+@media (max-width: 767.98px) {
+    .list-header {
+        border-radius: 9px;
+    }
+
+    .list-header > .container-fluid {
+        padding: 18px 15px !important;
+    }
+
+    .list-header .row.align-items-center {
+        row-gap: 13px;
+    }
+
+    .list-header h4.mb-0 {
+        font-size: 22px;
+    }
+
+    .list-header .add-list-btn,
+    .list-header .action_bt {
+        justify-content: flex-start !important;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .list-header .add-list-btn > a,
+    .list-header .add-list-btn button.btn.btn-primary {
+        width: 100%;
+    }
+
+    .list-header .action_bt select#change_status {
+        width: 100%;
+    }
+    .list-header .action_bt select#change_offer_status {
+        width: 100%;
+    }
+    .list-header #list-search .input-group,
+    .list-header #login_activity_search.input-group {
+        width: 100%;
+        max-width: none !important;
+    }
+}
+
+/* Compact mobile devices */
+@media (max-width: 400px) {
+    .list-header > .container-fluid {
+        padding: 16px 12px !important;
+    }
+
+    .list-header h4.mb-0 {
+        font-size: 21px;
+    }
+
+    .list-header .add-list-btn button.btn.btn-primary,
+    .list-header .action_bt select#change_status,
+    .list-header .action_bt select#change_offer_status,
+    .list-header #list-search input#search,
+    .list-header #login_activity_search input#search {
+        font-size: 13px;
+    }
+}
+
+/* Accessibility: respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .list-header .add-list-btn button.btn.btn-primary,
+    .list-header .action_bt select#change_status,
+    .list-header .action_bt select#change_offer_status,
+    .list-header #list-search input#search,
+    .list-header #login_activity_search input#search,
+    .list-header #list-search button.input-group-text,
+    .list-header #login_activity_search button.input-group-text {
+        transition: none;
+    }
+}

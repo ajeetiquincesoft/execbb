@@ -166,6 +166,10 @@
                             <li class="nav-item {{ request()->routeIs('login.activities') ? 'activenavitem' : '' }}">
                                 <a class="nav-link-dropdown" href="{{ route('login.activities') }}">Login List</a>
                             </li>
+                            <li class="nav-item {{ request()->routeIs('user.activities') ? 'activenavitem' : '' }}">
+                                <a class="nav-link-dropdown" href="{{ route('user.activities') }}">User
+                                    Activities</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-4" id="list-search">
                             <form method="GET" action="{{ route('all.listing') }}">
-                                <div class="input-group" style="max-width: 300px;">
+                                <div class="input-group">
                                     <input type="text" id="search" name="query" class="form-control"
                                         placeholder="Search Here..." value="{{ request('query') }}">
                                     <div class="input-group-append">
@@ -48,6 +48,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="list-data">
                 @php
                     $currentSort = request('sort');
@@ -182,8 +183,8 @@
                                             </button>
                                         </form>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                                                                                                                                                                        <i class="fas fa-download"></i>
-                                                                                                                                                                                                    </button> -->
+                                                                                                                                                                                                                            <i class="fas fa-download"></i>
+                                                                                                                                                                                                                        </button> -->
 
                                     </td>
                                 </tr>

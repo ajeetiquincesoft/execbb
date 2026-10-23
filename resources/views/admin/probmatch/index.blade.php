@@ -60,7 +60,7 @@
                                     <input type="hidden" name="buyer_id" value="{{ $buyerId }}">
                                 @endif
 
-                                <div class="input-group" style="max-width: 300px;">
+                                <div class="input-group">
                                     <input type="text" id="search" name="query" class="form-control"
                                         placeholder="Search Here..." value="{{ request('query') }}">
 
@@ -124,8 +124,8 @@
                                             </button>
                                         </form>
                                         <!-- <button class="btn btn-sm" title="Download">
-                                                                                                                                                                    <i class="fas fa-download"></i>
-                                                                                                                                                                </button> -->
+                                                                                                                                                                        <i class="fas fa-download"></i>
+                                                                                                                                                                    </button> -->
                                     </td>
                                 </tr>
                             @empty

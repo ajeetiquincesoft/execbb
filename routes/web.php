@@ -296,6 +296,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   Route::get('/', [AdminAuthController::class, 'dashboard']);
   Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
   Route::get('login-activities', [LoginActivityController::class, 'index'])->name('login.activities');
+  Route::get('user-activities', [LoginActivityController::class, 'userActivities'])->name('user.activities');
   //Route for criteria rank start
   Route::get('criteria-rank', [CriteriaRankController::class, 'index'])->name('criteriarank');
   Route::get('create/criteria-rank', [CriteriaRankController::class, 'create'])->name('create.criteriarank');
