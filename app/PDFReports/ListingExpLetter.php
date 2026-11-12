@@ -66,13 +66,7 @@ class ListingExpLetter
                 .signature img {
                     height: 60px;
                 }
-
-                .letter-page {
-                    page-break-after: always;
-                }
-
                 .showing-page {
-                    page-break-after: always;
                     font-size: 8pt;
                     margin-top:40px !important;
                 }
@@ -116,15 +110,19 @@ class ListingExpLetter
                     text-align: center;
                     margin-top: 5px;
                 }
-                    .letter-page, .showing-page {
-                    width: 50%;
-                    margin: 0 auto;
-                }
+              
             </style>
         </head>
         <body>
         ';
+        $signaturePath = public_path('assets/images/signature.jpg');
 
+        $signatureImage = '';
+
+        if (file_exists($signaturePath)) {
+            $signatureImage = 'data:image/jpeg;base64,' .
+                base64_encode(file_get_contents($signaturePath));
+        }
         foreach ($listings as $getListing) {
 
             // Listing information
@@ -238,8 +236,12 @@ class ListingExpLetter
                 <p>Very Truly Yours,</p>
 
                 <div class="signature">
-                    <img src="' . asset('assets/images/signature.jpg') . '"
-                         alt="Larry Bodner Signature"><br>
+                    ' . (!empty($signatureImage) ? '
+                        <img src="' . $signatureImage . '"
+                            style="height:60px; width:auto;"
+                            alt="Larry Bodner Signature">
+                        <br>
+                    ' : '') . '
 
                     Executive Business Brokers,<br>
                     Commercial Associate,<br>
