@@ -549,7 +549,7 @@ class ImportCsvController extends Controller
                 continue;
             }
 
-            // Skip if BuyerID already exists
+            // Skip if AgentID already exists
             if (Agent::where('AgentID', $agentID)->exists()) {
                 Log::info("Skipped row {$rowCount} — Agent already exists with AgentID: {$agentID}");
                 $skipCount++;
