@@ -1653,11 +1653,11 @@ class ImportCsvController extends Controller
 
         return back()->with('success', "CSV import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Skipped: {$skipCount}");
     }
+
     public function referralsImportCsv(Request $request)
     {
         set_time_limit(0);
 
-        // Validate the file input
         $request->validate([
             'file' => 'required|mimes:csv,txt',
         ]);
@@ -1668,16 +1668,18 @@ class ImportCsvController extends Controller
             return back()->with('error', 'Unable to open CSV file.');
         }
 
-        // Read and normalize header row
+        // Read and normalize CSV headers
         $csvHeaders = fgetcsv($handle);
+
         if (!$csvHeaders) {
+            fclose($handle);
             return back()->with('error', 'CSV file is empty or invalid.');
         }
 
         $csvHeaders = array_map(function ($header) {
-            // Remove BOM and trim whitespace
             return trim(preg_replace('/^\xEF\xBB\xBF/', '', $header));
         }, $csvHeaders);
+
         Log::info('CSV Headers:', $csvHeaders);
 
         // Expected database columns
@@ -1712,71 +1714,103 @@ class ImportCsvController extends Controller
             'ReferredDBA'
         ];
 
-        $integerColumns = ['Phone', 'Fax'];
+        // Keep phone and fax as strings to preserve leading zeros
         $rowCount = 0;
         $insertCount = 0;
+        $updateCount = 0;
         $skipCount = 0;
+
+        $headerIndexes = array_flip($csvHeaders);
 
         // Process CSV rows
         while (($row = fgetcsv($handle)) !== false) {
+
             $rowCount++;
             $referralData = [];
 
             foreach ($expectedColumns as $col) {
-                $csvIndex = array_search($col, $csvHeaders);
-                $value = ($csvIndex !== false && isset($row[$csvIndex])) ? trim($row[$csvIndex]) : null;
+
+                $csvIndex = $headerIndexes[$col] ?? null;
+
+                $value = ($csvIndex !== null && isset($row[$csvIndex]))
+                    ? trim($row[$csvIndex])
+                    : null;
 
                 // Clean encoding and characters
-                $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-                $value = preg_replace('/[^\PC\s]/u', '', $value);
+                if ($value !== null) {
+                    $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+                    $value = preg_replace('/[^\PC\s]/u', '', $value);
+                }
 
-                if (strtoupper($value) === 'NULL' || $value === '') {
+                // Convert empty and NULL values
+                if ($value === '' || strtoupper((string) $value) === 'NULL') {
                     $value = null;
                 }
-                // Handle numeric fields
-                if (in_array($col, $integerColumns)) {
-                    $referralData[$col] = is_numeric($value) ? (int)$value : null;
-                } else {
-                    $referralData[$col] = $value;
-                }
+
+                $referralData[$col] = $value;
             }
-            $RefID = $referralData['RefID'] ?? null;
-            if (empty($RefID)) {
+
+            // Validate RefID
+            $refID = $referralData['RefID'] ?? null;
+
+            if (empty($refID)) {
                 Log::warning("Missing RefID at row {$rowCount}. Skipping.");
                 $skipCount++;
                 continue;
             }
 
-            // Optional: check if record exists
-            $exists = DB::table('referrals')->where('RefID', $RefID)->exists();
-            if ($exists) {
-                Log::info("Row {$rowCount} skipped. RefID {$RefID} already exists.");
-                $skipCount++;
-                continue;
-            }
-
-            // Insert the first valid row and exit
             try {
-                Log::debug("Attempting to insert row {$rowCount}: ", $referralData);
-                $referralData['created_at'] = now();
+
+                // Check whether referral already exists
+                $existingReferral = DB::table('referrals')
+                    ->where('RefID', $refID)
+                    ->exists();
+
                 $referralData['updated_at'] = now();
-                $referralData['RefID'] = $row[array_search('RefID', $csvHeaders)];
-                DB::table('referrals')->insert($referralData);
-                $insertCount++;
-                Log::info("Inserted row $rowCount with ContactID: $RefID");
+
+                if ($existingReferral) {
+
+                    // Update existing referral
+                    unset($referralData['RefID']);
+
+                    DB::table('referrals')
+                        ->where('RefID', $refID)
+                        ->update($referralData);
+
+                    $updateCount++;
+
+                    Log::info("Updated referral at row {$rowCount}. RefID: {$refID}");
+                } else {
+
+                    // Insert new referral
+                    $referralData['created_at'] = now();
+
+                    DB::table('referrals')->insert($referralData);
+
+                    $insertCount++;
+
+                    Log::info("Inserted referral at row {$rowCount}. RefID: {$refID}");
+                }
             } catch (\Exception $e) {
-                Log::error("Insert failed at row {$rowCount}.", [
+
+                Log::error("Referral import failed at row {$rowCount}.", [
+                    'RefID' => $refID,
                     'data' => $referralData,
                     'error' => $e->getMessage()
                 ]);
+
                 $skipCount++;
             }
         }
 
         fclose($handle);
 
-        return back()->with('success', "CSV import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Skipped: {$skipCount}");
+        return back()->with(
+            'success',
+            "Referral import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Updated: {$updateCount}, Skipped: {$skipCount}"
+        );
     }
+
     public function showingsImportCsv(Request $request)
     {
         set_time_limit(0);
