@@ -1152,11 +1152,11 @@ class ImportCsvController extends Controller
     }
 
 
+
     public function offerImportCsv(Request $request)
     {
         set_time_limit(0);
 
-        // Validate the file input
         $request->validate([
             'file' => 'required|mimes:csv,txt',
         ]);
@@ -1167,16 +1167,19 @@ class ImportCsvController extends Controller
             return back()->with('error', 'Unable to open CSV file.');
         }
 
-        // Read and normalize header row
+        // Read CSV headers
         $csvHeaders = fgetcsv($handle);
+
         if (!$csvHeaders) {
+            fclose($handle);
             return back()->with('error', 'CSV file is empty or invalid.');
         }
 
+        // Remove BOM and trim headers
         $csvHeaders = array_map(function ($header) {
-            // Remove BOM and trim whitespace
             return trim(preg_replace('/^\xEF\xBB\xBF/', '', $header));
         }, $csvHeaders);
+
         Log::info('CSV Headers:', $csvHeaders);
 
         // Expected database columns
@@ -1303,79 +1306,162 @@ class ImportCsvController extends Controller
         ];
 
         $integerColumns = ['Phone', 'HomePhone', 'CellPhone'];
+
+        $zeroIfNullCols = ['BAcctID', 'SAcctID', 'RefID', 'LLID'];
+
+        $headerIndexes = array_flip($csvHeaders);
+
         $rowCount = 0;
         $insertCount = 0;
+        $updateCount = 0;
         $skipCount = 0;
 
         // Process CSV rows
         while (($row = fgetcsv($handle)) !== false) {
+
             $rowCount++;
+
             $offerData = [];
 
             foreach ($expectedColumns as $col) {
-                $csvIndex = array_search($col, $csvHeaders);
-                $value = ($csvIndex !== false && isset($row[$csvIndex])) ? trim($row[$csvIndex]) : null;
 
-                // Clean encoding and characters
-                $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-                $value = preg_replace('/[^\PC\s]/u', '', $value);
+                if (!isset($headerIndexes[$col])) {
+                    continue;
+                }
 
-                if (strtoupper($value) === 'NULL' || $value === '') {
-                    $value = null;
-                } elseif (in_array($col, ['BuyerID', 'ListingID']) && $value === '0') {
+                $csvIndex = $headerIndexes[$col];
+
+                $value = isset($row[$csvIndex])
+                    ? trim($row[$csvIndex])
+                    : null;
+
+                // Clean encoding
+                if ($value !== null) {
+                    $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+                    $value = preg_replace('/[^\PC\s]/u', '', $value);
+                }
+
+                if ($value === null || strtoupper($value) === 'NULL' || $value === '') {
                     $value = null;
                 }
-                $zeroIfNullCols = ['BAcctID', 'SAcctID', 'RefID', 'LLID'];
+
+                // BuyerID and ListingID: convert zero to NULL
+                if (in_array($col, ['BuyerID', 'ListingID']) && $value === '0') {
+                    $value = null;
+                }
+
+                // Set selected columns to zero when NULL
                 if (in_array($col, $zeroIfNullCols) && is_null($value)) {
                     $value = 0;
                 }
-                // Handle numeric fields
+
+                // Handle integer columns
                 if (in_array($col, $integerColumns)) {
-                    $offerData[$col] = is_numeric($value) ? (int)$value : null;
+                    $offerData[$col] = is_numeric($value)
+                        ? (int) $value
+                        : null;
                 } else {
                     $offerData[$col] = $value;
                 }
             }
 
-            // Check for LeadID
+            // Get OfferID
             $offerID = $offerData['OfferID'] ?? null;
-            Log::debug("Row $rowCount OfferID:", ['OfferID' => $offerID]);
+            // Validate BuyerID foreign key
+            if (!empty($offerData['BuyerID'])) {
 
+                $buyerExists = DB::table('buyers')
+                    ->where('BuyerID', $offerData['BuyerID'])
+                    ->exists();
+
+                if (!$buyerExists) {
+
+                    Log::warning("BuyerID not found at row {$rowCount}. Setting BuyerID to NULL.", [
+                        'OfferID' => $offerID,
+                        'BuyerID' => $offerData['BuyerID']
+                    ]);
+
+                    $offerData['BuyerID'] = null;
+                }
+            }
+
+            // Validate ListingID foreign key (if applicable)
+            if (!empty($offerData['ListingID'])) {
+
+                $listingExists = DB::table('listings')
+                    ->where('ListingID', $offerData['ListingID'])
+                    ->exists();
+
+                if (!$listingExists) {
+
+                    Log::warning("ListingID not found at row {$rowCount}. Setting ListingID to NULL.", [
+                        'OfferID' => $offerID,
+                        'ListingID' => $offerData['ListingID']
+                    ]);
+
+                    $offerData['ListingID'] = null;
+                }
+            }
             if (empty($offerID)) {
                 Log::warning("Missing OfferID at row {$rowCount}. Skipping.");
+
                 $skipCount++;
                 continue;
             }
 
-            // Optional: check if record exists
-            $exists = DB::table('offers')->where('OfferID', $offerID)->exists();
-            if ($exists) {
-                $skipCount++;
-                continue;
-            }
-
-            // Insert the first valid row and exit
             try {
-                $offerData['created_at'] = now();
-                $offerData['updated_at'] = now();
-                $offerData['OfferID'] = $row[array_search('OfferID', $csvHeaders)];
-                DB::table('offers')->insert($offerData);
-                $insertCount++;
-                Log::info("Inserted row $rowCount with OfferID: $offerID");
-                /* break; */
+
+                // Check existing offer using OfferID
+                $existingOffer = DB::table('offers')
+                    ->where('OfferID', $offerID)
+                    ->first();
+
+                if ($existingOffer) {
+
+                    // Update existing offer
+                    unset($offerData['created_at']);
+
+                    $offerData['updated_at'] = now();
+
+                    DB::table('offers')
+                        ->where('OfferID', $offerID)
+                        ->update($offerData);
+
+                    $updateCount++;
+
+                    Log::info("Updated offer at row {$rowCount} with OfferID: {$offerID}");
+                } else {
+
+                    // Create new offer
+                    $offerData['created_at'] = now();
+                    $offerData['updated_at'] = now();
+
+                    DB::table('offers')->insert($offerData);
+
+                    $insertCount++;
+
+                    Log::info("Inserted new offer at row {$rowCount} with OfferID: {$offerID}");
+                }
             } catch (\Exception $e) {
-                Log::error("Insert failed at row {$rowCount}.", [
+
+                Log::error("Offer import failed at row {$rowCount}.", [
+                    'OfferID' => $offerID,
                     'data' => $offerData,
                     'error' => $e->getMessage()
                 ]);
+
                 $skipCount++;
             }
         }
 
         fclose($handle);
 
-        return back()->with('success', "CSV import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Skipped: {$skipCount}");
+        return back()->with(
+            'success',
+            "Offer CSV import completed. Total rows: {$rowCount}, Inserted: {$insertCount}, Updated: {$updateCount}, Skipped: {$skipCount}"
+        );
     }
+
     public function contactImportCsv(Request $request)
     {
         set_time_limit(0);
