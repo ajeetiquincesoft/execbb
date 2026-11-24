@@ -1811,11 +1811,11 @@ class ImportCsvController extends Controller
         );
     }
 
+
     public function showingsImportCsv(Request $request)
     {
         set_time_limit(0);
 
-        // Validate the file input
         $request->validate([
             'file' => 'required|mimes:csv,txt',
         ]);
@@ -1826,16 +1826,18 @@ class ImportCsvController extends Controller
             return back()->with('error', 'Unable to open CSV file.');
         }
 
-        // Read and normalize header row
+        // Read and normalize CSV headers
         $csvHeaders = fgetcsv($handle);
+
         if (!$csvHeaders) {
+            fclose($handle);
             return back()->with('error', 'CSV file is empty or invalid.');
         }
 
         $csvHeaders = array_map(function ($header) {
-            // Remove BOM and trim whitespace
             return trim(preg_replace('/^\xEF\xBB\xBF/', '', $header));
         }, $csvHeaders);
+
         Log::info('CSV Headers:', $csvHeaders);
 
         // Expected database columns
@@ -1854,64 +1856,100 @@ class ImportCsvController extends Controller
             'Dup',
             'Display'
         ];
+
         $rowCount = 0;
         $insertCount = 0;
+        $updateCount = 0;
         $skipCount = 0;
+
+        $headerIndexes = array_flip($csvHeaders);
 
         // Process CSV rows
         while (($row = fgetcsv($handle)) !== false) {
+
             $rowCount++;
             $showingData = [];
 
             foreach ($expectedColumns as $col) {
-                $csvIndex = array_search($col, $csvHeaders);
-                $value = ($csvIndex !== false && isset($row[$csvIndex])) ? trim($row[$csvIndex]) : null;
+
+                $csvIndex = $headerIndexes[$col] ?? null;
+
+                $value = ($csvIndex !== null && isset($row[$csvIndex]))
+                    ? trim($row[$csvIndex])
+                    : null;
 
                 // Clean encoding and characters
-                $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-                $value = preg_replace('/[^\PC\s]/u', '', $value);
+                if ($value !== null) {
+                    $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+                    $value = preg_replace('/[^\PC\s]/u', '', $value);
+                }
 
-                if (strtoupper($value) === 'NULL' || $value === '') {
+                // Handle empty and NULL values
+                if ($value === '' || strtoupper((string) $value) === 'NULL') {
                     $value = ($col === 'OfferMade') ? 0 : null;
                 }
 
                 $showingData[$col] = $value;
             }
-            $ShowingID = $showingData['ShowingID'] ?? null;
-            if (empty($ShowingID)) {
+
+            // Get ShowingID
+            $showingID = $showingData['ShowingID'] ?? null;
+
+            if (empty($showingID)) {
                 Log::warning("Missing ShowingID at row {$rowCount}. Skipping.");
                 $skipCount++;
                 continue;
             }
 
-            // Optional: check if record exists
-            $exists = DB::table('showings')->where('ShowingID', $ShowingID)->exists();
-            if ($exists) {
-                /*  Log::info("Row {$rowCount} skipped. ShowingID {$ShowingID} already exists."); */
-                $skipCount++;
-                continue;
-            }
-
-            // Insert the first valid row and exit
             try {
-                /* Log::debug("Attempting to insert row {$rowCount}: ", $showingData); */
-                $showingData['created_at'] = now();
+
+                // Check whether showing already exists
+                $exists = DB::table('showings')
+                    ->where('ShowingID', $showingID)
+                    ->exists();
+
                 $showingData['updated_at'] = now();
-                $showingData['ShowingID'] = $row[array_search('ShowingID', $csvHeaders)];
-                DB::table('showings')->insert($showingData);
-                $insertCount++;
-                /* Log::info("Inserted row $rowCount with ShowingID: $ShowingID"); */
+
+                if ($exists) {
+
+                    // Update existing showing
+                    unset($showingData['ShowingID']);
+
+                    DB::table('showings')
+                        ->where('ShowingID', $showingID)
+                        ->update($showingData);
+
+                    $updateCount++;
+
+                    Log::info("Updated showing at row {$rowCount}. ShowingID: {$showingID}");
+                } else {
+
+                    // Insert new showing
+                    $showingData['created_at'] = now();
+
+                    DB::table('showings')->insert($showingData);
+
+                    $insertCount++;
+
+                    Log::info("Inserted showing at row {$rowCount}. ShowingID: {$showingID}");
+                }
             } catch (\Exception $e) {
-                Log::error("Insert failed at row {$rowCount}.", [
+
+                Log::error("Showing import failed at row {$rowCount}.", [
+                    'ShowingID' => $showingID,
                     'data' => $showingData,
                     'error' => $e->getMessage()
                 ]);
+
                 $skipCount++;
             }
         }
 
         fclose($handle);
 
-        return back()->with('success', "CSV import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Skipped: {$skipCount}");
+        return back()->with(
+            'success',
+            "Showing import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Updated: {$updateCount}, Skipped: {$skipCount}"
+        );
     }
 }

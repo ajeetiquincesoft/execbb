@@ -409,7 +409,7 @@ Route::group(['middleware' => 'authcheck', 'prefix' => 'admin'], function () {
   //route for import/export
   Route::get('get/options/{id}', [ListingController::class, 'getOptions'])->name('get.options');
   Route::get('data/import', [ImportCsvController::class, 'getImportFile'])->name('data.import.view');
-  Route::post('data/import', [ImportCsvController::class, 'referralsImportCsv'])->name('data.import');
+  Route::post('data/import', [ImportCsvController::class, 'probMatchImportCsv'])->name('data.import');
   //end route for import/export
   //start route for leads
   Route::get('/lead/all', [LeadController::class, 'index'])->name('all.lead');
