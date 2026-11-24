@@ -373,6 +373,7 @@ class ImportCsvController extends Controller
         $integerColumns = ['Fax', 'Phone', 'SHomePh', 'SHomeFax', 'RefAgentID', 'RefAgentPh'];
         $rowCount = 0;
         $insertCount = 0;
+        $updateCount = 0;
         $skipCount = 0;
 
         while (($row = fgetcsv($handle)) !== false) {
@@ -407,37 +408,65 @@ class ImportCsvController extends Controller
             } else {
                 $listingData['Status'] = 'invalid';
             }
-            // Check if ListingID already exists
-            if (!empty($listingData['ListingID'])) {
-                $exists = DB::table('listings')->where('ListingID', $listingData['ListingID'])->exists();
-                if ($exists) {
-                    $skipCount++;
-                    continue;
-                }
-            } else {
+            // Get ListingID
+            $listingID = trim($listingData['ListingID'] ?? '');
+
+            // Skip if ListingID is missing
+            if (empty($listingID)) {
                 Log::warning("Missing ListingID at row {$rowCount}. Skipping.");
                 $skipCount++;
                 continue;
             }
 
-            // Insert into DB
+            // Insert or Update listing
             try {
-                $listingData['created_at'] = now();
+
+                $existingListing = DB::table('listings')
+                    ->where('ListingID', $listingID)
+                    ->first();
+
                 $listingData['updated_at'] = now();
-                $listingData['ListingID'] = $row[array_search('ListingID', $csvHeaders)];
-                DB::table('listings')->insert($listingData);
-                $insertCount++;
+
+                if ($existingListing) {
+
+                    // Update existing listing
+                    unset($listingData['created_at']);
+
+                    DB::table('listings')
+                        ->where('ListingID', $listingID)
+                        ->update($listingData);
+
+                    $updateCount++;
+
+                    Log::info("Listing updated: {$listingID}");
+                } else {
+
+                    // Insert new listing
+                    $listingData['created_at'] = now();
+
+                    DB::table('listings')->insert($listingData);
+
+                    $insertCount++;
+
+                    Log::info("New listing inserted: {$listingID}");
+                }
             } catch (\Exception $e) {
-                Log::error("Insert failed at row {$rowCount}.", [
-                    'data' => $listingData,
+
+                Log::error("Listing import failed at row {$rowCount}.", [
+                    'ListingID' => $listingID,
                     'error' => $e->getMessage()
                 ]);
+
+                $skipCount++;
             }
         }
 
         fclose($handle);
 
-        return back()->with('success', "CSV import completed. Total rows: {$rowCount}, Inserted: {$insertCount}, Skipped (existing or invalid): {$skipCount}");
+        return back()->with(
+            'success',
+            "CSV import completed. Total rows: {$rowCount}, Inserted: {$insertCount}, Updated: {$updateCount}, Skipped: {$skipCount}"
+        );
     }
     public function agentImportCsv(Request $request)
     {
