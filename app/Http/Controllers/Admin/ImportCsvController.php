@@ -958,11 +958,12 @@ class ImportCsvController extends Controller
 
         return back()->with('success', "CSV import completed. Total rows: {$rowCount}, Inserted: {$insertCount}, Skipped: {$skipCount}");
     }
+
+
     public function leadImportCsv(Request $request)
     {
         set_time_limit(0);
 
-        // Validate the file input
         $request->validate([
             'file' => 'required|mimes:csv,txt',
         ]);
@@ -973,16 +974,19 @@ class ImportCsvController extends Controller
             return back()->with('error', 'Unable to open CSV file.');
         }
 
-        // Read and normalize header row
+        // Read CSV headers
         $csvHeaders = fgetcsv($handle);
+
         if (!$csvHeaders) {
+            fclose($handle);
             return back()->with('error', 'CSV file is empty or invalid.');
         }
 
+        // Remove BOM and trim headers
         $csvHeaders = array_map(function ($header) {
-            // Remove BOM and trim whitespace
             return trim(preg_replace('/^\xEF\xBB\xBF/', '', $header));
         }, $csvHeaders);
+
         Log::info('CSV Headers:', $csvHeaders);
 
         // Expected database columns
@@ -1024,93 +1028,130 @@ class ImportCsvController extends Controller
         ];
 
         $integerColumns = ['Phone', 'HomePhone', 'CellPhone'];
+
+        // Map CSV Comment column to database Comments column
+        $headerIndexes = array_flip($csvHeaders);
+
+        if (!isset($headerIndexes['Comments']) && isset($headerIndexes['Comment'])) {
+            $headerIndexes['Comments'] = $headerIndexes['Comment'];
+        }
+
         $rowCount = 0;
         $insertCount = 0;
+        $updateCount = 0;
         $skipCount = 0;
 
         // Process CSV rows
         while (($row = fgetcsv($handle)) !== false) {
-            $rowCount++;
 
-            // Optional: log first few rows for inspection
-            if ($rowCount <= 3) {
-                Log::info("Row $rowCount:", $row);
-            }
+            $rowCount++;
 
             $leadData = [];
 
             foreach ($expectedColumns as $col) {
-                $csvIndex = array_search($col, $csvHeaders);
-                $value = ($csvIndex !== false && isset($row[$csvIndex])) ? trim($row[$csvIndex]) : null;
+
+                // Skip columns not available in CSV
+                if (!isset($headerIndexes[$col])) {
+                    continue;
+                }
+
+                $csvIndex = $headerIndexes[$col];
+
+                $value = isset($row[$csvIndex])
+                    ? trim($row[$csvIndex])
+                    : null;
 
                 // Clean encoding and characters
-                $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-                $value = preg_replace('/[^\PC\s]/u', '', $value);
+                if ($value !== null) {
+                    $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+                    $value = preg_replace('/[^\PC\s]/u', '', $value);
+                }
 
-                if (strtoupper($value) === 'NULL' || $value === '') {
+                // Handle NULL and empty values
+                if ($value === null || strtoupper($value) === 'NULL' || $value === '') {
                     $value = null;
                 }
-                // Convert AppointmentTime from 12-hour to 24-hour format
-                if ($col === 'AppointmentTime' && !empty($value)) {
-                    try {
-                        $dt = \DateTime::createFromFormat('g:i A', $value);
-                        if ($dt) {
-                            $value = $dt->format('H:i:s');
-                        } else {
-                            Log::warning("Invalid time format at row {$rowCount}: {$value}");
-                            $value = null;
-                        }
-                    } catch (\Exception $e) {
-                        Log::error("Time parsing failed at row {$rowCount}: {$value}", ['error' => $e->getMessage()]);
-                        $value = null;
-                    }
-                }
-                // Handle numeric fields
+
+                // IMPORTANT:
+                // Preserve AppointmentTime exactly as provided in CSV.
+                // CSV contains values such as:
+                // 3pm, 10-11am, Jan 1 1900 12:00PM,
+                // Anytime, all day, etc.
+
+                // Handle integer columns
                 if (in_array($col, $integerColumns)) {
-                    $leadData[$col] = is_numeric($value) ? (int)$value : null;
+                    $leadData[$col] = is_numeric($value)
+                        ? (int) $value
+                        : null;
                 } else {
                     $leadData[$col] = $value;
                 }
             }
 
-            // Check for LeadID
+            // Get LeadID
             $leadID = $leadData['LeadID'] ?? null;
-            Log::debug("Row $rowCount LeadID:", ['lead_id' => $leadID]);
 
+            // Skip if LeadID is missing
             if (empty($leadID)) {
+
                 Log::warning("Missing LeadID at row {$rowCount}. Skipping.");
+
                 $skipCount++;
                 continue;
             }
 
-            // Optional: check if record exists
-            $exists = DB::table('leads')->where('LeadID', $leadID)->exists();
-            if ($exists) {
-                $skipCount++;
-                continue;
-            }
-
-            // Insert the first valid row and exit
             try {
-                $leadData['created_at'] = now();  // Current timestamp
-                $leadData['updated_at'] = now();  // Current timestamp
-                DB::table('leads')->insert($leadData);
-                $insertCount++;
-                Log::info("Inserted row $rowCount with LeadID: $leadID");
-                /* break;  */
+
+                // Check existing lead
+                $existingLead = DB::table('leads')
+                    ->where('LeadID', $leadID)
+                    ->first();
+
+                if ($existingLead) {
+
+                    // Update existing lead
+                    $leadData['updated_at'] = now();
+
+                    DB::table('leads')
+                        ->where('LeadID', $leadID)
+                        ->update($leadData);
+
+                    $updateCount++;
+
+                    Log::info("Updated lead at row {$rowCount} with LeadID: {$leadID}");
+                } else {
+
+                    // Insert new lead
+                    $leadData['created_at'] = now();
+                    $leadData['updated_at'] = now();
+
+                    DB::table('leads')->insert($leadData);
+
+                    $insertCount++;
+
+                    Log::info("Inserted new lead at row {$rowCount} with LeadID: {$leadID}");
+                }
             } catch (\Exception $e) {
-                Log::error("Insert failed at row {$rowCount}.", [
+
+                Log::error("Lead import failed at row {$rowCount}.", [
+                    'LeadID' => $leadID,
                     'data' => $leadData,
                     'error' => $e->getMessage()
                 ]);
+
                 $skipCount++;
             }
         }
 
         fclose($handle);
 
-        return back()->with('success', "CSV import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Skipped: {$skipCount}");
+        return back()->with(
+            'success',
+            "CSV import completed. Total rows: {$rowCount}, Inserted: {$insertCount}, Updated: {$updateCount}, Skipped: {$skipCount}"
+        );
     }
+
+
     public function offerImportCsv(Request $request)
     {
         set_time_limit(0);
