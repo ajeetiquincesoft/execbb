@@ -1812,7 +1812,7 @@ class ImportCsvController extends Controller
     }
 
 
-    public function showingsImportCsv(Request $request)
+    /*   public function showingsImportCsv(Request $request)
     {
         set_time_limit(0);
 
@@ -1951,5 +1951,392 @@ class ImportCsvController extends Controller
             'success',
             "Showing import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Updated: {$updateCount}, Skipped: {$skipCount}"
         );
+    } */
+
+    public function showingsImportCsv(Request $request)
+    {
+        set_time_limit(0);
+
+        $request->validate([
+            'file' => 'required|mimes:csv,txt',
+        ]);
+
+        $file = $request->file('file');
+
+        $handle = fopen($file->getRealPath(), 'r');
+
+        if ($handle === false) {
+            return back()->with(
+                'error',
+                'Unable to open CSV file.'
+            );
+        }
+
+        // Import configuration.
+        $batchSize = 1000;
+
+        $rowCount = 0;
+        $insertCount = 0;
+        $updateCount = 0;
+        $skipCount = 0;
+
+        $batch = [];
+
+        // Expected database columns.
+        $expectedColumns = [
+            'ShowingID',
+            'AgentID',
+            'Date',
+            'BuyerID',
+            'ListingID',
+            'OfferMade',
+            'FollowUp',
+            'Notes',
+            'Verbal',
+            'DateEntered',
+            'EnteredBy',
+            'Dup',
+            'Display'
+        ];
+
+        // Columns to update when ShowingID already exists.
+        $updateColumns = array_values(
+            array_diff($expectedColumns, ['ShowingID'])
+        );
+
+        $updateColumns[] = 'updated_at';
+
+        /*
+    |--------------------------------------------------------------------------
+    | Process batch
+    |--------------------------------------------------------------------------
+    */
+
+        $processBatch = function (array $records) use (
+            &$processBatch,
+            &$insertCount,
+            &$updateCount,
+            &$skipCount,
+            $updateColumns
+        ) {
+
+            if (empty($records)) {
+                return;
+            }
+
+            // Get all ShowingIDs from the current batch.
+            $showingIDs = array_column(
+                array_values($records),
+                'ShowingID'
+            );
+
+            // Fetch existing IDs using a single query.
+            $existingIDs = DB::table('showings')
+                ->whereIn('ShowingID', $showingIDs)
+                ->pluck('ShowingID')
+                ->toArray();
+
+            $existingMap = array_fill_keys(
+                $existingIDs,
+                true
+            );
+
+            try {
+
+                // Insert new records and update existing records.
+                DB::table('showings')->upsert(
+                    array_values($records),
+                    ['ShowingID'],
+                    $updateColumns
+                );
+
+                // Calculate inserted and updated records.
+                foreach ($records as $record) {
+
+                    $showingID = $record['ShowingID'];
+
+                    if (isset($existingMap[$showingID])) {
+
+                        $updateCount++;
+                    } else {
+
+                        $insertCount++;
+
+                        $existingMap[$showingID] = true;
+                    }
+                }
+            } catch (\Illuminate\Database\QueryException $e) {
+
+                $errorCode = (int) ($e->errorInfo[1] ?? 0);
+
+                $sqlState = (string) $e->getCode();
+
+                // Identify database errors caused by row data.
+                $isDataError =
+                    substr($sqlState, 0, 2) === '22' ||
+                    substr($sqlState, 0, 2) === '23' ||
+                    in_array($errorCode, [
+                        1048,
+                        1062,
+                        1264,
+                        1265,
+                        1292,
+                        1366,
+                        1406,
+                        1452
+                    ], true);
+
+                // Stop import for database connection or server errors.
+                if (!$isDataError) {
+                    throw $e;
+                }
+
+                /*
+             * If a batch fails, divide it into smaller batches
+             * until the invalid record is identified.
+             */
+
+                if (count($records) > 1) {
+
+                    $middle = (int) ceil(count($records) / 2);
+
+                    $processBatch(
+                        array_slice($records, 0, $middle, true)
+                    );
+
+                    $processBatch(
+                        array_slice($records, $middle, null, true)
+                    );
+                } else {
+
+                    $rowNumber = array_key_first($records);
+
+                    $record = reset($records);
+
+                    $skipCount++;
+
+                    Log::error('Showing import failed.', [
+                        'row' => $rowNumber,
+                        'ShowingID' => $record['ShowingID'],
+                        'sql_state' => $sqlState,
+                        'error_code' => $errorCode
+                    ]);
+                }
+            }
+        };
+
+        /*
+    |--------------------------------------------------------------------------
+    | Read and import CSV
+    |--------------------------------------------------------------------------
+    */
+
+        try {
+
+            // Read CSV headers.
+            $csvHeaders = fgetcsv(
+                $handle,
+                0,
+                ',',
+                '"',
+                ''
+            );
+
+            if (!$csvHeaders) {
+
+                return back()->with(
+                    'error',
+                    'CSV file is empty or invalid.'
+                );
+            }
+
+            // Remove UTF-8 BOM and whitespace from headers.
+            $csvHeaders = array_map(function ($header) {
+
+                return trim(
+                    preg_replace(
+                        '/^\xEF\xBB\xBF/',
+                        '',
+                        $header
+                    )
+                );
+            }, $csvHeaders);
+
+            // Validate CSV columns.
+            $missingColumns = array_diff(
+                $expectedColumns,
+                $csvHeaders
+            );
+
+            if (!empty($missingColumns)) {
+
+                return back()->with(
+                    'error',
+                    'Missing CSV columns: ' .
+                        implode(', ', $missingColumns)
+                );
+            }
+
+            $headerIndexes = array_flip($csvHeaders);
+
+            Log::info('Showings CSV import started.');
+
+            // Process CSV records.
+            while (
+                ($row = fgetcsv($handle, 0, ',', '"', ''))
+                !== false
+            ) {
+
+                $rowCount++;
+
+                // Validate CSV row structure.
+                if (count($row) !== count($csvHeaders)) {
+
+                    $skipCount++;
+
+                    Log::warning('Invalid CSV row.', [
+                        'row' => $rowCount
+                    ]);
+
+                    continue;
+                }
+
+                $showingData = [];
+
+                foreach ($expectedColumns as $col) {
+
+                    $csvIndex = $headerIndexes[$col];
+
+                    $value = isset($row[$csvIndex])
+                        ? trim($row[$csvIndex])
+                        : null;
+
+                    // Clean encoding and invalid characters.
+                    if ($value !== null) {
+
+                        $value = mb_convert_encoding(
+                            $value,
+                            'UTF-8',
+                            'UTF-8'
+                        );
+
+                        $value = preg_replace(
+                            '/[^\PC\s]/u',
+                            '',
+                            $value
+                        );
+                    }
+
+                    // Handle empty and NULL values.
+                    if (
+                        $value === null ||
+                        $value === '' ||
+                        strtoupper($value) === 'NULL'
+                    ) {
+
+                        $value = ($col === 'OfferMade')
+                            ? 0
+                            : null;
+                    }
+
+                    $showingData[$col] = $value;
+                }
+
+                // Validate ShowingID.
+                $showingID = $showingData['ShowingID'] ?? null;
+
+                if (
+                    empty($showingID) ||
+                    !ctype_digit((string) $showingID) ||
+                    ltrim((string) $showingID, '0') === ''
+                ) {
+
+                    $skipCount++;
+
+                    Log::warning('Invalid ShowingID.', [
+                        'row' => $rowCount,
+                        'ShowingID' => $showingID
+                    ]);
+
+                    continue;
+                }
+
+                $showingData['ShowingID'] = ltrim(
+                    (string) $showingID,
+                    '0'
+                );
+
+                // Add timestamps.
+                $timestamp = now()->toDateTimeString();
+
+                $showingData['created_at'] = $timestamp;
+                $showingData['updated_at'] = $timestamp;
+
+                // Add record to batch.
+                $batch[$rowCount] = $showingData;
+
+                // Process every 1000 records.
+                if (count($batch) >= $batchSize) {
+
+                    $processBatch($batch);
+
+                    $batch = [];
+
+                    // Log progress after every 10,000 rows.
+                    if ($rowCount % 10000 === 0) {
+
+                        Log::info('Showings import progress.', [
+                            'scanned' => $rowCount,
+                            'inserted' => $insertCount,
+                            'updated' => $updateCount,
+                            'skipped' => $skipCount
+                        ]);
+                    }
+                }
+            }
+
+            // Process remaining records.
+            if (!empty($batch)) {
+                $processBatch($batch);
+            }
+
+            // Prepare import summary.
+            $message =
+                "Showing import completed. " .
+                "Total rows scanned: {$rowCount}, " .
+                "Inserted: {$insertCount}, " .
+                "Updated: {$updateCount}, " .
+                "Skipped: {$skipCount}";
+
+            Log::info($message);
+
+            return back()->with(
+                $skipCount > 0 ? 'warning' : 'success',
+                $message
+            );
+        } catch (\Throwable $e) {
+
+            Log::error('Showing CSV import stopped.', [
+                'exception' => get_class($e),
+                'error_code' => $e->getCode(),
+                'scanned' => $rowCount,
+                'inserted' => $insertCount,
+                'updated' => $updateCount,
+                'skipped' => $skipCount
+            ]);
+
+            return back()->with(
+                'error',
+                "Import stopped. " .
+                    "Scanned: {$rowCount}, " .
+                    "Inserted: {$insertCount}, " .
+                    "Updated: {$updateCount}, " .
+                    "Skipped: {$skipCount}. " .
+                    "Please check Laravel logs."
+            );
+        } finally {
+
+            fclose($handle);
+        }
     }
 }
