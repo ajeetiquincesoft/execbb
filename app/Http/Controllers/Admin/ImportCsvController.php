@@ -1462,11 +1462,12 @@ class ImportCsvController extends Controller
         );
     }
 
+
     public function contactImportCsv(Request $request)
     {
         set_time_limit(0);
 
-        // Validate the file input
+        // Validate the file input.
         $request->validate([
             'file' => 'required|mimes:csv,txt',
         ]);
@@ -1477,19 +1478,22 @@ class ImportCsvController extends Controller
             return back()->with('error', 'Unable to open CSV file.');
         }
 
-        // Read and normalize header row
+        // Read and normalize header row.
         $csvHeaders = fgetcsv($handle);
+
         if (!$csvHeaders) {
+            fclose($handle);
+
             return back()->with('error', 'CSV file is empty or invalid.');
         }
 
         $csvHeaders = array_map(function ($header) {
-            // Remove BOM and trim whitespace
             return trim(preg_replace('/^\xEF\xBB\xBF/', '', $header));
         }, $csvHeaders);
+
         Log::info('CSV Headers:', $csvHeaders);
 
-        // Expected database columns
+        // Expected database columns.
         $expectedColumns = [
             'ContactID',
             'LName',
@@ -1509,69 +1513,164 @@ class ImportCsvController extends Controller
             'Comments'
         ];
 
+        // Validate required columns.
+        $missingColumns = array_diff($expectedColumns, $csvHeaders);
+
+        if (!empty($missingColumns)) {
+            fclose($handle);
+
+            return back()->with(
+                'error',
+                'Missing CSV columns: ' . implode(', ', $missingColumns)
+            );
+        }
+
         $integerColumns = ['Phone', 'Fax', 'Pager'];
+
         $rowCount = 0;
         $insertCount = 0;
+        $updateCount = 0;
         $skipCount = 0;
 
-        // Process CSV rows
+        $headerIndexes = array_flip($csvHeaders);
+
+        // Process CSV rows.
         while (($row = fgetcsv($handle)) !== false) {
+
             $rowCount++;
+
+            if (count($row) !== count($csvHeaders)) {
+                $skipCount++;
+
+                Log::warning("Invalid CSV structure at row {$rowCount}.");
+
+                continue;
+            }
+
             $contactData = [];
 
             foreach ($expectedColumns as $col) {
-                $csvIndex = array_search($col, $csvHeaders);
-                $value = ($csvIndex !== false && isset($row[$csvIndex])) ? trim($row[$csvIndex]) : null;
 
-                // Clean encoding and characters
-                $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-                $value = preg_replace('/[^\PC\s]/u', '', $value);
+                $csvIndex = $headerIndexes[$col] ?? null;
 
-                if (strtoupper($value) === 'NULL' || $value === '') {
+                $value = ($csvIndex !== null && isset($row[$csvIndex]))
+                    ? trim($row[$csvIndex])
+                    : null;
+
+                // Clean encoding and characters.
+                if ($value !== null) {
+
+                    $value = mb_convert_encoding(
+                        $value,
+                        'UTF-8',
+                        'UTF-8'
+                    );
+
+                    $value = preg_replace('/[^\PC\s]/u', '', $value);
+                }
+
+                // Handle empty and NULL values.
+                if (
+                    $value === null ||
+                    $value === '' ||
+                    strtoupper($value) === 'NULL'
+                ) {
                     $value = null;
                 }
-                // Handle numeric fields
-                if (in_array($col, $integerColumns)) {
-                    $contactData[$col] = is_numeric($value) ? (int)$value : null;
+
+                // Handle numeric fields.
+                if (in_array($col, $integerColumns, true)) {
+
+                    $contactData[$col] = is_numeric($value)
+                        ? (int) $value
+                        : null;
                 } else {
+
                     $contactData[$col] = $value;
                 }
             }
-            $ContactID = $contactData['ContactID'] ?? null;
-            if (empty($ContactID)) {
-                Log::warning("Missing ContactID at row {$rowCount}. Skipping.");
+
+            // Get ContactID.
+            $contactID = $contactData['ContactID'] ?? null;
+
+            if (
+                empty($contactID) ||
+                !ctype_digit((string) $contactID) ||
+                ltrim((string) $contactID, '0') === ''
+            ) {
+
+                Log::warning("Invalid ContactID at row {$rowCount}. Skipping.");
+
                 $skipCount++;
+
                 continue;
             }
 
-            // Optional: check if record exists
-            $exists = DB::table('contacts')->where('ContactID', $ContactID)->exists();
-            if ($exists) {
-                $skipCount++;
-                continue;
-            }
-
-            // Insert the first valid row and exit
             try {
-                $contactData['created_at'] = now();
+
+                // Check whether the contact already exists.
+                $exists = DB::table('contacts')
+                    ->where('ContactID', $contactID)
+                    ->exists();
+
                 $contactData['updated_at'] = now();
-                $contactData['ContactID'] = $row[array_search('ContactID', $csvHeaders)];
-                DB::table('contacts')->insert($contactData);
-                $insertCount++;
-                Log::info("Inserted row $rowCount with ContactID: $ContactID");
-            } catch (\Exception $e) {
-                Log::error("Insert failed at row {$rowCount}.", [
-                    'data' => $contactData,
-                    'error' => $e->getMessage()
-                ]);
+
+                if ($exists) {
+
+                    // Update existing contact.
+                    unset($contactData['ContactID']);
+
+                    DB::table('contacts')
+                        ->where('ContactID', $contactID)
+                        ->update($contactData);
+
+                    $updateCount++;
+
+                    Log::info(
+                        "Updated contact at row {$rowCount}. ContactID: {$contactID}"
+                    );
+                } else {
+
+                    // Insert new contact.
+                    $contactData['created_at'] = now();
+
+                    DB::table('contacts')->insert($contactData);
+
+                    $insertCount++;
+
+                    Log::info(
+                        "Inserted contact at row {$rowCount}. ContactID: {$contactID}"
+                    );
+                }
+            } catch (\Illuminate\Database\QueryException $e) {
+
                 $skipCount++;
+
+                Log::error("Contact import failed at row {$rowCount}.", [
+                    'ContactID' => $contactID,
+                    'sql_state' => $e->getCode(),
+                    'error_code' => $e->errorInfo[1] ?? null
+                ]);
             }
         }
 
         fclose($handle);
 
-        return back()->with('success', "CSV import completed. Total rows scanned: {$rowCount}, Inserted: {$insertCount}, Skipped: {$skipCount}");
+        // Prepare import summary.
+        $message = "Contact import completed. "
+            . "Total rows scanned: {$rowCount}, "
+            . "Inserted: {$insertCount}, "
+            . "Updated: {$updateCount}, "
+            . "Skipped: {$skipCount}";
+
+        Log::info($message);
+
+        return back()->with(
+            $skipCount > 0 ? 'warning' : 'success',
+            $message
+        );
     }
+
     public function probMatchImportCsv(Request $request)
     {
         set_time_limit(0);
