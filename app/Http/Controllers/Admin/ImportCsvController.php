@@ -2105,11 +2105,7 @@ class ImportCsvController extends Controller
 
         $updateColumns[] = 'updated_at';
 
-        /*
-    |--------------------------------------------------------------------------
-    | Process batch
-    |--------------------------------------------------------------------------
-    */
+    
 
         $processBatch = function (array $records) use (
             &$processBatch,
@@ -2190,10 +2186,7 @@ class ImportCsvController extends Controller
                     throw $e;
                 }
 
-                /*
-             * If a batch fails, divide it into smaller batches
-             * until the invalid record is identified.
-             */
+            
 
                 if (count($records) > 1) {
 
@@ -2224,11 +2217,7 @@ class ImportCsvController extends Controller
             }
         };
 
-        /*
-    |--------------------------------------------------------------------------
-    | Read and import CSV
-    |--------------------------------------------------------------------------
-    */
+  
 
         try {
 

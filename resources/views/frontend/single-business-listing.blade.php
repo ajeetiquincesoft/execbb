@@ -83,9 +83,12 @@
                     <!-- SHARE BUTTONS -->
                     @if (auth()->check() && (auth()->user()->role_name == 'admin' || auth()->user()->role == 'agent'))
                         <div class="share-bar">
-                            <button onclick="window.print()" class="btn btn-sm custom-btn-listing">
+                            <a href="{{ route('view.business.listing', [$listing->ListingID, 'print' => 1]) }}"
+                                target="_blank" rel="noopener noreferrer" class="btn btn-sm custom-btn-listing">
+
                                 <i class="fa fa-print"></i> Print
-                            </button>
+
+                            </a>
 
                             <button class="btn btn-sm custom-btn-listing" data-bs-toggle="modal"
                                 data-bs-target="#shareModal">

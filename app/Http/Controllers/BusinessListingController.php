@@ -133,6 +133,31 @@ class BusinessListingController extends Controller
             $buyerComments = BuyerComment::where('ListingID', $id)->orderBy('created_at', 'desc')->paginate(5);
             $buyerCommentsCount = BuyerComment::where('ListingID', $id)->orderBy('created_at', 'desc')->count();
             $isFavorite = Favorite::where('listing_id', $id)->where('buyer_id', Auth::id())->count();
+            // Display the printable listing factsheet.
+            if (request()->boolean('print')) {
+
+                $user = auth()->user();
+
+                // Allow only administrators and agents.
+                abort_unless(
+                    $user && (
+                        $user->role_name === 'admin' ||
+                        $user->role === 'agent'
+                    ),
+                    403,
+                    'You are not authorized to print this listing.'
+                );
+
+                return response()
+                    ->view('frontend.listings.print', [
+                        'listing' => $listing,
+                        'subCatName' => $subCatName ?? null,
+                    ])
+                    ->header(
+                        'Cache-Control',
+                        'private, no-store, no-cache, must-revalidate'
+                    );
+            }
             return view('frontend.single-business-listing', compact('listing', 'listings', 'userName', 'comments', 'subCatName', 'likeVal', 'activeClass', 'likeCount', 'buyerComments', 'buyerCommentsCount', 'isFavorite'));
         } else {
 

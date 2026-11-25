@@ -1250,19 +1250,23 @@
                                 </div>
                                 <div>
                                     <dt>Date of offer</dt>
-                                    <dd>{{ $offer->DateOfOffer ?: '—' }}</dd>
+                                    <dd>{{ $offer->DateOfOffer ? \Carbon\Carbon::parse($offer->DateOfOffer)->format('M d, Y') : '—' }}
+                                    </dd>
                                 </div>
                                 <div>
                                     <dt>Expiration date</dt>
-                                    <dd>{{ $offer->ExpDate ?: '—' }}</dd>
+                                    <dd>{{ $offer->ExpDate ? \Carbon\Carbon::parse($offer->ExpDate)->format('M d, Y') : '—' }}
+                                    </dd>
                                 </div>
                                 <div>
                                     <dt>Acceptance date</dt>
-                                    <dd>{{ $offer->AccDate ?: '—' }}</dd>
+                                    <dd>{{ $offer->AccDate ? \Carbon\Carbon::parse($offer->AccDate)->format('M d, Y') : '—' }}
+                                    </dd>
                                 </div>
                                 <div>
                                     <dt>Closing date</dt>
-                                    <dd>{{ $offer->ClosingDate ?: '—' }}</dd>
+                                    <dd>{{ $offer->ClosingDate ? \Carbon\Carbon::parse($offer->ClosingDate)->format('M d, Y') : '—' }}
+                                    </dd>
                                 </div>
                             </dl>
                         </div>
